@@ -1,0 +1,5028 @@
+# MGL Digital AI - Proje Dosyaları
+
+Bu dosya, MGL Digital AI web sitesi projesinin tüm kaynak kodlarını içermektedir.
+
+## Proje Yapısı
+
+- combine-project.js
+- eslint.config.js
+- generate-pdf.js
+- index.html
+- netlify/functions/stripe-checkout.js
+- netlify/functions/stripe-webhook.js
+- package.json
+- postcss.config.js
+- src/App.tsx
+- src/components/Chatbot.tsx
+- src/components/ProductCard.tsx
+- src/components/UserSubscriptionStatus.tsx
+- src/components/auth/AuthModal.tsx
+- src/components/auth/LoginPage.tsx
+- src/components/auth/SignupPage.tsx
+- src/components/modals/EmailDemoModal.tsx
+- src/components/modals/IdeaAssistantModal.tsx
+- src/components/modals/PhoneDemoModal.tsx
+- src/components/pages/CancelPage.tsx
+- src/components/pages/ProductsPage.tsx
+- src/components/pages/SuccessPage.tsx
+- src/components/sections/AutomationExamplesSection.tsx
+- src/components/sections/BenefitsSection.tsx
+- src/components/sections/CtaSection.tsx
+- src/components/sections/Footer.tsx
+- src/components/sections/Header.tsx
+- src/components/sections/HeroSection.tsx
+- src/components/sections/IntroductoryChoiceSection.tsx
+- src/components/sections/ServicesSection.tsx
+- src/components/sections/StrategicCrossroads.tsx
+- src/components/sections/StrategySection.tsx
+- src/components/sections/TempSections.tsx
+- src/components/ui/Button.tsx
+- src/components/ui/Input.tsx
+- src/components/ui/Label.tsx
+- src/components/ui/Toast.tsx
+- src/contexts/AuthContext.tsx
+- src/hooks/useToast.ts
+- src/index.css
+- src/lib/supabase.ts
+- src/main.tsx
+- src/stripe-config.ts
+- src/utils/cn.ts
+- src/vite-env.d.ts
+- supabase/functions/stripe-checkout/index.ts
+- supabase/functions/stripe-webhook/index.ts
+- supabase/migrations/20250830163115_patient_math.sql
+- tailwind.config.js
+- tsconfig.app.json
+- tsconfig.json
+- tsconfig.node.json
+- vite.config.ts
+
+## Dosya İçerikleri
+
+### combine-project.js
+
+```js
+import fs from 'fs';
+import path from 'path';
+
+// Dahil edilecek dosya uzantıları
+const includeExtensions = ['.tsx', '.ts', '.js', '.jsx', '.css', '.html', '.json', '.md', '.sql'];
+
+// Hariç tutulacak klasörler
+const excludeDirs = ['node_modules', '.git', 'dist', 'build', '.next', '.bolt'];
+
+// Hariç tutulacak dosyalar
+const excludeFiles = ['package-lock.json', '.env', '.gitignore'];
+
+function shouldIncludeFile(filePath) {
+  const ext = path.extname(filePath);
+  const fileName = path.basename(filePath);
+  
+  return includeExtensions.includes(ext) && !excludeFiles.includes(fileName);
+}
+
+function shouldIncludeDir(dirName) {
+  return !excludeDirs.includes(dirName) && !dirName.startsWith('.');
+}
+
+function getAllFiles(dirPath, arrayOfFiles = []) {
+  const files = fs.readdirSync(dirPath);
+
+  files.forEach(file => {
+    const fullPath = path.join(dirPath, file);
+    
+    if (fs.statSync(fullPath).isDirectory()) {
+      if (shouldIncludeDir(file)) {
+        arrayOfFiles = getAllFiles(fullPath, arrayOfFiles);
+      }
+    } else {
+      if (shouldIncludeFile(fullPath)) {
+        arrayOfFiles.push(fullPath);
+      }
+    }
+  });
+
+  return arrayOfFiles;
+}
+
+function combineProject() {
+  const projectRoot = process.cwd();
+  const allFiles = getAllFiles(projectRoot);
+  
+  let combinedContent = `# MGL Digital AI - Proje Dosyaları\n\n`;
+  combinedContent += `Bu dosya, MGL Digital AI web sitesi projesinin tüm kaynak kodlarını içermektedir.\n\n`;
+  combinedContent += `## Proje Yapısı\n\n`;
+  
+  // Dosya listesi
+  allFiles.forEach(file => {
+    const relativePath = path.relative(projectRoot, file);
+    combinedContent += `- ${relativePath}\n`;
+  });
+  
+  combinedContent += `\n## Dosya İçerikleri\n\n`;
+  
+  // Her dosyanın içeriği
+  allFiles.forEach(file => {
+    const relativePath = path.relative(projectRoot, file);
+    const content = fs.readFileSync(file, 'utf8');
+    
+    combinedContent += `### ${relativePath}\n\n`;
+    combinedContent += '```' + path.extname(file).substring(1) + '\n';
+    combinedContent += content;
+    combinedContent += '\n```\n\n';
+  });
+  
+  // Dosyayı kaydet
+  fs.writeFileSync('mgl-digital-ai-project.txt', combinedContent);
+  console.log('✅ Proje dosyaları başarıyla birleştirildi: mgl-digital-ai-project.txt');
+  console.log(`📊 Toplam ${allFiles.length} dosya işlendi`);
+}
+
+// Script'i çalıştır
+combineProject();
+```
+
+### eslint.config.js
+
+```js
+import js from '@eslint/js';
+import globals from 'globals';
+import reactHooks from 'eslint-plugin-react-hooks';
+import reactRefresh from 'eslint-plugin-react-refresh';
+import tseslint from 'typescript-eslint';
+
+export default tseslint.config(
+  { ignores: ['dist'] },
+  {
+    extends: [js.configs.recommended, ...tseslint.configs.recommended],
+    files: ['**/*.{ts,tsx}'],
+    languageOptions: {
+      ecmaVersion: 2020,
+      globals: globals.browser,
+    },
+    plugins: {
+      'react-hooks': reactHooks,
+      'react-refresh': reactRefresh,
+    },
+    rules: {
+      ...reactHooks.configs.recommended.rules,
+      'react-refresh/only-export-components': [
+        'warn',
+        { allowConstantExport: true },
+      ],
+    },
+  }
+);
+
+```
+
+### generate-pdf.js
+
+```js
+import fs from 'fs';
+import path from 'path';
+
+// Dahil edilecek dosya uzantıları
+const includeExtensions = ['.tsx', '.ts', '.js', '.jsx', '.css', '.html', '.json', '.md', '.sql'];
+
+// Hariç tutulacak klasörler
+const excludeDirs = ['node_modules', '.git', 'dist', 'build', '.next', '.bolt'];
+
+// Hariç tutulacak dosyalar
+const excludeFiles = ['package-lock.json', '.env', '.gitignore'];
+
+function shouldIncludeFile(filePath) {
+  const ext = path.extname(filePath);
+  const fileName = path.basename(filePath);
+  
+  return includeExtensions.includes(ext) && !excludeFiles.includes(fileName);
+}
+
+function shouldIncludeDir(dirName) {
+  return !excludeDirs.includes(dirName) && !dirName.startsWith('.');
+}
+
+function getAllFiles(dirPath, arrayOfFiles = []) {
+  const files = fs.readdirSync(dirPath);
+
+  files.forEach(file => {
+    const fullPath = path.join(dirPath, file);
+    
+    if (fs.statSync(fullPath).isDirectory()) {
+      if (shouldIncludeDir(file)) {
+        arrayOfFiles = getAllFiles(fullPath, arrayOfFiles);
+      }
+    } else {
+      if (shouldIncludeFile(fullPath)) {
+        arrayOfFiles.push(fullPath);
+      }
+    }
+  });
+
+  return arrayOfFiles;
+}
+
+function escapeHtml(text) {
+  return text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+function generatePdfHtml() {
+  const projectRoot = process.cwd();
+  const allFiles = getAllFiles(projectRoot);
+  
+  let htmlContent = `<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MGL Digital AI - Proje Dosyaları</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+        }
+        h2 {
+            color: #34495e;
+            margin-top: 30px;
+        }
+        h3 {
+            color: #7f8c8d;
+            background: #ecf0f1;
+            padding: 10px;
+            border-left: 4px solid #3498db;
+            margin-top: 25px;
+        }
+        pre {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            font-size: 12px;
+            line-height: 1.4;
+        }
+        .file-list {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        .file-list ul {
+            columns: 2;
+            column-gap: 30px;
+        }
+        .stats {
+            background: #e8f5e8;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #27ae60;
+            margin: 20px 0;
+        }
+        @media print {
+            body { background: white; }
+            .container { box-shadow: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 MGL Digital AI - Proje Dosyaları</h1>
+        
+        <div class="stats">
+            <strong>📊 Proje İstatistikleri:</strong><br>
+            • Toplam Dosya Sayısı: ${allFiles.length}<br>
+            • Oluşturulma Tarihi: ${new Date().toLocaleString('tr-TR')}<br>
+            • Proje Türü: React + TypeScript + Supabase + Stripe
+        </div>
+
+        <h2>📁 Proje Yapısı</h2>
+        <div class="file-list">
+            <ul>`;
+
+  allFiles.forEach(file => {
+    const relativePath = path.relative(projectRoot, file);
+    htmlContent += `<li>${relativePath}</li>`;
+  });
+
+  htmlContent += `</ul>
+        </div>
+
+        <h2>📄 Dosya İçerikleri</h2>`;
+
+  allFiles.forEach(file => {
+    const relativePath = path.relative(projectRoot, file);
+    const content = fs.readFileSync(file, 'utf8');
+    const extension = path.extname(file).substring(1);
+    
+    htmlContent += `
+        <h3>📄 ${relativePath}</h3>
+        <pre><code>${escapeHtml(content)}</code></pre>`;
+  });
+
+  htmlContent += `
+    </div>
+</body>
+</html>`;
+
+  fs.writeFileSync('mgl-digital-ai-project.html', htmlContent);
+  console.log('✅ HTML dosyası oluşturuldu: mgl-digital-ai-project.html');
+  console.log('🖨️  Bu dosyayı tarayıcıda açıp "PDF olarak yazdır" seçeneğini kullanabilirsiniz');
+  console.log(`📊 Toplam ${allFiles.length} dosya işlendi`);
+}
+
+generatePdfHtml();
+```
+
+### index.html
+
+```html
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MGL Digital AI - AI Agent & Otomasyon Ajansı</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+
+```
+
+### netlify/functions/stripe-checkout.js
+
+```js
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+
+exports.handler = async (event, context) => {
+  // CORS headers
+  const headers = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+  };
+
+  // Handle OPTIONS request
+  if (event.httpMethod === 'OPTIONS') {
+    return {
+      statusCode: 204,
+      headers,
+      body: '',
+    };
+  }
+
+  if (event.httpMethod !== 'POST') {
+    return {
+      statusCode: 405,
+      headers,
+      body: JSON.stringify({ error: 'Method not allowed' }),
+    };
+  }
+
+  try {
+    const { price_id, success_url, cancel_url, mode, customer_email } = JSON.parse(event.body);
+
+    // Validate required parameters
+    if (!price_id || !success_url || !cancel_url || !mode) {
+      return {
+        statusCode: 400,
+        headers,
+        body: JSON.stringify({ error: 'Missing required parameters' }),
+      };
+    }
+
+    // Create or retrieve customer
+    let customer;
+    if (customer_email) {
+      const existingCustomers = await stripe.customers.list({
+        email: customer_email,
+        limit: 1,
+      });
+
+      if (existingCustomers.data.length > 0) {
+        customer = existingCustomers.data[0];
+      } else {
+        customer = await stripe.customers.create({
+          email: customer_email,
+        });
+      }
+    }
+
+    // Create checkout session
+    const session = await stripe.checkout.sessions.create({
+      customer: customer?.id,
+      payment_method_types: ['card'],
+      line_items: [
+        {
+          price: price_id,
+          quantity: 1,
+        },
+      ],
+      mode,
+      success_url,
+      cancel_url,
+    });
+
+    return {
+      statusCode: 200,
+      headers,
+      body: JSON.stringify({ sessionId: session.id, url: session.url }),
+    };
+  } catch (error) {
+    console.error('Checkout error:', error);
+    return {
+      statusCode: 500,
+      headers,
+      body: JSON.stringify({ error: error.message }),
+    };
+  }
+};
+```
+
+### netlify/functions/stripe-webhook.js
+
+```js
+const stripe = require('stripe')(process.env.STRIPE_SECRET_KEY);
+
+exports.handler = async (event, context) => {
+  if (event.httpMethod !== 'POST') {
+    return {
+      statusCode: 405,
+      body: JSON.stringify({ error: 'Method not allowed' }),
+    };
+  }
+
+  try {
+    const signature = event.headers['stripe-signature'];
+    
+    if (!signature) {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ error: 'No signature found' }),
+      };
+    }
+
+    // Verify webhook signature
+    let stripeEvent;
+    try {
+      stripeEvent = stripe.webhooks.constructEvent(
+        event.body,
+        signature,
+        process.env.STRIPE_WEBHOOK_SECRET
+      );
+    } catch (error) {
+      console.error(`Webhook signature verification failed: ${error.message}`);
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ error: `Webhook signature verification failed: ${error.message}` }),
+      };
+    }
+
+    // Handle the event
+    console.log('Received Stripe webhook:', stripeEvent.type);
+    
+    // You can add specific event handling here
+    switch (stripeEvent.type) {
+      case 'checkout.session.completed':
+        console.log('Payment successful:', stripeEvent.data.object);
+        break;
+      case 'payment_intent.succeeded':
+        console.log('Payment intent succeeded:', stripeEvent.data.object);
+        break;
+      default:
+        console.log(`Unhandled event type: ${stripeEvent.type}`);
+    }
+
+    return {
+      statusCode: 200,
+      body: JSON.stringify({ received: true }),
+    };
+  } catch (error) {
+    console.error('Webhook error:', error);
+    return {
+      statusCode: 500,
+      body: JSON.stringify({ error: error.message }),
+    };
+  }
+};
+```
+
+### package.json
+
+```json
+{
+  "name": "vite-react-typescript-starter",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "lint": "eslint .",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@radix-ui/react-checkbox": "^1.3.3",
+    "@radix-ui/react-label": "^2.1.7",
+    "@radix-ui/react-slot": "^1.2.3",
+    "@radix-ui/react-toast": "^1.2.15",
+    "@supabase/supabase-js": "^2.56.1",
+    "class-variance-authority": "^0.7.1",
+    "clsx": "^2.1.1",
+    "framer-motion": "^12.23.12",
+    "lucide-react": "^0.344.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-helmet-async": "^2.0.5",
+    "stripe": "^18.5.0",
+    "tailwind-merge": "^3.3.1"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.9.1",
+    "@types/react": "^18.3.5",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.3.1",
+    "autoprefixer": "^10.4.18",
+    "eslint": "^9.9.1",
+    "eslint-plugin-react-hooks": "^5.1.0-rc.0",
+    "eslint-plugin-react-refresh": "^0.4.11",
+    "globals": "^15.9.0",
+    "postcss": "^8.4.35",
+    "tailwindcss": "^3.4.1",
+    "typescript": "^5.5.3",
+    "typescript-eslint": "^8.3.0",
+    "vite": "^5.4.2"
+  }
+}
+
+```
+
+### postcss.config.js
+
+```js
+export default {
+  plugins: {
+    tailwindcss: {},
+    autoprefixer: {},
+  },
+};
+
+```
+
+### src/App.tsx
+
+```tsx
+import React, { useState } from 'react';
+import { Helmet, HelmetProvider } from 'react-helmet-async';
+import { AuthProvider, useAuth } from './contexts/AuthContext';
+import { Button } from './components/ui/Button';
+
+// Components
+import { Toaster } from './components/ui/Toast';
+import { AuthModal } from './components/auth/AuthModal';
+import { ProductsPage } from './components/pages/ProductsPage';
+import { SuccessPage } from './components/pages/SuccessPage';
+import { CancelPage } from './components/pages/CancelPage';
+import { UserSubscriptionStatus } from './components/UserSubscriptionStatus';
+import { EmailDemoModal } from './components/modals/EmailDemoModal';
+import { PhoneDemoModal } from './components/modals/PhoneDemoModal';
+import { IdeaAssistantModal } from './components/modals/IdeaAssistantModal';
+import { Chatbot } from './components/Chatbot';
+import { IntroductoryChoiceSection } from './components/sections/IntroductoryChoiceSection';
+import { HeroSection } from './components/sections/HeroSection';
+import { BenefitsSection } from './components/sections/BenefitsSection';
+import { ServicesSection } from './components/sections/ServicesSection';
+import { AutomationExamplesSection } from './components/sections/AutomationExamplesSection';
+import { StrategySection } from './components/sections/StrategySection';
+import { CtaSection } from './components/sections/CtaSection';
+import { Footer } from './components/sections/Footer';
+
+type AppPage = 'home' | 'products' | 'success' | 'cancel';
+
+function AppContent() {
+  const [currentPage, setCurrentPage] = useState<AppPage>(() => {
+    const path = window.location.pathname;
+    if (path === '/products') return 'products';
+    if (path === '/success') return 'success';
+    if (path === '/cancel') return 'cancel';
+    return 'home';
+  });
+  const [activeDemo, setActiveDemo] = useState<string | null>(null);
+  const [isIdeaAssistantModalOpen, setIdeaAssistantModalOpen] = useState(false);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const { user, signOut } = useAuth();
+
+  // Handle browser navigation
+  React.useEffect(() => {
+    const handlePopState = () => {
+      const path = window.location.pathname;
+      if (path === '/products') setCurrentPage('products');
+      else if (path === '/success') setCurrentPage('success');
+      else if (path === '/cancel') setCurrentPage('cancel');
+      else setCurrentPage('home');
+    };
+
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
+  const navigateTo = (page: AppPage) => {
+    setCurrentPage(page);
+    const path = page === 'home' ? '/' : `/${page}`;
+    window.history.pushState({}, '', path);
+  };
+
+  const handleDemoRedirect = () => {
+    setIdeaAssistantModalOpen(false); // Close the modal first
+    setTimeout(() => {
+      document.getElementById('demos')?.scrollIntoView({ behavior: 'smooth' });
+    }, 300); // Give modal time to close
+  };
+
+  const handleProductsClick = () => {
+    if (!user) {
+      setIsAuthModalOpen(true);
+      return;
+    }
+    navigateTo('products');
+  };
+
+  if (currentPage === 'products') {
+    return <ProductsPage onBack={() => navigateTo('home')} />;
+  }
+
+  if (currentPage === 'success') {
+    return <SuccessPage onBack={() => navigateTo('home')} />;
+  }
+
+  if (currentPage === 'cancel') {
+    return <CancelPage onBack={() => navigateTo('home')} onRetry={() => navigateTo('products')} />;
+  }
+
+  return (
+    <>
+      <Helmet>
+        <title>MGL Digital AI - AI Agent & Otomasyon Ajansı</title>
+        <meta name="description" content="Stratejiyle dönüşüm sağlıyoruz. Reklam ve iş süreçlerinizi AI Agent ile otomatikleştirerek size sadece 'tıklama' değil, gerçek 'sonuç' getiriyoruz." />
+        <meta property="og:title" content="MGL Digital AI - AI Agent & Otomasyon Ajansı" />
+        <meta property="og:description" content="AI Agent ve Otomasyon çözümleriyle iş süreçlerinizi dönüştürün. Manuel işlere son verin, verimliliği artırın." />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+      </Helmet>
+
+      <div className="min-h-screen bg-slate-900 text-gray-200 font-['Inter',_sans-serif]">
+        <style>{` body { background-color: #0f172a; } `}</style>
+        
+        {/* Header */}
+        <header className="py-4 px-4 sm:px-6 lg:px-8 bg-slate-900/50 backdrop-blur-sm sticky top-0 z-40 border-b border-slate-700/50">
+          <div className="container mx-auto flex items-center justify-between">
+            <div 
+              className="flex items-center gap-3 cursor-pointer" 
+              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            >
+              <img 
+                src="/00bc7320-6f8f-42ae-a0b7-0c24b609e70f.png" 
+                alt="MGL Digital AI Logo" 
+                className="w-8 h-8 object-contain"
+              />
+              <span className="text-xl font-bold text-white">MGL Digital AI</span>
+            </div>
+            <div className="flex items-center gap-3">
+              {user ? (
+                <>
+                  <span className="text-sm text-slate-300 hidden sm:block">
+                    {user.email}
+                  </span>
+                  <Button 
+                    onClick={() => setIdeaAssistantModalOpen(true)} 
+                    variant="outline" 
+                    size="sm"
+                    className="border-purple-400 text-purple-400 hover:bg-purple-400 hover:text-white"
+                  >
+                    Fırsatları Keşfet
+                  </Button>
+                  <Button 
+                    onClick={signOut}
+                    variant="ghost" 
+                    size="sm" 
+                    className="text-red-400 hover:text-red-300 hover:bg-red-400/10"
+                  >
+                    Çıkış Yap
+                  </Button>
+                </>
+              ) : (
+                <>
+                  <Button 
+                    onClick={() => setIdeaAssistantModalOpen(true)} 
+                    variant="outline" 
+                    size="sm"
+                    className="border-purple-400 text-purple-400 hover:bg-purple-400 hover:text-white"
+                  >
+                    Fırsatları Keşfet
+                  </Button>
+                  <Button 
+                    onClick={() => setIsAuthModalOpen(true)} 
+                    variant="ghost" 
+                    size="sm"
+                    className="text-slate-300 hover:text-white"
+                  >
+                    Giriş / Kayıt
+                  </Button>
+                </>
+              )}
+            </div>
+          </div>
+        </header>
+        
+        {user && (
+          <div className="container mx-auto px-4 py-4">
+            <UserSubscriptionStatus />
+          </div>
+        )}
+        
+        <main>
+          <IntroductoryChoiceSection />
+          <HeroSection onContactClick={() => setIdeaAssistantModalOpen(true)} />
+          <BenefitsSection />
+          <ServicesSection />
+          <AutomationExamplesSection onDemoClick={setActiveDemo} />
+          <StrategySection />
+          <CtaSection 
+            onContactClick={() => setIdeaAssistantModalOpen(true)}
+            onProductsClick={handleProductsClick}
+          />
+        </main>
+        <Footer />
+        
+        <EmailDemoModal isOpen={activeDemo === 'email'} onClose={() => setActiveDemo(null)} />
+        <PhoneDemoModal isOpen={activeDemo === 'phone'} onClose={() => setActiveDemo(null)} />
+        <IdeaAssistantModal 
+          isOpen={isIdeaAssistantModalOpen} 
+          onClose={() => setIdeaAssistantModalOpen(false)}
+          onDemoRedirect={handleDemoRedirect}
+        />
+        <AuthModal
+          isOpen={isAuthModalOpen}
+          onClose={() => setIsAuthModalOpen(false)}
+          initialMode="signup"
+        />
+        
+        <Toaster />
+        <Chatbot />
+      </div>
+    </>
+  );
+}
+
+// Root component to provide context
+function App() {
+  return (
+    <AuthProvider>
+      <HelmetProvider>
+        <AppContent />
+      </HelmetProvider>
+    </AuthProvider>
+  );
+}
+
+export default App;
+```
+
+### src/components/Chatbot.tsx
+
+```tsx
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { MessageCircle, Send, Bot, X } from 'lucide-react';
+import { Button } from './ui/Button';
+import { Input } from './ui/Input';
+import { toast } from '../hooks/useToast';
+import { cn } from '../utils/cn';
+
+interface Message {
+  id: number;
+  text: string;
+  sender: 'user' | 'bot';
+}
+
+export const Chatbot: React.FC = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [messages, setMessages] = useState<Message[]>([
+    { id: 1, text: "Merhaba! Size nasıl yardımcı olabilirim?", sender: 'bot' }
+  ]);
+  const [inputValue, setInputValue] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [sessionId, setSessionId] = useState<string | null>(null);
+  const messagesEndRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => { 
+    if (isOpen && !sessionId) setSessionId(`session_${Date.now()}`); 
+  }, [isOpen, sessionId]);
+  
+  useEffect(() => { 
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" }); 
+  }, [messages]);
+
+  const handleSendMessage = async () => {
+    if (!inputValue.trim() || isLoading) return;
+    
+    const userMessage: Message = { id: Date.now(), text: inputValue, sender: 'user' };
+    setMessages(prev => [...prev, userMessage]);
+    const currentInput = inputValue;
+    setInputValue('');
+    setIsLoading(true);
+    
+    const webhookUrl = 'https://mustafagl01.app.n8n.cloud/webhook/b7256006-aad8-48e9-a2c6-88f10664f5a8';
+
+    try {
+      const response = await fetch(webhookUrl, {
+        method: 'POST',
+        headers: { 
+          'Content-Type': 'application/json',
+          'Accept': 'application/json',
+          'Origin': window.location.origin
+        },
+        body: JSON.stringify({ message: currentInput, sessionId: sessionId || 'default_session' })
+      });
+      
+      console.log('Response status:', response.status);
+      console.log('Response headers:', response.headers);
+      
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+      
+      // n8n sends text response, not JSON
+      let botResponseText = "";
+      
+      try {
+        // n8n'den text yanıt geliyor, direkt text olarak al
+        botResponseText = await response.text();
+        console.log('n8n raw response:', botResponseText);
+        console.log('Response length:', botResponseText.length);
+        
+        // Boş yanıt kontrolü
+        if (!botResponseText || botResponseText.trim() === '') {
+          console.log('Empty response detected');
+          botResponseText = "Üzgünüm, yanıt alınamadı.";
+        } else {
+          // Trim whitespace
+          botResponseText = botResponseText.trim();
+        }
+      } catch (error) {
+        console.error('Response parse error:', error);
+        botResponseText = "Yanıt işlenirken bir hata oluştu.";
+      }
+      
+      const botResponse: Message = {
+        id: Date.now() + 1,
+        text: botResponseText,
+        sender: 'bot'
+      };
+      setMessages(prev => [...prev, botResponse]);
+    } catch (error) {
+      console.error('Chatbot webhook error:', error);
+      let errorMessage = "Üzgünüm, bir hata oluştu.";
+      
+      if (error instanceof TypeError && error.message === 'Failed to fetch') {
+        errorMessage = "Bağlantı hatası. Lütfen internet bağlantınızı kontrol edin.";
+      }
+      
+      setMessages(prev => [...prev, { 
+        id: Date.now() + 1, 
+        text: errorMessage, 
+        sender: 'bot' 
+      }]);
+      toast({ 
+        title: "Bağlantı Hatası", 
+        description: "Chatbot servisi şu anda kullanılamıyor. Lütfen daha sonra tekrar deneyin.", 
+        variant: "destructive" 
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  return (
+    <div className="fixed bottom-6 right-6 z-50 flex flex-col items-end gap-4">
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div 
+            initial={{ opacity: 0, y: 50 }} 
+            animate={{ opacity: 1, y: 0 }} 
+            exit={{ opacity: 0, y: 50 }} 
+            transition={{ type: 'spring', stiffness: 300, damping: 30 }} 
+            className="w-80 sm:w-96 h-[500px] bg-slate-800/80 backdrop-blur-xl rounded-2xl shadow-2xl flex flex-col overflow-hidden border border-slate-700"
+          >
+            <header className="p-4 bg-slate-900/50 border-b border-slate-700 flex items-center gap-3">
+              <div className="relative">
+                <div className="w-10 h-10 rounded-full bg-gradient-to-r from-purple-500 to-cyan-500 flex items-center justify-center">
+                  <Bot className="w-6 h-6 text-white" />
+                </div>
+                <span className="absolute bottom-0 right-0 block h-2.5 w-2.5 rounded-full bg-green-400 ring-2 ring-slate-800" />
+              </div>
+              <div>
+                <h3 className="font-bold text-white">AI Asistan</h3>
+                <p className="text-xs text-slate-400">Genellikle anında yanıt verir</p>
+              </div>
+            </header>
+            <div className="flex-1 p-4 overflow-y-auto space-y-4">
+              {messages.map(msg => (
+                <div key={msg.id} className={cn("flex", msg.sender === 'user' ? 'justify-end' : 'justify-start')}>
+                  <motion.div 
+                    initial={{ opacity: 0, y: 10 }} 
+                    animate={{ opacity: 1, y: 0 }} 
+                    className={cn(
+                      "max-w-[80%] p-3 rounded-2xl text-white whitespace-pre-wrap break-words", 
+                      msg.sender === 'user' 
+                        ? 'bg-purple-600 rounded-br-none' 
+                        : 'bg-slate-700 rounded-bl-none'
+                    )}
+                  >
+                    {msg.text}
+                  </motion.div>
+                </div>
+              ))}
+              {isLoading && (
+                <div className="flex justify-start">
+                  <motion.div 
+                    initial={{ opacity: 0, y: 10 }} 
+                    animate={{ opacity: 1, y: 0 }} 
+                    className="bg-slate-700 p-3 rounded-2xl rounded-bl-none"
+                  >
+                    <div className="flex items-center space-x-1">
+                      <span className="w-2 h-2 bg-slate-400 rounded-full animate-bounce [animation-delay:-0.3s]"></span>
+                      <span className="w-2 h-2 bg-slate-400 rounded-full animate-bounce [animation-delay:-0.15s]"></span>
+                      <span className="w-2 h-2 bg-slate-400 rounded-full animate-bounce"></span>
+                    </div>
+                  </motion.div>
+                </div>
+              )}
+              <div ref={messagesEndRef} />
+            </div>
+            <div className="p-4 bg-slate-900/50 border-t border-slate-700">
+              <div className="flex gap-2">
+                <Input 
+                  type="text" 
+                  value={inputValue} 
+                  onChange={(e) => setInputValue(e.target.value)} 
+                  placeholder="Mesajınızı yazın..." 
+                  onKeyPress={(e) => { if (e.key === 'Enter') handleSendMessage(); }} 
+                  disabled={isLoading}
+                />
+                <Button 
+                  onClick={handleSendMessage} 
+                  className="bg-purple-600 hover:bg-purple-700" 
+                  disabled={isLoading || !inputValue.trim()}
+                >
+                  <Send className="w-4 h-4" />
+                </Button>
+              </div>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+      <motion.button 
+        onClick={() => setIsOpen(!isOpen)} 
+        className="bg-gradient-to-r from-purple-600 to-cyan-600 text-white font-bold rounded-full shadow-2xl flex items-center justify-center transition-all duration-300 ease-in-out overflow-hidden" 
+        aria-label="Chatbot" 
+        whileHover={{ scale: 1.05 }} 
+        animate={isOpen ? { width: 64, height: 64 } : { width: 250, height: 64 }} 
+        transition={{ type: 'spring', stiffness: 400, damping: 30 }}
+      >
+        <AnimatePresence mode="wait">
+          {isOpen ? (
+            <motion.div 
+              key="close" 
+              initial={{ rotate: -90, scale: 0 }} 
+              animate={{ rotate: 0, scale: 1 }} 
+              exit={{ rotate: 90, scale: 0 }}
+            >
+              <X className="w-8 h-8" />
+            </motion.div>
+          ) : (
+            <motion.div 
+              key="open" 
+              initial={{ y: 20, opacity: 0 }} 
+              animate={{ y: 0, opacity: 1 }} 
+              exit={{ y: -20, opacity: 0 }} 
+              className="flex items-center gap-3 px-4"
+            >
+              <MessageCircle className="w-7 h-7" />
+              <span>AI Chatbot'u Deneyin</span>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </motion.button>
+    </div>
+  );
+};
+```
+
+### src/components/ProductCard.tsx
+
+```tsx
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { ShoppingCart, Check } from 'lucide-react';
+import { Button } from './ui/Button';
+import { StripeProduct } from '../stripe-config';
+import { useAuth } from '../contexts/AuthContext';
+import { toast } from '../hooks/useToast';
+
+interface ProductCardProps {
+  product: StripeProduct;
+  onAuthRequired: () => void;
+}
+
+export const ProductCard: React.FC<ProductCardProps> = ({ product, onAuthRequired }) => {
+  const [isLoading, setIsLoading] = useState(false);
+  const { user, session } = useAuth();
+
+  const handlePurchase = async () => {
+    if (!user || !session) {
+      onAuthRequired();
+      return;
+    }
+
+    setIsLoading(true);
+    
+    try {
+      const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/stripe-checkout`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${session.access_token}`,
+        },
+        body: JSON.stringify({
+          price_id: product.priceId,
+          mode: product.mode,
+          customer_email: user.email,
+          success_url: `${window.location.origin}/success?session_id={CHECKOUT_SESSION_ID}`,
+          cancel_url: `${window.location.origin}/cancel`,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Checkout session creation failed');
+      }
+
+      const { url } = await response.json();
+      
+      if (url) {
+        window.location.href = url;
+      } else {
+        throw new Error('No checkout URL received');
+      }
+    } catch (error) {
+      console.error('Checkout error:', error);
+      toast({
+        title: "Ödeme Hatası",
+        description: "Ödeme sayfası açılırken bir hata oluştu. Lütfen tekrar deneyin.",
+        variant: "destructive"
+      });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const formatPrice = (price: number, currency: string) => {
+    return new Intl.NumberFormat('tr-TR', {
+      style: 'currency',
+      currency: currency,
+    }).format(price);
+  };
+
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.6 }}
+      className="bg-slate-800/50 backdrop-blur-lg rounded-2xl p-8 border border-slate-700 hover:border-purple-400/50 transition-all duration-300"
+    >
+      <div className="text-center mb-6">
+        <h3 className="text-2xl font-bold text-white mb-2">{product.name}</h3>
+        {product.price && product.currency && (
+          <div className="text-3xl font-bold text-purple-400 mb-4">
+            {formatPrice(product.price, product.currency)}
+          </div>
+        )}
+      </div>
+
+      <div className="mb-8">
+        <p className="text-slate-300 leading-relaxed">{product.description}</p>
+      </div>
+
+      <div className="space-y-4 mb-8">
+        <div className="flex items-center gap-3">
+          <Check className="w-5 h-5 text-green-400 flex-shrink-0" />
+          <span className="text-slate-300">Size özel tasarım</span>
+        </div>
+        <div className="flex items-center gap-3">
+          <Check className="w-5 h-5 text-green-400 flex-shrink-0" />
+          <span className="text-slate-300">Profesyonel kurulum</span>
+        </div>
+        <div className="flex items-center gap-3">
+          <Check className="w-5 h-5 text-green-400 flex-shrink-0" />
+          <span className="text-slate-300">Teknik destek</span>
+        </div>
+      </div>
+
+      <Button
+        onClick={handlePurchase}
+        disabled={isLoading}
+        className="w-full bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-700 hover:to-cyan-700 py-4 text-lg"
+      >
+        {isLoading ? (
+          <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin" />
+        ) : (
+          <>
+            <ShoppingCart className="w-5 h-5 mr-2" />
+            {product.mode === 'subscription' ? 'Abonelik Başlat' : 'Satın Al'}
+          </>
+        )}
+      </Button>
+    </motion.div>
+  );
+};
+```
+
+### src/components/UserSubscriptionStatus.tsx
+
+```tsx
+import React, { useEffect, useState } from 'react';
+import { Crown, Package } from 'lucide-react';
+import { useAuth } from '../contexts/AuthContext';
+import { supabase } from '../lib/supabase';
+import { getProductByPriceId } from '../stripe-config';
+
+export const UserSubscriptionStatus: React.FC = () => {
+  const [subscription, setSubscription] = useState<any>(null);
+  const [orders, setOrders] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const { user } = useAuth();
+
+  useEffect(() => {
+    const fetchUserData = async () => {
+      if (!user) {
+        setLoading(false);
+        return;
+      }
+
+      try {
+        // Fetch subscription data
+        const { data: subData } = await supabase
+          .from('stripe_user_subscriptions')
+          .select('*')
+          .maybeSingle();
+
+        // Fetch orders data
+        const { data: ordersData } = await supabase
+          .from('stripe_user_orders')
+          .select('*')
+          .order('order_date', { ascending: false });
+
+        setSubscription(subData);
+        setOrders(ordersData || []);
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUserData();
+  }, [user]);
+
+  if (!user || loading) {
+    return null;
+  }
+
+  const hasActiveSubscription = subscription?.subscription_status === 'active';
+  const hasCompletedOrders = orders.some(order => order.order_status === 'completed');
+
+  if (!hasActiveSubscription && !hasCompletedOrders) {
+    return null;
+  }
+
+  return (
+    <div className="bg-gradient-to-r from-purple-600/20 to-cyan-600/20 rounded-xl p-4 border border-purple-400/30">
+      <div className="flex items-center gap-3">
+        {hasActiveSubscription ? (
+          <Crown className="w-6 h-6 text-yellow-400" />
+        ) : (
+          <Package className="w-6 h-6 text-green-400" />
+        )}
+        <div>
+          <h3 className="font-semibold text-white">
+            {hasActiveSubscription ? 'Aktif Abonelik' : 'Satın Alınan Ürünler'}
+          </h3>
+          <p className="text-sm text-slate-300">
+            {hasActiveSubscription 
+              ? `${getProductByPriceId(subscription.price_id)?.name || 'Otomasyon'} - Aktif`
+              : `${orders.length} ürün satın alındı`
+            }
+          </p>
+        </div>
+      </div>
+    </div>
+  );
+};
+```
+
+### src/components/auth/AuthModal.tsx
+
+```tsx
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { LoginPage } from './LoginPage';
+import { SignupPage } from './SignupPage';
+
+interface AuthModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  initialMode?: 'login' | 'signup';
+}
+
+export const AuthModal: React.FC<AuthModalProps> = ({ 
+  isOpen, 
+  onClose, 
+  initialMode = 'login' 
+}) => {
+  const [mode, setMode] = useState<'login' | 'signup'>(initialMode);
+
+  const handleClose = () => {
+    setMode('login');
+    onClose();
+  };
+
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+          onClick={handleClose}
+        >
+          <motion.div
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.9, opacity: 0 }}
+            onClick={(e) => e.stopPropagation()}
+            className="w-full max-w-md"
+          >
+            {mode === 'login' ? (
+              <LoginPage
+                onSwitchToSignup={() => setMode('signup')}
+                onBack={handleClose}
+              />
+            ) : (
+              <SignupPage
+                onSwitchToLogin={() => setMode('login')}
+                onBack={handleClose}
+              />
+            )}
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+};
+```
+
+### src/components/auth/LoginPage.tsx
+
+```tsx
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { LogIn, Mail, Lock, ArrowLeft } from 'lucide-react';
+import { Button } from '../ui/Button';
+import { Input } from '../ui/Input';
+import { Label } from '../ui/Label';
+import { useAuth } from '../../contexts/AuthContext';
+import { toast } from '../../hooks/useToast';
+import { supabase } from '../../lib/supabase';
+
+interface LoginPageProps {
+  onSwitchToSignup: () => void;
+  onBack: () => void;
+}
+
+export const LoginPage: React.FC<LoginPageProps> = ({ onSwitchToSignup, onBack }) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [resetSent, setResetSent] = useState(false);
+  const [isResetting, setIsResetting] = useState(false);
+  const { signIn } = useAuth();
+
+  const handlePasswordReset = async () => {
+    if (!email) {
+      toast({
+        title: "E-posta Gerekli",
+        description: "Şifre sıfırlama için e-posta adresinizi girin.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    setIsResetting(true);
+    const { error } = await supabase.auth.resetPasswordForEmail(email);
+    
+    if (error) {
+      toast({
+        title: "Hata",
+        description: "Şifre sıfırlama e-postası gönderilemedi.",
+        variant: "destructive"
+      });
+    } else {
+      setResetSent(true);
+      toast({
+        title: "E-posta Gönderildi",
+        description: "Şifre sıfırlama bağlantısı e-posta adresinize gönderildi."
+      });
+    }
+    setIsResetting(false);
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email || !password) {
+      toast({
+        title: "Eksik Bilgi",
+        description: "Lütfen e-posta ve şifrenizi girin.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    setIsLoading(true);
+    const { error } = await signIn(email, password);
+    
+    if (error) {
+      toast({
+        title: "Giriş Hatası",
+        description: error.message === 'Invalid login credentials' 
+          ? "E-posta veya şifre hatalı." 
+          : "Giriş yapılırken bir hata oluştu.",
+        variant: "destructive"
+      });
+    } else {
+      toast({
+        title: "Başarılı!",
+        description: "Giriş yapıldı."
+      });
+    }
+    setIsLoading(false);
+  };
+
+  return (
+    <div className="min-h-screen bg-slate-900 flex items-center justify-center p-4">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="w-full max-w-md"
+      >
+        <div className="bg-slate-800/50 backdrop-blur-lg rounded-2xl p-8 border border-slate-700">
+          <div className="flex items-center justify-between mb-8">
+            <Button variant="ghost" onClick={onBack} className="p-2">
+              <ArrowLeft className="w-5 h-5" />
+            </Button>
+            <div className="flex items-center gap-3">
+              <img 
+                src="/00bc7320-6f8f-42ae-a0b7-0c24b609e70f.png" 
+                alt="MGL Digital AI Logo" 
+                className="w-8 h-8 object-contain"
+              />
+              <span className="text-xl font-bold text-white">MGL Digital AI</span>
+            </div>
+            <div className="w-9" />
+          </div>
+
+          <div className="text-center mb-8">
+            <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-cyan-500 rounded-full flex items-center justify-center mx-auto mb-4">
+              <LogIn className="w-8 h-8 text-white" />
+            </div>
+            <h1 className="text-2xl font-bold text-white mb-2">Hesabınıza Giriş Yapın</h1>
+            <p className="text-slate-400">Otomasyon çözümlerinize erişim sağlayın</p>
+          </div>
+
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div>
+              <Label htmlFor="email" className="text-slate-300">E-posta Adresi</Label>
+              <div className="relative mt-1">
+                <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400" />
+                <Input
+                  id="email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="ornek@email.com"
+                  className="pl-10"
+                  disabled={isLoading}
+                />
+              </div>
+            </div>
+
+            <div>
+              <Label htmlFor="password" className="text-slate-300">Şifre</Label>
+              <div className="relative mt-1">
+                <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400" />
+                <Input
+                  id="password"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="••••••••"
+                  className="pl-10"
+                  disabled={isLoading}
+                />
+              </div>
+            </div>
+
+            <Button
+              type="submit"
+              className="w-full bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-700 hover:to-cyan-700 py-3"
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+              ) : (
+                <>
+                  <LogIn className="w-5 h-5 mr-2" />
+                  Giriş Yap
+                </>
+              )}
+            </Button>
+          </form>
+
+          <div className="mt-6 text-center">
+            <p className="text-slate-400">
+              Hesabınız yok mu?{' '}
+              <button
+                onClick={onSwitchToSignup}
+                className="text-purple-400 hover:text-purple-300 font-medium"
+              >
+                Kayıt Olun
+              </button>
+            </p>
+            <div className="mt-4">
+              {!resetSent ? (
+                <button
+                  onClick={handlePasswordReset}
+                  disabled={isResetting}
+                  className="text-sm text-slate-400 hover:text-slate-300"
+                >
+                  {isResetting ? 'Gönderiliyor...' : 'Şifremi Unuttum'}
+                </button>
+              ) : (
+                <p className="text-sm text-green-400">
+                  Şifre sıfırlama e-postası gönderildi!
+                </p>
+              )}
+            </div>
+          </div>
+        </div>
+      </motion.div>
+    </div>
+  );
+};
+```
+
+### src/components/auth/SignupPage.tsx
+
+```tsx
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { UserPlus, Mail, Lock, ArrowLeft } from 'lucide-react';
+import { Button } from '../ui/Button';
+import { Input } from '../ui/Input';
+import { Label } from '../ui/Label';
+import { useAuth } from '../../contexts/AuthContext';
+import { toast } from '../../hooks/useToast';
+
+interface SignupPageProps {
+  onSwitchToLogin: () => void;
+  onBack: () => void;
+}
+
+export const SignupPage: React.FC<SignupPageProps> = ({ onSwitchToLogin, onBack }) => {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const { signUp } = useAuth();
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!email || !password || !confirmPassword) {
+      toast({
+        title: "Eksik Bilgi",
+        description: "Lütfen tüm alanları doldurun.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    if (password !== confirmPassword) {
+      toast({
+        title: "Şifre Uyumsuzluğu",
+        description: "Şifreler eşleşmiyor.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    if (password.length < 6) {
+      toast({
+        title: "Zayıf Şifre",
+        description: "Şifre en az 6 karakter olmalıdır.",
+        variant: "destructive"
+      });
+      return;
+    }
+
+    setIsLoading(true);
+    const { error } = await signUp(email, password);
+    
+    if (error) {
+      if (error.message === 'User already registered') {
+        toast({
+          title: "E-posta Zaten Kayıtlı",
+          description: "Bu e-posta adresi zaten kayıtlı. Giriş sayfasına yönlendiriliyorsunuz...",
+          variant: "destructive"
+        });
+        // Automatically switch to login after 2 seconds
+        setTimeout(() => {
+          onSwitchToLogin();
+        }, 2000);
+      } else {
+        toast({
+          title: "Kayıt Hatası",
+          description: "Kayıt olurken bir hata oluştu.",
+          variant: "destructive"
+        });
+      }
+    } else {
+      toast({
+        title: "Başarılı!",
+        description: "Hesabınız oluşturuldu ve giriş yapıldı."
+      });
+    }
+    setIsLoading(false);
+  };
+
+  return (
+    <div className="min-h-screen bg-slate-900 flex items-center justify-center p-4">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="w-full max-w-md"
+      >
+        <div className="bg-slate-800/50 backdrop-blur-lg rounded-2xl p-8 border border-slate-700">
+          <div className="flex items-center justify-between mb-8">
+            <Button variant="ghost" onClick={onBack} className="p-2">
+              <ArrowLeft className="w-5 h-5" />
+            </Button>
+            <div className="flex items-center gap-3">
+              <img 
+                src="/00bc7320-6f8f-42ae-a0b7-0c24b609e70f.png" 
+                alt="MGL Digital AI Logo" 
+                className="w-8 h-8 object-contain"
+              />
+              <span className="text-xl font-bold text-white">MGL Digital AI</span>
+            </div>
+            <div className="w-9" />
+          </div>
+
+          <div className="text-center mb-8">
+            <div className="w-16 h-16 bg-gradient-to-r from-purple-500 to-cyan-500 rounded-full flex items-center justify-center mx-auto mb-4">
+              <UserPlus className="w-8 h-8 text-white" />
+            </div>
+            <h1 className="text-2xl font-bold text-white mb-2">Hesap Oluşturun</h1>
+            <p className="text-slate-400">Otomasyon çözümlerimize erişim kazanın</p>
+          </div>
+
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div>
+              <Label htmlFor="email" className="text-slate-300">E-posta Adresi</Label>
+              <div className="relative mt-1">
+                <Mail className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400" />
+                <Input
+                  id="email"
+                  type="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  placeholder="ornek@email.com"
+                  className="pl-10"
+                  disabled={isLoading}
+                />
+              </div>
+            </div>
+
+            <div>
+              <Label htmlFor="password" className="text-slate-300">Şifre</Label>
+              <div className="relative mt-1">
+                <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400" />
+                <Input
+                  id="password"
+                  type="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                  placeholder="En az 6 karakter"
+                  className="pl-10"
+                  disabled={isLoading}
+                />
+              </div>
+            </div>
+
+            <div>
+              <Label htmlFor="confirmPassword" className="text-slate-300">Şifre Tekrarı</Label>
+              <div className="relative mt-1">
+                <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400" />
+                <Input
+                  id="confirmPassword"
+                  type="password"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                  placeholder="Şifrenizi tekrar girin"
+                  className="pl-10"
+                  disabled={isLoading}
+                />
+              </div>
+            </div>
+
+            <Button
+              type="submit"
+              className="w-full bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-700 hover:to-cyan-700 py-3"
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+              ) : (
+                <>
+                  <UserPlus className="w-5 h-5 mr-2" />
+                  Hesap Oluştur
+                </>
+              )}
+            </Button>
+          </form>
+
+          <div className="mt-6 text-center">
+            <p className="text-slate-400">
+              Zaten hesabınız var mı?{' '}
+              <button
+                onClick={onSwitchToLogin}
+                className="text-purple-400 hover:text-purple-300 font-medium"
+              >
+                Giriş Yapın
+              </button>
+            </p>
+          </div>
+        </div>
+      </motion.div>
+    </div>
+  );
+};
+```
+
+### src/components/modals/EmailDemoModal.tsx
+
+```tsx
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Mail, Send, CheckCircle } from 'lucide-react';
+import { Button } from '../ui/Button';
+import { Input } from '../ui/Input';
+import { Label } from '../ui/Label';
+import { toast } from '../../hooks/useToast';
+
+interface EmailDemoModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+export const EmailDemoModal: React.FC<EmailDemoModalProps> = ({ isOpen, onClose }) => {
+  const [formData, setFormData] = useState({ name: '', email: '' });
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!formData.name || !formData.email || isLoading) {
+      if(!formData.name || !formData.email) {
+        toast({ title: "Eksik Bilgi", description: "Lütfen adınızı ve e-posta adresinizi girin.", variant: "destructive" });
+      }
+      return;
+    }
+    
+    setIsLoading(true);
+    const webhookUrl = 'https://mustafagl01.app.n8n.cloud/webhook/b258d591-af79-4580-9e8c-3c661256359b'; 
+
+    try {
+        await fetch(webhookUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formData)
+        });
+        setIsSubmitted(true);
+        toast({ title: "İstek Gönderildi! 🚀", description: "Bilgileriniz iş akışına başarıyla iletildi." });
+    } catch(error) {
+        console.error('Webhook error:', error);
+        toast({ title: "Hata!", description: "İş akışına bağlanırken bir sorun oluştu.", variant: "destructive" });
+    } finally {
+        setIsLoading(false);
+    }
+  };
+
+  const handleClose = () => {
+    setIsSubmitted(false);
+    setFormData({ name: '', email: '' });
+    onClose();
+  };
+
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div 
+          initial={{ opacity: 0 }} 
+          animate={{ opacity: 1 }} 
+          exit={{ opacity: 0 }} 
+          className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4" 
+          onClick={handleClose}
+        >
+          <motion.div 
+            initial={{ scale: 0.8, opacity: 0 }} 
+            animate={{ scale: 1, opacity: 1 }} 
+            exit={{ scale: 0.8, opacity: 0 }} 
+            onClick={(e) => e.stopPropagation()} 
+            className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-3xl p-8 max-w-lg w-full border border-gray-700 shadow-2xl"
+          >
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-2xl font-bold text-white flex items-center">
+                <Mail className="w-6 h-6 mr-2 text-blue-400" /> 
+                Otomatik E-posta Demo
+              </h3>
+              <Button variant="ghost" onClick={handleClose}>✕</Button>
+            </div>
+            {!isSubmitted ? (
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <p className="text-gray-300">Bu formu doldurun ve e-posta otomasyonunun nasıl başladığını görün.</p>
+                <div>
+                  <Label htmlFor="name" className="text-gray-400">Adınız</Label>
+                  <Input 
+                    id="name" 
+                    type="text" 
+                    placeholder="Örn: Ahmet Yılmaz" 
+                    value={formData.name} 
+                    onChange={(e) => setFormData(prev => ({ ...prev, name: e.target.value }))} 
+                    className="mt-1" 
+                    disabled={isLoading} 
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="email" className="text-gray-400">E-posta Adresiniz</Label>
+                  <Input 
+                    id="email" 
+                    type="email" 
+                    placeholder="ornek@email.com" 
+                    value={formData.email} 
+                    onChange={(e) => setFormData(prev => ({ ...prev, email: e.target.value }))} 
+                    className="mt-1" 
+                    disabled={isLoading} 
+                  />
+                </div>
+                <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 py-3 text-lg" disabled={isLoading}>
+                  {isLoading ? (
+                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                  ) : (
+                    <Send className="w-5 h-5 mr-2" />
+                  )}
+                  {isLoading ? '' : 'Otomasyonu Başlat'}
+                </Button>
+              </form>
+            ) : (
+              <div className="text-center">
+                <motion.div 
+                  initial={{scale: 0.5, opacity: 0}} 
+                  animate={{scale: 1, opacity: 1}} 
+                  transition={{type: 'spring', delay: 0.2}}
+                >
+                  <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
+                </motion.div>
+                <h3 className="text-2xl font-bold text-white mb-2">Harika, {formData.name}!</h3>
+                <p className="text-gray-300 mb-6 max-w-sm mx-auto">
+                  Otomasyonunuz başarıyla başlatıldı. İlk e-postamız gelen kutunuza ulaştı bile. 
+                  Cevap verdiğinizde AI asistanımızla fikirler geliştirebilirsiniz.
+                </p>
+                <Button onClick={handleClose} className="w-full bg-gray-600 hover:bg-gray-700 mt-4">
+                  Harika!
+                </Button>
+              </div>
+            )}
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+};
+```
+
+### src/components/modals/IdeaAssistantModal.tsx
+
+```tsx
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { BrainCircuit, CheckCircle, RefreshCw, Sparkles } from 'lucide-react';
+import { Button } from '../ui/Button';
+import { Input } from '../ui/Input';
+import { toast } from '../../hooks/useToast';
+
+interface IdeaAssistantModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+  onDemoRedirect: () => void;
+}
+
+export const IdeaAssistantModal: React.FC<IdeaAssistantModalProps> = ({ 
+  isOpen, 
+  onClose, 
+  onDemoRedirect 
+}) => {
+  const [step, setStep] = useState(0);
+  const [selections, setSelections] = useState<any>({});
+  const [email, setEmail] = useState('');
+  const [customPainPoint, setCustomPainPoint] = useState('');
+  const [generatedIdea, setGeneratedIdea] = useState('');
+  const [isLoading, setIsLoading] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isError, setIsError] = useState(false);
+
+  const industries = ["E-Ticaret", "Sağlık", "Eğitim", "Hizmet", "Perakende"];
+  const painPoints: Record<string, string[]> = {
+    "E-Ticaret": ["Müşteri Desteği", "Sipariş Takibi", "Stok Yönetimi", "Pazarlama"],
+    "Sağlık": ["Randevu Planlama", "Hasta Bilgilendirme", "Reçete Yenileme", "Raporlama"],
+    "Eğitim": ["Öğrenci Kayıt", "Ders Programı", "Velilerle İletişim", "Materyal Dağıtımı"],
+    "Hizmet": ["Teklif Hazırlama", "Müşteri İlişkileri (CRM)", "Proje Takibi", "Faturalandırma"],
+    "Perakende": ["Envanter Kontrolü", "Personel Yönetimi", "Müşteri Sadakati", "Satış Raporları"],
+    "Diğer": ["Müşteri İletişimi", "Satış ve Pazarlama", "Raporlama", "İnsan Kaynakları"]
+  };
+
+  const resetState = () => {
+    setStep(0); 
+    setSelections({}); 
+    setEmail(''); 
+    setCustomPainPoint(''); 
+    setGeneratedIdea(''); 
+    setIsError(false);
+  };
+
+  const handleClose = () => { 
+    resetState(); 
+    onClose(); 
+  };
+
+  const fetchAutomationIdea = async (currentSelections: any) => {
+    setIsLoading(true);
+    setIsError(false);
+    setStep(1.8);
+    const prompt = `Benim ${currentSelections.industry} sektöründe bir işletmem var ve en büyük problemim ${currentSelections.painPoint}. Bu problemi çözmek için bana yaratıcı, tek paragraflık bir AI otomasyon fikri öner. Fikir, n8n, WAPI, Twilio gibi araçlarla yapılabilir olmalı.`;
+    
+    try {
+      const chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
+      const payload = { contents: chatHistory };
+      const apiKey = "AIzaSyBoekQG5RzBGmMaT73quwOzahuOt253jRg";
+      const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+      const response = await fetch(apiUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+      
+      if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
+      const result = await response.json();
+      
+      let text = "Harika bir seçim! Bu konuda size özel bir otomasyon çözümü sunabiliriz. Detaylı bilgi için e-posta adresinizi bırakmanız yeterli.";
+      if (result.candidates?.[0]?.content?.parts?.[0]?.text) {
+        text = result.candidates[0].content.parts[0].text;
+      }
+      setGeneratedIdea(text);
+    } catch (error) {
+      console.error("Gemini API error:", error);
+      setIsError(true);
+    } finally {
+      setIsLoading(false);
+      setStep(2);
+    }
+  };
+
+  const handleSelection = (key: string, value: string) => {
+    const newSelections = { ...selections, [key]: value };
+    setSelections(newSelections);
+    if (key === 'industry') setStep(1);
+    else if (key === 'painPoint') fetchAutomationIdea(newSelections);
+  };
+
+  const handleEmailSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!email || isSubmitting) return;
+    setIsSubmitting(true);
+    const webhookUrl = 'https://mustafagl01.app.n8n.cloud/webhook-test/b258d591-af79-4580-9e8c-3c661256359b'; 
+    try {
+      await fetch(webhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ ...selections, generatedIdea, email, name: 'Idea Assistant Lead' })
+      });
+      toast({ title: "Harika!", description: "Detaylı analiz en kısa sürede e-posta adresinize gönderilecektir." });
+      setStep(3);
+    } catch (error) {
+      console.error("Lead capture webhook error:", error);
+      toast({ title: "Hata!", description: "Bir sorun oluştu, lütfen daha sonra tekrar deneyin.", variant: "destructive" });
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const renderStepContent = () => {
+    switch (step) {
+      case 0:
+        return (
+          <motion.div key={0} initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }}>
+            <p className="text-base sm:text-lg text-gray-300 mb-4">
+              Merhaba! İşletmeniz için otomasyon potansiyelini keşfedelim. Hangi sektörde faaliyet gösteriyorsunuz?
+            </p>
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3">
+              {industries.map(ind => (
+                <Button key={ind} variant="secondary" onClick={() => handleSelection('industry', ind)} className="text-sm sm:text-base py-2">
+                  {ind}
+                </Button>
+              ))}
+              <Button variant="secondary" onClick={() => handleSelection('industry', 'Diğer')} className="text-sm sm:text-base py-2">
+                Diğer
+              </Button>
+            </div>
+          </motion.div>
+        );
+      case 1:
+        return (
+          <motion.div key={1} initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }}>
+            <p className="text-base sm:text-lg text-gray-300 mb-4">
+              Harika, <strong>{selections.industry}</strong>. Peki en çok hangi alanda zaman kazanmak veya süreci iyileştirmek istersiniz?
+            </p>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
+              {(painPoints[selections.industry] || painPoints['Diğer']).map(pp => (
+                <Button key={pp} variant="secondary" onClick={() => handleSelection('painPoint', pp)} className="text-sm sm:text-base py-2">
+                  {pp}
+                </Button>
+              ))}
+              <Button variant="secondary" onClick={() => setStep(1.5)} className="text-sm sm:text-base py-2">
+                Diğer (Açıklayın)
+              </Button>
+            </div>
+          </motion.div>
+        );
+      case 1.5:
+        return (
+          <motion.div key={1.5} initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }}>
+            <p className="text-base sm:text-lg text-gray-300 mb-4">
+              Lütfen otomatikleştirmek istediğiniz süreci kısaca açıklayın:
+            </p>
+            <form onSubmit={(e) => { e.preventDefault(); handleSelection('painPoint', customPainPoint); }} className="flex flex-col sm:flex-row gap-2">
+              <Input 
+                value={customPainPoint} 
+                onChange={(e) => setCustomPainPoint(e.target.value)} 
+                placeholder="Örn: Gelen faturaları işlemek" 
+                className="text-sm sm:text-base"
+              />
+              <Button type="submit" className="text-sm sm:text-base">Gönder</Button>
+            </form>
+          </motion.div>
+        );
+      case 1.8:
+        return (
+          <motion.div key={1.8} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="text-center py-10">
+            <div className="flex justify-center items-center gap-3">
+              <div className="w-8 h-8 border-4 border-purple-400 border-t-transparent rounded-full animate-spin" />
+              <p className="text-base sm:text-lg text-gray-300">AI sizin için fikir üretiyor...</p>
+            </div>
+          </motion.div>
+        );
+      case 2:
+        return (
+          <motion.div key={2} initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }}>
+            {isError ? (
+              <div>
+                <p className="text-base sm:text-lg text-yellow-300 mb-4">
+                  AI asistanımız anlık bir yoğunluk yaşıyor ve size özel bir fikir üretemedi.
+                </p>
+                <div className="bg-slate-700/50 p-3 sm:p-4 rounded-lg border border-slate-600 mb-4 sm:mb-6">
+                  <p className="text-white text-sm sm:text-base">Bu sırada, otomasyonun gücünü görmek için canlı demolarımızı deneyebilirsiniz.</p>
+                </div>
+                <div className="flex flex-col sm:flex-row gap-2">
+                  <Button onClick={onDemoRedirect} className="text-sm sm:text-base">
+                    <Sparkles className="w-4 h-4 mr-2"/>
+                    Canlı Demoları Gör
+                  </Button>
+                  <Button variant="secondary" onClick={resetState} className="text-sm sm:text-base">Baştan Başla</Button>
+                </div>
+              </div>
+            ) : (
+              <div>
+                <p className="text-base sm:text-lg text-gray-300 mb-4">
+                  Anladım. <strong>{selections.painPoint}</strong> konusunda size yardımcı olabiliriz. İşte AI tarafından üretilen bir fikir:
+                </p>
+                <div className="bg-slate-700/50 p-3 sm:p-4 rounded-lg border border-slate-600 mb-4 sm:mb-6 min-h-[60px] sm:min-h-[80px] max-h-[200px] overflow-y-auto">
+                  <p className="text-white text-sm sm:text-base leading-relaxed">{generatedIdea}</p>
+                </div>
+                <div className="flex flex-col sm:flex-row gap-2 mb-4 sm:mb-6">
+                  <Button variant="outline" onClick={() => fetchAutomationIdea(selections)} disabled={isLoading} className="text-sm sm:text-base">
+                    <RefreshCw className={`w-4 h-4 mr-2 ${isLoading ? 'animate-spin' : ''}`} /> 
+                    Yeni Fikir Üret
+                  </Button>
+                  <Button variant="secondary" onClick={resetState} className="text-sm sm:text-base">Baştan Başla</Button>
+                </div>
+                <p className="text-base sm:text-lg text-gray-300 mb-4">Bu sadece bir mini demo! Gerçek projeleriniz için bizimle iletişime geçebilirsiniz.</p>
+                <Button onClick={handleClose} className="w-full text-sm sm:text-base py-3">
+                  Harika!
+                </Button>
+              </div>
+            )}
+          </motion.div>
+        );
+      case 3:
+        return null; // Bu step artık kullanılmıyor
+      default: 
+        return null;
+    }
+  };
+
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div 
+          initial={{ opacity: 0 }} 
+          animate={{ opacity: 1 }} 
+          exit={{ opacity: 0 }} 
+          className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
+        >
+          <motion.div 
+            initial={{ scale: 0.9, opacity: 0 }} 
+            animate={{ scale: 1, opacity: 1 }} 
+            exit={{ scale: 0.9, opacity: 0 }} 
+            onClick={(e) => e.stopPropagation()} 
+            className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-3xl p-4 sm:p-8 max-w-2xl w-full border border-slate-700 shadow-2xl relative max-h-[90vh] overflow-y-auto"
+          >
+            <Button 
+              variant="ghost" 
+              onClick={handleClose} 
+              className="absolute top-2 right-2 sm:top-4 sm:right-4 text-gray-400 hover:text-white z-10"
+            >
+              ✕
+            </Button>
+            <div className="flex items-start gap-3 sm:gap-4">
+              <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-full bg-gradient-to-r from-purple-500 to-cyan-500 flex items-center justify-center flex-shrink-0 mt-1">
+                <BrainCircuit className="w-5 h-5 sm:w-7 sm:h-7 text-white" />
+              </div>
+              <div className="w-full">
+                <AnimatePresence mode="wait">
+                  {renderStepContent()}
+                </AnimatePresence>
+              </div>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+};
+```
+
+### src/components/modals/PhoneDemoModal.tsx
+
+```tsx
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { Phone, Bot, CheckCircle } from 'lucide-react';
+import { Button } from '../ui/Button';
+import { Input } from '../ui/Input';
+import { toast } from '../../hooks/useToast';
+
+interface PhoneDemoModalProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+export const PhoneDemoModal: React.FC<PhoneDemoModalProps> = ({ isOpen, onClose }) => {
+  const [countryCode, setCountryCode] = useState('+90');
+  const [phoneNumber, setPhoneNumber] = useState('');
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!phoneNumber.trim() || isLoading) {
+      toast({ title: "Geçersiz Numara", description: "Lütfen geçerli bir telefon numarası girin.", variant: "destructive" });
+      return;
+    }
+    setIsLoading(true);
+    const fullPhoneNumber = `${countryCode}${phoneNumber.replace(/\s/g, '')}`;
+    const webhookUrl = 'https://mustafagl01.app.n8n.cloud/webhook/a1efbd5d-e366-4aeb-affb-8c75dbcfe5f8';
+
+    try {
+      await fetch(webhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ event: 'call_request', phoneNumber: fullPhoneNumber })
+      });
+      toast({ title: "Harika!", description: "AI asistanımız belirttiğiniz numarayı arayacak." });
+      setIsSubmitted(true);
+    } catch (error) {
+      console.error('Webhook error:', error);
+      toast({ title: "Hata!", description: "İş akışına bağlanırken bir sorun oluştu.", variant: "destructive" });
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  const handleClose = () => {
+    setPhoneNumber('');
+    setCountryCode('+90');
+    setIsSubmitted(false);
+    onClose();
+  };
+
+  return (
+    <AnimatePresence>
+      {isOpen && (
+        <motion.div 
+          initial={{ opacity: 0 }} 
+          animate={{ opacity: 1 }} 
+          exit={{ opacity: 0 }} 
+          className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4" 
+          onClick={handleClose}
+        >
+          <motion.div 
+            initial={{ scale: 0.8, opacity: 0 }} 
+            animate={{ scale: 1, opacity: 1 }} 
+            exit={{ scale: 0.8, opacity: 0 }} 
+            onClick={(e) => e.stopPropagation()} 
+            className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-3xl p-8 max-w-md w-full border border-gray-700 shadow-2xl text-center"
+          >
+            <div className="flex items-center justify-between mb-6 relative">
+              <h3 className="text-2xl font-bold text-white flex items-center mx-auto">
+                <Phone className="w-6 h-6 mr-3 text-rose-400" /> 
+                AI Sesli Asistan Demo
+              </h3>
+              <Button variant="ghost" onClick={handleClose} className="text-gray-400 hover:text-white absolute -top-4 -right-4">
+                ✕
+              </Button>
+            </div>
+            <div className="flex justify-center mb-6">
+              <div className="relative">
+                <div className="w-24 h-24 bg-rose-500/20 rounded-full animate-ping absolute inset-0"></div>
+                <div className="w-24 h-24 bg-rose-500 rounded-full flex items-center justify-center">
+                  <Bot className="w-12 h-12 text-white" />
+                </div>
+              </div>
+            </div>
+            <AnimatePresence mode="wait">
+              {!isSubmitted ? (
+                <motion.div key="form" initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}}>
+                  <p className="text-gray-300 mb-4">
+                    AI sesli asistanımızın yeteneklerini test etmek için telefon numaranızı girin, sizi arayalım.
+                  </p>
+                  <form onSubmit={handleSubmit} className="space-y-4">
+                    <div className="flex gap-2">
+                      <select 
+                        value={countryCode} 
+                        onChange={(e) => setCountryCode(e.target.value)}
+                        className="h-10 rounded-md border border-slate-700 bg-slate-800 px-3 py-2 text-sm text-white ring-offset-slate-900 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400"
+                      >
+                        <option value="+90">TR +90</option>
+                        <option value="+44">UK +44</option>
+                      </select>
+                      <Input 
+                        id="phoneNumber" 
+                        type="tel" 
+                        placeholder="555 123 4567" 
+                        value={phoneNumber} 
+                        onChange={(e) => setPhoneNumber(e.target.value)} 
+                        disabled={isLoading}
+                      />
+                    </div>
+                    <Button type="submit" className="w-full bg-rose-600 hover:bg-rose-700 py-3 text-lg" disabled={isLoading}>
+                      {isLoading ? (
+                        <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                      ) : (
+                        <Phone className="w-5 h-5 mr-2" />
+                      )}
+                      {isLoading ? '' : 'AI Beni Arasın'}
+                    </Button>
+                  </form>
+                </motion.div>
+              ) : (
+                <motion.div key="success" initial={{opacity: 0}} animate={{opacity: 1}} exit={{opacity: 0}}>
+                  <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
+                  <p className="text-xl text-white mb-2">Çağrı İsteğiniz Alındı!</p>
+                  <p className="text-gray-300">
+                    AI asistanımız <strong>+44 (7414) 605612</strong> numaralı hattan sizi arayacak. 
+                    Lütfen telefonunuzu kontrol edin.
+                  </p>
+                  <Button onClick={handleClose} className="w-full mt-6">Kapat</Button>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+};
+```
+
+### src/components/pages/CancelPage.tsx
+
+```tsx
+import React from 'react';
+import { motion } from 'framer-motion';
+import { XCircle, ArrowLeft, RefreshCw } from 'lucide-react';
+import { Button } from '../ui/Button';
+
+interface CancelPageProps {
+  onBack: () => void;
+  onRetry: () => void;
+}
+
+export const CancelPage: React.FC<CancelPageProps> = ({ onBack, onRetry }) => {
+  return (
+    <div className="min-h-screen bg-slate-900 flex items-center justify-center p-4">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="w-full max-w-md"
+      >
+        <div className="bg-slate-800/50 backdrop-blur-lg rounded-2xl p-8 border border-slate-700 text-center">
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ type: 'spring', delay: 0.2 }}
+            className="w-20 h-20 bg-red-500 rounded-full flex items-center justify-center mx-auto mb-6"
+          >
+            <XCircle className="w-12 h-12 text-white" />
+          </motion.div>
+
+          <h1 className="text-3xl font-bold text-white mb-4">Ödeme İptal Edildi</h1>
+          <p className="text-xl text-slate-300 mb-8">
+            Ödeme işlemi iptal edildi. Herhangi bir ücret tahsil edilmedi.
+          </p>
+
+          <div className="bg-slate-700/50 rounded-xl p-6 mb-8">
+            <h3 className="text-lg font-semibold text-white mb-3">Yardıma mı İhtiyacınız Var?</h3>
+            <p className="text-slate-300 text-sm">
+              Ödeme sürecinde sorun yaşıyorsanız, doğrudan bizimle iletişime geçebilirsiniz.
+            </p>
+          </div>
+
+          <div className="flex flex-col sm:flex-row gap-4">
+            <Button
+              onClick={onBack}
+              variant="outline"
+              className="flex-1"
+            >
+              <ArrowLeft className="w-5 h-5 mr-2" />
+              Ana Sayfaya Dön
+            </Button>
+            <Button
+              onClick={onRetry}
+              className="flex-1 bg-purple-600 hover:bg-purple-700"
+            >
+              <RefreshCw className="w-5 h-5 mr-2" />
+              Tekrar Dene
+            </Button>
+          </div>
+
+          <div className="mt-6 pt-6 border-t border-slate-700">
+            <Button
+              onClick={() => {
+                const phoneNumber = '905318299701';
+                const message = encodeURIComponent('Merhaba! Ödeme sürecinde sorun yaşıyorum. Yardım alabilir miyim?');
+                window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
+              }}
+              variant="ghost"
+              className="text-green-400 hover:text-green-300"
+            >
+              WhatsApp ile Destek Al
+            </Button>
+          </div>
+        </div>
+      </motion.div>
+    </div>
+  );
+};
+```
+
+### src/components/pages/ProductsPage.tsx
+
+```tsx
+import React, { useState } from 'react';
+import { motion } from 'framer-motion';
+import { ArrowLeft, Package, LogOut } from 'lucide-react';
+import { Button } from '../ui/Button';
+import { ProductCard } from '../ProductCard';
+import { AuthModal } from '../auth/AuthModal';
+import { stripeProducts } from '../../stripe-config';
+import { useAuth } from '../../contexts/AuthContext';
+
+interface ProductsPageProps {
+  onBack: () => void;
+}
+
+export const ProductsPage: React.FC<ProductsPageProps> = ({ onBack }) => {
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const { user, signOut } = useAuth();
+
+  const handleSignOut = async () => {
+    await signOut();
+    onBack(); // Ana sayfaya dön
+  };
+
+  return (
+    <div className="min-h-screen bg-slate-900">
+      <div className="container mx-auto px-4 py-8">
+        <div className="flex items-center justify-between mb-8">
+          <Button 
+            variant="ghost" 
+            onClick={onBack} 
+            className="flex items-center gap-2 text-slate-300 hover:text-white"
+          >
+            <ArrowLeft className="w-5 h-5" />
+            Ana Sayfaya Dön
+          </Button>
+          {user && (
+            <div className="flex items-center gap-4">
+              <span className="text-slate-300 hidden sm:block">
+                Hoş geldiniz, {user.email}
+              </span>
+              <Button 
+                onClick={handleSignOut}
+                variant="ghost" 
+                className="text-red-400 hover:text-red-300 hover:bg-red-400/10 flex items-center gap-2"
+              >
+                <LogOut className="w-4 h-4" />
+                Çıkış Yap
+              </Button>
+            </div>
+          )}
+        </div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-center mb-16"
+        >
+          <div className="flex items-center justify-center gap-3 mb-6">
+            <Package className="w-12 h-12 text-purple-400" />
+            <h1 className="text-4xl md:text-5xl font-bold text-white">Otomasyon Çözümleri</h1>
+          </div>
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+            İşletmeniz için özel olarak tasarlanan AI otomasyon sistemleri
+          </p>
+        </motion.div>
+
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          {stripeProducts.map((product) => (
+            <ProductCard
+              key={product.id}
+              product={product}
+              onAuthRequired={() => setIsAuthModalOpen(true)}
+            />
+          ))}
+        </div>
+
+        <AuthModal
+          isOpen={isAuthModalOpen}
+          onClose={() => setIsAuthModalOpen(false)}
+          initialMode="signup"
+        />
+      </div>
+    </div>
+  );
+};
+```
+
+### src/components/pages/SuccessPage.tsx
+
+```tsx
+import React, { useEffect, useState } from 'react';
+import { motion } from 'framer-motion';
+import { CheckCircle, ArrowLeft, Package } from 'lucide-react';
+import { Button } from '../ui/Button';
+import { useAuth } from '../../contexts/AuthContext';
+import { supabase } from '../../lib/supabase';
+import { getProductByPriceId } from '../../stripe-config';
+
+interface SuccessPageProps {
+  onBack: () => void;
+}
+
+export const SuccessPage: React.FC<SuccessPageProps> = ({ onBack }) => {
+  const [orderDetails, setOrderDetails] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+  const { user } = useAuth();
+
+  useEffect(() => {
+    const fetchOrderDetails = async () => {
+      if (!user) return;
+
+      try {
+        // Get the most recent order for this user
+        const { data: orders, error } = await supabase
+          .from('stripe_user_orders')
+          .select('*')
+          .order('order_date', { ascending: false })
+          .limit(1);
+
+        if (error) {
+          console.error('Error fetching order:', error);
+          return;
+        }
+
+        if (orders && orders.length > 0) {
+          const order = orders[0];
+          // Try to get subscription data as well
+          const { data: subscription } = await supabase
+            .from('stripe_user_subscriptions')
+            .select('*')
+            .maybeSingle();
+
+          setOrderDetails({
+            ...order,
+            subscription,
+            product: getProductByPriceId(subscription?.price_id || '')
+          });
+        }
+      } catch (error) {
+        console.error('Error fetching order details:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchOrderDetails();
+  }, [user]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-slate-900 flex items-center justify-center">
+        <div className="w-8 h-8 border-2 border-purple-400 border-t-transparent rounded-full animate-spin" />
+      </div>
+    );
+  }
+
+  return (
+    <div className="min-h-screen bg-slate-900 flex items-center justify-center p-4">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="w-full max-w-2xl"
+      >
+        <div className="bg-slate-800/50 backdrop-blur-lg rounded-2xl p-8 border border-slate-700 text-center">
+          <motion.div
+            initial={{ scale: 0 }}
+            animate={{ scale: 1 }}
+            transition={{ type: 'spring', delay: 0.2 }}
+            className="w-20 h-20 bg-green-500 rounded-full flex items-center justify-center mx-auto mb-6"
+          >
+            <CheckCircle className="w-12 h-12 text-white" />
+          </motion.div>
+
+          <h1 className="text-3xl font-bold text-white mb-4">Ödeme Başarılı!</h1>
+          <p className="text-xl text-slate-300 mb-8">
+            Teşekkürler! Otomasyon çözümünüz için ödemeniz başarıyla alındı.
+          </p>
+
+          {orderDetails && (
+            <div className="bg-slate-700/50 rounded-xl p-6 mb-8 text-left">
+              <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
+                <Package className="w-5 h-5" />
+                Sipariş Detayları
+              </h3>
+              <div className="space-y-3 text-slate-300">
+                <div className="flex justify-between">
+                  <span>Ürün:</span>
+                  <span className="font-medium">{orderDetails.product?.name || 'Otomasyon'}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Tutar:</span>
+                  <span className="font-medium">
+                    {new Intl.NumberFormat('tr-TR', {
+                      style: 'currency',
+                      currency: orderDetails.currency?.toUpperCase() || 'GBP',
+                    }).format((orderDetails.amount_total || 0) / 100)}
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Durum:</span>
+                  <span className="font-medium text-green-400">Tamamlandı</span>
+                </div>
+              </div>
+            </div>
+          )}
+
+          <div className="bg-purple-900/30 rounded-xl p-6 mb-8">
+            <h3 className="text-lg font-semibold text-white mb-3">Sırada Ne Var?</h3>
+            <div className="text-slate-300 space-y-2 text-left">
+              <p>• Ekibimiz 24 saat içinde sizinle iletişime geçecek</p>
+              <p>• Proje detayları ve timeline belirlenir</p>
+              <p>• Otomasyon sisteminiz kurulur ve test edilir</p>
+              <p>• Eğitim ve devreye alma süreci tamamlanır</p>
+            </div>
+          </div>
+
+          <div className="flex flex-col sm:flex-row gap-4">
+            <Button
+              onClick={onBack}
+              variant="outline"
+              className="flex-1"
+            >
+              <ArrowLeft className="w-5 h-5 mr-2" />
+              Ana Sayfaya Dön
+            </Button>
+            <Button
+              onClick={() => {
+                const phoneNumber = '905318299701';
+                const message = encodeURIComponent('Merhaba! Otomasyon ödememim tamamlandı. Proje detaylarını konuşmak istiyorum.');
+                window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
+              }}
+              className="flex-1 bg-green-600 hover:bg-green-700"
+            >
+              WhatsApp ile İletişime Geç
+            </Button>
+          </div>
+        </div>
+      </motion.div>
+    </div>
+  );
+};
+```
+
+### src/components/sections/AutomationExamplesSection.tsx
+
+```tsx
+import React from 'react';
+import { motion } from 'framer-motion';
+import { 
+  Mail, Phone, User, ArrowRightLeft, BarChart3, Users, ArrowRight 
+} from 'lucide-react';
+import { cn } from '../../utils/cn';
+
+const automationExamples = [
+  { 
+    id: 'whatsapp', 
+    title: 'Birebir Strateji Görüşmesi', 
+    description: 'Otomasyon fikirlerinizi doğrudan kurucumuz Mustafa Bey ile görüşmek için WhatsApp üzerinden anında iletişime geçin.', 
+    icon: User, 
+    color: 'from-green-500 to-emerald-600', 
+    demo: true, 
+    ctaLabel: 'İletişime Geç' 
+  },
+  { 
+    id: 'email', 
+    title: 'Otomatik E-posta Dizisi', 
+    description: 'Web sitenizdeki formu dolduran herkese anında kişiselleştirilmiş bir e-posta gönderin.', 
+    icon: Mail, 
+    color: 'from-blue-500 to-cyan-600', 
+    demo: true, 
+    ctaLabel: 'Canlı Demo' 
+  },
+  { 
+    id: 'phone', 
+    title: 'AI Sizi Arasın', 
+    description: 'Numaranızı bırakın, AI sesli asistanımız sizi arayarak yeteneklerini sergilesin.', 
+    icon: Phone, 
+    color: 'from-rose-500 to-red-600', 
+    demo: true, 
+    ctaLabel: 'Canlı Demo' 
+  },
+  { 
+    id: 'data-transfer', 
+    title: 'Manuel Veri Aktarımı', 
+    description: 'Excel\'den CRM\'e sürekli kopyala-yapıştır mı yapıyorsunuz? Bu süreci tamamen ortadan kaldırın.', 
+    icon: ArrowRightLeft, 
+    color: 'from-yellow-500 to-amber-600', 
+    demo: false 
+  },
+  { 
+    id: 'reports', 
+    title: 'Haftalık Rapor Çilesi', 
+    description: 'Her hafta farklı platformlardan veri toplayıp rapor hazırlamak saatlerinizi mi alıyor?', 
+    icon: BarChart3, 
+    color: 'from-indigo-500 to-purple-600', 
+    demo: false 
+  },
+  { 
+    id: 'onboarding', 
+    title: 'Yeni Çalışan Süreçleri', 
+    description: 'İşe yeni başlayanlara belgeleri tek tek mi veriyorsunuz? Tüm süreci tek tıkla otomatik başlatın.', 
+    icon: Users, 
+    color: 'from-purple-500 to-violet-600', 
+    demo: false 
+  }
+];
+
+interface AutomationExamplesSectionProps {
+  onDemoClick: (demoId: string) => void;
+}
+
+export const AutomationExamplesSection: React.FC<AutomationExamplesSectionProps> = ({ onDemoClick }) => {
+  const handleAutomationClick = (automation: any) => {
+    if (automation.id === 'whatsapp') {
+      const phoneNumber = '905318299701';
+      const message = encodeURIComponent('Merhaba Mustafa Bey, web siteniz üzerinden ulaşıyorum. Bir strateji görüşmesi planlamak istiyorum.');
+      window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
+    } else if (automation.demo) {
+      onDemoClick(automation.id);
+    }
+  };
+
+  return (
+    <section id="demos" className="py-20 bg-black/20">
+      <div className="container mx-auto px-4">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }} 
+          whileInView={{ opacity: 1, y: 0 }} 
+          transition={{ duration: 0.6, once: true }} 
+          className="text-center mb-16"
+        >
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">Anlatmıyoruz, Gösteriyoruz.</h2>
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto">Aşağıdaki demoları deneyin ve "acaba benim şu işim de otomatik olabilir mi?" diye düşünün:</p>
+        </motion.div>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {automationExamples.map((automation, index) => (
+            <motion.div 
+              key={automation.id} 
+              initial={{ opacity: 0, y: 30 }} 
+              whileInView={{ opacity: 1, y: 0 }} 
+              transition={{ duration: 0.6, delay: index * 0.1, once: true }} 
+              onClick={() => automation.demo && handleAutomationClick(automation)} 
+              className={cn(
+                "bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-lg rounded-2xl p-6 border border-white/20 transition-all duration-300 flex flex-col", 
+                automation.demo ? "cursor-pointer hover:border-purple-400/50 hover:transform hover:scale-105 group" : "cursor-default"
+              )}
+            >
+              <div className={cn(
+                `bg-gradient-to-r ${automation.color} w-16 h-16 rounded-2xl flex items-center justify-center mb-4 transition-transform duration-300`, 
+                automation.demo && "group-hover:scale-110"
+              )}>
+                <automation.icon className="w-8 h-8 text-white" />
+              </div>
+              <h3 className={cn(
+                "text-xl font-semibold text-white mb-3 transition-colors", 
+                automation.demo && "group-hover:text-purple-300"
+              )}>
+                {automation.title}
+              </h3>
+              <p className="text-gray-300 mb-4 leading-relaxed flex-grow">{automation.description}</p>
+              <div className="flex items-center justify-between mt-auto pt-4 min-h-[36px]">
+                {automation.ctaLabel ? (
+                  <span className={cn(
+                    "px-3 py-1 rounded-full text-sm font-medium", 
+                    automation.ctaLabel === 'Canlı Demo' ? 'bg-green-500/20 text-green-400' : 'bg-cyan-500/20 text-cyan-400'
+                  )}>
+                    {automation.ctaLabel}
+                  </span>
+                ) : <span />}
+                {automation.demo && <ArrowRight className="w-5 h-5 text-purple-400 group-hover:translate-x-1 transition-transform duration-300" />}
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+```
+
+### src/components/sections/BenefitsSection.tsx
+
+```tsx
+import React from 'react';
+import { motion } from 'framer-motion';
+import { Clock, TrendingUp, Shield, Heart } from 'lucide-react';
+
+const benefits = [
+  { icon: Clock, title: 'Zaman Tasarrufu', description: 'Günde 3-4 saat manuel işten kurtulun' },
+  { icon: TrendingUp, title: 'Satış Artışı', description: 'Otomatik takip ile %40 daha fazla satış yakalayın' },
+  { icon: Shield, title: 'Hata Azaltma', description: 'İnsan hatası sıfıra iner, her şey kusursuz çalışır' },
+  { icon: Heart, title: 'Müşteri Memnuniyeti', description: '7/24 anında yanıt ile mutlu müşteriler yaratın' }
+];
+
+export const BenefitsSection: React.FC = () => (
+  <section className="py-20 bg-black/20">
+    <div className="container mx-auto px-4">
+      <motion.div 
+        initial={{ opacity: 0, y: 30 }} 
+        whileInView={{ opacity: 1, y: 0 }} 
+        transition={{ duration: 0.6, once: true }} 
+        className="text-center mb-16"
+      >
+        <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
+          Sadece Çalışmak Değil, Akıllı Çalışmak
+        </h2>
+        <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+          Her gün aynı işleri tekrar tekrar yapmaktan yoruldunuz mu? İşte size zaman, para ve müşteri kazandıracak çözümler:
+        </p>
+      </motion.div>
+      <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+        {benefits.map((benefit, index) => (
+          <motion.div 
+            key={index} 
+            initial={{ opacity: 0, y: 30 }} 
+            whileInView={{ opacity: 1, y: 0 }} 
+            transition={{ duration: 0.6, delay: index * 0.1, once: true }} 
+            className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-lg rounded-2xl p-6 border border-white/20 hover:border-purple-400/50 transition-all duration-300 hover:transform hover:scale-105"
+          >
+            <div className="bg-gradient-to-r from-purple-500 to-cyan-500 w-12 h-12 rounded-full flex items-center justify-center mb-4">
+              <benefit.icon className="w-6 h-6 text-white" />
+            </div>
+            <h3 className="text-xl font-semibold text-white mb-2">{benefit.title}</h3>
+            <p className="text-gray-300">{benefit.description}</p>
+          </motion.div>
+        ))}
+      </div>
+    </div>
+  </section>
+);
+```
+
+### src/components/sections/CtaSection.tsx
+
+```tsx
+import React from 'react';
+import { motion } from 'framer-motion';
+import { BrainCircuit } from 'lucide-react';
+import { Button } from '../ui/Button';
+
+interface CtaSectionProps {
+  onContactClick: () => void;
+  onProductsClick: () => void;
+}
+
+export const CtaSection: React.FC<CtaSectionProps> = ({ onContactClick, onProductsClick }) => (
+  <section className="py-20 bg-gradient-to-r from-purple-900/50 to-cyan-900/50">
+    <div className="container mx-auto px-4 text-center">
+      <motion.div 
+        initial={{ opacity: 0, y: 30 }} 
+        whileInView={{ opacity: 1, y: 0 }} 
+        transition={{ duration: 0.6, once: true }} 
+        className="max-w-4xl mx-auto"
+      >
+        <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">Hazır mısınız? İşinizi Birlikte Dönüştürelim!</h2>
+        <p className="text-xl text-gray-300 mb-8 leading-relaxed">Hangi manuel işlerinizin otomatikleştirilebileceğini ve reklam bütçenizi nasıl daha verimli kullanabileceğinizi öğrenmek için 2 dakikada size özel bir analiz sunalım.</p>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <Button 
+            onClick={onContactClick} 
+            className="bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-700 hover:to-cyan-700 text-white px-8 py-6 text-lg rounded-full shadow-2xl transform hover:scale-105 transition-all duration-300"
+          >
+            <BrainCircuit className="w-6 h-6 mr-2" /> 
+            Ücretsiz Otomasyon Analizi Al
+          </Button>
+          <Button 
+            onClick={onProductsClick} 
+            variant="outline"
+            className="border-2 border-purple-400 text-purple-400 hover:bg-purple-400 hover:text-white px-8 py-6 text-lg rounded-full"
+          >
+            Otomasyon Satın Al
+          </Button>
+        </div>
+      </motion.div>
+    </div>
+  </section>
+);
+```
+
+### src/components/sections/Footer.tsx
+
+```tsx
+import React from 'react';
+
+export const Footer: React.FC = () => (
+  <footer className="bg-black/40 pt-12 pb-8">
+    <div className="container mx-auto px-4">
+      <div className="text-center">
+        <div className="flex justify-center items-center gap-3 mb-4">
+          <img 
+            src="/00bc7320-6f8f-42ae-a0b7-0c24b609e70f.png" 
+            alt="MGL Digital AI Logo" 
+            className="w-8 h-8 object-contain"
+          />
+          <span className="text-2xl font-bold text-white">MGL Digital AI</span>
+        </div>
+        <p className="text-gray-400 mb-8">AI Otomasyon Ajansı - İşinizi Geleceğe Taşıyoruz</p>
+      </div>
+      <div className="border-t border-slate-700/50 pt-8 text-slate-400 text-sm">
+        <div className="grid md:grid-cols-2 gap-8 text-center md:text-left">
+          <div>
+            <h4 className="font-semibold text-white mb-2">MGL DIGITAL MEDIA LTD</h4>
+            <p>Registered in England and Wales. Company Number: 16007414</p>
+          </div>
+          <div>
+            <h4 className="font-semibold text-white mb-2">Registered Office</h4>
+            <p>112 Bertram Road, Enfield, England, EN1 1LS</p>
+          </div>
+        </div>
+      </div>
+      <div className="text-center text-slate-500 text-xs mt-8 pt-8 border-t border-slate-700/50">
+        <span>© 2024 MGL Digital Media LTD • Tüm Hakları Saklıdır</span>
+      </div>
+    </div>
+  </footer>
+);
+```
+
+### src/components/sections/Header.tsx
+
+```tsx
+import React from 'react';
+import { motion } from 'framer-motion';
+import { ArrowLeft, LogOut, User, Home } from 'lucide-react';
+import { Button } from '../ui/Button';
+import { useAuth } from '../../contexts/AuthContext';
+
+interface HeaderProps {
+  onAnalysisClick: () => void;
+  onAuthClick?: () => void;
+}
+
+export const Header: React.FC<HeaderProps> = ({ onAnalysisClick, onAuthClick }) => {
+  const { user, signOut } = useAuth();
+
+  const handleSignOut = async () => {
+    await signOut();
+  };
+
+  return (
+    <header className="py-4 px-4 sm:px-6 lg:px-8 bg-slate-900/50 backdrop-blur-sm sticky top-0 z-40 border-b border-slate-700/50">
+      <motion.div 
+        initial={{ opacity: 0, y: -20 }} 
+        animate={{ opacity: 1, y: 0 }} 
+        transition={{ duration: 0.5 }} 
+        className="container mx-auto flex items-center justify-between"
+      >
+        <div 
+          className="flex items-center gap-3 cursor-pointer" 
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+        >
+          <img 
+            src="/00bc7320-6f8f-42ae-a0b7-0c24b609e70f.png" 
+            alt="MGL Digital AI Logo" 
+            className="w-8 h-8 object-contain"
+          />
+          <span className="hidden sm:block text-xl font-bold text-white">MGL Digital AI</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <Button 
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} 
+            variant="ghost" 
+            className="text-slate-300 hover:text-white"
+          >
+            <Home className="w-4 h-4 mr-1" /> 
+            <span className="hidden sm:inline">Ana Sayfa</span>
+          </Button>
+          {user ? (
+            <div className="flex items-center gap-2">
+              <span className="text-sm text-slate-300 hidden sm:block">
+                {user.email}
+              </span>
+              <Button onClick={onAnalysisClick} variant="outline" size="sm">
+                <span className="hidden sm:inline">Fırsatları Keşfet</span>
+                <span className="sm:hidden">Analiz</span>
+              </Button>
+              <Button onClick={handleSignOut} variant="ghost" size="sm" className="text-red-400 hover:text-red-300">
+                <LogOut className="w-4 h-4" />
+                <span className="hidden sm:inline ml-1">Çıkış</span>
+              </Button>
+            </div>
+          ) : (
+            <div className="flex items-center gap-2">
+              <Button onClick={onAnalysisClick} variant="outline" size="sm">
+                <span className="hidden sm:inline">Fırsatları Keşfet</span>
+                <span className="sm:hidden">Analiz</span>
+              </Button>
+              <Button onClick={onAuthClick} variant="ghost" size="sm">
+                <User className="w-4 h-4 mr-2" />
+                <span className="hidden sm:inline">Giriş</span>
+              </Button>
+            </div>
+          )}
+        </div>
+      </motion.div>
+    </header>
+  );
+};
+```
+
+### src/components/sections/HeroSection.tsx
+
+```tsx
+import React from 'react';
+import { motion } from 'framer-motion';
+import { BrainCircuit, Sparkles } from 'lucide-react';
+import { Button } from '../ui/Button';
+
+interface HeroSectionProps {
+  onContactClick: () => void;
+}
+
+export const HeroSection: React.FC<HeroSectionProps> = ({ onContactClick }) => {
+  return (
+    <section id="hero" className="relative overflow-hidden pt-16 pb-20">
+      <div className="absolute inset-0 bg-gradient-to-r from-purple-600/10 to-cyan-600/10"></div>
+      <div className="relative container mx-auto px-4">
+        <motion.div 
+          initial={{ opacity: 0, y: 50 }} 
+          whileInView={{ opacity: 1, y: 0 }} 
+          transition={{ duration: 0.8, once: true }} 
+          className="text-center max-w-4xl mx-auto"
+        >
+          <h1 className="text-5xl md:text-7xl font-bold mb-6 bg-gradient-to-r from-white via-purple-200 to-cyan-200 bg-clip-text text-transparent leading-tight md:leading-tight">
+            Stratejiyle Dönüşüm Sağlıyoruz.
+          </h1>
+          <p className="text-xl md:text-2xl text-gray-300 mb-8 leading-relaxed">
+            Reklam ve İş Süreçlerinizi <span className="text-purple-400 font-semibold">AI Agent</span> ile 
+            Otomatikleştirerek. Sadece "tıklama\" değil, gerçek \"sonuç\" getiriyoruz.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+            <Button 
+              onClick={onContactClick} 
+              className="bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-700 hover:to-cyan-700 text-white px-8 py-6 text-lg rounded-full shadow-2xl transform hover:scale-105 transition-all duration-300"
+            >
+              <BrainCircuit className="w-6 h-6 mr-2" /> 
+              AI ile Fırsatları Keşfet
+            </Button>
+            <Button 
+              variant="outline" 
+              onClick={() => document.getElementById('demos')?.scrollIntoView({ behavior: 'smooth' })} 
+              className="border-2 border-purple-400 text-purple-400 hover:bg-purple-400 hover:text-white px-8 py-6 text-lg rounded-full"
+            >
+              <Sparkles className="w-5 h-5 mr-2" /> 
+              Canlı Demoları Gör
+            </Button>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+};
+```
+
+### src/components/sections/IntroductoryChoiceSection.tsx
+
+```tsx
+import React from 'react';
+import { motion } from 'framer-motion';
+import { ArrowRight } from 'lucide-react';
+
+export const IntroductoryChoiceSection: React.FC = () => {
+  const handleChoice = (targetId: string) => {
+    const targetElement = document.getElementById(targetId);
+    if (targetElement) {
+      targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
+  return (
+    <section id="choice" className="py-20 bg-slate-900">
+      <div className="container mx-auto px-4">
+        <motion.div 
+          initial={{ y: -30, opacity: 0 }}
+          whileInView={{ y: 0, opacity: 1 }}
+          transition={{ duration: 0.7, once: true }}
+          className="max-w-4xl w-full text-center mx-auto"
+        >
+          <h2 className="text-3xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-white to-purple-300 bg-clip-text text-transparent leading-tight md:leading-tight">
+            İşletmenizi Bir Sonraki Seviyeye Nasıl Taşımak İstersiniz?
+          </h2>
+          <p className="text-lg text-slate-400 mb-12">
+            Size en uygun çözümü bulmamız için lütfen mevcut önceliğinizi seçin.
+          </p>
+          
+          <div className="grid md:grid-cols-3 gap-8">
+            {/* Choice 1: Automation */}
+            <motion.div 
+              whileHover={{ y: -10, scale: 1.05 }} 
+              className="bg-slate-800/50 p-8 rounded-2xl border border-slate-700 cursor-pointer h-full flex flex-col" 
+              onClick={() => handleChoice('demos')}
+            >
+              <h3 className="text-2xl font-bold text-white mb-3">Manuel İşleri Otomatikleştirin</h3>
+              <p className="text-slate-400 flex-grow">
+                Tekrarlayan görevleri, raporlamayı ve veri girişini akıllı asistanlara devrederek 
+                ekibinizin gerçekten önemli işlere odaklanmasını sağlayın.
+              </p>
+              <span className="mt-6 text-purple-400 font-semibold flex items-center justify-center">
+                Verimliliği Seç <ArrowRight className="ml-2 w-5 h-5"/>
+              </span>
+            </motion.div>
+            
+            {/* Choice 2: Advertising */}
+            <motion.div 
+              whileHover={{ y: -10, scale: 1.05 }} 
+              className="bg-slate-800/50 p-8 rounded-2xl border border-slate-700 cursor-pointer h-full flex flex-col" 
+              onClick={() => handleChoice('services')}
+            >
+              <h3 className="text-2xl font-bold text-white mb-3">Müşteri Akışını Hızlandırın</h3>
+              <p className="text-slate-400 flex-grow">
+                Mevcut reklam kampanyalarınızdan daha iyi sonuçlar alın. Yapay zeka destekli stratejilerle 
+                reklam harcamanızın geri dönüşünü (ROAS) katlayın.
+              </p>
+              <span className="mt-6 text-purple-400 font-semibold flex items-center justify-center">
+                Daha Fazla Müşteri <ArrowRight className="ml-2 w-5 h-5"/>
+              </span>
+            </motion.div>
+            
+            {/* Choice 3: Full System */}
+            <motion.div 
+              whileHover={{ y: -10, scale: 1.05 }} 
+              className="bg-gradient-to-br from-purple-600 to-cyan-600 text-white p-8 rounded-2xl border border-purple-500 cursor-pointer h-full flex flex-col" 
+              onClick={() => handleChoice('hero')}
+            >
+              <h3 className="text-2xl font-bold mb-3">Uçtan Uca Büyüme Motoru Kurun</h3>
+              <p className="text-purple-200 flex-grow">
+                Reklamlarla getirdiğimiz potansiyel müşterileri, AI asistanlarla 7/24 takip edip 
+                satışa hazır hale getiren kusursuz bir sistem inşa edelim.
+              </p>
+              <span className="mt-6 font-semibold flex items-center justify-center">
+                Tüm Hikayeyi Gör <ArrowRight className="ml-2 w-5 h-5"/>
+              </span>
+            </motion.div>
+          </div>
+        </motion.div>
+      </div>
+    </section>
+  );
+};
+```
+
+### src/components/sections/ServicesSection.tsx
+
+```tsx
+import React from 'react';
+import { motion } from 'framer-motion';
+import { Rocket, Bot, PenTool, Sparkles } from 'lucide-react';
+
+const services = [
+  {
+    icon: Rocket,
+    title: "AI Destekli Reklam Yönetimi",
+    description: "Meta & Google reklam kampanyalarınızı, sürekli öğrenen yapay zeka algoritmalarıyla yöneterek bütçenizi en verimli şekilde kullanıyoruz.",
+    integration: "Reklamdan gelen her potansiyel müşteriyi AI Chatbot veya Sesli Asistan ile anında karşılıyoruz."
+  },
+  {
+    icon: Bot,
+    title: "AI Agent & Otomasyon Kurulumu",
+    description: "WhatsApp, E-posta, Telefon ve web siteniz için 7/24 çalışan, randevu alan, bilgi veren ve veri toplayan akıllı asistanlar tasarlıyoruz.",
+    integration: "Kurduğumuz otomasyonları beslemek için en doğru müşteri adaylarını getiren reklam kampanyaları planlıyoruz."
+  },
+  {
+    icon: PenTool,
+    title: "Dönüşüm Odaklı Web Tasarımı",
+    description: "Sadece güzel değil, aynı zamanda bir müşteri kazanma makinesi olarak çalışan modern ve hızlı web siteleri inşa ediyoruz.",
+    integration: "Tasarladığımız her siteye, ziyaretçilerinizi müşteriye dönüştürecek interaktif Canlı Demo modülleri ve Chatbot'lar entegre ediyoruz."
+  }
+];
+
+export const ServicesSection: React.FC = () => (
+  <section id="services" className="py-20">
+    <div className="container mx-auto px-4">
+      <motion.div 
+        initial={{ opacity: 0, y: 30 }} 
+        whileInView={{ opacity: 1, y: 0 }} 
+        transition={{ duration: 0.6, once: true }} 
+        className="text-center mb-16"
+      >
+        <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">Tek Bir Merkez, Sınırsız Yetenek</h2>
+        <p className="text-xl text-gray-300 max-w-3xl mx-auto">Stratejiden tasarıma, reklamdan otomasyona, tüm dijital ihtiyaçlarınız için buradayız.</p>
+      </motion.div>
+      <div className="grid md:grid-cols-1 lg:grid-cols-3 gap-8">
+        {services.map((service, index) => (
+          <motion.div 
+            key={index} 
+            initial={{ opacity: 0, y: 30 }} 
+            whileInView={{ opacity: 1, y: 0 }} 
+            transition={{ duration: 0.6, delay: index * 0.1, once: true }} 
+            className="bg-slate-800/50 p-8 rounded-2xl border border-slate-700 h-full flex flex-col"
+          >
+            <div className="flex items-center gap-4 mb-4">
+              <service.icon className="w-10 h-10 text-purple-400" />
+              <h3 className="text-2xl font-bold text-white">{service.title}</h3>
+            </div>
+            <p className="text-slate-300 flex-grow">{service.description}</p>
+            <div className="mt-6 pt-4 border-t border-slate-700">
+              <p className="text-sm text-cyan-400 flex items-start gap-2">
+                <Sparkles className="w-4 h-4 mt-1 flex-shrink-0" />
+                <span>{service.integration}</span>
+              </p>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+    </div>
+  </section>
+);
+```
+
+### src/components/sections/StrategicCrossroads.tsx
+
+```tsx
+import React from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ArrowRight } from 'lucide-react';
+
+interface StrategicCrossroadsProps {
+  onChoice: () => void;
+  isVisible: boolean;
+}
+
+export const StrategicCrossroads: React.FC<StrategicCrossroadsProps> = ({ onChoice, isVisible }) => {
+  const handleChoice = (targetId: string) => {
+    onChoice(); // Hide the crossroads
+    setTimeout(() => {
+      const targetElement = document.getElementById(targetId);
+      if (targetElement) {
+        targetElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      } else if (targetId === 'hero') {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }, 300); // Wait for fade out animation
+  };
+
+  return (
+    <AnimatePresence>
+      {isVisible && (
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.5 }}
+          className="fixed inset-0 bg-slate-900/90 backdrop-blur-xl z-[100] flex items-center justify-center p-4"
+        >
+          <motion.div 
+            initial={{ y: -30, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            transition={{ duration: 0.5, delay: 0.2 }}
+            className="max-w-4xl w-full text-center"
+          >
+            <h1 className="text-3xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-white to-purple-300 bg-clip-text text-transparent">
+              İşletmenizi Bir Sonraki Seviyeye Nasıl Taşımak İstersiniz?
+            </h1>
+            <p className="text-lg text-slate-400 mb-12">
+              Size en uygun çözümü bulmamız için lütfen mevcut önceliğinizi seçin.
+            </p>
+            
+            <div className="grid md:grid-cols-3 gap-8">
+              {/* Choice 1: Automation */}
+              <motion.div 
+                whileHover={{ y: -10, scale: 1.05 }} 
+                className="bg-slate-800/50 p-8 rounded-2xl border border-slate-700 cursor-pointer h-full flex flex-col" 
+                onClick={() => handleChoice('demos')}
+              >
+                <h3 className="text-2xl font-bold text-white mb-3">Manuel İşleri Otomatikleştirin</h3>
+                <p className="text-slate-400 flex-grow">
+                  Tekrarlayan görevleri, raporlamayı ve veri girişini akıllı asistanlara devrederek 
+                  ekibinizin gerçekten önemli işlere odaklanmasını sağlayın.
+                </p>
+                <span className="mt-6 text-purple-400 font-semibold flex items-center justify-center">
+                  Verimliliği Seç <ArrowRight className="ml-2 w-5 h-5"/>
+                </span>
+              </motion.div>
+              
+              {/* Choice 2: Advertising */}
+              <motion.div 
+                whileHover={{ y: -10, scale: 1.05 }} 
+                className="bg-slate-800/50 p-8 rounded-2xl border border-slate-700 cursor-pointer h-full flex flex-col" 
+                onClick={() => handleChoice('services')}
+              >
+                <h3 className="text-2xl font-bold text-white mb-3">Müşteri Akışını Hızlandırın</h3>
+                <p className="text-slate-400 flex-grow">
+                  Mevcut reklam kampanyalarınızdan daha iyi sonuçlar alın. Yapay zeka destekli stratejilerle 
+                  reklam harcamanızın geri dönüşünü (ROAS) katlayın.
+                </p>
+                <span className="mt-6 text-purple-400 font-semibold flex items-center justify-center">
+                  Daha Fazla Müşteri <ArrowRight className="ml-2 w-5 h-5"/>
+                </span>
+              </motion.div>
+              
+              {/* Choice 3: Full System */}
+              <motion.div 
+                whileHover={{ y: -10, scale: 1.05 }} 
+                className="bg-gradient-to-br from-purple-600 to-cyan-600 text-white p-8 rounded-2xl border border-purple-500 cursor-pointer h-full flex flex-col" 
+                onClick={() => handleChoice('hero')}
+              >
+                <h3 className="text-2xl font-bold mb-3">Uçtan Uca Büyüme Motoru Kurun</h3>
+                <p className="text-purple-200 flex-grow">
+                  Reklamlarla getirdiğimiz potansiyel müşterileri, AI asistanlarla 7/24 takip edip 
+                  satışa hazır hale getiren kusursuz bir sistem inşa edelim.
+                </p>
+                <span className="mt-6 font-semibold flex items-center justify-center">
+                  Tüm Hikayeyi Gör <ArrowRight className="ml-2 w-5 h-5"/>
+                </span>
+              </motion.div>
+            </div>
+          </motion.div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+};
+```
+
+### src/components/sections/StrategySection.tsx
+
+```tsx
+import React, { useRef, useState } from 'react';
+import { motion } from 'framer-motion';
+import { Search, Lightbulb, Target, Users, ArrowRight, LineChart } from 'lucide-react';
+
+interface StrategyCardProps {
+  title: string;
+  children: React.ReactNode;
+  icon: React.ComponentType<{ className?: string }>;
+}
+
+const StrategyCard: React.FC<StrategyCardProps> = ({ title, children, icon: Icon }) => {
+  const ref = useRef<HTMLDivElement>(null);
+  const [rotate, setRotate] = useState({ x: 0, y: 0 });
+
+  const onMouseMove = (e: React.MouseEvent) => {
+    const { clientX, clientY, currentTarget } = e;
+    const { left, top, width, height } = currentTarget.getBoundingClientRect();
+    const x = (clientX - left - width / 2) / (width / 2);
+    const y = (clientY - top - height / 2) / (height / 2);
+    setRotate({ x: -y * 10, y: x * 10 });
+  };
+
+  const onMouseLeave = () => {
+    setRotate({ x: 0, y: 0 });
+  };
+
+  return (
+    <motion.div
+      ref={ref}
+      onMouseMove={onMouseMove}
+      onMouseLeave={onMouseLeave}
+      style={{
+        transformStyle: 'preserve-3d',
+        transform: `perspective(1000px) rotateX(${rotate.x}deg) rotateY(${rotate.y}deg)`,
+      }}
+      className="bg-slate-800/50 rounded-2xl border border-slate-700 p-6 transition-all duration-200 ease-out hover:shadow-2xl hover:shadow-purple-500/20"
+    >
+      <div style={{ transform: 'translateZ(40px)' }}>
+        <div className="flex items-center gap-4 mb-4">
+          <Icon className="w-8 h-8 text-purple-400" />
+          <h3 className="text-xl font-bold text-white">{title}</h3>
+        </div>
+        <div className="text-slate-300 prose prose-invert max-w-none prose-p:my-2 prose-ul:my-2">
+          {children}
+        </div>
+      </div>
+    </motion.div>
+  );
+};
+
+export const StrategySection: React.FC = () => (
+  <section id="strategy" className="py-20">
+    <div className="container mx-auto px-4">
+      <motion.div 
+        initial={{ opacity: 0, y: 30 }} 
+        whileInView={{ opacity: 1, y: 0 }} 
+        transition={{ duration: 0.6, once: true }} 
+        className="text-center mb-16"
+      >
+        <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">Başarı Tesadüf Değildir.</h2>
+        <p className="text-xl text-gray-300 max-w-3xl mx-auto">Her adımı ölçülebilir veriye dayanan, kanıtlanmış bir stratejiyle hareket ediyoruz.</p>
+      </motion.div>
+      <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-8">
+        <div className="space-y-8">
+          <h3 className="text-3xl font-bold text-center text-purple-300">Funnel Stratejimiz</h3>
+          <StrategyCard title="Farkındalık (TOF)" icon={Search}>
+            <p><strong>Psikoloji:</strong> Kullanıcı henüz sorununun farkında değil veya yeni fark etmiş. Amaç, dikkatini çekmek ve merak uyandırmak.</p>
+            <p><strong>Yaklaşım:</strong> Markanızı/çözümünüzü tanıtan, soğuk kitleyi ısındıran, empati ve merak tetikleyici içerikler üretiriz.</p>
+          </StrategyCard>
+          <StrategyCard title="Değerlendirme (MOF)" icon={Lightbulb}>
+            <p><strong>Psikoloji:</strong> Artık sorunu kabul etti, çözüm alternatiflerini araştırıyor ve markaları kıyaslıyor.</p>
+            <p><strong>Yaklaşım:</strong> Uzmanlığınızı ve güvenilirliğinizi gösteren, şeffaf içerikler sunarız.</p>
+          </StrategyCard>
+          <StrategyCard title="Karar (BOF)" icon={Target}>
+            <p><strong>Psikoloji:</strong> Satın almaya çok yakın; son itici güç ve "doğrulama" arıyor.</p>
+            <p><strong>Yaklaşım:</strong> Aciliyet ve sosyal kanıt vurgusu yapan reklamlarla kullanıcıyı dönüşüme yönlendiririz.</p>
+          </StrategyCard>
+        </div>
+        <div className="space-y-8">
+          <h3 className="text-3xl font-bold text-center text-cyan-300">KPI Takibimiz</h3>
+          <StrategyCard title="CPM & Reach" icon={Users}>
+            <p><strong>CPM (1000 Gösterim Maliyeti)</strong> ve <strong>Reach (Erişim)</strong> metrikleriyle hedefleme kalitemizi ve kitleye ne kadar etkin ulaştığımızı ölçeriz.</p>
+          </StrategyCard>
+          <StrategyCard title="CTR & CPC" icon={ArrowRight}>
+            <p><strong>CTR (Tıklama Oranı)</strong> ile içeriğinizin ne kadar ilgi çekici olduğunu, <strong>CPC (Tıklama Başı Maliyet)</strong> ile de reklam verimliliğini anlık olarak takip ederiz.</p>
+          </StrategyCard>
+          <StrategyCard title="CPL & ROAS" icon={LineChart}>
+            <p><strong>CPL (Lead Başı Maliyet)</strong> ile her bir potansiyel müşterinin size maliyetini hesaplarız. En önemlisi, <strong>ROAS (Reklam Harcaması Geri Dönüşü)</strong> ile harcadığınız her liranın size ne kadar kazandırdığını net bir şekilde raporlarız.</p>
+          </StrategyCard>
+        </div>
+      </div>
+    </div>
+  </section>
+);
+```
+
+### src/components/sections/TempSections.tsx
+
+```tsx
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { 
+  Rocket, Bot, PenTool, Sparkles, ArrowRight, Mail, Phone, User,
+  BrainCircuit, Search, Lightbulb, Target, Users, LineChart,
+  ChevronDown
+} from 'lucide-react';
+import { Button } from '../ui/Button';
+import { cn } from '../../utils/cn';
+
+// ServicesSection Component
+const services = [
+  {
+    icon: Rocket,
+    title: "AI Destekli Reklam Yönetimi",
+    description: "Meta & Google reklam kampanyalarınızı, sürekli öğrenen yapay zeka algoritmalarıyla yöneterek bütçenizi en verimli şekilde kullanıyoruz.",
+    integration: "Reklamdan gelen her potansiyel müşteriyi AI Chatbot veya Sesli Asistan ile anında karşılıyoruz."
+  },
+  {
+    icon: Bot,
+    title: "AI Agent & Otomasyon Kurulumu",
+    description: "WhatsApp, E-posta, Telefon ve web siteniz için 7/24 çalışan, randevu alan, bilgi veren ve veri toplayan akıllı asistanlar tasarlıyoruz.",
+    integration: "Kurduğumuz otomasyonları beslemek için en doğru müşteri adaylarını getiren reklam kampanyaları planlıyoruz."
+  },
+  {
+    icon: PenTool,
+    title: "Dönüşüm Odaklı Web Tasarımı",
+    description: "Sadece güzel değil, aynı zamanda bir müşteri kazanma makinesi olarak çalışan modern ve hızlı web siteleri inşa ediyoruz.",
+    integration: "Tasarladığımız her siteye, ziyaretçilerinizi müşteriye dönüştürecek interaktif Canlı Demo modülleri ve Chatbot'lar entegre ediyoruz."
+  }
+];
+
+export const ServicesSection: React.FC = () => (
+  <section id="services" className="py-20">
+    <div className="container mx-auto px-4">
+      <motion.div 
+        initial={{ opacity: 0, y: 30 }} 
+        whileInView={{ opacity: 1, y: 0 }} 
+        transition={{ duration: 0.6 }} 
+        viewport={{ once: true }}
+        className="text-center mb-16"
+      >
+        <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">Tek Bir Merkez, Sınırsız Yetenek</h2>
+        <p className="text-xl text-gray-300 max-w-3xl mx-auto">Stratejiden tasarıma, reklamdan otomasyona, tüm dijital ihtiyaçlarınız için buradayız.</p>
+      </motion.div>
+      <div className="grid md:grid-cols-1 lg:grid-cols-3 gap-8">
+        {services.map((service, index) => (
+          <motion.div 
+            key={index} 
+            initial={{ opacity: 0, y: 30 }} 
+            whileInView={{ opacity: 1, y: 0 }} 
+            transition={{ duration: 0.6, delay: index * 0.1 }} 
+            viewport={{ once: true }}
+            className="bg-slate-800/50 p-8 rounded-2xl border border-slate-700 h-full flex flex-col"
+          >
+            <div className="flex items-center gap-4 mb-4">
+              <service.icon className="w-10 h-10 text-purple-400" />
+              <h3 className="text-2xl font-bold text-white">{service.title}</h3>
+            </div>
+            <p className="text-slate-300 flex-grow">{service.description}</p>
+            <div className="mt-6 pt-4 border-t border-slate-700">
+              <p className="text-sm text-cyan-400 flex items-start gap-2">
+                <Sparkles className="w-4 h-4 mt-1 flex-shrink-0" />
+                <span>{service.integration}</span>
+              </p>
+            </div>
+          </motion.div>
+        ))}
+      </div>
+    </div>
+  </section>
+);
+
+// AutomationExamplesSection Component
+const automationExamples = [
+  { 
+    id: 'email', 
+    title: 'Otomatik E-posta Dizisi', 
+    description: 'Web sitenizdeki formu dolduran herkese anında kişiselleştirilmiş bir e-posta gönderin.', 
+    icon: Mail, 
+    color: 'from-blue-500 to-cyan-600', 
+    demo: true, 
+    ctaLabel: 'Canlı Demo' 
+  },
+  { 
+    id: 'phone', 
+    title: 'AI Sizi Arasın', 
+    description: 'Numaranızı bırakın, AI sesli asistanımız sizi arayarak yeteneklerini sergilesin.', 
+    icon: Phone, 
+    color: 'from-rose-500 to-red-600', 
+    demo: true, 
+    ctaLabel: 'Canlı Demo' 
+  },
+  { 
+    id: 'whatsapp', 
+    title: 'Birebir Strateji Görüşmesi', 
+    description: 'Otomasyon fikirlerinizi doğrudan kurucumuz Mustafa Bey ile görüşmek için WhatsApp üzerinden anında iletişime geçin.', 
+    icon: User, 
+    color: 'from-green-500 to-emerald-600', 
+    demo: true, 
+    ctaLabel: 'İletişime Geç' 
+  },
+];
+
+interface AutomationExamplesSectionProps {
+  onDemoClick: (demoId: string) => void;
+}
+
+export const AutomationExamplesSection: React.FC<AutomationExamplesSectionProps> = ({ onDemoClick }) => {
+  const handleAutomationClick = (automation: any) => {
+    if (automation.id === 'whatsapp') {
+      const phoneNumber = '905318299701';
+      const message = encodeURIComponent('Merhaba Mustafa Bey, web siteniz üzerinden ulaşıyorum. Bir strateji görüşmesi planlamak istiyorum.');
+      window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
+    } else if (automation.demo) {
+      onDemoClick(automation.id);
+    }
+  };
+
+  return (
+    <section id="demos" className="py-20 bg-black/20">
+      <div className="container mx-auto px-4">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }} 
+          whileInView={{ opacity: 1, y: 0 }} 
+          transition={{ duration: 0.6 }} 
+          viewport={{ once: true }}
+          className="text-center mb-16"
+        >
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">Anlatmıyoruz, Gösteriyoruz.</h2>
+          <p className="text-xl text-gray-300 max-w-3xl mx-auto">Aşağıdaki demoları deneyin ve "acaba benim şu işim de otomatik olabilir mi?" diye düşünün:</p>
+        </motion.div>
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {automationExamples.map((automation, index) => (
+            <motion.div 
+              key={automation.id} 
+              initial={{ opacity: 0, y: 30 }} 
+              whileInView={{ opacity: 1, y: 0 }} 
+              transition={{ duration: 0.6, delay: index * 0.1 }} 
+              viewport={{ once: true }}
+              onClick={() => handleAutomationClick(automation)} 
+              className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-lg rounded-2xl p-6 border border-white/20 transition-all duration-300 flex flex-col cursor-pointer hover:border-purple-400/50 hover:transform hover:scale-105 group"
+            >
+              <div className={cn(`bg-gradient-to-r ${automation.color} w-16 h-16 rounded-2xl flex items-center justify-center mb-4 transition-transform duration-300 group-hover:scale-110`)}>
+                <automation.icon className="w-8 h-8 text-white" />
+              </div>
+              <h3 className="text-xl font-semibold text-white mb-3 transition-colors group-hover:text-purple-300">{automation.title}</h3>
+              <p className="text-gray-300 mb-4 leading-relaxed flex-grow">{automation.description}</p>
+              <div className="flex items-center justify-between mt-auto pt-4 min-h-[36px]">
+                <span className={cn("px-3 py-1 rounded-full text-sm font-medium", automation.ctaLabel === 'Canlı Demo' ? 'bg-green-500/20 text-green-400' : 'bg-cyan-500/20 text-cyan-400')}>
+                  {automation.ctaLabel}
+                </span>
+                <ArrowRight className="w-5 h-5 text-purple-400 group-hover:translate-x-1 transition-transform duration-300" />
+              </div>
+            </motion.div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+};
+
+// AccordionItem Component
+interface AccordionItemProps {
+  title: string;
+  children: React.ReactNode;
+  icon: React.ComponentType<{ className?: string }>;
+}
+
+const AccordionItem: React.FC<AccordionItemProps> = ({ title, children, icon: Icon }) => {
+  const [isOpen, setIsOpen] = useState(false);
+  return (
+    <motion.div className="bg-slate-800/50 rounded-xl border border-slate-700 overflow-hidden">
+      <button 
+        onClick={() => setIsOpen(!isOpen)} 
+        className="w-full p-6 text-left flex justify-between items-center hover:bg-slate-700/50 transition-colors"
+      >
+        <span className="flex items-center gap-4">
+          <Icon className="w-6 h-6 text-purple-400" />
+          <h3 className="text-xl font-semibold text-white">{title}</h3>
+        </span>
+        <motion.div animate={{ rotate: isOpen ? 180 : 0 }} transition={{ duration: 0.3 }}>
+          <ChevronDown className="w-6 h-6 text-slate-400" />
+        </motion.div>
+      </button>
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.4, ease: "easeInOut" }}
+          >
+            <div className="p-6 pt-0 text-slate-300 prose prose-invert max-w-none prose-p:my-2 prose-ul:my-2">
+              {children}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
+  );
+};
+
+// StrategySection Component
+export const StrategySection: React.FC = () => (
+  <section id="strategy" className="py-20">
+    <div className="container mx-auto px-4">
+      <motion.div 
+        initial={{ opacity: 0, y: 30 }} 
+        whileInView={{ opacity: 1, y: 0 }} 
+        transition={{ duration: 0.6 }} 
+        viewport={{ once: true }}
+        className="text-center mb-16"
+      >
+        <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">Başarı Tesadüf Değildir.</h2>
+        <p className="text-xl text-gray-300 max-w-3xl mx-auto">Her adımı ölçülebilir veriye dayanan, kanıtlanmış bir stratejiyle hareket ediyoruz.</p>
+      </motion.div>
+      <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-8">
+        <div className="space-y-6">
+          <h3 className="text-2xl font-bold text-center text-purple-300">Funnel Stratejimiz</h3>
+          <AccordionItem title="Farkındalık (TOF)" icon={Search}>
+            <p><strong>Psikoloji:</strong> Kullanıcı henüz sorununun farkında değil veya yeni fark etmiş. Amaç, dikkatini çekmek ve merak uyandırmak.</p>
+            <p><strong>Yaklaşım:</strong> Markanızı/çözümünüzü tanıtan, soğuk kitleyi ısındıran, empati ve merak tetikleyici (Reels, Story gibi) içerikler üretiriz.</p>
+          </AccordionItem>
+          <AccordionItem title="Değerlendirme (MOF)" icon={Lightbulb}>
+            <p><strong>Psikoloji:</strong> Artık sorunu kabul etti, çözüm alternatiflerini araştırıyor ve markaları kıyaslıyor.</p>
+            <p><strong>Yaklaşım:</strong> Uzmanlığınızı ve güvenilirliğinizi gösteren, "Nasıl çalışıyoruz?" sorusunu yanıtlayan (Vaka çalışması, E-kitap gibi) şeffaf içerikler sunarız.</p>
+          </AccordionItem>
+          <AccordionItem title="Karar (BOF)" icon={Target}>
+            <p><strong>Psikoloji:</strong> Satın almaya çok yakın; son itici güç ve "doğrulama" arıyor.</p>
+            <p><strong>Yaklaşım:</strong> Aciliyet ve sosyal kanıt vurgusu yapan (Teklifler, Demo, Retargeting gibi) reklamlarla kullanıcıyı dönüşüme yönlendiririz.</p>
+          </AccordionItem>
+        </div>
+        <div className="space-y-6">
+          <h3 className="text-2xl font-bold text-center text-cyan-300">KPI Takibimiz</h3>
+          <AccordionItem title="CPM & Reach" icon={Users}>
+            <p><strong>CPM (1000 Gösterim Maliyeti)</strong> ve <strong>Reach (Erişim)</strong> metrikleriyle hedefleme kalitemizi ve kitleye ne kadar etkin ulaştığımızı ölçeriz.</p>
+          </AccordionItem>
+          <AccordionItem title="CTR & CPC" icon={ArrowRight}>
+            <p><strong>CTR (Tıklama Oranı)</strong> ile içeriğinizin ne kadar ilgi çekici olduğunu, <strong>CPC (Tıklama Başı Maliyet)</strong> ile de reklam verimliliğini anlık olarak takip ederiz.</p>
+          </AccordionItem>
+          <AccordionItem title="CPL & ROAS" icon={LineChart}>
+            <p><strong>CPL (Lead Başı Maliyet)</strong> ile her bir potansiyel müşterinin size maliyetini hesaplarız. En önemlisi, <strong>ROAS (Reklam Harcaması Geri Dönüşü)</strong> ile harcadığınız her liranın size ne kadar kazandırdığını net bir şekilde raporlarız.</p>
+          </AccordionItem>
+        </div>
+      </div>
+    </div>
+  </section>
+);
+
+// CtaSection Component
+interface CtaSectionProps {
+  onContactClick: () => void;
+}
+
+export const CtaSection: React.FC<CtaSectionProps> = ({ onContactClick }) => (
+  <section className="py-20 bg-gradient-to-r from-purple-900/50 to-cyan-900/50">
+    <div className="container mx-auto px-4 text-center">
+      <motion.div 
+        initial={{ opacity: 0, y: 30 }} 
+        whileInView={{ opacity: 1, y: 0 }} 
+        transition={{ duration: 0.6 }} 
+        viewport={{ once: true }}
+        className="max-w-4xl mx-auto"
+      >
+        <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">Hazır mısınız? İşinizi Birlikte Dönüştürelim!</h2>
+        <p className="text-xl text-gray-300 mb-8 leading-relaxed">Hangi manuel işlerinizin otomatikleştirilebileceğini ve reklam bütçenizi nasıl daha verimli kullanabileceğinizi öğrenmek için 2 dakikada size özel bir analiz sunalım.</p>
+        <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+          <Button 
+            onClick={onContactClick} 
+            className="bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-700 hover:to-cyan-700 text-white px-10 py-6 text-xl rounded-full shadow-2xl transform hover:scale-105 transition-all duration-300"
+          >
+            <BrainCircuit className="w-6 h-6 mr-2" /> 
+            Ücretsiz Otomasyon Analizi Al
+          </Button>
+        </div>
+      </motion.div>
+    </div>
+  </section>
+);
+
+// Footer Component
+export const Footer: React.FC = () => (
+  <footer className="bg-black/40 pt-12 pb-8">
+    <div className="container mx-auto px-4">
+      <div className="text-center">
+        <div className="flex justify-center items-center gap-3 mb-4">
+          <BrainCircuit className="w-8 h-8 text-purple-500" />
+          <span className="text-2xl font-bold text-white">MGL Digital AI</span>
+        </div>
+        <p className="text-gray-400 mb-8">AI Otomasyon Ajansı - İşinizi Geleceğe Taşıyoruz</p>
+      </div>
+      <div className="border-t border-slate-700/50 pt-8 text-slate-400 text-sm">
+        <div className="grid md:grid-cols-2 gap-8 text-center md:text-left">
+          <div>
+            <h4 className="font-semibold text-white mb-2">MGL DIGITAL MEDIA LTD</h4>
+            <p>Registered in England and Wales. Company Number: 16007414</p>
+          </div>
+          <div>
+            <h4 className="font-semibold text-white mb-2">Registered Office</h4>
+            <p>112 Bertram Road, Enfield, England, EN1 1LS</p>
+          </div>
+        </div>
+      </div>
+      <div className="text-center text-slate-500 text-xs mt-8 pt-8 border-t border-slate-700/50">
+        <span>© 2024 MGL Digital Media LTD • Tüm Hakları Saklıdır</span>
+      </div>
+    </div>
+  </footer>
+);
+```
+
+### src/components/ui/Button.tsx
+
+```tsx
+import React from 'react';
+import { Slot } from '@radix-ui/react-slot';
+import { cva } from 'class-variance-authority';
+import { cn } from '../../utils/cn';
+
+const buttonVariants = cva(
+  'inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-slate-900 transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400 focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50',
+  {
+    variants: {
+      variant: {
+        default: 'bg-purple-600 text-white hover:bg-purple-600/90',
+        destructive: 'bg-red-600 text-white hover:bg-red-600/90',
+        outline: 'border border-purple-400 bg-transparent hover:bg-purple-400 hover:text-white',
+        secondary: 'bg-slate-700 text-slate-100 hover:bg-slate-700/80',
+        ghost: 'hover:bg-slate-700 hover:text-slate-100',
+        link: 'text-purple-400 underline-offset-4 hover:underline',
+      },
+      size: {
+        default: 'h-10 px-4 py-2',
+        sm: 'h-9 rounded-md px-3',
+        lg: 'h-11 rounded-md px-8',
+        icon: 'h-10 w-10',
+      },
+    },
+    defaultVariants: {
+      variant: 'default',
+      size: 'default',
+    },
+  },
+);
+
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  variant?: 'default' | 'destructive' | 'outline' | 'secondary' | 'ghost' | 'link';
+  size?: 'default' | 'sm' | 'lg' | 'icon';
+  asChild?: boolean;
+}
+
+const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
+  ({ className, variant, size, asChild = false, ...props }, ref) => {
+    const Comp = asChild ? Slot : 'button';
+    return (
+      <Comp
+        className={cn(buttonVariants({ variant, size, className }))}
+        ref={ref}
+        {...props}
+      />
+    );
+  }
+);
+Button.displayName = 'Button';
+
+export { Button, buttonVariants };
+```
+
+### src/components/ui/Input.tsx
+
+```tsx
+import React from 'react';
+import { cn } from '../../utils/cn';
+
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {}
+
+const Input = React.forwardRef<HTMLInputElement, InputProps>(
+  ({ className, type, ...props }, ref) => {
+    return (
+      <input
+        type={type}
+        className={cn(
+          'flex h-10 w-full rounded-md border border-slate-700 bg-slate-800 px-3 py-2 text-sm text-white ring-offset-slate-900 file:border-0 file:bg-transparent file:text-sm file:font-medium placeholder:text-slate-400 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-purple-400 disabled:cursor-not-allowed disabled:opacity-50',
+          className,
+        )}
+        ref={ref}
+        {...props}
+      />
+    );
+  }
+);
+Input.displayName = 'Input';
+
+export { Input };
+```
+
+### src/components/ui/Label.tsx
+
+```tsx
+import React from 'react';
+import * as LabelPrimitive from '@radix-ui/react-label';
+import { cn } from '../../utils/cn';
+
+const Label = React.forwardRef<
+  React.ElementRef<typeof LabelPrimitive.Root>,
+  React.ComponentPropsWithoutRef<typeof LabelPrimitive.Root>
+>(({ className, ...props }, ref) => (
+  <LabelPrimitive.Root
+    ref={ref}
+    className={cn(
+      'text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70',
+      className
+    )}
+    {...props}
+  />
+));
+Label.displayName = LabelPrimitive.Root.displayName;
+
+export { Label };
+```
+
+### src/components/ui/Toast.tsx
+
+```tsx
+import React from 'react';
+import * as ToastPrimitives from '@radix-ui/react-toast';
+import { cva } from 'class-variance-authority';
+import { X } from 'lucide-react';
+import { cn } from '../../utils/cn';
+import { useToast } from '../../hooks/useToast';
+
+const ToastProvider = ToastPrimitives.Provider;
+
+const ToastViewport = React.forwardRef<
+  React.ElementRef<typeof ToastPrimitives.Viewport>,
+  React.ComponentPropsWithoutRef<typeof ToastPrimitives.Viewport>
+>(({ className, ...props }, ref) => (
+  <ToastPrimitives.Viewport
+    ref={ref}
+    className={cn(
+      'fixed top-0 z-[100] flex max-h-screen w-full flex-col-reverse p-4 sm:bottom-0 sm:right-0 sm:top-auto sm:flex-col md:max-w-[420px]',
+      className
+    )}
+    {...props}
+  />
+));
+ToastViewport.displayName = ToastPrimitives.Viewport.displayName;
+
+const toastVariants = cva(
+  'data-[swipe=move]:transition-none group relative pointer-events-auto flex w-full items-center justify-between space-x-4 overflow-hidden rounded-2xl border border-slate-700 p-6 pr-8 shadow-2xl transition-all data-[swipe=move]:translate-x-[var(--radix-toast-swipe-move-x)] data-[swipe=cancel]:translate-x-0 data-[swipe=end]:translate-x-[var(--radix-toast-swipe-end-x)] data-[state=open]:animate-in data-[state=closed]:animate-out data-[swipe=end]:animate-out data-[state=closed]:fade-out-80 data-[state=open]:slide-in-from-top-full data-[state=open]:sm:slide-in-from-bottom-full data-[state=closed]:slide-out-to-right-full',
+  {
+    variants: {
+      variant: {
+        default: 'bg-slate-800 text-white',
+        destructive: 'group destructive border-red-500/50 bg-red-900 text-white',
+      },
+    },
+    defaultVariants: { variant: 'default' },
+  },
+);
+
+const Toast = React.forwardRef<
+  React.ElementRef<typeof ToastPrimitives.Root>,
+  React.ComponentPropsWithoutRef<typeof ToastPrimitives.Root> & {
+    variant?: 'default' | 'destructive';
+  }
+>(({ className, variant, ...props }, ref) => {
+  return (
+    <ToastPrimitives.Root
+      ref={ref}
+      className={cn(toastVariants({ variant }), className)}
+      {...props}
+    />
+  );
+});
+Toast.displayName = ToastPrimitives.Root.displayName;
+
+const ToastClose = React.forwardRef<
+  React.ElementRef<typeof ToastPrimitives.Close>,
+  React.ComponentPropsWithoutRef<typeof ToastPrimitives.Close>
+>(({ className, ...props }, ref) => (
+  <ToastPrimitives.Close
+    ref={ref}
+    className={cn(
+      'absolute right-2 top-2 rounded-md p-1 text-slate-400 opacity-0 transition-opacity hover:text-white focus:opacity-100 focus:outline-none focus:ring-2 group-hover:opacity-100',
+      className
+    )}
+    toast-close=""
+    {...props}
+  >
+    <X className="h-4 w-4" />
+  </ToastPrimitives.Close>
+));
+ToastClose.displayName = ToastPrimitives.Close.displayName;
+
+const ToastTitle = React.forwardRef<
+  React.ElementRef<typeof ToastPrimitives.Title>,
+  React.ComponentPropsWithoutRef<typeof ToastPrimitives.Title>
+>(({ className, ...props }, ref) => (
+  <ToastPrimitives.Title
+    ref={ref}
+    className={cn('text-sm font-semibold', className)}
+    {...props}
+  />
+));
+ToastTitle.displayName = ToastPrimitives.Title.displayName;
+
+const ToastDescription = React.forwardRef<
+  React.ElementRef<typeof ToastPrimitives.Description>,
+  React.ComponentPropsWithoutRef<typeof ToastPrimitives.Description>
+>(({ className, ...props }, ref) => (
+  <ToastPrimitives.Description
+    ref={ref}
+    className={cn('text-sm opacity-90', className)}
+    {...props}
+  />
+));
+ToastDescription.displayName = ToastPrimitives.Description.displayName;
+
+function Toaster() {
+  const { toasts } = useToast();
+
+  return (
+    <ToastProvider>
+      {toasts.map(function ({ id, title, description, ...props }) {
+        const { dismiss, ...rest } = props;
+        return (
+          <Toast key={id} {...rest}>
+            <div className="grid gap-1">
+              {title && <ToastTitle>{title}</ToastTitle>}
+              {description && <ToastDescription>{description}</ToastDescription>}
+            </div>
+            <ToastClose />
+          </Toast>
+        );
+      })}
+      <ToastViewport />
+    </ToastProvider>
+  );
+}
+
+export {
+  Toast,
+  ToastProvider,
+  ToastViewport,
+  ToastTitle,
+  ToastDescription,
+  ToastClose,
+  Toaster,
+};
+```
+
+### src/contexts/AuthContext.tsx
+
+```tsx
+import React, { createContext, useContext, useEffect, useState } from 'react';
+import { User, Session } from '@supabase/supabase-js';
+import { supabase } from '../lib/supabase';
+
+interface AuthContextType {
+  user: User | null;
+  session: Session | null;
+  loading: boolean;
+  signUp: (email: string, password: string) => Promise<{ error: any }>;
+  signIn: (email: string, password: string) => Promise<{ error: any }>;
+  signOut: () => Promise<void>;
+}
+
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
+
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+  if (context === undefined) {
+    throw new Error('useAuth must be used within an AuthProvider');
+  }
+  return context;
+};
+
+export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+  const [user, setUser] = useState<User | null>(null);
+  const [session, setSession] = useState<Session | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Get initial session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session);
+      setUser(session?.user ?? null);
+      setLoading(false);
+    });
+
+    // Listen for auth changes
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange((_event, session) => {
+      setSession(session);
+      setUser(session?.user ?? null);
+      setLoading(false);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
+
+  const signUp = async (email: string, password: string) => {
+    const { error } = await supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        emailRedirectTo: `${window.location.origin}/auth/callback`,
+      },
+    });
+    return { error };
+  };
+
+  const signIn = async (email: string, password: string) => {
+    const { error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    });
+    return { error };
+  };
+
+  const signOut = async () => {
+    await supabase.auth.signOut();
+    window.location.reload(); // Sayfayı yenile
+  };
+
+  const value = {
+    user,
+    session,
+    loading,
+    signUp,
+    signIn,
+    signOut,
+  };
+
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+};
+```
+
+### src/hooks/useToast.ts
+
+```ts
+import { useState, useEffect } from 'react';
+
+const TOAST_LIMIT = 1;
+let count = 0;
+
+function generateId() {
+  count = (count + 1) % Number.MAX_VALUE;
+  return count.toString();
+}
+
+interface ToastProps {
+  title?: string;
+  description?: string;
+  variant?: 'default' | 'destructive';
+  duration?: number;
+}
+
+interface Toast extends ToastProps {
+  id: string;
+  dismiss: () => void;
+}
+
+const toastStore = {
+  state: { toasts: [] as Toast[] },
+  listeners: [] as Array<(state: { toasts: Toast[] }) => void>,
+  getState: () => toastStore.state,
+  setState: (nextState: any) => {
+    toastStore.state = typeof nextState === 'function' ? nextState(toastStore.state) : { ...toastStore.state, ...nextState };
+    toastStore.listeners.forEach(listener => listener(toastStore.state));
+  },
+  subscribe: (listener: (state: { toasts: Toast[] }) => void) => {
+    toastStore.listeners.push(listener);
+    return () => {
+      toastStore.listeners = toastStore.listeners.filter(l => l !== listener);
+    };
+  }
+};
+
+export const toast = ({ ...props }: ToastProps) => {
+  const id = generateId();
+  const dismiss = () => toastStore.setState((state: any) => ({ 
+    ...state, 
+    toasts: state.toasts.filter((t: Toast) => t.id !== id) 
+  }));
+  
+  toastStore.setState((state: any) => ({ 
+    ...state, 
+    toasts: [{ ...props, id, dismiss }, ...state.toasts].slice(0, TOAST_LIMIT) 
+  }));
+  
+  return { id, dismiss };
+};
+
+export function useToast() {
+  const [state, setState] = useState(toastStore.getState());
+  
+  useEffect(() => {
+    const unsubscribe = toastStore.subscribe(setState);
+    return unsubscribe;
+  }, []);
+  
+  useEffect(() => {
+    const timeouts = state.toasts.map((toast) => {
+      if (toast.duration === Infinity) return;
+      return setTimeout(() => toast.dismiss(), toast.duration || 5000);
+    });
+    return () => timeouts.forEach((timeout) => timeout && clearTimeout(timeout));
+  }, [state.toasts]);
+  
+  return { toast, toasts: state.toasts };
+}
+```
+
+### src/index.css
+
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+```
+
+### src/lib/supabase.ts
+
+```ts
+import { createClient } from '@supabase/supabase-js';
+
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL;
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY;
+
+if (!supabaseUrl || !supabaseAnonKey) {
+  throw new Error('Missing Supabase environment variables');
+}
+
+export const supabase = createClient(supabaseUrl, supabaseAnonKey);
+
+export type Database = {
+  public: {
+    Tables: {
+      stripe_customers: {
+        Row: {
+          id: number;
+          user_id: string;
+          customer_id: string;
+          created_at: string;
+          updated_at: string;
+          deleted_at: string | null;
+        };
+        Insert: {
+          user_id: string;
+          customer_id: string;
+          created_at?: string;
+          updated_at?: string;
+          deleted_at?: string | null;
+        };
+        Update: {
+          user_id?: string;
+          customer_id?: string;
+          created_at?: string;
+          updated_at?: string;
+          deleted_at?: string | null;
+        };
+      };
+      stripe_subscriptions: {
+        Row: {
+          id: number;
+          customer_id: string;
+          subscription_id: string | null;
+          price_id: string | null;
+          current_period_start: number | null;
+          current_period_end: number | null;
+          cancel_at_period_end: boolean;
+          payment_method_brand: string | null;
+          payment_method_last4: string | null;
+          status: 'not_started' | 'incomplete' | 'incomplete_expired' | 'trialing' | 'active' | 'past_due' | 'canceled' | 'unpaid' | 'paused';
+          created_at: string;
+          updated_at: string;
+          deleted_at: string | null;
+        };
+        Insert: {
+          customer_id: string;
+          subscription_id?: string | null;
+          price_id?: string | null;
+          current_period_start?: number | null;
+          current_period_end?: number | null;
+          cancel_at_period_end?: boolean;
+          payment_method_brand?: string | null;
+          payment_method_last4?: string | null;
+          status: 'not_started' | 'incomplete' | 'incomplete_expired' | 'trialing' | 'active' | 'past_due' | 'canceled' | 'unpaid' | 'paused';
+          created_at?: string;
+          updated_at?: string;
+          deleted_at?: string | null;
+        };
+        Update: {
+          customer_id?: string;
+          subscription_id?: string | null;
+          price_id?: string | null;
+          current_period_start?: number | null;
+          current_period_end?: number | null;
+          cancel_at_period_end?: boolean;
+          payment_method_brand?: string | null;
+          payment_method_last4?: string | null;
+          status?: 'not_started' | 'incomplete' | 'incomplete_expired' | 'trialing' | 'active' | 'past_due' | 'canceled' | 'unpaid' | 'paused';
+          created_at?: string;
+          updated_at?: string;
+          deleted_at?: string | null;
+        };
+      };
+      stripe_orders: {
+        Row: {
+          id: number;
+          checkout_session_id: string;
+          payment_intent_id: string;
+          customer_id: string;
+          amount_subtotal: number;
+          amount_total: number;
+          currency: string;
+          payment_status: string;
+          status: 'pending' | 'completed' | 'canceled';
+          created_at: string;
+          updated_at: string;
+          deleted_at: string | null;
+        };
+        Insert: {
+          checkout_session_id: string;
+          payment_intent_id: string;
+          customer_id: string;
+          amount_subtotal: number;
+          amount_total: number;
+          currency: string;
+          payment_status: string;
+          status?: 'pending' | 'completed' | 'canceled';
+          created_at?: string;
+          updated_at?: string;
+          deleted_at?: string | null;
+        };
+        Update: {
+          checkout_session_id?: string;
+          payment_intent_id?: string;
+          customer_id?: string;
+          amount_subtotal?: number;
+          amount_total?: number;
+          currency?: string;
+          payment_status?: string;
+          status?: 'pending' | 'completed' | 'canceled';
+          created_at?: string;
+          updated_at?: string;
+          deleted_at?: string | null;
+        };
+      };
+    };
+    Views: {
+      stripe_user_subscriptions: {
+        Row: {
+          customer_id: string;
+          subscription_id: string | null;
+          subscription_status: 'not_started' | 'incomplete' | 'incomplete_expired' | 'trialing' | 'active' | 'past_due' | 'canceled' | 'unpaid' | 'paused';
+          price_id: string | null;
+          current_period_start: number | null;
+          current_period_end: number | null;
+          cancel_at_period_end: boolean;
+          payment_method_brand: string | null;
+          payment_method_last4: string | null;
+        };
+      };
+      stripe_user_orders: {
+        Row: {
+          customer_id: string;
+          order_id: number;
+          checkout_session_id: string;
+          payment_intent_id: string;
+          amount_subtotal: number;
+          amount_total: number;
+          currency: string;
+          payment_status: string;
+          order_status: 'pending' | 'completed' | 'canceled';
+          order_date: string;
+        };
+      };
+    };
+  };
+};
+```
+
+### src/main.tsx
+
+```tsx
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import App from './App.tsx';
+import './index.css';
+
+createRoot(document.getElementById('root')!).render(
+  <StrictMode>
+    <App />
+  </StrictMode>
+);
+
+```
+
+### src/stripe-config.ts
+
+```ts
+export interface StripeProduct {
+  id: string;
+  priceId: string;
+  name: string;
+  description: string;
+  mode: 'payment' | 'subscription';
+  price?: number;
+  currency?: string;
+}
+
+export const stripeProducts: StripeProduct[] = [
+  {
+    id: 'prod_Sxn47GSJfILlh4',
+    priceId: 'price_1S1rU8DsBtMM0UXXyLmDaNfc',
+    name: 'Otomasyon',
+    description: 'İşletmenizin verimliliğini artırmak için size özel olarak tasarlanan ve kurulan otomasyon sisteminin kurulum bedelidir. Bu bedel, size gönderilen teklifte belirtilen [Proje Adı, örn: "Sesli AI Asistan Kurulumu"] projesini kapsamaktadır.',
+    mode: 'payment',
+    price: 500,
+    currency: 'GBP'
+  }
+];
+
+export const getProductByPriceId = (priceId: string): StripeProduct | undefined => {
+  return stripeProducts.find(product => product.priceId === priceId);
+};
+
+export const getProductById = (id: string): StripeProduct | undefined => {
+  return stripeProducts.find(product => product.id === id);
+};
+```
+
+### src/utils/cn.ts
+
+```ts
+import { clsx } from 'clsx';
+import { twMerge } from 'tailwind-merge';
+
+// Utility function for combining Tailwind CSS classes
+export function cn(...inputs: any[]) {
+  return twMerge(clsx(inputs));
+}
+```
+
+### src/vite-env.d.ts
+
+```ts
+/// <reference types="vite/client" />
+
+```
+
+### supabase/functions/stripe-checkout/index.ts
+
+```ts
+import 'jsr:@supabase/functions-js/edge-runtime.d.ts';
+import Stripe from 'npm:stripe@17.7.0';
+import { createClient } from 'npm:@supabase/supabase-js@2.49.1';
+
+const supabase = createClient(Deno.env.get('SUPABASE_URL') ?? '', Deno.env.get('SUPABASE_SERVICE_ROLE_KEY') ?? '');
+const stripeSecret = Deno.env.get('STRIPE_SECRET_KEY')!;
+const stripe = new Stripe(stripeSecret, {
+  appInfo: {
+    name: 'Bolt Integration',
+    version: '1.0.0',
+  },
+});
+
+// Helper function to create responses with CORS headers
+function corsResponse(body: string | object | null, status = 200) {
+  const headers = {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'POST, OPTIONS',
+    'Access-Control-Allow-Headers': '*',
+  };
+
+  // For 204 No Content, don't include Content-Type or body
+  if (status === 204) {
+    return new Response(null, { status, headers });
+  }
+
+  return new Response(JSON.stringify(body), {
+    status,
+    headers: {
+      ...headers,
+      'Content-Type': 'application/json',
+    },
+  });
+}
+
+Deno.serve(async (req) => {
+  try {
+    if (req.method === 'OPTIONS') {
+      return corsResponse({}, 204);
+    }
+
+    if (req.method !== 'POST') {
+      return corsResponse({ error: 'Method not allowed' }, 405);
+    }
+
+    const { price_id, success_url, cancel_url, mode } = await req.json();
+
+    const error = validateParameters(
+      { price_id, success_url, cancel_url, mode },
+      {
+        cancel_url: 'string',
+        price_id: 'string',
+        success_url: 'string',
+        mode: { values: ['payment', 'subscription'] },
+      },
+    );
+
+    if (error) {
+      return corsResponse({ error }, 400);
+    }
+
+    const authHeader = req.headers.get('Authorization')!;
+    const token = authHeader.replace('Bearer ', '');
+    const {
+      data: { user },
+      error: getUserError,
+    } = await supabase.auth.getUser(token);
+
+    if (getUserError) {
+      return corsResponse({ error: 'Failed to authenticate user' }, 401);
+    }
+
+    if (!user) {
+      return corsResponse({ error: 'User not found' }, 404);
+    }
+
+    const { data: customer, error: getCustomerError } = await supabase
+      .from('stripe_customers')
+      .select('customer_id')
+      .eq('user_id', user.id)
+      .is('deleted_at', null)
+      .maybeSingle();
+
+    if (getCustomerError) {
+      console.error('Failed to fetch customer information from the database', getCustomerError);
+
+      return corsResponse({ error: 'Failed to fetch customer information' }, 500);
+    }
+
+    let customerId;
+
+    /**
+     * In case we don't have a mapping yet, the customer does not exist and we need to create one.
+     */
+    if (!customer || !customer.customer_id) {
+      const newCustomer = await stripe.customers.create({
+        email: user.email,
+        metadata: {
+          userId: user.id,
+        },
+      });
+
+      console.log(`Created new Stripe customer ${newCustomer.id} for user ${user.id}`);
+
+      const { error: createCustomerError } = await supabase.from('stripe_customers').insert({
+        user_id: user.id,
+        customer_id: newCustomer.id,
+      });
+
+      if (createCustomerError) {
+        console.error('Failed to save customer information in the database', createCustomerError);
+
+        // Try to clean up both the Stripe customer and subscription record
+        try {
+          await stripe.customers.del(newCustomer.id);
+          await supabase.from('stripe_subscriptions').delete().eq('customer_id', newCustomer.id);
+        } catch (deleteError) {
+          console.error('Failed to clean up after customer mapping error:', deleteError);
+        }
+
+        return corsResponse({ error: 'Failed to create customer mapping' }, 500);
+      }
+
+      if (mode === 'subscription') {
+        const { error: createSubscriptionError } = await supabase.from('stripe_subscriptions').insert({
+          customer_id: newCustomer.id,
+          status: 'not_started',
+        });
+
+        if (createSubscriptionError) {
+          console.error('Failed to save subscription in the database', createSubscriptionError);
+
+          // Try to clean up the Stripe customer since we couldn't create the subscription
+          try {
+            await stripe.customers.del(newCustomer.id);
+          } catch (deleteError) {
+            console.error('Failed to delete Stripe customer after subscription creation error:', deleteError);
+          }
+
+          return corsResponse({ error: 'Unable to save the subscription in the database' }, 500);
+        }
+      }
+
+      customerId = newCustomer.id;
+
+      console.log(`Successfully set up new customer ${customerId} with subscription record`);
+    } else {
+      customerId = customer.customer_id;
+
+      if (mode === 'subscription') {
+        // Verify subscription exists for existing customer
+        const { data: subscription, error: getSubscriptionError } = await supabase
+          .from('stripe_subscriptions')
+          .select('status')
+          .eq('customer_id', customerId)
+          .maybeSingle();
+
+        if (getSubscriptionError) {
+          console.error('Failed to fetch subscription information from the database', getSubscriptionError);
+
+          return corsResponse({ error: 'Failed to fetch subscription information' }, 500);
+        }
+
+        if (!subscription) {
+          // Create subscription record for existing customer if missing
+          const { error: createSubscriptionError } = await supabase.from('stripe_subscriptions').insert({
+            customer_id: customerId,
+            status: 'not_started',
+          });
+
+          if (createSubscriptionError) {
+            console.error('Failed to create subscription record for existing customer', createSubscriptionError);
+
+            return corsResponse({ error: 'Failed to create subscription record for existing customer' }, 500);
+          }
+        }
+      }
+    }
+
+    // create Checkout Session
+    const session = await stripe.checkout.sessions.create({
+      customer: customerId,
+      payment_method_types: ['card'],
+      line_items: [
+        {
+          price: price_id,
+          quantity: 1,
+        },
+      ],
+      mode,
+      success_url,
+      cancel_url,
+    });
+
+    console.log(`Created checkout session ${session.id} for customer ${customerId}`);
+
+    return corsResponse({ sessionId: session.id, url: session.url });
+  } catch (error: any) {
+    console.error(`Checkout error: ${error.message}`);
+    return corsResponse({ error: error.message }, 500);
+  }
+});
+
+type ExpectedType = 'string' | { values: string[] };
+type Expectations<T> = { [K in keyof T]: ExpectedType };
+
+function validateParameters<T extends Record<string, any>>(values: T, expected: Expectations<T>): string | undefined {
+  for (const parameter in values) {
+    const expectation = expected[parameter];
+    const value = values[parameter];
+
+    if (expectation === 'string') {
+      if (value == null) {
+        return `Missing required parameter ${parameter}`;
+      }
+      if (typeof value !== 'string') {
+        return `Expected parameter ${parameter} to be a string got ${JSON.stringify(value)}`;
+      }
+    } else {
+      if (!expectation.values.includes(value)) {
+        return `Expected parameter ${parameter} to be one of ${expectation.values.join(', ')}`;
+      }
+    }
+  }
+
+  return undefined;
+}
+```
+
+### supabase/functions/stripe-webhook/index.ts
+
+```ts
+import 'jsr:@supabase/functions-js/edge-runtime.d.ts';
+import Stripe from 'npm:stripe@17.7.0';
+import { createClient } from 'npm:@supabase/supabase-js@2.49.1';
+
+const stripeSecret = Deno.env.get('STRIPE_SECRET_KEY')!;
+const stripeWebhookSecret = Deno.env.get('STRIPE_WEBHOOK_SECRET')!;
+const stripe = new Stripe(stripeSecret, {
+  appInfo: {
+    name: 'Bolt Integration',
+    version: '1.0.0',
+  },
+});
+
+const supabase = createClient(Deno.env.get('SUPABASE_URL')!, Deno.env.get('SUPABASE_SERVICE_ROLE_KEY')!);
+
+Deno.serve(async (req) => {
+  try {
+    // Handle OPTIONS request for CORS preflight
+    if (req.method === 'OPTIONS') {
+      return new Response(null, { status: 204 });
+    }
+
+    if (req.method !== 'POST') {
+      return new Response('Method not allowed', { status: 405 });
+    }
+
+    // get the signature from the header
+    const signature = req.headers.get('stripe-signature');
+
+    if (!signature) {
+      return new Response('No signature found', { status: 400 });
+    }
+
+    // get the raw body
+    const body = await req.text();
+
+    // verify the webhook signature
+    let event: Stripe.Event;
+
+    try {
+      event = await stripe.webhooks.constructEventAsync(body, signature, stripeWebhookSecret);
+    } catch (error: any) {
+      console.error(`Webhook signature verification failed: ${error.message}`);
+      return new Response(`Webhook signature verification failed: ${error.message}`, { status: 400 });
+    }
+
+    EdgeRuntime.waitUntil(handleEvent(event));
+
+    return Response.json({ received: true });
+  } catch (error: any) {
+    console.error('Error processing webhook:', error);
+    return Response.json({ error: error.message }, { status: 500 });
+  }
+});
+
+async function handleEvent(event: Stripe.Event) {
+  const stripeData = event?.data?.object ?? {};
+
+  if (!stripeData) {
+    return;
+  }
+
+  if (!('customer' in stripeData)) {
+    return;
+  }
+
+  // for one time payments, we only listen for the checkout.session.completed event
+  if (event.type === 'payment_intent.succeeded' && event.data.object.invoice === null) {
+    return;
+  }
+
+  const { customer: customerId } = stripeData;
+
+  if (!customerId || typeof customerId !== 'string') {
+    console.error(`No customer received on event: ${JSON.stringify(event)}`);
+  } else {
+    let isSubscription = true;
+
+    if (event.type === 'checkout.session.completed') {
+      const { mode } = stripeData as Stripe.Checkout.Session;
+
+      isSubscription = mode === 'subscription';
+
+      console.info(`Processing ${isSubscription ? 'subscription' : 'one-time payment'} checkout session`);
+    }
+
+    const { mode, payment_status } = stripeData as Stripe.Checkout.Session;
+
+    if (isSubscription) {
+      console.info(`Starting subscription sync for customer: ${customerId}`);
+      await syncCustomerFromStripe(customerId);
+    } else if (mode === 'payment' && payment_status === 'paid') {
+      try {
+        // Extract the necessary information from the session
+        const {
+          id: checkout_session_id,
+          payment_intent,
+          amount_subtotal,
+          amount_total,
+          currency,
+        } = stripeData as Stripe.Checkout.Session;
+
+        // Insert the order into the stripe_orders table
+        const { error: orderError } = await supabase.from('stripe_orders').insert({
+          checkout_session_id,
+          payment_intent_id: payment_intent,
+          customer_id: customerId,
+          amount_subtotal,
+          amount_total,
+          currency,
+          payment_status,
+          status: 'completed', // assuming we want to mark it as completed since payment is successful
+        });
+
+        if (orderError) {
+          console.error('Error inserting order:', orderError);
+          return;
+        }
+        console.info(`Successfully processed one-time payment for session: ${checkout_session_id}`);
+      } catch (error) {
+        console.error('Error processing one-time payment:', error);
+      }
+    }
+  }
+}
+
+// based on the excellent https://github.com/t3dotgg/stripe-recommendations
+async function syncCustomerFromStripe(customerId: string) {
+  try {
+    // fetch latest subscription data from Stripe
+    const subscriptions = await stripe.subscriptions.list({
+      customer: customerId,
+      limit: 1,
+      status: 'all',
+      expand: ['data.default_payment_method'],
+    });
+
+    // TODO verify if needed
+    if (subscriptions.data.length === 0) {
+      console.info(`No active subscriptions found for customer: ${customerId}`);
+      const { error: noSubError } = await supabase.from('stripe_subscriptions').upsert(
+        {
+          customer_id: customerId,
+          subscription_status: 'not_started',
+        },
+        {
+          onConflict: 'customer_id',
+        },
+      );
+
+      if (noSubError) {
+        console.error('Error updating subscription status:', noSubError);
+        throw new Error('Failed to update subscription status in database');
+      }
+    }
+
+    // assumes that a customer can only have a single subscription
+    const subscription = subscriptions.data[0];
+
+    // store subscription state
+    const { error: subError } = await supabase.from('stripe_subscriptions').upsert(
+      {
+        customer_id: customerId,
+        subscription_id: subscription.id,
+        price_id: subscription.items.data[0].price.id,
+        current_period_start: subscription.current_period_start,
+        current_period_end: subscription.current_period_end,
+        cancel_at_period_end: subscription.cancel_at_period_end,
+        ...(subscription.default_payment_method && typeof subscription.default_payment_method !== 'string'
+          ? {
+              payment_method_brand: subscription.default_payment_method.card?.brand ?? null,
+              payment_method_last4: subscription.default_payment_method.card?.last4 ?? null,
+            }
+          : {}),
+        status: subscription.status,
+      },
+      {
+        onConflict: 'customer_id',
+      },
+    );
+
+    if (subError) {
+      console.error('Error syncing subscription:', subError);
+      throw new Error('Failed to sync subscription in database');
+    }
+    console.info(`Successfully synced subscription for customer: ${customerId}`);
+  } catch (error) {
+    console.error(`Failed to sync subscription for customer ${customerId}:`, error);
+    throw error;
+  }
+}
+```
+
+### supabase/migrations/20250830163115_patient_math.sql
+
+```sql
+/*
+  # Stripe Integration Schema
+
+  1. New Tables
+    - `stripe_customers`: Links Supabase users to Stripe customers
+      - Includes `user_id` (references `auth.users`)
+      - Stores Stripe `customer_id`
+      - Implements soft delete
+
+    - `stripe_subscriptions`: Manages subscription data
+      - Tracks subscription status, periods, and payment details
+      - Links to `stripe_customers` via `customer_id`
+      - Custom enum type for subscription status
+      - Implements soft delete
+
+    - `stripe_orders`: Stores order/purchase information
+      - Records checkout sessions and payment intents
+      - Tracks payment amounts and status
+      - Custom enum type for order status
+      - Implements soft delete
+
+  2. Views
+    - `stripe_user_subscriptions`: Secure view for user subscription data
+      - Joins customers and subscriptions
+      - Filtered by authenticated user
+
+    - `stripe_user_orders`: Secure view for user order history
+      - Joins customers and orders
+      - Filtered by authenticated user
+
+  3. Security
+    - Enables Row Level Security (RLS) on all tables
+    - Implements policies for authenticated users to view their own data
+*/
+
+CREATE TABLE IF NOT EXISTS stripe_customers (
+  id bigint primary key generated always as identity,
+  user_id uuid references auth.users(id) not null unique,
+  customer_id text not null unique,
+  created_at timestamp with time zone default now(),
+  updated_at timestamp with time zone default now(),
+  deleted_at timestamp with time zone default null
+);
+
+ALTER TABLE stripe_customers ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Users can view their own customer data"
+    ON stripe_customers
+    FOR SELECT
+    TO authenticated
+    USING (user_id = auth.uid() AND deleted_at IS NULL);
+
+CREATE TYPE stripe_subscription_status AS ENUM (
+    'not_started',
+    'incomplete',
+    'incomplete_expired',
+    'trialing',
+    'active',
+    'past_due',
+    'canceled',
+    'unpaid',
+    'paused'
+);
+
+CREATE TABLE IF NOT EXISTS stripe_subscriptions (
+  id bigint primary key generated always as identity,
+  customer_id text unique not null,
+  subscription_id text default null,
+  price_id text default null,
+  current_period_start bigint default null,
+  current_period_end bigint default null,
+  cancel_at_period_end boolean default false,
+  payment_method_brand text default null,
+  payment_method_last4 text default null,
+  status stripe_subscription_status not null,
+  created_at timestamp with time zone default now(),
+  updated_at timestamp with time zone default now(),
+  deleted_at timestamp with time zone default null
+);
+
+ALTER TABLE stripe_subscriptions ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Users can view their own subscription data"
+    ON stripe_subscriptions
+    FOR SELECT
+    TO authenticated
+    USING (
+        customer_id IN (
+            SELECT customer_id
+            FROM stripe_customers
+            WHERE user_id = auth.uid() AND deleted_at IS NULL
+        )
+        AND deleted_at IS NULL
+    );
+
+CREATE TYPE stripe_order_status AS ENUM (
+    'pending',
+    'completed',
+    'canceled'
+);
+
+CREATE TABLE IF NOT EXISTS stripe_orders (
+    id bigint primary key generated always as identity,
+    checkout_session_id text not null,
+    payment_intent_id text not null,
+    customer_id text not null,
+    amount_subtotal bigint not null,
+    amount_total bigint not null,
+    currency text not null,
+    payment_status text not null,
+    status stripe_order_status not null default 'pending',
+    created_at timestamp with time zone default now(),
+    updated_at timestamp with time zone default now(),
+    deleted_at timestamp with time zone default null
+);
+
+ALTER TABLE stripe_orders ENABLE ROW LEVEL SECURITY;
+
+CREATE POLICY "Users can view their own order data"
+    ON stripe_orders
+    FOR SELECT
+    TO authenticated
+    USING (
+        customer_id IN (
+            SELECT customer_id
+            FROM stripe_customers
+            WHERE user_id = auth.uid() AND deleted_at IS NULL
+        )
+        AND deleted_at IS NULL
+    );
+
+-- View for user subscriptions
+CREATE VIEW stripe_user_subscriptions WITH (security_invoker = true) AS
+SELECT
+    c.customer_id,
+    s.subscription_id,
+    s.status as subscription_status,
+    s.price_id,
+    s.current_period_start,
+    s.current_period_end,
+    s.cancel_at_period_end,
+    s.payment_method_brand,
+    s.payment_method_last4
+FROM stripe_customers c
+LEFT JOIN stripe_subscriptions s ON c.customer_id = s.customer_id
+WHERE c.user_id = auth.uid()
+AND c.deleted_at IS NULL
+AND s.deleted_at IS NULL;
+
+GRANT SELECT ON stripe_user_subscriptions TO authenticated;
+
+-- View for user orders
+CREATE VIEW stripe_user_orders WITH (security_invoker) AS
+SELECT
+    c.customer_id,
+    o.id as order_id,
+    o.checkout_session_id,
+    o.payment_intent_id,
+    o.amount_subtotal,
+    o.amount_total,
+    o.currency,
+    o.payment_status,
+    o.status as order_status,
+    o.created_at as order_date
+FROM stripe_customers c
+LEFT JOIN stripe_orders o ON c.customer_id = o.customer_id
+WHERE c.user_id = auth.uid()
+AND c.deleted_at IS NULL
+AND o.deleted_at IS NULL;
+```
+
+### tailwind.config.js
+
+```js
+/** @type {import('tailwindcss').Config} */
+export default {
+  content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
+  theme: {
+    extend: {},
+  },
+  plugins: [],
+};
+
+```
+
+### tsconfig.app.json
+
+```json
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "useDefineForClassFields": true,
+    "lib": ["ES2020", "DOM", "DOM.Iterable"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "isolatedModules": true,
+    "moduleDetection": "force",
+    "noEmit": true,
+    "jsx": "react-jsx",
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true
+  },
+  "include": ["src"]
+}
+
+```
+
+### tsconfig.json
+
+```json
+{
+  "files": [],
+  "references": [
+    { "path": "./tsconfig.app.json" },
+    { "path": "./tsconfig.node.json" }
+  ]
+}
+
+```
+
+### tsconfig.node.json
+
+```json
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": ["ES2023"],
+    "module": "ESNext",
+    "skipLibCheck": true,
+
+    /* Bundler mode */
+    "moduleResolution": "bundler",
+    "allowImportingTsExtensions": true,
+    "isolatedModules": true,
+    "moduleDetection": "force",
+    "noEmit": true,
+
+    /* Linting */
+    "strict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true
+  },
+  "include": ["vite.config.ts"]
+}
+
+```
+
+### vite.config.ts
+
+```ts
+import { defineConfig } from 'vite';
+import react from '@vitejs/plugin-react';
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [react()],
+  optimizeDeps: {
+    exclude: ['lucide-react'],
+  },
+});
+
+```
+
