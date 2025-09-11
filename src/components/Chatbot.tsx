@@ -5,6 +5,7 @@ import { Button } from './ui/Button';
 import { Input } from './ui/Input';
 import { toast } from '../hooks/useToast';
 import { cn } from '../utils/cn';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface Message {
   id: number;
@@ -15,12 +16,18 @@ interface Message {
 export const Chatbot: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([
-    { id: 1, text: "Merhaba! Size nasıl yardımcı olabilirim?", sender: 'bot' }
+    { id: 1, text: "", sender: 'bot' }
   ]);
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [sessionId, setSessionId] = useState<string | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
+  const { t } = useLanguage();
+
+  // Update greeting message when language changes
+  useEffect(() => {
+    setMessages([{ id: 1, text: t('chatbot.greeting'), sender: 'bot' }]);
+  }, [t]);
 
   useEffect(() => { 
     if (isOpen && !sessionId) setSessionId(`session_${Date.now()}`); 
@@ -95,12 +102,12 @@ export const Chatbot: React.FC = () => {
       
       setMessages(prev => [...prev, { 
         id: Date.now() + 1, 
-        text: errorMessage, 
+        text: errorMessage,
         sender: 'bot' 
       }]);
       toast({ 
-        title: "Bağlantı Hatası", 
-        description: "Chatbot servisi şu anda kullanılamıyor. Lütfen daha sonra tekrar deneyin.", 
+        title: t('toast.connection.error'),
+        description: t('toast.connection.error.desc'),
         variant: "destructive" 
       });
     } finally {
@@ -127,8 +134,8 @@ export const Chatbot: React.FC = () => {
                 <span className="absolute bottom-0 right-0 block h-2.5 w-2.5 rounded-full bg-green-400 ring-2 ring-slate-800" />
               </div>
               <div>
-                <h3 className="font-bold text-white">AI Asistan</h3>
-                <p className="text-xs text-slate-400">Genellikle anında yanıt verir</p>
+                <h3 className="font-bold text-white">{t('chatbot.title')}</h3>
+                <p className="text-xs text-slate-400">{t('chatbot.subtitle')}</p>
               </div>
             </header>
             <div className="flex-1 p-4 overflow-y-auto space-y-4">
@@ -171,7 +178,7 @@ export const Chatbot: React.FC = () => {
                   type="text" 
                   value={inputValue} 
                   onChange={(e) => setInputValue(e.target.value)} 
-                  placeholder="Mesajınızı yazın..." 
+                  placeholder={t('chatbot.placeholder')}
                   onKeyPress={(e) => { if (e.key === 'Enter') handleSendMessage(); }} 
                   disabled={isLoading}
                 />
@@ -214,7 +221,7 @@ export const Chatbot: React.FC = () => {
               className="flex items-center gap-3 px-4"
             >
               <MessageCircle className="w-7 h-7" />
-              <span>AI Chatbot'u Deneyin</span>
+              <span>{t('chatbot.button')}</span>
             </motion.div>
           )}
         </AnimatePresence>

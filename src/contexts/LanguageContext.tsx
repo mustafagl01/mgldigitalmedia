@@ -482,6 +482,11 @@ const translations = {
     'common.krypton': 'Kripton',
     'common.xenon': 'Ksenon',
     'common.radon': 'Radon',
+
+    // Product Features
+    'products.feature.custom': 'Size özel tasarım',
+    'products.feature.setup': 'Profesyonel kurulum',
+    'products.feature.support': 'Teknik destek',
   },
   en: {
     // Header
@@ -946,6 +951,11 @@ const translations = {
     'common.krypton': 'Krypton',
     'common.xenon': 'Xenon',
     'common.radon': 'Radon',
+
+    // Product Features
+    'products.feature.custom': 'Custom design for you',
+    'products.feature.setup': 'Professional setup',
+    'products.feature.support': 'Technical support',
   }
 };
 
