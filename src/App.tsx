@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
+import { LanguageProvider, useLanguage } from './contexts/LanguageContext';
 import { Button } from './components/ui/Button';
 
 // Components
@@ -37,6 +38,7 @@ function AppContent() {
   const [isIdeaAssistantModalOpen, setIdeaAssistantModalOpen] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const { user, signOut } = useAuth();
+  const { language, setLanguage, t } = useLanguage();
 
   // Handle browser navigation
   React.useEffect(() => {
@@ -88,10 +90,10 @@ function AppContent() {
   return (
     <>
       <Helmet>
-        <title>MGL Digital AI - AI Agent & Otomasyon Ajansı</title>
-        <meta name="description" content="Stratejiyle dönüşüm sağlıyoruz. Reklam ve iş süreçlerinizi AI Agent ile otomatikleştirerek size sadece 'tıklama' değil, gerçek 'sonuç' getiriyoruz." />
-        <meta property="og:title" content="MGL Digital AI - AI Agent & Otomasyon Ajansı" />
-        <meta property="og:description" content="AI Agent ve Otomasyon çözümleriyle iş süreçlerinizi dönüştürün. Manuel işlere son verin, verimliliği artırın." />
+        <title>{t('header.title')} - {language === 'tr' ? 'AI Agent & Otomasyon Ajansı' : 'AI Agent & Automation Agency'}</title>
+        <meta name="description" content={language === 'tr' ? 'Stratejiyle dönüşüm sağlıyoruz. Reklam ve iş süreçlerinizi AI Agent ile otomatikleştirerek size sadece \'tıklama\' değil, gerçek \'sonuç\' getiriyoruz.' : 'We drive transformation through strategy. By automating your advertising and business processes with AI Agents, we bring real \'results\', not just \'clicks\'.'} />
+        <meta property="og:title" content={`${t('header.title')} - ${language === 'tr' ? 'AI Agent & Otomasyon Ajansı' : 'AI Agent & Automation Agency'}`} />
+        <meta property="og:description" content={language === 'tr' ? 'AI Agent ve Otomasyon çözümleriyle iş süreçlerinizi dönüştürün. Manuel işlere son verin, verimliliği artırın.' : 'Transform your business processes with AI Agent and Automation solutions. End manual tasks, increase efficiency.'} />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -112,9 +114,32 @@ function AppContent() {
                 alt="MGL Digital AI Logo" 
                 className="w-8 h-8 object-contain"
               />
-              <span className="text-xl font-bold text-white">MGL Digital AI</span>
+              <span className="text-xl font-bold text-white">{t('header.title')}</span>
             </div>
             <div className="flex items-center gap-3">
+              {/* Language Switcher */}
+              <div className="flex items-center gap-1 mr-2">
+                <button
+                  onClick={() => setLanguage('tr')}
+                  className={`px-2 py-1 rounded text-sm font-medium transition-colors ${
+                    language === 'tr' 
+                      ? 'bg-purple-600 text-white' 
+                      : 'text-slate-400 hover:text-white'
+                  }`}
+                >
+                  🇹🇷 TR
+                </button>
+                <button
+                  onClick={() => setLanguage('en')}
+                  className={`px-2 py-1 rounded text-sm font-medium transition-colors ${
+                    language === 'en' 
+                      ? 'bg-purple-600 text-white' 
+                      : 'text-slate-400 hover:text-white'
+                  }`}
+                >
+                  🇬🇧 EN
+                </button>
+              </div>
               {user ? (
                 <>
                   <span className="text-sm text-slate-300 hidden sm:block">
@@ -126,7 +151,7 @@ function AppContent() {
                     size="sm"
                     className="border-purple-400 text-purple-400 hover:bg-purple-400 hover:text-white"
                   >
-                    Fırsatları Keşfet
+                    {t('header.opportunities')}
                   </Button>
                   <Button 
                     onClick={signOut}
@@ -145,7 +170,7 @@ function AppContent() {
                     size="sm"
                     className="border-purple-400 text-purple-400 hover:bg-purple-400 hover:text-white"
                   >
-                    Fırsatları Keşfet
+                    {t('header.opportunities')}
                   </Button>
                   <Button 
                     onClick={() => setIsAuthModalOpen(true)} 
@@ -153,7 +178,7 @@ function AppContent() {
                     size="sm"
                     className="text-slate-300 hover:text-white"
                   >
-                    Giriş / Kayıt
+                    {t('header.login')}
                   </Button>
                 </>
               )}
@@ -204,11 +229,13 @@ function AppContent() {
 // Root component to provide context
 function App() {
   return (
-    <AuthProvider>
-      <HelmetProvider>
-        <AppContent />
-      </HelmetProvider>
-    </AuthProvider>
+    <LanguageProvider>
+      <AuthProvider>
+        <HelmetProvider>
+          <AppContent />
+        </HelmetProvider>
+      </AuthProvider>
+    </LanguageProvider>
   );
 }
 
