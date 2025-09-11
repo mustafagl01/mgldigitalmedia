@@ -3,12 +3,14 @@ import { Crown, Package } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 import { supabase } from '../lib/supabase';
 import { getProductByPriceId } from '../stripe-config';
+import { useLanguage } from '../contexts/LanguageContext';
 
 export const UserSubscriptionStatus: React.FC = () => {
   const [subscription, setSubscription] = useState<any>(null);
   const [orders, setOrders] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const { user } = useAuth();
+  const { t } = useLanguage();
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -64,11 +66,12 @@ export const UserSubscriptionStatus: React.FC = () => {
         <div>
           <h3 className="font-semibold text-white">
             {hasActiveSubscription ? 'Aktif Abonelik' : 'Satın Alınan Ürünler'}
+            {hasActiveSubscription ? t('subscription.active') : t('subscription.products')}
           </h3>
           <p className="text-sm text-slate-300">
             {hasActiveSubscription 
-              ? `${getProductByPriceId(subscription.price_id)?.name || 'Otomasyon'} - Aktif`
-              : `${orders.length} ürün satın alındı`
+              ? `${getProductByPriceId(subscription.price_id)?.name || 'Otomasyon'} - ${t('subscription.active.desc')}`
+              : `${orders.length} ${t('subscription.products.desc')}`
             }
           </p>
         </div>

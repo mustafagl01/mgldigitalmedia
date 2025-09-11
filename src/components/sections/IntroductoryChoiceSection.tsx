@@ -1,8 +1,11 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 export const IntroductoryChoiceSection: React.FC = () => {
+  const { t } = useLanguage();
+
   const handleChoice = (targetId: string) => {
     const targetElement = document.getElementById(targetId);
     if (targetElement) {
@@ -20,10 +23,10 @@ export const IntroductoryChoiceSection: React.FC = () => {
           className="max-w-4xl w-full text-center mx-auto"
         >
           <h2 className="text-3xl md:text-5xl font-bold mb-4 bg-gradient-to-r from-white to-purple-300 bg-clip-text text-transparent leading-tight md:leading-tight">
-            İşletmenizi Bir Sonraki Seviyeye Nasıl Taşımak İstersiniz?
+            {t('choice.title')}
           </h2>
           <p className="text-lg text-slate-400 mb-12">
-            Size en uygun çözümü bulmamız için lütfen mevcut önceliğinizi seçin.
+            {t('choice.subtitle')}
           </p>
           
           <div className="grid md:grid-cols-3 gap-8">
@@ -33,13 +36,12 @@ export const IntroductoryChoiceSection: React.FC = () => {
               className="bg-slate-800/50 p-8 rounded-2xl border border-slate-700 cursor-pointer h-full flex flex-col" 
               onClick={() => handleChoice('demos')}
             >
-              <h3 className="text-2xl font-bold text-white mb-3">Manuel İşleri Otomatikleştirin</h3>
+              <h3 className="text-2xl font-bold text-white mb-3">{t('choice.automation.title')}</h3>
               <p className="text-slate-400 flex-grow">
-                Tekrarlayan görevleri, raporlamayı ve veri girişini akıllı asistanlara devrederek 
-                ekibinizin gerçekten önemli işlere odaklanmasını sağlayın.
+                {t('choice.automation.desc')}
               </p>
               <span className="mt-6 text-purple-400 font-semibold flex items-center justify-center">
-                Verimliliği Seç <ArrowRight className="ml-2 w-5 h-5"/>
+                {t('choice.automation.cta')} <ArrowRight className="ml-2 w-5 h-5"/>
               </span>
             </motion.div>
             
@@ -49,13 +51,12 @@ export const IntroductoryChoiceSection: React.FC = () => {
               className="bg-slate-800/50 p-8 rounded-2xl border border-slate-700 cursor-pointer h-full flex flex-col" 
               onClick={() => handleChoice('services')}
             >
-              <h3 className="text-2xl font-bold text-white mb-3">Müşteri Akışını Hızlandırın</h3>
+              <h3 className="text-2xl font-bold text-white mb-3">{t('choice.customers.title')}</h3>
               <p className="text-slate-400 flex-grow">
-                Mevcut reklam kampanyalarınızdan daha iyi sonuçlar alın. Yapay zeka destekli stratejilerle 
-                reklam harcamanızın geri dönüşünü (ROAS) katlayın.
+                {t('choice.customers.desc')}
               </p>
               <span className="mt-6 text-purple-400 font-semibold flex items-center justify-center">
-                Daha Fazla Müşteri <ArrowRight className="ml-2 w-5 h-5"/>
+                {t('choice.customers.cta')} <ArrowRight className="ml-2 w-5 h-5"/>
               </span>
             </motion.div>
             
@@ -65,13 +66,12 @@ export const IntroductoryChoiceSection: React.FC = () => {
               className="bg-gradient-to-br from-purple-600 to-cyan-600 text-white p-8 rounded-2xl border border-purple-500 cursor-pointer h-full flex flex-col" 
               onClick={() => handleChoice('hero')}
             >
-              <h3 className="text-2xl font-bold mb-3">Uçtan Uca Büyüme Motoru Kurun</h3>
+              <h3 className="text-2xl font-bold mb-3">{t('choice.system.title')}</h3>
               <p className="text-purple-200 flex-grow">
-                Reklamlarla getirdiğimiz potansiyel müşterileri, AI asistanlarla 7/24 takip edip 
-                satışa hazır hale getiren kusursuz bir sistem inşa edelim.
+                {t('choice.system.desc')}
               </p>
               <span className="mt-6 font-semibold flex items-center justify-center">
-                Tüm Hikayeyi Gör <ArrowRight className="ml-2 w-5 h-5"/>
+                {t('choice.system.cta')} <ArrowRight className="ml-2 w-5 h-5"/>
               </span>
             </motion.div>
           </div>

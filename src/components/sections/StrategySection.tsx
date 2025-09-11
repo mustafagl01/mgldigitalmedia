@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Search, Lightbulb, Target, Users, ArrowRight, LineChart } from 'lucide-react';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 interface StrategyCardProps {
   title: string;
@@ -49,6 +50,9 @@ const StrategyCard: React.FC<StrategyCardProps> = ({ title, children, icon: Icon
 };
 
 export const StrategySection: React.FC = () => (
+  const { t } = useLanguage();
+
+  return (
   <section id="strategy" className="py-20">
     <div className="container mx-auto px-4">
       <motion.div 
@@ -57,38 +61,39 @@ export const StrategySection: React.FC = () => (
         transition={{ duration: 0.6, once: true }} 
         className="text-center mb-16"
       >
-        <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">Başarı Tesadüf Değildir.</h2>
-        <p className="text-xl text-gray-300 max-w-3xl mx-auto">Her adımı ölçülebilir veriye dayanan, kanıtlanmış bir stratejiyle hareket ediyoruz.</p>
+        <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">{t('strategy.title')}</h2>
+        <p className="text-xl text-gray-300 max-w-3xl mx-auto">{t('strategy.subtitle')}</p>
       </motion.div>
       <div className="max-w-5xl mx-auto grid md:grid-cols-2 gap-8">
         <div className="space-y-8">
-          <h3 className="text-3xl font-bold text-center text-purple-300">Funnel Stratejimiz</h3>
-          <StrategyCard title="Farkındalık (TOF)" icon={Search}>
-            <p><strong>Psikoloji:</strong> Kullanıcı henüz sorununun farkında değil veya yeni fark etmiş. Amaç, dikkatini çekmek ve merak uyandırmak.</p>
-            <p><strong>Yaklaşım:</strong> Markanızı/çözümünüzü tanıtan, soğuk kitleyi ısındıran, empati ve merak tetikleyici içerikler üretiriz.</p>
+          <h3 className="text-3xl font-bold text-center text-purple-300">{t('strategy.funnel')}</h3>
+          <StrategyCard title={t('strategy.awareness.title')} icon={Search}>
+            <p><strong>{t('strategy.awareness.psychology')}</strong> {t('strategy.awareness.psychology.desc')}</p>
+            <p><strong>{t('strategy.awareness.approach')}</strong> {t('strategy.awareness.approach.desc')}</p>
           </StrategyCard>
-          <StrategyCard title="Değerlendirme (MOF)" icon={Lightbulb}>
-            <p><strong>Psikoloji:</strong> Artık sorunu kabul etti, çözüm alternatiflerini araştırıyor ve markaları kıyaslıyor.</p>
-            <p><strong>Yaklaşım:</strong> Uzmanlığınızı ve güvenilirliğinizi gösteren, şeffaf içerikler sunarız.</p>
+          <StrategyCard title={t('strategy.consideration.title')} icon={Lightbulb}>
+            <p><strong>{t('strategy.consideration.psychology')}</strong> {t('strategy.consideration.psychology.desc')}</p>
+            <p><strong>{t('strategy.consideration.approach')}</strong> {t('strategy.consideration.approach.desc')}</p>
           </StrategyCard>
-          <StrategyCard title="Karar (BOF)" icon={Target}>
-            <p><strong>Psikoloji:</strong> Satın almaya çok yakın; son itici güç ve "doğrulama" arıyor.</p>
-            <p><strong>Yaklaşım:</strong> Aciliyet ve sosyal kanıt vurgusu yapan reklamlarla kullanıcıyı dönüşüme yönlendiririz.</p>
+          <StrategyCard title={t('strategy.decision.title')} icon={Target}>
+            <p><strong>{t('strategy.decision.psychology')}</strong> {t('strategy.decision.psychology.desc')}</p>
+            <p><strong>{t('strategy.decision.approach')}</strong> {t('strategy.decision.approach.desc')}</p>
           </StrategyCard>
         </div>
         <div className="space-y-8">
-          <h3 className="text-3xl font-bold text-center text-cyan-300">KPI Takibimiz</h3>
-          <StrategyCard title="CPM & Reach" icon={Users}>
-            <p><strong>CPM (1000 Gösterim Maliyeti)</strong> ve <strong>Reach (Erişim)</strong> metrikleriyle hedefleme kalitemizi ve kitleye ne kadar etkin ulaştığımızı ölçeriz.</p>
+          <h3 className="text-3xl font-bold text-center text-cyan-300">{t('strategy.kpi')}</h3>
+          <StrategyCard title={t('strategy.cpm.title')} icon={Users}>
+            <p>{t('strategy.cpm.desc')}</p>
           </StrategyCard>
-          <StrategyCard title="CTR & CPC" icon={ArrowRight}>
-            <p><strong>CTR (Tıklama Oranı)</strong> ile içeriğinizin ne kadar ilgi çekici olduğunu, <strong>CPC (Tıklama Başı Maliyet)</strong> ile de reklam verimliliğini anlık olarak takip ederiz.</p>
+          <StrategyCard title={t('strategy.ctr.title')} icon={ArrowRight}>
+            <p>{t('strategy.ctr.desc')}</p>
           </StrategyCard>
-          <StrategyCard title="CPL & ROAS" icon={LineChart}>
-            <p><strong>CPL (Lead Başı Maliyet)</strong> ile her bir potansiyel müşterinin size maliyetini hesaplarız. En önemlisi, <strong>ROAS (Reklam Harcaması Geri Dönüşü)</strong> ile harcadığınız her liranın size ne kadar kazandırdığını net bir şekilde raporlarız.</p>
+          <StrategyCard title={t('strategy.cpl.title')} icon={LineChart}>
+            <p>{t('strategy.cpl.desc')}</p>
           </StrategyCard>
         </div>
       </div>
     </div>
   </section>
-);
+  );
+};

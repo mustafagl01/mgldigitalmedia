@@ -5,6 +5,7 @@ import { Button } from './ui/Button';
 import { StripeProduct } from '../stripe-config';
 import { useAuth } from '../contexts/AuthContext';
 import { toast } from '../hooks/useToast';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface ProductCardProps {
   product: StripeProduct;
@@ -14,6 +15,7 @@ interface ProductCardProps {
 export const ProductCard: React.FC<ProductCardProps> = ({ product, onAuthRequired }) => {
   const [isLoading, setIsLoading] = useState(false);
   const { user, session } = useAuth();
+  const { t } = useLanguage();
 
   const handlePurchase = async () => {
     if (!user || !session) {
@@ -53,8 +55,8 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onAuthRequire
     } catch (error) {
       console.error('Checkout error:', error);
       toast({
-        title: "Ödeme Hatası",
-        description: "Ödeme sayfası açılırken bir hata oluştu. Lütfen tekrar deneyin.",
+        title: t('toast.checkout.error'),
+        description: t('toast.checkout.error.desc'),
         variant: "destructive"
       });
     } finally {
@@ -92,15 +94,15 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onAuthRequire
       <div className="space-y-4 mb-8">
         <div className="flex items-center gap-3">
           <Check className="w-5 h-5 text-green-400 flex-shrink-0" />
-          <span className="text-slate-300">Size özel tasarım</span>
+          <span className="text-slate-300">{t('products.feature.custom')}</span>
         </div>
         <div className="flex items-center gap-3">
           <Check className="w-5 h-5 text-green-400 flex-shrink-0" />
-          <span className="text-slate-300">Profesyonel kurulum</span>
+          <span className="text-slate-300">{t('products.feature.setup')}</span>
         </div>
         <div className="flex items-center gap-3">
           <Check className="w-5 h-5 text-green-400 flex-shrink-0" />
-          <span className="text-slate-300">Teknik destek</span>
+          <span className="text-slate-300">{t('products.feature.support')}</span>
         </div>
       </div>
 
@@ -114,7 +116,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onAuthRequire
         ) : (
           <>
             <ShoppingCart className="w-5 h-5 mr-2" />
-            {product.mode === 'subscription' ? 'Abonelik Başlat' : 'Satın Al'}
+            {product.mode === 'subscription' ? t('products.subscribe') : t('products.buy')}
           </>
         )}
       </Button>

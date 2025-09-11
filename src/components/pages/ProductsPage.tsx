@@ -6,6 +6,7 @@ import { ProductCard } from '../ProductCard';
 import { AuthModal } from '../auth/AuthModal';
 import { stripeProducts } from '../../stripe-config';
 import { useAuth } from '../../contexts/AuthContext';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 interface ProductsPageProps {
   onBack: () => void;
@@ -14,6 +15,7 @@ interface ProductsPageProps {
 export const ProductsPage: React.FC<ProductsPageProps> = ({ onBack }) => {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const { user, signOut } = useAuth();
+  const { t } = useLanguage();
 
   const handleSignOut = async () => {
     await signOut();
@@ -30,12 +32,12 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({ onBack }) => {
             className="flex items-center gap-2 text-slate-300 hover:text-white"
           >
             <ArrowLeft className="w-5 h-5" />
-            Ana Sayfaya Dön
+            {t('products.back')}
           </Button>
           {user && (
             <div className="flex items-center gap-4">
               <span className="text-slate-300 hidden sm:block">
-                Hoş geldiniz, {user.email}
+                {t('header.welcome')}, {user.email}
               </span>
               <Button 
                 onClick={handleSignOut}
@@ -43,7 +45,7 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({ onBack }) => {
                 className="text-red-400 hover:text-red-300 hover:bg-red-400/10 flex items-center gap-2"
               >
                 <LogOut className="w-4 h-4" />
-                Çıkış Yap
+                {t('header.logout')}
               </Button>
             </div>
           )}
@@ -56,10 +58,10 @@ export const ProductsPage: React.FC<ProductsPageProps> = ({ onBack }) => {
         >
           <div className="flex items-center justify-center gap-3 mb-6">
             <Package className="w-12 h-12 text-purple-400" />
-            <h1 className="text-4xl md:text-5xl font-bold text-white">Otomasyon Çözümleri</h1>
+            <h1 className="text-4xl md:text-5xl font-bold text-white">{t('products.title')}</h1>
           </div>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            İşletmeniz için özel olarak tasarlanan AI otomasyon sistemleri
+            {t('products.subtitle')}
           </p>
         </motion.div>
 

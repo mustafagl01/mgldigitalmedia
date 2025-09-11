@@ -2,6 +2,7 @@ import React from 'react';
 import { motion } from 'framer-motion';
 import { XCircle, ArrowLeft, RefreshCw } from 'lucide-react';
 import { Button } from '../ui/Button';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 interface CancelPageProps {
   onBack: () => void;
@@ -9,6 +10,8 @@ interface CancelPageProps {
 }
 
 export const CancelPage: React.FC<CancelPageProps> = ({ onBack, onRetry }) => {
+  const { t } = useLanguage();
+
   return (
     <div className="min-h-screen bg-slate-900 flex items-center justify-center p-4">
       <motion.div
@@ -26,15 +29,15 @@ export const CancelPage: React.FC<CancelPageProps> = ({ onBack, onRetry }) => {
             <XCircle className="w-12 h-12 text-white" />
           </motion.div>
 
-          <h1 className="text-3xl font-bold text-white mb-4">Ödeme İptal Edildi</h1>
+          <h1 className="text-3xl font-bold text-white mb-4">{t('cancel.title')}</h1>
           <p className="text-xl text-slate-300 mb-8">
-            Ödeme işlemi iptal edildi. Herhangi bir ücret tahsil edilmedi.
+            {t('cancel.subtitle')}
           </p>
 
           <div className="bg-slate-700/50 rounded-xl p-6 mb-8">
-            <h3 className="text-lg font-semibold text-white mb-3">Yardıma mı İhtiyacınız Var?</h3>
+            <h3 className="text-lg font-semibold text-white mb-3">{t('cancel.help.title')}</h3>
             <p className="text-slate-300 text-sm">
-              Ödeme sürecinde sorun yaşıyorsanız, doğrudan bizimle iletişime geçebilirsiniz.
+              {t('cancel.help.desc')}
             </p>
           </div>
 
@@ -45,14 +48,14 @@ export const CancelPage: React.FC<CancelPageProps> = ({ onBack, onRetry }) => {
               className="flex-1"
             >
               <ArrowLeft className="w-5 h-5 mr-2" />
-              Ana Sayfaya Dön
+              {t('cancel.back')}
             </Button>
             <Button
               onClick={onRetry}
               className="flex-1 bg-purple-600 hover:bg-purple-700"
             >
               <RefreshCw className="w-5 h-5 mr-2" />
-              Tekrar Dene
+              {t('cancel.retry')}
             </Button>
           </div>
 
@@ -66,7 +69,7 @@ export const CancelPage: React.FC<CancelPageProps> = ({ onBack, onRetry }) => {
               variant="ghost"
               className="text-green-400 hover:text-green-300"
             >
-              WhatsApp ile Destek Al
+              {t('cancel.support')}
             </Button>
           </div>
         </div>

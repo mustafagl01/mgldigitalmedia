@@ -5,6 +5,7 @@ import { Button } from '../ui/Button';
 import { useAuth } from '../../contexts/AuthContext';
 import { supabase } from '../../lib/supabase';
 import { getProductByPriceId } from '../../stripe-config';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 interface SuccessPageProps {
   onBack: () => void;
@@ -14,6 +15,7 @@ export const SuccessPage: React.FC<SuccessPageProps> = ({ onBack }) => {
   const [orderDetails, setOrderDetails] = useState<any>(null);
   const [loading, setLoading] = useState(true);
   const { user } = useAuth();
+  const { t } = useLanguage();
 
   useEffect(() => {
     const fetchOrderDetails = async () => {
@@ -81,24 +83,24 @@ export const SuccessPage: React.FC<SuccessPageProps> = ({ onBack }) => {
             <CheckCircle className="w-12 h-12 text-white" />
           </motion.div>
 
-          <h1 className="text-3xl font-bold text-white mb-4">Ödeme Başarılı!</h1>
+          <h1 className="text-3xl font-bold text-white mb-4">{t('success.title')}</h1>
           <p className="text-xl text-slate-300 mb-8">
-            Teşekkürler! Otomasyon çözümünüz için ödemeniz başarıyla alındı.
+            {t('success.subtitle')}
           </p>
 
           {orderDetails && (
             <div className="bg-slate-700/50 rounded-xl p-6 mb-8 text-left">
               <h3 className="text-lg font-semibold text-white mb-4 flex items-center gap-2">
                 <Package className="w-5 h-5" />
-                Sipariş Detayları
+                {t('success.order.title')}
               </h3>
               <div className="space-y-3 text-slate-300">
                 <div className="flex justify-between">
-                  <span>Ürün:</span>
+                  <span>{t('success.product')}</span>
                   <span className="font-medium">{orderDetails.product?.name || 'Otomasyon'}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>Tutar:</span>
+                  <span>{t('success.amount')}</span>
                   <span className="font-medium">
                     {new Intl.NumberFormat('tr-TR', {
                       style: 'currency',
@@ -107,20 +109,20 @@ export const SuccessPage: React.FC<SuccessPageProps> = ({ onBack }) => {
                   </span>
                 </div>
                 <div className="flex justify-between">
-                  <span>Durum:</span>
-                  <span className="font-medium text-green-400">Tamamlandı</span>
+                  <span>{t('success.status')}</span>
+                  <span className="font-medium text-green-400">{t('success.completed')}</span>
                 </div>
               </div>
             </div>
           )}
 
           <div className="bg-purple-900/30 rounded-xl p-6 mb-8">
-            <h3 className="text-lg font-semibold text-white mb-3">Sırada Ne Var?</h3>
+            <h3 className="text-lg font-semibold text-white mb-3">{t('success.next.title')}</h3>
             <div className="text-slate-300 space-y-2 text-left">
-              <p>• Ekibimiz 24 saat içinde sizinle iletişime geçecek</p>
-              <p>• Proje detayları ve timeline belirlenir</p>
-              <p>• Otomasyon sisteminiz kurulur ve test edilir</p>
-              <p>• Eğitim ve devreye alma süreci tamamlanır</p>
+              <p>{t('success.next.contact')}</p>
+              <p>{t('success.next.details')}</p>
+              <p>{t('success.next.setup')}</p>
+              <p>{t('success.next.training')}</p>
             </div>
           </div>
 
@@ -131,7 +133,7 @@ export const SuccessPage: React.FC<SuccessPageProps> = ({ onBack }) => {
               className="flex-1"
             >
               <ArrowLeft className="w-5 h-5 mr-2" />
-              Ana Sayfaya Dön
+              {t('success.back')}
             </Button>
             <Button
               onClick={() => {
@@ -141,7 +143,7 @@ export const SuccessPage: React.FC<SuccessPageProps> = ({ onBack }) => {
               }}
               className="flex-1 bg-green-600 hover:bg-green-700"
             >
-              WhatsApp ile İletişime Geç
+              {t('success.whatsapp')}
             </Button>
           </div>
         </div>
