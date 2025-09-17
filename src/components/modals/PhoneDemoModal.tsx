@@ -4,6 +4,8 @@ import { Phone, Bot, CheckCircle } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { Input } from '../ui/Input';
 import { toast } from '../../hooks/useToast';
+import { useLanguage } from '../../contexts/LanguageContext';
+import { insertLead } from '../../lib/supabase';
 
 interface PhoneDemoModalProps {
   isOpen: boolean;
@@ -11,6 +13,7 @@ interface PhoneDemoModalProps {
 }
 
 export const PhoneDemoModal: React.FC<PhoneDemoModalProps> = ({ isOpen, onClose }) => {
+  const { t } = useLanguage();
   const [countryCode, setCountryCode] = useState('+90');
   const [phoneNumber, setPhoneNumber] = useState('');
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -19,24 +22,45 @@ export const PhoneDemoModal: React.FC<PhoneDemoModalProps> = ({ isOpen, onClose 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!phoneNumber.trim() || isLoading) {
-      toast({ title: "Geçersiz Numara", description: "Lütfen geçerli bir telefon numarası girin.", variant: "destructive" });
+      toast({ title: t('toast.invalid.phone'), description: t('toast.invalid.phone.desc'), variant: "destructive" });
       return;
     }
     setIsLoading(true);
     const fullPhoneNumber = `${countryCode}${phoneNumber.replace(/\s/g, '')}`;
-    const webhookUrl = 'https://mustafagl01.app.n8n.cloud/webhook/a1efbd5d-e366-4aeb-affb-8c75dbcfe5f8';
 
     try {
-      await fetch(webhookUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ event: 'call_request', phoneNumber: fullPhoneNumber })
-      });
-      toast({ title: "Harika!", description: "AI asistanımız belirttiğiniz numarayı arayacak." });
-      setIsSubmitted(true);
+      // Save lead to Supabase database
+      const leadData = {
+        phone: fullPhoneNumber,
+        email: `phone-demo-${Date.now()}@temp.com`, // Temporary email for phone demos
+        source: 'phone_demo'
+      };
+
+      const result = await insertLead(leadData);
+
+      if (result.success) {
+        console.log('Phone demo lead saved:', result.data);
+        
+        // Also send to n8n webhook for actual phone call
+        const webhookUrl = 'https://mustafagl01.app.n8n.cloud/webhook/a1efbd5d-e366-4aeb-affb-8c75dbcfe5f8';
+        try {
+          await fetch(webhookUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ event: 'call_request', phoneNumber: fullPhoneNumber })
+          });
+        } catch (webhookError) {
+          console.log('Webhook failed, but lead was saved to database:', webhookError);
+        }
+        
+        toast({ title: t('toast.phone.success'), description: t('toast.phone.success.desc') });
+        setIsSubmitted(true);
+      } else {
+        throw new Error(result.error?.message || 'Database save failed');
+      }
     } catch (error) {
-      console.error('Webhook error:', error);
-      toast({ title: "Hata!", description: "İş akışına bağlanırken bir sorun oluştu.", variant: "destructive" });
+      console.error('Lead capture error:', error);
+      toast({ title: t('toast.error'), description: t('toast.workflow.error'), variant: "destructive" });
     } finally {
       setIsLoading(false);
     }

@@ -193,6 +193,42 @@ const translations = {
 
     // Modals
     'modal.email.title': 'Otomatik E-posta Demo',
+    
+    // Idea Assistant Modal - Industries
+    'modal.idea.industries.ecommerce': 'E-Ticaret',
+    'modal.idea.industries.health': 'Sağlık',
+    'modal.idea.industries.education': 'Eğitim',
+    'modal.idea.industries.service': 'Hizmet',
+    'modal.idea.industries.retail': 'Perakende',
+    'modal.idea.industries.other': 'Diğer',
+    
+    // Idea Assistant Modal - Pain Points
+    'modal.idea.painpoints.customer_support': 'Müşteri Desteği',
+    'modal.idea.painpoints.order_tracking': 'Sipariş Takibi',
+    'modal.idea.painpoints.inventory': 'Stok Yönetimi',
+    'modal.idea.painpoints.marketing': 'Pazarlama',
+    'modal.idea.painpoints.appointments': 'Randevu Planlama',
+    'modal.idea.painpoints.patient_info': 'Hasta Bilgilendirme',
+    'modal.idea.painpoints.prescriptions': 'Reçete Yenileme',
+    'modal.idea.painpoints.reporting': 'Raporlama',
+    'modal.idea.painpoints.student_registration': 'Öğrenci Kayıt',
+    'modal.idea.painpoints.scheduling': 'Ders Programı',
+    'modal.idea.painpoints.parent_communication': 'Velilerle İletişim',
+    'modal.idea.painpoints.material_distribution': 'Materyal Dağıtımı',
+    'modal.idea.painpoints.proposals': 'Teklif Hazırlama',
+    'modal.idea.painpoints.crm': 'Müşteri İlişkileri (CRM)',
+    'modal.idea.painpoints.project_tracking': 'Proje Takibi',
+    'modal.idea.painpoints.billing': 'Faturalandırma',
+    'modal.idea.painpoints.inventory_control': 'Envanter Kontrolü',
+    'modal.idea.painpoints.staff_management': 'Personel Yönetimi',
+    'modal.idea.painpoints.loyalty': 'Müşteri Sadakati',
+    'modal.idea.painpoints.sales_reports': 'Satış Raporları',
+    'modal.idea.painpoints.communication': 'Müşteri İletişimi',
+    'modal.idea.painpoints.sales_marketing': 'Satış ve Pazarlama',
+    'modal.idea.painpoints.hr': 'İnsan Kaynakları',
+    
+    // Idea Assistant Modal - Other
+    'modal.idea.other_explain': 'Diğer (Açıklayın)',
     'modal.email.desc': 'Bu formu doldurun ve e-posta otomasyonunun nasıl başladığını görün.',
     'modal.email.name': 'Adınız',
     'modal.email.name.placeholder': 'Örn: Ahmet Yılmaz',
@@ -662,6 +698,42 @@ const translations = {
 
     // Modals
     'modal.email.title': 'Automatic Email Demo',
+    
+    // Idea Assistant Modal - Industries
+    'modal.idea.industries.ecommerce': 'E-Commerce',
+    'modal.idea.industries.health': 'Healthcare',
+    'modal.idea.industries.education': 'Education',
+    'modal.idea.industries.service': 'Service',
+    'modal.idea.industries.retail': 'Retail',
+    'modal.idea.industries.other': 'Other',
+    
+    // Idea Assistant Modal - Pain Points
+    'modal.idea.painpoints.customer_support': 'Customer Support',
+    'modal.idea.painpoints.order_tracking': 'Order Tracking',
+    'modal.idea.painpoints.inventory': 'Inventory Management',
+    'modal.idea.painpoints.marketing': 'Marketing',
+    'modal.idea.painpoints.appointments': 'Appointment Scheduling',
+    'modal.idea.painpoints.patient_info': 'Patient Information',
+    'modal.idea.painpoints.prescriptions': 'Prescription Renewal',
+    'modal.idea.painpoints.reporting': 'Reporting',
+    'modal.idea.painpoints.student_registration': 'Student Registration',
+    'modal.idea.painpoints.scheduling': 'Class Scheduling',
+    'modal.idea.painpoints.parent_communication': 'Parent Communication',
+    'modal.idea.painpoints.material_distribution': 'Material Distribution',
+    'modal.idea.painpoints.proposals': 'Proposal Preparation',
+    'modal.idea.painpoints.crm': 'Customer Relations (CRM)',
+    'modal.idea.painpoints.project_tracking': 'Project Tracking',
+    'modal.idea.painpoints.billing': 'Billing',
+    'modal.idea.painpoints.inventory_control': 'Inventory Control',
+    'modal.idea.painpoints.staff_management': 'Staff Management',
+    'modal.idea.painpoints.loyalty': 'Customer Loyalty',
+    'modal.idea.painpoints.sales_reports': 'Sales Reports',
+    'modal.idea.painpoints.communication': 'Customer Communication',
+    'modal.idea.painpoints.sales_marketing': 'Sales and Marketing',
+    'modal.idea.painpoints.hr': 'Human Resources',
+    
+    // Idea Assistant Modal - Other
+    'modal.idea.other_explain': 'Other (Explain)',
     'modal.email.desc': 'Fill out this form and see how email automation starts.',
     'modal.email.name': 'Your Name',
     'modal.email.name.placeholder': 'e.g. John Doe',

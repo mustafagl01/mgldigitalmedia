@@ -4,6 +4,8 @@ import { BrainCircuit, CheckCircle, RefreshCw, Sparkles } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { Input } from '../ui/Input';
 import { toast } from '../../hooks/useToast';
+import { useLanguage } from '../../contexts/LanguageContext';
+import { insertLead } from '../../lib/supabase';
 
 interface IdeaAssistantModalProps {
   isOpen: boolean;
@@ -16,6 +18,7 @@ export const IdeaAssistantModal: React.FC<IdeaAssistantModalProps> = ({
   onClose, 
   onDemoRedirect 
 }) => {
+  const { t } = useLanguage();
   const [step, setStep] = useState(0);
   const [selections, setSelections] = useState<any>({});
   const [email, setEmail] = useState('');
@@ -25,14 +28,51 @@ export const IdeaAssistantModal: React.FC<IdeaAssistantModalProps> = ({
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isError, setIsError] = useState(false);
 
-  const industries = ["E-Ticaret", "Sağlık", "Eğitim", "Hizmet", "Perakende"];
+  const industries = [
+    t('modal.idea.industries.ecommerce'),
+    t('modal.idea.industries.health'),
+    t('modal.idea.industries.education'),
+    t('modal.idea.industries.service'),
+    t('modal.idea.industries.retail')
+  ];
+  
   const painPoints: Record<string, string[]> = {
-    "E-Ticaret": ["Müşteri Desteği", "Sipariş Takibi", "Stok Yönetimi", "Pazarlama"],
-    "Sağlık": ["Randevu Planlama", "Hasta Bilgilendirme", "Reçete Yenileme", "Raporlama"],
-    "Eğitim": ["Öğrenci Kayıt", "Ders Programı", "Velilerle İletişim", "Materyal Dağıtımı"],
-    "Hizmet": ["Teklif Hazırlama", "Müşteri İlişkileri (CRM)", "Proje Takibi", "Faturalandırma"],
-    "Perakende": ["Envanter Kontrolü", "Personel Yönetimi", "Müşteri Sadakati", "Satış Raporları"],
-    "Diğer": ["Müşteri İletişimi", "Satış ve Pazarlama", "Raporlama", "İnsan Kaynakları"]
+    [t('modal.idea.industries.ecommerce')]: [
+      t('modal.idea.painpoints.customer_support'),
+      t('modal.idea.painpoints.order_tracking'),
+      t('modal.idea.painpoints.inventory'),
+      t('modal.idea.painpoints.marketing')
+    ],
+    [t('modal.idea.industries.health')]: [
+      t('modal.idea.painpoints.appointments'),
+      t('modal.idea.painpoints.patient_info'),
+      t('modal.idea.painpoints.prescriptions'),
+      t('modal.idea.painpoints.reporting')
+    ],
+    [t('modal.idea.industries.education')]: [
+      t('modal.idea.painpoints.student_registration'),
+      t('modal.idea.painpoints.scheduling'),
+      t('modal.idea.painpoints.parent_communication'),
+      t('modal.idea.painpoints.material_distribution')
+    ],
+    [t('modal.idea.industries.service')]: [
+      t('modal.idea.painpoints.proposals'),
+      t('modal.idea.painpoints.crm'),
+      t('modal.idea.painpoints.project_tracking'),
+      t('modal.idea.painpoints.billing')
+    ],
+    [t('modal.idea.industries.retail')]: [
+      t('modal.idea.painpoints.inventory_control'),
+      t('modal.idea.painpoints.staff_management'),
+      t('modal.idea.painpoints.loyalty'),
+      t('modal.idea.painpoints.sales_reports')
+    ],
+    [t('modal.idea.industries.other')]: [
+      t('modal.idea.painpoints.communication'),
+      t('modal.idea.painpoints.sales_marketing'),
+      t('modal.idea.painpoints.reporting'),
+      t('modal.idea.painpoints.hr')
+    ]
   };
 
   const resetState = () => {
@@ -95,18 +135,42 @@ export const IdeaAssistantModal: React.FC<IdeaAssistantModalProps> = ({
     e.preventDefault();
     if (!email || isSubmitting) return;
     setIsSubmitting(true);
-    const webhookUrl = 'https://mustafagl01.app.n8n.cloud/webhook-test/b258d591-af79-4580-9e8c-3c661256359b'; 
+    
     try {
-      await fetch(webhookUrl, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ ...selections, generatedIdea, email, name: 'Idea Assistant Lead' })
-      });
-      toast({ title: "Harika!", description: "Detaylı analiz en kısa sürede e-posta adresinize gönderilecektir." });
-      setStep(3);
+      // Save lead to Supabase database
+      const leadData = {
+        email: email,
+        industry: selections.industry,
+        pain_point: selections.painPoint,
+        generated_idea: generatedIdea,
+        source: 'idea_assistant'
+      };
+
+      const result = await insertLead(leadData);
+
+      if (result.success) {
+        console.log('Lead saved to database:', result.data);
+        
+        // Also send to n8n webhook (optional - for existing integrations)
+        const webhookUrl = 'https://mustafagl01.app.n8n.cloud/webhook-test/b258d591-af79-4580-9e8c-3c661256359b';
+        try {
+          await fetch(webhookUrl, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ ...selections, generatedIdea, email, name: 'Idea Assistant Lead' })
+          });
+        } catch (webhookError) {
+          console.log('Webhook failed, but lead was saved to database:', webhookError);
+        }
+        
+        toast({ title: t('toast.idea.success'), description: t('toast.idea.success.desc') });
+        handleClose(); // Close modal instead of going to step 3
+      } else {
+        throw new Error(result.error?.message || 'Database save failed');
+      }
     } catch (error) {
-      console.error("Lead capture webhook error:", error);
-      toast({ title: "Hata!", description: "Bir sorun oluştu, lütfen daha sonra tekrar deneyin.", variant: "destructive" });
+      console.error("Lead capture error:", error);
+      toast({ title: t('toast.error'), description: t('toast.idea.error'), variant: "destructive" });
     } finally {
       setIsSubmitting(false);
     }
@@ -118,7 +182,7 @@ export const IdeaAssistantModal: React.FC<IdeaAssistantModalProps> = ({
         return (
           <motion.div key={0} initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }}>
             <p className="text-base sm:text-lg text-gray-300 mb-4">
-              Merhaba! İşletmeniz için otomasyon potansiyelini keşfedelim. Hangi sektörde faaliyet gösteriyorsunuz?
+              {t('modal.idea.industry')}
             </p>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 sm:gap-3">
               {industries.map(ind => (
@@ -126,8 +190,8 @@ export const IdeaAssistantModal: React.FC<IdeaAssistantModalProps> = ({
                   {ind}
                 </Button>
               ))}
-              <Button variant="secondary" onClick={() => handleSelection('industry', 'Diğer')} className="text-sm sm:text-base py-2">
-                Diğer
+              <Button variant="secondary" onClick={() => handleSelection('industry', t('modal.idea.industries.other'))} className="text-sm sm:text-base py-2">
+                {t('modal.idea.industries.other')}
               </Button>
             </div>
           </motion.div>
@@ -136,16 +200,16 @@ export const IdeaAssistantModal: React.FC<IdeaAssistantModalProps> = ({
         return (
           <motion.div key={1} initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }}>
             <p className="text-base sm:text-lg text-gray-300 mb-4">
-              Harika, <strong>{selections.industry}</strong>. Peki en çok hangi alanda zaman kazanmak veya süreci iyileştirmek istersiniz?
+              {t('modal.idea.painpoint').replace('{industry}', selections.industry)}
             </p>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-3">
-              {(painPoints[selections.industry] || painPoints['Diğer']).map(pp => (
+              {(painPoints[selections.industry] || painPoints[t('modal.idea.industries.other')]).map(pp => (
                 <Button key={pp} variant="secondary" onClick={() => handleSelection('painPoint', pp)} className="text-sm sm:text-base py-2">
                   {pp}
                 </Button>
               ))}
               <Button variant="secondary" onClick={() => setStep(1.5)} className="text-sm sm:text-base py-2">
-                Diğer (Açıklayın)
+                {t('modal.idea.other_explain')}
               </Button>
             </div>
           </motion.div>
@@ -154,16 +218,16 @@ export const IdeaAssistantModal: React.FC<IdeaAssistantModalProps> = ({
         return (
           <motion.div key={1.5} initial={{ opacity: 0, x: -30 }} animate={{ opacity: 1, x: 0 }}>
             <p className="text-base sm:text-lg text-gray-300 mb-4">
-              Lütfen otomatikleştirmek istediğiniz süreci kısaca açıklayın:
+              {t('modal.idea.custom')}
             </p>
             <form onSubmit={(e) => { e.preventDefault(); handleSelection('painPoint', customPainPoint); }} className="flex flex-col sm:flex-row gap-2">
               <Input 
                 value={customPainPoint} 
                 onChange={(e) => setCustomPainPoint(e.target.value)} 
-                placeholder="Örn: Gelen faturaları işlemek" 
+                placeholder={t('modal.idea.custom.placeholder')} 
                 className="text-sm sm:text-base"
               />
-              <Button type="submit" className="text-sm sm:text-base">Gönder</Button>
+              <Button type="submit" className="text-sm sm:text-base">{t('modal.idea.send')}</Button>
             </form>
           </motion.div>
         );
@@ -172,7 +236,7 @@ export const IdeaAssistantModal: React.FC<IdeaAssistantModalProps> = ({
           <motion.div key={1.8} initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} className="text-center py-10">
             <div className="flex justify-center items-center gap-3">
               <div className="w-8 h-8 border-4 border-purple-400 border-t-transparent rounded-full animate-spin" />
-              <p className="text-base sm:text-lg text-gray-300">AI sizin için fikir üretiyor...</p>
+              <p className="text-base sm:text-lg text-gray-300">{t('modal.idea.generating')}</p>
             </div>
           </motion.div>
         );
@@ -182,23 +246,23 @@ export const IdeaAssistantModal: React.FC<IdeaAssistantModalProps> = ({
             {isError ? (
               <div>
                 <p className="text-base sm:text-lg text-yellow-300 mb-4">
-                  AI asistanımız anlık bir yoğunluk yaşıyor ve size özel bir fikir üretemedi.
+                  {t('modal.idea.error')}
                 </p>
                 <div className="bg-slate-700/50 p-3 sm:p-4 rounded-lg border border-slate-600 mb-4 sm:mb-6">
-                  <p className="text-white text-sm sm:text-base">Bu sırada, otomasyonun gücünü görmek için canlı demolarımızı deneyebilirsiniz.</p>
+                  <p className="text-white text-sm sm:text-base">{t('modal.idea.error.demo')}</p>
                 </div>
                 <div className="flex flex-col sm:flex-row gap-2">
                   <Button onClick={onDemoRedirect} className="text-sm sm:text-base">
                     <Sparkles className="w-4 h-4 mr-2"/>
-                    Canlı Demoları Gör
+                    {t('modal.idea.error.button')}
                   </Button>
-                  <Button variant="secondary" onClick={resetState} className="text-sm sm:text-base">Baştan Başla</Button>
+                  <Button variant="secondary" onClick={resetState} className="text-sm sm:text-base">{t('modal.idea.restart')}</Button>
                 </div>
               </div>
             ) : (
               <div>
                 <p className="text-base sm:text-lg text-gray-300 mb-4">
-                  Anladım. <strong>{selections.painPoint}</strong> konusunda size yardımcı olabiliriz. İşte AI tarafından üretilen bir fikir:
+                  {t('modal.idea.result').replace('{painPoint}', selections.painPoint)}
                 </p>
                 <div className="bg-slate-700/50 p-3 sm:p-4 rounded-lg border border-slate-600 mb-4 sm:mb-6 min-h-[60px] sm:min-h-[80px] max-h-[200px] overflow-y-auto">
                   <p className="text-white text-sm sm:text-base leading-relaxed">{generatedIdea}</p>
@@ -206,13 +270,13 @@ export const IdeaAssistantModal: React.FC<IdeaAssistantModalProps> = ({
                 <div className="flex flex-col sm:flex-row gap-2 mb-4 sm:mb-6">
                   <Button variant="outline" onClick={() => fetchAutomationIdea(selections)} disabled={isLoading} className="text-sm sm:text-base">
                     <RefreshCw className={`w-4 h-4 mr-2 ${isLoading ? 'animate-spin' : ''}`} /> 
-                    Yeni Fikir Üret
+                    {t('modal.idea.newIdea')}
                   </Button>
-                  <Button variant="secondary" onClick={resetState} className="text-sm sm:text-base">Baştan Başla</Button>
+                  <Button variant="secondary" onClick={resetState} className="text-sm sm:text-base">{t('modal.idea.restart')}</Button>
                 </div>
-                <p className="text-base sm:text-lg text-gray-300 mb-4">Bu sadece bir mini demo! Gerçek projeleriniz için bizimle iletişime geçebilirsiniz.</p>
+                <p className="text-base sm:text-lg text-gray-300 mb-4">{t('modal.idea.contact')}</p>
                 <Button onClick={handleClose} className="w-full text-sm sm:text-base py-3">
-                  Harika!
+                  {t('modal.idea.great')}
                 </Button>
               </div>
             )}

@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { ArrowLeft, LogOut, User, Home } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { useAuth } from '../../contexts/AuthContext';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 interface HeaderProps {
   onAnalysisClick: () => void;
@@ -11,9 +12,19 @@ interface HeaderProps {
 
 export const Header: React.FC<HeaderProps> = ({ onAnalysisClick, onAuthClick }) => {
   const { user, signOut } = useAuth();
+  const { t } = useLanguage();
 
   const handleSignOut = async () => {
-    await signOut();
+    console.log('Header logout butonu tıklandı');
+    try {
+      console.log('Header signOut çağırılıyor...');
+      await signOut();
+      console.log('Header SignOut tamamlandı');
+    } catch (error) {
+      console.error('Header logout hatası:', error);
+      // Hata durumunda kullanıcıya bilgi ver
+      alert('Çıkış yapılırken bir hata oluştu. Lütfen sayfayı yenileyin.');
+    }
   };
 
   return (
@@ -55,7 +66,7 @@ export const Header: React.FC<HeaderProps> = ({ onAnalysisClick, onAuthClick }) 
               </Button>
               <Button onClick={handleSignOut} variant="ghost" size="sm" className="text-red-400 hover:text-red-300">
                 <LogOut className="w-4 h-4" />
-                <span className="hidden sm:inline ml-1">Çıkış</span>
+                <span className="hidden sm:inline ml-1">{t('header.logout')}</span>
               </Button>
             </div>
           ) : (

@@ -66,8 +66,15 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
   };
 
   const signOut = async () => {
-    await supabase.auth.signOut();
-    window.location.reload(); // Sayfayı yenile
+    console.log('AuthContext: signOut called');
+    const { error } = await supabase.auth.signOut();
+    if (error) {
+      console.error('AuthContext: Error signing out:', error);
+      throw error;
+    }
+    console.log('AuthContext: signOut completed successfully');
+    // Don't reload immediately - let the auth state change handler manage the state
+    // The onAuthStateChange will automatically update user/session to null
   };
 
   const value = {

@@ -5,6 +5,8 @@ import { Button } from '../ui/Button';
 import { Input } from '../ui/Input';
 import { Label } from '../ui/Label';
 import { toast } from '../../hooks/useToast';
+import { useLanguage } from '../../contexts/LanguageContext';
+import { insertLead } from '../../lib/supabase';
 
 interface EmailDemoModalProps {
   isOpen: boolean;
@@ -12,6 +14,7 @@ interface EmailDemoModalProps {
 }
 
 export const EmailDemoModal: React.FC<EmailDemoModalProps> = ({ isOpen, onClose }) => {
+  const { t } = useLanguage();
   const [formData, setFormData] = useState({ name: '', email: '' });
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -20,25 +23,46 @@ export const EmailDemoModal: React.FC<EmailDemoModalProps> = ({ isOpen, onClose 
     e.preventDefault();
     if (!formData.name || !formData.email || isLoading) {
       if(!formData.name || !formData.email) {
-        toast({ title: "Eksik Bilgi", description: "Lütfen adınızı ve e-posta adresinizi girin.", variant: "destructive" });
+        toast({ title: t('toast.missing.info'), description: t('toast.missing.info.desc'), variant: "destructive" });
       }
       return;
     }
     
     setIsLoading(true);
-    const webhookUrl = 'https://mustafagl01.app.n8n.cloud/webhook/b258d591-af79-4580-9e8c-3c661256359b'; 
 
     try {
-        await fetch(webhookUrl, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(formData)
-        });
-        setIsSubmitted(true);
-        toast({ title: "İstek Gönderildi! 🚀", description: "Bilgileriniz iş akışına başarıyla iletildi." });
+        // Save lead to Supabase database
+        const leadData = {
+          name: formData.name,
+          email: formData.email,
+          source: 'email_demo'
+        };
+
+        const result = await insertLead(leadData);
+
+        if (result.success) {
+          console.log('Email demo lead saved:', result.data);
+          
+          // Also send to n8n webhook (optional)
+          const webhookUrl = 'https://mustafagl01.app.n8n.cloud/webhook/b258d591-af79-4580-9e8c-3c661256359b';
+          try {
+            await fetch(webhookUrl, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify(formData)
+            });
+          } catch (webhookError) {
+            console.log('Webhook failed, but lead was saved to database:', webhookError);
+          }
+          
+          setIsSubmitted(true);
+          toast({ title: t('toast.request.sent'), description: t('toast.request.sent.desc') });
+        } else {
+          throw new Error(result.error?.message || 'Database save failed');
+        }
     } catch(error) {
-        console.error('Webhook error:', error);
-        toast({ title: "Hata!", description: "İş akışına bağlanırken bir sorun oluştu.", variant: "destructive" });
+        console.error('Lead capture error:', error);
+        toast({ title: t('toast.error'), description: t('toast.workflow.error'), variant: "destructive" });
     } finally {
         setIsLoading(false);
     }

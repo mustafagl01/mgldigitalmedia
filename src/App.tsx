@@ -154,12 +154,27 @@ function AppContent() {
                     {t('header.opportunities')}
                   </Button>
                   <Button 
-                    onClick={signOut}
+                    onClick={async () => {
+                      console.log('Ana sayfa logout butonu tıklandı');
+                      try {
+                        console.log('signOut çağırılıyor...');
+                        await signOut();
+                        console.log('SignOut tamamlandı');
+                        // Ana sayfada sayfa yeniden yüklemek yerine sadece state temizlemesi yeterli
+                      } catch (error) {
+                        console.error('Logout hatası:', error);
+                        // Hata durumunda kullanıcıya bilgi ver
+                        alert(language === 'tr' 
+                          ? 'Çıkış yapılırken bir hata oluştu. Lütfen sayfayı yenileyin.' 
+                          : 'An error occurred while signing out. Please refresh the page.'
+                        );
+                      }
+                    }}
                     variant="ghost" 
                     size="sm" 
                     className="text-red-400 hover:text-red-300 hover:bg-red-400/10"
                   >
-                    Çıkış Yap
+                    {t('header.logout')}
                   </Button>
                 </>
               ) : (
