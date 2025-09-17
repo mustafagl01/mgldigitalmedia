@@ -7,6 +7,7 @@ import { Button } from './components/ui/Button';
 // Components
 import { Toaster } from './components/ui/Toast';
 import { AuthModal } from './components/auth/AuthModal';
+import { AuthCallback } from './components/auth/AuthCallback';
 import { ProductsPage } from './components/pages/ProductsPage';
 import { SuccessPage } from './components/pages/SuccessPage';
 import { CancelPage } from './components/pages/CancelPage';
@@ -24,7 +25,7 @@ import { StrategySection } from './components/sections/StrategySection';
 import { CtaSection } from './components/sections/CtaSection';
 import { Footer } from './components/sections/Footer';
 
-type AppPage = 'home' | 'products' | 'success' | 'cancel';
+type AppPage = 'home' | 'products' | 'success' | 'cancel' | 'auth-callback';
 
 function AppContent() {
   const [currentPage, setCurrentPage] = useState<AppPage>(() => {
@@ -32,6 +33,7 @@ function AppContent() {
     if (path === '/products') return 'products';
     if (path === '/success') return 'success';
     if (path === '/cancel') return 'cancel';
+    if (path === '/auth/callback') return 'auth-callback';
     return 'home';
   });
   const [activeDemo, setActiveDemo] = useState<string | null>(null);
@@ -47,6 +49,7 @@ function AppContent() {
       if (path === '/products') setCurrentPage('products');
       else if (path === '/success') setCurrentPage('success');
       else if (path === '/cancel') setCurrentPage('cancel');
+      else if (path === '/auth/callback') setCurrentPage('auth-callback');
       else setCurrentPage('home');
     };
 
@@ -85,6 +88,10 @@ function AppContent() {
 
   if (currentPage === 'cancel') {
     return <CancelPage onBack={() => navigateTo('home')} onRetry={() => navigateTo('products')} />;
+  }
+
+  if (currentPage === 'auth-callback') {
+    return <AuthCallback />;
   }
 
   return (
