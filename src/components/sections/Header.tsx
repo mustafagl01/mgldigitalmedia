@@ -19,11 +19,15 @@ export const Header: React.FC<HeaderProps> = ({ onAnalysisClick, onAuthClick }) 
     try {
       console.log('Header signOut çağırılıyor...');
       await signOut();
-      console.log('Header SignOut tamamlandı');
+      console.log('Header SignOut başarıyla tamamlandı');
     } catch (error) {
       console.error('Header logout hatası:', error);
-      // Hata durumunda kullanıcıya bilgi ver
-      alert('Çıkış yapılırken bir hata oluştu. Lütfen sayfayı yenileyin.');
+      // Sadece kritik hatalarda alert göster
+      if (error && error.message && !error.message.includes('session_not_found')) {
+        alert('Çıkış yapılırken bir hata oluştu: ' + error.message);
+      } else {
+        console.log('Header non-critical logout error ignored');
+      }
     }
   };
 

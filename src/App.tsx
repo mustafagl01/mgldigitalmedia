@@ -159,15 +159,20 @@ function AppContent() {
                       try {
                         console.log('signOut çağırılıyor...');
                         await signOut();
-                        console.log('SignOut tamamlandı');
-                        // Ana sayfada sayfa yeniden yüklemek yerine sadece state temizlemesi yeterli
+                        console.log('SignOut başarıyla tamamlandı');
+                        // Başarılı logout bildirimi
+                        console.log('Kullanıcı başarıyla çıkış yaptı');
                       } catch (error) {
                         console.error('Logout hatası:', error);
-                        // Hata durumunda kullanıcıya bilgi ver
-                        alert(language === 'tr' 
-                          ? 'Çıkış yapılırken bir hata oluştu. Lütfen sayfayı yenileyin.' 
-                          : 'An error occurred while signing out. Please refresh the page.'
-                        );
+                        // Sadece gerçek kritik hatalarda alert göster
+                        if (error && error.message && !error.message.includes('session_not_found')) {
+                          alert(language === 'tr' 
+                            ? 'Çıkış yapılırken bir hata oluştu: ' + error.message 
+                            : 'An error occurred while signing out: ' + error.message
+                          );
+                        } else {
+                          console.log('Non-critical logout error ignored');
+                        }
                       }
                     }}
                     variant="ghost" 

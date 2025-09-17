@@ -67,14 +67,28 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const signOut = async () => {
     console.log('AuthContext: signOut called');
-    const { error } = await supabase.auth.signOut();
-    if (error) {
-      console.error('AuthContext: Error signing out:', error);
-      throw error;
+    try {
+      console.log('AuthContext: Calling supabase.auth.signOut()');
+      const { error } = await supabase.auth.signOut();
+      console.log('AuthContext: signOut response received, error:', error);
+      
+      if (error) {
+        console.error('AuthContext: Supabase signOut error details:', error);
+        // Bazı durumlarda error olsa bile user state temizlenmesi gerekebilir
+        // Bu yüzden sadece kritik errorlarda throw yapalım
+        if (error.message && !error.message.includes('session_not_found') && !error.message.includes('user_not_found')) {
+          throw error;
+        } else {
+          console.warn('AuthContext: Non-critical signOut error ignored:', error.message);
+        }
+      }
+      
+      console.log('AuthContext: signOut completed successfully');
+      // Auth state change handler otomatik olarak user/session'ı null yapacak
+    } catch (criticalError) {
+      console.error('AuthContext: Critical signOut error:', criticalError);
+      throw criticalError;
     }
-    console.log('AuthContext: signOut completed successfully');
-    // Don't reload immediately - let the auth state change handler manage the state
-    // The onAuthStateChange will automatically update user/session to null
   };
 
   const value = {
