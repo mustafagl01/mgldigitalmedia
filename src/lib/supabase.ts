@@ -45,6 +45,15 @@ const createMockClient = () => ({
       console.log('Mock signOut');
       return Promise.resolve({ error: null });
     },
+    signInWithOAuth: (options: any) => {
+      console.log('Mock Google OAuth signIn:', options.provider);
+      if (options.provider === 'google') {
+        // Mock olarak browser'ı redirect etme, sadece log
+        console.log('Mock: Google OAuth redirect simulated');
+        return Promise.resolve({ error: null });
+      }
+      return Promise.resolve({ error: new Error('Unsupported OAuth provider') });
+    },
     resetPasswordForEmail: (email: string) => {
       console.log('Mock resetPassword:', email);
       return Promise.resolve({ error: null });

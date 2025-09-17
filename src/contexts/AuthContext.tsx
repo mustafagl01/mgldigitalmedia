@@ -8,6 +8,7 @@ interface AuthContextType {
   loading: boolean;
   signUp: (email: string, password: string) => Promise<{ error: any }>;
   signIn: (email: string, password: string) => Promise<{ error: any }>;
+  signInWithGoogle: () => Promise<{ error: any }>;
   signOut: () => Promise<void>;
 }
 
@@ -63,6 +64,29 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       password,
     });
     return { error };
+  };
+
+  const signInWithGoogle = async () => {
+    console.log('AuthContext: Google signIn called');
+    try {
+      const { error } = await supabase.auth.signInWithOAuth({
+        provider: 'google',
+        options: {
+          redirectTo: `${window.location.origin}/auth/callback`
+        }
+      });
+      
+      if (error) {
+        console.error('AuthContext: Google signIn error:', error);
+      } else {
+        console.log('AuthContext: Google OAuth redirect başlatıldı');
+      }
+      
+      return { error };
+    } catch (criticalError) {
+      console.error('AuthContext: Critical Google signIn error:', criticalError);
+      return { error: criticalError };
+    }
   };
 
   const signOut = async () => {
@@ -127,6 +151,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
     loading,
     signUp,
     signIn,
+    signInWithGoogle,
     signOut,
   };
 
