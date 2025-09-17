@@ -164,14 +164,18 @@ function AppContent() {
                         console.log('Kullanıcı başarıyla çıkış yaptı');
                       } catch (error) {
                         console.error('Logout hatası:', error);
-                        // Sadece gerçek kritik hatalarda alert göster
-                        if (error && error.message && !error.message.includes('session_not_found')) {
+                        // Çok kısıtlı durumda alert göster - çoğu auth error normal
+                        if (error && error.message && 
+                            !error.message.includes('session') &&
+                            !error.message.includes('auth') &&
+                            !error.message.includes('user') &&
+                            !error.message.includes('missing')) {
                           alert(language === 'tr' 
-                            ? 'Çıkış yapılırken bir hata oluştu: ' + error.message 
-                            : 'An error occurred while signing out: ' + error.message
+                            ? 'Beklenmeyen bir hata oluştu: ' + error.message 
+                            : 'An unexpected error occurred: ' + error.message
                           );
                         } else {
-                          console.log('Non-critical logout error ignored');
+                          console.log('Auth-related logout error ignored - logout should still work');
                         }
                       }
                     }}

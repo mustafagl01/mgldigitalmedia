@@ -74,20 +74,50 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({ children
       
       if (error) {
         console.error('AuthContext: Supabase signOut error details:', error);
-        // Bazı durumlarda error olsa bile user state temizlenmesi gerekebilir
-        // Bu yüzden sadece kritik errorlarda throw yapalım
-        if (error.message && !error.message.includes('session_not_found') && !error.message.includes('user_not_found')) {
-          throw error;
+        // Error olsa bile logout işlemini tamamlayalım
+        if (error.message && 
+            (error.message.includes('session_not_found') || 
+             error.message.includes('user_not_found') || 
+             error.message.includes('Auth session missing') ||
+             error.message.includes('session_missing'))) {
+          console.warn('AuthContext: Non-critical signOut error - still clearing local state:', error.message);
+          // Bu tür errorlarda da logout işlemini tamamla
         } else {
-          console.warn('AuthContext: Non-critical signOut error ignored:', error.message);
+          console.error('AuthContext: Critical signOut error:', error);
+          // Kritik errorlarda bile state'i temizle ama error'u da fırlat
         }
       }
       
-      console.log('AuthContext: signOut completed successfully');
-      // Auth state change handler otomatik olarak user/session'ı null yapacak
+      // Error olsa bile local state'i temizle
+      console.log('AuthContext: Force clearing local user/session state');
+      setUser(null);
+      setSession(null);
+      
+      console.log('AuthContext: signOut completed - user logged out');
+      
+      // Sadece gerçekten kritik errorlarda throw yap
+      if (error && error.message && 
+          !error.message.includes('session_not_found') && 
+          !error.message.includes('user_not_found') && 
+          !error.message.includes('Auth session missing') &&
+          !error.message.includes('session_missing') &&
+          !error.message.includes('invalid_session')) {
+        throw error;
+      }
+      
     } catch (criticalError) {
       console.error('AuthContext: Critical signOut error:', criticalError);
-      throw criticalError;
+      // Error olsa bile state'i temizle
+      console.log('AuthContext: Force clearing state despite error');
+      setUser(null);
+      setSession(null);
+      
+      // Sadece gerçekten kritik durumlarda throw yap
+      if (criticalError && criticalError.message && 
+          !criticalError.message.includes('session') &&
+          !criticalError.message.includes('auth')) {
+        throw criticalError;
+      }
     }
   };
 
