@@ -20,7 +20,7 @@ import { HeroSection } from './components/sections/HeroSection';
 import { BenefitsSection } from './components/sections/BenefitsSection';
 import { ServicesSection } from './components/sections/ServicesSection';
 import { AutomationExamplesSection } from './components/sections/AutomationExamplesSection';
-import { StrategySection } from './components/sections/StrategySection';
+import StrategySection from './components/sections/StrategySection';
 import { CtaSection } from './components/sections/CtaSection';
 import { Footer } from './components/sections/Footer';
 
