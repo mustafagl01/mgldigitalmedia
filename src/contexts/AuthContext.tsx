@@ -83,18 +83,13 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     const getRedirectURL = () => {
       const currentOrigin = window.location.origin
       
-      // If we're on Netlify production site, use that
-      if (currentOrigin.includes('astounding-sunshine-ea3ff4.netlify.app')) {
-        return 'https://astounding-sunshine-ea3ff4.netlify.app/'
-      }
-      
-      // If we're on custom domain, use that
+      // Always use the production domain
       if (currentOrigin.includes('mgldigitalmedia.com')) {
-        return currentOrigin + '/'
+        return 'https://mgldigitalmedia.com/'
       }
       
-      // Default fallback to Netlify
-      return 'https://astounding-sunshine-ea3ff4.netlify.app/'
+      // Fallback to production domain for any other case
+      return 'https://mgldigitalmedia.com/'
     }
 
     const { data, error } = await supabase.auth.signInWithOAuth({
