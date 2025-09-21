@@ -79,16 +79,22 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   }
 
   const signInWithGoogle = async () => {
-    // Get the redirect URL from environment variable or fallback to current origin
+    // Force production URL - override any localhost references
     const getRedirectURL = () => {
-      // Check for custom redirect URL in environment variables
+      // Check for custom redirect URL in environment variables first
       const customRedirectUrl = import.meta.env.VITE_SUPABASE_REDIRECT_URL
       if (customRedirectUrl) {
         return customRedirectUrl
       }
       
-      // Fallback to current browser origin
-      return window.location.origin + '/'
+      // If current origin contains localhost, force production URL
+      const currentOrigin = window.location.origin
+      if (currentOrigin.includes('localhost') || currentOrigin.includes('127.0.0.1')) {
+        return 'https://mgldigitalmedia.com/'
+      }
+      
+      // For any other case, use current origin
+      return currentOrigin + '/'
     }
 
     const { data, error } = await supabase.auth.signInWithOAuth({
