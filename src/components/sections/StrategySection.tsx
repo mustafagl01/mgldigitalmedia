@@ -13,13 +13,13 @@ interface AccordionItemProps {
 
 const AccordionItem: React.FC<AccordionItemProps> = ({ title, content, icon, isOpen, onToggle }) => {
   return (
-    <div className="border border-white/20 rounded-xl overflow-hidden bg-white/10 backdrop-blur-sm hover:bg-white/15 transition-all duration-300">
+    <div className="border border-gray-600 rounded-xl overflow-hidden bg-gray-800 hover:bg-gray-700 transition-all duration-300">
       <button
         onClick={onToggle}
         className="w-full px-6 py-5 text-left transition-all duration-300 flex items-center justify-between group"
       >
         <div className="flex items-center space-x-4">
-          <div className="text-blue-400 group-hover:text-blue-300 transition-colors duration-300 bg-blue-500/20 p-3 rounded-lg">
+          <div className="text-blue-400 group-hover:text-blue-300 transition-colors duration-300 bg-blue-900 p-3 rounded-lg">
             {icon}
           </div>
           <h3 className="text-lg font-semibold text-white group-hover:text-blue-100 transition-colors duration-300">
@@ -41,7 +41,7 @@ const AccordionItem: React.FC<AccordionItemProps> = ({ title, content, icon, isO
             transition={{ duration: 0.4, ease: "easeInOut" }}
             className="overflow-hidden"
           >
-            <div className="px-6 py-5 border-t border-white/20 bg-black/30">
+            <div className="px-6 py-5 border-t border-gray-600 bg-gray-900">
               <p className="text-gray-200 leading-relaxed text-base">
                 {content}
               </p>
@@ -81,7 +81,7 @@ const StrategySection: React.FC = () => {
   ];
 
   return (
-    <section className="py-24 bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative">
+    <section className="py-24 bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 relative">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
@@ -90,7 +90,7 @@ const StrategySection: React.FC = () => {
           viewport={{ once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-white via-blue-100 to-purple-200 bg-clip-text text-transparent">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
             {t('strategy.title')}
           </h2>
           <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
