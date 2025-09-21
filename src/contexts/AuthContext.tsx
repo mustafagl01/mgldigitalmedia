@@ -1,14 +1,14 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
-import { User, Session } from '@supabase/supabase-js'
+import { User, Session, AuthError } from '@supabase/supabase-js'
 import { supabase } from '../lib/supabase'
 
 interface AuthContextType {
   user: User | null
   session: Session | null
   loading: boolean
-  signIn: (email: string, password: string) => Promise<void>
-  signUp: (email: string, password: string) => Promise<void>
-  signInWithGoogle: () => Promise<void>
+  signIn: (email: string, password: string) => Promise<{ error?: AuthError }>
+  signUp: (email: string, password: string) => Promise<{ error?: AuthError }>
+  signInWithGoogle: () => Promise<{ error?: AuthError }>
   signOut: () => Promise<void>
 }
 
@@ -41,6 +41,7 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange(async (event, session) => {
+      console.log('Auth state changed:', event, session?.user?.email)
       setSession(session)
       setUser(session?.user ?? null)
       setLoading(false)
@@ -50,34 +51,54 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   }, [])
 
   const signIn = async (email: string, password: string) => {
-    const { error } = await supabase.auth.signInWithPassword({
+    const { data, error } = await supabase.auth.signInWithPassword({
       email,
       password,
     })
-    if (error) throw error
+    
+    if (error) {
+      console.error('Sign in error:', error)
+      return { error }
+    }
+    
+    return { error: undefined }
   }
 
   const signUp = async (email: string, password: string) => {
-    const { error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email,
       password,
     })
-    if (error) throw error
+    
+    if (error) {
+      console.error('Sign up error:', error)
+      return { error }
+    }
+    
+    return { error: undefined }
   }
 
   const signInWithGoogle = async () => {
-    const { error } = await supabase.auth.signInWithOAuth({
+    const { data, error } = await supabase.auth.signInWithOAuth({
       provider: 'google',
       options: {
         redirectTo: `${window.location.origin}/`,
       },
     })
-    if (error) throw error
+    
+    if (error) {
+      console.error('Google sign in error:', error)
+      return { error }
+    }
+    
+    return { error: undefined }
   }
 
   const signOut = async () => {
     const { error } = await supabase.auth.signOut()
-    if (error) throw error
+    if (error) {
+      console.error('Sign out error:', error)
+    }
   }
 
   const value = {
