@@ -79,17 +79,16 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   }
 
   const signInWithGoogle = async () => {
-    // Get the correct redirect URL based on environment
+    // Get the redirect URL from environment variable or fallback to current origin
     const getRedirectURL = () => {
-      const currentOrigin = window.location.origin
-      
-      // Always use the production domain
-      if (currentOrigin.includes('mgldigitalmedia.com')) {
-        return 'https://mgldigitalmedia.com/'
+      // Check for custom redirect URL in environment variables
+      const customRedirectUrl = import.meta.env.VITE_SUPABASE_REDIRECT_URL
+      if (customRedirectUrl) {
+        return customRedirectUrl
       }
       
-      // Fallback to production domain for any other case
-      return 'https://mgldigitalmedia.com/'
+      // Fallback to current browser origin
+      return window.location.origin + '/'
     }
 
     const { data, error } = await supabase.auth.signInWithOAuth({
