@@ -75,6 +75,37 @@ const translations = {
     'strategy.innovation.title': 'Rekabet Avantajı Yaratın',
     'strategy.innovation.content': 'Yapay zeka teknolojilerini erken benimseyen işletmeler pazarda öne geçiyor. Modern otomasyon çözümleriyle rakiplerinizden bir adım önde olun, müşteri deneyimini kişiselleştirin ve operasyonel verimliliği maksimuma çıkarın.',
 
+    // Demos Section - MISSING KEYS ADDED!
+    'demos.title': 'Anlatmıyoruz, Gösteriyoruz.',
+    'demos.subtitle': 'Aşağıdaki demoları deneyin ve "acaba benim şu işim de otomatik olabilir mi?" diye düşünün:',
+    'demos.whatsapp.title': 'Birebir Strateji Görüşmesi',
+    'demos.whatsapp.desc': 'Otomasyon fikirlerinizi doğrudan kurucumuz Mustafa Bey ile görüşmek için WhatsApp üzerinden anında iletişime geçin.',
+    'demos.email.title': 'Otomatik E-posta Dizisi',
+    'demos.email.desc': 'Web sitenizdeki formu dolduran herkese anında kişiselleştirilmiş bir e-posta gönderin.',
+    'demos.phone.title': 'AI Sizi Arasın',
+    'demos.phone.desc': 'Numaranızı bırakın, AI sesli asistanımız sizi arayarak yeteneklerini sergilesin.',
+    'demos.contact': 'İletişime Geç',
+    'demos.live': 'Canlı Demo',
+    'demos.data.title': 'Manuel Veri Aktarımı',
+    'demos.data.desc': 'Excel\'den CRM\'e sürekli kopyala-yapıştır mı yapıyorsunuz? Bu süreci tamamen ortadan kaldırın.',
+    'demos.reports.title': 'Haftalık Rapor Çilesi',
+    'demos.reports.desc': 'Her hafta farklı platformlardan veri toplayıp rapor hazırlamak saatlerinizi mi alıyor?',
+    'demos.onboarding.title': 'Yeni Çalışan Süreçleri',
+    'demos.onboarding.desc': 'İşe yeni başlayanlara belgeleri tek tek mi veriyorsunuz? Tüm süreci tek tıkla otomatik başlatın.',
+
+    // Choice Section - MISSING KEYS ADDED!
+    'choice.title': 'İşletmenizi Bir Sonraki Seviyeye Nasıl Taşımak İstersiniz?',
+    'choice.subtitle': 'Size en uygun çözümü bulmamız için lütfen mevcut önceliğinizi seçin.',
+    'choice.automation.title': 'Manuel İşleri Otomatikleştirin',
+    'choice.automation.desc': 'Tekrarlayan görevleri, raporlamayı ve veri girişini akıllı asistanlara devrederek ekibinizin gerçekten önemli işlere odaklanmasını sağlayın.',
+    'choice.automation.cta': 'Verimliliği Seç',
+    'choice.customers.title': 'Müşteri Akışını Hızlandırın',
+    'choice.customers.desc': 'Mevcut reklam kampanyalarınızdan daha iyi sonuçlar alın. Yapay zeka destekli stratejilerle reklam harcamanızın geri dönüşünü (ROAS) katlayın.',
+    'choice.customers.cta': 'Daha Fazla Müşteri',
+    'choice.system.title': 'Uçtan Uca Büyüme Motoru Kurun',
+    'choice.system.desc': 'Reklamlarla getirdiğimiz potansiyel müşterileri, AI asistanlarla 7/24 takip edip satışa hazır hale getiren kusursuz bir sistem inşa edelim.',
+    'choice.system.cta': 'Tüm Hikayeyi Gör',
+
     // CTA Section
     'cta.title': 'Hazır mısınız? İşinizi Birlikte Dönüştürelim!',
     'cta.subtitle': 'Hangi manuel işlerinizin otomatikleştirilebileceğini ve reklam bütçenizi nasıl daha verimli kullanabileceğinizi öğrenmek için 2 dakikada size özel bir analiz sunalım.',
@@ -167,6 +198,37 @@ const translations = {
     
     'strategy.innovation.title': 'Create Competitive Advantage',
     'strategy.innovation.content': 'Businesses that adopt artificial intelligence technologies early get ahead in the market. Stay one step ahead of your competitors with modern automation solutions, personalize customer experience and maximize operational efficiency.',
+
+    // Demos Section - ENGLISH TRANSLATIONS
+    'demos.title': 'We Don\'t Tell, We Show.',
+    'demos.subtitle': 'Try the demos below and think "I wonder if my work can be automated too?":',
+    'demos.whatsapp.title': 'One-on-One Strategy Meeting',
+    'demos.whatsapp.desc': 'Contact our founder Mustafa directly via WhatsApp to discuss your automation ideas.',
+    'demos.email.title': 'Automatic Email Series',
+    'demos.email.desc': 'Send a personalized email instantly to everyone who fills out the form on your website.',
+    'demos.phone.title': 'Let AI Call You',
+    'demos.phone.desc': 'Leave your number, let our AI voice assistant call you and showcase its capabilities.',
+    'demos.contact': 'Get in Touch',
+    'demos.live': 'Live Demo',
+    'demos.data.title': 'Manual Data Transfer',
+    'demos.data.desc': 'Are you constantly copying and pasting from Excel to CRM? Completely eliminate this process.',
+    'demos.reports.title': 'Weekly Report Struggle',
+    'demos.reports.desc': 'Does collecting data from different platforms and preparing reports every week take hours?',
+    'demos.onboarding.title': 'New Employee Processes',
+    'demos.onboarding.desc': 'Are you giving documents to new hires one by one? Start the entire process automatically with one click.',
+
+    // Choice Section - ENGLISH TRANSLATIONS
+    'choice.title': 'How Would You Like to Take Your Business to the Next Level?',
+    'choice.subtitle': 'Please select your current priority so we can find the most suitable solution for you.',
+    'choice.automation.title': 'Automate Manual Tasks',
+    'choice.automation.desc': 'Enable your team to focus on truly important tasks by delegating repetitive tasks, reporting and data entry to smart assistants.',
+    'choice.automation.cta': 'Choose Efficiency',
+    'choice.customers.title': 'Accelerate Customer Flow',
+    'choice.customers.desc': 'Get better results from your existing advertising campaigns. Multiply your return on ad spend (ROAS) with AI-powered strategies.',
+    'choice.customers.cta': 'More Customers',
+    'choice.system.title': 'Build End-to-End Growth Engine',
+    'choice.system.desc': 'Let\'s build a perfect system that follows up potential customers brought by ads with AI assistants 24/7 and makes them ready for sales.',
+    'choice.system.cta': 'See the Full Story',
 
     // CTA Section
     'cta.title': 'Ready? Let\'s Transform Your Business Together!',
