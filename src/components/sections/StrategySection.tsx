@@ -13,13 +13,13 @@ interface AccordionItemProps {
 
 const AccordionItem: React.FC<AccordionItemProps> = ({ title, content, icon, isOpen, onToggle }) => {
   return (
-    <div className="border border-white/10 rounded-xl overflow-hidden backdrop-blur-sm bg-white/5 hover:bg-white/10 transition-all duration-300">
+    <div className="border border-white/20 rounded-xl overflow-hidden bg-white/10 backdrop-blur-sm hover:bg-white/15 transition-all duration-300">
       <button
         onClick={onToggle}
         className="w-full px-6 py-5 text-left transition-all duration-300 flex items-center justify-between group"
       >
         <div className="flex items-center space-x-4">
-          <div className="text-blue-400 group-hover:text-blue-300 transition-colors duration-300 bg-blue-500/10 p-3 rounded-lg">
+          <div className="text-blue-400 group-hover:text-blue-300 transition-colors duration-300 bg-blue-500/20 p-3 rounded-lg">
             {icon}
           </div>
           <h3 className="text-lg font-semibold text-white group-hover:text-blue-100 transition-colors duration-300">
@@ -41,7 +41,7 @@ const AccordionItem: React.FC<AccordionItemProps> = ({ title, content, icon, isO
             transition={{ duration: 0.4, ease: "easeInOut" }}
             className="overflow-hidden"
           >
-            <div className="px-6 py-5 border-t border-white/10 bg-black/20">
+            <div className="px-6 py-5 border-t border-white/20 bg-black/30">
               <p className="text-gray-200 leading-relaxed text-base">
                 {content}
               </p>
@@ -81,10 +81,7 @@ const StrategySection: React.FC = () => {
   ];
 
   return (
-    <section className="py-24 bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden">
-      {/* Background decoration */}
-      <div className="absolute inset-0 bg-[url('data:image/svg+xml,%3Csvg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"%3E%3Cg fill="none" fill-rule="evenodd"%3E%3Cg fill="%23ffffff" fill-opacity="0.03"%3E%3Ccircle cx="30" cy="30" r="2"/%3E%3C/g%3E%3C/g%3E%3C/svg%3E')] opacity-20"></div>
-      
+    <section className="py-24 bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
