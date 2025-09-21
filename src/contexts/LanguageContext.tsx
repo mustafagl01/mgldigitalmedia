@@ -62,7 +62,7 @@ const translations = {
     'strategy.title': 'Başarı Tesadüf Değildir.',
     'strategy.subtitle': 'Her adımı ölçülebilir veriye dayanan, kanıtlanmış bir stratejiyle hareket ediyoruz.',
     
-    // Strategy Accordion Items - MISSING KEYS FIXED!
+    // Strategy Accordion Items
     'strategy.automation.title': 'İş Süreçlerinizi Otomatikleştirin',
     'strategy.automation.content': 'Manuel görevleri akıllı sistemlere devredin. Müşteri takibi, randevu alma, e-posta pazarlama ve raporlama işlemlerini 7/24 çalışan AI asistanlar üstlensin. Ekibiniz stratejik işlere odaklanırken, rutin işler otomatik olarak yürüsün.',
     
@@ -155,7 +155,7 @@ const translations = {
     'strategy.title': 'Success Is Not Coincidence.',
     'strategy.subtitle': 'We act with a proven strategy based on measurable data at every step.',
     
-    // Strategy Accordion Items - ENGLISH TRANSLATIONS
+    // Strategy Accordion Items
     'strategy.automation.title': 'Automate Your Business Processes',
     'strategy.automation.content': 'Delegate manual tasks to smart systems. Let AI assistants working 24/7 handle customer follow-up, appointment booking, email marketing and reporting. While your team focuses on strategic work, routine tasks run automatically.',
     
@@ -227,5 +227,5 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     t,
   };
 
-  return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>>;
+  return <LanguageContext.Provider value={value}>{children}</LanguageContext.Provider>;
 };
