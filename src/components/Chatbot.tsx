@@ -46,7 +46,7 @@ export const Chatbot: React.FC = () => {
     setInputValue('');
     setIsLoading(true);
     
-    const webhookUrl = 'https://mustafagl01.app.n8n.cloud/webhook/b7256006-aad8-48e9-a2c6-88f10664f5a8';
+    const webhookUrl = 'https://nt3ys1ml.rpcd.host/webhook/b7256006-aad8-48e9-a2c6-88f10664f5a8';
 
     try {
       const response = await fetch(webhookUrl, {
