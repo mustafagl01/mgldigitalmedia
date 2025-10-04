@@ -142,6 +142,26 @@ const translations = {
     // Common
     'common.close': 'Kapat',
     'common.loading': 'Yükleniyor...',
+
+    // Products
+    'products.title': 'Ürünler',
+    'products.subtitle': 'AI otomasyon çözümlerimizle işletmenizi dijital dönüşüme hazırlayın',
+    'products.back': 'Ana Sayfaya Dön',
+    'products.buy': 'Satın Al',
+    'products.subscribe': 'Abone Ol',
+    'products.feature.custom': 'Özel Tasarım ve Kurulum',
+    'products.feature.setup': 'Profesyonel Kurulum ve Eğitim',
+    'products.feature.support': '3 Ay Ücretsiz Teknik Destek',
+
+    // Toast Messages
+    'toast.checkout.error': 'Satın Alma Hatası',
+    'toast.checkout.error.desc': 'Satın alma işlemi sırasında bir hata oluştu. Lütfen tekrar deneyin.',
+    'toast.connection.error': 'Bağlantı Hatası',
+    'toast.connection.error.desc': 'Sunucuya bağlanılamadı. Lütfen internet bağlantınızı kontrol edin.',
+    'toast.idea.success': 'Başarıyla Gönderildi!',
+    'toast.idea.success.desc': 'Fikir analizi talebiniz alındı. En kısa sürede sizinle iletişime geçeceğiz.',
+    'toast.idea.error': 'Bir hata oluştu. Lütfen tekrar deneyin.',
+    'toast.error': 'Hata',
   },
   en: {
     // Header
@@ -266,6 +286,26 @@ const translations = {
     // Common
     'common.close': 'Close',
     'common.loading': 'Loading...',
+
+    // Products
+    'products.title': 'Products',
+    'products.subtitle': 'Prepare your business for digital transformation with our AI automation solutions',
+    'products.back': 'Back to Home',
+    'products.buy': 'Buy Now',
+    'products.subscribe': 'Subscribe',
+    'products.feature.custom': 'Custom Design and Setup',
+    'products.feature.setup': 'Professional Installation and Training',
+    'products.feature.support': '3 Months Free Technical Support',
+
+    // Toast Messages
+    'toast.checkout.error': 'Checkout Error',
+    'toast.checkout.error.desc': 'An error occurred during the purchase process. Please try again.',
+    'toast.connection.error': 'Connection Error',
+    'toast.connection.error.desc': 'Could not connect to server. Please check your internet connection.',
+    'toast.idea.success': 'Successfully Sent!',
+    'toast.idea.success.desc': 'Your idea analysis request has been received. We will contact you shortly.',
+    'toast.idea.error': 'An error occurred. Please try again.',
+    'toast.error': 'Error',
   }
 };
 

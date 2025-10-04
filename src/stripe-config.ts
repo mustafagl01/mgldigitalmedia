@@ -13,7 +13,7 @@ export const stripeProducts: StripeProduct[] = [
     id: 'prod_Sxn47GSJfILlh4',
     priceId: 'price_1S1rU8DsBtMM0UXXyLmDaNfc',
     name: 'Otomasyon',
-    description: 'İşletmenizin verimliliğini artırmak için size özel olarak tasarlanan ve kurulan otomasyon sisteminin kurulum bedelidir. Bu bedel, size gönderilen teklifte belirtilen [Proje Adı, örn: "Sesli AI Asistan Kurulumu"] projesini kapsamaktadır.',
+    description: 'İşletmenizin dijital dönüşümü için tasarlanmış kapsamlı AI otomasyon çözümü. Müşteri iletişiminden satış süreçlerine, veri yönetiminden raporlamaya kadar tüm iş akışlarınızı akıllı sistemlerle otomatikleştirerek verimliliğinizi artırın ve maliyetlerinizi düşürün.',
     mode: 'payment',
     price: 500,
     currency: 'GBP'
