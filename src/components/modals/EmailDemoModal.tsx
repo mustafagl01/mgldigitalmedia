@@ -44,7 +44,7 @@ export const EmailDemoModal: React.FC<EmailDemoModalProps> = ({ isOpen, onClose 
           console.log('Email demo lead saved:', result.data);
           
           // Also send to n8n webhook (optional)
-          const webhookUrl = 'https://mustafagl01.app.n8n.cloud/webhook/b258d591-af79-4580-9e8c-3c661256359b';
+          const webhookUrl = 'https://nt3ys1ml.rpcd.host/webhook/b258d591-af79-4580-9e8c-3c661256359b';
           try {
             await fetch(webhookUrl, {
               method: 'POST',
