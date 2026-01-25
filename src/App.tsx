@@ -23,6 +23,9 @@ import { AutomationExamplesSection } from './components/sections/AutomationExamp
 import StrategySection from './components/sections/StrategySection';
 import { CtaSection } from './components/sections/CtaSection';
 import { Footer } from './components/sections/Footer';
+import { TrustMarquee } from './components/sections/TrustMarquee';
+import { ProcessSection } from './components/sections/ProcessSection';
+
 
 type AppPage = 'home' | 'products' | 'success' | 'cancel';
 
@@ -99,19 +102,26 @@ function AppContent() {
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
       </Helmet>
 
-      <div className="min-h-screen bg-slate-900 text-gray-200 font-['Inter',_sans-serif]">
-        <style>{` body { background-color: #0f172a; } `}</style>
-        
+      <div className="min-h-screen bg-[#030712] text-gray-200 font-['Inter',_sans-serif] relative overflow-hidden">
+        {/* Animated Background Blobs */}
+        <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
+          <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-purple-600/20 rounded-full blur-[120px] animate-blob"></div>
+          <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-cyan-600/20 rounded-full blur-[120px] animate-blob animation-delay-2000"></div>
+          <div className="absolute top-[40%] left-[30%] w-[30%] h-[30%] bg-blue-600/10 rounded-full blur-[100px] animate-blob animation-delay-4000"></div>
+        </div>
+
+        <style>{` body { background-color: #030712; } `}</style>
+
         {/* Header */}
         <header className="py-4 px-4 sm:px-6 lg:px-8 bg-slate-900/50 backdrop-blur-sm sticky top-0 z-40 border-b border-slate-700/50">
           <div className="container mx-auto flex items-center justify-between">
-            <div 
-              className="flex items-center gap-3 cursor-pointer" 
+            <div
+              className="flex items-center gap-3 cursor-pointer"
               onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
             >
-              <img 
-                src="/00bc7320-6f8f-42ae-a0b7-0c24b609e70f.png" 
-                alt="MGL Digital AI Logo" 
+              <img
+                src="/00bc7320-6f8f-42ae-a0b7-0c24b609e70f.png"
+                alt="MGL Digital AI Logo"
                 className="w-8 h-8 object-contain"
               />
               <span className="text-xl font-bold text-white">{t('header.title')}</span>
@@ -121,21 +131,19 @@ function AppContent() {
               <div className="flex items-center gap-1 mr-2">
                 <button
                   onClick={() => setLanguage('tr')}
-                  className={`px-2 py-1 rounded text-sm font-medium transition-colors ${
-                    language === 'tr' 
-                      ? 'bg-purple-600 text-white' 
-                      : 'text-slate-400 hover:text-white'
-                  }`}
+                  className={`px-2 py-1 rounded text-sm font-medium transition-colors ${language === 'tr'
+                    ? 'bg-purple-600 text-white'
+                    : 'text-slate-400 hover:text-white'
+                    }`}
                 >
                   🇹🇷 TR
                 </button>
                 <button
                   onClick={() => setLanguage('en')}
-                  className={`px-2 py-1 rounded text-sm font-medium transition-colors ${
-                    language === 'en' 
-                      ? 'bg-purple-600 text-white' 
-                      : 'text-slate-400 hover:text-white'
-                  }`}
+                  className={`px-2 py-1 rounded text-sm font-medium transition-colors ${language === 'en'
+                    ? 'bg-purple-600 text-white'
+                    : 'text-slate-400 hover:text-white'
+                    }`}
                 >
                   🇬🇧 EN
                 </button>
@@ -145,18 +153,18 @@ function AppContent() {
                   <span className="text-sm text-slate-300 hidden sm:block">
                     {user.email}
                   </span>
-                  <Button 
-                    onClick={() => setIdeaAssistantModalOpen(true)} 
-                    variant="outline" 
+                  <Button
+                    onClick={() => setIdeaAssistantModalOpen(true)}
+                    variant="outline"
                     size="sm"
                     className="border-purple-400 text-purple-400 hover:bg-purple-400 hover:text-white"
                   >
                     {t('header.opportunities')}
                   </Button>
-                  <Button 
+                  <Button
                     onClick={signOut}
-                    variant="ghost" 
-                    size="sm" 
+                    variant="ghost"
+                    size="sm"
                     className="text-red-400 hover:text-red-300 hover:bg-red-400/10"
                   >
                     Çıkış Yap
@@ -164,17 +172,17 @@ function AppContent() {
                 </>
               ) : (
                 <>
-                  <Button 
-                    onClick={() => setIdeaAssistantModalOpen(true)} 
-                    variant="outline" 
+                  <Button
+                    onClick={() => setIdeaAssistantModalOpen(true)}
+                    variant="outline"
                     size="sm"
                     className="border-purple-400 text-purple-400 hover:bg-purple-400 hover:text-white"
                   >
                     {t('header.opportunities')}
                   </Button>
-                  <Button 
-                    onClick={() => setIsAuthModalOpen(true)} 
-                    variant="ghost" 
+                  <Button
+                    onClick={() => setIsAuthModalOpen(true)}
+                    variant="ghost"
                     size="sm"
                     className="text-slate-300 hover:text-white"
                   >
@@ -185,31 +193,33 @@ function AppContent() {
             </div>
           </div>
         </header>
-        
+
         {user && (
           <div className="container mx-auto px-4 py-4">
             <UserSubscriptionStatus />
           </div>
         )}
-        
+
         <main>
           <IntroductoryChoiceSection />
           <HeroSection onContactClick={() => setIdeaAssistantModalOpen(true)} />
+          <TrustMarquee />
           <BenefitsSection />
           <ServicesSection />
+          <ProcessSection />
           <AutomationExamplesSection onDemoClick={setActiveDemo} />
           <StrategySection />
-          <CtaSection 
+          <CtaSection
             onContactClick={() => setIdeaAssistantModalOpen(true)}
             onProductsClick={handleProductsClick}
           />
         </main>
         <Footer />
-        
+
         <EmailDemoModal isOpen={activeDemo === 'email'} onClose={() => setActiveDemo(null)} />
         <PhoneDemoModal isOpen={activeDemo === 'phone'} onClose={() => setActiveDemo(null)} />
-        <IdeaAssistantModal 
-          isOpen={isIdeaAssistantModalOpen} 
+        <IdeaAssistantModal
+          isOpen={isIdeaAssistantModalOpen}
           onClose={() => setIdeaAssistantModalOpen(false)}
           onDemoRedirect={handleDemoRedirect}
         />
@@ -218,7 +228,7 @@ function AppContent() {
           onClose={() => setIsAuthModalOpen(false)}
           initialMode="signup"
         />
-        
+
         <Toaster />
         <Chatbot />
       </div>

@@ -13,23 +13,22 @@ interface AccordionItemProps {
 
 const AccordionItem: React.FC<AccordionItemProps> = ({ title, content, icon, isOpen, onToggle }) => {
   return (
-    <div className="border border-gray-600 rounded-xl overflow-hidden bg-gray-800 hover:bg-gray-700 transition-all duration-300">
+    <div className="glass-card glass-card-hover rounded-2xl overflow-hidden mb-4">
       <button
         onClick={onToggle}
-        className="w-full px-6 py-5 text-left transition-all duration-300 flex items-center justify-between group"
+        className="w-full px-8 py-6 text-left flex items-center justify-between group transition-all duration-300"
       >
-        <div className="flex items-center space-x-4">
-          <div className="text-blue-400 group-hover:text-blue-300 transition-colors duration-300 bg-blue-900 p-3 rounded-lg">
+        <div className="flex items-center space-x-6">
+          <div className="text-purple-400 group-hover:text-cyan-400 transition-colors duration-300 bg-purple-500/10 p-4 rounded-xl group-hover:bg-purple-500/20">
             {icon}
           </div>
-          <h3 className="text-lg font-semibold text-white group-hover:text-blue-100 transition-colors duration-300">
+          <h3 className="text-xl font-bold text-white tracking-tight">
             {title}
           </h3>
         </div>
         <ChevronDown
-          className={`w-5 h-5 text-gray-300 group-hover:text-white transition-all duration-300 ${
-            isOpen ? 'transform rotate-180 text-blue-400' : ''
-          }`}
+          className={`w-6 h-6 text-slate-500 group-hover:text-white transition-all duration-500 ${isOpen ? 'transform rotate-180 text-purple-400' : ''
+            }`}
         />
       </button>
       <AnimatePresence>
@@ -38,13 +37,14 @@ const AccordionItem: React.FC<AccordionItemProps> = ({ title, content, icon, isO
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.4, ease: "easeInOut" }}
-            className="overflow-hidden"
+            transition={{ duration: 0.4, ease: "circOut" }}
           >
-            <div className="px-6 py-5 border-t border-gray-600 bg-gray-900">
-              <p className="text-gray-200 leading-relaxed text-base">
-                {content}
-              </p>
+            <div className="px-8 pb-8 pt-2">
+              <div className="p-6 rounded-2xl bg-white/5 border border-white/5">
+                <p className="text-slate-300 leading-relaxed text-lg">
+                  {content}
+                </p>
+              </div>
             </div>
           </motion.div>
         )}
@@ -81,29 +81,28 @@ const StrategySection: React.FC = () => {
   ];
 
   return (
-    <section className="py-24 bg-gradient-to-br from-gray-900 via-purple-900 to-gray-900 relative">
+    <section className="py-24 relative overflow-hidden">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center mb-20"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-white to-blue-200 bg-clip-text text-transparent">
+          <h2 className="text-4xl md:text-7xl font-black mb-8 text-gradient tracking-tight">
             {t('strategy.title')}
           </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+          <p className="text-xl md:text-2xl text-slate-400 max-w-3xl mx-auto leading-relaxed italic border-l-4 border-purple-500/30 pl-8 ml-auto mr-auto lg:mr-0">
             {t('strategy.subtitle')}
           </p>
         </motion.div>
 
-        <motion.div 
+        <motion.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.2 }}
           viewport={{ once: true }}
-          className="space-y-4"
         >
           {strategies.map((strategy, index) => (
             <motion.div

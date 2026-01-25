@@ -16,10 +16,10 @@ export const BenefitsSection: React.FC = () => {
   return (
     <section className="py-20 bg-black/20">
       <div className="container mx-auto px-4">
-        <motion.div 
-          initial={{ opacity: 0, y: 30 }} 
-          whileInView={{ opacity: 1, y: 0 }} 
-          transition={{ duration: 0.6, once: true }} 
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, once: true }}
           className="text-center mb-16"
         >
           <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
@@ -31,18 +31,20 @@ export const BenefitsSection: React.FC = () => {
         </motion.div>
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
           {benefits.map((benefit, index) => (
-            <motion.div 
-              key={index} 
-              initial={{ opacity: 0, y: 30 }} 
-              whileInView={{ opacity: 1, y: 0 }} 
-              transition={{ duration: 0.6, delay: index * 0.1, once: true }} 
-              className="bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-lg rounded-2xl p-6 border border-white/20 hover:border-purple-400/50 transition-all duration-300 hover:transform hover:scale-105"
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              whileHover={{ y: -10 }}
+              className="glass-card glass-card-hover p-8 rounded-3xl h-full flex flex-col group"
             >
-              <div className="bg-gradient-to-r from-purple-500 to-cyan-500 w-12 h-12 rounded-full flex items-center justify-center mb-4">
-                <benefit.icon className="w-6 h-6 text-white" />
+              <div className="w-14 h-14 bg-gradient-to-br from-purple-500/20 to-cyan-500/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500">
+                <benefit.icon className="w-7 h-7 text-purple-400 group-hover:text-cyan-400 transition-colors duration-500" />
               </div>
-              <h3 className="text-xl font-semibold text-white mb-2">{t(benefit.titleKey)}</h3>
-              <p className="text-gray-300">{t(benefit.descKey)}</p>
+              <h3 className="text-xl font-bold text-white mb-3">{t(benefit.titleKey)}</h3>
+              <p className="text-slate-400 leading-relaxed">{t(benefit.descKey)}</p>
             </motion.div>
           ))}
         </div>
