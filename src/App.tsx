@@ -26,6 +26,9 @@ import { Footer } from './components/sections/Footer';
 import { TrustMarquee } from './components/sections/TrustMarquee';
 import { ProcessSection } from './components/sections/ProcessSection';
 import { BookingSection } from './components/sections/BookingSection';
+import { BookingAnnouncementBar } from './components/ui/BookingAnnouncementBar';
+import { FloatingBookingButton } from './components/ui/FloatingBookingButton';
+
 
 
 type AppPage = 'home' | 'products' | 'success' | 'cancel';
@@ -104,6 +107,8 @@ function AppContent() {
       </Helmet>
 
       <div className="min-h-screen bg-[#030712] text-gray-200 font-['Inter',_sans-serif] relative overflow-hidden">
+        <BookingAnnouncementBar />
+
         {/* Animated Background Blobs */}
         <div className="fixed inset-0 overflow-hidden pointer-events-none z-0">
           <div className="absolute top-[-10%] left-[-10%] w-[50%] h-[50%] bg-purple-600/20 rounded-full blur-[120px] animate-blob"></div>
