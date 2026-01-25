@@ -11,10 +11,10 @@ interface IdeaAssistantModalProps {
   onDemoRedirect: () => void;
 }
 
-export const IdeaAssistantModal: React.FC<IdeaAssistantModalProps> = ({ 
-  isOpen, 
-  onClose, 
-  onDemoRedirect 
+export const IdeaAssistantModal: React.FC<IdeaAssistantModalProps> = ({
+  isOpen,
+  onClose,
+  onDemoRedirect
 }) => {
   const [step, setStep] = useState(0);
   const [selections, setSelections] = useState<any>({});
@@ -36,47 +36,43 @@ export const IdeaAssistantModal: React.FC<IdeaAssistantModalProps> = ({
   };
 
   const resetState = () => {
-    setStep(0); 
-    setSelections({}); 
-    setEmail(''); 
-    setCustomPainPoint(''); 
-    setGeneratedIdea(''); 
+    setStep(0);
+    setSelections({});
+    setEmail('');
+    setCustomPainPoint('');
+    setGeneratedIdea('');
     setIsError(false);
   };
 
-  const handleClose = () => { 
-    resetState(); 
-    onClose(); 
+  const handleClose = () => {
+    resetState();
+    onClose();
   };
 
   const fetchAutomationIdea = async (currentSelections: any) => {
     setIsLoading(true);
     setIsError(false);
     setStep(1.8);
-    const prompt = `Benim ${currentSelections.industry} sektöründe bir işletmem var ve en büyük problemim ${currentSelections.painPoint}. Bu problemi çözmek için bana yaratıcı, tek paragraflık bir AI otomasyon fikri öner. Fikir, n8n, WAPI, Twilio gibi araçlarla yapılabilir olmalı.`;
-    
-    try {
-      const chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
-      const payload = { contents: chatHistory };
-      const apiKey = "AIzaSyBoekQG5RzBGmMaT73quwOzahuOt253jRg";
-      const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
 
-      const response = await fetch(apiUrl, {
+    try {
+      const webhookUrl = "https://n8n.mgldigitalmedia.com/webhook/bf1699eb-fa46-4088-91d5-90ce0cd33608";
+
+      const response = await fetch(webhookUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(payload)
+        body: JSON.stringify({
+          industry: currentSelections.industry,
+          painPoint: currentSelections.painPoint
+        })
       });
-      
+
       if (!response.ok) throw new Error(`HTTP error! status: ${response.status}`);
-      const result = await response.json();
-      
-      let text = "Harika bir seçim! Bu konuda size özel bir otomasyon çözümü sunabiliriz. Detaylı bilgi için e-posta adresinizi bırakmanız yeterli.";
-      if (result.candidates?.[0]?.content?.parts?.[0]?.text) {
-        text = result.candidates[0].content.parts[0].text;
-      }
+
+      // n8n workflow returns raw text response
+      const text = await response.text();
       setGeneratedIdea(text);
     } catch (error) {
-      console.error("Gemini API error:", error);
+      console.error("Webhook error:", error);
       setIsError(true);
     } finally {
       setIsLoading(false);
@@ -95,7 +91,7 @@ export const IdeaAssistantModal: React.FC<IdeaAssistantModalProps> = ({
     e.preventDefault();
     if (!email || isSubmitting) return;
     setIsSubmitting(true);
-    const webhookUrl = 'https://mustafagl01.app.n8n.cloud/webhook-test/b258d591-af79-4580-9e8c-3c661256359b'; 
+    const webhookUrl = 'https://mustafagl01.app.n8n.cloud/webhook-test/b258d591-af79-4580-9e8c-3c661256359b';
     try {
       await fetch(webhookUrl, {
         method: 'POST',
@@ -157,10 +153,10 @@ export const IdeaAssistantModal: React.FC<IdeaAssistantModalProps> = ({
               Lütfen otomatikleştirmek istediğiniz süreci kısaca açıklayın:
             </p>
             <form onSubmit={(e) => { e.preventDefault(); handleSelection('painPoint', customPainPoint); }} className="flex flex-col sm:flex-row gap-2">
-              <Input 
-                value={customPainPoint} 
-                onChange={(e) => setCustomPainPoint(e.target.value)} 
-                placeholder="Örn: Gelen faturaları işlemek" 
+              <Input
+                value={customPainPoint}
+                onChange={(e) => setCustomPainPoint(e.target.value)}
+                placeholder="Örn: Gelen faturaları işlemek"
                 className="text-sm sm:text-base"
               />
               <Button type="submit" className="text-sm sm:text-base">Gönder</Button>
@@ -189,7 +185,7 @@ export const IdeaAssistantModal: React.FC<IdeaAssistantModalProps> = ({
                 </div>
                 <div className="flex flex-col sm:flex-row gap-2">
                   <Button onClick={onDemoRedirect} className="text-sm sm:text-base">
-                    <Sparkles className="w-4 h-4 mr-2"/>
+                    <Sparkles className="w-4 h-4 mr-2" />
                     Canlı Demoları Gör
                   </Button>
                   <Button variant="secondary" onClick={resetState} className="text-sm sm:text-base">Baştan Başla</Button>
@@ -205,7 +201,7 @@ export const IdeaAssistantModal: React.FC<IdeaAssistantModalProps> = ({
                 </div>
                 <div className="flex flex-col sm:flex-row gap-2 mb-4 sm:mb-6">
                   <Button variant="outline" onClick={() => fetchAutomationIdea(selections)} disabled={isLoading} className="text-sm sm:text-base">
-                    <RefreshCw className={`w-4 h-4 mr-2 ${isLoading ? 'animate-spin' : ''}`} /> 
+                    <RefreshCw className={`w-4 h-4 mr-2 ${isLoading ? 'animate-spin' : ''}`} />
                     Yeni Fikir Üret
                   </Button>
                   <Button variant="secondary" onClick={resetState} className="text-sm sm:text-base">Baştan Başla</Button>
@@ -220,7 +216,7 @@ export const IdeaAssistantModal: React.FC<IdeaAssistantModalProps> = ({
         );
       case 3:
         return null; // Bu step artık kullanılmıyor
-      default: 
+      default:
         return null;
     }
   };
@@ -228,22 +224,22 @@ export const IdeaAssistantModal: React.FC<IdeaAssistantModalProps> = ({
   return (
     <AnimatePresence>
       {isOpen && (
-        <motion.div 
-          initial={{ opacity: 0 }} 
-          animate={{ opacity: 1 }} 
-          exit={{ opacity: 0 }} 
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
           className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4"
         >
-          <motion.div 
-            initial={{ scale: 0.9, opacity: 0 }} 
-            animate={{ scale: 1, opacity: 1 }} 
-            exit={{ scale: 0.9, opacity: 0 }} 
-            onClick={(e) => e.stopPropagation()} 
+          <motion.div
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.9, opacity: 0 }}
+            onClick={(e) => e.stopPropagation()}
             className="bg-gradient-to-br from-slate-900 to-slate-800 rounded-3xl p-4 sm:p-8 max-w-2xl w-full border border-slate-700 shadow-2xl relative max-h-[90vh] overflow-y-auto"
           >
-            <Button 
-              variant="ghost" 
-              onClick={handleClose} 
+            <Button
+              variant="ghost"
+              onClick={handleClose}
               className="absolute top-2 right-2 sm:top-4 sm:right-4 text-gray-400 hover:text-white z-10"
             >
               ✕
