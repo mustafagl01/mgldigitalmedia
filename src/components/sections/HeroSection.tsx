@@ -29,19 +29,19 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onContactClick }) => {
           </p>
           <div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
             <Button
-              onClick={onContactClick}
+              onClick={() => window.open('https://calendar.app.google/jgu53NFAy7BnYVui8', '_blank')}
               className="bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-500 hover:to-cyan-500 text-white px-10 py-7 text-lg font-bold rounded-full shadow-[0_0_40px_-10px_rgba(147,51,234,0.5)] hover:shadow-[0_0_50px_-5px_rgba(147,51,234,0.6)] transform hover:scale-105 transition-all duration-500 flex items-center group"
             >
-              <BrainCircuit className="w-6 h-6 mr-3 group-hover:rotate-12 transition-transform" />
-              {t('hero.cta.opportunities')}
+              <Sparkles className="w-6 h-6 mr-3 group-hover:rotate-12 transition-transform" />
+              {useLanguage().language === 'tr' ? 'Hemen Başla (Ücretsiz Strateji)' : 'Get Started (Free Strategy Session)'}
             </Button>
             <Button
               variant="outline"
-              onClick={() => document.getElementById('demos')?.scrollIntoView({ behavior: 'smooth' })}
+              onClick={onContactClick}
               className="border-2 border-slate-700 text-slate-300 hover:text-white hover:border-purple-500/50 hover:bg-purple-500/10 px-10 py-7 text-lg font-bold rounded-full backdrop-blur-md transition-all duration-500 flex items-center group"
             >
-              <Sparkles className="w-5 h-5 mr-3 group-hover:animate-pulse" />
-              {t('hero.cta.demos')}
+              <BrainCircuit className="w-5 h-5 mr-3 group-hover:animate-pulse" />
+              {t('hero.cta.opportunities')}
             </Button>
           </div>
         </motion.div>

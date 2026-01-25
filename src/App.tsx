@@ -25,6 +25,7 @@ import { CtaSection } from './components/sections/CtaSection';
 import { Footer } from './components/sections/Footer';
 import { TrustMarquee } from './components/sections/TrustMarquee';
 import { ProcessSection } from './components/sections/ProcessSection';
+import { BookingSection } from './components/sections/BookingSection';
 
 
 type AppPage = 'home' | 'products' | 'success' | 'cancel';
@@ -203,6 +204,7 @@ function AppContent() {
         <main>
           <IntroductoryChoiceSection />
           <HeroSection onContactClick={() => setIdeaAssistantModalOpen(true)} />
+          <BookingSection />
           <TrustMarquee />
           <BenefitsSection />
           <ServicesSection />

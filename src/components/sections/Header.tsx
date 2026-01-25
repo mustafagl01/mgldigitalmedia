@@ -18,30 +18,30 @@ export const Header: React.FC<HeaderProps> = ({ onAnalysisClick, onAuthClick }) 
 
   return (
     <header className="py-4 px-4 sm:px-6 lg:px-8 bg-slate-900/50 backdrop-blur-sm sticky top-0 z-40 border-b border-slate-700/50">
-      <motion.div 
-        initial={{ opacity: 0, y: -20 }} 
-        animate={{ opacity: 1, y: 0 }} 
-        transition={{ duration: 0.5 }} 
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
         className="container mx-auto flex items-center justify-between"
       >
-        <div 
-          className="flex items-center gap-3 cursor-pointer" 
+        <div
+          className="flex items-center gap-3 cursor-pointer"
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         >
-          <img 
-            src="/00bc7320-6f8f-42ae-a0b7-0c24b609e70f.png" 
-            alt="MGL Digital AI Logo" 
+          <img
+            src="/00bc7320-6f8f-42ae-a0b7-0c24b609e70f.png"
+            alt="MGL Digital AI Logo"
             className="w-8 h-8 object-contain"
           />
           <span className="hidden sm:block text-xl font-bold text-white">MGL Digital AI</span>
         </div>
         <div className="flex items-center gap-2">
-          <Button 
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} 
-            variant="ghost" 
+          <Button
+            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+            variant="ghost"
             className="text-slate-300 hover:text-white"
           >
-            <Home className="w-4 h-4 mr-1" /> 
+            <Home className="w-4 h-4 mr-1" />
             <span className="hidden sm:inline">Ana Sayfa</span>
           </Button>
           {user ? (
@@ -60,6 +60,13 @@ export const Header: React.FC<HeaderProps> = ({ onAnalysisClick, onAuthClick }) 
             </div>
           ) : (
             <div className="flex items-center gap-2">
+              <Button
+                onClick={() => window.open('https://calendar.app.google/jgu53NFAy7BnYVui8', '_blank')}
+                className="bg-gradient-to-r from-purple-600 to-cyan-600 text-white border-none shadow-[0_0_20px_-5px_rgba(147,51,234,0.5)] hidden md:flex"
+                size="sm"
+              >
+                Randevu Al
+              </Button>
               <Button onClick={onAnalysisClick} variant="outline" size="sm">
                 <span className="hidden sm:inline">Fırsatları Keşfet</span>
                 <span className="sm:hidden">Analiz</span>
