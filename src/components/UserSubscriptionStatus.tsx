@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Crown, Package } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
-import { supabase } from '../lib/supabase';
 import { getProductByPriceId } from '../stripe-config';
+
 import { useLanguage } from '../contexts/LanguageContext';
 
 export const UserSubscriptionStatus: React.FC = () => {
@@ -13,35 +13,10 @@ export const UserSubscriptionStatus: React.FC = () => {
   const { t } = useLanguage();
 
   useEffect(() => {
-    const fetchUserData = async () => {
-      if (!user) {
-        setLoading(false);
-        return;
-      }
-
-      try {
-        // Fetch subscription data
-        const { data: subData } = await supabase
-          .from('stripe_user_subscriptions')
-          .select('*')
-          .maybeSingle();
-
-        // Fetch orders data
-        const { data: ordersData } = await supabase
-          .from('stripe_user_orders')
-          .select('*')
-          .order('order_date', { ascending: false });
-
-        setSubscription(subData);
-        setOrders(ordersData || []);
-      } catch (error) {
-        console.error('Error fetching user data:', error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchUserData();
+    // MOCK SUBSCRIPTION DATA
+    // In "Simulated Auth" mode, we won't have real Stripe data.
+    // We'll assume a free tier or no subscription for now to prevent errors.
+    setLoading(false);
   }, [user]);
 
   if (!user || loading) {
@@ -69,7 +44,7 @@ export const UserSubscriptionStatus: React.FC = () => {
             {hasActiveSubscription ? t('subscription.active') : t('subscription.products')}
           </h3>
           <p className="text-sm text-slate-300">
-            {hasActiveSubscription 
+            {hasActiveSubscription
               ? `${getProductByPriceId(subscription.price_id)?.name || 'Otomasyon'} - ${t('subscription.active.desc')}`
               : `${orders.length} ${t('subscription.products.desc')}`
             }

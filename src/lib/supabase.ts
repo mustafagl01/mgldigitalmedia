@@ -1,25 +1,22 @@
-import { createClient } from '@supabase/supabase-js'
+// Supabase has been removed in favor of simulated authentication.
+// This file is kept as a placeholder to avoid breaking imports in other files
+// that might still reference it (though we should have cleaned them all up).
 
-const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
-const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
-
-// Debug: Log all environment variables
-console.log('🔍 Supabase Debug Info:')
-console.log('VITE_SUPABASE_URL:', supabaseUrl)
-console.log('VITE_SUPABASE_ANON_KEY:', supabaseAnonKey ? 'SET' : 'MISSING')
-console.log('Window origin:', typeof window !== 'undefined' ? window.location.origin : 'SSR')
-console.log('All Vite env vars:', import.meta.env)
-
-if (!supabaseUrl || !supabaseAnonKey) {
-  console.error('❌ Missing Supabase environment variables!')
-}
-
-export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
+export const supabase = {
   auth: {
-    // Force auth settings to use production URLs
-    redirectTo: 'https://mgldigitalmedia.com/',
-    persistSession: true,
-    autoRefreshToken: true,
-    detectSessionInUrl: true
-  }
-})
+    getSession: async () => ({ data: { session: null } }),
+    onAuthStateChange: () => ({ data: { subscription: { unsubscribe: () => { } } } }),
+    signInWithPassword: async () => ({ error: null }),
+    signUp: async () => ({ error: null }),
+    signInWithOAuth: async () => ({ error: null }),
+    signOut: async () => ({ error: null }),
+    resetPasswordForEmail: async () => ({ error: null }),
+  },
+  from: () => ({
+    select: () => ({
+      maybeSingle: async () => ({ data: null }),
+      order: () => ({ data: [] }),
+    }),
+    insert: async () => ({ error: null }),
+  })
+} as any;

@@ -6,7 +6,7 @@ import { Input } from '../ui/Input';
 import { Label } from '../ui/Label';
 import { useAuth } from '../../contexts/AuthContext';
 import { toast } from '../../hooks/useToast';
-import { supabase } from '../../lib/supabase';
+
 
 interface LoginPageProps {
   onSwitchToSignup: () => void;
@@ -32,25 +32,16 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSwitchToSignup, onBack }
       return;
     }
 
+    // Mock Password Reset
     setIsResetting(true);
-    const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: 'https://mgldigitalmedia.com/'
-    });
-    
-    if (error) {
-      toast({
-        title: "Hata",
-        description: "Şifre sıfırlama e-postası gönderilemedi.",
-        variant: "destructive"
-      });
-    } else {
+    setTimeout(() => {
       setResetSent(true);
       toast({
         title: "E-posta Gönderildi",
         description: "Şifre sıfırlama bağlantısı e-posta adresinize gönderildi."
       });
-    }
-    setIsResetting(false);
+      setIsResetting(false);
+    }, 1000);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -65,39 +56,27 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSwitchToSignup, onBack }
     }
 
     setIsLoading(true);
-    const { error } = await signIn(email, password);
-    
-    if (error) {
-      toast({
-        title: "Giriş Hatası",
-        description: error.message === 'Invalid login credentials' 
-          ? "E-posta veya şifre hatalı." 
-          : "Giriş yapılırken bir hata oluştu.",
-        variant: "destructive"
-      });
-    } else {
-      toast({
-        title: "Başarılı!",
-        description: "Giriş yapıldı."
-      });
-      onBack(); // Close modal on successful login
-    }
+    // Always succeeds
+    await signIn(email, password);
+
+    toast({
+      title: "Başarılı!",
+      description: "Giriş yapıldı."
+    });
+    onBack(); // Close modal on successful login
     setIsLoading(false);
   };
 
   const handleGoogleSignIn = async () => {
     setIsGoogleLoading(true);
-    const { error } = await signInWithGoogle();
-    
-    if (error) {
-      toast({
-        title: "Google Giriş Hatası",
-        description: "Google ile giriş yapılırken bir hata oluştu.",
-        variant: "destructive"
-      });
-      setIsGoogleLoading(false);
-    }
-    // Google OAuth redirect olacağı için loading state reset etmiyoruz
+    await signInWithGoogle();
+
+    toast({
+      title: "Başarılı!",
+      description: "Google ile giriş yapıldı."
+    });
+    onBack(); // Close modal
+    setIsGoogleLoading(false);
   };
 
   return (
@@ -113,9 +92,9 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSwitchToSignup, onBack }
               <ArrowLeft className="w-5 h-5" />
             </Button>
             <div className="flex items-center gap-3">
-              <img 
-                src="/00bc7320-6f8f-42ae-a0b7-0c24b609e70f.png" 
-                alt="MGL Digital AI Logo" 
+              <img
+                src="/00bc7320-6f8f-42ae-a0b7-0c24b609e70f.png"
+                alt="MGL Digital AI Logo"
                 className="w-8 h-8 object-contain"
               />
               <span className="text-xl font-bold text-white">MGL Digital AI</span>
@@ -190,7 +169,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSwitchToSignup, onBack }
                 <span className="px-2 bg-slate-800 text-slate-400">veya</span>
               </div>
             </div>
-            
+
             <Button
               type="button"
               variant="outline"
@@ -252,7 +231,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSwitchToSignup, onBack }
               )}
             </div>
           </div>
-          
+
           <div className="mt-4 p-3 bg-slate-700/50 rounded-lg">
             <p className="text-xs text-slate-400 text-center">
               Demo Hesap: demo@mgldigitalmedia.com | Demo123!
