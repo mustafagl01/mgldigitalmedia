@@ -1,22 +1,17 @@
-// Supabase has been removed in favor of simulated authentication.
-// This file is kept as a placeholder to avoid breaking imports in other files
-// that might still reference it (though we should have cleaned them all up).
+import { createClient } from '@supabase/supabase-js'
 
-export const supabase = {
+const supabaseUrl = import.meta.env.VITE_SUPABASE_URL
+const supabaseAnonKey = import.meta.env.VITE_SUPABASE_ANON_KEY
+
+if (!supabaseUrl || !supabaseAnonKey) {
+  console.error('❌ Missing Supabase environment variables!')
+}
+
+export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
   auth: {
-    getSession: async () => ({ data: { session: null } }),
-    onAuthStateChange: () => ({ data: { subscription: { unsubscribe: () => { } } } }),
-    signInWithPassword: async () => ({ error: null }),
-    signUp: async () => ({ error: null }),
-    signInWithOAuth: async () => ({ error: null }),
-    signOut: async () => ({ error: null }),
-    resetPasswordForEmail: async () => ({ error: null }),
-  },
-  from: () => ({
-    select: () => ({
-      maybeSingle: async () => ({ data: null }),
-      order: () => ({ data: [] }),
-    }),
-    insert: async () => ({ error: null }),
-  })
-} as any;
+    redirectTo: 'https://mgldigitalmedia.com/',
+    persistSession: true,
+    autoRefreshToken: true,
+    detectSessionInUrl: true
+  }
+})

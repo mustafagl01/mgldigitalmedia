@@ -6,6 +6,7 @@ import { Input } from '../ui/Input';
 import { Label } from '../ui/Label';
 import { useAuth } from '../../contexts/AuthContext';
 import { toast } from '../../hooks/useToast';
+import { supabase } from '../../lib/supabase';
 
 
 interface LoginPageProps {
@@ -32,16 +33,25 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSwitchToSignup, onBack }
       return;
     }
 
-    // Mock Password Reset
     setIsResetting(true);
-    setTimeout(() => {
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: 'https://mgldigitalmedia.com/'
+    });
+
+    if (error) {
+      toast({
+        title: "Hata",
+        description: "Şifre sıfırlama e-postası gönderilemedi.",
+        variant: "destructive"
+      });
+    } else {
       setResetSent(true);
       toast({
         title: "E-posta Gönderildi",
         description: "Şifre sıfırlama bağlantısı e-posta adresinize gönderildi."
       });
-      setIsResetting(false);
-    }, 1000);
+    }
+    setIsResetting(false);
   };
 
   const handleSubmit = async (e: React.FormEvent) => {

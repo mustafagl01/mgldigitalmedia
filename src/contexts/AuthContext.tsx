@@ -1,17 +1,14 @@
 import React, { createContext, useContext, useEffect, useState } from 'react'
-
-// Mock User type to match Supabase's basic structure
-interface User {
-  id: string;
-  email: string | undefined;
-}
+import { User, Session, AuthError } from '@supabase/supabase-js'
+import { supabase } from '../lib/supabase'
 
 interface AuthContextType {
   user: User | null
+  session: Session | null
   loading: boolean
-  signIn: (email: string, password: string) => Promise<{ error?: any }>
-  signUp: (email: string, password: string) => Promise<{ error?: any }>
-  signInWithGoogle: () => Promise<{ error?: any }>
+  signIn: (email: string, password: string) => Promise<{ error?: AuthError }>
+  signUp: (email: string, password: string) => Promise<{ error?: AuthError }>
+  signInWithGoogle: () => Promise<{ error?: AuthError }>
   signOut: () => Promise<void>
 }
 
@@ -29,49 +26,84 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [user, setUser] = useState<User | null>(null)
+  const [session, setSession] = useState<Session | null>(null)
   const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    // Check local storage for mock session
-    const storedUser = localStorage.getItem('mock_user')
-    if (storedUser) {
-      setUser(JSON.parse(storedUser))
-    }
-    setLoading(false)
+    // Get initial session
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setSession(session)
+      setUser(session?.user ?? null)
+      setLoading(false)
+    })
+
+    // Listen for auth changes
+    const {
+      data: { subscription },
+    } = supabase.auth.onAuthStateChange(async (event, session) => {
+      console.log('Auth state changed:', event, session?.user?.email)
+      setSession(session)
+      setUser(session?.user ?? null)
+      setLoading(false)
+    })
+
+    return () => subscription.unsubscribe()
   }, [])
 
   const signIn = async (email: string, password: string) => {
-    // MOCK LOGIN: Always succeed
-    const mockUser = { id: 'mock-user-123', email }
-    localStorage.setItem('mock_user', JSON.stringify(mockUser))
-    setUser(mockUser)
+    const { data, error } = await supabase.auth.signInWithPassword({
+      email,
+      password,
+    })
+
+    if (error) {
+      console.error('Sign in error:', error)
+      return { error }
+    }
+
     return { error: undefined }
   }
 
   const signUp = async (email: string, password: string) => {
-    // MOCK SIGNUP: Always succeed
-    const mockUser = { id: 'mock-user-123', email }
-    localStorage.setItem('mock_user', JSON.stringify(mockUser))
-    setUser(mockUser)
+    const { data, error } = await supabase.auth.signUp({
+      email,
+      password,
+    })
+
+    if (error) {
+      console.error('Sign up error:', error)
+      return { error }
+    }
+
     return { error: undefined }
   }
 
   const signInWithGoogle = async () => {
-    // MOCK GOOGLE LOGIN: Always succeed
-    const mockUser = { id: 'mock-user-google-123', email: 'google-user@example.com' }
-    localStorage.setItem('mock_user', JSON.stringify(mockUser))
-    setUser(mockUser)
-    console.log('Google OAuth simulated successfully')
+    const { data, error } = await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: 'https://mgldigitalmedia.com/',
+      },
+    })
+
+    if (error) {
+      console.error('Google sign in error:', error)
+      return { error }
+    }
+
     return { error: undefined }
   }
 
   const signOut = async () => {
-    localStorage.removeItem('mock_user')
-    setUser(null)
+    const { error } = await supabase.auth.signOut()
+    if (error) {
+      console.error('Sign out error:', error)
+    }
   }
 
   const value = {
     user,
+    session,
     loading,
     signIn,
     signUp,
