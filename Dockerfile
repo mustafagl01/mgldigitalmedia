@@ -14,6 +14,7 @@ COPY . .
 
 # Build the application
 RUN npm run build
+RUN test -f /app/dist/index.html || (echo "Build failed - no index.html in dist" && exit 1)
 
 # Production stage
 FROM nginx:alpine
