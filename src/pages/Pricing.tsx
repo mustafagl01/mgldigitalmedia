@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from 'react';
 import type { ComponentType } from 'react';
 import { motion } from 'framer-motion';
-import { ArrowRight, Building2, Globe2, Hospital, Pizza, TrendingUp } from 'lucide-react';
+import { ArrowRight, Building2, Globe2, Pizza, Stethoscope, TrendingUp } from 'lucide-react';
 
 type SectorId = 'health' | 'restaurant' | 'estate' | 'export';
 
@@ -16,7 +16,7 @@ type SliderFieldProps = {
 };
 
 const sectors: { id: SectorId; label: string; emoji: string; icon: ComponentType<{ size?: number }> }[] = [
-  { id: 'health', label: 'Health', emoji: '🏥', icon: Hospital },
+  { id: 'health', label: 'Health', emoji: '🏥', icon: Stethoscope },
   { id: 'restaurant', label: 'Restaurant', emoji: '🍕', icon: Pizza },
   { id: 'estate', label: 'Estate', emoji: '🏢', icon: Building2 },
   { id: 'export', label: 'Export', emoji: '🌍', icon: Globe2 },
