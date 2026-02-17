@@ -1,4 +1,5 @@
 import { useMemo, useState } from 'react';
+import { Link } from 'react-router-dom';
 import type { LucideIcon } from 'lucide-react';
 import {
   ArrowRight,
@@ -284,11 +285,6 @@ export default function Pricing() {
   const monthlyLoss = useMemo(() => activeSector.calculate(values), [activeSector, values]);
   const monthlyNetGain = Math.max(monthlyLoss - activeSector.packagePrice, 0);
 
-  const handleStartClick = () => {
-    window.history.pushState({}, '', '/packages');
-    window.dispatchEvent(new PopStateEvent('popstate'));
-  };
-
   return (
     <div className={`min-h-screen px-4 py-10 text-white transition-colors duration-300 ${aiMode ? 'bg-[#03110a]' : 'bg-[#0a0710]'}`}>
       <div className="mx-auto max-w-7xl space-y-8">
@@ -425,13 +421,12 @@ export default function Pricing() {
             </div>
           </div>
 
-          <button
-            type="button"
-            onClick={handleStartClick}
+          <Link
+            to="/packages"
             className="mt-6 inline-flex items-center gap-2 rounded-xl bg-emerald-400 px-5 py-3 font-bold text-slate-900 transition hover:bg-emerald-300"
           >
             Hemen Başla (Beta Programı) <ArrowRight size={18} />
-          </button>
+          </Link>
         </section>
       </div>
     </div>
