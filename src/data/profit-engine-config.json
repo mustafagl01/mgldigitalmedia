@@ -1,0 +1,255 @@
+{
+  "sectors": {
+    "restaurant": {
+      "icon": "🍕",
+      "name": "Restoran & Cafe",
+      "color": "#FF6B6B",
+      "inputs": [
+        {
+          "id": "daily_orders",
+          "label": "Günde Kaç Sipariş Alıyorsunuz?",
+          "type": "slider",
+          "min": 10,
+          "max": 500,
+          "default": 150,
+          "unit": "sipariş"
+        },
+        {
+          "id": "commission_rate",
+          "label": "Yemeksepeti/Getir Komisyon Oranı?",
+          "type": "slider",
+          "min": 10,
+          "max": 35,
+          "default": 25,
+          "unit": "%"
+        },
+        {
+          "id": "avg_order_value",
+          "label": "Ortalama Sipariş Tutarı?",
+          "type": "slider",
+          "min": 100,
+          "max": 1000,
+          "default": 280,
+          "unit": "TL"
+        }
+      ],
+      "calculation": {
+        "formula": "(daily_orders * avg_order_value * 30 * commission_rate) / 100",
+        "yearly_multiplier": 12,
+        "pain_label": "🔥 ŞU AN YAKTIĞINIZ PARA",
+        "solution_label": "💰 CEBİNİZDE KALAN"
+      },
+      "recommended_package": "restaurant_pro",
+      "package_price": 16999,
+      "killer_argument": "Yemeksepeti komisyonlarından kurtulun! Müşteri datası size ait olsun.",
+      "comparison": {
+        "old_way_cost": 27000,
+        "old_way_label": "Aylık komisyon"
+      }
+    },
+    "health": {
+      "icon": "🏥",
+      "name": "Sağlık Turizmi",
+      "color": "#4ECDC4",
+      "inputs": [
+        {
+          "id": "missed_calls",
+          "label": "Günde Kaç Hasta Araması Kaçırıyorsunuz?",
+          "type": "slider",
+          "min": 1,
+          "max": 50,
+          "default": 8,
+          "unit": "arama"
+        },
+        {
+          "id": "patient_value",
+          "label": "Bir Hastadan Ortalama Gelir?",
+          "type": "slider",
+          "min": 500,
+          "max": 5000,
+          "default": 2500,
+          "unit": "EUR"
+        },
+        {
+          "id": "conversion_rate",
+          "label": "Arama → Hasta Dönüşüm Oranı?",
+          "type": "slider",
+          "min": 5,
+          "max": 50,
+          "default": 20,
+          "unit": "%"
+        }
+      ],
+      "calculation": {
+        "formula": "(missed_calls * 30 * patient_value * conversion_rate) / 100 * 35",
+        "yearly_multiplier": 1,
+        "pain_label": "🔥 KAÇIRDIĞINIZ GELİR",
+        "solution_label": "💰 YAKALAYACAĞINIZ GELİR"
+      },
+      "recommended_package": "professional",
+      "package_price": 399,
+      "package_price_currency": "USD",
+      "killer_argument": "Gece 3'te arayan yabancı hastaları artık kaçırmayın! 7/24 İngilizce/Rusça/Arapça destek.",
+      "comparison": {
+        "old_way_cost": 800,
+        "old_way_label": "İngilizce sekreter maaşı (USD)"
+      }
+    },
+    "corporate": {
+      "icon": "🏢",
+      "name": "Kurumsal & Ofis",
+      "color": "#95E1D3",
+      "inputs": [
+        {
+          "id": "staff_count",
+          "label": "Kaç Kişi Sadece Müşteri İletişiminde?",
+          "type": "slider",
+          "min": 1,
+          "max": 10,
+          "default": 3,
+          "unit": "kişi"
+        },
+        {
+          "id": "salary",
+          "label": "Kişi Başı Ortalama Maliyet (Maaş + SGK)?",
+          "type": "slider",
+          "min": 15000,
+          "max": 40000,
+          "default": 25000,
+          "unit": "TL"
+        }
+      ],
+      "calculation": {
+        "formula": "staff_count * salary * 12",
+        "yearly_multiplier": 1,
+        "pain_label": "🔥 YILLIK PERSONEL MALİYETİ",
+        "solution_label": "💰 TASARRUF EDİLECEK"
+      },
+      "recommended_package": "business",
+      "package_price": 24999,
+      "killer_argument": "3 personel yerine 1 AI sistemi. 7/24 çalışır, izin almaz, hata yapmaz.",
+      "comparison": {
+        "old_way_cost": 75000,
+        "old_way_label": "3 personel toplam maliyet"
+      }
+    },
+    "export": {
+      "icon": "🌍",
+      "name": "İhracat & E-ticaret",
+      "color": "#F38181",
+      "inputs": [
+        {
+          "id": "intl_inquiries",
+          "label": "Aylık Kaç Yabancı Müşteri Talebi Geliyor?",
+          "type": "slider",
+          "min": 10,
+          "max": 500,
+          "default": 100,
+          "unit": "talep"
+        },
+        {
+          "id": "response_time_loss",
+          "label": "Saat Farkı/Dil Yüzünden Kaç Talep Kaçıyor?",
+          "type": "slider",
+          "min": 10,
+          "max": 80,
+          "default": 40,
+          "unit": "%"
+        },
+        {
+          "id": "avg_deal_size",
+          "label": "Ortalama Sipariş Büyüklüğü?",
+          "type": "slider",
+          "min": 1000,
+          "max": 50000,
+          "default": 10000,
+          "unit": "USD"
+        }
+      ],
+      "calculation": {
+        "formula": "(intl_inquiries * response_time_loss / 100) * avg_deal_size * 12",
+        "yearly_multiplier": 1,
+        "pain_label": "🔥 KAÇIRDIĞINIZ CİRO (USD)",
+        "solution_label": "💰 YAKALAYACAĞINIZ CİRO"
+      },
+      "recommended_package": "professional",
+      "package_price": 399,
+      "package_price_currency": "USD",
+      "killer_argument": "Saat farkı yok! Almanca, İngilizce, Fransızca 7/24 müşterilerinizle konuşur.",
+      "comparison": {
+        "old_way_cost": 1200,
+        "old_way_label": "Çok dilli satış ekibi maaşı (USD)"
+      }
+    }
+  },
+  "packages": {
+    "restaurant_pro": {
+      "name": "Restaurant Professional",
+      "price_try": 16999,
+      "features": [
+        "WhatsApp Sipariş Botu (5000 mesaj/ay)",
+        "Sesli Sipariş Asistanı (1200 dk/ay)",
+        "Mutfak Yazıcı Entegrasyonu",
+        "Rezervasyon Sistemi",
+        "QR Menü Sistemi",
+        "SMS Kampanya (500 SMS dahil)",
+        "2 Dil Desteği"
+      ]
+    },
+    "professional": {
+      "name": "Professional",
+      "price_usd": 399,
+      "price_try": 13999,
+      "features": [
+        "Sesli Asistan (800 dk/ay)",
+        "WhatsApp + Instagram Bot",
+        "Website Chatbot (GPT-4)",
+        "CRM Integration",
+        "2 Dil Desteği",
+        "Advanced Analytics",
+        "Priority Support"
+      ]
+    },
+    "business": {
+      "name": "Business",
+      "price_try": 24999,
+      "features": [
+        "Sesli Asistan (2000 dk/ay)",
+        "Multi-channel Bot (WhatsApp/IG/TG)",
+        "Web Scraping (3000 kayıt)",
+        "Website Bakım",
+        "3 Dil Desteği",
+        "Custom Dashboard",
+        "Dedicated Support"
+      ]
+    }
+  },
+  "comparison_cards": {
+    "old_way": {
+      "title": "😩 ESKİ USUL PERSONEL",
+      "specs": {
+        "hours": "09:00 - 18:00 (8 saat)",
+        "languages": "1-2 dil",
+        "error_rate": "%15",
+        "availability": "🔴 MEŞGUL",
+        "vacation": "Yıllık 14+ gün izin"
+      }
+    },
+    "ai_way": {
+      "title": "🤖 MGL AI ASISTAN",
+      "specs": {
+        "hours": "7/24 AKTIF (365 gün)",
+        "languages": "7 dil",
+        "error_rate": "%0.5",
+        "availability": "🟢 ONLINE",
+        "vacation": "Hiç yok"
+      },
+      "cta": "🚀 HEMEN BAŞLA"
+    }
+  },
+  "voice_assistant_script": {
+    "greeting": "Merhaba! Ben MGL'nin AI asistanıyım.",
+    "pitch_template": "Şu an ekranda gördüğün {monthly_price} TL'yi bana ödediğinde, {old_cost} TL {old_label} ödemekten kurtulursun. Yani {savings} TL cebinde kalır. Her ay.",
+    "cta": "Demo yapmamı ister misin yoksa sorularını cevaplayım mı?"
+  }
+}
