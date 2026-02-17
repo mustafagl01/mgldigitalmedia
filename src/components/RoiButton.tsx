@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import type { MouseEventHandler } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
-import { CirclePlay, TrendingDown, TrendingUp } from 'lucide-react';
+import { PlayCircle, TrendingDown, TrendingUp } from 'lucide-react';
 
 const slides = [
   { id: 'loss', text: '💸 Kaybını Hesapla', Icon: TrendingDown, iconClass: 'text-rose-400' },
   { id: 'gain', text: '🚀 Kazancını Gör', Icon: TrendingUp, iconClass: 'text-emerald-400' },
-  { id: 'start', text: 'Simülasyonu Başlat', Icon: CirclePlay, iconClass: 'text-lime-300' },
+  { id: 'start', text: 'Simülasyonu Başlat', Icon: PlayCircle, iconClass: 'text-lime-300' },
 ] as const;
 
 type RoiButtonProps = {
