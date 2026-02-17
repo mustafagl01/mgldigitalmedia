@@ -79,11 +79,7 @@ function AppContent() {
   };
 
   const handleProductsClick = () => {
-    if (!user) {
-      setIsAuthModalOpen(true);
-      return;
-    }
-    navigateTo('products');
+    navigateTo('pricing');
   };
 
   if (currentPage === 'products') {
