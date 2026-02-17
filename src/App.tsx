@@ -30,10 +30,11 @@ import { BookingSection } from './components/sections/BookingSection';
 import { BookingAnnouncementBar } from './components/ui/BookingAnnouncementBar';
 import { FloatingBookingButton } from './components/ui/FloatingBookingButton';
 import Pricing from './pages/Pricing';
+import Packages from './pages/Packages';
 
 
 
-type AppPage = 'home' | 'products' | 'success' | 'cancel' | 'pricing';
+type AppPage = 'home' | 'products' | 'success' | 'cancel' | 'pricing' | 'packages';
 
 function AppContent() {
   const [currentPage, setCurrentPage] = useState<AppPage>(() => {
@@ -42,6 +43,7 @@ function AppContent() {
     if (path === '/success') return 'success';
     if (path === '/cancel') return 'cancel';
     if (path === '/pricing') return 'pricing';
+    if (path === '/packages') return 'packages';
     return 'home';
   });
   const [activeDemo, setActiveDemo] = useState<string | null>(null);
@@ -58,6 +60,7 @@ function AppContent() {
       else if (path === '/success') setCurrentPage('success');
       else if (path === '/cancel') setCurrentPage('cancel');
       else if (path === '/pricing') setCurrentPage('pricing');
+      else if (path === '/packages') setCurrentPage('packages');
       else setCurrentPage('home');
     };
 
@@ -100,6 +103,10 @@ function AppContent() {
 
   if (currentPage === 'pricing') {
     return <Pricing />;
+  }
+
+  if (currentPage === 'packages') {
+    return <Packages />;
   }
 
   return (
