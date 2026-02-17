@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import type { MouseEventHandler } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { CirclePlay, TrendingDown, TrendingUp } from 'lucide-react';
-import { Link } from 'react-router-dom';
 
 const slides = [
   { id: 'loss', text: '💸 Kaybını Hesapla', Icon: TrendingDown, iconClass: 'text-rose-400' },
@@ -11,7 +10,7 @@ const slides = [
 ] as const;
 
 type RoiButtonProps = {
-  onClick?: MouseEventHandler<HTMLAnchorElement>;
+  onClick?: MouseEventHandler<HTMLButtonElement>;
 };
 
 export default function RoiButton({ onClick }: RoiButtonProps) {
@@ -28,8 +27,8 @@ export default function RoiButton({ onClick }: RoiButtonProps) {
   const activeSlide = slides[activeIndex];
 
   return (
-    <Link
-      to="/pricing"
+    <button
+      type="button"
       onClick={onClick}
       className="group relative inline-flex items-center justify-center overflow-hidden rounded-full border border-green-500/80 bg-slate-900/90 px-4 py-2 text-sm font-semibold text-white shadow-[0_0_20px_rgba(34,197,94,0.25)] transition-all duration-300 hover:border-green-400 hover:shadow-[0_0_24px_rgba(74,222,128,0.45)]"
     >
@@ -50,6 +49,6 @@ export default function RoiButton({ onClick }: RoiButtonProps) {
           </motion.span>
         </AnimatePresence>
       </span>
-    </Link>
+    </button>
   );
 }

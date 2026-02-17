@@ -1,8 +1,7 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import type { ComponentType } from 'react';
 import { motion } from 'framer-motion';
 import { ArrowRight, Building2, Globe2, Hospital, Pizza, TrendingUp } from 'lucide-react';
-import CountUp from 'react-countup';
 
 type SectorId = 'health' | 'restaurant' | 'estate' | 'export';
 
@@ -122,7 +121,7 @@ export default function Pricing() {
             </p>
             <div className={`mt-2 text-4xl font-black ${switchOn ? 'text-emerald-300' : 'text-rose-300'}`}>
               ₺
-              <CountUp end={switchOn ? netGain : monthlyLoss} duration={0.65} separator="." preserveValue />
+              <AnimatedNumber value={switchOn ? netGain : monthlyLoss} />
             </div>
           </div>
         </section>
@@ -174,6 +173,35 @@ export default function Pricing() {
       </div>
     </div>
   );
+}
+
+
+function AnimatedNumber({ value }: { value: number }) {
+  const [displayValue, setDisplayValue] = useState(value);
+
+  useEffect(() => {
+    const start = displayValue;
+    const end = value;
+    const duration = 500;
+    const startTime = performance.now();
+
+    let frame = 0;
+    const tick = (now: number) => {
+      const progress = Math.min((now - startTime) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      const next = Math.round(start + (end - start) * eased);
+      setDisplayValue(next);
+
+      if (progress < 1) {
+        frame = requestAnimationFrame(tick);
+      }
+    };
+
+    frame = requestAnimationFrame(tick);
+    return () => cancelAnimationFrame(frame);
+  }, [value]);
+
+  return <>{formatter.format(displayValue)}</>;
 }
 
 function SliderField({ label, value, onChange, min, max, step = 1, suffix = '' }: SliderFieldProps) {
