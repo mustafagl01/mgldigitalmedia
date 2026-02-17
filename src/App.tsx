@@ -128,45 +128,52 @@ function AppContent() {
 
         {/* Header */}
         <header className="py-4 px-4 sm:px-6 lg:px-8 bg-slate-900/50 backdrop-blur-sm sticky top-0 z-40 border-b border-slate-700/50">
-          <div className="container mx-auto flex items-center justify-between">
-            <div
-              className="flex items-center gap-3 cursor-pointer"
-              onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            >
-              <img
-                src="/00bc7320-6f8f-42ae-a0b7-0c24b609e70f.png"
-                alt="MGL Digital AI Logo"
-                className="w-8 h-8 object-contain"
-              />
-              <span className="text-xl font-bold text-white">{t('header.title')}</span>
-            </div>
-            <div className="flex items-center gap-3">
-              {/* Language Switcher */}
-              <div className="flex items-center gap-1 mr-2">
-                <button
-                  onClick={() => setLanguage('tr')}
-                  className={`px-2 py-1 rounded text-sm font-medium transition-colors ${language === 'tr'
-                    ? 'bg-purple-600 text-white'
-                    : 'text-slate-400 hover:text-white'
-                    }`}
-                >
-                  🇹🇷 TR
-                </button>
-                <button
-                  onClick={() => setLanguage('en')}
-                  className={`px-2 py-1 rounded text-sm font-medium transition-colors ${language === 'en'
-                    ? 'bg-purple-600 text-white'
-                    : 'text-slate-400 hover:text-white'
-                    }`}
-                >
-                  🇬🇧 EN
-                </button>
+          <div className="container mx-auto flex flex-col gap-3">
+            <div className="flex items-center justify-between gap-2">
+              <div
+                className="flex items-center gap-2 sm:gap-3 cursor-pointer min-w-0"
+                onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+              >
+                <img
+                  src="/00bc7320-6f8f-42ae-a0b7-0c24b609e70f.png"
+                  alt="MGL Digital AI Logo"
+                  className="w-8 h-8 object-contain shrink-0"
+                />
+                <span className="text-base sm:text-xl font-bold text-white truncate">{t('header.title')}</span>
               </div>
-              {/* ROI Live Ticker - THE CONVERSION BEAST */}
-              <RoiButton onClick={() => navigateTo('pricing')} />
+
+              <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+                {/* Language Switcher */}
+                <div className="flex items-center gap-1">
+                  <button
+                    onClick={() => setLanguage('tr')}
+                    className={`px-2 py-1 rounded text-xs sm:text-sm font-medium transition-colors ${language === 'tr'
+                      ? 'bg-purple-600 text-white'
+                      : 'text-slate-400 hover:text-white'
+                      }`}
+                  >
+                    TR
+                  </button>
+                  <button
+                    onClick={() => setLanguage('en')}
+                    className={`px-2 py-1 rounded text-xs sm:text-sm font-medium transition-colors ${language === 'en'
+                      ? 'bg-purple-600 text-white'
+                      : 'text-slate-400 hover:text-white'
+                      }`}
+                  >
+                    EN
+                  </button>
+                </div>
+
+                {/* ROI Live Ticker - THE CONVERSION BEAST */}
+                <RoiButton onClick={() => navigateTo('pricing')} />
+              </div>
+            </div>
+
+            <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
               {user ? (
                 <>
-                  <span className="text-sm text-slate-300 hidden sm:block">
+                  <span className="text-sm text-slate-300 hidden md:block mr-auto">
                     {user.email}
                   </span>
                   <Button
