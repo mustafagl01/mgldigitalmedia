@@ -13,7 +13,8 @@
     "db:migrate": "wrangler d1 execute mgl_digital_media_db --file=migrations/0001_init_auth.sql",
     "db:migrate:dev": "wrangler d1 execute mgl_digital_media_db_dev --file=migrations/0001_init_auth.sql",
     "d1:create": "wrangler d1 create mgl_digital_media_db",
-    "d1:create:dev": "wrangler d1 create mgl_digital_media_db_dev"
+    "d1:create:dev": "wrangler d1 create mgl_digital_media_db_dev",
+    "postinstall": "echo 'Dependencies installed successfully'"
   },
   "dependencies": {
     "@cloudflare/workers-types": "^4.20260217.0",
