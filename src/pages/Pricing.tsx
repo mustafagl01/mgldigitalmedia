@@ -285,6 +285,11 @@ export default function Pricing() {
   const monthlyLoss = useMemo(() => activeSector.calculate(values), [activeSector, values]);
   const monthlyNetGain = Math.max(monthlyLoss - activeSector.packagePrice, 0);
 
+  const handleStartClick = () => {
+    window.history.pushState({}, '', '/packages');
+    window.dispatchEvent(new PopStateEvent('popstate'));
+  };
+
   return (
     <div className={`min-h-screen px-4 py-10 text-white transition-colors duration-300 ${aiMode ? 'bg-[#03110a]' : 'bg-[#0a0710]'}`}>
       <div className="mx-auto max-w-7xl space-y-8">
