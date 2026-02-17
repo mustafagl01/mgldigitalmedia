@@ -299,7 +299,7 @@ export default function Pricing() {
         </section>
 
         <section className="rounded-3xl border border-white/10 bg-white/5 p-5 backdrop-blur-xl md:p-6">
-          <h2 className="mb-4 text-lg font-semibold">Sektörünüzü seçin</h2>
+          <h2 className="mb-4 text-lg font-semibold">Sektörünü seçin</h2>
           <div className="grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-5">
             {sectorConfigs.map((sector) => {
               const Icon = sector.icon;
