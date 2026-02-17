@@ -1,0 +1,33 @@
+# SIMPLE TEST INSTRUCTIONS
+
+## 1. Update App.tsx
+
+Add this import at top:
+```typescript
+import PricingSimple from './pages/PricingSimple';
+```
+
+## 2. Update pricing route
+
+Find this line:
+```typescript
+if (currentPage === 'pricing') {
+  return <Pricing />;
+}
+```
+
+Change to:
+```typescript
+if (currentPage === 'pricing') {
+  return <PricingSimple />;
+}
+```
+
+## 3. Test
+
+Go to: https://mgldigitalmedia.com/pricing
+
+You should see: "🚀 THE PROFIT ENGINE ÇALİŞIYOR! ✅"
+
+If you see this, routing works!
+If not, there's a deeper problem.
