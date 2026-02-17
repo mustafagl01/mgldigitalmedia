@@ -16,13 +16,14 @@ export const SignupPage: React.FC<SignupPageProps> = ({ onSwitchToLogin, onBack 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
+  const [name, setName] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const [isGoogleLoading, setIsGoogleLoading] = useState(false);
   const { signUp, signInWithGoogle } = useAuth();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     if (!email || !password || !confirmPassword) {
       toast({
         title: "Eksik Bilgi",
@@ -51,10 +52,10 @@ export const SignupPage: React.FC<SignupPageProps> = ({ onSwitchToLogin, onBack 
     }
 
     setIsLoading(true);
-    const { error } = await signUp(email, password);
-    
+    const { error } = await signUp(email, password, name || undefined);
+
     if (error) {
-      if (error.message === 'User already registered') {
+      if (error.status === 409 || error.message.includes('already exists')) {
         toast({
           title: "E-posta Zaten Kayıtlı",
           description: "Bu e-posta adresi zaten kayıtlı. Giriş sayfasına yönlendiriliyorsunuz...",
@@ -67,27 +68,30 @@ export const SignupPage: React.FC<SignupPageProps> = ({ onSwitchToLogin, onBack 
       } else {
         toast({
           title: "Kayıt Hatası",
-          description: "Kayıt olurken bir hata oluştu.",
+          description: error.message || "Kayıt olurken bir hata oluştu.",
           variant: "destructive"
         });
       }
-    } else {
-      toast({
-        title: "Başarılı!",
-        description: "Hesabınız oluşturuldu ve giriş yapıldı."
-      });
+      setIsLoading(false);
+      return;
     }
+
+    toast({
+      title: "Başarılı!",
+      description: "Hesabınız oluşturuldu ve giriş yapıldı."
+    });
+    onBack(); // Close modal on successful signup
     setIsLoading(false);
   };
 
   const handleGoogleSignIn = async () => {
     setIsGoogleLoading(true);
     const { error } = await signInWithGoogle();
-    
+
     if (error) {
       toast({
         title: "Google Giriş Hatası",
-        description: "Google ile giriş yapılırken bir hata oluştu.",
+        description: error.message || "Google ile giriş yapılırken bir hata oluştu.",
         variant: "destructive"
       });
       setIsGoogleLoading(false);
@@ -108,9 +112,9 @@ export const SignupPage: React.FC<SignupPageProps> = ({ onSwitchToLogin, onBack 
               <ArrowLeft className="w-5 h-5" />
             </Button>
             <div className="flex items-center gap-3">
-              <img 
-                src="/00bc7320-6f8f-42ae-a0b7-0c24b609e70f.png" 
-                alt="MGL Digital AI Logo" 
+              <img
+                src="/00bc7320-6f8f-42ae-a0b7-0c24b609e70f.png"
+                alt="MGL Digital AI Logo"
                 className="w-8 h-8 object-contain"
               />
               <span className="text-xl font-bold text-white">MGL Digital AI</span>
@@ -161,7 +165,7 @@ export const SignupPage: React.FC<SignupPageProps> = ({ onSwitchToLogin, onBack 
                 </>
               )}
             </Button>
-            
+
             <div className="relative mt-4">
               <div className="absolute inset-0 flex items-center">
                 <div className="w-full border-t border-slate-600"></div>
@@ -173,6 +177,22 @@ export const SignupPage: React.FC<SignupPageProps> = ({ onSwitchToLogin, onBack 
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-6">
+            <div>
+              <Label htmlFor="name" className="text-slate-300">İsim (Opsiyonel)</Label>
+              <div className="relative mt-1">
+                <UserPlus className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-slate-400" />
+                <Input
+                  id="name"
+                  type="text"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  placeholder="Adınız"
+                  className="pl-10"
+                  disabled={isLoading || isGoogleLoading}
+                />
+              </div>
+            </div>
+
             <div>
               <Label htmlFor="email" className="text-slate-300">E-posta Adresi</Label>
               <div className="relative mt-1">

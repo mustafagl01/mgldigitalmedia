@@ -1,0 +1,37 @@
+# Cloudflare Workers configuration for MGL Digital Media
+
+name = "mgl-digital-media-auth"
+main = "worker/src/auth-handler.ts"
+compatibility_date = "2024-01-01"
+compatibility_flags = ["nodejs_compat"]
+
+# D1 Database Binding
+[[d1_databases]]
+binding = "DB"
+database_name = "mgl_digital_media_db"
+database_id = "0b21e948-8504-4622-8fbe-37c4d89941c4"
+
+# Environment variables (secrets)
+# Use: wrangler secret put JWT_SECRET
+# Use: wrangler secret put GOOGLE_CLIENT_ID
+# Use: wrangler secret put GOOGLE_CLIENT_SECRET
+
+[vars]
+ENVIRONMENT = "production"
+
+# Development configuration
+[env.development]
+name = "mgl-digital-media-auth-dev"
+
+[[env.development.d1_databases]]
+binding = "DB"
+database_name = "mgl_digital_media_db_dev"
+database_id = "your-dev-database-id-here"
+
+# Build configuration - TypeScript files will be handled by wrangler
+# No build step needed for Workers with TypeScript support
+
+# Routes configuration (when deploying)
+# routes = [
+#   { pattern = "https://mgldigitalmedia.com/api/auth/*", zone_name = "mgldigitalmedia.com" }
+# ]

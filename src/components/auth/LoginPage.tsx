@@ -6,7 +6,6 @@ import { Input } from '../ui/Input';
 import { Label } from '../ui/Label';
 import { useAuth } from '../../contexts/AuthContext';
 import { toast } from '../../hooks/useToast';
-import { supabase } from '../../lib/supabase';
 
 
 interface LoginPageProps {
@@ -21,7 +20,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSwitchToSignup, onBack }
   const [isGoogleLoading, setIsGoogleLoading] = useState(false);
   const [resetSent, setResetSent] = useState(false);
   const [isResetting, setIsResetting] = useState(false);
-  const { signIn, signInWithGoogle } = useAuth();
+  const { signIn, signInWithGoogle, resetPassword } = useAuth();
 
   const handlePasswordReset = async () => {
     if (!email) {
@@ -34,14 +33,12 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSwitchToSignup, onBack }
     }
 
     setIsResetting(true);
-    const { error } = await supabase.auth.resetPasswordForEmail(email, {
-      redirectTo: 'https://mgldigitalmedia.com/'
-    });
+    const { error } = await resetPassword(email);
 
     if (error) {
       toast({
         title: "Hata",
-        description: "Şifre sıfırlama e-postası gönderilemedi.",
+        description: error.message || "Şifre sıfırlama e-postası gönderilemedi.",
         variant: "destructive"
       });
     } else {
@@ -66,8 +63,17 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSwitchToSignup, onBack }
     }
 
     setIsLoading(true);
-    // Always succeeds
-    await signIn(email, password);
+    const { error } = await signIn(email, password);
+
+    if (error) {
+      toast({
+        title: "Giriş Hatası",
+        description: error.message || "Giriş yapılamadı.",
+        variant: "destructive"
+      });
+      setIsLoading(false);
+      return;
+    }
 
     toast({
       title: "Başarılı!",
@@ -80,13 +86,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSwitchToSignup, onBack }
   const handleGoogleSignIn = async () => {
     setIsGoogleLoading(true);
     await signInWithGoogle();
-
-    toast({
-      title: "Başarılı!",
-      description: "Google ile giriş yapıldı."
-    });
-    onBack(); // Close modal
-    setIsGoogleLoading(false);
+    // Google OAuth will redirect, so we don't need to handle response here
   };
 
   return (
@@ -244,7 +244,7 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSwitchToSignup, onBack }
 
           <div className="mt-4 p-3 bg-slate-700/50 rounded-lg">
             <p className="text-xs text-slate-400 text-center">
-              Demo Hesap: demo@mgldigitalmedia.com | Demo123!
+              Demo Hesap: demo@mgldigitalmedia.com | Demo123
             </p>
           </div>
         </div>

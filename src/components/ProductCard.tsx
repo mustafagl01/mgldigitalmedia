@@ -16,6 +16,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onAuthRequire
   const [isLoading, setIsLoading] = useState(false);
   const { user, session } = useAuth();
   const { t } = useLanguage();
+  const apiBaseUrl = import.meta.env.VITE_API_URL || window.location.origin;
 
   const handlePurchase = async () => {
     if (!user || !session) {
@@ -26,11 +27,11 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onAuthRequire
     setIsLoading(true);
     
     try {
-      const response = await fetch(`${import.meta.env.VITE_SUPABASE_URL}/functions/v1/stripe-checkout`, {
+      const response = await fetch(`${apiBaseUrl}/api/stripe/checkout`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${session.access_token}`,
+          'Authorization': `Bearer ${session.token}`,
         },
         body: JSON.stringify({
           price_id: product.priceId,
