@@ -3,6 +3,7 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { LanguageProvider, useLanguage } from './contexts/LanguageContext';
 import { Button } from './components/ui/Button';
+import { ROIIndicator } from './components/ui/ROIIndicator';
 
 // Components
 import { Toaster } from './components/ui/Toast';
@@ -161,15 +162,8 @@ function AppContent() {
                   🇬🇧 EN
                 </button>
               </div>
-              {/* Pricing Link */}
-              <Button
-                onClick={() => navigateTo('pricing')}
-                variant="ghost"
-                size="sm"
-                className="text-cyan-400 hover:text-cyan-300 hover:bg-cyan-400/10"
-              >
-                💰 Fiyatlandırma
-              </Button>
+              {/* ROI Live Ticker - THE CONVERSION BEAST */}
+              <ROIIndicator onClick={() => navigateTo('pricing')} />
               {user ? (
                 <>
                   <span className="text-sm text-slate-300 hidden sm:block">
