@@ -27,18 +27,19 @@ export default function BurnSimulator({ sectorId, onContinue, onBack }: BurnSimu
     if (Object.keys(sliderValues).length === 0) return;
 
     try {
-      // Replace variable names in formula with actual values
-      let formula = sectorConfig.calculation.formula;
-      Object.keys(sliderValues).forEach(key => {
-        formula = formula.replace(new RegExp(key, 'g'), sliderValues[key].toString());
-      });
-
-      // Calculate
-      const monthlyBurn = eval(formula);
+      // Safe calculation without eval()
+      const formula = sectorConfig.calculation.formula;
+      const keys = Object.keys(sliderValues);
+      const values = keys.map(k => sliderValues[k]);
+      
+      // Create safe function from formula
+      const calculateFunc = new Function(...keys, `"use strict"; return (${formula});`);
+      const monthlyBurn = calculateFunc(...values);
       const yearlyBurn = monthlyBurn * sectorConfig.calculation.yearly_multiplier;
-      setBurnAmount(yearlyBurn);
+      setBurnAmount(Math.round(yearlyBurn));
     } catch (e) {
       console.error('Calculation error:', e);
+      setBurnAmount(0);
     }
   }, [sliderValues, sectorConfig]);
 
@@ -69,7 +70,7 @@ export default function BurnSimulator({ sectorId, onContinue, onBack }: BurnSimu
             {sectorConfig.name}
           </h2>
           <p className="text-gray-400 text-lg">
-            Mevcut durumunuzu girin, ne kadar para yaktığınızı görelim
+            Mevcut durumunuzu girin, ne kadar para yaktiğinizi görelim
           </p>
         </motion.div>
 
