@@ -3,7 +3,7 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { LanguageProvider, useLanguage } from './contexts/LanguageContext';
 import { Button } from './components/ui/Button';
-import { ROIIndicator } from './components/ui/ROIIndicator';
+import RoiButton from './components/RoiButton';
 
 // Components
 import { Toaster } from './components/ui/Toast';
@@ -163,7 +163,7 @@ function AppContent() {
                 </button>
               </div>
               {/* ROI Live Ticker - THE CONVERSION BEAST */}
-              <ROIIndicator onClick={() => navigateTo('pricing')} />
+              <RoiButton onClick={() => navigateTo('pricing')} />
               {user ? (
                 <>
                   <span className="text-sm text-slate-300 hidden sm:block">
