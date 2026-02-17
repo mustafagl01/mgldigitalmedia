@@ -28,10 +28,11 @@ import { ProcessSection } from './components/sections/ProcessSection';
 import { BookingSection } from './components/sections/BookingSection';
 import { BookingAnnouncementBar } from './components/ui/BookingAnnouncementBar';
 import { FloatingBookingButton } from './components/ui/FloatingBookingButton';
+import Pricing from './pages/Pricing';
 
 
 
-type AppPage = 'home' | 'products' | 'success' | 'cancel';
+type AppPage = 'home' | 'products' | 'success' | 'cancel' | 'pricing';
 
 function AppContent() {
   const [currentPage, setCurrentPage] = useState<AppPage>(() => {
@@ -39,6 +40,7 @@ function AppContent() {
     if (path === '/products') return 'products';
     if (path === '/success') return 'success';
     if (path === '/cancel') return 'cancel';
+    if (path === '/pricing') return 'pricing';
     return 'home';
   });
   const [activeDemo, setActiveDemo] = useState<string | null>(null);
@@ -54,6 +56,7 @@ function AppContent() {
       if (path === '/products') setCurrentPage('products');
       else if (path === '/success') setCurrentPage('success');
       else if (path === '/cancel') setCurrentPage('cancel');
+      else if (path === '/pricing') setCurrentPage('pricing');
       else setCurrentPage('home');
     };
 
@@ -92,6 +95,10 @@ function AppContent() {
 
   if (currentPage === 'cancel') {
     return <CancelPage onBack={() => navigateTo('home')} onRetry={() => navigateTo('products')} />;
+  }
+
+  if (currentPage === 'pricing') {
+    return <Pricing />;
   }
 
   return (
@@ -154,6 +161,15 @@ function AppContent() {
                   🇬🇧 EN
                 </button>
               </div>
+              {/* Pricing Link */}
+              <Button
+                onClick={() => navigateTo('pricing')}
+                variant="ghost"
+                size="sm"
+                className="text-cyan-400 hover:text-cyan-300 hover:bg-cyan-400/10"
+              >
+                💰 Fiyatlandırma
+              </Button>
               {user ? (
                 <>
                   <span className="text-sm text-slate-300 hidden sm:block">
