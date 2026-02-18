@@ -124,10 +124,10 @@ const sectorConfigs: SectorConfig[] = [
         labelTR: 'Ortalama Sepet Tutarı',
         labelEN: 'Avg. Basket Value',
         min: 1,
-        max: isTR ? 2000 : 1000,
-        step: isTR ? 10 : 1,
+        max: 2000,
+        step: 10,
         suffixTR: ' TL',
-        suffixEN: isTR ? '' : '£'
+        suffixEN: '£'
       },
       {
         key: 'commission',
@@ -148,7 +148,7 @@ const sectorConfigs: SectorConfig[] = [
     ],
     breakdownEN: (v) => [
       `${v.dailyOrders} (Daily Orders)`,
-      `${isTR ? formatMoney(v.basketValue) : `£${formatMoney(v.basketValue)}`} (Basket)`,
+      `£${formatMoney(v.basketValue)} (Basket)`,
       '30 (Days)',
       `${v.commission}% (Commission)`,
     ],
@@ -461,7 +461,7 @@ const defaultValues: Record<string, number> = {
   dailyCalls: 8,
   patientValue: 6000,
   dailyOrders: 120,
-  basketValue: isTR ? 350 : 100,
+  basketValue: 350,
   commission: 18,
   monthlyLeads: 20,
   estateCommission: 50000,
