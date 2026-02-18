@@ -1,15 +1,19 @@
 import { type ReactNode, useEffect, useMemo, useState } from 'react';
 import { Check, Coffee, Globe2, Info, MessageCircle, Pizza, Stethoscope } from 'lucide-react';
-import { useLanguage } from '../contexts/LanguageContext';
+import type { PackageTierKey } from '../config/pricing';
+import { useLocation } from '../contexts/LocationContext';
+import { formatPrice } from '../utils/formatPrice';
 
 type PackagePlan = {
-  names: {
+  key: PackageTierKey;
+  subtitle: {
     tr: string;
     en: string;
   };
-  subtitle: string;
-  price: number;
-  features: string[];
+  features: {
+    tr: string[];
+    en: string[];
+  };
   recommended?: boolean;
 };
 
@@ -31,35 +35,66 @@ const BASE_PRICE = 2999;
 const PRICE_PER_MINUTE = 4;
 const GBP_EXCHANGE_RATE = 0.025;
 
-const readyPlans: PackagePlan[] = [
+const UK_ESTIMATED_SAVINGS_BY_PLAN: Record<PackageTierKey, string> = {
+  starter: '£3,500–£5,000',
+  pro: '£15,000–£20,000',
+  advanced: '£30,000–£40,000',
+  business: '£75,000+',
+};
+
+const readyPlanTemplates: PackagePlan[] = [
   {
-    names: { tr: 'Başlangıç', en: 'Starter' },
-    subtitle: 'Dijitalleşmeye ilk adım.',
-    price: 6999,
-    features: ['Sesli Asistan (Telefon) - 300 dk', 'WhatsApp Müşteri Karşılama', 'Pazar & Rakip Analizi'],
+    key: 'starter',
+    subtitle: {
+      tr: 'Dijitalleşmeye ilk adım.',
+      en: 'Your first step into digital operations.',
+    },
+    features: {
+      tr: ['Sesli Asistan (Telefon) - 300 dk', 'WhatsApp Müşteri Karşılama', 'Pazar & Rakip Analizi'],
+      en: ['Voice Assistant (Phone) - 300 min', 'WhatsApp Customer Greeting', 'Market & Competitor Analysis'],
+    },
   },
   {
-    names: { tr: 'Profesyonel', en: 'Growth' },
-    subtitle: '⭐ En Çok Tercih Edilen',
-    price: 13999,
-    features: [
-      'Sesli Asistan (Telefon) - 800 dk',
-      'WhatsApp + Instagram Bot Danışma Hattı',
-      'Otomatik İşlemler',
-    ],
+    key: 'pro',
+    subtitle: {
+      tr: '⭐ En Çok Tercih Edilen',
+      en: '⭐ Most Popular',
+    },
+    features: {
+      tr: [
+        'Sesli Asistan (Telefon) - 800 dk',
+        'WhatsApp + Instagram Bot Danışma Hattı',
+        'Otomatik İşlemler',
+      ],
+      en: [
+        'Voice Assistant (Phone) - 800 min',
+        'WhatsApp + Instagram Bot Support Line',
+        'Automated Workflows',
+      ],
+    },
     recommended: true,
   },
   {
-    names: { tr: 'İleri Seviye', en: 'Scale' },
-    subtitle: 'Tam otomasyon ve analiz.',
-    price: 16999,
-    features: ['Sesli Asistan (Telefon) - 1200 dk', 'Pazar & Rakip Analizi', 'Web Sitesi & Panel'],
+    key: 'advanced',
+    subtitle: {
+      tr: 'Tam otomasyon ve analiz.',
+      en: 'Full automation and analytics.',
+    },
+    features: {
+      tr: ['Sesli Asistan (Telefon) - 1200 dk', 'Pazar & Rakip Analizi', 'Web Sitesi & Panel'],
+      en: ['Voice Assistant (Phone) - 1200 min', 'Market & Competitor Analysis', 'Website & Panel'],
+    },
   },
   {
-    names: { tr: 'Premium', en: 'Enterprise' },
-    subtitle: 'Sınırsız güç ve öncelik.',
-    price: 24999,
-    features: ['Sesli Asistan (Telefon) - 2000 dk', 'Otomatik İşlemler', 'Tam Kanal Yönetimi + Müşteri Takip Sistemi (CRM)'],
+    key: 'business',
+    subtitle: {
+      tr: 'Sınırsız güç ve öncelik.',
+      en: 'Maximum power and priority support.',
+    },
+    features: {
+      tr: ['Sesli Asistan (Telefon) - 2000 dk', 'Otomatik İşlemler', 'Tam Kanal Yönetimi + Müşteri Takip Sistemi (CRM)'],
+      en: ['Voice Assistant (Phone) - 2000 min', 'Automated Workflows', 'Full Channel Management + Customer Tracking System (CRM)'],
+    },
   },
 ];
 
@@ -121,14 +156,13 @@ const sectorInsights: SectorInsight[] = [
     icon: <Globe2 size={22} className="text-cyan-200" />,
   },
 ];
-
 function createWhatsAppLink(message: string) {
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 }
 
 export default function Packages() {
-  const { language } = useLanguage();
-  const isTurkish = language === 'tr';
+  const { pricing, region } = useLocation();
+  const isUkPricing = region === 'GB';
   const [activeTab, setActiveTab] = useState<TabMode>('ready');
   const [voiceMinutes, setVoiceMinutes] = useState(500);
   const [channels, setChannels] = useState<Record<ChannelKey, boolean>>({
@@ -160,6 +194,19 @@ export default function Packages() {
   };
 
   const voiceCost = voiceMinutes * PRICE_PER_MINUTE;
+
+  const readyPlans = useMemo(
+    () =>
+      readyPlanTemplates.map((template) => ({
+        ...template,
+        name: pricing.packages[template.key].name,
+        price: pricing.packages[template.key].price,
+        subtitle: isUkPricing ? template.subtitle.en : template.subtitle.tr,
+        features: isUkPricing ? template.features.en : template.features.tr,
+      })),
+    [isUkPricing, pricing]
+  );
+
 
   const total = useMemo(() => {
     const channelsTotal = Object.entries(channels).reduce((acc, [key, selected]) => {
@@ -197,9 +244,7 @@ export default function Packages() {
       .map(([key]) => addonPrices[key as AddonKey].label),
   ];
 
-  const customMessage = isTurkish
-    ? `Kendi Paketim: ${summaryParts.join(' + ')}. Toplam teklif: ${formatMoney(total)}`
-    : `My custom package: ${summaryParts.join(' + ')}. Total quote: ${formatMoney(total)}`;
+  const customMessage = `Kendi Paketim: ${summaryParts.join(' + ')}. Toplam teklif: ${formatPrice(total, region)}`;
 
   return (
     <div className="min-h-screen bg-[#05060a] px-4 py-10 text-white">
@@ -264,7 +309,7 @@ export default function Packages() {
                   }`}
                 >
                   <span className="absolute -top-3 left-4 z-10 inline-flex max-w-[70%] items-center gap-1 rounded-full border border-emerald-300/70 bg-emerald-500/20 px-3 py-1 text-[11px] font-bold text-emerald-100 sm:max-w-none sm:text-xs">
-                    ✅ Kurulum Dahil (0 TL)
+                    {isUkPricing ? '✅ Setup Included (£0)' : '✅ Kurulum Dahil (0 TL)'}
                   </span>
                   <h2 className="mt-4 text-xl font-bold">{isTurkish ? plan.names.tr : plan.names.en}</h2>
                   <p
@@ -274,18 +319,14 @@ export default function Packages() {
                   >
                     {plan.subtitle}
                   </p>
-                  <p
-                    className={`mt-2 text-3xl font-black text-cyan-300 transition-all duration-300 ${
-                      isCurrencyAnimating ? 'scale-105 opacity-80' : 'scale-100 opacity-100'
-                    }`}
-                  >
-                    {formatMoney(plan.price)}
+                  <p className="mt-2 text-3xl font-black text-cyan-300">{formatPrice(plan.price, region)}</p>
+                  <p className="mt-1 text-xs font-medium uppercase tracking-[0.16em] text-cyan-100/80">
+                    {isUkPricing ? 'MONTHLY PAYMENT' : 'AYLIK ÖDEME'}
                   </p>
-                  <p className="mt-1 text-xs font-medium uppercase tracking-[0.16em] text-cyan-100/80">Aylık ödeme</p>
                   <p className="mt-3 rounded-xl border border-emerald-300/45 bg-emerald-500/10 px-3 py-2 text-xs font-semibold text-emerald-100">
-                    {isTurkish
-                      ? `40.000 TL personel maliyetine alternatif!`
-                      : 'Save up to 70% on customer service costs. No agents required.'}
+                    {isUkPricing
+                      ? `Efficiency Impact: This plan saves your business an estimated ${UK_ESTIMATED_SAVINGS_BY_PLAN[plan.key]} in annual labor costs.`
+                      : `Tasarruf Notu: Bu paket, işletmenize yılda ortalama ${formatPrice((MONTHLY_EMPLOYER_COST - plan.price) * 12, region)} personel tasarrufu sağlar.`}
                   </p>
                   <ul className="mt-4 space-y-2 text-sm text-slate-200">
                     {plan.features.map((feature) => (
@@ -298,15 +339,15 @@ export default function Packages() {
 
                   <a
                     href={createWhatsAppLink(
-                      isTurkish
-                        ? `Merhaba, ${plan.names.tr} paketi hakkında bilgi almak istiyorum.`
-                        : `Hi, I'm interested in the ${plan.names.en} package and would like more information.`,
+                      isUkPricing
+                        ? `Hello, I would like more information about the ${plan.name} package.`
+                        : `Merhaba, ${plan.name} paketi hakkında bilgi almak istiyorum.`
                     )}
                     target="_blank"
                     rel="noreferrer"
                     className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-400 px-4 py-3 text-sm font-bold text-slate-900 transition hover:bg-emerald-300"
                   >
-                    <MessageCircle size={16} /> {isTurkish ? 'Hemen Başla' : 'Get Started'}
+                    <MessageCircle size={16} /> {isUkPricing ? 'Contact via WhatsApp' : 'WhatsApp ile Bilgi Al'}
                   </a>
                 </article>
               ))}
@@ -343,7 +384,7 @@ export default function Packages() {
             <div className="space-y-6 rounded-3xl border border-white/15 bg-white/5 p-6 backdrop-blur-2xl">
               <div className="rounded-2xl border border-cyan-300/30 bg-cyan-500/10 p-4">
                 <p className="text-xs uppercase tracking-[0.2em] text-cyan-200">Temel Kurulum</p>
-                <p className="mt-1 text-2xl font-black text-cyan-100">{formatMoney(BASE_PRICE)}</p>
+                <p className="mt-1 text-2xl font-black text-cyan-100">{formatPrice(BASE_PRICE, region)}</p>
               </div>
 
               <div>
@@ -354,7 +395,7 @@ export default function Packages() {
                     <label key={channel} className="flex items-center justify-between rounded-xl border border-white/15 bg-black/30 p-3">
                       <span>
                         {channelPrices[channel].label}
-                        <span className="ml-2 text-xs text-cyan-300">+{formatMoney(channelPrices[channel].price)}</span>
+                        <span className="ml-2 text-xs text-cyan-300">+{formatPrice(channelPrices[channel].price, region)}</span>
                       </span>
                       <input
                         type="checkbox"
@@ -372,7 +413,7 @@ export default function Packages() {
                 <div className="mt-3 rounded-2xl border border-white/15 bg-black/30 p-4">
                   <div className="mb-2 flex items-center justify-between text-sm text-slate-300">
                     <span>{voiceMinutes} dk</span>
-                    <span className="font-bold text-fuchsia-300">{formatMoney(voiceCost)}</span>
+                    <span className="font-bold text-fuchsia-300">{formatPrice(voiceCost, region)}</span>
                   </div>
                   <input
                     type="range"
@@ -396,7 +437,7 @@ export default function Packages() {
                       <span className="flex items-center gap-2">
                         <span>
                           {addonPrices[addon].label}
-                          <span className="ml-2 text-xs text-fuchsia-300">+{formatMoney(addonPrices[addon].price)}</span>
+                          <span className="ml-2 text-xs text-fuchsia-300">+{formatPrice(addonPrices[addon].price, region)}</span>
                         </span>
                         <span className="group/info relative inline-flex items-center">
                           <Info
@@ -434,11 +475,11 @@ export default function Packages() {
               <div className="mt-6 space-y-2 text-sm text-slate-200">
                 <div className="flex justify-between">
                   <span>Temel Kurulum</span>
-                  <span>{formatMoney(BASE_PRICE)}</span>
+                  <span>{formatPrice(BASE_PRICE, region)}</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Sesli Asistan (Telefon)</span>
-                  <span>{formatMoney(voiceCost)}</span>
+                  <span>{formatPrice(voiceCost, region)}</span>
                 </div>
               </div>
 
@@ -449,7 +490,7 @@ export default function Packages() {
                     isTotalAnimating ? 'scale-105 drop-shadow-[0_0_16px_rgba(52,211,153,0.75)]' : 'scale-100'
                   }`}
                 >
-                  {formatMoney(total)}
+                  {formatPrice(total, region)}
                 </p>
                 <p className="mt-1 text-xs text-emerald-100/80">Aylık ödeme tutarıdır.</p>
               </div>

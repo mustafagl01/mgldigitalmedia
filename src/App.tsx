@@ -3,6 +3,7 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { Menu, X } from 'lucide-react';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { LanguageProvider, useLanguage } from './contexts/LanguageContext';
+import { LocationProvider, useLocation } from './contexts/LocationContext';
 import { Button } from './components/ui/Button';
 import RoiButton from './components/RoiButton';
 
@@ -53,6 +54,15 @@ function AppContent() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { user, signOut } = useAuth();
   const { language, setLanguage, t } = useLanguage();
+  const { region } = useLocation();
+
+  React.useEffect(() => {
+    const hasSavedLanguage = Boolean(localStorage.getItem('language'));
+
+    if (!hasSavedLanguage) {
+      setLanguage(region === 'TR' ? 'tr' : 'en');
+    }
+  }, [region, setLanguage]);
 
   // Handle browser navigation
   React.useEffect(() => {
@@ -361,9 +371,11 @@ function App() {
   return (
     <LanguageProvider>
       <AuthProvider>
-        <HelmetProvider>
-          <AppContent />
-        </HelmetProvider>
+        <LocationProvider>
+          <HelmetProvider>
+            <AppContent />
+          </HelmetProvider>
+        </LocationProvider>
       </AuthProvider>
     </LanguageProvider>
   );
