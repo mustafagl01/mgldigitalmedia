@@ -1,8 +1,11 @@
 import React from 'react';
 import { Calendar } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 export const FloatingBookingButton: React.FC = () => {
+    const { language } = useLanguage();
+
     return (
         <motion.button
             initial={{ scale: 0, opacity: 0 }}
@@ -14,7 +17,9 @@ export const FloatingBookingButton: React.FC = () => {
         >
             <div className="absolute inset-0 bg-white/20 translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
             <Calendar className="w-6 h-6 relative z-10" />
-            <span className="font-black text-sm relative z-10 hidden md:block">Randevu Al</span>
+            <span className="font-black text-sm relative z-10 hidden md:block">
+                {language === 'tr' ? 'Randevu Al' : 'Book a Call'}
+            </span>
         </motion.button>
     );
 };
