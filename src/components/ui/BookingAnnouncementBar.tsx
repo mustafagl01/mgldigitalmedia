@@ -1,8 +1,11 @@
 import React from 'react';
 import { Calendar } from 'lucide-react';
 import { motion } from 'framer-motion';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 export const BookingAnnouncementBar: React.FC = () => {
+    const { language } = useLanguage();
+
     return (
         <motion.div
             initial={{ y: -50 }}
@@ -12,7 +15,9 @@ export const BookingAnnouncementBar: React.FC = () => {
         >
             <Calendar className="w-4 h-4 animate-bounce hidden sm:block" />
             <span className="text-[11px] sm:text-sm font-black tracking-wide leading-tight sm:leading-normal">
-                Sınırlı Kontenjan: Ücretsiz Strateji Görüşmesi İçin Randevunuzu Alın
+                {language === 'tr'
+                    ? 'Sınırlı Kontenjan: Ücretsiz Strateji Görüşmesi İçin Randevunuzu Alın'
+                    : 'Limited Slots: Book Your Free Strategy Session'}
             </span>
             <Calendar className="w-4 h-4 animate-bounce" />
         </motion.div>
