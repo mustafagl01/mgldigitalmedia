@@ -6,9 +6,14 @@ import { formatPrice } from '../utils/formatPrice';
 
 type PackagePlan = {
   key: PackageTierKey;
-  name: string;
-  subtitle: string;
-  features: string[];
+  subtitle: {
+    tr: string;
+    en: string;
+  };
+  features: {
+    tr: string[];
+    en: string[];
+  };
   recommended?: boolean;
 };
 
@@ -30,35 +35,66 @@ const BASE_PRICE = 2999;
 const PRICE_PER_MINUTE = 4;
 const MONTHLY_EMPLOYER_COST = 40000;
 
+const UK_ESTIMATED_SAVINGS_BY_PLAN: Record<PackageTierKey, string> = {
+  starter: '£3,500–£5,000',
+  pro: '£15,000–£20,000',
+  advanced: '£30,000–£40,000',
+  business: '£75,000+',
+};
+
 const readyPlanTemplates: PackagePlan[] = [
   {
     key: 'starter',
-    name: 'Starter',
-    subtitle: 'Dijitalleşmeye ilk adım.',
-    features: ['Sesli Asistan (Telefon) - 300 dk', 'WhatsApp Müşteri Karşılama', 'Pazar & Rakip Analizi'],
+    subtitle: {
+      tr: 'Dijitalleşmeye ilk adım.',
+      en: 'Your first step into digital operations.',
+    },
+    features: {
+      tr: ['Sesli Asistan (Telefon) - 300 dk', 'WhatsApp Müşteri Karşılama', 'Pazar & Rakip Analizi'],
+      en: ['Voice Assistant (Phone) - 300 min', 'WhatsApp Customer Greeting', 'Market & Competitor Analysis'],
+    },
   },
   {
     key: 'pro',
-    name: 'Pro',
-    subtitle: '⭐ En Çok Tercih Edilen',
-    features: [
-      'Sesli Asistan (Telefon) - 800 dk',
-      'WhatsApp + Instagram Bot Danışma Hattı',
-      'Otomatik İşlemler',
-    ],
+    subtitle: {
+      tr: '⭐ En Çok Tercih Edilen',
+      en: '⭐ Most Popular',
+    },
+    features: {
+      tr: [
+        'Sesli Asistan (Telefon) - 800 dk',
+        'WhatsApp + Instagram Bot Danışma Hattı',
+        'Otomatik İşlemler',
+      ],
+      en: [
+        'Voice Assistant (Phone) - 800 min',
+        'WhatsApp + Instagram Bot Support Line',
+        'Automated Workflows',
+      ],
+    },
     recommended: true,
   },
   {
     key: 'advanced',
-    name: 'Advanced',
-    subtitle: 'Tam otomasyon ve analiz.',
-    features: ['Sesli Asistan (Telefon) - 1200 dk', 'Pazar & Rakip Analizi', 'Web Sitesi & Panel'],
+    subtitle: {
+      tr: 'Tam otomasyon ve analiz.',
+      en: 'Full automation and analytics.',
+    },
+    features: {
+      tr: ['Sesli Asistan (Telefon) - 1200 dk', 'Pazar & Rakip Analizi', 'Web Sitesi & Panel'],
+      en: ['Voice Assistant (Phone) - 1200 min', 'Market & Competitor Analysis', 'Website & Panel'],
+    },
   },
   {
     key: 'business',
-    name: 'Business',
-    subtitle: 'Sınırsız güç ve öncelik.',
-    features: ['Sesli Asistan (Telefon) - 2000 dk', 'Otomatik İşlemler', 'Tam Kanal Yönetimi + Müşteri Takip Sistemi (CRM)'],
+    subtitle: {
+      tr: 'Sınırsız güç ve öncelik.',
+      en: 'Maximum power and priority support.',
+    },
+    features: {
+      tr: ['Sesli Asistan (Telefon) - 2000 dk', 'Otomatik İşlemler', 'Tam Kanal Yönetimi + Müşteri Takip Sistemi (CRM)'],
+      en: ['Voice Assistant (Phone) - 2000 min', 'Automated Workflows', 'Full Channel Management + Customer Tracking System (CRM)'],
+    },
   },
 ];
 
@@ -126,6 +162,7 @@ function createWhatsAppLink(message: string) {
 
 export default function Packages() {
   const { pricing, region } = useLocation();
+  const isUkPricing = region === 'GB';
   const [activeTab, setActiveTab] = useState<TabMode>('ready');
   const [voiceMinutes, setVoiceMinutes] = useState(500);
   const [channels, setChannels] = useState<Record<ChannelKey, boolean>>({
@@ -148,8 +185,10 @@ export default function Packages() {
         ...template,
         name: pricing.packages[template.key].name,
         price: pricing.packages[template.key].price,
+        subtitle: isUkPricing ? template.subtitle.en : template.subtitle.tr,
+        features: isUkPricing ? template.features.en : template.features.tr,
       })),
-    [pricing]
+    [isUkPricing, pricing]
   );
 
 
@@ -248,7 +287,7 @@ export default function Packages() {
                   }`}
                 >
                   <span className="absolute -top-3 left-4 z-10 inline-flex max-w-[70%] items-center gap-1 rounded-full border border-emerald-300/70 bg-emerald-500/20 px-3 py-1 text-[11px] font-bold text-emerald-100 sm:max-w-none sm:text-xs">
-                    ✅ Kurulum Dahil (0 TL)
+                    {isUkPricing ? '✅ Setup Included (£0)' : '✅ Kurulum Dahil (0 TL)'}
                   </span>
                   <h2 className="mt-4 text-xl font-bold">{plan.name}</h2>
                   <p
@@ -259,10 +298,13 @@ export default function Packages() {
                     {plan.subtitle}
                   </p>
                   <p className="mt-2 text-3xl font-black text-cyan-300">{formatPrice(plan.price, region)}</p>
-                  <p className="mt-1 text-xs font-medium uppercase tracking-[0.16em] text-cyan-100/80">Aylık ödeme</p>
+                  <p className="mt-1 text-xs font-medium uppercase tracking-[0.16em] text-cyan-100/80">
+                    {isUkPricing ? 'MONTHLY PAYMENT' : 'AYLIK ÖDEME'}
+                  </p>
                   <p className="mt-3 rounded-xl border border-emerald-300/45 bg-emerald-500/10 px-3 py-2 text-xs font-semibold text-emerald-100">
-                    Tasarruf Notu: Bu paket, işletmenize yılda ortalama {formatPrice((MONTHLY_EMPLOYER_COST - plan.price) * 12, region)} personel
-                    tasarrufu sağlar.
+                    {isUkPricing
+                      ? `Efficiency Impact: This plan saves your business an estimated ${UK_ESTIMATED_SAVINGS_BY_PLAN[plan.key]} in annual labor costs.`
+                      : `Tasarruf Notu: Bu paket, işletmenize yılda ortalama ${formatPrice((MONTHLY_EMPLOYER_COST - plan.price) * 12, region)} personel tasarrufu sağlar.`}
                   </p>
                   <ul className="mt-4 space-y-2 text-sm text-slate-200">
                     {plan.features.map((feature) => (
@@ -274,12 +316,16 @@ export default function Packages() {
                   </ul>
 
                   <a
-                    href={createWhatsAppLink(`Merhaba, ${plan.name} paketi hakkında bilgi almak istiyorum.`)}
+                    href={createWhatsAppLink(
+                      isUkPricing
+                        ? `Hello, I would like more information about the ${plan.name} package.`
+                        : `Merhaba, ${plan.name} paketi hakkında bilgi almak istiyorum.`
+                    )}
                     target="_blank"
                     rel="noreferrer"
                     className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-400 px-4 py-3 text-sm font-bold text-slate-900 transition hover:bg-emerald-300"
                   >
-                    <MessageCircle size={16} /> WhatsApp ile Bilgi Al
+                    <MessageCircle size={16} /> {isUkPricing ? 'Contact via WhatsApp' : 'WhatsApp ile Bilgi Al'}
                   </a>
                 </article>
               ))}
