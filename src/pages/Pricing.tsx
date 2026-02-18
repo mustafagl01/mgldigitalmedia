@@ -12,6 +12,7 @@ import {
   Stethoscope,
   UtensilsCrossed,
 } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 type SectorId =
   | 'health'
@@ -293,6 +294,22 @@ function getRecommendedPackage(monthlyLoss: number) {
 }
 
 export default function Pricing() {
+  const { language } = useLanguage();
+  const isTR = language === 'tr';
+
+  const employeeCost = isTR ? 40000 : 2200;
+  const aiAssistantCost = isTR ? 13999 : 449;
+  const currencyCode = isTR ? 'TRY' : 'GBP';
+  const currencyLocale = isTR ? 'tr-TR' : 'en-GB';
+
+  const formatRegionalMoney = (value: number) =>
+    new Intl.NumberFormat(currencyLocale, {
+      style: 'currency',
+      currency: currencyCode,
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 0,
+    }).format(Math.round(value));
+
   const [activeSectorId, setActiveSectorId] = useState<SectorId>('health');
   const [values, setValues] = useState<Record<string, number>>(defaultValues);
   const [aiMode, setAiMode] = useState(false);
@@ -315,7 +332,7 @@ export default function Pricing() {
           </p>
           <h1 className="mt-4 text-3xl font-black leading-tight md:text-5xl">Şeffaf ROI Hesaplayıcı: Kaybın Nereden Geliyor?</h1>
           <p className="mt-3 inline-flex rounded-xl border border-amber-300/70 bg-amber-300 px-3 py-1.5 text-sm font-black text-slate-950 shadow-[0_0_24px_rgba(252,211,77,0.5)]">
-            Bir çalışan maliyetine, 3 yapay zeka asistanı.
+            {isTR ? 'Bir çalışan maliyetine, 3 yapay zeka asistanı.' : 'For the cost of 1 employee, get 3 AI assistants.'}
           </p>
           <p className="mt-3 max-w-4xl text-slate-300">
             Tüm alanlar açık birimlerle tanımlandı: <strong>Günlük</strong>, <strong>Aylık</strong>, <strong>Adet</strong>, <strong>TL</strong>.
@@ -385,11 +402,22 @@ export default function Pricing() {
           <div className="mb-6 grid gap-3 md:grid-cols-2">
             <div className="rounded-2xl border border-rose-300/60 bg-rose-500/20 p-4 shadow-[0_0_24px_rgba(244,63,94,0.3)]">
               <p className="text-xs font-bold uppercase tracking-[0.18em] text-rose-100">Geleneksel Maliyet</p>
-              <p className="mt-2 text-lg font-black text-rose-50 md:text-xl">1 Çalışan = 40.000 TL/ay (Maaş + SGK + Yol/Yemek).</p>
+              <p className="mt-2 text-sm font-semibold text-rose-100 md:text-base">
+                {isTR ? 'Ortalama Personel Maaşı (TL)' : 'Avg. Monthly Agent Cost (GBP)'}: {formatRegionalMoney(employeeCost)} / mo
+              </p>
+              <p className="mt-2 text-lg font-black text-rose-50 md:text-xl">
+                {isTR
+                  ? `1 Çalışan = ${formatRegionalMoney(employeeCost)}/ay (Maaş + SGK + Yol/Yemek).`
+                  : `Traditional Hiring: ${formatRegionalMoney(employeeCost)}/mo vs MGL AI: ${formatRegionalMoney(aiAssistantCost)}/mo.`}
+              </p>
             </div>
             <div className="rounded-2xl border border-emerald-300/60 bg-emerald-500/20 p-4 shadow-[0_0_24px_rgba(16,185,129,0.3)]">
               <p className="text-xs font-bold uppercase tracking-[0.18em] text-emerald-100">MGL Solution</p>
-              <p className="mt-2 text-lg font-black text-emerald-50 md:text-xl">MGL AI Asistan: 13.999 TL/ay (7/24 Aktif, Sıfır İzin).</p>
+              <p className="mt-2 text-lg font-black text-emerald-50 md:text-xl">
+                {isTR
+                  ? `MGL AI Asistan: ${formatRegionalMoney(aiAssistantCost)}/ay (7/24 Aktif, Sıfır İzin).`
+                  : `MGL AI Assistant: ${formatRegionalMoney(aiAssistantCost)}/mo (24/7 active, no leave).`}
+              </p>
             </div>
           </div>
 
@@ -447,10 +475,16 @@ export default function Pricing() {
             <div className="rounded-2xl border border-emerald-400/50 bg-emerald-500/10 p-5">
               <p className="text-xs uppercase tracking-[0.2em] text-emerald-200">MGL Yapay Zeka Asistanı Paket Fiyatı</p>
               <p className="mt-2 text-lg font-bold text-emerald-100">{activeSector.packageName}</p>
-              <p className="mt-1 text-3xl font-black text-emerald-300">{formatMoney(activeSector.packagePrice)} TL / ay</p>
+              <p className="mt-1 text-3xl font-black text-emerald-300">
+                {isTR
+                  ? `${formatMoney(activeSector.packagePrice)} TL / ay`
+                  : `${formatRegionalMoney(aiAssistantCost)} / mo`}
+              </p>
               {aiMode && (
                 <p className="mt-3 text-sm font-semibold text-emerald-100">
-                  Yapay Zeka Asistanı modu açık: Net tasarruf/kazanç ≈ {formatMoney(monthlyNetGain)} TL / ay
+                  {isTR
+                    ? `Yapay Zeka Asistanı modu açık: Net tasarruf/kazanç ≈ ${formatMoney(monthlyNetGain)} TL / ay`
+                    : `AI Assistant mode on: net savings/gain ≈ ${formatRegionalMoney(Math.max(monthlyLoss - aiAssistantCost, 0))} / mo`}
                 </p>
               )}
             </div>
