@@ -315,11 +315,18 @@ function AppContent() {
         <main>
           <IntroductoryChoiceSection />
           <HeroSection onContactClick={() => setIdeaAssistantModalOpen(true)} />
+
+          <div className="h-[200px] bg-gradient-to-b from-[#0A0E27] via-[#1e293b] to-white" />
+
           <BookingSection />
           <TrustMarquee />
-          <BenefitsSection />
-          <ServicesSection />
-          <ProcessSection />
+
+          <div className="bg-slate-50 text-slate-900">
+            <BenefitsSection />
+            <ServicesSection />
+            <ProcessSection />
+          </div>
+
           <AutomationExamplesSection onDemoClick={setActiveDemo} />
           <StrategySection />
           <CtaSection
