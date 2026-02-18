@@ -1,10 +1,13 @@
 import { type ReactNode, useEffect, useMemo, useState } from 'react';
 import { Check, Coffee, Globe2, Info, MessageCircle, Pizza, Stethoscope } from 'lucide-react';
+import type { PackageTierKey } from '../config/pricing';
+import { useLocation } from '../contexts/LocationContext';
+import { formatPrice } from '../utils/formatPrice';
 
 type PackagePlan = {
+  key: PackageTierKey;
   name: string;
   subtitle: string;
-  price: number;
   features: string[];
   recommended?: boolean;
 };
@@ -27,17 +30,17 @@ const BASE_PRICE = 2999;
 const PRICE_PER_MINUTE = 4;
 const MONTHLY_EMPLOYER_COST = 40000;
 
-const readyPlans: PackagePlan[] = [
+const readyPlanTemplates: PackagePlan[] = [
   {
-    name: 'Başlangıç (Starter)',
+    key: 'starter',
+    name: 'Starter',
     subtitle: 'Dijitalleşmeye ilk adım.',
-    price: 6999,
     features: ['Sesli Asistan (Telefon) - 300 dk', 'WhatsApp Müşteri Karşılama', 'Pazar & Rakip Analizi'],
   },
   {
-    name: 'Profesyonel (Pro)',
+    key: 'pro',
+    name: 'Pro',
     subtitle: '⭐ En Çok Tercih Edilen',
-    price: 13999,
     features: [
       'Sesli Asistan (Telefon) - 800 dk',
       'WhatsApp + Instagram Bot Danışma Hattı',
@@ -46,15 +49,15 @@ const readyPlans: PackagePlan[] = [
     recommended: true,
   },
   {
-    name: 'İleri Seviye (Advanced)',
+    key: 'advanced',
+    name: 'Advanced',
     subtitle: 'Tam otomasyon ve analiz.',
-    price: 16999,
     features: ['Sesli Asistan (Telefon) - 1200 dk', 'Pazar & Rakip Analizi', 'Web Sitesi & Panel'],
   },
   {
-    name: 'Premium (Business)',
+    key: 'business',
+    name: 'Business',
     subtitle: 'Sınırsız güç ve öncelik.',
-    price: 24999,
     features: ['Sesli Asistan (Telefon) - 2000 dk', 'Otomatik İşlemler', 'Tam Kanal Yönetimi + Müşteri Takip Sistemi (CRM)'],
   },
 ];
@@ -117,18 +120,12 @@ const sectorInsights: SectorInsight[] = [
     icon: <Globe2 size={22} className="text-cyan-200" />,
   },
 ];
-
-const money = new Intl.NumberFormat('tr-TR');
-
-function formatMoney(value: number) {
-  return `${money.format(Math.round(value))} TL`;
-}
-
 function createWhatsAppLink(message: string) {
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 }
 
 export default function Packages() {
+  const { pricing, region } = useLocation();
   const [activeTab, setActiveTab] = useState<TabMode>('ready');
   const [voiceMinutes, setVoiceMinutes] = useState(500);
   const [channels, setChannels] = useState<Record<ChannelKey, boolean>>({
@@ -144,6 +141,17 @@ export default function Packages() {
   const [isTotalAnimating, setIsTotalAnimating] = useState(false);
 
   const voiceCost = voiceMinutes * PRICE_PER_MINUTE;
+
+  const readyPlans = useMemo(
+    () =>
+      readyPlanTemplates.map((template) => ({
+        ...template,
+        name: pricing.packages[template.key].name,
+        price: pricing.packages[template.key].price,
+      })),
+    [pricing]
+  );
+
 
   const total = useMemo(() => {
     const channelsTotal = Object.entries(channels).reduce((acc, [key, selected]) => {
@@ -175,7 +183,7 @@ export default function Packages() {
       .map(([key]) => addonPrices[key as AddonKey].label),
   ];
 
-  const customMessage = `Kendi Paketim: ${summaryParts.join(' + ')}. Toplam teklif: ${formatMoney(total)}`;
+  const customMessage = `Kendi Paketim: ${summaryParts.join(' + ')}. Toplam teklif: ${formatPrice(total, region)}`;
 
   return (
     <div className="min-h-screen bg-[#05060a] px-4 py-10 text-white">
@@ -250,10 +258,10 @@ export default function Packages() {
                   >
                     {plan.subtitle}
                   </p>
-                  <p className="mt-2 text-3xl font-black text-cyan-300">{formatMoney(plan.price)}</p>
+                  <p className="mt-2 text-3xl font-black text-cyan-300">{formatPrice(plan.price, region)}</p>
                   <p className="mt-1 text-xs font-medium uppercase tracking-[0.16em] text-cyan-100/80">Aylık ödeme</p>
                   <p className="mt-3 rounded-xl border border-emerald-300/45 bg-emerald-500/10 px-3 py-2 text-xs font-semibold text-emerald-100">
-                    Tasarruf Notu: Bu paket, işletmenize yılda ortalama {formatMoney((MONTHLY_EMPLOYER_COST - plan.price) * 12)} personel
+                    Tasarruf Notu: Bu paket, işletmenize yılda ortalama {formatPrice((MONTHLY_EMPLOYER_COST - plan.price) * 12, region)} personel
                     tasarrufu sağlar.
                   </p>
                   <ul className="mt-4 space-y-2 text-sm text-slate-200">
@@ -308,7 +316,7 @@ export default function Packages() {
             <div className="space-y-6 rounded-3xl border border-white/15 bg-white/5 p-6 backdrop-blur-2xl">
               <div className="rounded-2xl border border-cyan-300/30 bg-cyan-500/10 p-4">
                 <p className="text-xs uppercase tracking-[0.2em] text-cyan-200">Temel Kurulum</p>
-                <p className="mt-1 text-2xl font-black text-cyan-100">{formatMoney(BASE_PRICE)}</p>
+                <p className="mt-1 text-2xl font-black text-cyan-100">{formatPrice(BASE_PRICE, region)}</p>
               </div>
 
               <div>
@@ -319,7 +327,7 @@ export default function Packages() {
                     <label key={channel} className="flex items-center justify-between rounded-xl border border-white/15 bg-black/30 p-3">
                       <span>
                         {channelPrices[channel].label}
-                        <span className="ml-2 text-xs text-cyan-300">+{formatMoney(channelPrices[channel].price)}</span>
+                        <span className="ml-2 text-xs text-cyan-300">+{formatPrice(channelPrices[channel].price, region)}</span>
                       </span>
                       <input
                         type="checkbox"
@@ -337,7 +345,7 @@ export default function Packages() {
                 <div className="mt-3 rounded-2xl border border-white/15 bg-black/30 p-4">
                   <div className="mb-2 flex items-center justify-between text-sm text-slate-300">
                     <span>{voiceMinutes} dk</span>
-                    <span className="font-bold text-fuchsia-300">{formatMoney(voiceCost)}</span>
+                    <span className="font-bold text-fuchsia-300">{formatPrice(voiceCost, region)}</span>
                   </div>
                   <input
                     type="range"
@@ -361,7 +369,7 @@ export default function Packages() {
                       <span className="flex items-center gap-2">
                         <span>
                           {addonPrices[addon].label}
-                          <span className="ml-2 text-xs text-fuchsia-300">+{formatMoney(addonPrices[addon].price)}</span>
+                          <span className="ml-2 text-xs text-fuchsia-300">+{formatPrice(addonPrices[addon].price, region)}</span>
                         </span>
                         <span className="group/info relative inline-flex items-center">
                           <Info
@@ -399,11 +407,11 @@ export default function Packages() {
               <div className="mt-6 space-y-2 text-sm text-slate-200">
                 <div className="flex justify-between">
                   <span>Temel Kurulum</span>
-                  <span>{formatMoney(BASE_PRICE)}</span>
+                  <span>{formatPrice(BASE_PRICE, region)}</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Sesli Asistan (Telefon)</span>
-                  <span>{formatMoney(voiceCost)}</span>
+                  <span>{formatPrice(voiceCost, region)}</span>
                 </div>
               </div>
 
@@ -414,7 +422,7 @@ export default function Packages() {
                     isTotalAnimating ? 'scale-105 drop-shadow-[0_0_16px_rgba(52,211,153,0.75)]' : 'scale-100'
                   }`}
                 >
-                  {formatMoney(total)}
+                  {formatPrice(total, region)}
                 </p>
                 <p className="mt-1 text-xs text-emerald-100/80">Aylık ödeme tutarıdır.</p>
               </div>

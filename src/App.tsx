@@ -3,6 +3,7 @@ import { Helmet, HelmetProvider } from 'react-helmet-async';
 import { Menu, X } from 'lucide-react';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { LanguageProvider, useLanguage } from './contexts/LanguageContext';
+import { LocationProvider } from './contexts/LocationContext';
 import { Button } from './components/ui/Button';
 import RoiButton from './components/RoiButton';
 
@@ -354,9 +355,11 @@ function App() {
   return (
     <LanguageProvider>
       <AuthProvider>
-        <HelmetProvider>
-          <AppContent />
-        </HelmetProvider>
+        <LocationProvider>
+          <HelmetProvider>
+            <AppContent />
+          </HelmetProvider>
+        </LocationProvider>
       </AuthProvider>
     </LanguageProvider>
   );
