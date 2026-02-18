@@ -314,6 +314,9 @@ export default function Pricing() {
             ROI Simulation Engine
           </p>
           <h1 className="mt-4 text-3xl font-black leading-tight md:text-5xl">Şeffaf ROI Hesaplayıcı: Kaybın Nereden Geliyor?</h1>
+          <p className="mt-3 inline-flex rounded-xl border border-amber-300/70 bg-amber-300 px-3 py-1.5 text-sm font-black text-slate-950 shadow-[0_0_24px_rgba(252,211,77,0.5)]">
+            Bir çalışan maliyetine, 3 yapay zeka asistanı.
+          </p>
           <p className="mt-3 max-w-4xl text-slate-300">
             Tüm alanlar açık birimlerle tanımlandı: <strong>Günlük</strong>, <strong>Aylık</strong>, <strong>Adet</strong>, <strong>TL</strong>.
             Aşağıda her sektör için kaybın nasıl hesaplandığını adım adım görebilirsiniz.
@@ -377,6 +380,17 @@ export default function Pricing() {
                 }`}
               />
             </button>
+          </div>
+
+          <div className="mb-6 grid gap-3 md:grid-cols-2">
+            <div className="rounded-2xl border border-rose-300/60 bg-rose-500/20 p-4 shadow-[0_0_24px_rgba(244,63,94,0.3)]">
+              <p className="text-xs font-bold uppercase tracking-[0.18em] text-rose-100">Geleneksel Maliyet</p>
+              <p className="mt-2 text-lg font-black text-rose-50 md:text-xl">1 Çalışan = 40.000 TL/ay (Maaş + SGK + Yol/Yemek).</p>
+            </div>
+            <div className="rounded-2xl border border-emerald-300/60 bg-emerald-500/20 p-4 shadow-[0_0_24px_rgba(16,185,129,0.3)]">
+              <p className="text-xs font-bold uppercase tracking-[0.18em] text-emerald-100">MGL Solution</p>
+              <p className="mt-2 text-lg font-black text-emerald-50 md:text-xl">MGL AI Asistan: 13.999 TL/ay (7/24 Aktif, Sıfır İzin).</p>
+            </div>
           </div>
 
           <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">

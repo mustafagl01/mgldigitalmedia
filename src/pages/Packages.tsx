@@ -25,6 +25,7 @@ const WHATSAPP_NUMBER = '905318299701';
 const WHATSAPP_LABEL = '+90 531 829 97 01';
 const BASE_PRICE = 2999;
 const PRICE_PER_MINUTE = 4;
+const MONTHLY_EMPLOYER_COST = 40000;
 
 const readyPlans: PackagePlan[] = [
   {
@@ -251,6 +252,10 @@ export default function Packages() {
                   </p>
                   <p className="mt-2 text-3xl font-black text-cyan-300">{formatMoney(plan.price)}</p>
                   <p className="mt-1 text-xs font-medium uppercase tracking-[0.16em] text-cyan-100/80">Aylık ödeme</p>
+                  <p className="mt-3 rounded-xl border border-emerald-300/45 bg-emerald-500/10 px-3 py-2 text-xs font-semibold text-emerald-100">
+                    Tasarruf Notu: Bu paket, işletmenize yılda ortalama {formatMoney((MONTHLY_EMPLOYER_COST - plan.price) * 12)} personel
+                    tasarrufu sağlar.
+                  </p>
                   <ul className="mt-4 space-y-2 text-sm text-slate-200">
                     {plan.features.map((feature) => (
                       <li key={feature} className="flex items-start gap-2">
