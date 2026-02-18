@@ -31,16 +31,16 @@ const readyPlans: PackagePlan[] = [
     name: 'Başlangıç (Starter)',
     subtitle: 'Dijitalleşmeye ilk adım.',
     price: 6999,
-    features: ['Sesli Yapay Zeka (Asistan) - 300 dk', 'WhatsApp Müşteri Karşılama', 'Pazar & Rakip Analizi'],
+    features: ['Sesli Asistan (Telefon) - 300 dk', 'WhatsApp Müşteri Karşılama', 'Pazar & Rakip Analizi'],
   },
   {
     name: 'Profesyonel (Pro)',
     subtitle: '⭐ En Çok Tercih Edilen',
     price: 13999,
     features: [
-      'Sesli Yapay Zeka (Asistan) - 800 dk',
+      'Sesli Asistan (Telefon) - 800 dk',
       'WhatsApp + Instagram Bot Danışma Hattı',
-      'İş Süreçleri Otomasyonu',
+      'Otomatik İşlemler',
     ],
     recommended: true,
   },
@@ -48,13 +48,13 @@ const readyPlans: PackagePlan[] = [
     name: 'İleri Seviye (Advanced)',
     subtitle: 'Tam otomasyon ve analiz.',
     price: 16999,
-    features: ['Sesli Yapay Zeka (Asistan) - 1200 dk', 'Pazar & Rakip Analizi', 'Web Sitesi & Panel'],
+    features: ['Sesli Asistan (Telefon) - 1200 dk', 'Pazar & Rakip Analizi', 'Web Sitesi & Panel'],
   },
   {
     name: 'Premium (Business)',
     subtitle: 'Sınırsız güç ve öncelik.',
     price: 24999,
-    features: ['Sesli Yapay Zeka (Asistan) - 2000 dk', 'İş Süreçleri Otomasyonu', 'Tam Kanal Yönetimi + CRM'],
+    features: ['Sesli Asistan (Telefon) - 2000 dk', 'Otomatik İşlemler', 'Tam Kanal Yönetimi + Müşteri Takip Sistemi (CRM)'],
   },
 ];
 
@@ -74,7 +74,7 @@ const addonPrices: Record<
   }
 > = {
   automation: {
-    label: 'İş Süreçleri Otomasyonu',
+    label: 'Otomatik İşlemler',
     price: 1499,
     tooltip: 'Tekrar eden işleri (fatura, mail, veri girişi) robota devreder.',
     smartTooltip: 'N8N altyapısı ile departmanlar arası işleri otopilota alır.',
@@ -168,7 +168,7 @@ export default function Packages() {
     ...Object.entries(channels)
       .filter(([, selected]) => selected)
       .map(([key]) => channelPrices[key as ChannelKey].label),
-    `${voiceMinutes}dk Sesli Yapay Zeka (Asistan)`,
+    `${voiceMinutes}dk Sesli Asistan (Telefon)`,
     ...Object.entries(addons)
       .filter(([, selected]) => selected)
       .map(([key]) => addonPrices[key as AddonKey].label),
@@ -328,7 +328,7 @@ export default function Packages() {
               </div>
 
               <div>
-                <h3 className="text-lg font-semibold">Sesli Yapay Zeka (Asistan) Dakikası</h3>
+                <h3 className="text-lg font-semibold">Sesli Asistan (Telefon) Dakikası</h3>
                 <div className="mt-3 rounded-2xl border border-white/15 bg-black/30 p-4">
                   <div className="mb-2 flex items-center justify-between text-sm text-slate-300">
                     <span>{voiceMinutes} dk</span>
@@ -397,7 +397,7 @@ export default function Packages() {
                   <span>{formatMoney(BASE_PRICE)}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>Sesli Yapay Zeka (Asistan)</span>
+                  <span>Sesli Asistan (Telefon)</span>
                   <span>{formatMoney(voiceCost)}</span>
                 </div>
               </div>
