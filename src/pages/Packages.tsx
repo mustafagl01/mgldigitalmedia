@@ -118,27 +118,57 @@ const channelPrices: Record<ChannelKey, { label: string; price: number }> = {
 const addonPrices: Record<
   AddonKey,
   {
-    label: string;
+    label: {
+      tr: string;
+      en: string;
+    };
     price: number;
-    tooltip: string;
-    smartTooltip?: string;
+    tooltip: {
+      tr: string;
+      en: string;
+    };
+    smartTooltip?: {
+      tr: string;
+      en: string;
+    };
   }
 > = {
   automation: {
-    label: 'Otomatik İşlemler',
+    label: {
+      tr: 'Otomatik İşlemler',
+      en: 'Automated Workflows',
+    },
     price: 1499,
-    tooltip: 'Tekrar eden işleri (fatura, mail, veri girişi) robota devreder.',
-    smartTooltip: 'N8N altyapısı ile departmanlar arası işleri otopilota alır.',
+    tooltip: {
+      tr: 'Tekrar eden işleri (fatura, mail, veri girişi) robota devreder.',
+      en: 'Delegates repetitive tasks (invoice, email, data entry) to automation.',
+    },
+    smartTooltip: {
+      tr: 'N8N altyapısı ile departmanlar arası işleri otopilota alır.',
+      en: 'Uses N8N infrastructure to put cross-department workflows on autopilot.',
+    },
   },
   marketAnalysis: {
-    label: 'Pazar & Rakip Analizi',
+    label: {
+      tr: 'Pazar & Rakip Analizi',
+      en: 'Market & Competitor Analysis',
+    },
     price: 1999,
-    tooltip: 'Rakiplerin fiyatlarını izler, müşteri listesi toplar.',
+    tooltip: {
+      tr: 'Rakiplerin fiyatlarını izler, müşteri listesi toplar.',
+      en: 'Tracks competitor pricing and collects potential customer lists.',
+    },
   },
   websitePanel: {
-    label: 'Web Sitesi & Panel',
+    label: {
+      tr: 'Web Sitesi & Panel',
+      en: 'Website & Dashboard',
+    },
     price: 4999,
-    tooltip: 'Müşteri etkileşimini tek merkezden yönetebileceğiniz satış odaklı bir vitrin sunar.',
+    tooltip: {
+      tr: 'Müşteri etkileşimini tek merkezden yönetebileceğiniz satış odaklı bir vitrin sunar.',
+      en: 'Provides a conversion-focused storefront where you can manage customer interactions from one place.',
+    },
   },
 };
 
@@ -210,8 +240,8 @@ function createWhatsAppLink(message: string) {
 
 export default function Packages() {
   const { pricing, region } = useLocation();
-  const { t } = useLanguage();
-  const isUkPricing = region === 'GB';
+  const { language, t } = useLanguage();
+  const isEnglish = language === 'en';
   const [activeTab, setActiveTab] = useState<TabMode>('ready');
   const [voiceMinutes, setVoiceMinutes] = useState(500);
   const [channels, setChannels] = useState<Record<ChannelKey, boolean>>({
@@ -241,9 +271,18 @@ export default function Packages() {
   const regionalAddonPrices = useMemo(
     () =>
       Object.fromEntries(
-        Object.entries(addonPrices).map(([key, value]) => [key, { ...value, price: convertTryPrice(value.price, region) }])
+        Object.entries(addonPrices).map(([key, value]) => [
+          key,
+          {
+            ...value,
+            label: isEnglish ? value.label.en : value.label.tr,
+            tooltip: isEnglish ? value.tooltip.en : value.tooltip.tr,
+            smartTooltip: value.smartTooltip ? (isEnglish ? value.smartTooltip.en : value.smartTooltip.tr) : undefined,
+            price: convertTryPrice(value.price, region),
+          },
+        ])
       ) as Record<AddonKey, { label: string; price: number; tooltip: string; smartTooltip?: string }>,
-    [region],
+    [isEnglish, region],
   );
 
   const voiceCost = voiceMinutes * regionalPricePerMinute;
@@ -254,10 +293,10 @@ export default function Packages() {
         ...template,
         name: pricing.packages[template.key].name,
         price: pricing.packages[template.key].price,
-        subtitle: isUkPricing ? template.subtitle.en : template.subtitle.tr,
-        features: isUkPricing ? template.features.en : template.features.tr,
+        subtitle: isEnglish ? template.subtitle.en : template.subtitle.tr,
+        features: isEnglish ? template.features.en : template.features.tr,
       })),
-    [isUkPricing, pricing]
+    [isEnglish, pricing]
   );
 
 
@@ -286,13 +325,15 @@ export default function Packages() {
     ...Object.entries(channels)
       .filter(([, selected]) => selected)
       .map(([key]) => regionalChannelPrices[key as ChannelKey].label),
-    `${voiceMinutes}dk Sesli Asistan (Telefon)`,
+    `${voiceMinutes}${isEnglish ? ' min Voice Assistant (Phone)' : 'dk Sesli Asistan (Telefon)'}`,
     ...Object.entries(addons)
       .filter(([, selected]) => selected)
       .map(([key]) => regionalAddonPrices[key as AddonKey].label),
   ];
 
-  const customMessage = `Kendi Paketim: ${summaryParts.join(' + ')}. Toplam teklif: ${formatPrice(total, region)}`;
+  const customMessage = isEnglish
+    ? `My Custom Package: ${summaryParts.join(' + ')}. Total quote: ${formatPrice(total, region)}`
+    : `Kendi Paketim: ${summaryParts.join(' + ')}. Toplam teklif: ${formatPrice(total, region)}`;
 
   return (
     <div className="min-h-screen bg-[#05060a] px-4 py-10 text-white">
@@ -303,16 +344,17 @@ export default function Packages() {
           className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-white/20 bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white transition-colors"
         >
           <Home size={18} />
-          <span>{isUkPricing ? 'Home' : 'Ana Sayfa'}</span>
+          <span>{isEnglish ? 'Home' : 'Ana Sayfa'}</span>
         </button>
         <section className="rounded-3xl border border-cyan-300/20 bg-white/5 p-6 shadow-[0_0_70px_rgba(34,211,238,0.08)] backdrop-blur-2xl md:p-8">
           <p className="inline-flex rounded-full border border-fuchsia-300/40 bg-fuchsia-500/10 px-3 py-1 text-xs uppercase tracking-[0.2em] text-fuchsia-200">
-            Paket Merkezi
+            {isEnglish ? 'Package Hub' : 'Paket Merkezi'}
           </p>
-          <h1 className="mt-4 text-3xl font-black md:text-5xl">İşinizi Büyüten Paketler</h1>
+          <h1 className="mt-4 text-3xl font-black md:text-5xl">{isEnglish ? 'Packages That Scale Your Business' : 'İşinizi Büyüten Paketler'}</h1>
           <p className="mt-3 max-w-4xl text-slate-300">
-            Hazır paketle bugün başlayın, kendi paketinizi canlı fiyatla oluşturun veya kurumsal ihtiyaçlarınız için özel proje
-            planlayın.
+            {isEnglish
+              ? 'Start today with a ready package, build your own package with live pricing, or plan a custom project for enterprise needs.'
+              : 'Hazır paketle bugün başlayın, kendi paketinizi canlı fiyatla oluşturun veya kurumsal ihtiyaçlarınız için özel proje planlayın.'}
           </p>
 
           <div className="mt-6 inline-flex flex-wrap rounded-2xl border border-white/15 bg-black/30 p-1">
@@ -325,7 +367,7 @@ export default function Packages() {
                   : 'text-slate-300 hover:text-white'
               }`}
             >
-              📦 Hazır Paketler
+              📦 {isEnglish ? 'Ready Packages' : 'Hazır Paketler'}
             </button>
             <button
               type="button"
@@ -336,7 +378,7 @@ export default function Packages() {
                   : 'text-slate-300 hover:text-white'
               }`}
             >
-              🛠️ Kendi Paketini Yap
+              🛠️ {isEnglish ? 'Build Your Package' : 'Kendi Paketini Yap'}
             </button>
             <button
               type="button"
@@ -347,7 +389,7 @@ export default function Packages() {
                   : 'text-slate-300 hover:text-white'
               }`}
             >
-              🏢 Kurumsal & Özel Çözümler
+              🏢 {isEnglish ? 'Enterprise & Custom Solutions' : 'Kurumsal & Özel Çözümler'}
             </button>
           </div>
         </section>
@@ -365,7 +407,7 @@ export default function Packages() {
                   }`}
                 >
                   <span className="absolute -top-3 left-4 z-10 inline-flex max-w-[70%] items-center gap-1 rounded-full border border-emerald-300/70 bg-emerald-500/20 px-3 py-1 text-[11px] font-bold text-emerald-100 sm:max-w-none sm:text-xs">
-                    {isUkPricing ? '✅ Setup Included (£0)' : '✅ Kurulum Dahil (0 TL)'}
+                    {isEnglish ? '✅ Setup Included (£0)' : '✅ Kurulum Dahil (0 TL)'}
                   </span>
                   <h2 className="mt-4 text-xl font-bold">{plan.name}</h2>
                   <p
@@ -377,10 +419,10 @@ export default function Packages() {
                   </p>
                   <p className="mt-2 text-3xl font-black text-cyan-300">{formatPrice(plan.price, region)}</p>
                   <p className="mt-1 text-xs font-medium uppercase tracking-[0.16em] text-cyan-100/80">
-                    {isUkPricing ? 'MONTHLY PAYMENT' : 'AYLIK ÖDEME'}
+                    {isEnglish ? 'MONTHLY PAYMENT' : 'AYLIK ÖDEME'}
                   </p>
                   <p className="mt-3 rounded-xl border border-emerald-300/45 bg-emerald-500/10 px-3 py-2 text-xs font-semibold text-emerald-100">
-                    {isUkPricing
+                    {isEnglish
                       ? `Efficiency Impact: This plan saves your business an estimated ${UK_ESTIMATED_SAVINGS_BY_PLAN[plan.key]} in annual labor costs.`
                       : `Tasarruf Notu: Bu paket, işletmenize yılda ortalama ${formatPrice((regionalMonthlyEmployerCost - plan.price) * 12, region)} personel tasarrufu sağlar.`}
                   </p>
@@ -395,7 +437,7 @@ export default function Packages() {
 
                   <a
                     href={createWhatsAppLink(
-                      isUkPricing
+                      isEnglish
                         ? `Hello, I would like more information about the ${plan.name} package.`
                         : `Merhaba, ${plan.name} paketi hakkında bilgi almak istiyorum.`
                     )}
@@ -403,7 +445,7 @@ export default function Packages() {
                     rel="noreferrer"
                     className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-400 px-4 py-3 text-sm font-bold text-slate-900 transition hover:bg-emerald-300"
                   >
-                    <MessageCircle size={16} /> {isUkPricing ? 'Contact via WhatsApp' : 'WhatsApp ile Bilgi Al'}
+                    <MessageCircle size={16} /> {isEnglish ? 'Contact via WhatsApp' : 'WhatsApp ile Bilgi Al'}
                   </a>
                 </article>
               ))}
@@ -414,10 +456,10 @@ export default function Packages() {
                 Data Insight
               </p>
               <h2 className="mt-4 text-2xl font-black md:text-3xl">
-                {isUkPricing ? t('dataInsight.title') : 'Sektörler Yapay Zeka ile Ne Kazanıyor?'}
+                {isEnglish ? t('dataInsight.title') : 'Sektörler Yapay Zeka ile Ne Kazanıyor?'}
               </h2>
               <p className="mt-2 max-w-3xl text-sm text-slate-300 md:text-base">
-                {isUkPricing ? t('dataInsight.desc') : 'Farklı sektörlerde devreye alınan otomasyonlar; hız, doluluk ve verimlilikte ölçülebilir sonuçlar sağlıyor.'}
+                {isEnglish ? t('dataInsight.desc') : 'Farklı sektörlerde devreye alınan otomasyonlar; hız, doluluk ve verimlilikte ölçülebilir sonuçlar sağlıyor.'}
               </p>
 
               <div className="mt-6 grid gap-4 md:grid-cols-3">
@@ -428,13 +470,13 @@ export default function Packages() {
                   >
                     <div className="inline-flex rounded-xl border border-white/20 bg-white/10 p-2">{insight.icon}</div>
                     <h3 className="mt-4 text-lg font-bold text-white">
-                      {isUkPricing ? insight.name.en : insight.name.tr}
+                      {isEnglish ? insight.name.en : insight.name.tr}
                     </h3>
                     <p className="mt-2 text-2xl font-black text-cyan-200">
-                      {isUkPricing ? insight.stat.en : insight.stat.tr}
+                      {isEnglish ? insight.stat.en : insight.stat.tr}
                     </p>
                     <p className="mt-2 text-sm text-slate-300">
-                      {isUkPricing ? insight.description.en : insight.description.tr}
+                      {isEnglish ? insight.description.en : insight.description.tr}
                     </p>
                   </article>
                 ))}
@@ -447,13 +489,13 @@ export default function Packages() {
           <section className="grid gap-6 lg:grid-cols-[1fr_340px]">
             <div className="space-y-6 rounded-3xl border border-white/15 bg-white/5 p-6 backdrop-blur-2xl">
               <div className="rounded-2xl border border-cyan-300/30 bg-cyan-500/10 p-4">
-                <p className="text-xs uppercase tracking-[0.2em] text-cyan-200">Temel Kurulum</p>
+                <p className="text-xs uppercase tracking-[0.2em] text-cyan-200">{isEnglish ? 'Base Setup' : 'Temel Kurulum'}</p>
                 <p className="mt-1 text-2xl font-black text-cyan-100">{formatPrice(regionalBasePrice, region)}</p>
               </div>
 
               <div>
-                <h3 className="text-lg font-semibold">İletişim Kanalları</h3>
-                <p className="mt-1 text-xs text-slate-400">Tüm kanal fiyatları aylık olarak ücretlendirilir.</p>
+                <h3 className="text-lg font-semibold">{isEnglish ? 'Communication Channels' : 'İletişim Kanalları'}</h3>
+                <p className="mt-1 text-xs text-slate-400">{isEnglish ? 'All channel prices are billed monthly.' : 'Tüm kanal fiyatları aylık olarak ücretlendirilir.'}</p>
                 <div className="mt-3 grid gap-3 sm:grid-cols-2">
                   {(Object.keys(channelPrices) as ChannelKey[]).map((channel) => (
                     <label key={channel} className="flex items-center justify-between rounded-xl border border-white/15 bg-black/30 p-3">
@@ -473,7 +515,7 @@ export default function Packages() {
               </div>
 
               <div>
-                <h3 className="text-lg font-semibold">Sesli Asistan (Telefon) Dakikası</h3>
+                <h3 className="text-lg font-semibold">{isEnglish ? 'Voice Assistant (Phone) Minutes' : 'Sesli Asistan (Telefon) Dakikası'}</h3>
                 <div className="mt-3 rounded-2xl border border-white/15 bg-black/30 p-4">
                   <div className="mb-2 flex items-center justify-between text-sm text-slate-300">
                     <span>{voiceMinutes} dk</span>
@@ -489,14 +531,14 @@ export default function Packages() {
                     className="h-2 w-full cursor-pointer appearance-none rounded-full bg-slate-700 accent-fuchsia-400"
                   />
                   <p className="mt-2 text-xs text-slate-400">
-                    Dakika başı ücret: {formatPrice(PRICE_PER_MINUTE_TRY, region)}
+                    {isEnglish ? 'Price per minute' : 'Dakika başı ücret'}: {formatPrice(PRICE_PER_MINUTE_TRY, region)}
                   </p>
                 </div>
               </div>
 
               <div>
-                <h3 className="text-lg font-semibold">Aylık Eklentiler</h3>
-                <p className="mt-1 text-xs text-slate-400">Bilgi ikonuna gelince detay balonu açılır.</p>
+                <h3 className="text-lg font-semibold">{isEnglish ? 'Monthly Add-ons' : 'Aylık Eklentiler'}</h3>
+                <p className="mt-1 text-xs text-slate-400">{isEnglish ? 'Hover on the info icon to see details.' : 'Bilgi ikonuna gelince detay balonu açılır.'}</p>
                 <div className="mt-3 grid gap-3">
                   {(Object.keys(addonPrices) as AddonKey[]).map((addon) => (
                     <label key={addon} className="group relative flex items-center justify-between rounded-xl border border-white/15 bg-black/30 p-3">
@@ -510,7 +552,7 @@ export default function Packages() {
                             size={15}
                             className="cursor-help text-fuchsia-200"
                             tabIndex={0}
-                            aria-label={`${regionalAddonPrices[addon].label} detayı`}
+                            aria-label={isEnglish ? `${regionalAddonPrices[addon].label} details` : `${regionalAddonPrices[addon].label} detayı`}
                           />
                           <span className="pointer-events-none invisible absolute left-1/2 top-6 z-30 w-72 -translate-x-1/2 rounded-xl border border-fuchsia-300/40 bg-[#120c1d] p-3 text-xs text-fuchsia-100 opacity-0 shadow-[0_0_20px_rgba(217,70,239,0.35)] transition duration-200 group-hover:visible group-hover:opacity-100 group-focus-within/info:visible group-focus-within/info:opacity-100">
                             {regionalAddonPrices[addon].tooltip}
@@ -535,22 +577,22 @@ export default function Packages() {
             </div>
 
             <aside className="h-fit rounded-3xl border border-emerald-300/30 bg-slate-950/80 p-5 backdrop-blur-xl lg:sticky lg:top-6">
-              <p className="text-xs uppercase tracking-[0.2em] text-emerald-200">Canlı Teklif</p>
-              <p className="mt-2 text-sm text-slate-300">Seçimlerinize göre toplam fiyat anlık güncellenir.</p>
+              <p className="text-xs uppercase tracking-[0.2em] text-emerald-200">{isEnglish ? 'Live Quote' : 'Canlı Teklif'}</p>
+              <p className="mt-2 text-sm text-slate-300">{isEnglish ? 'Total price updates instantly based on your selections.' : 'Seçimlerinize göre toplam fiyat anlık güncellenir.'}</p>
 
               <div className="mt-6 space-y-2 text-sm text-slate-200">
                 <div className="flex justify-between">
-                  <span>Temel Kurulum</span>
+                  <span>{isEnglish ? 'Base Setup' : 'Temel Kurulum'}</span>
                   <span>{formatPrice(regionalBasePrice, region)}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span>Sesli Asistan (Telefon)</span>
+                  <span>{isEnglish ? 'Voice Assistant (Phone)' : 'Sesli Asistan (Telefon)'}</span>
                   <span>{formatPrice(voiceCost, region)}</span>
                 </div>
               </div>
 
               <div className="mt-4 border-t border-white/15 pt-4">
-                <p className="text-xs uppercase tracking-[0.2em] text-slate-400">Toplam</p>
+                <p className="text-xs uppercase tracking-[0.2em] text-slate-400">{isEnglish ? 'Total' : 'Toplam'}</p>
                 <p
                   className={`mt-2 text-3xl font-black text-emerald-300 transition ${
                     isTotalAnimating ? 'scale-105 drop-shadow-[0_0_16px_rgba(52,211,153,0.75)]' : 'scale-100'
@@ -558,7 +600,7 @@ export default function Packages() {
                 >
                   {formatPrice(total, region)}
                 </p>
-                <p className="mt-1 text-xs text-emerald-100/80">Aylık ödeme tutarıdır.</p>
+                <p className="mt-1 text-xs text-emerald-100/80">{isEnglish ? 'Monthly payment amount.' : 'Aylık ödeme tutarıdır.'}</p>
               </div>
 
               <a
@@ -567,7 +609,7 @@ export default function Packages() {
                 rel="noreferrer"
                 className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-400 px-4 py-3 text-sm font-bold text-slate-900 transition hover:bg-emerald-300"
               >
-                <MessageCircle size={16} /> Teklifi WhatsApp'ta Gönder ({WHATSAPP_LABEL})
+                <MessageCircle size={16} /> {isEnglish ? 'Send Quote on WhatsApp' : "Teklifi WhatsApp'ta Gönder"} ({WHATSAPP_LABEL})
               </a>
             </aside>
           </section>
@@ -580,20 +622,21 @@ export default function Packages() {
 
             <div className="relative max-w-4xl">
               <p className="inline-flex rounded-full border border-amber-200/60 bg-amber-300/20 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-amber-100">
-                Premium Çözüm
+                {isEnglish ? 'Premium Solution' : 'Premium Çözüm'}
               </p>
-              <h2 className="mt-5 text-3xl font-black text-white md:text-5xl">Standartların Dışında Mısınız?</h2>
+              <h2 className="mt-5 text-3xl font-black text-white md:text-5xl">{isEnglish ? 'Need Something Beyond the Standard?' : 'Standartların Dışında Mısınız?'}</h2>
               <p className="mt-4 text-base leading-relaxed text-slate-200 md:text-lg">
-                Fabrikalar, Zincir İşletmeler ve Özel Projeler için terzi usulü çözümler üretiyoruz. İhtiyaçlarınızı analist
-                ekibimizle değerlendirelim.
+                {isEnglish
+                  ? 'We build tailored solutions for factories, multi-branch businesses, and special projects. Let our analysts evaluate your needs with you.'
+                  : 'Fabrikalar, Zincir İşletmeler ve Özel Projeler için terzi usulü çözümler üretiyoruz. İhtiyaçlarınızı analist ekibimizle değerlendirelim.'}
               </p>
 
               <ul className="mt-8 grid gap-3 text-sm text-slate-100 md:grid-cols-2">
                 {[
-                  'Özel Sunucu & Veri Güvenliği (On-Premise)',
-                  'Sınırsız Entegrasyon (SAP, Nebim, Logo vb.)',
-                  '7/24 Öncelikli Teknik Destek',
-                  'Size Özel Yapay Zeka Eğitimi',
+                  isEnglish ? 'Private Server & Data Security (On-Premise)' : 'Özel Sunucu & Veri Güvenliği (On-Premise)',
+                  isEnglish ? 'Unlimited Integrations (SAP, Nebim, Logo, etc.)' : 'Sınırsız Entegrasyon (SAP, Nebim, Logo vb.)',
+                  isEnglish ? '24/7 Priority Technical Support' : '7/24 Öncelikli Teknik Destek',
+                  isEnglish ? 'Custom AI Training for Your Team' : 'Size Özel Yapay Zeka Eğitimi',
                 ].map((feature) => (
                   <li key={feature} className="flex items-start gap-2 rounded-xl border border-white/20 bg-black/25 p-3">
                     <Check size={16} className="mt-0.5 text-emerald-300" />
@@ -603,12 +646,12 @@ export default function Packages() {
               </ul>
 
               <a
-                href={createWhatsAppLink('Merhaba, kurumsal/özel bir proje için görüşmek istiyorum.')}
+                href={createWhatsAppLink(isEnglish ? 'Hello, I would like to discuss an enterprise/custom project.' : 'Merhaba, kurumsal/özel bir proje için görüşmek istiyorum.')}
                 target="_blank"
                 rel="noreferrer"
                 className="mt-8 inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-amber-300 to-fuchsia-300 px-6 py-3 text-sm font-extrabold text-slate-900 transition hover:scale-[1.02]"
               >
-                <MessageCircle size={16} /> Proje Danışmanıyla Görüş (WhatsApp)
+                <MessageCircle size={16} /> {isEnglish ? 'Talk to a Project Consultant (WhatsApp)' : 'Proje Danışmanıyla Görüş (WhatsApp)'}
               </a>
             </div>
           </section>
