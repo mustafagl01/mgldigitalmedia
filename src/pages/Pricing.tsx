@@ -114,7 +114,7 @@ const sectorConfigs: SectorConfig[] = [
         key: 'dailyOrders',
         labelTR: 'Günlük Paket Sipariş',
         labelEN: 'Daily Delivery Orders',
-        min: 10,
+        min: 1,
         max: 500,
         suffixTR: ' adet',
         suffixEN: ' orders'
@@ -123,18 +123,18 @@ const sectorConfigs: SectorConfig[] = [
         key: 'basketValue',
         labelTR: 'Ortalama Sepet Tutarı',
         labelEN: 'Avg. Basket Value',
-        min: 100,
-        max: 2000,
-        step: 10,
+        min: 1,
+        max: isTR ? 2000 : 1000,
+        step: isTR ? 10 : 1,
         suffixTR: ' TL',
-        suffixEN: ''
+        suffixEN: isTR ? '' : '£'
       },
       {
         key: 'commission',
         labelTR: 'Platform Komisyonu',
         labelEN: 'Platform Commission',
-        min: 10,
-        max: 38,
+        min: 1,
+        max: 30,
         suffixTR: ' %',
         suffixEN: '%'
       },
@@ -148,7 +148,7 @@ const sectorConfigs: SectorConfig[] = [
     ],
     breakdownEN: (v) => [
       `${v.dailyOrders} (Daily Orders)`,
-      `${formatMoney(v.basketValue)} (Basket)`,
+      `${isTR ? formatMoney(v.basketValue) : `£${formatMoney(v.basketValue)}`} (Basket)`,
       '30 (Days)',
       `${v.commission}% (Commission)`,
     ],
@@ -461,7 +461,7 @@ const defaultValues: Record<string, number> = {
   dailyCalls: 8,
   patientValue: 6000,
   dailyOrders: 120,
-  basketValue: 350,
+  basketValue: isTR ? 350 : 100,
   commission: 18,
   monthlyLeads: 20,
   estateCommission: 50000,
@@ -536,7 +536,10 @@ export default function Pricing() {
     }).format(Math.round(value));
 
   const [activeSectorId, setActiveSectorId] = useState<SectorId>('health');
-  const [values, setValues] = useState<Record<string, number>>(defaultValues);
+  const [values, setValues] = useState<Record<string, number>>(() => ({
+  ...defaultValues,
+  basketValue: isTR ? 350 : 100,
+}));
   const [aiMode, setAiMode] = useState(false);
 
   const activeSector = useMemo(
@@ -681,7 +684,9 @@ export default function Pricing() {
                 <div className="mb-2 flex items-center justify-between text-sm text-slate-200">
                   <span>{getSliderLabel(slider)}</span>
                   <strong className="text-cyan-300">
-                    {formatMoney(values[slider.key])}
+                    {slider.key === 'basketValue' && !isTR
+                      ? `£${formatMoney(values[slider.key])}`
+                      : formatMoney(values[slider.key])}
                     {getSliderSuffix(slider)}
                   </strong>
                 </div>
@@ -727,6 +732,11 @@ export default function Pricing() {
           <p className="mt-4 text-sm text-slate-300">{getExplanation(activeSector)}</p>
           <p className="mt-2 text-sm font-semibold text-cyan-300">
             {isTR ? 'MGL Yapay Zeka Asistanı ile bu kaybı kazanca dönüştürün.' : 'Turn this loss into profit with MGL AI Assistant.'}
+          </p>
+          <p className="mt-4 text-center text-xs text-slate-400">
+            {isTR
+              ? 'Küçük veya büyük, her ölçekteki işletme için gerçek zamanlı kayıp analizi.'
+              : 'Real-time loss analysis for businesses of all sizes, small or large.'}
           </p>
 
           <div className="mt-6 grid gap-4 md:grid-cols-2">
