@@ -125,7 +125,7 @@ const sectorConfigs: SectorConfig[] = [
         labelEN: 'Avg. Basket Value',
         min: 1,
         max: 2000,
-        step: 10,
+        step: 1,
         suffixTR: ' TL',
         suffixEN: '£'
       },
