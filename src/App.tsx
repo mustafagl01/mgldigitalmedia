@@ -77,14 +77,13 @@ function AppContent() {
     setIsMobileMenuOpen(false);
   };
 
-  const handleContactClick = () => {
-    setIdeaAssistantModalOpen(true);
-    setIsMobileMenuOpen(false);
-  };
-
   const handleWhatsAppClick = () => {
     window.open('https://wa.me/905318299701', '_blank', 'noopener,noreferrer');
     setIsMobileMenuOpen(false);
+  };
+
+  const handleContactClick = () => {
+    handleWhatsAppClick();
   };
 
   const handleDemoRedirect = () => {
