@@ -22,10 +22,13 @@ const translations = {
   tr: {
     // Header
     'header.title': 'MGL Digital AI',
+    'header.home': 'Ana Sayfa',
     'header.login': 'Giriş / Kayıt',
     'header.logout': 'Çıkış Yap',
     'header.opportunities': 'Fırsatları Keşfet',
     'header.welcome': 'Hoş geldiniz',
+    'header.bookAppointment': 'Randevu Al',
+    'header.analysis': 'Analiz',
 
     // Hero Section
     'hero.title': 'Stratejiyle Dönüşüm Sağlıyoruz.',
@@ -146,10 +149,13 @@ const translations = {
   en: {
     // Header
     'header.title': 'MGL Digital AI',
+    'header.home': 'Home',
     'header.login': 'Login / Register',
     'header.logout': 'Logout',
     'header.opportunities': 'Discover Opportunities',
     'header.welcome': 'Welcome',
+    'header.bookAppointment': 'Book Appointment',
+    'header.analysis': 'Analysis',
 
     // Hero Section
     'hero.title': 'We Drive Transformation Through Strategy.',
@@ -271,7 +277,16 @@ const translations = {
 
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [language, setLanguage] = useState<Language>(() => {
-    return navigator.language.toLowerCase().startsWith('tr') ? 'tr' : 'en';
+    // Check if user prefers Turkish based on browser language or timezone
+    const browserLang = navigator.language.toLowerCase();
+    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone?.toUpperCase() ?? '';
+
+    // Detect if user is in Turkey or prefers Turkish language
+    if (browserLang.startsWith('tr') || timezone.includes('ISTANBUL') || timezone.includes('TURKEY')) {
+      return 'tr';
+    }
+
+    return 'en';
   });
 
   const t = (key: string): string => {
