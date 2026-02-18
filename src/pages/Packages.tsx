@@ -13,7 +13,7 @@ type TabMode = 'ready' | 'custom';
 type ChannelKey = 'whatsapp' | 'instagram' | 'web';
 type AddonKey = 'trendyol' | 'calendar' | 'crm' | 'woocommerce';
 
-const WHATSAPP_NUMBER = '905555555555';
+const WHATSAPP_NUMBER = '905318299701';
 const BASE_PRICE = 2999;
 const PRICE_PER_MINUTE = 4;
 
