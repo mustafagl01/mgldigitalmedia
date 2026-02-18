@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useState } from 'react';
-import { Check, Info, MessageCircle } from 'lucide-react';
+import { type ReactNode, useEffect, useMemo, useState } from 'react';
+import { Check, Coffee, Globe2, Info, MessageCircle, Pizza, Stethoscope } from 'lucide-react';
 
 type PackagePlan = {
   name: string;
@@ -13,6 +13,13 @@ type TabMode = 'ready' | 'custom' | 'enterprise';
 
 type ChannelKey = 'whatsapp' | 'instagram' | 'web';
 type AddonKey = 'automation' | 'marketAnalysis' | 'websitePanel';
+
+type SectorInsight = {
+  name: string;
+  stat: string;
+  description: string;
+  icon: ReactNode;
+};
 
 const WHATSAPP_NUMBER = '905318299701';
 const WHATSAPP_LABEL = '+90 531 829 97 01';
@@ -83,6 +90,32 @@ const addonPrices: Record<
     tooltip: 'Müşteri etkileşimini tek merkezden yönetebileceğiniz satış odaklı bir vitrin sunar.',
   },
 };
+
+const sectorInsights: SectorInsight[] = [
+  {
+    name: 'Restoran & Kafe',
+    stat: '%40 Personel Tasarrufu',
+    description: 'Sipariş ve rezervasyon otomasyonu ile garsonlar sadece servise odaklanır.',
+    icon: (
+      <span className="inline-flex items-center gap-1.5 text-amber-200">
+        <Pizza size={20} />
+        <Coffee size={20} />
+      </span>
+    ),
+  },
+  {
+    name: 'Klinik & Sağlık',
+    stat: '%100 Randevu Doluluğu',
+    description: 'Gelmeyen hastaları (No-show) önleyen hatırlatma sistemi ile ciro kaybı biter.',
+    icon: <Stethoscope size={22} className="text-emerald-200" />,
+  },
+  {
+    name: 'İhracat & Satış',
+    stat: '7/24 Anlık Yanıt',
+    description: 'Gece gelen yurtdışı taleplerini kaçırmadan, anında İngilizce/Arapça yanıtlayın.',
+    icon: <Globe2 size={22} className="text-cyan-200" />,
+  },
+];
 
 const money = new Intl.NumberFormat('tr-TR');
 
@@ -194,49 +227,75 @@ export default function Packages() {
         </section>
 
         {activeTab === 'ready' && (
-          <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-            {readyPlans.map((plan) => (
-              <article
-                key={plan.name}
-                className={`relative rounded-3xl border bg-white/5 p-5 backdrop-blur-xl transition hover:-translate-y-1 hover:border-cyan-300/60 ${
-                  plan.recommended
-                    ? 'border-fuchsia-300/60 shadow-[0_0_30px_rgba(217,70,239,0.35)]'
-                    : 'border-white/15'
-                }`}
-              >
-                <span className="absolute -top-3 left-4 z-10 inline-flex max-w-[70%] items-center gap-1 rounded-full border border-emerald-300/70 bg-emerald-500/20 px-3 py-1 text-[11px] font-bold text-emerald-100 sm:max-w-none sm:text-xs">
-                  ✅ Kurulum Dahil (0 TL)
-                </span>
-                <h2 className="mt-4 text-xl font-bold">{plan.name}</h2>
-                <p
-                  className={`mt-1 text-sm ${
-                    plan.recommended ? 'font-semibold text-fuchsia-200' : 'text-slate-300'
+          <>
+            <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+              {readyPlans.map((plan) => (
+                <article
+                  key={plan.name}
+                  className={`relative rounded-3xl border bg-white/5 p-5 backdrop-blur-xl transition hover:-translate-y-1 hover:border-cyan-300/60 ${
+                    plan.recommended
+                      ? 'border-fuchsia-300/60 shadow-[0_0_30px_rgba(217,70,239,0.35)]'
+                      : 'border-white/15'
                   }`}
                 >
-                  {plan.subtitle}
-                </p>
-                <p className="mt-2 text-3xl font-black text-cyan-300">{formatMoney(plan.price)}</p>
-                <p className="mt-1 text-xs font-medium uppercase tracking-[0.16em] text-cyan-100/80">Aylık ödeme</p>
-                <ul className="mt-4 space-y-2 text-sm text-slate-200">
-                  {plan.features.map((feature) => (
-                    <li key={feature} className="flex items-start gap-2">
-                      <Check size={16} className="mt-0.5 text-emerald-300" />
-                      <span>{feature}</span>
-                    </li>
-                  ))}
-                </ul>
+                  <span className="absolute -top-3 left-4 z-10 inline-flex max-w-[70%] items-center gap-1 rounded-full border border-emerald-300/70 bg-emerald-500/20 px-3 py-1 text-[11px] font-bold text-emerald-100 sm:max-w-none sm:text-xs">
+                    ✅ Kurulum Dahil (0 TL)
+                  </span>
+                  <h2 className="mt-4 text-xl font-bold">{plan.name}</h2>
+                  <p
+                    className={`mt-1 text-sm ${
+                      plan.recommended ? 'font-semibold text-fuchsia-200' : 'text-slate-300'
+                    }`}
+                  >
+                    {plan.subtitle}
+                  </p>
+                  <p className="mt-2 text-3xl font-black text-cyan-300">{formatMoney(plan.price)}</p>
+                  <p className="mt-1 text-xs font-medium uppercase tracking-[0.16em] text-cyan-100/80">Aylık ödeme</p>
+                  <ul className="mt-4 space-y-2 text-sm text-slate-200">
+                    {plan.features.map((feature) => (
+                      <li key={feature} className="flex items-start gap-2">
+                        <Check size={16} className="mt-0.5 text-emerald-300" />
+                        <span>{feature}</span>
+                      </li>
+                    ))}
+                  </ul>
 
-                <a
-                  href={createWhatsAppLink(`Merhaba, ${plan.name} paketi hakkında bilgi almak istiyorum.`)}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-400 px-4 py-3 text-sm font-bold text-slate-900 transition hover:bg-emerald-300"
-                >
-                  <MessageCircle size={16} /> WhatsApp ile Bilgi Al
-                </a>
-              </article>
-            ))}
-          </section>
+                  <a
+                    href={createWhatsAppLink(`Merhaba, ${plan.name} paketi hakkında bilgi almak istiyorum.`)}
+                    target="_blank"
+                    rel="noreferrer"
+                    className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-400 px-4 py-3 text-sm font-bold text-slate-900 transition hover:bg-emerald-300"
+                  >
+                    <MessageCircle size={16} /> WhatsApp ile Bilgi Al
+                  </a>
+                </article>
+              ))}
+            </section>
+
+            <section className="rounded-3xl border border-cyan-300/20 bg-white/5 p-6 shadow-[0_0_70px_rgba(34,211,238,0.08)] backdrop-blur-2xl md:p-8">
+              <p className="inline-flex rounded-full border border-cyan-300/35 bg-cyan-500/10 px-3 py-1 text-xs uppercase tracking-[0.2em] text-cyan-100">
+                Data Insight
+              </p>
+              <h2 className="mt-4 text-2xl font-black md:text-3xl">Sektörler Yapay Zeka ile Ne Kazanıyor?</h2>
+              <p className="mt-2 max-w-3xl text-sm text-slate-300 md:text-base">
+                Farklı sektörlerde devreye alınan otomasyonlar; hız, doluluk ve verimlilikte ölçülebilir sonuçlar sağlıyor.
+              </p>
+
+              <div className="mt-6 grid gap-4 md:grid-cols-3">
+                {sectorInsights.map((insight) => (
+                  <article
+                    key={insight.name}
+                    className="rounded-2xl border border-white/15 bg-black/30 p-5 backdrop-blur-xl transition hover:-translate-y-1 hover:border-cyan-300/55"
+                  >
+                    <div className="inline-flex rounded-xl border border-white/20 bg-white/10 p-2">{insight.icon}</div>
+                    <h3 className="mt-4 text-lg font-bold text-white">{insight.name}</h3>
+                    <p className="mt-2 text-2xl font-black text-cyan-200">{insight.stat}</p>
+                    <p className="mt-2 text-sm text-slate-300">{insight.description}</p>
+                  </article>
+                ))}
+              </div>
+            </section>
+          </>
         )}
 
         {activeTab === 'custom' && (
