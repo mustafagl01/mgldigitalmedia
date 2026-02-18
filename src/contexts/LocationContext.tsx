@@ -18,20 +18,37 @@ const COUNTRY_STORAGE_KEY = 'mgl-country-code';
 function detectCountryFromClient(): string | null {
   if (typeof window === 'undefined') return null;
 
-  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone?.toUpperCase() ?? '';
+  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone ?? '';
   const language = navigator.language?.toUpperCase() ?? '';
+  const timezoneUpper = timezone.toUpperCase();
 
-  // Turkey detection
-  if (timezone.includes('ISTANBUL') || language.startsWith('TR')) {
+  console.log('[Location] Client detection:', { timezone, language, timezoneUpper });
+
+  // Turkey detection - must have strong TR signal
+  const isTurkishTimezone = timezoneUpper.includes('ISTANBUL') || timezoneUpper.includes('TURKEY');
+  const isTurkishLanguage = language === 'TR' || language.startsWith('TR-');
+
+  console.log('[Location] Detection checks:', { isTurkishTimezone, isTurkishLanguage });
+
+  if (isTurkishTimezone || isTurkishLanguage) {
+    console.log('[Location] Detected Turkey');
     return 'TR';
   }
 
   // UK detection (London timezone, Europe/London, or en-GB language)
-  if (timezone.includes('LONDON') || timezone.includes('EUROPE/LONDON') || language.startsWith('EN-GB')) {
+  if (timezoneUpper.includes('LONDON') || timezoneUpper.includes('EUROPE/LONDON') || language === 'EN-GB') {
+    console.log('[Location] Detected UK');
+    return 'GB';
+  }
+
+  // Check timezone for UK/Ireland timezones
+  if (timezone.startsWith('Europe/') && ['London', 'Belfast', 'Dublin', 'Guernsey', 'Isle_of_Man', 'Jersey'].some(tz => timezoneUpper.includes(tz.toUpperCase()))) {
+    console.log('[Location] Detected UK/Europe timezone');
     return 'GB';
   }
 
   // Default to GB for international (non-TR) users
+  console.log('[Location] Defaulting to GB');
   return 'GB';
 }
 

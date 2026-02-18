@@ -281,11 +281,21 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     const browserLang = navigator.language.toLowerCase();
     const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone?.toUpperCase() ?? '';
 
-    // Detect if user is in Turkey or prefers Turkish language
-    if (browserLang.startsWith('tr') || timezone.includes('ISTANBUL') || timezone.includes('TURKEY')) {
+    console.log('[Language] Detection:', { browserLang, timezone });
+
+    // Detect if user is in Turkey or strongly prefers Turkish language
+    if (browserLang === 'tr' || browserLang.startsWith('tr-') || timezone.includes('ISTANBUL') || timezone.includes('TURKEY')) {
+      console.log('[Language] Set to Turkish');
       return 'tr';
     }
 
+    // For UK users, explicitly set to English
+    if (timezone.includes('LONDON') || browserLang.startsWith('en-gb')) {
+      console.log('[Language] Set to English (UK)');
+      return 'en';
+    }
+
+    console.log('[Language] Defaulting to English');
     return 'en';
   });
 
