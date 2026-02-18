@@ -277,22 +277,27 @@ const translations = {
 
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [language, setLanguage] = useState<Language>(() => {
-    // Check if user prefers Turkish based on browser language or timezone
+    // Check timezone first (location priority), then language as fallback
     const browserLang = navigator.language.toLowerCase();
     const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone?.toUpperCase() ?? '';
 
     console.log('[Language] Detection:', { browserLang, timezone });
 
-    // Detect if user is in Turkey or strongly prefers Turkish language
-    if (browserLang === 'tr' || browserLang.startsWith('tr-') || timezone.includes('ISTANBUL') || timezone.includes('TURKEY')) {
-      console.log('[Language] Set to Turkish');
+    // Timezone-based detection (priority)
+    if (timezone.includes('ISTANBUL') || timezone.includes('TURKEY')) {
+      console.log('[Language] Set to Turkish (timezone)');
       return 'tr';
     }
 
-    // For UK users, explicitly set to English
-    if (timezone.includes('LONDON') || browserLang.startsWith('en-gb')) {
-      console.log('[Language] Set to English (UK)');
+    if (timezone.includes('LONDON') || timezone.includes('EUROPE/LONDON')) {
+      console.log('[Language] Set to English (UK timezone)');
       return 'en';
+    }
+
+    // Language-based fallback
+    if (browserLang === 'tr' || browserLang.startsWith('tr-')) {
+      console.log('[Language] Set to Turkish (language fallback)');
+      return 'tr';
     }
 
     console.log('[Language] Defaulting to English');

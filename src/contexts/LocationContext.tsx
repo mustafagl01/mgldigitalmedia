@@ -24,26 +24,39 @@ function detectCountryFromClient(): string | null {
 
   console.log('[Location] Client detection:', { timezone, language, timezoneUpper });
 
-  // Turkey detection - must have strong TR signal
-  const isTurkishTimezone = timezoneUpper.includes('ISTANBUL') || timezoneUpper.includes('TURKEY');
-  const isTurkishLanguage = language === 'TR' || language.startsWith('TR-');
+  // PRIORITY: Timezone over language (location matters more than browser language)
 
-  console.log('[Location] Detection checks:', { isTurkishTimezone, isTurkishLanguage });
-
-  if (isTurkishTimezone || isTurkishLanguage) {
-    console.log('[Location] Detected Turkey');
+  // Turkey timezone detection - HIGHEST PRIORITY for TR
+  if (timezoneUpper.includes('ISTANBUL') || timezoneUpper.includes('TURKEY')) {
+    console.log('[Location] Detected Turkey (timezone)');
     return 'TR';
   }
 
-  // UK detection (London timezone, Europe/London, or en-GB language)
-  if (timezoneUpper.includes('LONDON') || timezoneUpper.includes('EUROPE/LONDON') || language === 'EN-GB') {
-    console.log('[Location] Detected UK');
+  // UK timezone detection - HIGHEST PRIORITY for GB
+  if (timezoneUpper.includes('LONDON') || timezoneUpper.includes('EUROPE/LONDON')) {
+    console.log('[Location] Detected UK (timezone)');
     return 'GB';
   }
 
-  // Check timezone for UK/Ireland timezones
+  // Check other UK/Ireland timezones
   if (timezone.startsWith('Europe/') && ['London', 'Belfast', 'Dublin', 'Guernsey', 'Isle_of_Man', 'Jersey'].some(tz => timezoneUpper.includes(tz.toUpperCase()))) {
     console.log('[Location] Detected UK/Europe timezone');
+    return 'GB';
+  }
+
+  // Language-based detection as fallback (only if timezone doesn't match)
+  const isTurkishLanguage = language === 'TR' || language.startsWith('TR-');
+  const isEnglishUK = language === 'EN-GB';
+
+  console.log('[Location] Language fallback:', { isTurkishLanguage, isEnglishUK });
+
+  if (isTurkishLanguage) {
+    console.log('[Location] Detected Turkey (language fallback)');
+    return 'TR';
+  }
+
+  if (isEnglishUK) {
+    console.log('[Location] Detected UK (language fallback)');
     return 'GB';
   }
 
