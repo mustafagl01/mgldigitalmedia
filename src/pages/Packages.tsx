@@ -33,7 +33,7 @@ const WHATSAPP_NUMBER = '905318299701';
 const WHATSAPP_LABEL = '+90 531 829 97 01';
 const BASE_PRICE = 2999;
 const PRICE_PER_MINUTE = 4;
-const MONTHLY_EMPLOYER_COST = 40000;
+const GBP_EXCHANGE_RATE = 0.025;
 
 const UK_ESTIMATED_SAVINGS_BY_PLAN: Record<PackageTierKey, string> = {
   starter: '£3,500–£5,000',
@@ -176,6 +176,22 @@ export default function Packages() {
     websitePanel: false,
   });
   const [isTotalAnimating, setIsTotalAnimating] = useState(false);
+  const [isCurrencyAnimating, setIsCurrencyAnimating] = useState(false);
+
+  const moneyFormatter = useMemo(
+    () =>
+      new Intl.NumberFormat(isTurkish ? 'tr-TR' : 'en-GB', {
+        style: 'currency',
+        currency: isTurkish ? 'TRY' : 'GBP',
+        maximumFractionDigits: isTurkish ? 0 : 2,
+      }),
+    [isTurkish],
+  );
+
+  const formatMoney = (value: number) => {
+    const localizedValue = isTurkish ? value : value * GBP_EXCHANGE_RATE;
+    return moneyFormatter.format(localizedValue);
+  };
 
   const voiceCost = voiceMinutes * PRICE_PER_MINUTE;
 
@@ -211,6 +227,12 @@ export default function Packages() {
     const timeout = window.setTimeout(() => setIsTotalAnimating(false), 250);
     return () => window.clearTimeout(timeout);
   }, [total]);
+
+  useEffect(() => {
+    setIsCurrencyAnimating(true);
+    const timeout = window.setTimeout(() => setIsCurrencyAnimating(false), 350);
+    return () => window.clearTimeout(timeout);
+  }, [isTurkish]);
 
   const summaryParts = [
     ...Object.entries(channels)
@@ -279,7 +301,7 @@ export default function Packages() {
             <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
               {readyPlans.map((plan) => (
                 <article
-                  key={plan.name}
+                  key={plan.names.en}
                   className={`relative rounded-3xl border bg-white/5 p-5 backdrop-blur-xl transition hover:-translate-y-1 hover:border-cyan-300/60 ${
                     plan.recommended
                       ? 'border-fuchsia-300/60 shadow-[0_0_30px_rgba(217,70,239,0.35)]'
@@ -289,7 +311,7 @@ export default function Packages() {
                   <span className="absolute -top-3 left-4 z-10 inline-flex max-w-[70%] items-center gap-1 rounded-full border border-emerald-300/70 bg-emerald-500/20 px-3 py-1 text-[11px] font-bold text-emerald-100 sm:max-w-none sm:text-xs">
                     {isUkPricing ? '✅ Setup Included (£0)' : '✅ Kurulum Dahil (0 TL)'}
                   </span>
-                  <h2 className="mt-4 text-xl font-bold">{plan.name}</h2>
+                  <h2 className="mt-4 text-xl font-bold">{isTurkish ? plan.names.tr : plan.names.en}</h2>
                   <p
                     className={`mt-1 text-sm ${
                       plan.recommended ? 'font-semibold text-fuchsia-200' : 'text-slate-300'

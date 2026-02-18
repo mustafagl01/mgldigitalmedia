@@ -14,7 +14,7 @@ export const BenefitsSection: React.FC = () => {
   ];
 
   return (
-    <section className="py-20 bg-black/20">
+    <section className="py-20">
       <div className="container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -22,10 +22,10 @@ export const BenefitsSection: React.FC = () => {
           transition={{ duration: 0.6, once: true }}
           className="text-center mb-16"
         >
-          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">
+          <h2 className="text-4xl md:text-5xl font-bold mb-6 text-slate-900">
             {t('benefits.title')}
           </h2>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+          <p className="text-xl text-slate-700 max-w-3xl mx-auto">
             {t('benefits.subtitle')}
           </p>
         </motion.div>
@@ -38,13 +38,13 @@ export const BenefitsSection: React.FC = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6, delay: index * 0.1 }}
               whileHover={{ y: -10 }}
-              className="glass-card glass-card-hover p-8 rounded-3xl h-full flex flex-col group"
+              className="bg-white border border-slate-200 shadow-sm hover:shadow-lg p-8 rounded-3xl h-full flex flex-col group transition-shadow"
             >
               <div className="w-14 h-14 bg-gradient-to-br from-purple-500/20 to-cyan-500/20 rounded-2xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-500">
                 <benefit.icon className="w-7 h-7 text-purple-400 group-hover:text-cyan-400 transition-colors duration-500" />
               </div>
-              <h3 className="text-xl font-bold text-white mb-3">{t(benefit.titleKey)}</h3>
-              <p className="text-slate-400 leading-relaxed">{t(benefit.descKey)}</p>
+              <h3 className="text-xl font-bold text-slate-900 mb-3">{t(benefit.titleKey)}</h3>
+              <p className="text-slate-700 leading-relaxed">{t(benefit.descKey)}</p>
             </motion.div>
           ))}
         </div>
