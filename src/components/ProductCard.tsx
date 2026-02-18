@@ -6,6 +6,8 @@ import { StripeProduct } from '../stripe-config';
 import { useAuth } from '../contexts/AuthContext';
 import { toast } from '../hooks/useToast';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useLocation } from '../contexts/LocationContext';
+import { formatPrice } from '../utils/formatPrice';
 
 interface ProductCardProps {
   product: StripeProduct;
@@ -16,6 +18,7 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onAuthRequire
   const [isLoading, setIsLoading] = useState(false);
   const { user, session } = useAuth();
   const { t } = useLanguage();
+  const { pricing } = useLocation();
   const apiBaseUrl = import.meta.env.VITE_API_URL || window.location.origin;
 
   const handlePurchase = async () => {
@@ -65,12 +68,10 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onAuthRequire
     }
   };
 
-  const formatPrice = (price: number, currency: string) => {
-    return new Intl.NumberFormat('tr-TR', {
-      style: 'currency',
-      currency: currency,
-    }).format(price);
-  };
+  // Get regional price based on location with fallback
+  const displayPrice = pricing.region === 'TR'
+    ? (product.priceTry ?? 0)
+    : (product.priceGbp ?? 0);
 
   return (
     <motion.div
@@ -81,11 +82,9 @@ export const ProductCard: React.FC<ProductCardProps> = ({ product, onAuthRequire
     >
       <div className="text-center mb-6">
         <h3 className="text-2xl font-bold text-white mb-2">{product.name}</h3>
-        {product.price && product.currency && (
-          <div className="text-3xl font-bold text-purple-400 mb-4">
-            {formatPrice(product.price, product.currency)}
-          </div>
-        )}
+        <div className="text-3xl font-bold text-purple-400 mb-4">
+          {formatPrice(displayPrice, pricing.region)}
+        </div>
       </div>
 
       <div className="mb-8">

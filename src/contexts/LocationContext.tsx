@@ -21,15 +21,18 @@ function detectCountryFromClient(): string | null {
   const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone?.toUpperCase() ?? '';
   const language = navigator.language?.toUpperCase() ?? '';
 
+  // Turkey detection
   if (timezone.includes('ISTANBUL') || language.startsWith('TR')) {
     return 'TR';
   }
 
-  if (language.startsWith('EN-GB')) {
+  // UK detection (London timezone, Europe/London, or en-GB language)
+  if (timezone.includes('LONDON') || timezone.includes('EUROPE/LONDON') || language.startsWith('EN-GB')) {
     return 'GB';
   }
 
-  return null;
+  // Default to GB for international (non-TR) users
+  return 'GB';
 }
 
 const LocationContext = createContext<LocationContextValue | undefined>(undefined);
@@ -57,14 +60,19 @@ export function LocationProvider({ children }: { children: ReactNode }) {
         const data = (await response.json()) as LocationApiResponse;
         const normalizedCountry = data.country?.toUpperCase() ?? null;
 
+        console.log('[Location] API detected country:', normalizedCountry);
+
         setCountryCode(normalizedCountry);
         setRegion(resolveRegionByCountry(normalizedCountry));
 
         if (normalizedCountry) {
           window.localStorage.setItem(COUNTRY_STORAGE_KEY, normalizedCountry);
         }
-      } catch {
+      } catch (error) {
+        console.log('[Location] API failed, using fallback:', { cachedCountry, error });
         const fallbackCountry = cachedCountry || detectCountryFromClient();
+
+        console.log('[Location] Fallback country:', fallbackCountry, 'Region:', resolveRegionByCountry(fallbackCountry));
 
         setCountryCode(fallbackCountry);
         setRegion(resolveRegionByCountry(fallbackCountry));

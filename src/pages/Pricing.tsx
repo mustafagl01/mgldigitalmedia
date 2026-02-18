@@ -13,6 +13,7 @@ import {
   UtensilsCrossed,
 } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
+import { useLocation } from '../contexts/LocationContext';
 
 type SectorId =
   | 'health'
@@ -272,35 +273,47 @@ function formatMoney(value: number) {
   return money.format(Math.round(value));
 }
 
-function getRecommendedPackage(monthlyLoss: number) {
-  if (monthlyLoss < 10000) {
+function getRecommendedPackage(monthlyLoss: number, region: 'TR' | 'GB') {
+  // Regional thresholds based on package prices
+  const starterThreshold = region === 'TR' ? 10000 : 250;
+  const proThreshold = region === 'TR' ? 25000 : 625;
+
+  if (monthlyLoss < starterThreshold) {
     return {
-      name: 'Başlangıç (Starter) Paketi',
-      message: 'Küçük kayıpları önlemek için ideal başlangıç.',
+      name: region === 'TR' ? 'Başlangıç (Starter) Paketi' : 'Starter Package',
+      message: region === 'TR' ? 'Küçük kayıpları önlemek için ideal başlangıç.' : 'Ideal starting point to prevent small losses.',
     };
   }
 
-  if (monthlyLoss <= 25000) {
+  if (monthlyLoss <= proThreshold) {
     return {
-      name: 'Profesyonel (Pro) Paketi',
-      message: 'Bu kaybı önlemek için en popüler çözümümüz.',
+      name: region === 'TR' ? 'Profesyonel (Pro) Paketi' : 'Pro Package',
+      message: region === 'TR' ? 'Bu kaybı önlemek için en popüler çözümümüz.' : 'Our most popular solution to prevent this loss.',
     };
   }
 
   return {
-    name: 'Premium (Business) Paketi',
-    message: 'Büyük operasyonel kayıplar için tam otomasyon şart.',
+    name: region === 'TR' ? 'Premium (Business) Paketi' : 'Business Package',
+    message: region === 'TR' ? 'Büyük operasyonel kayıplar için tam otomasyon şart.' : 'Full automation required for large operational losses.',
   };
 }
 
 export default function Pricing() {
   const { language } = useLanguage();
-  const isTR = language === 'tr';
+  const { pricing, region } = useLocation();
+  const isTR = region === 'TR';
+
+  const TRY_TO_GBP_RATE = 0.025;
 
   const employeeCost = isTR ? 40000 : 2200;
-  const aiAssistantCost = isTR ? 13999 : 449;
-  const currencyCode = isTR ? 'TRY' : 'GBP';
-  const currencyLocale = isTR ? 'tr-TR' : 'en-GB';
+  const aiAssistantCost = pricing.packages.pro.price;
+  const currencyCode = pricing.currency.code;
+  const currencyLocale = pricing.currency.locale;
+
+  // Convert TRY values to GBP for GB region
+  const convertToRegionalCurrency = (valueInTry: number) => {
+    return isTR ? valueInTry : Number((valueInTry * TRY_TO_GBP_RATE).toFixed(2));
+  };
 
   const formatRegionalMoney = (value: number) =>
     new Intl.NumberFormat(currencyLocale, {
@@ -321,7 +334,8 @@ export default function Pricing() {
 
   const monthlyLoss = useMemo(() => activeSector.calculate(values), [activeSector, values]);
   const monthlyNetGain = Math.max(monthlyLoss - activeSector.packagePrice, 0);
-  const recommendedPackage = useMemo(() => getRecommendedPackage(monthlyLoss), [monthlyLoss]);
+  const regionalMonthlyLoss = convertToRegionalCurrency(monthlyLoss);
+  const recommendedPackage = useMemo(() => getRecommendedPackage(regionalMonthlyLoss, region), [regionalMonthlyLoss, region]);
 
   return (
     <div className={`min-h-screen px-4 py-10 text-white transition-colors duration-300 ${aiMode ? 'bg-[#03110a]' : 'bg-[#0a0710]'}`}>
@@ -459,7 +473,9 @@ export default function Pricing() {
               {activeSector.breakdown(values).join(' × ')}
               <span className="mx-2 text-slate-500">=</span>
               <span className={`${aiMode ? 'text-emerald-300' : 'text-rose-300'} text-2xl font-black`}>
-                {aiMode ? `${formatMoney(monthlyNetGain)} TL` : `${formatMoney(monthlyLoss)} TL`}
+                {aiMode
+                  ? formatRegionalMoney(convertToRegionalCurrency(monthlyNetGain))
+                  : formatRegionalMoney(convertToRegionalCurrency(monthlyLoss))}
               </span>
             </p>
           </div>
@@ -469,22 +485,26 @@ export default function Pricing() {
 
           <div className="mt-6 grid gap-4 md:grid-cols-2">
             <div className="rounded-2xl border border-slate-600/60 bg-slate-900/80 p-5">
-              <p className="text-xs uppercase tracking-[0.2em] text-slate-400">Manuel Sistem Tahmini Aylık Kayıp</p>
-              <p className="mt-2 text-3xl font-black text-rose-300">{formatMoney(monthlyLoss)} TL</p>
+              <p className="text-xs uppercase tracking-[0.2em] text-slate-400">
+                {isTR ? 'Manuel Sistem Tahmini Aylık Kayıp' : 'Estimated Monthly Loss (Manual System)'}
+              </p>
+              <p className="mt-2 text-3xl font-black text-rose-300">{formatRegionalMoney(convertToRegionalCurrency(monthlyLoss))}</p>
             </div>
             <div className="rounded-2xl border border-emerald-400/50 bg-emerald-500/10 p-5">
-              <p className="text-xs uppercase tracking-[0.2em] text-emerald-200">MGL Yapay Zeka Asistanı Paket Fiyatı</p>
-              <p className="mt-2 text-lg font-bold text-emerald-100">{activeSector.packageName}</p>
+              <p className="text-xs uppercase tracking-[0.2em] text-emerald-200">
+                {isTR ? 'MGL Yapay Zeka Asistanı Paket Fiyatı' : 'MGL AI Assistant Package Price'}
+              </p>
+              <p className="mt-2 text-lg font-bold text-emerald-100">
+                {isTR ? activeSector.packageName : 'Pro Package'}
+              </p>
               <p className="mt-1 text-3xl font-black text-emerald-300">
-                {isTR
-                  ? `${formatMoney(activeSector.packagePrice)} TL / ay`
-                  : `${formatRegionalMoney(aiAssistantCost)} / mo`}
+                {formatRegionalMoney(aiAssistantCost)} / {isTR ? 'ay' : 'mo'}
               </p>
               {aiMode && (
                 <p className="mt-3 text-sm font-semibold text-emerald-100">
                   {isTR
-                    ? `Yapay Zeka Asistanı modu açık: Net tasarruf/kazanç ≈ ${formatMoney(monthlyNetGain)} TL / ay`
-                    : `AI Assistant mode on: net savings/gain ≈ ${formatRegionalMoney(Math.max(monthlyLoss - aiAssistantCost, 0))} / mo`}
+                    ? `Yapay Zeka Asistanı modu açık: Net tasarruf/kazanç ≈ ${formatRegionalMoney(convertToRegionalCurrency(monthlyNetGain))} / ay`
+                    : `AI Assistant mode on: net savings/gain ≈ ${formatRegionalMoney(Math.max(convertToRegionalCurrency(monthlyLoss) - aiAssistantCost, 0))} / mo`}
                 </p>
               )}
             </div>

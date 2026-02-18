@@ -434,7 +434,9 @@ export default function Packages() {
                     onChange={(event) => setVoiceMinutes(Number(event.target.value))}
                     className="h-2 w-full cursor-pointer appearance-none rounded-full bg-slate-700 accent-fuchsia-400"
                   />
-                  <p className="mt-2 text-xs text-slate-400">Dakika başı ücret: 4 TL</p>
+                  <p className="mt-2 text-xs text-slate-400">
+                    Dakika başı ücret: {formatPrice(PRICE_PER_MINUTE_TRY, region)}
+                  </p>
                 </div>
               </div>
 
