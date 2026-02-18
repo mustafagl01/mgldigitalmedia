@@ -32,6 +32,7 @@ database_id = "your-dev-database-id-here"
 # No build step needed for Workers with TypeScript support
 
 # Routes configuration (when deploying)
-# routes = [
-#   { pattern = "https://mgldigitalmedia.com/api/auth/*", zone_name = "mgldigitalmedia.com" }
-# ]
+routes = [
+  { pattern = "https://mgldigitalmedia.com/api/*", zone_name = "mgldigitalmedia.com" },
+  { pattern = "https://www.mgldigitalmedia.com/api/*", zone_name = "mgldigitalmedia.com" }
+]
