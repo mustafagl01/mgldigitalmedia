@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Check, MessageCircle, Sparkles } from 'lucide-react';
+import { Check, Info, MessageCircle, Sparkles } from 'lucide-react';
 
 type PackagePlan = {
   name: string;
@@ -8,10 +8,10 @@ type PackagePlan = {
   recommended?: boolean;
 };
 
-type TabMode = 'ready' | 'custom';
+type TabMode = 'ready' | 'custom' | 'enterprise';
 
 type ChannelKey = 'whatsapp' | 'instagram' | 'web';
-type AddonKey = 'trendyol' | 'calendar' | 'crm' | 'woocommerce';
+type AddonKey = 'automation' | 'marketAnalysis' | 'websitePanel';
 
 const WHATSAPP_NUMBER = '905318299701';
 const BASE_PRICE = 2999;
@@ -19,25 +19,29 @@ const PRICE_PER_MINUTE = 4;
 
 const readyPlans: PackagePlan[] = [
   {
-    name: 'Essentials',
+    name: 'İhracat',
     price: 6999,
-    features: ['Voice AI (300 dk)', 'WhatsApp Bot'],
+    features: ['Sesli Yapay Zeka (Asistan) - 300 dk', 'WhatsApp Müşteri Karşılama', 'Pazar & Rakip Analizi'],
   },
   {
-    name: 'Professional',
+    name: 'Sağlık',
     price: 13999,
-    features: ['Voice AI (800 dk)', 'WhatsApp + Instagram', 'CRM Entegrasyonu'],
+    features: [
+      'Sesli Yapay Zeka (Asistan) - 800 dk',
+      'WhatsApp + Instagram Danışma Hattı',
+      'İş Süreçleri Otomasyonu',
+    ],
     recommended: true,
   },
   {
-    name: 'Restaurant',
+    name: 'Kurumsal',
     price: 16999,
-    features: ['Voice AI (1200 dk)', 'Trendyol Entegrasyonu', 'QR Menü'],
+    features: ['Sesli Yapay Zeka (Asistan) - 1200 dk', 'Pazar & Rakip Analizi', 'Web Sitesi & Panel'],
   },
   {
-    name: 'Business',
+    name: 'Restoran',
     price: 24999,
-    features: ['Voice AI (2000 dk)', 'Full Suite (Tüm Kanallar + CRM + Otomasyonlar)'],
+    features: ['Sesli Yapay Zeka (Asistan) - 2000 dk', 'İş Süreçleri Otomasyonu', 'Tam Kanal Yönetimi + CRM'],
   },
 ];
 
@@ -47,11 +51,31 @@ const channelPrices: Record<ChannelKey, { label: string; price: number }> = {
   web: { label: 'Web Chat', price: 999 },
 };
 
-const addonPrices: Record<AddonKey, { label: string; price: number }> = {
-  trendyol: { label: 'Trendyol Entegrasyonu', price: 1499 },
-  calendar: { label: 'Google Calendar', price: 799 },
-  crm: { label: 'CRM', price: 999 },
-  woocommerce: { label: 'WooCommerce', price: 1999 },
+const addonPrices: Record<
+  AddonKey,
+  {
+    label: string;
+    price: number;
+    tooltip: string;
+    smartTooltip?: string;
+  }
+> = {
+  automation: {
+    label: 'İş Süreçleri Otomasyonu',
+    price: 1499,
+    tooltip: 'Tekrar eden işleri (fatura, mail, veri girişi) robota devreder.',
+    smartTooltip: 'N8N altyapısı ile departmanlar arası işleri otopilota alır.',
+  },
+  marketAnalysis: {
+    label: 'Pazar & Rakip Analizi',
+    price: 1999,
+    tooltip: 'Rakiplerin fiyatlarını izler, müşteri listesi toplar.',
+  },
+  websitePanel: {
+    label: 'Web Sitesi & Panel',
+    price: 4999,
+    tooltip: 'Müşteri etkileşimini tek merkezden yönetebileceğiniz satış odaklı bir vitrin sunar.',
+  },
 };
 
 const money = new Intl.NumberFormat('tr-TR');
@@ -73,10 +97,9 @@ export default function Packages() {
     web: false,
   });
   const [addons, setAddons] = useState<Record<AddonKey, boolean>>({
-    trendyol: false,
-    calendar: false,
-    crm: true,
-    woocommerce: false,
+    automation: true,
+    marketAnalysis: false,
+    websitePanel: false,
   });
   const [isTotalAnimating, setIsTotalAnimating] = useState(false);
 
@@ -106,13 +129,13 @@ export default function Packages() {
     ...Object.entries(channels)
       .filter(([, selected]) => selected)
       .map(([key]) => channelPrices[key as ChannelKey].label),
-    `${voiceMinutes}dk Voice AI`,
+    `${voiceMinutes}dk Sesli Yapay Zeka (Asistan)`,
     ...Object.entries(addons)
       .filter(([, selected]) => selected)
       .map(([key]) => addonPrices[key as AddonKey].label),
   ];
 
-  const customMessage = `Özel Paket: ${summaryParts.join(' + ')}. Fiyat: ${formatMoney(total)}`;
+  const customMessage = `Kendi Paketim: ${summaryParts.join(' + ')}. Toplam teklif: ${formatMoney(total)}`;
 
   return (
     <div className="min-h-screen bg-[#05060a] px-4 py-10 text-white">
@@ -121,12 +144,13 @@ export default function Packages() {
           <p className="inline-flex rounded-full border border-fuchsia-300/40 bg-fuchsia-500/10 px-3 py-1 text-xs uppercase tracking-[0.2em] text-fuchsia-200">
             Paket Merkezi
           </p>
-          <h1 className="mt-4 text-3xl font-black md:text-5xl">Hazır Paketler & Kendi Paketini Yap</h1>
+          <h1 className="mt-4 text-3xl font-black md:text-5xl">İşinizi Büyüten Paketler</h1>
           <p className="mt-3 max-w-4xl text-slate-300">
-            İhtiyacınıza göre hazır planlardan birini seçin veya canlı fiyatlanan özel paketinizi oluşturun.
+            Hazır paketle bugün başlayın, kendi paketinizi canlı fiyatla oluşturun veya kurumsal ihtiyaçlarınız için özel proje
+            planlayın.
           </p>
 
-          <div className="mt-6 inline-flex rounded-2xl border border-white/15 bg-black/30 p-1">
+          <div className="mt-6 inline-flex flex-wrap rounded-2xl border border-white/15 bg-black/30 p-1">
             <button
               type="button"
               onClick={() => setActiveTab('ready')}
@@ -136,7 +160,7 @@ export default function Packages() {
                   : 'text-slate-300 hover:text-white'
               }`}
             >
-              Hazır Paketler
+              📦 Hazır Paketler
             </button>
             <button
               type="button"
@@ -147,12 +171,23 @@ export default function Packages() {
                   : 'text-slate-300 hover:text-white'
               }`}
             >
-              Kendi Paketini Yap
+              🛠️ Kendi Paketini Yap
+            </button>
+            <button
+              type="button"
+              onClick={() => setActiveTab('enterprise')}
+              className={`rounded-xl px-5 py-2 text-sm font-semibold transition ${
+                activeTab === 'enterprise'
+                  ? 'bg-amber-300 text-slate-900 shadow-[0_0_20px_rgba(252,211,77,0.45)]'
+                  : 'text-slate-300 hover:text-white'
+              }`}
+            >
+              🏢 Kurumsal & Özel Çözümler
             </button>
           </div>
         </section>
 
-        {activeTab === 'ready' ? (
+        {activeTab === 'ready' && (
           <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
             {readyPlans.map((plan) => (
               <article
@@ -163,12 +198,15 @@ export default function Packages() {
                     : 'border-white/15'
                 }`}
               >
+                <span className="absolute -top-3 left-4 inline-flex items-center gap-1 rounded-full border border-emerald-300/70 bg-emerald-500/20 px-3 py-1 text-xs font-bold text-emerald-100">
+                  ✅ Kurulum Dahil (0 TL)
+                </span>
                 {plan.recommended && (
                   <span className="absolute -top-3 right-4 inline-flex items-center gap-1 rounded-full border border-fuchsia-300/70 bg-fuchsia-500/20 px-3 py-1 text-xs font-bold text-fuchsia-100">
-                    <Sparkles size={12} /> Recommended
+                    <Sparkles size={12} /> En Çok Tercih Edilen
                   </span>
                 )}
-                <h2 className="text-xl font-bold">{plan.name}</h2>
+                <h2 className="mt-4 text-xl font-bold">{plan.name}</h2>
                 <p className="mt-2 text-3xl font-black text-cyan-300">{formatMoney(plan.price)}</p>
                 <ul className="mt-4 space-y-2 text-sm text-slate-200">
                   {plan.features.map((feature) => (
@@ -180,7 +218,7 @@ export default function Packages() {
                 </ul>
 
                 <a
-                  href={createWhatsAppLink(`Merhaba, ${plan.name} hakkında bilgi almak istiyorum.`)}
+                  href={createWhatsAppLink(`Merhaba, ${plan.name} paketi hakkında bilgi almak istiyorum.`)}
                   target="_blank"
                   rel="noreferrer"
                   className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-400 px-4 py-3 text-sm font-bold text-slate-900 transition hover:bg-emerald-300"
@@ -190,16 +228,18 @@ export default function Packages() {
               </article>
             ))}
           </section>
-        ) : (
+        )}
+
+        {activeTab === 'custom' && (
           <section className="grid gap-6 lg:grid-cols-[1fr_340px]">
             <div className="space-y-6 rounded-3xl border border-white/15 bg-white/5 p-6 backdrop-blur-2xl">
               <div className="rounded-2xl border border-cyan-300/30 bg-cyan-500/10 p-4">
-                <p className="text-xs uppercase tracking-[0.2em] text-cyan-200">Sabit Kurulum</p>
+                <p className="text-xs uppercase tracking-[0.2em] text-cyan-200">Temel Kurulum</p>
                 <p className="mt-1 text-2xl font-black text-cyan-100">{formatMoney(BASE_PRICE)}</p>
               </div>
 
               <div>
-                <h3 className="text-lg font-semibold">Kanallar</h3>
+                <h3 className="text-lg font-semibold">İletişim Kanalları</h3>
                 <div className="mt-3 grid gap-3 sm:grid-cols-2">
                   {(Object.keys(channelPrices) as ChannelKey[]).map((channel) => (
                     <label key={channel} className="flex items-center justify-between rounded-xl border border-white/15 bg-black/30 p-3">
@@ -219,7 +259,7 @@ export default function Packages() {
               </div>
 
               <div>
-                <h3 className="text-lg font-semibold">Voice AI Dakikası</h3>
+                <h3 className="text-lg font-semibold">Sesli Yapay Zeka (Asistan) Dakikası</h3>
                 <div className="mt-3 rounded-2xl border border-white/15 bg-black/30 p-4">
                   <div className="mb-2 flex items-center justify-between text-sm text-slate-300">
                     <span>{voiceMinutes} dk</span>
@@ -234,18 +274,31 @@ export default function Packages() {
                     onChange={(event) => setVoiceMinutes(Number(event.target.value))}
                     className="h-2 w-full cursor-pointer appearance-none rounded-full bg-slate-700 accent-fuchsia-400"
                   />
-                  <p className="mt-2 text-xs text-slate-400">Fiyat: dakika × 4 TL</p>
+                  <p className="mt-2 text-xs text-slate-400">Dakika başı ücret: 4 TL</p>
                 </div>
               </div>
 
               <div>
-                <h3 className="text-lg font-semibold">Ek Özellikler</h3>
-                <div className="mt-3 grid gap-3 sm:grid-cols-2">
+                <h3 className="text-lg font-semibold">Aylık Eklentiler</h3>
+                <div className="mt-3 grid gap-3">
                   {(Object.keys(addonPrices) as AddonKey[]).map((addon) => (
-                    <label key={addon} className="flex items-center justify-between rounded-xl border border-white/15 bg-black/30 p-3">
-                      <span>
-                        {addonPrices[addon].label}
-                        <span className="ml-2 text-xs text-fuchsia-300">+{formatMoney(addonPrices[addon].price)}</span>
+                    <label key={addon} className="group relative flex items-center justify-between rounded-xl border border-white/15 bg-black/30 p-3">
+                      <span className="flex items-center gap-2">
+                        <span>
+                          {addonPrices[addon].label}
+                          <span className="ml-2 text-xs text-fuchsia-300">+{formatMoney(addonPrices[addon].price)}</span>
+                        </span>
+                        <span className="relative inline-flex">
+                          <Info size={15} className="text-fuchsia-200" />
+                          <span className="pointer-events-none absolute left-1/2 top-6 z-10 w-72 -translate-x-1/2 rounded-xl border border-fuchsia-300/40 bg-[#120c1d] p-3 text-xs text-fuchsia-100 opacity-0 shadow-[0_0_20px_rgba(217,70,239,0.35)] transition group-hover:opacity-100">
+                            {addonPrices[addon].tooltip}
+                            {addonPrices[addon].smartTooltip && (
+                              <span className="mt-2 block border-t border-fuchsia-300/20 pt-2 text-fuchsia-200">
+                                {addonPrices[addon].smartTooltip}
+                              </span>
+                            )}
+                          </span>
+                        </span>
                       </span>
                       <input
                         type="checkbox"
@@ -264,8 +317,14 @@ export default function Packages() {
               <p className="mt-2 text-sm text-slate-300">Seçimlerinize göre toplam fiyat anlık güncellenir.</p>
 
               <div className="mt-6 space-y-2 text-sm text-slate-200">
-                <div className="flex justify-between"><span>Kurulum</span><span>{formatMoney(BASE_PRICE)}</span></div>
-                <div className="flex justify-between"><span>Voice AI</span><span>{formatMoney(voiceCost)}</span></div>
+                <div className="flex justify-between">
+                  <span>Temel Kurulum</span>
+                  <span>{formatMoney(BASE_PRICE)}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span>Sesli Yapay Zeka (Asistan)</span>
+                  <span>{formatMoney(voiceCost)}</span>
+                </div>
               </div>
 
               <div className="mt-4 border-t border-white/15 pt-4">
@@ -288,6 +347,47 @@ export default function Packages() {
                 <MessageCircle size={16} /> Teklifi WhatsApp'ta Gönder
               </a>
             </aside>
+          </section>
+        )}
+
+        {activeTab === 'enterprise' && (
+          <section className="relative overflow-hidden rounded-[2rem] border border-amber-200/40 bg-white/10 p-6 shadow-[0_0_40px_rgba(168,85,247,0.28)] backdrop-blur-2xl md:p-10">
+            <div className="pointer-events-none absolute -left-16 top-1/2 h-64 w-64 -translate-y-1/2 rounded-full bg-amber-300/20 blur-3xl" />
+            <div className="pointer-events-none absolute -right-10 top-10 h-56 w-56 rounded-full bg-purple-500/30 blur-3xl" />
+
+            <div className="relative max-w-4xl">
+              <p className="inline-flex rounded-full border border-amber-200/60 bg-amber-300/20 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-amber-100">
+                Premium Çözüm
+              </p>
+              <h2 className="mt-5 text-3xl font-black text-white md:text-5xl">Standartların Dışında Mısınız?</h2>
+              <p className="mt-4 text-base leading-relaxed text-slate-200 md:text-lg">
+                Fabrikalar, Zincir İşletmeler ve Özel Projeler için terzi usulü çözümler üretiyoruz. İhtiyaçlarınızı analist
+                ekibimizle değerlendirelim.
+              </p>
+
+              <ul className="mt-8 grid gap-3 text-sm text-slate-100 md:grid-cols-2">
+                {[
+                  'Özel Sunucu & Veri Güvenliği (On-Premise)',
+                  'Sınırsız Entegrasyon (SAP, Nebim, Logo vb.)',
+                  '7/24 Öncelikli Teknik Destek',
+                  'Size Özel Yapay Zeka Eğitimi',
+                ].map((feature) => (
+                  <li key={feature} className="flex items-start gap-2 rounded-xl border border-white/20 bg-black/25 p-3">
+                    <Check size={16} className="mt-0.5 text-emerald-300" />
+                    <span>{feature}</span>
+                  </li>
+                ))}
+              </ul>
+
+              <a
+                href={createWhatsAppLink('Merhaba, kurumsal/özel bir proje için görüşmek istiyorum.')}
+                target="_blank"
+                rel="noreferrer"
+                className="mt-8 inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-amber-300 to-fuchsia-300 px-6 py-3 text-sm font-extrabold text-slate-900 transition hover:scale-[1.02]"
+              >
+                <MessageCircle size={16} /> Proje Danışmanıyla Görüş (WhatsApp)
+              </a>
+            </div>
           </section>
         )}
       </div>
