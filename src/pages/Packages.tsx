@@ -1,8 +1,9 @@
 import { useEffect, useMemo, useState } from 'react';
-import { Check, Info, MessageCircle, Sparkles } from 'lucide-react';
+import { Check, Info, MessageCircle } from 'lucide-react';
 
 type PackagePlan = {
   name: string;
+  subtitle: string;
   price: number;
   features: string[];
   recommended?: boolean;
@@ -20,12 +21,14 @@ const PRICE_PER_MINUTE = 4;
 
 const readyPlans: PackagePlan[] = [
   {
-    name: 'İhracat',
+    name: 'Başlangıç (Starter)',
+    subtitle: 'Dijitalleşmeye ilk adım.',
     price: 6999,
     features: ['Sesli Yapay Zeka (Asistan) - 300 dk', 'WhatsApp Müşteri Karşılama', 'Pazar & Rakip Analizi'],
   },
   {
-    name: 'Sağlık',
+    name: 'Profesyonel (Pro)',
+    subtitle: '⭐ En Çok Tercih Edilen',
     price: 13999,
     features: [
       'Sesli Yapay Zeka (Asistan) - 800 dk',
@@ -35,12 +38,14 @@ const readyPlans: PackagePlan[] = [
     recommended: true,
   },
   {
-    name: 'Kurumsal',
+    name: 'İleri Seviye (Advanced)',
+    subtitle: 'Tam otomasyon ve analiz.',
     price: 16999,
     features: ['Sesli Yapay Zeka (Asistan) - 1200 dk', 'Pazar & Rakip Analizi', 'Web Sitesi & Panel'],
   },
   {
-    name: 'Restoran',
+    name: 'Premium (Business)',
+    subtitle: 'Sınırsız güç ve öncelik.',
     price: 24999,
     features: ['Sesli Yapay Zeka (Asistan) - 2000 dk', 'İş Süreçleri Otomasyonu', 'Tam Kanal Yönetimi + CRM'],
   },
@@ -202,12 +207,14 @@ export default function Packages() {
                 <span className="absolute -top-3 left-4 z-10 inline-flex max-w-[70%] items-center gap-1 rounded-full border border-emerald-300/70 bg-emerald-500/20 px-3 py-1 text-[11px] font-bold text-emerald-100 sm:max-w-none sm:text-xs">
                   ✅ Kurulum Dahil (0 TL)
                 </span>
-                {plan.recommended && (
-                  <span className="absolute top-8 right-4 z-10 inline-flex max-w-[65%] items-center gap-1 rounded-full border border-fuchsia-300/70 bg-fuchsia-500/20 px-3 py-1 text-[11px] font-bold text-fuchsia-100 sm:top-3 sm:max-w-none sm:text-xs">
-                    <Sparkles size={12} /> En Çok Tercih Edilen
-                  </span>
-                )}
-                <h2 className="mt-14 text-xl font-bold sm:mt-4">{plan.name}</h2>
+                <h2 className="mt-4 text-xl font-bold">{plan.name}</h2>
+                <p
+                  className={`mt-1 text-sm ${
+                    plan.recommended ? 'font-semibold text-fuchsia-200' : 'text-slate-300'
+                  }`}
+                >
+                  {plan.subtitle}
+                </p>
                 <p className="mt-2 text-3xl font-black text-cyan-300">{formatMoney(plan.price)}</p>
                 <p className="mt-1 text-xs font-medium uppercase tracking-[0.16em] text-cyan-100/80">Aylık ödeme</p>
                 <ul className="mt-4 space-y-2 text-sm text-slate-200">
