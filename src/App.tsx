@@ -126,10 +126,10 @@ function AppContent() {
   return (
     <>
       <Helmet>
-        <title>{t('header.title')} - {language === 'tr' ? 'AI Agent & Otomasyon Ajansı' : 'AI Agent & Automation Agency'}</title>
-        <meta name="description" content={language === 'tr' ? 'Stratejiyle dönüşüm sağlıyoruz. Reklam ve iş süreçlerinizi AI Agent ile otomatikleştirerek size sadece \'tıklama\' değil, gerçek \'sonuç\' getiriyoruz.' : 'We drive transformation through strategy. By automating your advertising and business processes with AI Agents, we bring real \'results\', not just \'clicks\'.'} />
-        <meta property="og:title" content={`${t('header.title')} - ${language === 'tr' ? 'AI Agent & Otomasyon Ajansı' : 'AI Agent & Automation Agency'}`} />
-        <meta property="og:description" content={language === 'tr' ? 'AI Agent ve Otomasyon çözümleriyle iş süreçlerinizi dönüştürün. Manuel işlere son verin, verimliliği artırın.' : 'Transform your business processes with AI Agent and Automation solutions. End manual tasks, increase efficiency.'} />
+        <title>{t('header.title')} - {t('header.agency')}</title>
+        <meta name="description" content={t('header.metaDescription')} />
+        <meta property="og:title" content={`${t('header.title')} - ${t('header.agency')}`} />
+        <meta property="og:description" content={t('header.ogDescription')} />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="true" />
         <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
@@ -167,7 +167,7 @@ function AppContent() {
                 <button
                   onClick={() => setIsMobileMenuOpen((prev) => !prev)}
                   className="md:hidden inline-flex items-center justify-center w-9 h-9 rounded-md border border-slate-700 text-slate-300 hover:text-white hover:border-purple-500 transition-colors"
-                  aria-label="Menüyü aç"
+                  aria-label={t('header.menuButton')}
                 >
                   {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
                 </button>
@@ -202,13 +202,13 @@ function AppContent() {
             <div className="hidden md:flex items-center justify-between gap-4">
               <nav className="flex items-center gap-5 text-sm font-medium text-slate-300">
                 <button onClick={() => navigateTo('home')} className="hover:text-cyan-300 transition-colors">
-                  Ana Sayfa
+                  {t('header.home')}
                 </button>
                 <button onClick={() => navigateTo('packages')} className="hover:text-cyan-300 transition-colors">
-                  Paketler
+                  {t('header.packages')}
                 </button>
                 <button onClick={handleContactClick} className="hover:text-cyan-300 transition-colors">
-                  İletişim
+                  {t('header.contact')}
                 </button>
               </nav>
 
@@ -226,7 +226,7 @@ function AppContent() {
                   size="sm"
                   className="bg-gradient-to-r from-fuchsia-500 via-purple-500 to-cyan-500 text-white border-none shadow-[0_0_25px_-6px_rgba(168,85,247,0.95)] hover:shadow-[0_0_30px_-4px_rgba(34,211,238,0.9)]"
                 >
-                  Kazancını Hesapla
+                  {t('header.calculateProfit')}
                 </Button>
               </div>
             </div>
@@ -235,13 +235,13 @@ function AppContent() {
               <div className="md:hidden rounded-xl border border-slate-700/80 bg-slate-950/95 p-3 space-y-3">
                 <nav className="flex flex-col gap-1 text-sm text-slate-200">
                   <button onClick={() => navigateTo('home')} className="text-left px-3 py-2 rounded-md hover:bg-slate-800">
-                    Ana Sayfa
+                    {t('header.home')}
                   </button>
                   <button onClick={() => navigateTo('packages')} className="text-left px-3 py-2 rounded-md hover:bg-slate-800">
-                    Paketler
+                    {t('header.packages')}
                   </button>
                   <button onClick={handleContactClick} className="text-left px-3 py-2 rounded-md hover:bg-slate-800">
-                    İletişim
+                    {t('header.contact')}
                   </button>
                 </nav>
 
@@ -259,7 +259,7 @@ function AppContent() {
                     size="sm"
                     className="bg-gradient-to-r from-fuchsia-500 via-purple-500 to-cyan-500 text-white border-none shadow-[0_0_25px_-6px_rgba(168,85,247,0.95)]"
                   >
-                    Kazancını Hesapla
+                    {t('header.calculateProfit')}
                   </Button>
                 </div>
               </div>
@@ -285,7 +285,7 @@ function AppContent() {
                     size="sm"
                     className="text-red-400 hover:text-red-300 hover:bg-red-400/10"
                   >
-                    Çıkış Yap
+                    {t('header.logout')}
                   </Button>
                 </>
               ) : (

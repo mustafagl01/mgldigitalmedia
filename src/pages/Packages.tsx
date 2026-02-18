@@ -2,6 +2,7 @@ import { type ReactNode, useEffect, useMemo, useState } from 'react';
 import { Check, Coffee, Globe2, Home, Info, MessageCircle, Pizza, Stethoscope } from 'lucide-react';
 import type { PackageTierKey } from '../config/pricing';
 import { useLocation } from '../contexts/LocationContext';
+import { useLanguage } from '../contexts/LanguageContext';
 import { formatPrice } from '../utils/formatPrice';
 
 type PackagePlan = {
@@ -23,9 +24,18 @@ type ChannelKey = 'whatsapp' | 'instagram' | 'web';
 type AddonKey = 'automation' | 'marketAnalysis' | 'websitePanel';
 
 type SectorInsight = {
-  name: string;
-  stat: string;
-  description: string;
+  name: {
+    tr: string;
+    en: string;
+  };
+  stat: {
+    tr: string;
+    en: string;
+  };
+  description: {
+    tr: string;
+    en: string;
+  };
   icon: ReactNode;
 };
 
@@ -144,9 +154,18 @@ function convertTryPrice(value: number, region: 'TR' | 'GB') {
 
 const sectorInsights: SectorInsight[] = [
   {
-    name: 'Restoran & Kafe',
-    stat: '%40 Personel Tasarrufu',
-    description: 'Sipariş ve rezervasyon otomasyonu ile garsonlar sadece servise odaklanır.',
+    name: {
+      tr: 'Restoran & Kafe',
+      en: 'Restaurant & Cafe',
+    },
+    stat: {
+      tr: '%40 Personel Tasarrufu',
+      en: '40% Staff Savings',
+    },
+    description: {
+      tr: 'Sipariş ve rezervasyon otomasyonu ile garsonlar sadece servise odaklanır.',
+      en: 'With order and reservation automation, waiters focus only on service.',
+    },
     icon: (
       <span className="inline-flex items-center gap-1.5 text-amber-200">
         <Pizza size={20} />
@@ -155,15 +174,33 @@ const sectorInsights: SectorInsight[] = [
     ),
   },
   {
-    name: 'Klinik & Sağlık',
-    stat: '%100 Randevu Doluluğu',
-    description: 'Gelmeyen hastaları (No-show) önleyen hatırlatma sistemi ile ciro kaybı biter.',
+    name: {
+      tr: 'Klinik & Sağlık',
+      en: 'Clinic & Healthcare',
+    },
+    stat: {
+      tr: '%100 Randevu Doluluğu',
+      en: '100% Appointment Fill Rate',
+    },
+    description: {
+      tr: 'Gelmeyen hastaları (No-show) önleyen hatırlatma sistemi ile ciro kaybı biter.',
+      en: 'Prevent no-shows with a reminder system that ends revenue loss.',
+    },
     icon: <Stethoscope size={22} className="text-emerald-200" />,
   },
   {
-    name: 'İhracat & Satış',
-    stat: '7/24 Anlık Yanıt',
-    description: 'Gece gelen yurtdışı taleplerini kaçırmadan, anında İngilizce/Arapça yanıtlayın.',
+    name: {
+      tr: 'İhracat & Satış',
+      en: 'Export & Sales',
+    },
+    stat: {
+      tr: '7/24 Anlık Yanıt',
+      en: '24/7 Instant Response',
+    },
+    description: {
+      tr: 'Gece gelen yurtdışı taleplerini kaçırmadan, anında İngilizce/Arapça yanıtlayın.',
+      en: 'Respond instantly in English/Arabic to overnight international inquiries without missing them.',
+    },
     icon: <Globe2 size={22} className="text-cyan-200" />,
   },
 ];
@@ -173,6 +210,7 @@ function createWhatsAppLink(message: string) {
 
 export default function Packages() {
   const { pricing, region } = useLocation();
+  const { t } = useLanguage();
   const isUkPricing = region === 'GB';
   const [activeTab, setActiveTab] = useState<TabMode>('ready');
   const [voiceMinutes, setVoiceMinutes] = useState(500);
@@ -375,21 +413,29 @@ export default function Packages() {
               <p className="inline-flex rounded-full border border-cyan-300/35 bg-cyan-500/10 px-3 py-1 text-xs uppercase tracking-[0.2em] text-cyan-100">
                 Data Insight
               </p>
-              <h2 className="mt-4 text-2xl font-black md:text-3xl">Sektörler Yapay Zeka ile Ne Kazanıyor?</h2>
+              <h2 className="mt-4 text-2xl font-black md:text-3xl">
+                {isUkPricing ? t('dataInsight.title') : 'Sektörler Yapay Zeka ile Ne Kazanıyor?'}
+              </h2>
               <p className="mt-2 max-w-3xl text-sm text-slate-300 md:text-base">
-                Farklı sektörlerde devreye alınan otomasyonlar; hız, doluluk ve verimlilikte ölçülebilir sonuçlar sağlıyor.
+                {isUkPricing ? t('dataInsight.desc') : 'Farklı sektörlerde devreye alınan otomasyonlar; hız, doluluk ve verimlilikte ölçülebilir sonuçlar sağlıyor.'}
               </p>
 
               <div className="mt-6 grid gap-4 md:grid-cols-3">
                 {sectorInsights.map((insight) => (
                   <article
-                    key={insight.name}
+                    key={insight.name.tr}
                     className="rounded-2xl border border-white/15 bg-black/30 p-5 backdrop-blur-xl transition hover:-translate-y-1 hover:border-cyan-300/55"
                   >
                     <div className="inline-flex rounded-xl border border-white/20 bg-white/10 p-2">{insight.icon}</div>
-                    <h3 className="mt-4 text-lg font-bold text-white">{insight.name}</h3>
-                    <p className="mt-2 text-2xl font-black text-cyan-200">{insight.stat}</p>
-                    <p className="mt-2 text-sm text-slate-300">{insight.description}</p>
+                    <h3 className="mt-4 text-lg font-bold text-white">
+                      {isUkPricing ? insight.name.en : insight.name.tr}
+                    </h3>
+                    <p className="mt-2 text-2xl font-black text-cyan-200">
+                      {isUkPricing ? insight.stat.en : insight.stat.tr}
+                    </p>
+                    <p className="mt-2 text-sm text-slate-300">
+                      {isUkPricing ? insight.description.en : insight.description.tr}
+                    </p>
                   </article>
                 ))}
               </div>

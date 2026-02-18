@@ -29,6 +29,13 @@ const translations = {
     'header.welcome': 'Hoş geldiniz',
     'header.bookAppointment': 'Randevu Al',
     'header.analysis': 'Analiz',
+    'header.agency': 'AI Agent & Otomasyon Ajansı',
+    'header.menuButton': 'Menüyü aç',
+    'header.packages': 'Paketler',
+    'header.contact': 'İletişim',
+    'header.calculateProfit': 'Kazancını Hesapla',
+    'header.metaDescription': 'Stratejiyle dönüşüm sağlıyoruz. Reklam ve iş süreçlerinizi AI Agent ile otomatikleştirerek size sadece \'tıklama\' değil, gerçek \'sonuç\' getiriyoruz.',
+    'header.ogDescription': 'AI Agent ve Otomasyon çözümleriyle iş süreçlerinizi dönüştürün. Manuel işlere son verin, verimliliği artırın.',
 
     // Hero Section
     'hero.title': 'Stratejiyle Dönüşüm Sağlıyoruz.',
@@ -145,6 +152,21 @@ const translations = {
     // Common
     'common.close': 'Kapat',
     'common.loading': 'Yükleniyor...',
+
+    // Sector Insights
+    'insights.restaurant.title': 'Restoran & Kafe',
+    'insights.restaurant.stat': '%40 Personel Tasarrufu',
+    'insights.restaurant.desc': 'Sipariş ve rezervasyon otomasyonu ile garsonlar sadece servise odaklanır.',
+    'insights.health.title': 'Klinik & Sağlık',
+    'insights.health.stat': '%100 Randevu Doluluğu',
+    'insights.health.desc': 'Gelmeyen hastaları (No-show) önleyen hatırlatma sistemi ile ciro kaybı biter.',
+    'insights.export.title': 'İhracat & Satış',
+    'insights.export.stat': '7/24 Anlık Yanıt',
+    'insights.export.desc': 'Gece gelen yurtdışı taleplerini kaçırmadan, anında İngilizce/Arapça yanıtlayın.',
+
+    // Data Insight Section
+    'dataInsight.title': 'Sektörler Yapay Zeka ile Ne Kazanıyor?',
+    'dataInsight.desc': 'Farklı sektörlerde devreye alınan otomasyonlar; hız, doluluk ve verimlilikte ölçülebilir sonuçlar sağlıyor.',
   },
   en: {
     // Header
@@ -156,6 +178,13 @@ const translations = {
     'header.welcome': 'Welcome',
     'header.bookAppointment': 'Book Appointment',
     'header.analysis': 'Analysis',
+    'header.agency': 'AI Agent & Automation Agency',
+    'header.menuButton': 'Open Menu',
+    'header.packages': 'Packages',
+    'header.contact': 'Contact',
+    'header.calculateProfit': 'Calculate Your Profit',
+    'header.metaDescription': 'We drive transformation through strategy. By automating your advertising and business processes with AI Agents, we bring real \'results\', not just \'clicks\'.',
+    'header.ogDescription': 'Transform your business processes with AI Agent and Automation solutions. End manual tasks, increase efficiency.',
 
     // Hero Section
     'hero.title': 'We Drive Transformation Through Strategy.',
@@ -272,6 +301,21 @@ const translations = {
     // Common
     'common.close': 'Close',
     'common.loading': 'Loading...',
+
+    // Sector Insights
+    'insights.restaurant.title': 'Restaurant & Cafe',
+    'insights.restaurant.stat': '40% Staff Savings',
+    'insights.restaurant.desc': 'With order and reservation automation, waiters focus only on service.',
+    'insights.health.title': 'Clinic & Healthcare',
+    'insights.health.stat': '100% Appointment Fill Rate',
+    'insights.health.desc': 'Prevent no-shows with a reminder system that ends revenue loss.',
+    'insights.export.title': 'Export & Sales',
+    'insights.export.stat': '24/7 Instant Response',
+    'insights.export.desc': 'Respond instantly in English/Arabic to overnight international inquiries without missing them.',
+
+    // Data Insight Section
+    'dataInsight.title': 'What Do Sectors Gain with AI?',
+    'dataInsight.desc': 'Automations deployed across different sectors deliver measurable results in speed, occupancy, and efficiency.',
   }
 };
 
