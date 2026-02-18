@@ -32,7 +32,7 @@ const readyPlans: PackagePlan[] = [
     price: 13999,
     features: [
       'Sesli Yapay Zeka (Asistan) - 800 dk',
-      'WhatsApp + Instagram Danışma Hattı',
+      'WhatsApp + Instagram Bot Danışma Hattı',
       'İş Süreçleri Otomasyonu',
     ],
     recommended: true,
@@ -52,9 +52,9 @@ const readyPlans: PackagePlan[] = [
 ];
 
 const channelPrices: Record<ChannelKey, { label: string; price: number }> = {
-  whatsapp: { label: 'WhatsApp', price: 1999 },
-  instagram: { label: 'Instagram', price: 1499 },
-  web: { label: 'Web Chat', price: 999 },
+  whatsapp: { label: 'WhatsApp Bot', price: 1999 },
+  instagram: { label: 'Instagram Bot', price: 1499 },
+  web: { label: 'Web Chat Bot', price: 999 },
 };
 
 const addonPrices: Record<
@@ -204,7 +204,7 @@ export default function Packages() {
                     : 'border-white/15'
                 }`}
               >
-                <span className="absolute -top-3 left-4 inline-flex items-center gap-1 rounded-full border border-emerald-300/70 bg-emerald-500/20 px-3 py-1 text-xs font-bold text-emerald-100">
+                <span className="absolute -top-3 left-4 z-10 inline-flex max-w-[70%] items-center gap-1 rounded-full border border-emerald-300/70 bg-emerald-500/20 px-3 py-1 text-[11px] font-bold text-emerald-100 sm:max-w-none sm:text-xs">
                   ✅ Kurulum Dahil (0 TL)
                 </span>
                 <h2 className="mt-4 text-xl font-bold">{plan.name}</h2>
@@ -216,6 +216,7 @@ export default function Packages() {
                   {plan.subtitle}
                 </p>
                 <p className="mt-2 text-3xl font-black text-cyan-300">{formatMoney(plan.price)}</p>
+                <p className="mt-1 text-xs font-medium uppercase tracking-[0.16em] text-cyan-100/80">Aylık ödeme</p>
                 <ul className="mt-4 space-y-2 text-sm text-slate-200">
                   {plan.features.map((feature) => (
                     <li key={feature} className="flex items-start gap-2">
@@ -248,6 +249,7 @@ export default function Packages() {
 
               <div>
                 <h3 className="text-lg font-semibold">İletişim Kanalları</h3>
+                <p className="mt-1 text-xs text-slate-400">Tüm kanal fiyatları aylık olarak ücretlendirilir.</p>
                 <div className="mt-3 grid gap-3 sm:grid-cols-2">
                   {(Object.keys(channelPrices) as ChannelKey[]).map((channel) => (
                     <label key={channel} className="flex items-center justify-between rounded-xl border border-white/15 bg-black/30 p-3">
@@ -288,6 +290,7 @@ export default function Packages() {
 
               <div>
                 <h3 className="text-lg font-semibold">Aylık Eklentiler</h3>
+                <p className="mt-1 text-xs text-slate-400">Bilgi ikonuna gelince detay balonu açılır.</p>
                 <div className="mt-3 grid gap-3">
                   {(Object.keys(addonPrices) as AddonKey[]).map((addon) => (
                     <label key={addon} className="group relative flex items-center justify-between rounded-xl border border-white/15 bg-black/30 p-3">
@@ -296,9 +299,14 @@ export default function Packages() {
                           {addonPrices[addon].label}
                           <span className="ml-2 text-xs text-fuchsia-300">+{formatMoney(addonPrices[addon].price)}</span>
                         </span>
-                        <span className="relative inline-flex">
-                          <Info size={15} className="text-fuchsia-200" />
-                          <span className="pointer-events-none absolute left-1/2 top-6 z-10 w-72 -translate-x-1/2 rounded-xl border border-fuchsia-300/40 bg-[#120c1d] p-3 text-xs text-fuchsia-100 opacity-0 shadow-[0_0_20px_rgba(217,70,239,0.35)] transition group-hover:opacity-100">
+                        <span className="group/info relative inline-flex items-center">
+                          <Info
+                            size={15}
+                            className="cursor-help text-fuchsia-200"
+                            tabIndex={0}
+                            aria-label={`${addonPrices[addon].label} detayı`}
+                          />
+                          <span className="pointer-events-none invisible absolute left-1/2 top-6 z-30 w-72 -translate-x-1/2 rounded-xl border border-fuchsia-300/40 bg-[#120c1d] p-3 text-xs text-fuchsia-100 opacity-0 shadow-[0_0_20px_rgba(217,70,239,0.35)] transition duration-200 group-hover:visible group-hover:opacity-100 group-focus-within/info:visible group-focus-within/info:opacity-100">
                             {addonPrices[addon].tooltip}
                             {addonPrices[addon].smartTooltip && (
                               <span className="mt-2 block border-t border-fuchsia-300/20 pt-2 text-fuchsia-200">
@@ -344,6 +352,7 @@ export default function Packages() {
                 >
                   {formatMoney(total)}
                 </p>
+                <p className="mt-1 text-xs text-emerald-100/80">Aylık ödeme tutarıdır.</p>
               </div>
 
               <a
