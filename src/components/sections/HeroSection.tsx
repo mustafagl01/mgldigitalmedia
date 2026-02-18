@@ -12,8 +12,11 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onContactClick }) => {
   const { t } = useLanguage();
 
   return (
-    <section id="hero" className="relative overflow-hidden pt-16 pb-20">
-      <div className="absolute inset-0 bg-gradient-to-r from-purple-600/10 to-cyan-600/10"></div>
+    <section id="hero" className="relative overflow-hidden pt-16 pb-20 bg-[#0A0E27]">
+      <div className="absolute inset-0 bg-gradient-to-br from-[#0A0E27] via-[#11183f] to-[#0A0E27]" />
+      <div className="absolute -top-24 -left-20 w-80 h-80 bg-cyan-400/25 rounded-full blur-3xl animate-pulse" />
+      <div className="absolute -bottom-28 -right-10 w-96 h-96 bg-purple-500/25 rounded-full blur-3xl animate-pulse [animation-delay:1200ms]" />
+      <div className="absolute inset-0 bg-[radial-gradient(circle_at_20%_20%,rgba(34,211,238,0.2),transparent_40%),radial-gradient(circle_at_80%_80%,rgba(168,85,247,0.2),transparent_45%)]" />
       <div className="relative container mx-auto px-4">
         <motion.div
           initial={{ opacity: 0, y: 50 }}
