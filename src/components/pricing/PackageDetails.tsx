@@ -57,6 +57,15 @@ export default function PackageDetails({ sectorId, onRequestDemo }: PackageDetai
           ))}
         </div>
 
+        <div className="mb-8 rounded-xl border border-slate-700 bg-slate-900/50 p-4 text-sm text-slate-300 space-y-2">
+          <p>
+            <strong className="text-white">Dakika aşımı:</strong> Paket dakikası dolduğunda sistem durmaz. Ek kullanım dakika başına 5 TL olarak faturalandırılır.
+          </p>
+          <p>
+            <strong className="text-white">WhatsApp notu:</strong> WhatsApp konuşma ücretleri (Meta tarafından alınan) müşteriye aittir.
+          </p>
+        </div>
+
         {/* CTAs */}
         <div className="space-y-4">
           <motion.button

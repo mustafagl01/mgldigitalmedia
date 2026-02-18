@@ -184,7 +184,7 @@
   },
   "packages": {
     "restaurant_pro": {
-      "name": "Restaurant Professional",
+      "name": "Starter",
       "price_try": 16999,
       "features": [
         "WhatsApp Sipariş Botu (5000 mesaj/ay)",
@@ -197,13 +197,14 @@
       ]
     },
     "professional": {
-      "name": "Professional",
+      "name": "Pro",
       "price_usd": 399,
       "price_try": 13999,
       "features": [
         "Sesli Asistan (800 dk/ay)",
         "WhatsApp + Instagram Bot",
         "Website Chatbot (GPT-4)",
+        "MGL altyapısı ile yüksek hızlı, SEO uyumlu Landing Page (Tanıtım Sayfası) + Yönetim Paneli",
         "CRM Integration",
         "2 Dil Desteği",
         "Advanced Analytics",
@@ -211,12 +212,13 @@
       ]
     },
     "business": {
-      "name": "Business",
+      "name": "İleri Seviye (Advanced)",
       "price_try": 24999,
       "features": [
         "Sesli Asistan (2000 dk/ay)",
         "Multi-channel Bot (WhatsApp/IG/TG)",
         "Web Scraping (3000 kayıt)",
+        "MGL altyapısı ile yüksek hızlı, SEO uyumlu Landing Page (Tanıtım Sayfası) + Yönetim Paneli",
         "Website Bakım",
         "3 Dil Desteği",
         "Custom Dashboard",
