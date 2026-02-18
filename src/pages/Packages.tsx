@@ -31,9 +31,10 @@ type SectorInsight = {
 
 const WHATSAPP_NUMBER = '905318299701';
 const WHATSAPP_LABEL = '+90 531 829 97 01';
-const BASE_PRICE = 2999;
-const PRICE_PER_MINUTE = 4;
-const GBP_EXCHANGE_RATE = 0.025;
+const BASE_PRICE_TRY = 2999;
+const PRICE_PER_MINUTE_TRY = 4;
+const MONTHLY_EMPLOYER_COST_TRY = 30000;
+const TRY_TO_GBP_RATE = 0.025;
 
 const UK_ESTIMATED_SAVINGS_BY_PLAN: Record<PackageTierKey, string> = {
   starter: '£3,500–£5,000',
@@ -131,6 +132,16 @@ const addonPrices: Record<
   },
 };
 
+
+
+function convertTryPrice(value: number, region: 'TR' | 'GB') {
+  if (region === 'TR') {
+    return value;
+  }
+
+  return Number((value * TRY_TO_GBP_RATE).toFixed(2));
+}
+
 const sectorInsights: SectorInsight[] = [
   {
     name: 'Restoran & Kafe',
@@ -176,24 +187,28 @@ export default function Packages() {
     websitePanel: false,
   });
   const [isTotalAnimating, setIsTotalAnimating] = useState(false);
-  const [isCurrencyAnimating, setIsCurrencyAnimating] = useState(false);
 
-  const moneyFormatter = useMemo(
+  const regionalBasePrice = convertTryPrice(BASE_PRICE_TRY, region);
+  const regionalPricePerMinute = convertTryPrice(PRICE_PER_MINUTE_TRY, region);
+  const regionalMonthlyEmployerCost = convertTryPrice(MONTHLY_EMPLOYER_COST_TRY, region);
+
+  const regionalChannelPrices = useMemo(
     () =>
-      new Intl.NumberFormat(isTurkish ? 'tr-TR' : 'en-GB', {
-        style: 'currency',
-        currency: isTurkish ? 'TRY' : 'GBP',
-        maximumFractionDigits: isTurkish ? 0 : 2,
-      }),
-    [isTurkish],
+      Object.fromEntries(
+        Object.entries(channelPrices).map(([key, value]) => [key, { ...value, price: convertTryPrice(value.price, region) }])
+      ) as Record<ChannelKey, { label: string; price: number }>,
+    [region],
   );
 
-  const formatMoney = (value: number) => {
-    const localizedValue = isTurkish ? value : value * GBP_EXCHANGE_RATE;
-    return moneyFormatter.format(localizedValue);
-  };
+  const regionalAddonPrices = useMemo(
+    () =>
+      Object.fromEntries(
+        Object.entries(addonPrices).map(([key, value]) => [key, { ...value, price: convertTryPrice(value.price, region) }])
+      ) as Record<AddonKey, { label: string; price: number; tooltip: string; smartTooltip?: string }>,
+    [region],
+  );
 
-  const voiceCost = voiceMinutes * PRICE_PER_MINUTE;
+  const voiceCost = voiceMinutes * regionalPricePerMinute;
 
   const readyPlans = useMemo(
     () =>
@@ -211,16 +226,16 @@ export default function Packages() {
   const total = useMemo(() => {
     const channelsTotal = Object.entries(channels).reduce((acc, [key, selected]) => {
       if (!selected) return acc;
-      return acc + channelPrices[key as ChannelKey].price;
+      return acc + regionalChannelPrices[key as ChannelKey].price;
     }, 0);
 
     const addonsTotal = Object.entries(addons).reduce((acc, [key, selected]) => {
       if (!selected) return acc;
-      return acc + addonPrices[key as AddonKey].price;
+      return acc + regionalAddonPrices[key as AddonKey].price;
     }, 0);
 
-    return BASE_PRICE + channelsTotal + addonsTotal + voiceCost;
-  }, [channels, addons, voiceCost]);
+    return regionalBasePrice + channelsTotal + addonsTotal + voiceCost;
+  }, [channels, addons, regionalBasePrice, voiceCost, regionalAddonPrices, regionalChannelPrices]);
 
   useEffect(() => {
     setIsTotalAnimating(true);
@@ -228,20 +243,15 @@ export default function Packages() {
     return () => window.clearTimeout(timeout);
   }, [total]);
 
-  useEffect(() => {
-    setIsCurrencyAnimating(true);
-    const timeout = window.setTimeout(() => setIsCurrencyAnimating(false), 350);
-    return () => window.clearTimeout(timeout);
-  }, [isTurkish]);
 
   const summaryParts = [
     ...Object.entries(channels)
       .filter(([, selected]) => selected)
-      .map(([key]) => channelPrices[key as ChannelKey].label),
+      .map(([key]) => regionalChannelPrices[key as ChannelKey].label),
     `${voiceMinutes}dk Sesli Asistan (Telefon)`,
     ...Object.entries(addons)
       .filter(([, selected]) => selected)
-      .map(([key]) => addonPrices[key as AddonKey].label),
+      .map(([key]) => regionalAddonPrices[key as AddonKey].label),
   ];
 
   const customMessage = `Kendi Paketim: ${summaryParts.join(' + ')}. Toplam teklif: ${formatPrice(total, region)}`;
@@ -301,7 +311,7 @@ export default function Packages() {
             <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
               {readyPlans.map((plan) => (
                 <article
-                  key={plan.names.en}
+                  key={plan.key}
                   className={`relative rounded-3xl border bg-white/5 p-5 backdrop-blur-xl transition hover:-translate-y-1 hover:border-cyan-300/60 ${
                     plan.recommended
                       ? 'border-fuchsia-300/60 shadow-[0_0_30px_rgba(217,70,239,0.35)]'
@@ -311,7 +321,7 @@ export default function Packages() {
                   <span className="absolute -top-3 left-4 z-10 inline-flex max-w-[70%] items-center gap-1 rounded-full border border-emerald-300/70 bg-emerald-500/20 px-3 py-1 text-[11px] font-bold text-emerald-100 sm:max-w-none sm:text-xs">
                     {isUkPricing ? '✅ Setup Included (£0)' : '✅ Kurulum Dahil (0 TL)'}
                   </span>
-                  <h2 className="mt-4 text-xl font-bold">{isTurkish ? plan.names.tr : plan.names.en}</h2>
+                  <h2 className="mt-4 text-xl font-bold">{plan.name}</h2>
                   <p
                     className={`mt-1 text-sm ${
                       plan.recommended ? 'font-semibold text-fuchsia-200' : 'text-slate-300'
@@ -326,7 +336,7 @@ export default function Packages() {
                   <p className="mt-3 rounded-xl border border-emerald-300/45 bg-emerald-500/10 px-3 py-2 text-xs font-semibold text-emerald-100">
                     {isUkPricing
                       ? `Efficiency Impact: This plan saves your business an estimated ${UK_ESTIMATED_SAVINGS_BY_PLAN[plan.key]} in annual labor costs.`
-                      : `Tasarruf Notu: Bu paket, işletmenize yılda ortalama ${formatPrice((MONTHLY_EMPLOYER_COST - plan.price) * 12, region)} personel tasarrufu sağlar.`}
+                      : `Tasarruf Notu: Bu paket, işletmenize yılda ortalama ${formatPrice((regionalMonthlyEmployerCost - plan.price) * 12, region)} personel tasarrufu sağlar.`}
                   </p>
                   <ul className="mt-4 space-y-2 text-sm text-slate-200">
                     {plan.features.map((feature) => (
@@ -384,7 +394,7 @@ export default function Packages() {
             <div className="space-y-6 rounded-3xl border border-white/15 bg-white/5 p-6 backdrop-blur-2xl">
               <div className="rounded-2xl border border-cyan-300/30 bg-cyan-500/10 p-4">
                 <p className="text-xs uppercase tracking-[0.2em] text-cyan-200">Temel Kurulum</p>
-                <p className="mt-1 text-2xl font-black text-cyan-100">{formatPrice(BASE_PRICE, region)}</p>
+                <p className="mt-1 text-2xl font-black text-cyan-100">{formatPrice(regionalBasePrice, region)}</p>
               </div>
 
               <div>
@@ -394,8 +404,8 @@ export default function Packages() {
                   {(Object.keys(channelPrices) as ChannelKey[]).map((channel) => (
                     <label key={channel} className="flex items-center justify-between rounded-xl border border-white/15 bg-black/30 p-3">
                       <span>
-                        {channelPrices[channel].label}
-                        <span className="ml-2 text-xs text-cyan-300">+{formatPrice(channelPrices[channel].price, region)}</span>
+                        {regionalChannelPrices[channel].label}
+                        <span className="ml-2 text-xs text-cyan-300">+{formatPrice(regionalChannelPrices[channel].price, region)}</span>
                       </span>
                       <input
                         type="checkbox"
@@ -436,21 +446,21 @@ export default function Packages() {
                     <label key={addon} className="group relative flex items-center justify-between rounded-xl border border-white/15 bg-black/30 p-3">
                       <span className="flex items-center gap-2">
                         <span>
-                          {addonPrices[addon].label}
-                          <span className="ml-2 text-xs text-fuchsia-300">+{formatPrice(addonPrices[addon].price, region)}</span>
+                          {regionalAddonPrices[addon].label}
+                          <span className="ml-2 text-xs text-fuchsia-300">+{formatPrice(regionalAddonPrices[addon].price, region)}</span>
                         </span>
                         <span className="group/info relative inline-flex items-center">
                           <Info
                             size={15}
                             className="cursor-help text-fuchsia-200"
                             tabIndex={0}
-                            aria-label={`${addonPrices[addon].label} detayı`}
+                            aria-label={`${regionalAddonPrices[addon].label} detayı`}
                           />
                           <span className="pointer-events-none invisible absolute left-1/2 top-6 z-30 w-72 -translate-x-1/2 rounded-xl border border-fuchsia-300/40 bg-[#120c1d] p-3 text-xs text-fuchsia-100 opacity-0 shadow-[0_0_20px_rgba(217,70,239,0.35)] transition duration-200 group-hover:visible group-hover:opacity-100 group-focus-within/info:visible group-focus-within/info:opacity-100">
-                            {addonPrices[addon].tooltip}
-                            {addonPrices[addon].smartTooltip && (
+                            {regionalAddonPrices[addon].tooltip}
+                            {regionalAddonPrices[addon].smartTooltip && (
                               <span className="mt-2 block border-t border-fuchsia-300/20 pt-2 text-fuchsia-200">
-                                {addonPrices[addon].smartTooltip}
+                                {regionalAddonPrices[addon].smartTooltip}
                               </span>
                             )}
                           </span>
@@ -475,7 +485,7 @@ export default function Packages() {
               <div className="mt-6 space-y-2 text-sm text-slate-200">
                 <div className="flex justify-between">
                   <span>Temel Kurulum</span>
-                  <span>{formatPrice(BASE_PRICE, region)}</span>
+                  <span>{formatPrice(regionalBasePrice, region)}</span>
                 </div>
                 <div className="flex justify-between">
                   <span>Sesli Asistan (Telefon)</span>

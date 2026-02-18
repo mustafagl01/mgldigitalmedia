@@ -1,11 +1,12 @@
 import { type PricingRegionCode, REGIONAL_PRICING } from '../config/pricing';
 
 export function formatPrice(value: number, region: PricingRegionCode): string {
-  const roundedValue = Math.round(value);
+  const pricing = REGIONAL_PRICING[region];
+  const normalizedValue = region === 'TR' ? Math.round(value) : Number(value.toFixed(2));
 
-  if (region === 'TR') {
-    return `${new Intl.NumberFormat(REGIONAL_PRICING.TR.currency.locale).format(roundedValue)} ${REGIONAL_PRICING.TR.currency.symbol}`;
-  }
-
-  return `${REGIONAL_PRICING.GB.currency.symbol}${new Intl.NumberFormat(REGIONAL_PRICING.GB.currency.locale).format(roundedValue)}`;
+  return new Intl.NumberFormat(pricing.currency.locale, {
+    style: 'currency',
+    currency: pricing.currency.code,
+    maximumFractionDigits: region === 'TR' ? 0 : 2,
+  }).format(normalizedValue);
 }

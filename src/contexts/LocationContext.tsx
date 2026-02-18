@@ -13,6 +13,24 @@ type LocationContextValue = {
 };
 
 const DEFAULT_REGION: PricingRegionCode = 'GB';
+const COUNTRY_STORAGE_KEY = 'mgl-country-code';
+
+function detectCountryFromClient(): string | null {
+  if (typeof window === 'undefined') return null;
+
+  const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone?.toUpperCase() ?? '';
+  const language = navigator.language?.toUpperCase() ?? '';
+
+  if (timezone.includes('ISTANBUL') || language.startsWith('TR')) {
+    return 'TR';
+  }
+
+  if (language.startsWith('EN-GB')) {
+    return 'GB';
+  }
+
+  return null;
+}
 
 const LocationContext = createContext<LocationContextValue | undefined>(undefined);
 
@@ -23,6 +41,8 @@ export function LocationProvider({ children }: { children: ReactNode }) {
 
   useEffect(() => {
     const fetchLocation = async () => {
+      const cachedCountry = window.localStorage.getItem(COUNTRY_STORAGE_KEY);
+
       try {
         const response = await fetch('/api/location', {
           headers: {
@@ -39,9 +59,15 @@ export function LocationProvider({ children }: { children: ReactNode }) {
 
         setCountryCode(normalizedCountry);
         setRegion(resolveRegionByCountry(normalizedCountry));
+
+        if (normalizedCountry) {
+          window.localStorage.setItem(COUNTRY_STORAGE_KEY, normalizedCountry);
+        }
       } catch {
-        setCountryCode(null);
-        setRegion(DEFAULT_REGION);
+        const fallbackCountry = cachedCountry || detectCountryFromClient();
+
+        setCountryCode(fallbackCountry);
+        setRegion(resolveRegionByCountry(fallbackCountry));
       } finally {
         setIsLoadingLocation(false);
       }
