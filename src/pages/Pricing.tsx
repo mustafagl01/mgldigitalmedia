@@ -130,7 +130,7 @@ const sectorConfigs: SectorConfig[] = [
       `${formatMoney(v.staffCost)} $ (Kişi Başı Maliyet)`,
       '34 (Sabit Kur TL)',
     ],
-    explanation: () => '7/24 çalışacak bir AI yerine, vardiyalı personel çalıştırmanın aylık maliyetidir.',
+    explanation: () => '7/24 çalışacak bir Yapay Zeka Asistanı yerine, vardiyalı personel çalıştırmanın aylık maliyetidir.',
     packageName: 'Professional Package',
     packagePrice: 13999,
   },
@@ -237,7 +237,7 @@ const sectorConfigs: SectorConfig[] = [
       `${formatMoney(v.turnover)} TL (Aylık Ciro)`,
       `%${v.inefficiency} (Verimsizlik Oranı)`,
     ],
-    explanation: () => 'Otomasyon eksikliği nedeniyle kaybedilen tahmini ciro payı.',
+    explanation: () => 'Otomatik İşlemler eksikliği nedeniyle kaybedilen tahmini ciro payı.',
     packageName: 'Professional Package',
     packagePrice: 13999,
   },
@@ -337,8 +337,8 @@ export default function Pricing() {
         >
           <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
             <div>
-              <h3 className="text-2xl font-bold">Manuel Sistem vs MGL AI</h3>
-              <p className="text-slate-300">Önce manuel kaybınızı görün, sonra AI modunu açıp net kazancı inceleyin.</p>
+              <h3 className="text-2xl font-bold">Manuel Sistem vs MGL Yapay Zeka Asistanı</h3>
+              <p className="text-slate-300">Önce manuel kaybınızı görün, sonra Yapay Zeka Asistanı modunu açıp net kazancı inceleyin.</p>
             </div>
             <button
               type="button"
@@ -348,7 +348,7 @@ export default function Pricing() {
                   ? 'border-emerald-400 bg-emerald-500/20 shadow-[0_0_25px_rgba(16,185,129,0.45)]'
                   : 'border-rose-400 bg-rose-500/20 shadow-[0_0_25px_rgba(244,63,94,0.35)]'
               }`}
-              aria-label="AI modunu aç/kapat"
+              aria-label="Yapay Zeka Asistanı modunu aç/kapat"
             >
               <span
                 className={`absolute top-1.5 h-10 w-10 rounded-full transition-all ${
@@ -402,7 +402,7 @@ export default function Pricing() {
           </div>
 
           <p className="mt-4 text-sm text-slate-300">{activeSector.explanation(values)}</p>
-          <p className="mt-2 text-sm font-semibold text-cyan-300">MGL AI Sistemi ile bu kaybı kazanca dönüştürün.</p>
+          <p className="mt-2 text-sm font-semibold text-cyan-300">MGL Yapay Zeka Asistanı ile bu kaybı kazanca dönüştürün.</p>
 
           <div className="mt-6 grid gap-4 md:grid-cols-2">
             <div className="rounded-2xl border border-slate-600/60 bg-slate-900/80 p-5">
@@ -410,12 +410,12 @@ export default function Pricing() {
               <p className="mt-2 text-3xl font-black text-rose-300">{formatMoney(monthlyLoss)} TL</p>
             </div>
             <div className="rounded-2xl border border-emerald-400/50 bg-emerald-500/10 p-5">
-              <p className="text-xs uppercase tracking-[0.2em] text-emerald-200">MGL AI Paket Fiyatı</p>
+              <p className="text-xs uppercase tracking-[0.2em] text-emerald-200">MGL Yapay Zeka Asistanı Paket Fiyatı</p>
               <p className="mt-2 text-lg font-bold text-emerald-100">{activeSector.packageName}</p>
               <p className="mt-1 text-3xl font-black text-emerald-300">{formatMoney(activeSector.packagePrice)} TL / ay</p>
               {aiMode && (
                 <p className="mt-3 text-sm font-semibold text-emerald-100">
-                  AI modu açık: Net tasarruf/kazanç ≈ {formatMoney(monthlyNetGain)} TL / ay
+                  Yapay Zeka Asistanı modu açık: Net tasarruf/kazanç ≈ {formatMoney(monthlyNetGain)} TL / ay
                 </p>
               )}
             </div>
