@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Helmet, HelmetProvider } from 'react-helmet-async';
+import { Menu, X } from 'lucide-react';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { LanguageProvider, useLanguage } from './contexts/LanguageContext';
 import { Button } from './components/ui/Button';
@@ -49,6 +50,7 @@ function AppContent() {
   const [activeDemo, setActiveDemo] = useState<string | null>(null);
   const [isIdeaAssistantModalOpen, setIdeaAssistantModalOpen] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const { user, signOut } = useAuth();
   const { language, setLanguage, t } = useLanguage();
 
@@ -72,6 +74,17 @@ function AppContent() {
     setCurrentPage(page);
     const path = page === 'home' ? '/' : `/${page}`;
     window.history.pushState({}, '', path);
+    setIsMobileMenuOpen(false);
+  };
+
+  const handleContactClick = () => {
+    setIdeaAssistantModalOpen(true);
+    setIsMobileMenuOpen(false);
+  };
+
+  const handleWhatsAppClick = () => {
+    window.open('https://wa.me/905318299701', '_blank', 'noopener,noreferrer');
+    setIsMobileMenuOpen(false);
   };
 
   const handleDemoRedirect = () => {
@@ -146,6 +159,14 @@ function AppContent() {
               </div>
 
               <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+                <button
+                  onClick={() => setIsMobileMenuOpen((prev) => !prev)}
+                  className="md:hidden inline-flex items-center justify-center w-9 h-9 rounded-md border border-slate-700 text-slate-300 hover:text-white hover:border-purple-500 transition-colors"
+                  aria-label="Menüyü aç"
+                >
+                  {isMobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+                </button>
+
                 {/* Language Switcher */}
                 <div className="flex items-center gap-1">
                   <button
@@ -172,6 +193,72 @@ function AppContent() {
                 <RoiButton onClick={() => navigateTo('pricing')} />
               </div>
             </div>
+
+            <div className="hidden md:flex items-center justify-between gap-4">
+              <nav className="flex items-center gap-5 text-sm font-medium text-slate-300">
+                <button onClick={() => navigateTo('home')} className="hover:text-cyan-300 transition-colors">
+                  Ana Sayfa
+                </button>
+                <button onClick={() => navigateTo('packages')} className="hover:text-cyan-300 transition-colors">
+                  Paketler
+                </button>
+                <button onClick={handleContactClick} className="hover:text-cyan-300 transition-colors">
+                  İletişim
+                </button>
+              </nav>
+
+              <div className="flex items-center gap-2">
+                <Button
+                  onClick={handleWhatsAppClick}
+                  variant="outline"
+                  size="sm"
+                  className="border-emerald-400 text-emerald-300 hover:bg-emerald-500/10"
+                >
+                  WhatsApp
+                </Button>
+                <Button
+                  onClick={() => navigateTo('pricing')}
+                  size="sm"
+                  className="bg-gradient-to-r from-fuchsia-500 via-purple-500 to-cyan-500 text-white border-none shadow-[0_0_25px_-6px_rgba(168,85,247,0.95)] hover:shadow-[0_0_30px_-4px_rgba(34,211,238,0.9)]"
+                >
+                  Kazancını Hesapla
+                </Button>
+              </div>
+            </div>
+
+            {isMobileMenuOpen && (
+              <div className="md:hidden rounded-xl border border-slate-700/80 bg-slate-950/95 p-3 space-y-3">
+                <nav className="flex flex-col gap-1 text-sm text-slate-200">
+                  <button onClick={() => navigateTo('home')} className="text-left px-3 py-2 rounded-md hover:bg-slate-800">
+                    Ana Sayfa
+                  </button>
+                  <button onClick={() => navigateTo('packages')} className="text-left px-3 py-2 rounded-md hover:bg-slate-800">
+                    Paketler
+                  </button>
+                  <button onClick={handleContactClick} className="text-left px-3 py-2 rounded-md hover:bg-slate-800">
+                    İletişim
+                  </button>
+                </nav>
+
+                <div className="grid grid-cols-1 gap-2">
+                  <Button
+                    onClick={handleWhatsAppClick}
+                    variant="outline"
+                    size="sm"
+                    className="border-emerald-400 text-emerald-300 hover:bg-emerald-500/10"
+                  >
+                    WhatsApp
+                  </Button>
+                  <Button
+                    onClick={() => navigateTo('pricing')}
+                    size="sm"
+                    className="bg-gradient-to-r from-fuchsia-500 via-purple-500 to-cyan-500 text-white border-none shadow-[0_0_25px_-6px_rgba(168,85,247,0.95)]"
+                  >
+                    Kazancını Hesapla
+                  </Button>
+                </div>
+              </div>
+            )}
 
             <div className="flex items-center gap-2 sm:gap-3 flex-wrap">
               {user ? (
