@@ -57,11 +57,7 @@ function AppContent() {
   const { region } = useLocation();
 
   React.useEffect(() => {
-    const hasSavedLanguage = Boolean(localStorage.getItem('language'));
-
-    if (!hasSavedLanguage) {
-      setLanguage(region === 'TR' ? 'tr' : 'en');
-    }
+    setLanguage(region === 'TR' ? 'tr' : 'en');
   }, [region, setLanguage]);
 
   // Handle browser navigation
