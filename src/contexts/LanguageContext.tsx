@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 
 type Language = 'tr' | 'en';
 
@@ -271,13 +271,8 @@ const translations = {
 
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [language, setLanguage] = useState<Language>(() => {
-    const saved = localStorage.getItem('language');
-    return (saved as Language) || 'tr';
+    return navigator.language.toLowerCase().startsWith('tr') ? 'tr' : 'en';
   });
-
-  useEffect(() => {
-    localStorage.setItem('language', language);
-  }, [language]);
 
   const t = (key: string): string => {
     return translations[language][key] || key;
