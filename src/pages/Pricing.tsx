@@ -80,7 +80,7 @@ const sectorConfigs: SectorConfig[] = [
         max: 50000,
         step: 500,
         suffixTR: ' TL',
-        suffixEN: ''
+        suffixEN: ' £'
       },
     ],
     calculate: (v) => v.dailyCalls * 30 * 0.2 * v.patientValue,
@@ -94,7 +94,7 @@ const sectorConfigs: SectorConfig[] = [
       `${v.dailyCalls} (Daily Missed Calls)`,
       '30 (Days)',
       '20% (Conversion)',
-      `${formatMoney(v.patientValue)} (Avg. Patient Value)`,
+      `£${formatMoney(v.patientValue)} (Avg. Patient Value)`,
     ],
     explanationTR: (v) =>
       `Günde ${v.dailyCalls} çağrı kaçırmak, ayda ${v.dailyCalls * 30} potansiyel hasta kaybı demektir. Ortalama %20 dönüşüm oranı ile hesaplanmıştır.`,
@@ -515,17 +515,13 @@ export default function Pricing() {
   const { pricing, region } = useLocation();
   const isTR = region === 'TR';
 
-  const TRY_TO_GBP_RATE = 0.025;
-
   const employeeCost = isTR ? 40000 : 2200;
   const aiAssistantCost = pricing.packages.pro.price;
   const currencyCode = pricing.currency.code;
   const currencyLocale = pricing.currency.locale;
 
-  // Convert TRY values to GBP for GB region
-  const convertToRegionalCurrency = (valueInTry: number) => {
-    return isTR ? valueInTry : Number((valueInTry * TRY_TO_GBP_RATE).toFixed(2));
-  };
+  // Loss formulas are calculated directly from visible slider values.
+  const convertToRegionalCurrency = (value: number) => value;
 
   const formatRegionalMoney = (value: number) =>
     new Intl.NumberFormat(currencyLocale, {
