@@ -1,5 +1,5 @@
 import { type ReactNode, useEffect, useMemo, useState } from 'react';
-import { Check, Coffee, Globe2, Info, MessageCircle, Pizza, Stethoscope } from 'lucide-react';
+import { Check, Coffee, Globe2, Home, Info, MessageCircle, Pizza, Stethoscope } from 'lucide-react';
 import type { PackageTierKey } from '../config/pricing';
 import { useLocation } from '../contexts/LocationContext';
 import { formatPrice } from '../utils/formatPrice';
@@ -259,6 +259,14 @@ export default function Packages() {
   return (
     <div className="min-h-screen bg-[#05060a] px-4 py-10 text-white">
       <div className="mx-auto max-w-7xl space-y-8">
+        {/* Back to Home Button */}
+        <button
+          onClick={() => window.location.href = '/'}
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-white/20 bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white transition-colors"
+        >
+          <Home size={18} />
+          <span>{isUkPricing ? 'Home' : 'Ana Sayfa'}</span>
+        </button>
         <section className="rounded-3xl border border-cyan-300/20 bg-white/5 p-6 shadow-[0_0_70px_rgba(34,211,238,0.08)] backdrop-blur-2xl md:p-8">
           <p className="inline-flex rounded-full border border-fuchsia-300/40 bg-fuchsia-500/10 px-3 py-1 text-xs uppercase tracking-[0.2em] text-fuchsia-200">
             Paket Merkezi

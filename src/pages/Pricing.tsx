@@ -2,9 +2,11 @@ import { useMemo, useState } from 'react';
 import type { LucideIcon } from 'lucide-react';
 import {
   ArrowRight,
+  ArrowLeft,
   Building2,
   Globe2,
   GraduationCap,
+  Home,
   Scale,
   Scissors,
   ShoppingBag,
@@ -557,6 +559,14 @@ export default function Pricing() {
   return (
     <div className={`min-h-screen px-4 py-10 text-white transition-colors duration-300 ${aiMode ? 'bg-[#03110a]' : 'bg-[#0a0710]'}`}>
       <div className="mx-auto max-w-7xl space-y-8">
+        {/* Back to Home Button */}
+        <button
+          onClick={() => window.location.href = '/'}
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-white/20 bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white transition-colors"
+        >
+          <Home size={18} />
+          <span>{isTR ? 'Ana Sayfa' : 'Home'}</span>
+        </button>
         <section className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl md:p-8">
           <p className="inline-flex rounded-full border border-white/20 px-3 py-1 text-xs uppercase tracking-[0.2em] text-slate-300">
             ROI Simulation Engine
