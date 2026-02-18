@@ -14,6 +14,7 @@ type ChannelKey = 'whatsapp' | 'instagram' | 'web';
 type AddonKey = 'automation' | 'marketAnalysis' | 'websitePanel';
 
 const WHATSAPP_NUMBER = '905318299701';
+const WHATSAPP_LABEL = '+90 531 829 97 01';
 const BASE_PRICE = 2999;
 const PRICE_PER_MINUTE = 4;
 
@@ -344,7 +345,7 @@ export default function Packages() {
                 rel="noreferrer"
                 className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-400 px-4 py-3 text-sm font-bold text-slate-900 transition hover:bg-emerald-300"
               >
-                <MessageCircle size={16} /> Teklifi WhatsApp'ta Gönder
+                <MessageCircle size={16} /> Teklifi WhatsApp'ta Gönder ({WHATSAPP_LABEL})
               </a>
             </aside>
           </section>
