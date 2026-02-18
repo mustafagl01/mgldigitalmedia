@@ -1,8 +1,12 @@
 import { type ReactNode, useEffect, useMemo, useState } from 'react';
 import { Check, Coffee, Globe2, Info, MessageCircle, Pizza, Stethoscope } from 'lucide-react';
+import { useLanguage } from '../contexts/LanguageContext';
 
 type PackagePlan = {
-  name: string;
+  names: {
+    tr: string;
+    en: string;
+  };
   subtitle: string;
   price: number;
   features: string[];
@@ -25,17 +29,17 @@ const WHATSAPP_NUMBER = '905318299701';
 const WHATSAPP_LABEL = '+90 531 829 97 01';
 const BASE_PRICE = 2999;
 const PRICE_PER_MINUTE = 4;
-const MONTHLY_EMPLOYER_COST = 40000;
+const GBP_EXCHANGE_RATE = 0.025;
 
 const readyPlans: PackagePlan[] = [
   {
-    name: 'Başlangıç (Starter)',
+    names: { tr: 'Başlangıç', en: 'Starter' },
     subtitle: 'Dijitalleşmeye ilk adım.',
     price: 6999,
     features: ['Sesli Asistan (Telefon) - 300 dk', 'WhatsApp Müşteri Karşılama', 'Pazar & Rakip Analizi'],
   },
   {
-    name: 'Profesyonel (Pro)',
+    names: { tr: 'Profesyonel', en: 'Growth' },
     subtitle: '⭐ En Çok Tercih Edilen',
     price: 13999,
     features: [
@@ -46,13 +50,13 @@ const readyPlans: PackagePlan[] = [
     recommended: true,
   },
   {
-    name: 'İleri Seviye (Advanced)',
+    names: { tr: 'İleri Seviye', en: 'Scale' },
     subtitle: 'Tam otomasyon ve analiz.',
     price: 16999,
     features: ['Sesli Asistan (Telefon) - 1200 dk', 'Pazar & Rakip Analizi', 'Web Sitesi & Panel'],
   },
   {
-    name: 'Premium (Business)',
+    names: { tr: 'Premium', en: 'Enterprise' },
     subtitle: 'Sınırsız güç ve öncelik.',
     price: 24999,
     features: ['Sesli Asistan (Telefon) - 2000 dk', 'Otomatik İşlemler', 'Tam Kanal Yönetimi + Müşteri Takip Sistemi (CRM)'],
@@ -118,17 +122,13 @@ const sectorInsights: SectorInsight[] = [
   },
 ];
 
-const money = new Intl.NumberFormat('tr-TR');
-
-function formatMoney(value: number) {
-  return `${money.format(Math.round(value))} TL`;
-}
-
 function createWhatsAppLink(message: string) {
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 }
 
 export default function Packages() {
+  const { language } = useLanguage();
+  const isTurkish = language === 'tr';
   const [activeTab, setActiveTab] = useState<TabMode>('ready');
   const [voiceMinutes, setVoiceMinutes] = useState(500);
   const [channels, setChannels] = useState<Record<ChannelKey, boolean>>({
@@ -142,6 +142,22 @@ export default function Packages() {
     websitePanel: false,
   });
   const [isTotalAnimating, setIsTotalAnimating] = useState(false);
+  const [isCurrencyAnimating, setIsCurrencyAnimating] = useState(false);
+
+  const moneyFormatter = useMemo(
+    () =>
+      new Intl.NumberFormat(isTurkish ? 'tr-TR' : 'en-GB', {
+        style: 'currency',
+        currency: isTurkish ? 'TRY' : 'GBP',
+        maximumFractionDigits: isTurkish ? 0 : 2,
+      }),
+    [isTurkish],
+  );
+
+  const formatMoney = (value: number) => {
+    const localizedValue = isTurkish ? value : value * GBP_EXCHANGE_RATE;
+    return moneyFormatter.format(localizedValue);
+  };
 
   const voiceCost = voiceMinutes * PRICE_PER_MINUTE;
 
@@ -165,6 +181,12 @@ export default function Packages() {
     return () => window.clearTimeout(timeout);
   }, [total]);
 
+  useEffect(() => {
+    setIsCurrencyAnimating(true);
+    const timeout = window.setTimeout(() => setIsCurrencyAnimating(false), 350);
+    return () => window.clearTimeout(timeout);
+  }, [isTurkish]);
+
   const summaryParts = [
     ...Object.entries(channels)
       .filter(([, selected]) => selected)
@@ -175,7 +197,9 @@ export default function Packages() {
       .map(([key]) => addonPrices[key as AddonKey].label),
   ];
 
-  const customMessage = `Kendi Paketim: ${summaryParts.join(' + ')}. Toplam teklif: ${formatMoney(total)}`;
+  const customMessage = isTurkish
+    ? `Kendi Paketim: ${summaryParts.join(' + ')}. Toplam teklif: ${formatMoney(total)}`
+    : `My custom package: ${summaryParts.join(' + ')}. Total quote: ${formatMoney(total)}`;
 
   return (
     <div className="min-h-screen bg-[#05060a] px-4 py-10 text-white">
@@ -232,7 +256,7 @@ export default function Packages() {
             <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
               {readyPlans.map((plan) => (
                 <article
-                  key={plan.name}
+                  key={plan.names.en}
                   className={`relative rounded-3xl border bg-white/5 p-5 backdrop-blur-xl transition hover:-translate-y-1 hover:border-cyan-300/60 ${
                     plan.recommended
                       ? 'border-fuchsia-300/60 shadow-[0_0_30px_rgba(217,70,239,0.35)]'
@@ -242,7 +266,7 @@ export default function Packages() {
                   <span className="absolute -top-3 left-4 z-10 inline-flex max-w-[70%] items-center gap-1 rounded-full border border-emerald-300/70 bg-emerald-500/20 px-3 py-1 text-[11px] font-bold text-emerald-100 sm:max-w-none sm:text-xs">
                     ✅ Kurulum Dahil (0 TL)
                   </span>
-                  <h2 className="mt-4 text-xl font-bold">{plan.name}</h2>
+                  <h2 className="mt-4 text-xl font-bold">{isTurkish ? plan.names.tr : plan.names.en}</h2>
                   <p
                     className={`mt-1 text-sm ${
                       plan.recommended ? 'font-semibold text-fuchsia-200' : 'text-slate-300'
@@ -250,11 +274,18 @@ export default function Packages() {
                   >
                     {plan.subtitle}
                   </p>
-                  <p className="mt-2 text-3xl font-black text-cyan-300">{formatMoney(plan.price)}</p>
+                  <p
+                    className={`mt-2 text-3xl font-black text-cyan-300 transition-all duration-300 ${
+                      isCurrencyAnimating ? 'scale-105 opacity-80' : 'scale-100 opacity-100'
+                    }`}
+                  >
+                    {formatMoney(plan.price)}
+                  </p>
                   <p className="mt-1 text-xs font-medium uppercase tracking-[0.16em] text-cyan-100/80">Aylık ödeme</p>
                   <p className="mt-3 rounded-xl border border-emerald-300/45 bg-emerald-500/10 px-3 py-2 text-xs font-semibold text-emerald-100">
-                    Tasarruf Notu: Bu paket, işletmenize yılda ortalama {formatMoney((MONTHLY_EMPLOYER_COST - plan.price) * 12)} personel
-                    tasarrufu sağlar.
+                    {isTurkish
+                      ? `40.000 TL personel maliyetine alternatif!`
+                      : 'Save up to 70% on customer service costs. No agents required.'}
                   </p>
                   <ul className="mt-4 space-y-2 text-sm text-slate-200">
                     {plan.features.map((feature) => (
@@ -266,12 +297,16 @@ export default function Packages() {
                   </ul>
 
                   <a
-                    href={createWhatsAppLink(`Merhaba, ${plan.name} paketi hakkında bilgi almak istiyorum.`)}
+                    href={createWhatsAppLink(
+                      isTurkish
+                        ? `Merhaba, ${plan.names.tr} paketi hakkında bilgi almak istiyorum.`
+                        : `Hi, I'm interested in the ${plan.names.en} package and would like more information.`,
+                    )}
                     target="_blank"
                     rel="noreferrer"
                     className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-400 px-4 py-3 text-sm font-bold text-slate-900 transition hover:bg-emerald-300"
                   >
-                    <MessageCircle size={16} /> WhatsApp ile Bilgi Al
+                    <MessageCircle size={16} /> {isTurkish ? 'Hemen Başla' : 'Get Started'}
                   </a>
                 </article>
               ))}
