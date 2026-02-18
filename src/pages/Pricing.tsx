@@ -271,6 +271,27 @@ function formatMoney(value: number) {
   return money.format(Math.round(value));
 }
 
+function getRecommendedPackage(monthlyLoss: number) {
+  if (monthlyLoss < 10000) {
+    return {
+      name: 'Başlangıç (Starter) Paketi',
+      message: 'Küçük kayıpları önlemek için ideal başlangıç.',
+    };
+  }
+
+  if (monthlyLoss <= 25000) {
+    return {
+      name: 'Profesyonel (Pro) Paketi',
+      message: 'Bu kaybı önlemek için en popüler çözümümüz.',
+    };
+  }
+
+  return {
+    name: 'Premium (Business) Paketi',
+    message: 'Büyük operasyonel kayıplar için tam otomasyon şart.',
+  };
+}
+
 export default function Pricing() {
   const [activeSectorId, setActiveSectorId] = useState<SectorId>('health');
   const [values, setValues] = useState<Record<string, number>>(defaultValues);
@@ -283,7 +304,7 @@ export default function Pricing() {
 
   const monthlyLoss = useMemo(() => activeSector.calculate(values), [activeSector, values]);
   const monthlyNetGain = Math.max(monthlyLoss - activeSector.packagePrice, 0);
-
+  const recommendedPackage = useMemo(() => getRecommendedPackage(monthlyLoss), [monthlyLoss]);
 
   return (
     <div className={`min-h-screen px-4 py-10 text-white transition-colors duration-300 ${aiMode ? 'bg-[#03110a]' : 'bg-[#0a0710]'}`}>
@@ -420,6 +441,14 @@ export default function Pricing() {
               )}
             </div>
           </div>
+
+          <a
+            href="/packages"
+            className="mt-5 block rounded-2xl border border-cyan-300/45 bg-cyan-500/10 p-5 transition hover:border-cyan-200 hover:bg-cyan-400/20"
+          >
+            <p className="text-lg font-bold text-cyan-200">💡 Önerilen Çözüm: {recommendedPackage.name}</p>
+            <p className="mt-1 text-sm text-slate-200">{recommendedPackage.message}</p>
+          </a>
 
           <a
             href="/packages"
