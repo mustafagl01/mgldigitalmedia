@@ -222,7 +222,7 @@ function AppContent() {
                   WhatsApp
                 </Button>
                 <Button
-                  onClick={() => navigateTo('pricing')}
+                  onClick={() => navigateTo('packages')}
                   size="sm"
                   className="bg-gradient-to-r from-fuchsia-500 via-purple-500 to-cyan-500 text-white border-none shadow-[0_0_25px_-6px_rgba(168,85,247,0.95)] hover:shadow-[0_0_30px_-4px_rgba(34,211,238,0.9)]"
                 >
@@ -255,7 +255,7 @@ function AppContent() {
                     WhatsApp
                   </Button>
                   <Button
-                    onClick={() => navigateTo('pricing')}
+                    onClick={() => navigateTo('packages')}
                     size="sm"
                     className="bg-gradient-to-r from-fuchsia-500 via-purple-500 to-cyan-500 text-white border-none shadow-[0_0_25px_-6px_rgba(168,85,247,0.95)]"
                   >
