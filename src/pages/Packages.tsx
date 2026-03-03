@@ -300,7 +300,7 @@ export default function Packages() {
   );
 
 
-  const total = useMemo(() => {
+  const { monthlyTotal, oneTimeTotal } = useMemo(() => {
     const channelsTotal = Object.entries(channels).reduce((acc, [key, selected]) => {
       if (!selected) return acc;
       return acc + regionalChannelPrices[key as ChannelKey].price;
@@ -311,14 +311,17 @@ export default function Packages() {
       return acc + regionalAddonPrices[key as AddonKey].price;
     }, 0);
 
-    return regionalBasePrice + channelsTotal + addonsTotal + voiceCost;
+    return {
+      monthlyTotal: channelsTotal + addonsTotal + voiceCost,
+      oneTimeTotal: regionalBasePrice,
+    };
   }, [channels, addons, regionalBasePrice, voiceCost, regionalAddonPrices, regionalChannelPrices]);
 
   useEffect(() => {
     setIsTotalAnimating(true);
     const timeout = window.setTimeout(() => setIsTotalAnimating(false), 250);
     return () => window.clearTimeout(timeout);
-  }, [total]);
+  }, [monthlyTotal]);
 
 
   const summaryParts = [
@@ -332,8 +335,8 @@ export default function Packages() {
   ];
 
   const customMessage = isEnglish
-    ? `My Custom Package: ${summaryParts.join(' + ')}. Total quote: ${formatPrice(total, region)}`
-    : `Kendi Paketim: ${summaryParts.join(' + ')}. Toplam teklif: ${formatPrice(total, region)}`;
+    ? `My Custom Package: ${summaryParts.join(' + ')}. Monthly: ${formatPrice(monthlyTotal, region)} | One-time setup: ${formatPrice(oneTimeTotal, region)}`
+    : `Kendi Paketim: ${summaryParts.join(' + ')}. Aylık: ${formatPrice(monthlyTotal, region)} | Tek seferlik kurulum: ${formatPrice(oneTimeTotal, region)}`;
 
   return (
     <div className="min-h-screen bg-[#05060a] px-4 py-10 text-white">
@@ -580,27 +583,58 @@ export default function Packages() {
               <p className="text-xs uppercase tracking-[0.2em] text-emerald-200">{isEnglish ? 'Live Quote' : 'Canlı Teklif'}</p>
               <p className="mt-2 text-sm text-slate-300">{isEnglish ? 'Total price updates instantly based on your selections.' : 'Seçimlerinize göre toplam fiyat anlık güncellenir.'}</p>
 
-              <div className="mt-6 space-y-2 text-sm text-slate-200">
-                <div className="flex justify-between">
+              {/* Tek Seferlik Ücret */}
+              <div className="mt-6 space-y-1">
+                <p className="text-[10px] uppercase tracking-[0.2em] text-amber-300/80 font-semibold">{isEnglish ? 'One-Time Fee' : 'Tek Seferlik Ücret'}</p>
+                <div className="flex justify-between text-sm text-amber-100 border border-amber-300/20 bg-amber-500/10 rounded-lg px-3 py-2">
                   <span>{isEnglish ? 'Base Setup' : 'Temel Kurulum'}</span>
-                  <span>{formatPrice(regionalBasePrice, region)}</span>
-                </div>
-                <div className="flex justify-between">
-                  <span>{isEnglish ? 'Voice Assistant (Phone)' : 'Sesli Asistan (Telefon)'}</span>
-                  <span>{formatPrice(voiceCost, region)}</span>
+                  <span className="font-bold">{formatPrice(oneTimeTotal, region)}</span>
                 </div>
               </div>
 
+              {/* Aylık Kalemler */}
+              <div className="mt-5 space-y-1">
+                <p className="text-[10px] uppercase tracking-[0.2em] text-emerald-300/80 font-semibold">{isEnglish ? 'Monthly Items' : 'Aylık Kalemler'}</p>
+                <div className="space-y-1.5 text-sm text-slate-200">
+                  {/* Seçili Kanallar */}
+                  {(Object.entries(channels) as [ChannelKey, boolean][]).filter(([, selected]) => selected).map(([key]) => (
+                    <div key={key} className="flex justify-between">
+                      <span>{regionalChannelPrices[key].label}</span>
+                      <span>{formatPrice(regionalChannelPrices[key].price, region)}</span>
+                    </div>
+                  ))}
+                  {/* Sesli Asistan */}
+                  {voiceCost > 0 && (
+                    <div className="flex justify-between">
+                      <span>{isEnglish ? `Voice Assistant (${voiceMinutes} min)` : `Sesli Asistan (${voiceMinutes} dk)`}</span>
+                      <span>{formatPrice(voiceCost, region)}</span>
+                    </div>
+                  )}
+                  {/* Seçili Eklentiler */}
+                  {(Object.entries(addons) as [AddonKey, boolean][]).filter(([, selected]) => selected).map(([key]) => (
+                    <div key={key} className="flex justify-between">
+                      <span>{regionalAddonPrices[key].label}</span>
+                      <span>{formatPrice(regionalAddonPrices[key].price, region)}</span>
+                    </div>
+                  ))}
+                  {/* Hiçbir şey seçilmediyse */}
+                  {monthlyTotal === 0 && (
+                    <p className="text-xs text-slate-400 italic">{isEnglish ? 'No monthly items selected yet.' : 'Henüz aylık kalem seçilmedi.'}</p>
+                  )}
+                </div>
+              </div>
+
+              {/* Aylık Toplam */}
               <div className="mt-4 border-t border-white/15 pt-4">
-                <p className="text-xs uppercase tracking-[0.2em] text-slate-400">{isEnglish ? 'Total' : 'Toplam'}</p>
+                <p className="text-xs uppercase tracking-[0.2em] text-slate-400">{isEnglish ? 'Monthly Total' : 'Aylık Toplam'}</p>
                 <p
                   className={`mt-2 text-3xl font-black text-emerald-300 transition ${
                     isTotalAnimating ? 'scale-105 drop-shadow-[0_0_16px_rgba(52,211,153,0.75)]' : 'scale-100'
                   }`}
                 >
-                  {formatPrice(total, region)}
+                  {formatPrice(monthlyTotal, region)}
                 </p>
-                <p className="mt-1 text-xs text-emerald-100/80">{isEnglish ? 'Monthly payment amount.' : 'Aylık ödeme tutarıdır.'}</p>
+                <p className="mt-1 text-xs text-emerald-100/80">{isEnglish ? '+ Setup fee is billed once.' : '+ Kurulum ücreti bir kez alınır.'}</p>
               </div>
 
               <a
