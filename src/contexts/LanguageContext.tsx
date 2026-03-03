@@ -33,7 +33,7 @@ const translations = {
     'header.menuButton': 'Menüyü aç',
     'header.packages': 'Paketler',
     'header.contact': 'İletişim',
-    'header.calculateProfit': 'Kazancını Hesapla',
+    'header.calculateProfit': 'Fiyatları İncele',
     'header.metaDescription': 'Stratejiyle dönüşüm sağlıyoruz. Reklam ve iş süreçlerinizi AI Agent ile otomatikleştirerek size sadece \'tıklama\' değil, gerçek \'sonuç\' getiriyoruz.',
     'header.ogDescription': 'AI Agent ve Otomasyon çözümleriyle iş süreçlerinizi dönüştürün. Manuel işlere son verin, verimliliği artırın.',
 
@@ -71,17 +71,17 @@ const translations = {
     // Strategy Section
     'strategy.title': 'Başarı Tesadüf Değildir.',
     'strategy.subtitle': 'Her adımı ölçülebilir veriye dayanan, kanıtlanmış bir stratejiyle hareket ediyoruz.',
-    
+
     // Strategy Accordion Items
     'strategy.automation.title': 'İş Süreçlerinizi Otomatikleştirin',
     'strategy.automation.content': 'Manuel görevleri akıllı sistemlere devredin. Müşteri takibi, randevu alma, e-posta pazarlama ve raporlama işlemlerini 7/24 çalışan AI asistanlar üstlensin. Ekibiniz stratejik işlere odaklanırken, rutin işler otomatik olarak yürüsün.',
-    
+
     'strategy.optimization.title': 'Reklam Performansınızı Optimize Edin',
     'strategy.optimization.content': 'AI destekli algoritmaların sürekli olarak Meta ve Google reklamlarınızı analiz etmesi ve optimize etmesini sağlayın. Veriye dayalı kararlarla bütçenizin her kuruşunu en verimli şekilde kullanın ve ROAS değerlerinizi katlayın.',
-    
+
     'strategy.engagement.title': 'Müşteri Etkileşimini Artırın',
     'strategy.engagement.content': 'Potansiyel müşterilerinizi hiç kaçırmayın. WhatsApp, e-posta ve telefon üzerinden 7/24 anında yanıt veren, randevu alabilen ve bilgi toplayan akıllı asistanlarla müşteri memnuniyetini ve dönüşüm oranlarını yükseltin.',
-    
+
     'strategy.innovation.title': 'Rekabet Avantajı Yaratın',
     'strategy.innovation.content': 'Yapay zeka teknolojilerini erken benimseyen işletmeler pazarda öne geçiyor. Modern otomasyon çözümleriyle rakiplerinizden bir adım önde olun, müşteri deneyimini kişiselleştirin ve operasyonel verimliliği maksimuma çıkarın.',
 
@@ -182,7 +182,7 @@ const translations = {
     'header.menuButton': 'Open Menu',
     'header.packages': 'Packages',
     'header.contact': 'Contact',
-    'header.calculateProfit': 'Calculate Your Profit',
+    'header.calculateProfit': 'View Pricing',
     'header.metaDescription': 'We drive transformation through strategy. By automating your advertising and business processes with AI Agents, we bring real \'results\', not just \'clicks\'.',
     'header.ogDescription': 'Transform your business processes with AI Agent and Automation solutions. End manual tasks, increase efficiency.',
 
@@ -220,17 +220,17 @@ const translations = {
     // Strategy Section
     'strategy.title': 'Success Is Not Coincidence.',
     'strategy.subtitle': 'We act with a proven strategy based on measurable data at every step.',
-    
+
     // Strategy Accordion Items
     'strategy.automation.title': 'Automate Your Business Processes',
     'strategy.automation.content': 'Delegate manual tasks to smart systems. Let AI assistants working 24/7 handle customer follow-up, appointment booking, email marketing and reporting. While your team focuses on strategic work, routine tasks run automatically.',
-    
+
     'strategy.optimization.title': 'Optimize Your Ad Performance',
     'strategy.optimization.content': 'Enable AI-powered algorithms to continuously analyze and optimize your Meta and Google ads. Use every penny of your budget most efficiently with data-driven decisions and multiply your ROAS values.',
-    
+
     'strategy.engagement.title': 'Increase Customer Engagement',
     'strategy.engagement.content': 'Never miss potential customers. Increase customer satisfaction and conversion rates with smart assistants that respond instantly 24/7, book appointments and collect information via WhatsApp, email and phone.',
-    
+
     'strategy.innovation.title': 'Create Competitive Advantage',
     'strategy.innovation.content': 'Businesses that adopt artificial intelligence technologies early get ahead in the market. Stay one step ahead of your competitors with modern automation solutions, personalize customer experience and maximize operational efficiency.',
 
