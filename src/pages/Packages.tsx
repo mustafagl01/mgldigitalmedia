@@ -135,39 +135,39 @@ const addonPrices: Record<
 > = {
   automation: {
     label: {
-      tr: 'Otomatik İşlemler',
-      en: 'Automated Workflows',
+      tr: 'n8n İş Akışı (Workflow)',
+      en: 'n8n Workflow',
     },
     price: 1499,
     tooltip: {
-      tr: 'Tekrar eden işleri (fatura, mail, veri girişi) robota devreder.',
-      en: 'Delegates repetitive tasks (invoice, email, data entry) to automation.',
+      tr: 'Her bir akış, bir iş sürecini (örn: Form -> CRM) otomatikleştirir.',
+      en: 'Each workflow automates one business process (e.g., Form -> CRM).',
     },
     smartTooltip: {
-      tr: 'N8N altyapısı ile departmanlar arası işleri otopilota alır.',
-      en: 'Uses N8N infrastructure to put cross-department workflows on autopilot.',
+      tr: 'Karmaşık API entegrasyonları ve departmanlar arası veri akışını sağlar.',
+      en: 'Enables complex API integrations and cross-departmental data flow.',
     },
   },
   marketAnalysis: {
     label: {
-      tr: 'Pazar & Rakip Analizi',
-      en: 'Market & Competitor Analysis',
+      tr: 'Rakip İzleme & Lead Toplama',
+      en: 'Competitor Tracking & Lead Gen',
     },
     price: 1999,
     tooltip: {
-      tr: 'Rakiplerin fiyatlarını izler, müşteri listesi toplar.',
-      en: 'Tracks competitor pricing and collects potential customer lists.',
+      tr: 'Rakiplerin hamlelerini izler ve size her hafta taze müşteri listesi sunar.',
+      en: 'Tracks competitor moves and provides you with fresh lead lists weekly.',
     },
   },
   websitePanel: {
     label: {
-      tr: 'Web Sitesi & Panel',
-      en: 'Website & Dashboard',
+      tr: 'Müşteri Paneli (CRM Dashboard)',
+      en: 'Customer Dashboard (CRM)',
     },
     price: 4999,
     tooltip: {
-      tr: 'Müşteri etkileşimini tek merkezden yönetebileceğiniz satış odaklı bir vitrin sunar.',
-      en: 'Provides a conversion-focused storefront where you can manage customer interactions from one place.',
+      tr: 'Tüm satış ve etkileşim verilerinizi tek merkezden yönetmenizi sağlar.',
+      en: 'Allows you to manage all sales and interaction data from a single center.',
     },
   },
 };
@@ -254,6 +254,7 @@ export default function Packages() {
     marketAnalysis: false,
     websitePanel: false,
   });
+  const [automationCount, setAutomationCount] = useState(1);
   const [isTotalAnimating, setIsTotalAnimating] = useState(false);
 
   const regionalBasePrice = convertTryPrice(BASE_PRICE_TRY, region);
@@ -308,7 +309,9 @@ export default function Packages() {
 
     const addonsTotal = Object.entries(addons).reduce((acc, [key, selected]) => {
       if (!selected) return acc;
-      return acc + regionalAddonPrices[key as AddonKey].price;
+      const price = regionalAddonPrices[key as AddonKey].price;
+      if (key === 'automation') return acc + price * automationCount;
+      return acc + price;
     }, 0);
 
     return {
@@ -331,7 +334,11 @@ export default function Packages() {
     `${voiceMinutes}${isEnglish ? ' min Voice Assistant (Phone)' : 'dk Sesli Asistan (Telefon)'}`,
     ...Object.entries(addons)
       .filter(([, selected]) => selected)
-      .map(([key]) => regionalAddonPrices[key as AddonKey].label),
+      .map(([key]) => {
+        const label = regionalAddonPrices[key as AddonKey].label;
+        if (key === 'automation') return `${label} (x${automationCount})`;
+        return label;
+      }),
   ];
 
   const customMessage = isEnglish
@@ -364,33 +371,30 @@ export default function Packages() {
             <button
               type="button"
               onClick={() => setActiveTab('ready')}
-              className={`rounded-xl px-5 py-2 text-sm font-semibold transition ${
-                activeTab === 'ready'
+              className={`rounded-xl px-5 py-2 text-sm font-semibold transition ${activeTab === 'ready'
                   ? 'bg-cyan-400 text-slate-900 shadow-[0_0_20px_rgba(34,211,238,0.45)]'
                   : 'text-slate-300 hover:text-white'
-              }`}
+                }`}
             >
               📦 {isEnglish ? 'Ready Packages' : 'Hazır Paketler'}
             </button>
             <button
               type="button"
               onClick={() => setActiveTab('custom')}
-              className={`rounded-xl px-5 py-2 text-sm font-semibold transition ${
-                activeTab === 'custom'
+              className={`rounded-xl px-5 py-2 text-sm font-semibold transition ${activeTab === 'custom'
                   ? 'bg-fuchsia-400 text-slate-900 shadow-[0_0_20px_rgba(232,121,249,0.45)]'
                   : 'text-slate-300 hover:text-white'
-              }`}
+                }`}
             >
               🛠️ {isEnglish ? 'Build Your Package' : 'Kendi Paketini Yap'}
             </button>
             <button
               type="button"
               onClick={() => setActiveTab('enterprise')}
-              className={`rounded-xl px-5 py-2 text-sm font-semibold transition ${
-                activeTab === 'enterprise'
+              className={`rounded-xl px-5 py-2 text-sm font-semibold transition ${activeTab === 'enterprise'
                   ? 'bg-amber-300 text-slate-900 shadow-[0_0_20px_rgba(252,211,77,0.45)]'
                   : 'text-slate-300 hover:text-white'
-              }`}
+                }`}
             >
               🏢 {isEnglish ? 'Enterprise & Custom Solutions' : 'Kurumsal & Özel Çözümler'}
             </button>
@@ -403,20 +407,18 @@ export default function Packages() {
               {readyPlans.map((plan) => (
                 <article
                   key={plan.key}
-                  className={`relative rounded-3xl border bg-white/5 p-5 backdrop-blur-xl transition hover:-translate-y-1 hover:border-cyan-300/60 ${
-                    plan.recommended
+                  className={`relative rounded-3xl border bg-white/5 p-5 backdrop-blur-xl transition hover:-translate-y-1 hover:border-cyan-300/60 ${plan.recommended
                       ? 'border-fuchsia-300/60 shadow-[0_0_30px_rgba(217,70,239,0.35)]'
                       : 'border-white/15'
-                  }`}
+                    }`}
                 >
                   <span className="absolute -top-3 left-4 z-10 inline-flex max-w-[70%] items-center gap-1 rounded-full border border-emerald-300/70 bg-emerald-500/20 px-3 py-1 text-[11px] font-bold text-emerald-100 sm:max-w-none sm:text-xs">
                     {isEnglish ? '✅ Setup Included (£0)' : '✅ Kurulum Dahil (0 TL)'}
                   </span>
                   <h2 className="mt-4 text-xl font-bold">{plan.name}</h2>
                   <p
-                    className={`mt-1 text-sm ${
-                      plan.recommended ? 'font-semibold text-fuchsia-200' : 'text-slate-300'
-                    }`}
+                    className={`mt-1 text-sm ${plan.recommended ? 'font-semibold text-fuchsia-200' : 'text-slate-300'
+                      }`}
                   >
                     {plan.subtitle}
                   </p>
@@ -544,12 +546,22 @@ export default function Packages() {
                 <p className="mt-1 text-xs text-slate-400">{isEnglish ? 'Hover on the info icon to see details.' : 'Bilgi ikonuna gelince detay balonu açılır.'}</p>
                 <div className="mt-3 grid gap-3">
                   {(Object.keys(addonPrices) as AddonKey[]).map((addon) => (
-                    <label key={addon} className="group relative flex items-center justify-between rounded-xl border border-white/15 bg-black/30 p-3">
-                      <span className="flex items-center gap-2">
-                        <span>
-                          {regionalAddonPrices[addon].label}
-                          <span className="ml-2 text-xs text-fuchsia-300">+{formatPrice(regionalAddonPrices[addon].price, region)}</span>
-                        </span>
+                    <div key={addon} className="group relative flex flex-col gap-3 rounded-xl border border-white/15 bg-black/30 p-3">
+                      <div className="flex items-center justify-between">
+                        <label className="flex flex-1 cursor-pointer items-center gap-2">
+                          <input
+                            type="checkbox"
+                            checked={addons[addon]}
+                            onChange={() => setAddons((prev) => ({ ...prev, [addon]: !prev[addon] }))}
+                            className="h-5 w-5 accent-fuchsia-400"
+                          />
+                          <span className="flex items-center gap-2">
+                            <span>
+                              {regionalAddonPrices[addon].label}
+                              <span className="ml-2 text-xs text-fuchsia-300">+{formatPrice(regionalAddonPrices[addon].price, region)}</span>
+                            </span>
+                          </span>
+                        </label>
                         <span className="group/info relative inline-flex items-center">
                           <Info
                             size={15}
@@ -557,7 +569,7 @@ export default function Packages() {
                             tabIndex={0}
                             aria-label={isEnglish ? `${regionalAddonPrices[addon].label} details` : `${regionalAddonPrices[addon].label} detayı`}
                           />
-                          <span className="pointer-events-none invisible absolute left-1/2 top-6 z-30 w-72 -translate-x-1/2 rounded-xl border border-fuchsia-300/40 bg-[#120c1d] p-3 text-xs text-fuchsia-100 opacity-0 shadow-[0_0_20px_rgba(217,70,239,0.35)] transition duration-200 group-hover:visible group-hover:opacity-100 group-focus-within/info:visible group-focus-within/info:opacity-100">
+                          <span className="pointer-events-none invisible absolute right-0 top-6 z-30 w-72 rounded-xl border border-fuchsia-300/40 bg-[#120c1d] p-3 text-xs text-fuchsia-100 opacity-0 shadow-[0_0_20px_rgba(217,70,239,0.35)] transition duration-200 group-hover:visible group-hover:opacity-100 group-focus-within/info:visible group-focus-within/info:opacity-100">
                             {regionalAddonPrices[addon].tooltip}
                             {regionalAddonPrices[addon].smartTooltip && (
                               <span className="mt-2 block border-t border-fuchsia-300/20 pt-2 text-fuchsia-200">
@@ -566,14 +578,30 @@ export default function Packages() {
                             )}
                           </span>
                         </span>
-                      </span>
-                      <input
-                        type="checkbox"
-                        checked={addons[addon]}
-                        onChange={() => setAddons((prev) => ({ ...prev, [addon]: !prev[addon] }))}
-                        className="h-5 w-5 accent-fuchsia-400"
-                      />
-                    </label>
+                      </div>
+
+                      {/* Quantity Selector for n8n Workflows */}
+                      {addon === 'automation' && addons[addon] && (
+                        <div className="ml-7 flex items-center gap-4 rounded-lg bg-white/5 p-2">
+                          <span className="text-xs text-slate-400">{isEnglish ? 'Quantity:' : 'Adet:'}</span>
+                          <div className="flex items-center gap-3">
+                            <button
+                              onClick={() => setAutomationCount(Math.max(1, automationCount - 1))}
+                              className="flex h-6 w-6 items-center justify-center rounded-md border border-white/20 bg-white/5 hover:bg-white/10"
+                            >
+                              -
+                            </button>
+                            <span className="min-w-[20px] text-center text-sm font-bold text-fuchsia-300">{automationCount}</span>
+                            <button
+                              onClick={() => setAutomationCount(Math.min(10, automationCount + 1))}
+                              className="flex h-6 w-6 items-center justify-center rounded-md border border-white/20 bg-white/5 hover:bg-white/10"
+                            >
+                              +
+                            </button>
+                          </div>
+                        </div>
+                      )}
+                    </div>
                   ))}
                 </div>
               </div>
@@ -611,12 +639,19 @@ export default function Packages() {
                     </div>
                   )}
                   {/* Seçili Eklentiler */}
-                  {(Object.entries(addons) as [AddonKey, boolean][]).filter(([, selected]) => selected).map(([key]) => (
-                    <div key={key} className="flex justify-between">
-                      <span>{regionalAddonPrices[key].label}</span>
-                      <span>{formatPrice(regionalAddonPrices[key].price, region)}</span>
-                    </div>
-                  ))}
+                  {(Object.entries(addons) as [AddonKey, boolean][]).filter(([, selected]) => selected).map(([key]) => {
+                    const price = regionalAddonPrices[key].price;
+                    const label = regionalAddonPrices[key].label;
+                    const finalPrice = key === 'automation' ? price * automationCount : price;
+                    const finalLabel = key === 'automation' ? `${label} (x${automationCount})` : label;
+
+                    return (
+                      <div key={key} className="flex justify-between">
+                        <span>{finalLabel}</span>
+                        <span>{formatPrice(finalPrice, region)}</span>
+                      </div>
+                    );
+                  })}
                   {/* Hiçbir şey seçilmediyse */}
                   {monthlyTotal === 0 && (
                     <p className="text-xs text-slate-400 italic">{isEnglish ? 'No monthly items selected yet.' : 'Henüz aylık kalem seçilmedi.'}</p>
@@ -628,9 +663,8 @@ export default function Packages() {
               <div className="mt-4 border-t border-white/15 pt-4">
                 <p className="text-xs uppercase tracking-[0.2em] text-slate-400">{isEnglish ? 'Monthly Total' : 'Aylık Toplam'}</p>
                 <p
-                  className={`mt-2 text-3xl font-black text-emerald-300 transition ${
-                    isTotalAnimating ? 'scale-105 drop-shadow-[0_0_16px_rgba(52,211,153,0.75)]' : 'scale-100'
-                  }`}
+                  className={`mt-2 text-3xl font-black text-emerald-300 transition ${isTotalAnimating ? 'scale-105 drop-shadow-[0_0_16px_rgba(52,211,153,0.75)]' : 'scale-100'
+                    }`}
                 >
                   {formatPrice(monthlyTotal, region)}
                 </p>
