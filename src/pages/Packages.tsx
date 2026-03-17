@@ -91,21 +91,22 @@ const UK_ESTIMATED_SAVINGS_BY_PLAN: Record<PackageTierKey, string> = {
   business: '£75,000+',
 };
 
+// Voice minute labels are derived from pricing config at runtime — no hardcoded numbers here.
 const readyPlanTemplates: PackagePlan[] = [
   {
     key: 'starter',
     subtitle: { tr: 'Dijitalleşmeye ilk adım.', en: 'Your first step into digital operations.' },
     features: {
-      tr: ['Sesli Asistan (Telefon) - 300 dk', 'WhatsApp Müşteri Karşılama', 'Pazar & Rakip Analizi'],
-      en: ['Voice Assistant (Phone) - 300 min', 'WhatsApp Customer Greeting', 'Market & Competitor Analysis'],
+      tr: ['WhatsApp Müşteri Karşılama', 'Pazar & Rakip Analizi'],
+      en: ['WhatsApp Customer Greeting', 'Market & Competitor Analysis'],
     },
   },
   {
     key: 'pro',
     subtitle: { tr: '⭐ En Çok Tercih Edilen', en: '⭐ Most Popular' },
     features: {
-      tr: ['Sesli Asistan (Telefon) - 800 dk', 'WhatsApp + Instagram Bot Danışma Hattı', 'Otomatik İşlemler'],
-      en: ['Voice Assistant (Phone) - 800 min', 'WhatsApp + Instagram Bot Support Line', 'Automated Workflows'],
+      tr: ['WhatsApp + Instagram Bot Danışma Hattı', 'Otomatik İşlemler'],
+      en: ['WhatsApp + Instagram Bot Support Line', 'Automated Workflows'],
     },
     recommended: true,
   },
@@ -113,16 +114,16 @@ const readyPlanTemplates: PackagePlan[] = [
     key: 'advanced',
     subtitle: { tr: 'Tam otomasyon ve analiz.', en: 'Full automation and analytics.' },
     features: {
-      tr: ['Sesli Asistan (Telefon) - 1200 dk', 'Pazar & Rakip Analizi', 'Web Sitesi & Panel'],
-      en: ['Voice Assistant (Phone) - 1200 min', 'Market & Competitor Analysis', 'Website & Panel'],
+      tr: ['Pazar & Rakip Analizi', 'Web Sitesi & Panel'],
+      en: ['Market & Competitor Analysis', 'Website & Panel'],
     },
   },
   {
     key: 'business',
     subtitle: { tr: 'Sınırsız güç ve öncelik.', en: 'Maximum power and priority support.' },
     features: {
-      tr: ['Sesli Asistan (Telefon) - 2000 dk', 'Otomatik İşlemler', 'Tam Kanal Yönetimi + Müşteri Takip Sistemi (CRM)'],
-      en: ['Voice Assistant (Phone) - 2000 min', 'Automated Workflows', 'Full Channel Management + Customer Tracking System (CRM)'],
+      tr: ['Otomatik İşlemler', 'Tam Kanal Yönetimi + Müşteri Takip Sistemi (CRM)'],
+      en: ['Automated Workflows', 'Full Channel Management + Customer Tracking System (CRM)'],
     },
   },
 ];
@@ -225,15 +226,25 @@ export default function Packages() {
 
   const voiceCost = voiceMinutes * pricePerMinute;
 
+  // Build ready plans — voice minute label pulled from pricing config (single source of truth)
   const readyPlans = useMemo(
     () =>
-      readyPlanTemplates.map((template) => ({
-        ...template,
-        name: pricing.packages[template.key].name,
-        price: pricing.packages[template.key].price,
-        subtitle: isEnglish ? template.subtitle.en : template.subtitle.tr,
-        features: isEnglish ? template.features.en : template.features.tr,
-      })),
+      readyPlanTemplates.map((template) => {
+        const tier = pricing.packages[template.key];
+        const voiceLabel = isEnglish
+          ? `Voice Assistant (Phone) - ${tier.voiceMinutes} min`
+          : `Sesli Asistan (Telefon) - ${tier.voiceMinutes} dk`;
+        return {
+          ...template,
+          name: tier.name,
+          price: tier.price,
+          subtitle: isEnglish ? template.subtitle.en : template.subtitle.tr,
+          features: [
+            voiceLabel,
+            ...(isEnglish ? template.features.en : template.features.tr),
+          ],
+        };
+      }),
     [isEnglish, pricing],
   );
 
