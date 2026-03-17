@@ -12,6 +12,8 @@ export type PackageTier = {
   key: PackageTierKey;
   name: string;
   price: number;
+  /** Included voice assistant minutes for this tier */
+  voiceMinutes: number;
 };
 
 export type RegionalPricing = {
@@ -38,10 +40,10 @@ export const REGIONAL_PRICING: Record<PricingRegionCode, RegionalPricing> = {
     pricePerMinute: 6,          // ₺6/dk
     monthlyEmployerCost: 40000,
     packages: {
-      starter:  { key: 'starter',  name: 'Essentials', price: 6999  },
-      pro:      { key: 'pro',      name: 'Pro',        price: 13999 },
-      advanced: { key: 'advanced', name: 'Advanced',   price: 16999 },
-      business: { key: 'business', name: 'Business',   price: 24999 },
+      starter:  { key: 'starter',  name: 'Essentials', price: 6999,  voiceMinutes: 300  },
+      pro:      { key: 'pro',      name: 'Pro',        price: 13999, voiceMinutes: 800  },
+      advanced: { key: 'advanced', name: 'Advanced',   price: 16999, voiceMinutes: 1200 },
+      business: { key: 'business', name: 'Business',   price: 24999, voiceMinutes: 2000 },
     },
   },
   GB: {
@@ -55,10 +57,10 @@ export const REGIONAL_PRICING: Record<PricingRegionCode, RegionalPricing> = {
     pricePerMinute: 0.15,       // £0.15 = 15p/dk
     monthlyEmployerCost: 2200,
     packages: {
-      starter:  { key: 'starter',  name: 'Starter',    price: 249 },
-      pro:      { key: 'pro',      name: 'Growth',     price: 449 },
-      advanced: { key: 'advanced', name: 'Scale',      price: 549 },
-      business: { key: 'business', name: 'Enterprise', price: 799 },
+      starter:  { key: 'starter',  name: 'Starter',    price: 249, voiceMinutes: 300  },
+      pro:      { key: 'pro',      name: 'Growth',     price: 449, voiceMinutes: 800  },
+      advanced: { key: 'advanced', name: 'Scale',      price: 549, voiceMinutes: 1200 },
+      business: { key: 'business', name: 'Enterprise', price: 799, voiceMinutes: 2000 },
     },
   },
 };
