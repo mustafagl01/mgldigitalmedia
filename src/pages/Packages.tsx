@@ -24,121 +24,37 @@ type ChannelKey = 'whatsapp' | 'instagram' | 'web';
 type AddonKey = 'automation' | 'marketAnalysis' | 'websitePanel';
 
 type SectorInsight = {
-  name: {
-    tr: string;
-    en: string;
-  };
-  stat: {
-    tr: string;
-    en: string;
-  };
-  description: {
-    tr: string;
-    en: string;
-  };
+  name: { tr: string; en: string };
+  stat: { tr: string; en: string };
+  description: { tr: string; en: string };
   icon: ReactNode;
 };
 
 const WHATSAPP_NUMBER = '905318299701';
 const WHATSAPP_LABEL = '+90 531 829 97 01';
-const BASE_PRICE_TRY = 2999;
-const PRICE_PER_MINUTE_TRY = 4;
-const MONTHLY_EMPLOYER_COST_TRY = 30000;
-const TRY_TO_GBP_RATE = 0.025;
 
-const UK_ESTIMATED_SAVINGS_BY_PLAN: Record<PackageTierKey, string> = {
-  starter: '£3,500–£5,000',
-  pro: '£15,000–£20,000',
-  advanced: '£30,000–£40,000',
-  business: '£75,000+',
+// Channel & addon base prices stored in TRY.
+// GB prices are resolved directly from regional pricing config — no conversion rate needed.
+const CHANNEL_PRICES_TRY: Record<ChannelKey, { label: string; priceTRY: number; priceGBP: number }> = {
+  whatsapp: { label: 'WhatsApp Bot',  priceTRY: 1999, priceGBP: 49 },
+  instagram: { label: 'Instagram Bot', priceTRY: 1499, priceGBP: 39 },
+  web:       { label: 'Web Chat Bot',  priceTRY: 999,  priceGBP: 29 },
 };
 
-const readyPlanTemplates: PackagePlan[] = [
-  {
-    key: 'starter',
-    subtitle: {
-      tr: 'Dijitalleşmeye ilk adım.',
-      en: 'Your first step into digital operations.',
-    },
-    features: {
-      tr: ['Sesli Asistan (Telefon) - 300 dk', 'WhatsApp Müşteri Karşılama', 'Pazar & Rakip Analizi'],
-      en: ['Voice Assistant (Phone) - 300 min', 'WhatsApp Customer Greeting', 'Market & Competitor Analysis'],
-    },
-  },
-  {
-    key: 'pro',
-    subtitle: {
-      tr: '⭐ En Çok Tercih Edilen',
-      en: '⭐ Most Popular',
-    },
-    features: {
-      tr: [
-        'Sesli Asistan (Telefon) - 800 dk',
-        'WhatsApp + Instagram Bot Danışma Hattı',
-        'Otomatik İşlemler',
-      ],
-      en: [
-        'Voice Assistant (Phone) - 800 min',
-        'WhatsApp + Instagram Bot Support Line',
-        'Automated Workflows',
-      ],
-    },
-    recommended: true,
-  },
-  {
-    key: 'advanced',
-    subtitle: {
-      tr: 'Tam otomasyon ve analiz.',
-      en: 'Full automation and analytics.',
-    },
-    features: {
-      tr: ['Sesli Asistan (Telefon) - 1200 dk', 'Pazar & Rakip Analizi', 'Web Sitesi & Panel'],
-      en: ['Voice Assistant (Phone) - 1200 min', 'Market & Competitor Analysis', 'Website & Panel'],
-    },
-  },
-  {
-    key: 'business',
-    subtitle: {
-      tr: 'Sınırsız güç ve öncelik.',
-      en: 'Maximum power and priority support.',
-    },
-    features: {
-      tr: ['Sesli Asistan (Telefon) - 2000 dk', 'Otomatik İşlemler', 'Tam Kanal Yönetimi + Müşteri Takip Sistemi (CRM)'],
-      en: ['Voice Assistant (Phone) - 2000 min', 'Automated Workflows', 'Full Channel Management + Customer Tracking System (CRM)'],
-    },
-  },
-];
-
-const channelPrices: Record<ChannelKey, { label: string; price: number }> = {
-  whatsapp: { label: 'WhatsApp Bot', price: 1999 },
-  instagram: { label: 'Instagram Bot', price: 1499 },
-  web: { label: 'Web Chat Bot', price: 999 },
-};
-
-const addonPrices: Record<
+const ADDON_PRICES: Record<
   AddonKey,
   {
-    label: {
-      tr: string;
-      en: string;
-    };
-    price: number;
-    tooltip: {
-      tr: string;
-      en: string;
-    };
-    smartTooltip?: {
-      tr: string;
-      en: string;
-    };
+    label: { tr: string; en: string };
+    priceTRY: number;
+    priceGBP: number;
+    tooltip: { tr: string; en: string };
+    smartTooltip?: { tr: string; en: string };
   }
 > = {
   automation: {
-    label: {
-      tr: 'n8n İş Akışı (Workflow)',
-      en: 'n8n Workflow',
-    },
-    price: 1499,
+    label: { tr: 'n8n İş Akışı (Workflow)', en: 'n8n Workflow' },
+    priceTRY: 1499,
+    priceGBP: 39,
     tooltip: {
       tr: 'Her bir akış, bir iş sürecini (örn: Form -> CRM) otomatikleştirir.',
       en: 'Each workflow automates one business process (e.g., Form -> CRM).',
@@ -149,22 +65,18 @@ const addonPrices: Record<
     },
   },
   marketAnalysis: {
-    label: {
-      tr: 'Rakip İzleme & Lead Toplama',
-      en: 'Competitor Tracking & Lead Gen',
-    },
-    price: 1999,
+    label: { tr: 'Rakip İzleme & Lead Toplama', en: 'Competitor Tracking & Lead Gen' },
+    priceTRY: 1999,
+    priceGBP: 49,
     tooltip: {
       tr: 'Rakiplerin hamlelerini izler ve size her hafta taze müşteri listesi sunar.',
       en: 'Tracks competitor moves and provides you with fresh lead lists weekly.',
     },
   },
   websitePanel: {
-    label: {
-      tr: 'Müşteri Paneli (CRM Dashboard)',
-      en: 'Customer Dashboard (CRM)',
-    },
-    price: 4999,
+    label: { tr: 'Müşteri Paneli (CRM Dashboard)', en: 'Customer Dashboard (CRM)' },
+    priceTRY: 4999,
+    priceGBP: 129,
     tooltip: {
       tr: 'Tüm satış ve etkileşim verilerinizi tek merkezden yönetmenizi sağlar.',
       en: 'Allows you to manage all sales and interaction data from a single center.',
@@ -172,26 +84,53 @@ const addonPrices: Record<
   },
 };
 
+const UK_ESTIMATED_SAVINGS_BY_PLAN: Record<PackageTierKey, string> = {
+  starter:  '£3,500–£5,000',
+  pro:      '£15,000–£20,000',
+  advanced: '£30,000–£40,000',
+  business: '£75,000+',
+};
 
-
-function convertTryPrice(value: number, region: 'TR' | 'GB') {
-  if (region === 'TR') {
-    return value;
-  }
-
-  return Number((value * TRY_TO_GBP_RATE).toFixed(2));
-}
+const readyPlanTemplates: PackagePlan[] = [
+  {
+    key: 'starter',
+    subtitle: { tr: 'Dijitalleşmeye ilk adım.', en: 'Your first step into digital operations.' },
+    features: {
+      tr: ['Sesli Asistan (Telefon) - 300 dk', 'WhatsApp Müşteri Karşılama', 'Pazar & Rakip Analizi'],
+      en: ['Voice Assistant (Phone) - 300 min', 'WhatsApp Customer Greeting', 'Market & Competitor Analysis'],
+    },
+  },
+  {
+    key: 'pro',
+    subtitle: { tr: '⭐ En Çok Tercih Edilen', en: '⭐ Most Popular' },
+    features: {
+      tr: ['Sesli Asistan (Telefon) - 800 dk', 'WhatsApp + Instagram Bot Danışma Hattı', 'Otomatik İşlemler'],
+      en: ['Voice Assistant (Phone) - 800 min', 'WhatsApp + Instagram Bot Support Line', 'Automated Workflows'],
+    },
+    recommended: true,
+  },
+  {
+    key: 'advanced',
+    subtitle: { tr: 'Tam otomasyon ve analiz.', en: 'Full automation and analytics.' },
+    features: {
+      tr: ['Sesli Asistan (Telefon) - 1200 dk', 'Pazar & Rakip Analizi', 'Web Sitesi & Panel'],
+      en: ['Voice Assistant (Phone) - 1200 min', 'Market & Competitor Analysis', 'Website & Panel'],
+    },
+  },
+  {
+    key: 'business',
+    subtitle: { tr: 'Sınırsız güç ve öncelik.', en: 'Maximum power and priority support.' },
+    features: {
+      tr: ['Sesli Asistan (Telefon) - 2000 dk', 'Otomatik İşlemler', 'Tam Kanal Yönetimi + Müşteri Takip Sistemi (CRM)'],
+      en: ['Voice Assistant (Phone) - 2000 min', 'Automated Workflows', 'Full Channel Management + Customer Tracking System (CRM)'],
+    },
+  },
+];
 
 const sectorInsights: SectorInsight[] = [
   {
-    name: {
-      tr: 'Restoran & Kafe',
-      en: 'Restaurant & Cafe',
-    },
-    stat: {
-      tr: '%40 Personel Tasarrufu',
-      en: '40% Staff Savings',
-    },
+    name: { tr: 'Restoran & Kafe', en: 'Restaurant & Cafe' },
+    stat: { tr: '%40 Personel Tasarrufu', en: '40% Staff Savings' },
     description: {
       tr: 'Sipariş ve rezervasyon otomasyonu ile garsonlar sadece servise odaklanır.',
       en: 'With order and reservation automation, waiters focus only on service.',
@@ -204,14 +143,8 @@ const sectorInsights: SectorInsight[] = [
     ),
   },
   {
-    name: {
-      tr: 'Klinik & Sağlık',
-      en: 'Clinic & Healthcare',
-    },
-    stat: {
-      tr: '%100 Randevu Doluluğu',
-      en: '100% Appointment Fill Rate',
-    },
+    name: { tr: 'Klinik & Sağlık', en: 'Clinic & Healthcare' },
+    stat: { tr: '%100 Randevu Doluluğu', en: '100% Appointment Fill Rate' },
     description: {
       tr: 'Gelmeyen hastaları (No-show) önleyen hatırlatma sistemi ile ciro kaybı biter.',
       en: 'Prevent no-shows with a reminder system that ends revenue loss.',
@@ -219,14 +152,8 @@ const sectorInsights: SectorInsight[] = [
     icon: <Stethoscope size={22} className="text-emerald-200" />,
   },
   {
-    name: {
-      tr: 'İhracat & Satış',
-      en: 'Export & Sales',
-    },
-    stat: {
-      tr: '7/24 Anlık Yanıt',
-      en: '24/7 Instant Response',
-    },
+    name: { tr: 'İhracat & Satış', en: 'Export & Sales' },
+    stat: { tr: '7/24 Anlık Yanıt', en: '24/7 Instant Response' },
     description: {
       tr: 'Gece gelen yurtdışı taleplerini kaçırmadan, anında İngilizce/Arapça yanıtlayın.',
       en: 'Respond instantly in English/Arabic to overnight international inquiries without missing them.',
@@ -234,6 +161,7 @@ const sectorInsights: SectorInsight[] = [
     icon: <Globe2 size={22} className="text-cyan-200" />,
   },
 ];
+
 function createWhatsAppLink(message: string) {
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 }
@@ -242,6 +170,8 @@ export default function Packages() {
   const { pricing, region } = useLocation();
   const { language, t } = useLanguage();
   const isEnglish = language === 'en';
+  const isTR = region === 'TR';
+
   const [activeTab, setActiveTab] = useState<TabMode>('ready');
   const [voiceMinutes, setVoiceMinutes] = useState(500);
   const [channels, setChannels] = useState<Record<ChannelKey, boolean>>({
@@ -257,36 +187,43 @@ export default function Packages() {
   const [automationCount, setAutomationCount] = useState(1);
   const [isTotalAnimating, setIsTotalAnimating] = useState(false);
 
-  const regionalBasePrice = convertTryPrice(BASE_PRICE_TRY, region);
-  const regionalPricePerMinute = convertTryPrice(PRICE_PER_MINUTE_TRY, region);
-  const regionalMonthlyEmployerCost = convertTryPrice(MONTHLY_EMPLOYER_COST_TRY, region);
+  // All prices come directly from the regional pricing config — no currency conversion.
+  const pricePerMinute = pricing.pricePerMinute;
+  const baseSetupPrice = pricing.baseSetupPrice;
+  const monthlyEmployerCost = pricing.monthlyEmployerCost;
 
   const regionalChannelPrices = useMemo(
     () =>
       Object.fromEntries(
-        Object.entries(channelPrices).map(([key, value]) => [key, { ...value, price: convertTryPrice(value.price, region) }])
+        Object.entries(CHANNEL_PRICES_TRY).map(([key, value]) => [
+          key,
+          { label: value.label, price: isTR ? value.priceTRY : value.priceGBP },
+        ]),
       ) as Record<ChannelKey, { label: string; price: number }>,
-    [region],
+    [isTR],
   );
 
   const regionalAddonPrices = useMemo(
     () =>
       Object.fromEntries(
-        Object.entries(addonPrices).map(([key, value]) => [
+        Object.entries(ADDON_PRICES).map(([key, value]) => [
           key,
           {
-            ...value,
             label: isEnglish ? value.label.en : value.label.tr,
+            price: isTR ? value.priceTRY : value.priceGBP,
             tooltip: isEnglish ? value.tooltip.en : value.tooltip.tr,
-            smartTooltip: value.smartTooltip ? (isEnglish ? value.smartTooltip.en : value.smartTooltip.tr) : undefined,
-            price: convertTryPrice(value.price, region),
+            smartTooltip: value.smartTooltip
+              ? isEnglish
+                ? value.smartTooltip.en
+                : value.smartTooltip.tr
+              : undefined,
           },
-        ])
+        ]),
       ) as Record<AddonKey, { label: string; price: number; tooltip: string; smartTooltip?: string }>,
-    [isEnglish, region],
+    [isEnglish, isTR],
   );
 
-  const voiceCost = voiceMinutes * regionalPricePerMinute;
+  const voiceCost = voiceMinutes * pricePerMinute;
 
   const readyPlans = useMemo(
     () =>
@@ -297,9 +234,8 @@ export default function Packages() {
         subtitle: isEnglish ? template.subtitle.en : template.subtitle.tr,
         features: isEnglish ? template.features.en : template.features.tr,
       })),
-    [isEnglish, pricing]
+    [isEnglish, pricing],
   );
-
 
   const { monthlyTotal, oneTimeTotal } = useMemo(() => {
     const channelsTotal = Object.entries(channels).reduce((acc, [key, selected]) => {
@@ -316,16 +252,15 @@ export default function Packages() {
 
     return {
       monthlyTotal: channelsTotal + addonsTotal + voiceCost,
-      oneTimeTotal: regionalBasePrice,
+      oneTimeTotal: baseSetupPrice,
     };
-  }, [channels, addons, regionalBasePrice, voiceCost, regionalAddonPrices, regionalChannelPrices]);
+  }, [channels, addons, baseSetupPrice, voiceCost, regionalAddonPrices, regionalChannelPrices, automationCount]);
 
   useEffect(() => {
     setIsTotalAnimating(true);
     const timeout = window.setTimeout(() => setIsTotalAnimating(false), 250);
     return () => window.clearTimeout(timeout);
   }, [monthlyTotal]);
-
 
   const summaryParts = [
     ...Object.entries(channels)
@@ -348,19 +283,21 @@ export default function Packages() {
   return (
     <div className="min-h-screen bg-[#05060a] px-4 py-10 text-white">
       <div className="mx-auto max-w-7xl space-y-8">
-        {/* Back to Home Button */}
         <button
-          onClick={() => window.location.href = '/'}
+          onClick={() => (window.location.href = '/')}
           className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-white/20 bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white transition-colors"
         >
           <Home size={18} />
           <span>{isEnglish ? 'Home' : 'Ana Sayfa'}</span>
         </button>
+
         <section className="rounded-3xl border border-cyan-300/20 bg-white/5 p-6 shadow-[0_0_70px_rgba(34,211,238,0.08)] backdrop-blur-2xl md:p-8">
           <p className="inline-flex rounded-full border border-fuchsia-300/40 bg-fuchsia-500/10 px-3 py-1 text-xs uppercase tracking-[0.2em] text-fuchsia-200">
             {isEnglish ? 'Package Hub' : 'Paket Merkezi'}
           </p>
-          <h1 className="mt-4 text-3xl font-black md:text-5xl">{isEnglish ? 'Packages That Scale Your Business' : 'İşinizi Büyüten Paketler'}</h1>
+          <h1 className="mt-4 text-3xl font-black md:text-5xl">
+            {isEnglish ? 'Packages That Scale Your Business' : 'İşinizi Büyüten Paketler'}
+          </h1>
           <p className="mt-3 max-w-4xl text-slate-300">
             {isEnglish
               ? 'Start today with a ready package, build your own package with live pricing, or plan a custom project for enterprise needs.'
@@ -368,58 +305,45 @@ export default function Packages() {
           </p>
 
           <div className="mt-6 inline-flex flex-wrap rounded-2xl border border-white/15 bg-black/30 p-1">
-            <button
-              type="button"
-              onClick={() => setActiveTab('ready')}
-              className={`rounded-xl px-5 py-2 text-sm font-semibold transition ${activeTab === 'ready'
-                  ? 'bg-cyan-400 text-slate-900 shadow-[0_0_20px_rgba(34,211,238,0.45)]'
-                  : 'text-slate-300 hover:text-white'
-                }`}
-            >
-              📦 {isEnglish ? 'Ready Packages' : 'Hazır Paketler'}
-            </button>
-            <button
-              type="button"
-              onClick={() => setActiveTab('custom')}
-              className={`rounded-xl px-5 py-2 text-sm font-semibold transition ${activeTab === 'custom'
-                  ? 'bg-fuchsia-400 text-slate-900 shadow-[0_0_20px_rgba(232,121,249,0.45)]'
-                  : 'text-slate-300 hover:text-white'
-                }`}
-            >
-              🛠️ {isEnglish ? 'Build Your Package' : 'Kendi Paketini Yap'}
-            </button>
-            <button
-              type="button"
-              onClick={() => setActiveTab('enterprise')}
-              className={`rounded-xl px-5 py-2 text-sm font-semibold transition ${activeTab === 'enterprise'
-                  ? 'bg-amber-300 text-slate-900 shadow-[0_0_20px_rgba(252,211,77,0.45)]'
-                  : 'text-slate-300 hover:text-white'
-                }`}
-            >
-              🏢 {isEnglish ? 'Enterprise & Custom Solutions' : 'Kurumsal & Özel Çözümler'}
-            </button>
+            {(['ready', 'custom', 'enterprise'] as TabMode[]).map((tab) => {
+              const labels: Record<TabMode, { tr: string; en: string; emoji: string; color: string }> = {
+                ready:      { tr: 'Hazır Paketler',          en: 'Ready Packages',             emoji: '📦', color: 'bg-cyan-400'    },
+                custom:     { tr: 'Kendi Paketini Yap',       en: 'Build Your Package',          emoji: '🛠️', color: 'bg-fuchsia-400' },
+                enterprise: { tr: 'Kurumsal & Özel Çözümler', en: 'Enterprise & Custom Solutions', emoji: '🏢', color: 'bg-amber-300'   },
+              };
+              const { tr, en, emoji, color } = labels[tab];
+              return (
+                <button
+                  key={tab}
+                  type="button"
+                  onClick={() => setActiveTab(tab)}
+                  className={`rounded-xl px-5 py-2 text-sm font-semibold transition ${
+                    activeTab === tab ? `${color} text-slate-900` : 'text-slate-300 hover:text-white'
+                  }`}
+                >
+                  {emoji} {isEnglish ? en : tr}
+                </button>
+              );
+            })}
           </div>
         </section>
 
+        {/* ─── READY PACKAGES ─── */}
         {activeTab === 'ready' && (
           <>
             <section className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
               {readyPlans.map((plan) => (
                 <article
                   key={plan.key}
-                  className={`relative rounded-3xl border bg-white/5 p-5 backdrop-blur-xl transition hover:-translate-y-1 hover:border-cyan-300/60 ${plan.recommended
-                      ? 'border-fuchsia-300/60 shadow-[0_0_30px_rgba(217,70,239,0.35)]'
-                      : 'border-white/15'
-                    }`}
+                  className={`relative rounded-3xl border bg-white/5 p-5 backdrop-blur-xl transition hover:-translate-y-1 hover:border-cyan-300/60 ${
+                    plan.recommended ? 'border-fuchsia-300/60 shadow-[0_0_30px_rgba(217,70,239,0.35)]' : 'border-white/15'
+                  }`}
                 >
                   <span className="absolute -top-3 left-4 z-10 inline-flex max-w-[70%] items-center gap-1 rounded-full border border-emerald-300/70 bg-emerald-500/20 px-3 py-1 text-[11px] font-bold text-emerald-100 sm:max-w-none sm:text-xs">
                     {isEnglish ? '✅ Setup Included (£0)' : '✅ Kurulum Dahil (0 TL)'}
                   </span>
                   <h2 className="mt-4 text-xl font-bold">{plan.name}</h2>
-                  <p
-                    className={`mt-1 text-sm ${plan.recommended ? 'font-semibold text-fuchsia-200' : 'text-slate-300'
-                      }`}
-                  >
+                  <p className={`mt-1 text-sm ${plan.recommended ? 'font-semibold text-fuchsia-200' : 'text-slate-300'}`}>
                     {plan.subtitle}
                   </p>
                   <p className="mt-2 text-3xl font-black text-cyan-300">{formatPrice(plan.price, region)}</p>
@@ -428,8 +352,8 @@ export default function Packages() {
                   </p>
                   <p className="mt-3 rounded-xl border border-emerald-300/45 bg-emerald-500/10 px-3 py-2 text-xs font-semibold text-emerald-100">
                     {isEnglish
-                      ? `Efficiency Impact: This plan saves your business an estimated ${UK_ESTIMATED_SAVINGS_BY_PLAN[plan.key]} in annual labor costs.`
-                      : `Tasarruf Notu: Bu paket, işletmenize yılda ortalama ${formatPrice((regionalMonthlyEmployerCost - plan.price) * 12, region)} personel tasarrufu sağlar.`}
+                      ? `Efficiency Impact: Saves your business an estimated ${UK_ESTIMATED_SAVINGS_BY_PLAN[plan.key]} in annual labor costs.`
+                      : `Tasarruf Notu: Bu paket, işletmenize yılda ortalama ${formatPrice((monthlyEmployerCost - plan.price) * 12, region)} personel tasarrufu sağlar.`}
                   </p>
                   <ul className="mt-4 space-y-2 text-sm text-slate-200">
                     {plan.features.map((feature) => (
@@ -439,12 +363,11 @@ export default function Packages() {
                       </li>
                     ))}
                   </ul>
-
                   <a
                     href={createWhatsAppLink(
                       isEnglish
                         ? `Hello, I would like more information about the ${plan.name} package.`
-                        : `Merhaba, ${plan.name} paketi hakkında bilgi almak istiyorum.`
+                        : `Merhaba, ${plan.name} paketi hakkında bilgi almak istiyorum.`,
                     )}
                     target="_blank"
                     rel="noreferrer"
@@ -464,9 +387,10 @@ export default function Packages() {
                 {isEnglish ? t('dataInsight.title') : 'Sektörler Yapay Zeka ile Ne Kazanıyor?'}
               </h2>
               <p className="mt-2 max-w-3xl text-sm text-slate-300 md:text-base">
-                {isEnglish ? t('dataInsight.desc') : 'Farklı sektörlerde devreye alınan otomasyonlar; hız, doluluk ve verimlilikte ölçülebilir sonuçlar sağlıyor.'}
+                {isEnglish
+                  ? t('dataInsight.desc')
+                  : 'Farklı sektörlerde devreye alınan otomasyonlar; hız, doluluk ve verimlilikte ölçülebilir sonuçlar sağlıyor.'}
               </p>
-
               <div className="mt-6 grid gap-4 md:grid-cols-3">
                 {sectorInsights.map((insight) => (
                   <article
@@ -490,23 +414,33 @@ export default function Packages() {
           </>
         )}
 
+        {/* ─── CUSTOM PACKAGE BUILDER ─── */}
         {activeTab === 'custom' && (
           <section className="grid gap-6 lg:grid-cols-[1fr_340px]">
             <div className="space-y-6 rounded-3xl border border-white/15 bg-white/5 p-6 backdrop-blur-2xl">
               <div className="rounded-2xl border border-cyan-300/30 bg-cyan-500/10 p-4">
-                <p className="text-xs uppercase tracking-[0.2em] text-cyan-200">{isEnglish ? 'Base Setup' : 'Temel Kurulum'}</p>
-                <p className="mt-1 text-2xl font-black text-cyan-100">{formatPrice(regionalBasePrice, region)}</p>
+                <p className="text-xs uppercase tracking-[0.2em] text-cyan-200">
+                  {isEnglish ? 'Base Setup (One-Time)' : 'Temel Kurulum (Üçret Tek Sefer)'}
+                </p>
+                <p className="mt-1 text-2xl font-black text-cyan-100">{formatPrice(baseSetupPrice, region)}</p>
               </div>
 
+              {/* Channels */}
               <div>
-                <h3 className="text-lg font-semibold">{isEnglish ? 'Communication Channels' : 'İletişim Kanalları'}</h3>
-                <p className="mt-1 text-xs text-slate-400">{isEnglish ? 'All channel prices are billed monthly.' : 'Tüm kanal fiyatları aylık olarak ücretlendirilir.'}</p>
+                <h3 className="text-lg font-semibold">
+                  {isEnglish ? 'Communication Channels' : 'İletişim Kanalları'}
+                </h3>
+                <p className="mt-1 text-xs text-slate-400">
+                  {isEnglish ? 'All channel prices are billed monthly.' : 'Tüm kanal fiyatları aylık olarak ücretlendirilir.'}
+                </p>
                 <div className="mt-3 grid gap-3 sm:grid-cols-2">
-                  {(Object.keys(channelPrices) as ChannelKey[]).map((channel) => (
+                  {(Object.keys(CHANNEL_PRICES_TRY) as ChannelKey[]).map((channel) => (
                     <label key={channel} className="flex items-center justify-between rounded-xl border border-white/15 bg-black/30 p-3">
                       <span>
                         {regionalChannelPrices[channel].label}
-                        <span className="ml-2 text-xs text-cyan-300">+{formatPrice(regionalChannelPrices[channel].price, region)}</span>
+                        <span className="ml-2 text-xs text-cyan-300">
+                          +{formatPrice(regionalChannelPrices[channel].price, region)}
+                        </span>
                       </span>
                       <input
                         type="checkbox"
@@ -519,11 +453,14 @@ export default function Packages() {
                 </div>
               </div>
 
+              {/* Voice Minutes Slider */}
               <div>
-                <h3 className="text-lg font-semibold">{isEnglish ? 'Voice Assistant (Phone) Minutes' : 'Sesli Asistan (Telefon) Dakikası'}</h3>
+                <h3 className="text-lg font-semibold">
+                  {isEnglish ? 'Voice Assistant (Phone) Minutes' : 'Sesli Asistan (Telefon) Dakikası'}
+                </h3>
                 <div className="mt-3 rounded-2xl border border-white/15 bg-black/30 p-4">
                   <div className="mb-2 flex items-center justify-between text-sm text-slate-300">
-                    <span>{voiceMinutes} dk</span>
+                    <span>{voiceMinutes} {isEnglish ? 'min' : 'dk'}</span>
                     <span className="font-bold text-fuchsia-300">{formatPrice(voiceCost, region)}</span>
                   </div>
                   <input
@@ -532,20 +469,23 @@ export default function Packages() {
                     max={5000}
                     step={50}
                     value={voiceMinutes}
-                    onChange={(event) => setVoiceMinutes(Number(event.target.value))}
+                    onChange={(e) => setVoiceMinutes(Number(e.target.value))}
                     className="h-2 w-full cursor-pointer appearance-none rounded-full bg-slate-700 accent-fuchsia-400"
                   />
                   <p className="mt-2 text-xs text-slate-400">
-                    {isEnglish ? 'Price per minute' : 'Dakika başı ücret'}: {formatPrice(PRICE_PER_MINUTE_TRY, region)}
+                    {isEnglish ? 'Price per minute' : 'Dakika başı ücret'}: {formatPrice(pricePerMinute, region)}
                   </p>
                 </div>
               </div>
 
+              {/* Add-ons */}
               <div>
                 <h3 className="text-lg font-semibold">{isEnglish ? 'Monthly Add-ons' : 'Aylık Eklentiler'}</h3>
-                <p className="mt-1 text-xs text-slate-400">{isEnglish ? 'Hover on the info icon to see details.' : 'Bilgi ikonuna gelince detay balonu açılır.'}</p>
+                <p className="mt-1 text-xs text-slate-400">
+                  {isEnglish ? 'Hover on the info icon to see details.' : 'Bilgi ikonuna gelince detay balonu açılır.'}
+                </p>
                 <div className="mt-3 grid gap-3">
-                  {(Object.keys(addonPrices) as AddonKey[]).map((addon) => (
+                  {(Object.keys(ADDON_PRICES) as AddonKey[]).map((addon) => (
                     <div key={addon} className="group relative flex flex-col gap-3 rounded-xl border border-white/15 bg-black/30 p-3">
                       <div className="flex items-center justify-between">
                         <label className="flex flex-1 cursor-pointer items-center gap-2">
@@ -558,17 +498,14 @@ export default function Packages() {
                           <span className="flex items-center gap-2">
                             <span>
                               {regionalAddonPrices[addon].label}
-                              <span className="ml-2 text-xs text-fuchsia-300">+{formatPrice(regionalAddonPrices[addon].price, region)}</span>
+                              <span className="ml-2 text-xs text-fuchsia-300">
+                                +{formatPrice(regionalAddonPrices[addon].price, region)}
+                              </span>
                             </span>
                           </span>
                         </label>
                         <span className="group/info relative inline-flex items-center">
-                          <Info
-                            size={15}
-                            className="cursor-help text-fuchsia-200"
-                            tabIndex={0}
-                            aria-label={isEnglish ? `${regionalAddonPrices[addon].label} details` : `${regionalAddonPrices[addon].label} detayı`}
-                          />
+                          <Info size={15} className="cursor-help text-fuchsia-200" tabIndex={0} />
                           <span className="pointer-events-none invisible absolute right-0 top-6 z-30 w-72 rounded-xl border border-fuchsia-300/40 bg-[#120c1d] p-3 text-xs text-fuchsia-100 opacity-0 shadow-[0_0_20px_rgba(217,70,239,0.35)] transition duration-200 group-hover:visible group-hover:opacity-100 group-focus-within/info:visible group-focus-within/info:opacity-100">
                             {regionalAddonPrices[addon].tooltip}
                             {regionalAddonPrices[addon].smartTooltip && (
@@ -579,8 +516,6 @@ export default function Packages() {
                           </span>
                         </span>
                       </div>
-
-                      {/* Quantity Selector for n8n Workflows */}
                       {addon === 'automation' && addons[addon] && (
                         <div className="ml-7 flex items-center gap-4 rounded-lg bg-white/5 p-2">
                           <span className="text-xs text-slate-400">{isEnglish ? 'Quantity:' : 'Adet:'}</span>
@@ -588,16 +523,12 @@ export default function Packages() {
                             <button
                               onClick={() => setAutomationCount(Math.max(1, automationCount - 1))}
                               className="flex h-6 w-6 items-center justify-center rounded-md border border-white/20 bg-white/5 hover:bg-white/10"
-                            >
-                              -
-                            </button>
+                            >-</button>
                             <span className="min-w-[20px] text-center text-sm font-bold text-fuchsia-300">{automationCount}</span>
                             <button
                               onClick={() => setAutomationCount(Math.min(10, automationCount + 1))}
                               className="flex h-6 w-6 items-center justify-center rounded-md border border-white/20 bg-white/5 hover:bg-white/10"
-                            >
-                              +
-                            </button>
+                            >+</button>
                           </div>
                         </div>
                       )}
@@ -607,44 +538,47 @@ export default function Packages() {
               </div>
             </div>
 
+            {/* Live Quote Sidebar */}
             <aside className="h-fit rounded-3xl border border-emerald-300/30 bg-slate-950/80 p-5 backdrop-blur-xl lg:sticky lg:top-6">
               <p className="text-xs uppercase tracking-[0.2em] text-emerald-200">{isEnglish ? 'Live Quote' : 'Canlı Teklif'}</p>
-              <p className="mt-2 text-sm text-slate-300">{isEnglish ? 'Total price updates instantly based on your selections.' : 'Seçimlerinize göre toplam fiyat anlık güncellenir.'}</p>
+              <p className="mt-2 text-sm text-slate-300">
+                {isEnglish
+                  ? 'Total price updates instantly based on your selections.'
+                  : 'Seçimlerinize göre toplam fiyat anlık güncellenir.'}
+              </p>
 
-              {/* Tek Seferlik Ücret */}
               <div className="mt-6 space-y-1">
-                <p className="text-[10px] uppercase tracking-[0.2em] text-amber-300/80 font-semibold">{isEnglish ? 'One-Time Fee' : 'Tek Seferlik Ücret'}</p>
+                <p className="text-[10px] uppercase tracking-[0.2em] text-amber-300/80 font-semibold">
+                  {isEnglish ? 'One-Time Fee' : 'Tek Seferlik Ücret'}
+                </p>
                 <div className="flex justify-between text-sm text-amber-100 border border-amber-300/20 bg-amber-500/10 rounded-lg px-3 py-2">
                   <span>{isEnglish ? 'Base Setup' : 'Temel Kurulum'}</span>
                   <span className="font-bold">{formatPrice(oneTimeTotal, region)}</span>
                 </div>
               </div>
 
-              {/* Aylık Kalemler */}
               <div className="mt-5 space-y-1">
-                <p className="text-[10px] uppercase tracking-[0.2em] text-emerald-300/80 font-semibold">{isEnglish ? 'Monthly Items' : 'Aylık Kalemler'}</p>
+                <p className="text-[10px] uppercase tracking-[0.2em] text-emerald-300/80 font-semibold">
+                  {isEnglish ? 'Monthly Items' : 'Aylık Kalemler'}
+                </p>
                 <div className="space-y-1.5 text-sm text-slate-200">
-                  {/* Seçili Kanallar */}
-                  {(Object.entries(channels) as [ChannelKey, boolean][]).filter(([, selected]) => selected).map(([key]) => (
+                  {(Object.entries(channels) as [ChannelKey, boolean][]).filter(([, s]) => s).map(([key]) => (
                     <div key={key} className="flex justify-between">
                       <span>{regionalChannelPrices[key].label}</span>
                       <span>{formatPrice(regionalChannelPrices[key].price, region)}</span>
                     </div>
                   ))}
-                  {/* Sesli Asistan */}
                   {voiceCost > 0 && (
                     <div className="flex justify-between">
                       <span>{isEnglish ? `Voice Assistant (${voiceMinutes} min)` : `Sesli Asistan (${voiceMinutes} dk)`}</span>
                       <span>{formatPrice(voiceCost, region)}</span>
                     </div>
                   )}
-                  {/* Seçili Eklentiler */}
-                  {(Object.entries(addons) as [AddonKey, boolean][]).filter(([, selected]) => selected).map(([key]) => {
+                  {(Object.entries(addons) as [AddonKey, boolean][]).filter(([, s]) => s).map(([key]) => {
                     const price = regionalAddonPrices[key].price;
                     const label = regionalAddonPrices[key].label;
                     const finalPrice = key === 'automation' ? price * automationCount : price;
                     const finalLabel = key === 'automation' ? `${label} (x${automationCount})` : label;
-
                     return (
                       <div key={key} className="flex justify-between">
                         <span>{finalLabel}</span>
@@ -652,23 +586,28 @@ export default function Packages() {
                       </div>
                     );
                   })}
-                  {/* Hiçbir şey seçilmediyse */}
                   {monthlyTotal === 0 && (
-                    <p className="text-xs text-slate-400 italic">{isEnglish ? 'No monthly items selected yet.' : 'Henüz aylık kalem seçilmedi.'}</p>
+                    <p className="text-xs text-slate-400 italic">
+                      {isEnglish ? 'No monthly items selected yet.' : 'Henüz aylık kalem seçilmedi.'}
+                    </p>
                   )}
                 </div>
               </div>
 
-              {/* Aylık Toplam */}
               <div className="mt-4 border-t border-white/15 pt-4">
-                <p className="text-xs uppercase tracking-[0.2em] text-slate-400">{isEnglish ? 'Monthly Total' : 'Aylık Toplam'}</p>
+                <p className="text-xs uppercase tracking-[0.2em] text-slate-400">
+                  {isEnglish ? 'Monthly Total' : 'Aylık Toplam'}
+                </p>
                 <p
-                  className={`mt-2 text-3xl font-black text-emerald-300 transition ${isTotalAnimating ? 'scale-105 drop-shadow-[0_0_16px_rgba(52,211,153,0.75)]' : 'scale-100'
-                    }`}
+                  className={`mt-2 text-3xl font-black text-emerald-300 transition ${
+                    isTotalAnimating ? 'scale-105 drop-shadow-[0_0_16px_rgba(52,211,153,0.75)]' : 'scale-100'
+                  }`}
                 >
                   {formatPrice(monthlyTotal, region)}
                 </p>
-                <p className="mt-1 text-xs text-emerald-100/80">{isEnglish ? '+ Setup fee is billed once.' : '+ Kurulum ücreti bir kez alınır.'}</p>
+                <p className="mt-1 text-xs text-emerald-100/80">
+                  {isEnglish ? '+ Setup fee is billed once.' : '+ Kurulum ücreti bir kez alınır.'}
+                </p>
               </div>
 
               <a
@@ -677,28 +616,30 @@ export default function Packages() {
                 rel="noreferrer"
                 className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-emerald-400 px-4 py-3 text-sm font-bold text-slate-900 transition hover:bg-emerald-300"
               >
-                <MessageCircle size={16} /> {isEnglish ? 'Send Quote on WhatsApp' : "Teklifi WhatsApp'ta Gönder"} ({WHATSAPP_LABEL})
+                <MessageCircle size={16} />{' '}
+                {isEnglish ? 'Send Quote on WhatsApp' : "Teklifi WhatsApp'ta Gönder"} ({WHATSAPP_LABEL})
               </a>
             </aside>
           </section>
         )}
 
+        {/* ─── ENTERPRISE ─── */}
         {activeTab === 'enterprise' && (
           <section className="relative overflow-hidden rounded-[2rem] border border-amber-200/40 bg-white/10 p-6 shadow-[0_0_40px_rgba(168,85,247,0.28)] backdrop-blur-2xl md:p-10">
             <div className="pointer-events-none absolute -left-16 top-1/2 h-64 w-64 -translate-y-1/2 rounded-full bg-amber-300/20 blur-3xl" />
             <div className="pointer-events-none absolute -right-10 top-10 h-56 w-56 rounded-full bg-purple-500/30 blur-3xl" />
-
             <div className="relative max-w-4xl">
               <p className="inline-flex rounded-full border border-amber-200/60 bg-amber-300/20 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-amber-100">
                 {isEnglish ? 'Premium Solution' : 'Premium Çözüm'}
               </p>
-              <h2 className="mt-5 text-3xl font-black text-white md:text-5xl">{isEnglish ? 'Need Something Beyond the Standard?' : 'Standartların Dışında Mısınız?'}</h2>
+              <h2 className="mt-5 text-3xl font-black text-white md:text-5xl">
+                {isEnglish ? 'Need Something Beyond the Standard?' : 'Standartların Dışında Mısınız?'}
+              </h2>
               <p className="mt-4 text-base leading-relaxed text-slate-200 md:text-lg">
                 {isEnglish
                   ? 'We build tailored solutions for factories, multi-branch businesses, and special projects. Let our analysts evaluate your needs with you.'
-                  : 'Fabrikalar, Zincir İşletmeler ve Özel Projeler için terzi usulü çözümler üretiyoruz. İhtiyaçlarınızı analist ekibimizle değerlendirelim.'}
+                  : 'Fabrikalar, Zincir İşletmeler ve Özel Projeler için terzi usulü çözümler üretiyoruz. İhtiyaçlarınızı analist ekibimizle değerlendirelelim.'}
               </p>
-
               <ul className="mt-8 grid gap-3 text-sm text-slate-100 md:grid-cols-2">
                 {[
                   isEnglish ? 'Private Server & Data Security (On-Premise)' : 'Özel Sunucu & Veri Güvenliği (On-Premise)',
@@ -712,14 +653,18 @@ export default function Packages() {
                   </li>
                 ))}
               </ul>
-
               <a
-                href={createWhatsAppLink(isEnglish ? 'Hello, I would like to discuss an enterprise/custom project.' : 'Merhaba, kurumsal/özel bir proje için görüşmek istiyorum.')}
+                href={createWhatsAppLink(
+                  isEnglish
+                    ? 'Hello, I would like to discuss an enterprise/custom project.'
+                    : 'Merhaba, kurumsal/özel bir proje için görüşmek istiyorum.',
+                )}
                 target="_blank"
                 rel="noreferrer"
                 className="mt-8 inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-amber-300 to-fuchsia-300 px-6 py-3 text-sm font-extrabold text-slate-900 transition hover:scale-[1.02]"
               >
-                <MessageCircle size={16} /> {isEnglish ? 'Talk to a Project Consultant (WhatsApp)' : 'Proje Danışmanıyla Görüş (WhatsApp)'}
+                <MessageCircle size={16} />{' '}
+                {isEnglish ? 'Talk to a Project Consultant (WhatsApp)' : 'Proje Danışmanıyla Görüş (WhatsApp)'}
               </a>
             </div>
           </section>
