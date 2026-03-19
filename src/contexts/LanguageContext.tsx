@@ -28,14 +28,14 @@ const translations = {
     'header.welcome': 'Hoş geldiniz',
 
     // Hero Section
-    'hero.title': 'Stratejiyle Dönüşüm Sağlıyoruz.',
-    'hero.subtitle': 'Reklam ve İş Süreçlerinizi AI Agent ile Otomatikleştirerek. Sadece "tıklama" değil, gerçek "sonuç" getiriyoruz.',
-    'hero.cta.opportunities': 'AI ile Fırsatları Keşfet',
-    'hero.cta.demos': 'Canlı Demoları Gör',
+    'hero.title': 'Sizin Yerinize Konuşan, Satan ve Randevu Alan AI Asistanlar Kuruyoruz.',
+    'hero.subtitle': 'Aylık yüzlerce saatinizi alan rutin operasyonları kusursuz işleyen bir yazılıma devredin. İnsan hatası sıfır, dönüşüm maksimum.',
+    'hero.cta.opportunities': 'Maliyetlerinizi Düşürün',
+    'hero.cta.demos': 'AI Asistanları Dinle',
 
     // Benefits Section
-    'benefits.title': 'Sadece Çalışmak Değil, Akıllı Çalışmak',
-    'benefits.subtitle': 'Her gün aynı işleri tekrar tekrar yapmaktan yoruldunuz mu? İşte size zaman, para ve müşteri kazandıracak çözümler:',
+    'benefits.title': 'İnsan Gücü Sınırlıdır. Yapay Zeka Değil.',
+    'benefits.subtitle': 'Değerli vaktinizi manuel işlere harcamayı bırakın. İşinizi otopilota bağlayacak kalıcı sistemler inşa ediyoruz:',
     'benefits.time.title': 'Zaman Tasarrufu',
     'benefits.time.desc': 'Günde 3-4 saat manuel işten kurtulun',
     'benefits.sales.title': 'Satış Artışı',
@@ -94,8 +94,8 @@ const translations = {
     'demos.onboarding.desc': 'İşe yeni başlayanlara belgeleri tek tek mi veriyorsunuz? Tüm süreci tek tıkla otomatik başlatın.',
 
     // Choice Section - MISSING KEYS ADDED!
-    'choice.title': 'İşletmenizi Bir Sonraki Seviyeye Nasıl Taşımak İstersiniz?',
-    'choice.subtitle': 'Size en uygun çözümü bulmamız için lütfen mevcut önceliğinizi seçin.',
+    'choice.title': 'İşinizin Neresini Otomatize Etmek İstersiniz?',
+    'choice.subtitle': 'Masada para bırakmayı durdurun. En büyük darboğazınızı seçin ve onu anında otomatize edelim.',
     'choice.automation.title': 'Manuel İşleri Otomatikleştirin',
     'choice.automation.desc': 'Tekrarlayan görevleri, raporlamayı ve veri girişini akıllı asistanlara devrederek ekibinizin gerçekten önemli işlere odaklanmasını sağlayın.',
     'choice.automation.cta': 'Verimliliği Seç',
@@ -152,14 +152,14 @@ const translations = {
     'header.welcome': 'Welcome',
 
     // Hero Section
-    'hero.title': 'We Drive Transformation Through Strategy.',
-    'hero.subtitle': 'By automating your advertising and business processes with AI Agents. We bring real "results", not just "clicks".',
-    'hero.cta.opportunities': 'Discover Opportunities with AI',
-    'hero.cta.demos': 'See Live Demos',
+    'hero.title': 'We Build AI Agents That Talk, Sell, and Book For You.',
+    'hero.subtitle': 'Offload hundreds of monthly operational hours to flawless software systems. Zero human error, maximum conversion.',
+    'hero.cta.opportunities': 'Slash Your Costs',
+    'hero.cta.demos': 'Hear Our AI Agents',
 
     // Benefits Section
-    'benefits.title': 'Not Just Working, But Working Smart',
-    'benefits.subtitle': 'Tired of doing the same tasks over and over every day? Here are solutions that will save you time, money, and customers:',
+    'benefits.title': 'Human Power is Limited. AI is Infinite.',
+    'benefits.subtitle': 'Stop wasting your valuable time on manual busywork. We build permanent systems to put your business on autopilot:',
     'benefits.time.title': 'Time Savings',
     'benefits.time.desc': 'Get rid of 3-4 hours of manual work per day',
     'benefits.sales.title': 'Sales Increase',
@@ -218,8 +218,8 @@ const translations = {
     'demos.onboarding.desc': 'Are you giving documents to new hires one by one? Start the entire process automatically with one click.',
 
     // Choice Section - ENGLISH TRANSLATIONS
-    'choice.title': 'How Would You Like to Take Your Business to the Next Level?',
-    'choice.subtitle': 'Please select your current priority so we can find the most suitable solution for you.',
+    'choice.title': 'Which Part of Your Business Do You Want To Automate First?',
+    'choice.subtitle': 'Stop leaving money on the table. Select your biggest bottleneck below, and let\'s automate it.',
     'choice.automation.title': 'Automate Manual Tasks',
     'choice.automation.desc': 'Enable your team to focus on truly important tasks by delegating repetitive tasks, reporting and data entry to smart assistants.',
     'choice.automation.cta': 'Choose Efficiency',
