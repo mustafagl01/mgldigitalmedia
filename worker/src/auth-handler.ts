@@ -20,6 +20,16 @@ export default {
       return new Response(null, { headers: corsHeaders });
     }
 
+
+    if (path === '/api/location' && request.method === 'GET') {
+      const country = ((request as Request & { cf?: { country?: string } }).cf?.country || 'GB').toUpperCase();
+
+      return new Response(
+        JSON.stringify({ country }),
+        { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+      );
+    }
+
     // Stripe checkout endpoint
     if (path === '/api/stripe/checkout' && request.method === 'POST') {
       try {

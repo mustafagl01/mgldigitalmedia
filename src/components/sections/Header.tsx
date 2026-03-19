@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { ArrowLeft, LogOut, User, Home } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { useAuth } from '../../contexts/AuthContext';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 interface HeaderProps {
   onAnalysisClick: () => void;
@@ -11,6 +12,7 @@ interface HeaderProps {
 
 export const Header: React.FC<HeaderProps> = ({ onAnalysisClick, onAuthClick }) => {
   const { user, signOut } = useAuth();
+  const { t } = useLanguage();
 
   const handleSignOut = async () => {
     await signOut();
@@ -33,7 +35,7 @@ export const Header: React.FC<HeaderProps> = ({ onAnalysisClick, onAuthClick }) 
             alt="MGL Digital AI Logo"
             className="w-8 h-8 object-contain"
           />
-          <span className="hidden sm:block text-xl font-bold text-white">MGL Digital AI</span>
+          <span className="hidden sm:block text-xl font-bold text-white">{t('header.title')}</span>
         </div>
         <div className="flex items-center gap-2">
           <Button
@@ -42,7 +44,7 @@ export const Header: React.FC<HeaderProps> = ({ onAnalysisClick, onAuthClick }) 
             className="text-slate-300 hover:text-white"
           >
             <Home className="w-4 h-4 mr-1" />
-            <span className="hidden sm:inline">Ana Sayfa</span>
+            <span className="hidden sm:inline">{t('header.home')}</span>
           </Button>
           {user ? (
             <div className="flex items-center gap-2">
@@ -50,12 +52,12 @@ export const Header: React.FC<HeaderProps> = ({ onAnalysisClick, onAuthClick }) 
                 {user.email}
               </span>
               <Button onClick={onAnalysisClick} variant="outline" size="sm">
-                <span className="hidden sm:inline">Fırsatları Keşfet</span>
-                <span className="sm:hidden">Analiz</span>
+                <span className="hidden sm:inline">{t('header.opportunities')}</span>
+                <span className="sm:hidden">{t('header.analysis')}</span>
               </Button>
               <Button onClick={handleSignOut} variant="ghost" size="sm" className="text-red-400 hover:text-red-300">
                 <LogOut className="w-4 h-4" />
-                <span className="hidden sm:inline ml-1">Çıkış</span>
+                <span className="hidden sm:inline ml-1">{t('header.logout')}</span>
               </Button>
             </div>
           ) : (
@@ -65,15 +67,15 @@ export const Header: React.FC<HeaderProps> = ({ onAnalysisClick, onAuthClick }) 
                 className="bg-gradient-to-r from-purple-600 to-cyan-600 text-white border-none shadow-[0_0_20px_-5px_rgba(147,51,234,0.5)] hidden md:flex"
                 size="sm"
               >
-                Randevu Al
+                {t('header.bookAppointment')}
               </Button>
               <Button onClick={onAnalysisClick} variant="outline" size="sm">
-                <span className="hidden sm:inline">Fırsatları Keşfet</span>
-                <span className="sm:hidden">Analiz</span>
+                <span className="hidden sm:inline">{t('header.opportunities')}</span>
+                <span className="sm:hidden">{t('header.analysis')}</span>
               </Button>
               <Button onClick={onAuthClick} variant="ghost" size="sm">
                 <User className="w-4 h-4 mr-2" />
-                <span className="hidden sm:inline">Giriş</span>
+                <span className="hidden sm:inline">{t('header.login')}</span>
               </Button>
             </div>
           )}

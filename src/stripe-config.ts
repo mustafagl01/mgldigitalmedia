@@ -4,8 +4,8 @@ export interface StripeProduct {
   name: string;
   description: string;
   mode: 'payment' | 'subscription';
-  price?: number;
-  currency?: string;
+  priceGbp: number;
+  priceTry: number;
 }
 
 export const stripeProducts: StripeProduct[] = [
@@ -15,8 +15,8 @@ export const stripeProducts: StripeProduct[] = [
     name: 'Otomasyon',
     description: 'İşletmenizin verimliliğini artırmak için size özel olarak tasarlanan ve kurulan otomasyon sisteminin kurulum bedelidir. Bu bedel, size gönderilen teklifte belirtilen [Proje Adı, örn: "Sesli AI Asistan Kurulumu"] projesini kapsamaktadır.',
     mode: 'payment',
-    price: 500,
-    currency: 'GBP'
+    priceGbp: 500,
+    priceTry: 20000,
   }
 ];
 

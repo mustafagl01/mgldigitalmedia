@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React, { createContext, useContext, useState } from 'react';
 
 type Language = 'tr' | 'en';
 
@@ -22,10 +22,20 @@ const translations = {
   tr: {
     // Header
     'header.title': 'MGL Digital AI',
+    'header.home': 'Ana Sayfa',
     'header.login': 'Giriş / Kayıt',
     'header.logout': 'Çıkış Yap',
     'header.opportunities': 'Fırsatları Keşfet',
     'header.welcome': 'Hoş geldiniz',
+    'header.bookAppointment': 'Randevu Al',
+    'header.analysis': 'Analiz',
+    'header.agency': 'AI Agent & Otomasyon Ajansı',
+    'header.menuButton': 'Menüyü aç',
+    'header.packages': 'Paketler',
+    'header.contact': 'İletişim',
+    'header.calculateProfit': 'Fiyatları İncele',
+    'header.metaDescription': 'Stratejiyle dönüşüm sağlıyoruz. Reklam ve iş süreçlerinizi AI Agent ile otomatikleştirerek size sadece \'tıklama\' değil, gerçek \'sonuç\' getiriyoruz.',
+    'header.ogDescription': 'AI Agent ve Otomasyon çözümleriyle iş süreçlerinizi dönüştürün. Manuel işlere son verin, verimliliği artırın.',
 
     // Hero Section
     'hero.title': 'Sizin Yerinize Konuşan, Satan ve Randevu Alan AI Asistanlar Kuruyoruz.',
@@ -61,17 +71,17 @@ const translations = {
     // Strategy Section
     'strategy.title': 'Başarı Tesadüf Değildir.',
     'strategy.subtitle': 'Her adımı ölçülebilir veriye dayanan, kanıtlanmış bir stratejiyle hareket ediyoruz.',
-    
+
     // Strategy Accordion Items
     'strategy.automation.title': 'İş Süreçlerinizi Otomatikleştirin',
     'strategy.automation.content': 'Manuel görevleri akıllı sistemlere devredin. Müşteri takibi, randevu alma, e-posta pazarlama ve raporlama işlemlerini 7/24 çalışan AI asistanlar üstlensin. Ekibiniz stratejik işlere odaklanırken, rutin işler otomatik olarak yürüsün.',
-    
+
     'strategy.optimization.title': 'Reklam Performansınızı Optimize Edin',
     'strategy.optimization.content': 'AI destekli algoritmaların sürekli olarak Meta ve Google reklamlarınızı analiz etmesi ve optimize etmesini sağlayın. Veriye dayalı kararlarla bütçenizin her kuruşunu en verimli şekilde kullanın ve ROAS değerlerinizi katlayın.',
-    
+
     'strategy.engagement.title': 'Müşteri Etkileşimini Artırın',
     'strategy.engagement.content': 'Potansiyel müşterilerinizi hiç kaçırmayın. WhatsApp, e-posta ve telefon üzerinden 7/24 anında yanıt veren, randevu alabilen ve bilgi toplayan akıllı asistanlarla müşteri memnuniyetini ve dönüşüm oranlarını yükseltin.',
-    
+
     'strategy.innovation.title': 'Rekabet Avantajı Yaratın',
     'strategy.innovation.content': 'Yapay zeka teknolojilerini erken benimseyen işletmeler pazarda öne geçiyor. Modern otomasyon çözümleriyle rakiplerinizden bir adım önde olun, müşteri deneyimini kişiselleştirin ve operasyonel verimliliği maksimuma çıkarın.',
 
@@ -142,14 +152,39 @@ const translations = {
     // Common
     'common.close': 'Kapat',
     'common.loading': 'Yükleniyor...',
+
+    // Sector Insights
+    'insights.restaurant.title': 'Restoran & Kafe',
+    'insights.restaurant.stat': '%40 Personel Tasarrufu',
+    'insights.restaurant.desc': 'Sipariş ve rezervasyon otomasyonu ile garsonlar sadece servise odaklanır.',
+    'insights.health.title': 'Klinik & Sağlık',
+    'insights.health.stat': '%100 Randevu Doluluğu',
+    'insights.health.desc': 'Gelmeyen hastaları (No-show) önleyen hatırlatma sistemi ile ciro kaybı biter.',
+    'insights.export.title': 'İhracat & Satış',
+    'insights.export.stat': '7/24 Anlık Yanıt',
+    'insights.export.desc': 'Gece gelen yurtdışı taleplerini kaçırmadan, anında İngilizce/Arapça yanıtlayın.',
+
+    // Data Insight Section
+    'dataInsight.title': 'Sektörler Yapay Zeka ile Ne Kazanıyor?',
+    'dataInsight.desc': 'Farklı sektörlerde devreye alınan otomasyonlar; hız, doluluk ve verimlilikte ölçülebilir sonuçlar sağlıyor.',
   },
   en: {
     // Header
     'header.title': 'MGL Digital AI',
+    'header.home': 'Home',
     'header.login': 'Login / Register',
     'header.logout': 'Logout',
     'header.opportunities': 'Discover Opportunities',
     'header.welcome': 'Welcome',
+    'header.bookAppointment': 'Book Appointment',
+    'header.analysis': 'Analysis',
+    'header.agency': 'AI Agent & Automation Agency',
+    'header.menuButton': 'Open Menu',
+    'header.packages': 'Packages',
+    'header.contact': 'Contact',
+    'header.calculateProfit': 'View Pricing',
+    'header.metaDescription': 'We drive transformation through strategy. By automating your advertising and business processes with AI Agents, we bring real \'results\', not just \'clicks\'.',
+    'header.ogDescription': 'Transform your business processes with AI Agent and Automation solutions. End manual tasks, increase efficiency.',
 
     // Hero Section
     'hero.title': 'We Build AI Agents That Talk, Sell, and Book For You.',
@@ -185,17 +220,17 @@ const translations = {
     // Strategy Section
     'strategy.title': 'Success Is Not Coincidence.',
     'strategy.subtitle': 'We act with a proven strategy based on measurable data at every step.',
-    
+
     // Strategy Accordion Items
     'strategy.automation.title': 'Automate Your Business Processes',
     'strategy.automation.content': 'Delegate manual tasks to smart systems. Let AI assistants working 24/7 handle customer follow-up, appointment booking, email marketing and reporting. While your team focuses on strategic work, routine tasks run automatically.',
-    
+
     'strategy.optimization.title': 'Optimize Your Ad Performance',
     'strategy.optimization.content': 'Enable AI-powered algorithms to continuously analyze and optimize your Meta and Google ads. Use every penny of your budget most efficiently with data-driven decisions and multiply your ROAS values.',
-    
+
     'strategy.engagement.title': 'Increase Customer Engagement',
     'strategy.engagement.content': 'Never miss potential customers. Increase customer satisfaction and conversion rates with smart assistants that respond instantly 24/7, book appointments and collect information via WhatsApp, email and phone.',
-    
+
     'strategy.innovation.title': 'Create Competitive Advantage',
     'strategy.innovation.content': 'Businesses that adopt artificial intelligence technologies early get ahead in the market. Stay one step ahead of your competitors with modern automation solutions, personalize customer experience and maximize operational efficiency.',
 
@@ -266,18 +301,52 @@ const translations = {
     // Common
     'common.close': 'Close',
     'common.loading': 'Loading...',
+
+    // Sector Insights
+    'insights.restaurant.title': 'Restaurant & Cafe',
+    'insights.restaurant.stat': '40% Staff Savings',
+    'insights.restaurant.desc': 'With order and reservation automation, waiters focus only on service.',
+    'insights.health.title': 'Clinic & Healthcare',
+    'insights.health.stat': '100% Appointment Fill Rate',
+    'insights.health.desc': 'Prevent no-shows with a reminder system that ends revenue loss.',
+    'insights.export.title': 'Export & Sales',
+    'insights.export.stat': '24/7 Instant Response',
+    'insights.export.desc': 'Respond instantly in English/Arabic to overnight international inquiries without missing them.',
+
+    // Data Insight Section
+    'dataInsight.title': 'What Do Sectors Gain with AI?',
+    'dataInsight.desc': 'Automations deployed across different sectors deliver measurable results in speed, occupancy, and efficiency.',
   }
 };
 
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [language, setLanguage] = useState<Language>(() => {
-    const saved = localStorage.getItem('language');
-    return (saved as Language) || 'tr';
-  });
+    // Check timezone first (location priority), then language as fallback
+    const browserLang = navigator.language.toLowerCase();
+    const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone?.toUpperCase() ?? '';
 
-  useEffect(() => {
-    localStorage.setItem('language', language);
-  }, [language]);
+    console.log('[Language] Detection:', { browserLang, timezone });
+
+    // Timezone-based detection (priority)
+    if (timezone.includes('ISTANBUL') || timezone.includes('TURKEY')) {
+      console.log('[Language] Set to Turkish (timezone)');
+      return 'tr';
+    }
+
+    if (timezone.includes('LONDON') || timezone.includes('EUROPE/LONDON')) {
+      console.log('[Language] Set to English (UK timezone)');
+      return 'en';
+    }
+
+    // Language-based fallback
+    if (browserLang === 'tr' || browserLang.startsWith('tr-')) {
+      console.log('[Language] Set to Turkish (language fallback)');
+      return 'tr';
+    }
+
+    console.log('[Language] Defaulting to English');
+    return 'en';
+  });
 
   const t = (key: string): string => {
     return translations[language][key] || key;

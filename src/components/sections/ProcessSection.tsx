@@ -42,10 +42,10 @@ export const ProcessSection: React.FC = () => {
                     viewport={{ once: true }}
                     className="text-center mb-20"
                 >
-                    <h2 className="text-4xl md:text-6xl font-black text-white mb-6">
+                    <h2 className="text-4xl md:text-6xl font-black text-slate-900 mb-6">
                         {language === 'tr' ? 'Nasıl Çalışıyoruz?' : 'How We Work?'}
                     </h2>
-                    <p className="text-xl text-slate-400 max-w-2xl mx-auto">
+                    <p className="text-xl text-slate-700 max-w-2xl mx-auto">
                         {language === 'tr'
                             ? 'Kaostan kurtulup otomatiğe geçmeniz için izlediğimiz 3 kritik adım.'
                             : 'The 3 critical steps we follow to help you move from chaos to automation.'}
@@ -54,7 +54,7 @@ export const ProcessSection: React.FC = () => {
 
                 <div className="grid md:grid-cols-3 gap-12 relative">
                     {/* Connector Line (Desktop) */}
-                    <div className="hidden md:block absolute top-1/2 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-y-1/2 z-0" />
+                    <div className="hidden md:block absolute top-1/2 left-0 w-full h-0.5 bg-gradient-to-r from-transparent via-slate-300 to-transparent -translate-y-1/2 z-0" />
 
                     {steps.map((step, index) => (
                         <motion.div
@@ -66,15 +66,15 @@ export const ProcessSection: React.FC = () => {
                             className="relative z-10 flex flex-col items-center text-center"
                         >
                             <div className={`w-20 h-20 rounded-full bg-gradient-to-br ${step.color} p-0.5 mb-8 shadow-[0_0_30px_-5px_rgba(255,255,255,0.2)]`}>
-                                <div className="w-full h-full rounded-full bg-slate-900 flex items-center justify-center">
-                                    <step.icon className="w-10 h-10 text-white" />
+                                <div className="w-full h-full rounded-full bg-white flex items-center justify-center">
+                                    <step.icon className="w-10 h-10 text-slate-900" />
                                 </div>
                             </div>
-                            <h3 className="text-2xl font-bold text-white mb-4">{step.title}</h3>
-                            <p className="text-slate-400 leading-relaxed px-4">{step.desc}</p>
+                            <h3 className="text-2xl font-bold text-slate-900 mb-4">{step.title}</h3>
+                            <p className="text-slate-700 leading-relaxed px-4">{step.desc}</p>
 
                             {index < steps.length - 1 && (
-                                <div className="md:hidden mt-8 text-white/20 animate-bounce">
+                                <div className="md:hidden mt-8 text-slate-400 animate-bounce">
                                     <ArrowRight className="w-8 h-8 rotate-90" />
                                 </div>
                             )}
