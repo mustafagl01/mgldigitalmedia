@@ -1,51 +1,46 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 const techs = [
-    { name: 'n8n', color: 'bg-orange-500/10 text-orange-400' },
-    { name: 'OpenAI', color: 'bg-emerald-500/10 text-emerald-400' },
-    { name: 'Google Gemini', color: 'bg-blue-500/10 text-blue-400' },
-    { name: 'Stripe', color: 'bg-indigo-500/10 text-indigo-400' },
-    { name: 'Make.com', color: 'bg-purple-500/10 text-purple-400' },
-    { name: 'WhatsApp', color: 'bg-green-500/10 text-green-400' },
-    { name: 'Instagram', color: 'bg-pink-500/10 text-pink-400' },
-    { name: 'Shopify', color: 'bg-lime-500/10 text-lime-400' }
+  { name: 'n8n', color: '#ea580c' },
+  { name: 'OpenAI', color: '#10b981' },
+  { name: 'Google Gemini', color: '#3b82f6' },
+  { name: 'Stripe', color: '#6366f1' },
+  { name: 'Make.com', color: '#a855f7' },
+  { name: 'WhatsApp', color: '#22c55e' },
+  { name: 'Instagram', color: '#ec4899' },
+  { name: 'Shopify', color: '#84cc16' },
+  { name: 'Vapi AI', color: '#06b6d4' },
+  { name: 'Retell AI', color: '#f59e0b' },
 ];
 
 export const TrustMarquee: React.FC = () => {
-    return (
-        <div className="py-12 border-y border-white/5 bg-white/[0.02] overflow-hidden">
-            <div className="container mx-auto px-4 mb-8 text-center">
-                <p className="text-sm font-bold tracking-widest uppercase text-slate-500">
-                    Technologies We Master
-                </p>
+  const { language } = useLanguage();
+
+  return (
+    <div className="py-10 overflow-hidden">
+      <div className="container mx-auto px-4 mb-6 text-center">
+        <p className="text-xs font-bold tracking-[0.25em] uppercase text-slate-400">
+          {language === 'tr' ? 'Uzmanlaştığımız Teknolojiler' : 'Technologies We Master'}
+        </p>
+      </div>
+      <div className="relative flex overflow-x-hidden">
+        {/* Fade edges */}
+        <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-slate-50 to-transparent z-10 pointer-events-none" />
+        <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-slate-50 to-transparent z-10 pointer-events-none" />
+
+        <div className="flex whitespace-nowrap gap-6 animate-marquee">
+          {[...techs, ...techs, ...techs].map((tech, index) => (
+            <div
+              key={index}
+              className="flex items-center gap-3 px-6 py-3 rounded-full border border-slate-200 bg-white shadow-sm hover:shadow-md transition-shadow duration-300"
+            >
+              <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: tech.color }} />
+              <span className="text-sm font-semibold text-slate-700">{tech.name}</span>
             </div>
-            <div className="relative flex overflow-x-hidden">
-                <motion.div
-                    className="flex whitespace-nowrap gap-8"
-                    animate={{
-                        x: [0, -1000],
-                    }}
-                    transition={{
-                        x: {
-                            repeat: Infinity,
-                            repeatType: "loop",
-                            duration: 25,
-                            ease: "linear",
-                        },
-                    }}
-                >
-                    {[...techs, ...techs, ...techs].map((tech, index) => (
-                        <div
-                            key={index}
-                            className={`px-8 py-3 rounded-2xl border border-white/10 glass-card font-bold text-lg flex items-center gap-3`}
-                        >
-                            <div className={`w-2 h-2 rounded-full ${tech.color.split(' ')[0]}`} />
-                            <span className="text-slate-300">{tech.name}</span>
-                        </div>
-                    ))}
-                </motion.div>
-            </div>
+          ))}
         </div>
-    );
+      </div>
+    </div>
+  );
 };

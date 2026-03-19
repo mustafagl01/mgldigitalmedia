@@ -322,10 +322,19 @@ function AppContent() {
           <IntroductoryChoiceSection />
           <HeroSection onContactClick={() => setIdeaAssistantModalOpen(true)} />
 
-          <div className="h-[200px] bg-gradient-to-b from-[#0A0E27] via-[#1e293b] to-white" />
+          {/* Premium Dark-to-Light Section Transition */}
+          <div className="relative h-32 md:h-48 bg-black">
+            <svg className="absolute bottom-0 left-0 w-full" viewBox="0 0 1440 120" preserveAspectRatio="none" fill="none">
+              <path d="M0,120 L0,60 Q360,0 720,60 Q1080,120 1440,60 L1440,120 Z" fill="#f8fafc" />
+            </svg>
+          </div>
 
           <BookingSection />
-          <TrustMarquee />
+          
+          {/* Trust Marquee with seamless blend */}
+          <div className="bg-slate-50 border-y border-slate-200/60">
+            <TrustMarquee />
+          </div>
 
           <div className="bg-slate-50 text-slate-900">
             <BenefitsSection />
