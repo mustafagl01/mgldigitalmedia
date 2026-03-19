@@ -40,20 +40,20 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onContactClick }) => {
     {
       title: t('benefits.time.title'),
       description: t('benefits.time.desc'),
-      startProgress: 0.15,
-      endProgress: 0.40,
+      startProgress: 0.08,
+      endProgress: 0.28,
     },
     {
       title: t('benefits.sales.title'),
       description: t('benefits.sales.desc'),
-      startProgress: 0.45,
-      endProgress: 0.70,
+      startProgress: 0.33,
+      endProgress: 0.53,
     },
     {
       title: t('benefits.error.title'),
       description: t('benefits.error.desc'),
-      startProgress: 0.75,
-      endProgress: 0.95,
+      startProgress: 0.58,
+      endProgress: 0.78,
     }
   ];
 

@@ -83,35 +83,20 @@ export default function ScrollStop({ frameCount, frameFolder, title, subtitle, f
     const drawImageExact = (img: HTMLImageElement) => {
       if (!img.complete || img.naturalHeight === 0) return;
       
-      const dpr = window.devicePixelRatio || 1;
-      canvas.width = window.innerWidth * dpr;
-      canvas.height = window.innerHeight * dpr;
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-
-      const isMobileView = window.innerWidth < 768;
+      canvas.width = img.naturalWidth;
+      canvas.height = img.naturalHeight;
       
-      // MGL Digital uses Math.min on mobile specifically as ordered by the workflow
-      const scale = isMobileView
-        ? Math.min(window.innerWidth / img.naturalWidth, window.innerHeight / img.naturalHeight) * 1.05
-        : Math.max(window.innerWidth / img.naturalWidth, window.innerHeight / img.naturalHeight);
-
-      const x = window.innerWidth / 2 - (img.naturalWidth / 2) * scale;
-      const y = window.innerHeight / 2 - (img.naturalHeight / 2) * scale;
-
-      ctx.clearRect(0, 0, window.innerWidth, window.innerHeight);
-      
-      // Black background for MGL Digital
-      ctx.fillStyle = "#000000";
-      ctx.fillRect(0, 0, window.innerWidth, window.innerHeight);
-      
-      ctx.drawImage(img, x, y, img.naturalWidth * scale, img.naturalHeight * scale);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
     };
 
     // Draw the first frame immediately once loaded
     if (images[0]) drawImageExact(images[0]);
 
     const unsubscribe = scrollYProgress.on("change", (latest) => {
-      const frameIndex = Math.min(frameCount - 1, Math.max(0, Math.floor(latest * frameCount)));
+      // Finish the video sequence at 80% scroll (0.8), creating a 20% frozen "Order" state at the end
+      const videoProgress = Math.min(1, latest / 0.8);
+      const frameIndex = Math.min(frameCount - 1, Math.max(0, Math.floor(videoProgress * frameCount)));
       const targetImage = images[frameIndex];
 
       if (targetImage?.complete) {
@@ -136,9 +121,9 @@ export default function ScrollStop({ frameCount, frameFolder, title, subtitle, f
 
   // Height multiplier determines how "long" the scroll is.
   return (
-    <section ref={containerRef} className="relative w-full bg-black" style={{ height: isMobile ? "250vh" : "350vh" }}>
+    <section ref={containerRef} className="relative w-full bg-black" style={{ height: isMobile ? "400vh" : "500vh" }}>
       <div className="sticky top-0 h-screen w-full overflow-hidden bg-black">
-        <canvas ref={canvasRef} className="absolute inset-0 h-full w-full object-cover" />
+        <canvas ref={canvasRef} className="absolute inset-0 h-full w-full object-cover object-center" />
 
         {/* Loading overlay */}
         {imagesLoaded < frameCount && (
