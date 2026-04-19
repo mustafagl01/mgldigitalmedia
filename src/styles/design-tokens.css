@@ -1,0 +1,322 @@
+/* ═══════════════════════════════════════════════════════════
+   MGL Digital AI — Design Tokens
+   ═══════════════════════════════════════════════════════════
+   A fresh, editorial visual system for an AI automation agency.
+   Warm paper + deep ink + a single electric accent.
+   No gradients, no glow, no AI-trope purple/cyan.
+   ═══════════════════════════════════════════════════════════ */
+
+/* Webfonts — served from Google Fonts (self-host TTFs live in /fonts/) */
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap');
+
+:root {
+  /* ─── CORE PALETTE ────────────────────────────────────────
+     Warm off-white paper, deep ink, one signature accent.
+     Every other UI color derives from these. */
+
+  /* Paper & Ink (brand base) */
+  --paper:       #F5F1EA;   /* main canvas — warm, not pure white */
+  --paper-2:     #ECE6DA;   /* subtle surface, cards on paper */
+  --paper-3:     #E3DBCB;   /* hairline dividers, quieter chips */
+  --ink:         #0E0E0C;   /* near-black, warm-tinted */
+  --ink-2:       #2A2823;   /* secondary text */
+  --ink-3:       #6B655A;   /* tertiary / captions */
+  --ink-4:       #9E968A;   /* disabled, faint metadata */
+
+  /* Inverse surface (dark blocks, hero, footer) */
+  --coal:        #161410;   /* inverse canvas */
+  --coal-2:      #23201A;   /* inverse surface */
+  --coal-3:      #38342C;   /* inverse dividers */
+  --bone:        #F5F1EA;   /* text on coal = paper */
+  --bone-2:      #CFC7B6;
+  --bone-3:      #8E8777;
+
+  /* Signature Accent — "Ember"
+     A single saturated orange-red. Used for CTAs, focus,
+     hot spots. NEVER gradients — one flat color. */
+  --ember:       #E8481C;   /* primary accent */
+  --ember-hover: #D13D14;   /* pressed / hover darker */
+  --ember-soft:  #FCE6DC;   /* 10% tint — highlights on paper */
+  --ember-ink:   #6A1B06;   /* dark ember — text on ember-soft */
+
+  /* Supporting swatches — used sparingly, never decoratively */
+  --moss:        #3D5A3C;   /* calm green — success, positive stats */
+  --moss-soft:   #DEE7DA;
+  --ochre:       #C8941C;   /* warm yellow — warn, highlight */
+  --ochre-soft:  #F5E9C8;
+  --rust:        #A83A16;   /* deep red — destructive */
+
+  /* Semantic aliases (use these in components) */
+  --bg:          var(--paper);
+  --surface:     var(--paper-2);
+  --surface-2:   var(--paper-3);
+  --fg:          var(--ink);
+  --fg-2:        var(--ink-2);
+  --fg-3:        var(--ink-3);
+  --fg-4:        var(--ink-4);
+  --border:      #D9D1BF;
+  --border-2:    #C8BFA9;
+  --accent:      var(--ember);
+  --accent-hover: var(--ember-hover);
+  --accent-soft: var(--ember-soft);
+  --accent-ink:  var(--ember-ink);
+  --success:     var(--moss);
+  --warn:        var(--ochre);
+  --danger:      var(--rust);
+
+  /* ─── TYPOGRAPHY ──────────────────────────────────────────
+     Fraunces  — editorial serif display (headlines, hero)
+     Geist     — clean geometric sans (UI, body)
+     Geist Mono — technical labels, numbers, code */
+  --font-serif: 'Fraunces', 'Iowan Old Style', 'Georgia', serif;
+  --font-sans:  'Geist', 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono:  'Geist Mono', 'JetBrains Mono', 'SF Mono', Menlo, monospace;
+
+  /* Type scale — fluid, pinned to 1280–1920 viewports */
+  --t-display:  clamp(3.25rem, 1.4rem + 5vw, 6rem);       /* 52 → 96 */
+  --t-h1:       clamp(2.25rem, 1.25rem + 3vw, 3.75rem);    /* 36 → 60 */
+  --t-h2:       clamp(1.75rem, 1rem + 2.2vw, 2.75rem);     /* 28 → 44 */
+  --t-h3:       clamp(1.375rem, 1rem + 1.1vw, 1.875rem);   /* 22 → 30 */
+  --t-h4:       clamp(1.125rem, 0.95rem + 0.6vw, 1.375rem);/* 18 → 22 */
+  --t-body-lg:  1.125rem;   /* 18 — lede */
+  --t-body:     1rem;       /* 16 */
+  --t-body-sm:  0.875rem;   /* 14 */
+  --t-caption:  0.75rem;    /* 12 — eyebrow / caption */
+  --t-micro:    0.6875rem;  /* 11 — ALL-CAPS labels */
+
+  /* Line heights */
+  --lh-display: 0.95;
+  --lh-tight:   1.1;
+  --lh-snug:    1.25;
+  --lh-body:    1.55;
+  --lh-loose:   1.7;
+
+  /* Letter spacing */
+  --ls-tight:   -0.04em;   /* display */
+  --ls-snug:    -0.02em;   /* h1/h2 */
+  --ls-body:    -0.005em;
+  --ls-caps:    0.14em;    /* micro ALL-CAPS */
+
+  /* Weights */
+  --fw-regular:  400;
+  --fw-medium:   500;
+  --fw-semibold: 600;
+  --fw-bold:     700;
+  --fw-black:    800;
+
+  /* ─── SPACING (4px base) ─────────────────────────────────── */
+  --s-0:  0;
+  --s-1:  4px;
+  --s-2:  8px;
+  --s-3:  12px;
+  --s-4:  16px;
+  --s-5:  20px;
+  --s-6:  24px;
+  --s-8:  32px;
+  --s-10: 40px;
+  --s-12: 48px;
+  --s-16: 64px;
+  --s-20: 80px;
+  --s-24: 96px;
+  --s-32: 128px;
+
+  /* ─── RADII ──────────────────────────────────────────────
+     Small rounding only. No pill buttons, no fully-round chips
+     (except status dots). The brand feels architectural, not soft. */
+  --r-0:    0;
+  --r-xs:   2px;
+  --r-sm:   4px;
+  --r-md:   6px;
+  --r-lg:   10px;
+  --r-xl:   14px;
+  --r-full: 999px;   /* reserved: status dots, pips only */
+
+  /* ─── SHADOWS ────────────────────────────────────────────
+     Restrained. One elevation for cards, one for popovers,
+     one for focus. No glow. */
+  --shadow-xs:   0 1px 0 rgba(14,14,12,0.04);
+  --shadow-sm:   0 1px 2px rgba(14,14,12,0.06), 0 0 0 1px rgba(14,14,12,0.04);
+  --shadow-md:   0 4px 12px -4px rgba(14,14,12,0.08), 0 2px 4px -2px rgba(14,14,12,0.06);
+  --shadow-lg:   0 24px 48px -12px rgba(14,14,12,0.14), 0 8px 16px -8px rgba(14,14,12,0.06);
+  --shadow-focus: 0 0 0 3px rgba(232,72,28,0.25);
+
+  /* ─── MOTION ─────────────────────────────────────────────
+     Snappy, short, mostly opacity + subtle y/x. Never bouncy. */
+  --ease-out:    cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --d-fast:      120ms;
+  --d-base:      200ms;
+  --d-slow:      360ms;
+
+  /* ─── LAYOUT ─────────────────────────────────────────────── */
+  --container:       1200px;
+  --container-wide:  1440px;
+  --container-text:  680px;
+}
+
+/* ─── DARK MODE (inverse paper) ─────────────────────────────
+   Used on hero, footer, stats strips — not as a mode toggle.
+   Activate by wrapping a section in .on-coal. */
+.on-coal {
+  --bg:        var(--coal);
+  --surface:   var(--coal-2);
+  --surface-2: var(--coal-3);
+  --fg:        var(--bone);
+  --fg-2:      var(--bone-2);
+  --fg-3:      var(--bone-3);
+  --fg-4:      #6B6456;
+  --border:    #38342C;
+  --border-2:  #4E483D;
+  background: var(--bg);
+  color: var(--fg);
+}
+
+/* ═══════════════════════════════════════════════════════════
+   BASE ELEMENT STYLES
+   ═══════════════════════════════════════════════════════════ */
+
+html {
+  font-family: var(--font-sans);
+  color: var(--fg);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "ss01", "cv11";
+}
+
+body {
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+  letter-spacing: var(--ls-body);
+  margin: 0;
+}
+
+/* Headings — Fraunces serif, very tight tracking, very tight leading */
+h1, h2, h3, h4, h5, h6,
+.h-display, .h1, .h2, .h3, .h4 {
+  font-family: var(--font-serif);
+  font-weight: var(--fw-semibold);
+  color: var(--fg);
+  margin: 0;
+  text-wrap: balance;
+  font-variation-settings: "opsz" 144, "SOFT" 50;
+}
+
+.h-display {
+  font-size: var(--t-display);
+  line-height: var(--lh-display);
+  letter-spacing: var(--ls-tight);
+  font-weight: var(--fw-semibold);
+}
+
+h1, .h1 {
+  font-size: var(--t-h1);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-snug);
+}
+
+h2, .h2 {
+  font-size: var(--t-h2);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--ls-snug);
+}
+
+h3, .h3 {
+  font-size: var(--t-h3);
+  line-height: var(--lh-snug);
+  letter-spacing: var(--ls-body);
+}
+
+h4, .h4 {
+  font-size: var(--t-h4);
+  line-height: var(--lh-snug);
+  font-weight: var(--fw-semibold);
+}
+
+/* Body copy */
+p, .p {
+  font-family: var(--font-sans);
+  font-size: var(--t-body);
+  line-height: var(--lh-body);
+  color: var(--fg-2);
+  margin: 0 0 1em;
+  text-wrap: pretty;
+}
+
+.lede {
+  font-family: var(--font-sans);
+  font-size: var(--t-body-lg);
+  line-height: var(--lh-body);
+  color: var(--fg-2);
+  font-weight: var(--fw-regular);
+  max-width: 56ch;
+}
+
+.caption {
+  font-size: var(--t-caption);
+  line-height: 1.4;
+  color: var(--fg-3);
+}
+
+/* Eyebrow — tiny ALL-CAPS mono label */
+.eyebrow {
+  font-family: var(--font-mono);
+  font-size: var(--t-micro);
+  text-transform: uppercase;
+  letter-spacing: var(--ls-caps);
+  color: var(--fg-3);
+  font-weight: var(--fw-medium);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 6px; height: 6px;
+  background: var(--accent);
+  border-radius: 1px;
+}
+
+/* Numerals & stats — tabular, Fraunces */
+.numeral {
+  font-family: var(--font-serif);
+  font-variant-numeric: tabular-nums;
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--ls-tight);
+  font-variation-settings: "opsz" 144;
+}
+
+/* Technical / code labels */
+code, kbd, .mono {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Links — subtle ink, ember on hover */
+a {
+  color: inherit;
+  text-decoration: none;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
+  transition: color var(--d-fast) var(--ease-out);
+}
+a:hover { color: var(--accent); text-decoration: underline; }
+
+/* Selection */
+::selection { background: var(--ember); color: var(--paper); }
+
+/* Focus-visible — accent ring, never default blue */
+:focus-visible {
+  outline: none;
+  box-shadow: var(--shadow-focus);
+  border-radius: var(--r-sm);
+}
+
+hr {
+  border: 0;
+  border-top: 1px solid var(--border);
+  margin: var(--s-12) 0;
+}

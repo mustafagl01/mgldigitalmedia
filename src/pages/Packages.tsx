@@ -1,11 +1,10 @@
-import { type ReactNode, useMemo, useState } from 'react';
-import { Check, ChevronDown, Coffee, Globe2, Home, MessageCircle, Pizza, ShieldCheck, Stethoscope } from 'lucide-react';
+import { useMemo, useState } from 'react';
+import { Check, ChevronDown, MessageCircle, ShieldCheck, ArrowUpRight } from 'lucide-react';
 import type { PackageTierKey } from '../config/pricing';
 import { useLocation } from '../contexts/LocationContext';
 import { useLanguage } from '../contexts/LanguageContext';
 import { formatPrice } from '../utils/formatPrice';
 import { Seo, BASE_SCHEMAS, breadcrumbSchema } from '../components/seo/Seo';
-import { PageNav } from '../components/ui/PageNav';
 
 type PackagePlan = {
   key: PackageTierKey;
@@ -15,13 +14,6 @@ type PackagePlan = {
 };
 
 type TabMode = 'ready' | 'enterprise';
-
-type SectorInsight = {
-  name: { tr: string; en: string };
-  stat: { tr: string; en: string };
-  description: { tr: string; en: string };
-  icon: ReactNode;
-};
 
 type FaqItem = {
   q: { tr: string; en: string };
@@ -36,19 +28,19 @@ const readyPlanTemplates: PackagePlan[] = [
     key: 'starter',
     subtitle: {
       tr: 'Mesai dışı kayıp biter.',
-      en: 'Stop losing patients after hours.',
+      en: 'Stop losing leads after hours.',
     },
     features: {
       tr: [
         'WhatsApp AI asistan (7/24)',
         'Takvim & Google Sheets senkronizasyonu',
-        'Standart yanıt şablonları (klinik özelleştirmesi)',
+        'Standart yanıt şablonları (işletmeye özel ayar)',
         'E-posta destek',
       ],
       en: [
         'WhatsApp AI assistant (24/7)',
         'Calendar & Google Sheets sync',
-        'Standard response templates (clinic-specific tuning)',
+        'Standard response templates (tuned to your business)',
         'Email support',
       ],
     },
@@ -127,54 +119,19 @@ const readyPlanTemplates: PackagePlan[] = [
   },
 ];
 
-const sectorInsights: SectorInsight[] = [
-  {
-    name: { tr: 'Restoran & Kafe', en: 'Restaurant & Café' },
-    stat: { tr: '%40 personel tasarrufu', en: '40% staff savings' },
-    description: {
-      tr: 'Sipariş ve rezervasyon otomasyonu ile garsonlar sadece servise odaklanır.',
-      en: 'With order and reservation automation, staff focus only on service.',
-    },
-    icon: (
-      <span className="inline-flex items-center gap-1.5 text-amber-200">
-        <Pizza size={20} />
-        <Coffee size={20} />
-      </span>
-    ),
-  },
-  {
-    name: { tr: 'Klinik & Sağlık', en: 'Clinic & Healthcare' },
-    stat: { tr: '%100 randevu doluluğu', en: '100% appointment fill rate' },
-    description: {
-      tr: 'No-show\'u önleyen hatırlatma sistemi ile ciro kaybı biter.',
-      en: 'The reminder system prevents no-shows and stops revenue leakage.',
-    },
-    icon: <Stethoscope size={22} className="text-emerald-200" />,
-  },
-  {
-    name: { tr: 'İhracat & Satış', en: 'Export & Sales' },
-    stat: { tr: '7/24 anlık yanıt', en: '24/7 instant response' },
-    description: {
-      tr: 'Gece gelen yurtdışı taleplerini kaçırmadan anında İngilizce/Arapça yanıtlayın.',
-      en: 'Respond instantly in English/Arabic to overnight international inquiries.',
-    },
-    icon: <Globe2 size={22} className="text-cyan-200" />,
-  },
-];
-
 const faqItems: FaqItem[] = [
   {
     q: { tr: 'Kurulum ne kadar sürer?', en: 'How long does setup take?' },
     a: {
-      tr: 'Başlangıç ve Büyüme paketleri 3–5 iş günü içinde canlıya alınır. Oto-Sekreter ve Tam Otonomi için ortalama 2 hafta (telefon hattı entegrasyonu ve ses eğitimi dahil).',
-      en: 'Starter and Growth go live within 3–5 business days. Auto-Receptionist and Full Autonomy average 2 weeks (phone line integration and voice training included).',
+      tr: 'Başlangıç ve Büyüme paketleri 3 iş günü içinde canlıya alınır. Oto-Sekreter ve Tam Otonomi için ortalama 2 hafta (telefon hattı entegrasyonu ve ses eğitimi dahil).',
+      en: 'Starter and Growth go live within 3 business days. Auto-Receptionist and Full Autonomy average 2 weeks (phone line integration and voice training included).',
     },
   },
   {
     q: { tr: 'Sözleşme süresi var mı?', en: 'Is there a contract term?' },
     a: {
-      tr: 'Hayır. Aylık abonelik — istediğiniz zaman durdurabilirsiniz. Yıllık ödemede %15 indirim sunuyoruz.',
-      en: 'No. Monthly subscription — cancel anytime. Pay annually and get a 15% discount.',
+      tr: 'Hayır. Aylık abonelik — istediğiniz zaman durdurabilirsiniz. Yıllık ödemede indirim konuşulabilir.',
+      en: 'No. Monthly subscription — cancel anytime. Annual billing discount is negotiable.',
     },
   },
   {
@@ -222,80 +179,180 @@ function PlanCard({
 }) {
   const hasSetupFee = plan.setupFee > 0;
   const hasVoice = plan.voiceMinutes > 0;
+  const rec = plan.recommended;
 
   return (
     <article
-      className={`relative flex flex-col rounded-3xl border bg-white/5 p-6 backdrop-blur-xl transition hover:-translate-y-1 hover:border-cyan-300/60 ${
-        plan.recommended ? 'border-fuchsia-300/60 shadow-[0_0_30px_rgba(217,70,239,0.35)]' : 'border-white/15'
-      }`}
+      style={{
+        position: 'relative',
+        display: 'flex',
+        flexDirection: 'column',
+        background: 'var(--paper-2)',
+        border: `1px solid ${rec ? 'var(--ember)' : 'var(--border)'}`,
+        borderRadius: 'var(--r-lg)',
+        padding: 28,
+        minHeight: 580,
+        boxShadow: rec ? '0 2px 0 var(--ember-soft)' : 'none',
+      }}
     >
-      {plan.recommended && (
-        <span className="absolute -top-3 left-6 z-10 inline-flex items-center gap-1 rounded-full border border-fuchsia-300/70 bg-fuchsia-500/20 px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-fuchsia-100">
-          {isEnglish ? '⭐ Most Popular' : '⭐ En Çok Tercih Edilen'}
+      {rec && (
+        <span
+          className="badge"
+          style={{
+            position: 'absolute',
+            top: -12,
+            left: 24,
+            background: 'var(--ember)',
+            color: 'var(--paper)',
+          }}
+        >
+          {isEnglish ? 'Most chosen' : 'En çok seçilen'}
         </span>
       )}
 
-      <h2 className="mt-2 text-xl font-bold">{plan.name}</h2>
-      <p className={`mt-1 text-sm ${plan.recommended ? 'font-semibold text-fuchsia-200' : 'text-slate-300'}`}>
+      <span
+        style={{
+          fontFamily: 'var(--font-mono)',
+          fontSize: 11,
+          letterSpacing: '0.14em',
+          textTransform: 'uppercase',
+          color: 'var(--fg-3)',
+        }}
+      >
+        / {plan.key}
+      </span>
+
+      <h2
+        style={{
+          marginTop: 12,
+          fontFamily: 'var(--font-serif)',
+          fontSize: 'clamp(1.5rem, 1rem + 0.6vw, 1.75rem)',
+          lineHeight: 1.15,
+          letterSpacing: '-0.02em',
+          fontWeight: 600,
+          color: 'var(--ink)',
+        }}
+      >
+        {plan.name}
+      </h2>
+      <p style={{ marginTop: 6, fontSize: 14, color: 'var(--fg-2)', lineHeight: 1.45 }}>
         {plan.subtitle}
       </p>
 
-      <div className="mt-4">
-        <p className="text-3xl font-black text-cyan-300">{formatPrice(plan.price, region)}</p>
-        <p className="text-xs font-medium uppercase tracking-[0.16em] text-cyan-100/80">
+      <div style={{ marginTop: 20 }}>
+        <p
+          style={{
+            fontFamily: 'var(--font-serif)',
+            fontSize: 'clamp(2rem, 1.4rem + 1.4vw, 2.5rem)',
+            lineHeight: 1,
+            letterSpacing: '-0.02em',
+            fontWeight: 500,
+            color: 'var(--ink)',
+            margin: 0,
+          }}
+        >
+          {formatPrice(plan.price, region)}
+        </p>
+        <p
+          style={{
+            marginTop: 6,
+            fontFamily: 'var(--font-mono)',
+            fontSize: 11,
+            letterSpacing: '0.14em',
+            textTransform: 'uppercase',
+            color: 'var(--fg-3)',
+          }}
+        >
           {isEnglish ? 'per month' : 'aylık'}
         </p>
       </div>
 
-      <div className="mt-3 rounded-xl border border-white/10 bg-black/30 px-3 py-2 text-xs text-slate-300">
+      <div
+        style={{
+          marginTop: 14,
+          fontFamily: 'var(--font-mono)',
+          fontSize: 12,
+          color: 'var(--fg-2)',
+          paddingTop: 14,
+          borderTop: '1px solid var(--border)',
+        }}
+      >
         {hasSetupFee ? (
           <span>
-            <span className="text-slate-400">{isEnglish ? 'One-time setup: ' : 'Tek seferlik kurulum: '}</span>
-            <span className="font-bold text-amber-200">{formatPrice(plan.setupFee, region)}</span>
+            {isEnglish ? 'One-time setup: ' : 'Kurulum: '}
+            <strong style={{ color: 'var(--ink)' }}>{formatPrice(plan.setupFee, region)}</strong>
           </span>
         ) : (
-          <span className="font-semibold text-emerald-200">
-            {isEnglish ? '✓ Setup included (free)' : '✓ Kurulum dahil (ücretsiz)'}
+          <span style={{ color: 'var(--ember)' }}>
+            {isEnglish ? '✓ Setup included' : '✓ Kurulum dahil'}
           </span>
         )}
       </div>
 
-      <div className="mt-4 grid gap-2">
-        <div className="rounded-lg border border-emerald-300/25 bg-emerald-500/10 px-3 py-2 text-xs text-emerald-100">
-          <span className="font-bold">
-            {plan.chatConversations.toLocaleString(isEnglish ? 'en-GB' : 'tr-TR')}{' '}
-            {isEnglish ? 'chat conversations' : 'görüşme'}
-          </span>{' '}
-          <span className="text-emerald-200/80">{isEnglish ? '/ month' : '/ ay'}</span>
+      <div style={{ marginTop: 14, display: 'grid', gap: 6 }}>
+        <div style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--fg-2)' }}>
+          <strong style={{ color: 'var(--ink)' }}>
+            {plan.chatConversations.toLocaleString(isEnglish ? 'en-GB' : 'tr-TR')}
+          </strong>{' '}
+          {isEnglish ? 'chats / month' : 'görüşme / ay'}
         </div>
         {hasVoice && (
-          <div className="rounded-lg border border-fuchsia-300/25 bg-fuchsia-500/10 px-3 py-2 text-xs text-fuchsia-100">
-            <span className="font-bold">
-              {plan.voiceMinutes.toLocaleString(isEnglish ? 'en-GB' : 'tr-TR')}{' '}
-              {isEnglish ? 'voice minutes' : 'dk sesli asistan'}
-            </span>{' '}
-            <span className="text-fuchsia-200/80">{isEnglish ? '/ month' : '/ ay'}</span>
+          <div style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--fg-2)' }}>
+            <strong style={{ color: 'var(--ink)' }}>
+              {plan.voiceMinutes.toLocaleString(isEnglish ? 'en-GB' : 'tr-TR')}
+            </strong>{' '}
+            {isEnglish ? 'voice min / month' : 'dk ses / ay'}
           </div>
         )}
       </div>
 
-      <ul className="mt-5 flex-1 space-y-2 text-sm text-slate-200">
+      <ul
+        style={{
+          marginTop: 20,
+          padding: 0,
+          listStyle: 'none',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 10,
+          flex: 1,
+        }}
+      >
         {plan.features.map((feature) => (
-          <li key={feature} className="flex items-start gap-2">
-            <Check size={16} className="mt-0.5 shrink-0 text-emerald-300" />
+          <li
+            key={feature}
+            style={{
+              display: 'flex',
+              alignItems: 'flex-start',
+              gap: 10,
+              fontSize: 14,
+              color: 'var(--fg-1)',
+              lineHeight: 1.45,
+            }}
+          >
+            <Check size={14} style={{ marginTop: 4, flexShrink: 0, color: 'var(--ember)' }} />
             <span>{feature}</span>
           </li>
         ))}
       </ul>
 
-      <div className="mt-5 rounded-lg bg-black/30 px-3 py-2 text-[11px] leading-relaxed text-slate-400">
-        <span className="font-semibold text-slate-300">{isEnglish ? 'Overage: ' : 'Aşım: '}</span>
+      <div
+        style={{
+          marginTop: 16,
+          paddingTop: 14,
+          borderTop: '1px solid var(--border)',
+          fontFamily: 'var(--font-mono)',
+          fontSize: 11,
+          color: 'var(--fg-3)',
+          letterSpacing: '0.02em',
+        }}
+      >
+        <strong style={{ color: 'var(--fg-2)' }}>{isEnglish ? 'Overage: ' : 'Aşım: '}</strong>
         {isEnglish
-          ? `+${formatPrice(plan.overageChatPer100, region)} per 100 conversations${
-              hasVoice ? ` · +${formatPrice(plan.overageVoicePer100, region)} per 100 voice minutes` : ''
+          ? `+${formatPrice(plan.overageChatPer100, region)} / 100 chats${
+              hasVoice ? ` · +${formatPrice(plan.overageVoicePer100, region)} / 100 voice min` : ''
             }`
-          : `100 görüşme +${formatPrice(plan.overageChatPer100, region)}${
-              hasVoice ? ` · 100 dk ses +${formatPrice(plan.overageVoicePer100, region)}` : ''
+          : `+${formatPrice(plan.overageChatPer100, region)} / 100 görüşme${
+              hasVoice ? ` · +${formatPrice(plan.overageVoicePer100, region)} / 100 dk ses` : ''
             }`}
       </div>
 
@@ -307,13 +364,11 @@ function PlanCard({
         )}
         target="_blank"
         rel="noreferrer"
-        className={`mt-5 inline-flex w-full items-center justify-center gap-2 rounded-xl px-4 py-3 text-sm font-bold transition ${
-          plan.recommended
-            ? 'bg-gradient-to-r from-fuchsia-400 to-cyan-300 text-slate-900 hover:brightness-110'
-            : 'bg-emerald-400 text-slate-900 hover:bg-emerald-300'
-        }`}
+        className={rec ? 'btn btn-primary' : 'btn btn-secondary'}
+        style={{ marginTop: 20, width: '100%', justifyContent: 'center' }}
       >
-        <MessageCircle size={16} /> {isEnglish ? 'Start Free 30 Days' : '30 Gün Ücretsiz Başla'}
+        <MessageCircle size={14} />
+        {isEnglish ? '30-day free start' : '30 gün ücretsiz başla'}
       </a>
     </article>
   );
@@ -342,7 +397,7 @@ function buildReadyPlans(
 
 export default function Packages() {
   const { pricing, region } = useLocation();
-  const { language, t } = useLanguage();
+  const { language } = useLanguage();
   const isEnglish = language === 'en';
 
   const [activeTab, setActiveTab] = useState<TabMode>('ready');
@@ -351,18 +406,18 @@ export default function Packages() {
   const readyPlans = useMemo(() => buildReadyPlans(pricing, isEnglish), [pricing, isEnglish]);
 
   const seoTitle = isEnglish
-    ? 'Ready Packages — Starter, Growth, Scale | MGL Digital Media'
-    : 'Hazır Paketler — Başlangıç, Büyüme, Ölçeklendirme | MGL Digital Media';
+    ? 'Packages — Starter, Growth, Auto-Receptionist, Full Autonomy | MGL Digital Media'
+    : 'Paketler — Başlangıç, Büyüme, Oto-Sekreter, Tam Otonomi | MGL Digital Media';
   const seoDescription = isEnglish
-    ? 'Pre-configured digital packages for SMEs: WhatsApp + voice bot + n8n + website + ads. Starter, Growth, Scale tiers in TRY and GBP. No lock-in.'
-    : 'KOBİ\'ler için hazır dijital paketler: WhatsApp + sesli bot + n8n + web + reklam. Başlangıç, Büyüme, Ölçeklendirme seviyeleri. Taahhüt yok.';
+    ? 'Four pre-configured AI packages for SMEs: WhatsApp, voice, CRM, automation. TRY and GBP pricing. 30-day free trial. Monthly cancellation.'
+    : 'KOBİ\'ler için dört hazır AI paketi: WhatsApp, ses, CRM, otomasyon. TRY ve GBP fiyatlandırma. 30 gün ücretsiz. Aylık çıkış hakkı.';
   const breadcrumb = breadcrumbSchema([
     { name: isEnglish ? 'Home' : 'Ana Sayfa', path: '/' },
     { name: isEnglish ? 'Packages' : 'Paketler', path: '/packages' },
   ]);
 
   return (
-    <div className="min-h-screen bg-[#05060a] text-white">
+    <>
       <Seo
         title={seoTitle}
         description={seoDescription}
@@ -370,80 +425,178 @@ export default function Packages() {
         locale={isEnglish ? 'en_GB' : 'tr_TR'}
         keywords={
           isEnglish
-            ? ['digital agency packages', 'SME automation bundle', 'WhatsApp bot package', 'voice assistant package', 'website and ads bundle']
-            : ['dijital ajans paketleri', 'KOBİ otomasyon paketi', 'WhatsApp bot paketi', 'sesli asistan paketi', 'web ve reklam paketi']
+            ? ['AI automation packages', 'SME AI bundle', 'WhatsApp bot package', 'voice assistant package']
+            : ['AI otomasyon paketleri', 'KOBİ AI paketi', 'WhatsApp bot paketi', 'sesli asistan paketi']
         }
         jsonLd={[...BASE_SCHEMAS, breadcrumb]}
       />
-      <PageNav current="packages" />
-      <div className="mx-auto max-w-7xl space-y-8 px-4 py-10">
 
-        {/* Hero */}
-        <section className="rounded-3xl border border-cyan-300/20 bg-white/5 p-6 shadow-[0_0_70px_rgba(34,211,238,0.08)] backdrop-blur-2xl md:p-10">
-          <p className="inline-flex rounded-full border border-fuchsia-300/40 bg-fuchsia-500/10 px-3 py-1 text-xs uppercase tracking-[0.2em] text-fuchsia-200">
-            {isEnglish ? 'Pricing' : 'Fiyatlandırma'}
-          </p>
-          <h1 className="mt-4 text-3xl font-black md:text-5xl">
+      {/* Hero */}
+      <section
+        style={{
+          background: 'var(--paper)',
+          padding: 'clamp(64px, 5vw + 24px, 120px) 0 clamp(40px, 3vw + 16px, 72px)',
+          borderBottom: '1px solid var(--border)',
+        }}
+      >
+        <div className="container" style={{ maxWidth: 960 }}>
+          <span className="eyebrow">
+            {isEnglish ? 'PRICING · PACKAGES' : 'FİYATLANDIRMA · PAKETLER'}
+          </span>
+          <h1
+            style={{
+              marginTop: 16,
+              fontFamily: 'var(--font-serif)',
+              fontSize: 'clamp(2.25rem, 1.2rem + 3.5vw, 4rem)',
+              lineHeight: 0.98,
+              letterSpacing: '-0.035em',
+              fontWeight: 500,
+              color: 'var(--ink)',
+            }}
+          >
             {isEnglish
-              ? 'Automation that pays for itself in the first month.'
-              : 'İlk ayında kendini amorti eden otomasyon.'}
+              ? 'Four tiers. One honest deal.'
+              : 'Dört kademe. Tek şeffaf anlaşma.'}
           </h1>
-          <p className="mt-4 max-w-3xl text-slate-300 md:text-lg">
+          <p
+            className="lede"
+            style={{ marginTop: 20, color: 'var(--fg-2)', maxWidth: 680 }}
+          >
             {isEnglish
-              ? 'Four tiers. Transparent overage pricing. Zero long-term contracts. The first 30 days are on us — you only pay if the system proves it works on your real traffic.'
-              : 'Dört kademe. Şeffaf aşım fiyatları. Uzun vadeli sözleşme yok. İlk 30 gün bizden — yalnızca sistem gerçek trafiğinizde çalıştığını kanıtladıysa ödersiniz.'}
+              ? 'Transparent overage pricing. No long-term contracts. The first 30 days are on us — you only pay if the system proves it works on your real traffic.'
+              : 'Şeffaf aşım fiyatları. Uzun vadeli sözleşme yok. İlk 30 gün bizden — yalnızca sistem gerçek trafiğinizde çalıştığını kanıtladıysa ödersiniz.'}
           </p>
 
-          <div className="mt-6 flex flex-wrap gap-3 text-xs">
-            <span className="inline-flex items-center gap-2 rounded-full border border-emerald-300/40 bg-emerald-500/10 px-3 py-1.5 font-semibold text-emerald-100">
-              <ShieldCheck size={14} /> {isEnglish ? '30-day free trial' : '30 gün ücretsiz deneme'}
-            </span>
-            <span className="inline-flex items-center gap-2 rounded-full border border-cyan-300/40 bg-cyan-500/10 px-3 py-1.5 font-semibold text-cyan-100">
-              {isEnglish ? 'No contract lock-in' : 'Taahhüt yok'}
-            </span>
-            <span className="inline-flex items-center gap-2 rounded-full border border-amber-300/40 bg-amber-500/10 px-3 py-1.5 font-semibold text-amber-100">
-              {isEnglish ? 'Data stored in EU' : 'Veriler AB sunucularında'}
-            </span>
+          <div style={{ marginTop: 28, display: 'flex', flexWrap: 'wrap', gap: '8px 16px' }}>
+            {[
+              {
+                icon: <ShieldCheck size={14} />,
+                tr: '30 gün ücretsiz deneme',
+                en: '30-day free trial',
+              },
+              { tr: 'Aylık çıkış hakkı', en: 'Monthly cancellation' },
+              { tr: 'Veriler AB sunucularında', en: 'EU-region data hosting' },
+            ].map((chip, i) => (
+              <span
+                key={i}
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 6,
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: 11,
+                  letterSpacing: '0.08em',
+                  textTransform: 'uppercase',
+                  color: 'var(--fg-2)',
+                  padding: '6px 12px',
+                  border: '1px solid var(--border)',
+                  borderRadius: 999,
+                  background: 'var(--paper-2)',
+                }}
+              >
+                {chip.icon}
+                {isEnglish ? chip.en : chip.tr}
+              </span>
+            ))}
           </div>
 
-          <div className="mt-8 inline-flex flex-wrap rounded-2xl border border-white/15 bg-black/30 p-1">
+          {/* Tab switcher */}
+          <div
+            style={{
+              marginTop: 36,
+              display: 'inline-flex',
+              gap: 4,
+              padding: 4,
+              background: 'var(--paper-2)',
+              border: '1px solid var(--border)',
+              borderRadius: 999,
+            }}
+          >
             {(['ready', 'enterprise'] as TabMode[]).map((tab) => {
-              const labels: Record<TabMode, { tr: string; en: string; color: string }> = {
-                ready:      { tr: 'Paketler',        en: 'Plans',              color: 'bg-cyan-400' },
-                enterprise: { tr: 'Kurumsal & Özel', en: 'Enterprise & Custom', color: 'bg-amber-300' },
+              const labels: Record<TabMode, { tr: string; en: string }> = {
+                ready: { tr: 'Paketler', en: 'Plans' },
+                enterprise: { tr: 'Kurumsal', en: 'Enterprise' },
               };
-              const { tr, en, color } = labels[tab];
+              const { tr, en } = labels[tab];
+              const isActive = activeTab === tab;
               return (
                 <button
                   key={tab}
                   type="button"
                   onClick={() => setActiveTab(tab)}
-                  className={`rounded-xl px-5 py-2 text-sm font-semibold transition ${
-                    activeTab === tab ? `${color} text-slate-900` : 'text-slate-300 hover:text-white'
-                  }`}
+                  style={{
+                    padding: '8px 20px',
+                    borderRadius: 999,
+                    background: isActive ? 'var(--ink)' : 'transparent',
+                    color: isActive ? 'var(--paper)' : 'var(--fg-2)',
+                    fontSize: 13,
+                    fontWeight: 500,
+                    transition: 'background 160ms, color 160ms',
+                    border: 'none',
+                  }}
                 >
                   {isEnglish ? en : tr}
                 </button>
               );
             })}
           </div>
-        </section>
+        </div>
+      </section>
 
-        {/* Ready plans */}
-        {activeTab === 'ready' && (
-          <>
-            <section className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
-              {readyPlans.map((plan) => (
-                <PlanCard key={plan.key} plan={plan} region={region} isEnglish={isEnglish} />
-              ))}
-            </section>
+      {activeTab === 'ready' && (
+        <>
+          {/* Plans grid */}
+          <section style={{ background: 'var(--paper)', padding: 'clamp(56px, 5vw + 16px, 96px) 0' }}>
+            <div className="container">
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+                  gap: 20,
+                }}
+              >
+                {readyPlans.map((plan) => (
+                  <PlanCard key={plan.key} plan={plan} region={region} isEnglish={isEnglish} />
+                ))}
+              </div>
+            </div>
+          </section>
 
-            {/* Comparison quick facts */}
-            <section className="rounded-3xl border border-white/15 bg-white/5 p-6 backdrop-blur-xl md:p-8">
-              <h2 className="text-2xl font-black md:text-3xl">
-                {isEnglish ? 'What every plan includes' : 'Her pakette standart olanlar'}
-              </h2>
-              <div className="mt-5 grid gap-4 md:grid-cols-2 lg:grid-cols-4">
+          {/* What every plan includes */}
+          <section
+            style={{
+              background: 'var(--paper-2)',
+              padding: 'clamp(64px, 5vw + 16px, 104px) 0',
+              borderTop: '1px solid var(--border)',
+              borderBottom: '1px solid var(--border)',
+            }}
+          >
+            <div className="container">
+              <div style={{ maxWidth: 720 }}>
+                <span className="eyebrow">{isEnglish ? 'STANDARD IN EVERY PLAN' : 'HER PAKETTE STANDART'}</span>
+                <h2
+                  style={{
+                    marginTop: 16,
+                    fontFamily: 'var(--font-serif)',
+                    fontSize: 'clamp(1.75rem, 1.2rem + 1.8vw, 2.5rem)',
+                    lineHeight: 1.1,
+                    letterSpacing: '-0.025em',
+                    fontWeight: 500,
+                    color: 'var(--ink)',
+                  }}
+                >
+                  {isEnglish ? 'The basics that ship in every tier.' : 'Her kademede hazır gelenler.'}
+                </h2>
+              </div>
+
+              <div
+                style={{
+                  marginTop: 36,
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+                  gap: 16,
+                }}
+              >
                 {[
                   {
                     tr: 'Gerçek zamanlı mesaj motoru',
@@ -478,134 +631,240 @@ export default function Packages() {
                     },
                   },
                 ].map((item) => (
-                  <div key={item.tr} className="rounded-2xl border border-white/10 bg-black/30 p-4">
-                    <p className="text-sm font-bold text-cyan-200">{isEnglish ? item.en : item.tr}</p>
-                    <p className="mt-2 text-xs text-slate-300">{isEnglish ? item.desc.en : item.desc.tr}</p>
+                  <div
+                    key={item.tr}
+                    style={{
+                      padding: 24,
+                      background: 'var(--paper)',
+                      border: '1px solid var(--border)',
+                      borderRadius: 'var(--r-md)',
+                      borderLeft: '2px solid var(--ember)',
+                    }}
+                  >
+                    <p
+                      style={{
+                        fontFamily: 'var(--font-serif)',
+                        fontSize: 18,
+                        lineHeight: 1.3,
+                        fontWeight: 500,
+                        color: 'var(--ink)',
+                        margin: 0,
+                      }}
+                    >
+                      {isEnglish ? item.en : item.tr}
+                    </p>
+                    <p style={{ marginTop: 8, fontSize: 14, color: 'var(--fg-2)', lineHeight: 1.5 }}>
+                      {isEnglish ? item.desc.en : item.desc.tr}
+                    </p>
                   </div>
                 ))}
               </div>
-            </section>
+            </div>
+          </section>
 
-            {/* Sector insights */}
-            <section className="rounded-3xl border border-cyan-300/20 bg-white/5 p-6 shadow-[0_0_70px_rgba(34,211,238,0.08)] backdrop-blur-2xl md:p-8">
-              <p className="inline-flex rounded-full border border-cyan-300/35 bg-cyan-500/10 px-3 py-1 text-xs uppercase tracking-[0.2em] text-cyan-100">
-                Data Insight
-              </p>
-              <h2 className="mt-4 text-2xl font-black md:text-3xl">
-                {isEnglish ? t('dataInsight.title') : 'Sektörler Yapay Zeka ile Ne Kazanıyor?'}
+          {/* FAQ */}
+          <section style={{ background: 'var(--paper)', padding: 'clamp(64px, 5vw + 16px, 104px) 0' }}>
+            <div className="container" style={{ maxWidth: 820 }}>
+              <span className="eyebrow">{isEnglish ? 'FREQUENTLY ASKED' : 'SIK SORULAN'}</span>
+              <h2
+                style={{
+                  marginTop: 16,
+                  fontFamily: 'var(--font-serif)',
+                  fontSize: 'clamp(1.75rem, 1.2rem + 1.8vw, 2.5rem)',
+                  lineHeight: 1.1,
+                  letterSpacing: '-0.025em',
+                  fontWeight: 500,
+                  color: 'var(--ink)',
+                }}
+              >
+                {isEnglish ? 'Questions we hear most.' : 'En sık duyduğumuz sorular.'}
               </h2>
-              <p className="mt-2 max-w-3xl text-sm text-slate-300 md:text-base">
-                {isEnglish
-                  ? t('dataInsight.desc')
-                  : 'Farklı sektörlerde devreye alınan otomasyonlar; hız, doluluk ve verimlilikte ölçülebilir sonuçlar sağlıyor.'}
-              </p>
-              <div className="mt-6 grid gap-4 md:grid-cols-3">
-                {sectorInsights.map((insight) => (
-                  <article
-                    key={insight.name.tr}
-                    className="rounded-2xl border border-white/15 bg-black/30 p-5 backdrop-blur-xl transition hover:-translate-y-1 hover:border-cyan-300/55"
-                  >
-                    <div className="inline-flex rounded-xl border border-white/20 bg-white/10 p-2">{insight.icon}</div>
-                    <h3 className="mt-4 text-lg font-bold text-white">
-                      {isEnglish ? insight.name.en : insight.name.tr}
-                    </h3>
-                    <p className="mt-2 text-2xl font-black text-cyan-200">
-                      {isEnglish ? insight.stat.en : insight.stat.tr}
-                    </p>
-                    <p className="mt-2 text-sm text-slate-300">
-                      {isEnglish ? insight.description.en : insight.description.tr}
-                    </p>
-                  </article>
-                ))}
-              </div>
-            </section>
 
-            {/* FAQ */}
-            <section className="rounded-3xl border border-white/15 bg-white/5 p-6 backdrop-blur-xl md:p-8">
-              <h2 className="text-2xl font-black md:text-3xl">
-                {isEnglish ? 'Frequently asked questions' : 'Sık sorulan sorular'}
-              </h2>
-              <div className="mt-6 divide-y divide-white/10 rounded-2xl border border-white/10 bg-black/30">
+              <div style={{ marginTop: 32 }}>
                 {faqItems.map((item, idx) => {
                   const isOpen = openFaq === idx;
                   return (
-                    <button
+                    <div
                       key={item.q.tr}
-                      type="button"
-                      onClick={() => setOpenFaq(isOpen ? null : idx)}
-                      className="w-full px-5 py-4 text-left"
+                      style={{
+                        borderTop: idx === 0 ? '1px solid var(--border)' : 'none',
+                        borderBottom: '1px solid var(--border)',
+                      }}
                     >
-                      <div className="flex items-center justify-between gap-4">
-                        <span className="text-sm font-semibold text-white md:text-base">
+                      <button
+                        type="button"
+                        onClick={() => setOpenFaq(isOpen ? null : idx)}
+                        style={{
+                          width: '100%',
+                          padding: '20px 0',
+                          background: 'transparent',
+                          border: 'none',
+                          textAlign: 'left',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'space-between',
+                          gap: 16,
+                          cursor: 'pointer',
+                        }}
+                      >
+                        <span
+                          style={{
+                            fontFamily: 'var(--font-serif)',
+                            fontSize: 'clamp(1rem, 0.9rem + 0.3vw, 1.25rem)',
+                            lineHeight: 1.35,
+                            fontWeight: 500,
+                            color: 'var(--ink)',
+                          }}
+                        >
                           {isEnglish ? item.q.en : item.q.tr}
                         </span>
                         <ChevronDown
                           size={18}
-                          className={`shrink-0 text-cyan-300 transition-transform ${isOpen ? 'rotate-180' : ''}`}
+                          style={{
+                            flexShrink: 0,
+                            color: 'var(--ember)',
+                            transform: isOpen ? 'rotate(180deg)' : 'none',
+                            transition: 'transform 200ms var(--ease-out)',
+                          }}
                         />
-                      </div>
+                      </button>
                       {isOpen && (
-                        <p className="mt-3 text-sm leading-relaxed text-slate-300">
+                        <p
+                          style={{
+                            paddingBottom: 20,
+                            paddingRight: 34,
+                            margin: 0,
+                            fontSize: 15,
+                            lineHeight: 1.6,
+                            color: 'var(--fg-2)',
+                          }}
+                        >
                           {isEnglish ? item.a.en : item.a.tr}
                         </p>
                       )}
-                    </button>
+                    </div>
                   );
                 })}
               </div>
-            </section>
-          </>
-        )}
-
-        {/* Enterprise */}
-        {activeTab === 'enterprise' && (
-          <section className="relative overflow-hidden rounded-[2rem] border border-amber-200/40 bg-white/10 p-6 shadow-[0_0_40px_rgba(168,85,247,0.28)] backdrop-blur-2xl md:p-10">
-            <div className="pointer-events-none absolute -left-16 top-1/2 h-64 w-64 -translate-y-1/2 rounded-full bg-amber-300/20 blur-3xl" />
-            <div className="pointer-events-none absolute -right-10 top-10 h-56 w-56 rounded-full bg-purple-500/30 blur-3xl" />
-            <div className="relative max-w-4xl">
-              <p className="inline-flex rounded-full border border-amber-200/60 bg-amber-300/20 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-amber-100">
-                {isEnglish ? 'Enterprise Solution' : 'Kurumsal Çözüm'}
-              </p>
-              <h2 className="mt-5 text-3xl font-black text-white md:text-5xl">
-                {isEnglish ? 'Need something beyond the standard?' : 'Standartların dışında mısınız?'}
-              </h2>
-              <p className="mt-4 text-base leading-relaxed text-slate-200 md:text-lg">
-                {isEnglish
-                  ? 'For hospital chains, multi-branch operations, factories and regulated industries we build bespoke solutions: on-premise deployment, custom integrations, dedicated infrastructure.'
-                  : 'Hastane zincirleri, çok şubeli işletmeler, fabrikalar ve düzenlemeye tabi sektörler için terzi işi çözümler üretiyoruz: on-premise kurulum, özel entegrasyonlar, ayrılmış altyapı.'}
-              </p>
-              <ul className="mt-8 grid gap-3 text-sm text-slate-100 md:grid-cols-2">
-                {[
-                  isEnglish ? 'On-premise deployment & data sovereignty' : 'On-premise kurulum & veri egemenliği',
-                  isEnglish ? 'Unlimited integrations (SAP, Nebim, Logo, custom ERP)' : 'Sınırsız entegrasyon (SAP, Nebim, Logo, özel ERP)',
-                  isEnglish ? '24/7 priority support with named engineer' : '7/24 öncelikli destek, atanmış mühendis',
-                  isEnglish ? 'Custom AI training on your corpus' : 'Kendi veri setinizle özel AI eğitimi',
-                  isEnglish ? 'Single sign-on (SSO) & audit logs' : 'Tek oturum (SSO) & denetim logları',
-                  isEnglish ? 'Volume pricing & committed-use discounts' : 'Hacim indirimi & taahhütlü kullanım fiyatı',
-                ].map((feature) => (
-                  <li key={feature} className="flex items-start gap-2 rounded-xl border border-white/20 bg-black/25 p-3">
-                    <Check size={16} className="mt-0.5 text-emerald-300" />
-                    <span>{feature}</span>
-                  </li>
-                ))}
-              </ul>
-              <a
-                href={createWhatsAppLink(
-                  isEnglish
-                    ? 'Hello, I would like to discuss an enterprise/custom project.'
-                    : 'Merhaba, kurumsal/özel bir proje için görüşmek istiyorum.',
-                )}
-                target="_blank"
-                rel="noreferrer"
-                className="mt-8 inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-amber-300 to-fuchsia-300 px-6 py-3 text-sm font-extrabold text-slate-900 transition hover:scale-[1.02]"
-              >
-                <MessageCircle size={16} />{' '}
-                {isEnglish ? 'Talk to a Project Consultant' : 'Proje Danışmanıyla Görüş'} ({WHATSAPP_LABEL})
-              </a>
             </div>
           </section>
-        )}
-      </div>
-    </div>
+        </>
+      )}
+
+      {activeTab === 'enterprise' && (
+        <section
+          className="on-coal"
+          style={{
+            background: 'var(--coal)',
+            color: 'var(--bone)',
+            padding: 'clamp(72px, 6vw + 24px, 128px) 0',
+          }}
+        >
+          <div className="container" style={{ maxWidth: 960 }}>
+            <span
+              className="eyebrow"
+              style={{ color: 'var(--ember)' }}
+            >
+              {isEnglish ? 'ENTERPRISE & CUSTOM' : 'KURUMSAL & ÖZEL'}
+            </span>
+            <h2
+              style={{
+                marginTop: 16,
+                fontFamily: 'var(--font-serif)',
+                fontSize: 'clamp(2rem, 1.2rem + 2.5vw, 3.25rem)',
+                lineHeight: 1.05,
+                letterSpacing: '-0.03em',
+                fontWeight: 500,
+                color: 'var(--bone)',
+              }}
+            >
+              {isEnglish
+                ? 'Need something beyond the standard?'
+                : 'Standartların dışında mısınız?'}
+            </h2>
+            <p
+              style={{
+                marginTop: 20,
+                maxWidth: 720,
+                color: 'var(--bone-2)',
+                fontSize: 'clamp(1rem, 0.9rem + 0.3vw, 1.125rem)',
+                lineHeight: 1.6,
+              }}
+            >
+              {isEnglish
+                ? 'For hospital chains, multi-branch operations, factories and regulated industries we build bespoke solutions: on-premise deployment, custom integrations, dedicated infrastructure.'
+                : 'Hastane zincirleri, çok şubeli işletmeler, fabrikalar ve düzenlemeye tabi sektörler için terzi işi çözümler üretiyoruz: on-premise kurulum, özel entegrasyonlar, ayrılmış altyapı.'}
+            </p>
+
+            <ul
+              style={{
+                marginTop: 40,
+                padding: 0,
+                listStyle: 'none',
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+                gap: 12,
+              }}
+            >
+              {[
+                isEnglish ? 'On-premise deployment & data sovereignty' : 'On-premise kurulum & veri egemenliği',
+                isEnglish ? 'Unlimited integrations (SAP, Nebim, Logo, custom ERP)' : 'Sınırsız entegrasyon (SAP, Nebim, Logo, özel ERP)',
+                isEnglish ? '24/7 priority support with named engineer' : '7/24 öncelikli destek, atanmış mühendis',
+                isEnglish ? 'Custom AI training on your corpus' : 'Kendi veri setinizle özel AI eğitimi',
+                isEnglish ? 'Single sign-on (SSO) & audit logs' : 'Tek oturum (SSO) & denetim logları',
+                isEnglish ? 'Volume pricing & committed-use discounts' : 'Hacim indirimi & taahhütlü kullanım fiyatı',
+              ].map((feature) => (
+                <li
+                  key={feature}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'flex-start',
+                    gap: 10,
+                    padding: 16,
+                    background: 'var(--coal-2)',
+                    border: '1px solid var(--coal-3)',
+                    borderRadius: 'var(--r-md)',
+                    fontSize: 14,
+                    color: 'var(--bone)',
+                    lineHeight: 1.45,
+                  }}
+                >
+                  <Check size={14} style={{ marginTop: 3, flexShrink: 0, color: 'var(--ember)' }} />
+                  <span>{feature}</span>
+                </li>
+              ))}
+            </ul>
+
+            <a
+              href={createWhatsAppLink(
+                isEnglish
+                  ? 'Hello, I would like to discuss an enterprise/custom project.'
+                  : 'Merhaba, kurumsal/özel bir proje için görüşmek istiyorum.',
+              )}
+              target="_blank"
+              rel="noreferrer"
+              className="btn btn-primary btn-lg"
+              style={{ marginTop: 36 }}
+            >
+              {isEnglish ? 'Talk to a project consultant' : 'Proje danışmanıyla görüş'}
+              <ArrowUpRight size={16} />
+            </a>
+
+            <p
+              style={{
+                marginTop: 16,
+                fontFamily: 'var(--font-mono)',
+                fontSize: 11,
+                color: 'var(--bone-3)',
+                letterSpacing: '0.08em',
+                textTransform: 'uppercase',
+              }}
+            >
+              {WHATSAPP_LABEL}
+            </p>
+          </div>
+        </section>
+      )}
+    </>
   );
 }

@@ -1,12 +1,10 @@
 import { useMemo, useState } from 'react';
 import type { LucideIcon } from 'lucide-react';
 import {
-  ArrowRight,
-  ArrowLeft,
+  ArrowUpRight,
   Building2,
   Globe2,
   GraduationCap,
-  Home,
   Scale,
   Scissors,
   ShoppingBag,
@@ -44,7 +42,6 @@ type SectorConfig = {
   id: SectorId;
   titleTR: string;
   titleEN: string;
-  emoji: string;
   icon: LucideIcon;
   sliders: SliderConfig[];
   explanationTR: (values: Record<string, number>) => string;
@@ -61,399 +58,154 @@ const sectorConfigs: SectorConfig[] = [
     id: 'health',
     titleTR: 'Klinik & Sağlık',
     titleEN: 'Clinic & Healthcare',
-    emoji: '🩺',
     icon: Stethoscope,
     sliders: [
-      {
-        key: 'dailyCalls',
-        labelTR: 'Günlük Kaçırılan Çağrı',
-        labelEN: 'Daily Missed Calls',
-        min: 1,
-        max: 50,
-        suffixTR: ' adet',
-        suffixEN: ' calls'
-      },
-      {
-        key: 'patientValue',
-        labelTR: 'Ortalama Hasta Değeri',
-        labelEN: 'Avg. Patient Value',
-        min: 500,
-        max: 50000,
-        step: 500,
-        suffixTR: ' TL',
-        suffixEN: ' £'
-      },
+      { key: 'dailyCalls', labelTR: 'Günlük Kaçırılan Çağrı', labelEN: 'Daily Missed Calls', min: 1, max: 50, suffixTR: ' adet', suffixEN: ' calls' },
+      { key: 'patientValue', labelTR: 'Ortalama Hasta Değeri', labelEN: 'Avg. Patient Value', min: 500, max: 50000, step: 500, suffixTR: ' TL', suffixEN: ' £' },
     ],
     calculate: (v) => v.dailyCalls * 30 * 0.2 * v.patientValue,
-    breakdownTR: (v) => [
-      `${v.dailyCalls} (Günlük Kaçırılan Çağrı)`,
-      '30 (Gün)',
-      '%20 (Dönüşüm)',
-      `${formatMoney(v.patientValue)} TL (Ortalama Hasta Değeri)`,
-    ],
-    breakdownEN: (v) => [
-      `${v.dailyCalls} (Daily Missed Calls)`,
-      '30 (Days)',
-      '20% (Conversion)',
-      `£${formatMoney(v.patientValue)} (Avg. Patient Value)`,
-    ],
-    explanationTR: (v) =>
-      `Günde ${v.dailyCalls} çağrı kaçırmak, ayda ${v.dailyCalls * 30} potansiyel hasta kaybı demektir. Ortalama %20 dönüşüm oranı ile hesaplanmıştır.`,
-    explanationEN: (v) =>
-      `Missing ${v.dailyCalls} calls daily means ${v.dailyCalls * 30} potential patients lost per month. Calculated with an average 20% conversion rate.`,
-    packageName: 'Professional Package',
+    breakdownTR: (v) => [`${v.dailyCalls} (Kaçan çağrı/gün)`, '30 (Gün)', '%20 (Dönüşüm)', `${formatMoney(v.patientValue)} TL (Hasta değeri)`],
+    breakdownEN: (v) => [`${v.dailyCalls} (Missed calls/day)`, '30 (Days)', '20% (Conversion)', `£${formatMoney(v.patientValue)} (Patient value)`],
+    explanationTR: (v) => `Günde ${v.dailyCalls} çağrı kaçırmak, ayda ${v.dailyCalls * 30} potansiyel hasta kaybı demektir. Ortalama %20 dönüşüm oranı ile hesaplanmıştır.`,
+    explanationEN: (v) => `Missing ${v.dailyCalls} calls daily means ${v.dailyCalls * 30} potential patients lost per month. Calculated with an average 20% conversion rate.`,
+    packageName: 'Profesyonel Paket',
     packagePrice: 13999,
   },
   {
     id: 'restaurant',
     titleTR: 'Restoran & Cafe',
     titleEN: 'Restaurant & Cafe',
-    emoji: '🍕',
     icon: UtensilsCrossed,
     sliders: [
-      {
-        key: 'dailyOrders',
-        labelTR: 'Günlük Paket Sipariş',
-        labelEN: 'Daily Delivery Orders',
-        min: 1,
-        max: 500,
-        suffixTR: ' adet',
-        suffixEN: ' orders'
-      },
-      {
-        key: 'basketValue',
-        labelTR: 'Ortalama Sepet Tutarı',
-        labelEN: 'Avg. Basket Value',
-        min: 1,
-        max: 2000,
-        step: 1,
-        suffixTR: ' TL',
-        suffixEN: '£'
-      },
-      {
-        key: 'commission',
-        labelTR: 'Platform Komisyonu',
-        labelEN: 'Platform Commission',
-        min: 1,
-        max: 30,
-        suffixTR: ' %',
-        suffixEN: '%'
-      },
+      { key: 'dailyOrders', labelTR: 'Günlük Paket Sipariş', labelEN: 'Daily Delivery Orders', min: 1, max: 500, suffixTR: ' adet', suffixEN: ' orders' },
+      { key: 'basketValue', labelTR: 'Ortalama Sepet Tutarı', labelEN: 'Avg. Basket Value', min: 1, max: 2000, step: 1, suffixTR: ' TL', suffixEN: '£' },
+      { key: 'commission', labelTR: 'Platform Komisyonu', labelEN: 'Platform Commission', min: 1, max: 30, suffixTR: ' %', suffixEN: '%' },
     ],
     calculate: (v) => v.dailyOrders * v.basketValue * 30 * (v.commission / 100),
-    breakdownTR: (v) => [
-      `${v.dailyOrders} (Günlük Sipariş)`,
-      `${formatMoney(v.basketValue)} TL (Sepet)`,
-      '30 (Gün)',
-      `%${v.commission} (Komisyon)`,
-    ],
-    breakdownEN: (v) => [
-      `${v.dailyOrders} (Daily Orders)`,
-      `£${formatMoney(v.basketValue)} (Basket)`,
-      '30 (Days)',
-      `${v.commission}% (Commission)`,
-    ],
+    breakdownTR: (v) => [`${v.dailyOrders} (Sipariş/gün)`, `${formatMoney(v.basketValue)} TL (Sepet)`, '30 (Gün)', `%${v.commission} (Komisyon)`],
+    breakdownEN: (v) => [`${v.dailyOrders} (Orders/day)`, `£${formatMoney(v.basketValue)} (Basket)`, '30 (Days)', `${v.commission}% (Commission)`],
     explanationTR: () => 'Online yemek platformlarına her ay ödediğiniz komisyon tutarıdır.',
     explanationEN: () => 'The commission amount you pay to food delivery platforms every month.',
-    packageName: 'Restaurant Package',
+    packageName: 'Restoran Paketi',
     packagePrice: 16999,
   },
   {
     id: 'estate',
     titleTR: 'Emlak & Gayrimenkul',
     titleEN: 'Real Estate',
-    emoji: '🏠',
     icon: Building2,
     sliders: [
-      {
-        key: 'monthlyLeads',
-        labelTR: 'Aylık Kaçırılan Potansiyel Müşteri',
-        labelEN: 'Monthly Missed Leads',
-        min: 1,
-        max: 100,
-        suffixTR: ' kişi',
-        suffixEN: ' leads'
-      },
-      {
-        key: 'estateCommission',
-        labelTR: 'Ortalama Satış/Kira Komisyonu',
-        labelEN: 'Avg. Sale/Rent Commission',
-        min: 10000,
-        max: 200000,
-        step: 1000,
-        suffixTR: ' TL',
-        suffixEN: '',
-      },
+      { key: 'monthlyLeads', labelTR: 'Aylık Kaçan Potansiyel Müşteri', labelEN: 'Monthly Missed Leads', min: 1, max: 100, suffixTR: ' kişi', suffixEN: ' leads' },
+      { key: 'estateCommission', labelTR: 'Ortalama Satış/Kira Komisyonu', labelEN: 'Avg. Sale/Rent Commission', min: 10000, max: 200000, step: 1000, suffixTR: ' TL', suffixEN: '' },
     ],
     calculate: (v) => v.monthlyLeads * 0.05 * v.estateCommission,
-    breakdownTR: (v) => [
-      `${v.monthlyLeads} (Aylık Kaçırılan Müşteri)`,
-      '%5 (Satışa Dönüşüm)',
-      `${formatMoney(v.estateCommission)} TL (Komisyon)`,
-    ],
-    breakdownEN: (v) => [
-      `${v.monthlyLeads} (Monthly Missed Leads)`,
-      '5% (Conversion to Sale)',
-      `${formatMoney(v.estateCommission)} (Commission)`,
-    ],
+    breakdownTR: (v) => [`${v.monthlyLeads} (Kaçan müşteri/ay)`, '%5 (Satışa dönüşüm)', `${formatMoney(v.estateCommission)} TL (Komisyon)`],
+    breakdownEN: (v) => [`${v.monthlyLeads} (Missed leads/mo)`, '5% (Conversion)', `${formatMoney(v.estateCommission)} (Commission)`],
     explanationTR: () => 'Yoğunluktan dönemediğiniz müşterilerin %5\'inin satışa döneceği varsayılmıştır.',
     explanationEN: () => 'It is assumed that 5% of customers you couldn\'t respond to due to busyness will convert to sales.',
-    packageName: 'Professional Package',
+    packageName: 'Profesyonel Paket',
     packagePrice: 13999,
   },
   {
     id: 'export',
     titleTR: 'İhracat & Üretim',
     titleEN: 'Export & Manufacturing',
-    emoji: '🌍',
     icon: Globe2,
     sliders: [
-      {
-        key: 'staffCount',
-        labelTR: 'Yabancı Dil Bilen Personel İhtiyacı',
-        labelEN: 'Foreign Language Staff Needed',
-        min: 1,
-        max: 10,
-        suffixTR: ' kişi',
-        suffixEN: ' staff'
-      },
-      {
-        key: 'staffCost',
-        labelTR: 'Personel Başı Aylık Maliyet',
-        labelEN: 'Monthly Cost Per Staff',
-        min: 1000,
-        max: 5000,
-        step: 100,
-        suffixTR: ' $',
-        suffixEN: ''
-      },
+      { key: 'staffCount', labelTR: 'Yabancı Dil Bilen Personel İhtiyacı', labelEN: 'Foreign Language Staff Needed', min: 1, max: 10, suffixTR: ' kişi', suffixEN: ' staff' },
+      { key: 'staffCost', labelTR: 'Personel Başı Aylık Maliyet', labelEN: 'Monthly Cost Per Staff', min: 1000, max: 5000, step: 100, suffixTR: ' $', suffixEN: '' },
     ],
     calculate: (v) => v.staffCount * v.staffCost * 34,
-    breakdownTR: (v) => [
-      `${v.staffCount} (Personel)`,
-      `${formatMoney(v.staffCost)} $ (Kişi Başı Maliyet)`,
-      '34 (Sabit Kur TL)',
-    ],
-    breakdownEN: (v) => [
-      `${v.staffCount} (Staff)`,
-      `$${formatMoney(v.staffCost)} (Cost Per Person)`,
-      '34 (Fixed TRY Rate)',
-    ],
-    explanationTR: () => '7/24 çalışacak bir Yapay Zeka Asistanı yerine, vardiyalı personel çalıştırmanın aylık maliyetidir.',
+    breakdownTR: (v) => [`${v.staffCount} (Personel)`, `${formatMoney(v.staffCost)} $ (Kişi başı)`, '34 (Sabit TRY kuru)'],
+    breakdownEN: (v) => [`${v.staffCount} (Staff)`, `$${formatMoney(v.staffCost)} (Cost per person)`, '34 (Fixed TRY rate)'],
+    explanationTR: () => '7/24 çalışacak bir AI asistan yerine, vardiyalı personel çalıştırmanın aylık maliyetidir.',
     explanationEN: () => 'The monthly cost of employing shift staff instead of an AI Assistant that works 24/7.',
-    packageName: 'Professional Package',
+    packageName: 'Profesyonel Paket',
     packagePrice: 13999,
   },
   {
     id: 'beauty',
     titleTR: 'Güzellik & Bakım',
     titleEN: 'Beauty & Care',
-    emoji: '💇‍♀️',
     icon: Scissors,
     sliders: [
-      {
-        key: 'emptySlots',
-        labelTR: 'Günlük Boş Kalan Koltuk/Randevu',
-        labelEN: 'Daily Empty Slots/Appointments',
-        min: 1,
-        max: 20,
-        suffixTR: ' adet',
-        suffixEN: ' slots'
-      },
-      {
-        key: 'serviceValue',
-        labelTR: 'Ortalama İşlem Ücreti',
-        labelEN: 'Avg. Service Fee',
-        min: 200,
-        max: 5000,
-        step: 50,
-        suffixTR: ' TL',
-        suffixEN: ''
-      },
+      { key: 'emptySlots', labelTR: 'Günlük Boş Koltuk/Randevu', labelEN: 'Daily Empty Slots', min: 1, max: 20, suffixTR: ' adet', suffixEN: ' slots' },
+      { key: 'serviceValue', labelTR: 'Ortalama İşlem Ücreti', labelEN: 'Avg. Service Fee', min: 200, max: 5000, step: 50, suffixTR: ' TL', suffixEN: '' },
     ],
     calculate: (v) => v.emptySlots * v.serviceValue * 26,
-    breakdownTR: (v) => [
-      `${v.emptySlots} (Günlük Boş Randevu)`,
-      `${formatMoney(v.serviceValue)} TL (İşlem Ücreti)`,
-      '26 (Çalışma Günü)',
-    ],
-    breakdownEN: (v) => [
-      `${v.emptySlots} (Daily Empty Appointments)`,
-      `${formatMoney(v.serviceValue)} (Service Fee)`,
-      '26 (Working Days)',
-    ],
+    breakdownTR: (v) => [`${v.emptySlots} (Boş randevu/gün)`, `${formatMoney(v.serviceValue)} TL (İşlem)`, '26 (Çalışma günü)'],
+    breakdownEN: (v) => [`${v.emptySlots} (Empty slots/day)`, `${formatMoney(v.serviceValue)} (Service)`, '26 (Working days)'],
     explanationTR: () => 'Randevu hatırlatma yapılmadığı için gelmeyen veya boş geçen saatlerin maliyetidir.',
     explanationEN: () => 'The cost of no-shows or empty hours due to lack of appointment reminders.',
-    packageName: 'Professional Package',
+    packageName: 'Profesyonel Paket',
     packagePrice: 13999,
   },
   {
     id: 'ecommerce',
     titleTR: 'E-Ticaret',
     titleEN: 'E-Commerce',
-    emoji: '🛍️',
     icon: ShoppingBag,
     sliders: [
-      {
-        key: 'tickets',
-        labelTR: 'Günlük Canlı Destek Talebi',
-        labelEN: 'Daily Support Requests',
-        min: 10,
-        max: 500,
-        suffixTR: ' adet',
-        suffixEN: ' tickets'
-      },
-      {
-        key: 'costPerTicket',
-        labelTR: 'Talep Başına Personel Maliyeti (Tahmini)',
-        labelEN: 'Staff Cost Per Request (Est.)',
-        min: 5,
-        max: 50,
-        suffixTR: ' TL',
-        suffixEN: '',
-      },
+      { key: 'tickets', labelTR: 'Günlük Canlı Destek Talebi', labelEN: 'Daily Support Requests', min: 10, max: 500, suffixTR: ' adet', suffixEN: ' tickets' },
+      { key: 'costPerTicket', labelTR: 'Talep Başına Personel Maliyeti', labelEN: 'Staff Cost Per Request', min: 5, max: 50, suffixTR: ' TL', suffixEN: '' },
     ],
     calculate: (v) => v.tickets * v.costPerTicket * 30,
-    breakdownTR: (v) => [
-      `${v.tickets} (Günlük Talep)`,
-      `${formatMoney(v.costPerTicket)} TL (Talep Başı Maliyet)`,
-      '30 (Gün)',
-    ],
-    breakdownEN: (v) => [
-      `${v.tickets} (Daily Requests)`,
-      `${formatMoney(v.costPerTicket)} (Cost Per Request)`,
-      '30 (Days)',
-    ],
+    breakdownTR: (v) => [`${v.tickets} (Talep/gün)`, `${formatMoney(v.costPerTicket)} TL (Talep başı)`, '30 (Gün)'],
+    breakdownEN: (v) => [`${v.tickets} (Requests/day)`, `${formatMoney(v.costPerTicket)} (Per request)`, '30 (Days)'],
     explanationTR: () => 'Müşteri sorularını manuel yanıtlamanın operasyonel maliyetidir.',
     explanationEN: () => 'The operational cost of manually responding to customer inquiries.',
-    packageName: 'Professional Package',
+    packageName: 'Profesyonel Paket',
     packagePrice: 13999,
   },
   {
     id: 'education',
     titleTR: 'Eğitim & Kurs',
     titleEN: 'Education & Courses',
-    emoji: '🎓',
     icon: GraduationCap,
     sliders: [
-      {
-        key: 'missedLeads',
-        labelTR: 'Aylık Kaçırılan Kayıt Görüşmesi',
-        labelEN: 'Monthly Missed Registration Calls',
-        min: 5,
-        max: 100,
-        suffixTR: ' adet',
-        suffixEN: ' calls'
-      },
-      {
-        key: 'studentValue',
-        labelTR: 'Öğrenci Başına Yıllık Kâr',
-        labelEN: 'Annual Profit Per Student',
-        min: 5000,
-        max: 100000,
-        step: 1000,
-        suffixTR: ' TL',
-        suffixEN: '',
-      },
+      { key: 'missedLeads', labelTR: 'Aylık Kaçırılan Kayıt Görüşmesi', labelEN: 'Monthly Missed Calls', min: 5, max: 100, suffixTR: ' adet', suffixEN: ' calls' },
+      { key: 'studentValue', labelTR: 'Öğrenci Başına Yıllık Kâr', labelEN: 'Annual Profit Per Student', min: 5000, max: 100000, step: 1000, suffixTR: ' TL', suffixEN: '' },
     ],
     calculate: (v) => v.missedLeads * 0.1 * (v.studentValue / 12),
-    breakdownTR: (v) => [
-      `${v.missedLeads} (Aylık Kaçan Görüşme)`,
-      '%10 (Dönüşüm)',
-      `${formatMoney(v.studentValue)} TL / 12 (Aylıklaştırılmış Yıllık Kâr)`,
-    ],
-    breakdownEN: (v) => [
-      `${v.missedLeads} (Monthly Missed Calls)`,
-      '10% (Conversion)',
-      `${formatMoney(v.studentValue)} / 12 (Monthly Annual Profit)`,
-    ],
+    breakdownTR: (v) => [`${v.missedLeads} (Kaçan görüşme/ay)`, '%10 (Dönüşüm)', `${formatMoney(v.studentValue)} TL / 12`],
+    breakdownEN: (v) => [`${v.missedLeads} (Missed calls/mo)`, '10% (Conversion)', `${formatMoney(v.studentValue)} / 12`],
     explanationTR: () => 'Bilgi alamadığı için kayıttan vazgeçen öğrencilerin aylık ciro etkisi.',
     explanationEN: () => 'The monthly revenue impact of students who give up on registration because they couldn\'t get information.',
-    packageName: 'Professional Package',
+    packageName: 'Profesyonel Paket',
     packagePrice: 13999,
   },
   {
     id: 'law',
     titleTR: 'Hukuk & Danışmanlık',
     titleEN: 'Law & Consulting',
-    emoji: '⚖️',
     icon: Scale,
     sliders: [
-      {
-        key: 'weeklyHours',
-        labelTR: 'Haftalık Gereksiz Telefon Görüşmesi',
-        labelEN: 'Weekly Unnecessary Phone Calls',
-        min: 1,
-        max: 40,
-        suffixTR: ' saat',
-        suffixEN: ' hours'
-      },
-      {
-        key: 'hourlyRate',
-        labelTR: 'Saatlik Danışmanlık Ücretiniz',
-        labelEN: 'Your Hourly Consulting Rate',
-        min: 1000,
-        max: 10000,
-        step: 100,
-        suffixTR: ' TL',
-        suffixEN: ''
-      },
+      { key: 'weeklyHours', labelTR: 'Haftalık Gereksiz Telefon Görüşmesi', labelEN: 'Weekly Unnecessary Phone Calls', min: 1, max: 40, suffixTR: ' saat', suffixEN: ' hours' },
+      { key: 'hourlyRate', labelTR: 'Saatlik Danışmanlık Ücretiniz', labelEN: 'Your Hourly Rate', min: 1000, max: 10000, step: 100, suffixTR: ' TL', suffixEN: '' },
     ],
     calculate: (v) => v.weeklyHours * v.hourlyRate * 4,
-    breakdownTR: (v) => [
-      `${v.weeklyHours} saat (Haftalık Görüşme)`,
-      `${formatMoney(v.hourlyRate)} TL (Saatlik Ücret)`,
-      '4 (Hafta)',
-    ],
-    breakdownEN: (v) => [
-      `${v.weeklyHours} hours (Weekly Calls)`,
-      `${formatMoney(v.hourlyRate)} (Hourly Rate)`,
-      '4 (Weeks)',
-    ],
+    breakdownTR: (v) => [`${v.weeklyHours} saat (Haftalık)`, `${formatMoney(v.hourlyRate)} TL (Saatlik)`, '4 (Hafta)'],
+    breakdownEN: (v) => [`${v.weeklyHours} hours (Weekly)`, `${formatMoney(v.hourlyRate)} (Hourly)`, '4 (Weeks)'],
     explanationTR: () => 'Bilgi vermek için telefonda harcadığınız vaktin nakit karşılığıdır.',
     explanationEN: () => 'The cash equivalent of the time you spend on the phone providing information.',
-    packageName: 'Professional Package',
+    packageName: 'Profesyonel Paket',
     packagePrice: 13999,
   },
   {
     id: 'other',
     titleTR: 'Diğer Sektörler',
     titleEN: 'Other Sectors',
-    emoji: '✨',
     icon: Sparkles,
     sliders: [
-      {
-        key: 'inefficiency',
-        labelTR: 'Operasyonel Verimsizlik',
-        labelEN: 'Operational Inefficiency',
-        min: 10,
-        max: 50,
-        suffixTR: ' %',
-        suffixEN: '%'
-      },
-      {
-        key: 'turnover',
-        labelTR: 'Aylık Toplam Ciro',
-        labelEN: 'Monthly Total Revenue',
-        min: 50000,
-        max: 1000000,
-        step: 5000,
-        suffixTR: ' TL',
-        suffixEN: ''
-      },
+      { key: 'inefficiency', labelTR: 'Operasyonel Verimsizlik', labelEN: 'Operational Inefficiency', min: 10, max: 50, suffixTR: ' %', suffixEN: '%' },
+      { key: 'turnover', labelTR: 'Aylık Toplam Ciro', labelEN: 'Monthly Total Revenue', min: 50000, max: 1000000, step: 5000, suffixTR: ' TL', suffixEN: '' },
     ],
     calculate: (v) => v.turnover * (v.inefficiency / 100),
-    breakdownTR: (v) => [
-      `${formatMoney(v.turnover)} TL (Aylık Ciro)`,
-      `%${v.inefficiency} (Verimsizlik Oranı)`,
-    ],
-    breakdownEN: (v) => [
-      `${formatMoney(v.turnover)} (Monthly Revenue)`,
-      `${v.inefficiency}% (Inefficiency Rate)`,
-    ],
-    explanationTR: () => 'Otomatik İşlemler eksikliği nedeniyle kaybedilen tahmini ciro payı.',
+    breakdownTR: (v) => [`${formatMoney(v.turnover)} TL (Aylık ciro)`, `%${v.inefficiency} (Verimsizlik)`],
+    breakdownEN: (v) => [`${formatMoney(v.turnover)} (Monthly revenue)`, `${v.inefficiency}% (Inefficiency)`],
+    explanationTR: () => 'Otomatik işlemler eksikliği nedeniyle kaybedilen tahmini ciro payı.',
     explanationEN: () => 'Estimated revenue share lost due to lack of automated processes.',
-    packageName: 'Professional Package',
+    packageName: 'Profesyonel Paket',
     packagePrice: 13999,
   },
 ];
@@ -487,27 +239,24 @@ function formatMoney(value: number) {
 }
 
 function getRecommendedPackage(monthlyLoss: number, region: 'TR' | 'GB') {
-  // Regional thresholds based on package prices
   const starterThreshold = region === 'TR' ? 10000 : 250;
   const proThreshold = region === 'TR' ? 25000 : 625;
 
   if (monthlyLoss < starterThreshold) {
     return {
-      name: region === 'TR' ? 'Başlangıç (Starter) Paketi' : 'Starter Package',
+      name: region === 'TR' ? 'Başlangıç Paketi' : 'Starter Package',
       message: region === 'TR' ? 'Küçük kayıpları önlemek için ideal başlangıç.' : 'Ideal starting point to prevent small losses.',
     };
   }
-
   if (monthlyLoss <= proThreshold) {
     return {
-      name: region === 'TR' ? 'Profesyonel (Pro) Paketi' : 'Pro Package',
+      name: region === 'TR' ? 'Profesyonel Paket' : 'Pro Package',
       message: region === 'TR' ? 'Bu kaybı önlemek için en popüler çözümümüz.' : 'Our most popular solution to prevent this loss.',
     };
   }
-
   return {
-    name: region === 'TR' ? 'Premium (Business) Paketi' : 'Business Package',
-    message: region === 'TR' ? 'Büyük operasyonel kayıplar için tam otomasyon şart.' : 'Full automation required for large operational losses.',
+    name: region === 'TR' ? 'Premium Paket' : 'Business Package',
+    message: region === 'TR' ? 'Büyük operasyonel kayıplar için tam otomasyon.' : 'Full automation for large operational losses.',
   };
 }
 
@@ -521,9 +270,6 @@ export default function Pricing() {
   const currencyCode = pricing.currency.code;
   const currencyLocale = pricing.currency.locale;
 
-  // Loss formulas are calculated directly from visible slider values.
-  const convertToRegionalCurrency = (value: number) => value;
-
   const formatRegionalMoney = (value: number) =>
     new Intl.NumberFormat(currencyLocale, {
       style: 'currency',
@@ -534,9 +280,9 @@ export default function Pricing() {
 
   const [activeSectorId, setActiveSectorId] = useState<SectorId>('health');
   const [values, setValues] = useState<Record<string, number>>(() => ({
-  ...defaultValues,
-  basketValue: isTR ? 350 : 100,
-}));
+    ...defaultValues,
+    basketValue: isTR ? 350 : 100,
+  }));
   const [aiMode, setAiMode] = useState(false);
 
   const activeSector = useMemo(
@@ -546,15 +292,15 @@ export default function Pricing() {
 
   const monthlyLoss = useMemo(() => activeSector.calculate(values), [activeSector, values]);
   const monthlyNetGain = Math.max(monthlyLoss - activeSector.packagePrice, 0);
-  const regionalMonthlyLoss = convertToRegionalCurrency(monthlyLoss);
-  const recommendedPackage = useMemo(() => getRecommendedPackage(regionalMonthlyLoss, region), [regionalMonthlyLoss, region]);
+  const recommendedPackage = useMemo(() => getRecommendedPackage(monthlyLoss, region), [monthlyLoss, region]);
 
-  // Helper function to get the right label based on region
-  const getSliderLabel = (slider: SliderConfig) => isTR ? slider.labelTR : slider.labelEN;
-  const getSliderSuffix = (slider: SliderConfig) => isTR ? slider.suffixTR : slider.suffixEN;
-  const getSectorTitle = (sector: SectorConfig) => isTR ? sector.titleTR : sector.titleEN;
-  const getExplanation = (sector: SectorConfig) => isTR ? sector.explanationTR(values) : sector.explanationEN(values);
-  const getBreakdown = (sector: SectorConfig) => isTR ? sector.breakdownTR(values) : sector.breakdownEN(values);
+  const isEnglish = language === 'en';
+
+  const getSliderLabel = (slider: SliderConfig) => (isTR ? slider.labelTR : slider.labelEN);
+  const getSliderSuffix = (slider: SliderConfig) => (isTR ? slider.suffixTR : slider.suffixEN);
+  const getSectorTitle = (sector: SectorConfig) => (isTR ? sector.titleTR : sector.titleEN);
+  const getExplanation = (sector: SectorConfig) => (isTR ? sector.explanationTR(values) : sector.explanationEN(values));
+  const getBreakdown = (sector: SectorConfig) => (isTR ? sector.breakdownTR(values) : sector.breakdownEN(values));
 
   const seoTitle = isTR
     ? 'ROI Hesaplayıcı — Kaybın Nereden Geliyor? | MGL Digital Media'
@@ -568,7 +314,7 @@ export default function Pricing() {
   ]);
 
   return (
-    <div className={`min-h-screen px-4 py-10 text-white transition-colors duration-300 ${aiMode ? 'bg-[#03110a]' : 'bg-[#0a0710]'}`}>
+    <>
       <Seo
         title={seoTitle}
         description={seoDescription}
@@ -577,206 +323,412 @@ export default function Pricing() {
         keywords={isTR ? ['ROI hesaplayıcı', 'kayıp hesabı', 'KOBİ otomasyon ROI'] : ['ROI calculator', 'SME automation ROI', 'loss calculator']}
         jsonLd={[...BASE_SCHEMAS, breadcrumb]}
       />
-      <div className="mx-auto max-w-7xl space-y-8">
-        {/* Back to Home Button */}
-        <button
-          onClick={() => window.location.href = '/'}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-white/20 bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white transition-colors"
-        >
-          <Home size={18} />
-          <span>{isTR ? 'Ana Sayfa' : 'Home'}</span>
-        </button>
-        <section className="rounded-3xl border border-white/10 bg-white/5 p-6 backdrop-blur-xl md:p-8">
-          <p className="inline-flex rounded-full border border-white/20 px-3 py-1 text-xs uppercase tracking-[0.2em] text-slate-300">
-            ROI Simulation Engine
-          </p>
-          <h1 className="mt-4 text-3xl font-black leading-tight md:text-5xl">
-            {isTR ? 'Şeffaf ROI Hesaplayıcı: Kaybın Nereden Geliyor?' : 'Transparent ROI Calculator: Where Is Your Loss Coming From?'}
-          </h1>
-          <p className="mt-3 inline-flex rounded-xl border border-amber-300/70 bg-amber-300 px-3 py-1.5 text-sm font-black text-slate-950 shadow-[0_0_24px_rgba(252,211,77,0.5)]">
-            {isTR ? 'Bir çalışan maliyetine, 3 yapay zeka asistanı.' : 'For the cost of 1 employee, get 3 AI assistants.'}
-          </p>
-          <p className="mt-3 max-w-4xl text-slate-300">
-            {isTR
-              ? 'Tüm alanlar açık birimlerle tanımlandı: Günlük, Aylık, Adet. Aşağıda her sektör için kaybın nasıl hesaplandığını adım adım görebilirsiniz.'
-              : 'All fields are defined with clear units: Daily, Monthly, Count. Below you can see step by step how the loss is calculated for each sector.'}
-          </p>
-        </section>
 
-        <section className="rounded-3xl border border-white/10 bg-white/5 p-5 backdrop-blur-xl md:p-6">
-          <h2 className="mb-4 text-lg font-semibold">
-            {isTR ? 'Sektörünü seçin' : 'Select your sector'}
-          </h2>
-          <div className="grid grid-cols-2 gap-3 md:grid-cols-3 xl:grid-cols-5">
+      {/* Hero */}
+      <section
+        style={{
+          background: 'var(--paper)',
+          padding: 'clamp(64px, 5vw + 24px, 120px) 0 clamp(32px, 2vw + 16px, 56px)',
+          borderBottom: '1px solid var(--border)',
+        }}
+      >
+        <div className="container" style={{ maxWidth: 960 }}>
+          <span className="eyebrow">
+            {isEnglish ? 'ROI SIMULATION ENGINE' : 'ROI SİMÜLASYON MOTORU'}
+          </span>
+          <h1
+            style={{
+              marginTop: 16,
+              fontFamily: 'var(--font-serif)',
+              fontSize: 'clamp(2rem, 1.2rem + 2.8vw, 3.75rem)',
+              lineHeight: 1,
+              letterSpacing: '-0.035em',
+              fontWeight: 500,
+              color: 'var(--ink)',
+            }}
+          >
+            {isTR ? 'Kaybınız nereden geliyor?' : 'Where is your loss coming from?'}
+          </h1>
+          <p className="lede" style={{ marginTop: 20, color: 'var(--fg-2)', maxWidth: 680 }}>
+            {isTR
+              ? 'Sektörünüzü seçin, kaydırıcıları kendi işinize göre ayarlayın. Aylık kayıp formülü canlı hesaplanır — sonra AI asistanı açıp net kazancı görün.'
+              : 'Pick your sector, set the sliders to your business. Monthly loss is calculated live — then switch on AI mode to see the net gain.'}
+          </p>
+          <p
+            style={{
+              marginTop: 20,
+              display: 'inline-flex',
+              fontFamily: 'var(--font-mono)',
+              fontSize: 12,
+              color: 'var(--ember)',
+              padding: '6px 12px',
+              border: '1px solid var(--ember)',
+              background: 'var(--ember-soft)',
+              borderRadius: 999,
+              letterSpacing: '0.04em',
+            }}
+          >
+            {isTR ? 'Bir çalışan maliyetine, üç AI asistan.' : 'Three AI assistants for the cost of one employee.'}
+          </p>
+        </div>
+      </section>
+
+      {/* Sector selector */}
+      <section style={{ background: 'var(--paper-2)', padding: 'clamp(40px, 3vw + 16px, 64px) 0', borderBottom: '1px solid var(--border)' }}>
+        <div className="container">
+          <span className="eyebrow">{isEnglish ? 'STEP 01 · SECTOR' : 'ADIM 01 · SEKTÖR'}</span>
+          <div
+            style={{
+              marginTop: 20,
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))',
+              gap: 12,
+            }}
+          >
             {sectorConfigs.map((sector) => {
               const Icon = sector.icon;
               const active = activeSectorId === sector.id;
-
               return (
                 <button
                   key={sector.id}
                   type="button"
                   onClick={() => setActiveSectorId(sector.id)}
-                  className={`rounded-2xl border p-4 text-left transition ${
-                    active
-                      ? 'border-cyan-300 bg-cyan-500/20 shadow-[0_0_25px_rgba(34,211,238,0.25)]'
-                      : 'border-white/15 bg-black/20 hover:border-white/35'
-                  }`}
+                  style={{
+                    padding: 16,
+                    textAlign: 'left',
+                    background: active ? 'var(--ink)' : 'var(--paper)',
+                    color: active ? 'var(--paper)' : 'var(--ink)',
+                    border: `1px solid ${active ? 'var(--ink)' : 'var(--border)'}`,
+                    borderRadius: 'var(--r-md)',
+                    transition: 'background 160ms, color 160ms, border-color 160ms',
+                    cursor: 'pointer',
+                  }}
                 >
-                  <div className="mb-2 flex items-center gap-2 text-sm text-slate-300">
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 8, color: active ? 'var(--ember)' : 'var(--ember)' }}>
                     <Icon size={16} />
-                    <span>{sector.emoji}</span>
                   </div>
-                  <div className="text-sm font-semibold leading-snug">{getSectorTitle(sector)}</div>
+                  <div style={{ fontSize: 14, fontWeight: 500, lineHeight: 1.3 }}>
+                    {getSectorTitle(sector)}
+                  </div>
                 </button>
               );
             })}
           </div>
-        </section>
+        </div>
+      </section>
 
-        <section
-          className={`rounded-3xl border p-6 backdrop-blur-xl ${
-            aiMode
-              ? 'border-emerald-400/50 bg-gradient-to-br from-emerald-700/15 to-slate-900/90'
-              : 'border-rose-400/40 bg-gradient-to-br from-rose-700/15 to-slate-900/90'
-          }`}
-        >
-          <div className="mb-6 flex flex-wrap items-center justify-between gap-4">
-            <div>
-              <h3 className="text-2xl font-bold">
-                {isTR ? 'Manuel Sistem vs MGL Yapay Zeka Asistanı' : 'Manual System vs MGL AI Assistant'}
-              </h3>
-              <p className="text-slate-300">
-                {isTR
-                  ? 'Önce manuel kaybınızı görün, sonra Yapay Zeka Asistanı modunu açıp net kazancı inceleyin.'
-                  : 'First see your manual loss, then turn on AI Assistant mode to examine net gain.'}
-              </p>
-            </div>
-            <button
-              type="button"
-              onClick={() => setAiMode((prev) => !prev)}
-              className={`relative h-14 w-32 rounded-full border-2 transition ${
-                aiMode
-                  ? 'border-emerald-400 bg-emerald-500/20 shadow-[0_0_25px_rgba(16,185,129,0.45)]'
-                  : 'border-rose-400 bg-rose-500/20 shadow-[0_0_25px_rgba(244,63,94,0.35)]'
-              }`}
-              aria-label={isTR ? 'Yapay Zeka Asistanı modunu aç/kapat' : 'Toggle AI Assistant mode'}
+      {/* Calculator */}
+      <section style={{ background: 'var(--paper)', padding: 'clamp(56px, 5vw + 16px, 96px) 0' }}>
+        <div className="container">
+          <div
+            style={{
+              padding: 'clamp(24px, 2vw + 16px, 40px)',
+              background: 'var(--paper-2)',
+              border: '1px solid var(--border)',
+              borderLeft: `3px solid ${aiMode ? 'var(--ember)' : 'var(--fg-3)'}`,
+              borderRadius: 'var(--r-lg)',
+            }}
+          >
+            <div
+              style={{
+                display: 'flex',
+                flexWrap: 'wrap',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                gap: 16,
+                marginBottom: 24,
+              }}
             >
-              <span
-                className={`absolute top-1.5 h-10 w-10 rounded-full transition-all ${
-                  aiMode ? 'left-[4.8rem] bg-emerald-300' : 'left-1.5 bg-rose-300'
-                }`}
-              />
-            </button>
-          </div>
-
-          <div className="mb-6 grid gap-3 md:grid-cols-2">
-            <div className="rounded-2xl border border-rose-300/60 bg-rose-500/20 p-4 shadow-[0_0_24px_rgba(244,63,94,0.3)]">
-              <p className="text-xs font-bold uppercase tracking-[0.18em] text-rose-100">
-                {isTR ? 'Geleneksel Maliyet' : 'Traditional Cost'}
-              </p>
-              <p className="mt-2 text-sm font-semibold text-rose-100 md:text-base">
-                {isTR ? `Ortalama Personel Maaşı: ${formatRegionalMoney(employeeCost)} / ay` : `Avg. Monthly Agent Cost: ${formatRegionalMoney(employeeCost)} / mo`}
-              </p>
-              <p className="mt-2 text-lg font-black text-rose-50 md:text-xl">
-                {isTR
-                  ? `1 Çalışan = ${formatRegionalMoney(employeeCost)}/ay (Maaş + SGK + Yol/Yemek).`
-                  : `Traditional Hiring: ${formatRegionalMoney(employeeCost)}/mo vs MGL AI: ${formatRegionalMoney(aiAssistantCost)}/mo.`}
-              </p>
-            </div>
-            <div className="rounded-2xl border border-emerald-300/60 bg-emerald-500/20 p-4 shadow-[0_0_24px_rgba(16,185,129,0.3)]">
-              <p className="text-xs font-bold uppercase tracking-[0.18em] text-emerald-100">MGL Solution</p>
-              <p className="mt-2 text-lg font-black text-emerald-50 md:text-xl">
-                {isTR
-                  ? `MGL AI Asistan: ${formatRegionalMoney(aiAssistantCost)}/ay (7/24 Aktif, Sıfır İzin).`
-                  : `MGL AI Assistant: ${formatRegionalMoney(aiAssistantCost)}/mo (24/7 active, no leave).`}
-              </p>
-            </div>
-          </div>
-
-          <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-            {activeSector.sliders.map((slider) => (
-              <label key={slider.key} className="rounded-2xl border border-white/15 bg-black/30 p-4">
-                <div className="mb-2 flex items-center justify-between text-sm text-slate-200">
-                  <span>{getSliderLabel(slider)}</span>
-                  <strong className="text-cyan-300">
-                    {slider.key === 'basketValue' && !isTR
-                      ? `£${formatMoney(values[slider.key])}`
-                      : formatMoney(values[slider.key])}
-                    {getSliderSuffix(slider)}
-                  </strong>
-                </div>
-                <input
-                  type="range"
-                  value={values[slider.key]}
-                  min={slider.min}
-                  max={slider.max}
-                  step={slider.step ?? 1}
-                  onChange={(event) =>
-                    setValues((prev) => ({
-                      ...prev,
-                      [slider.key]: Number(event.target.value),
-                    }))
-                  }
-                  className="h-2 w-full cursor-pointer appearance-none rounded-full bg-slate-700 accent-cyan-400"
+              <div>
+                <span className="eyebrow">{isEnglish ? 'STEP 02 · SIMULATE' : 'ADIM 02 · SİMÜLASYON'}</span>
+                <h2
+                  style={{
+                    marginTop: 8,
+                    fontFamily: 'var(--font-serif)',
+                    fontSize: 'clamp(1.5rem, 1.1rem + 1vw, 2rem)',
+                    lineHeight: 1.15,
+                    letterSpacing: '-0.02em',
+                    fontWeight: 500,
+                    color: 'var(--ink)',
+                    margin: 0,
+                  }}
+                >
+                  {isTR ? 'Manuel sistem vs MGL AI asistanı' : 'Manual system vs MGL AI assistant'}
+                </h2>
+              </div>
+              <button
+                type="button"
+                onClick={() => setAiMode((prev) => !prev)}
+                style={{
+                  position: 'relative',
+                  height: 44,
+                  width: 96,
+                  borderRadius: 999,
+                  background: aiMode ? 'var(--ember)' : 'var(--coal-2)',
+                  border: 'none',
+                  cursor: 'pointer',
+                  transition: 'background 200ms var(--ease-out)',
+                }}
+                aria-label={isTR ? 'AI modunu aç/kapat' : 'Toggle AI mode'}
+              >
+                <span
+                  style={{
+                    position: 'absolute',
+                    top: 4,
+                    left: aiMode ? 56 : 4,
+                    height: 36,
+                    width: 36,
+                    borderRadius: '50%',
+                    background: 'var(--paper)',
+                    transition: 'left 200ms var(--ease-out)',
+                  }}
                 />
-              </label>
-            ))}
-          </div>
-        </section>
+                <span
+                  style={{
+                    position: 'absolute',
+                    top: '50%',
+                    transform: 'translateY(-50%)',
+                    right: aiMode ? 'auto' : 12,
+                    left: aiMode ? 12 : 'auto',
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: 10,
+                    letterSpacing: '0.1em',
+                    color: aiMode ? 'var(--paper)' : 'var(--bone-3)',
+                  }}
+                >
+                  {aiMode ? 'AI' : 'OFF'}
+                </span>
+              </button>
+            </div>
 
-        <section className="rounded-3xl border border-white/10 bg-slate-950/85 p-6 md:p-8">
-          <h3 className="mb-4 text-2xl font-bold">
-            {isTR ? 'Hesap Dökümü' : 'Calculation Breakdown'}
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+                gap: 12,
+                marginBottom: 24,
+              }}
+            >
+              <div style={{ padding: 16, background: 'var(--paper)', border: '1px solid var(--border)', borderRadius: 'var(--r-md)' }}>
+                <p style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--fg-3)', margin: 0 }}>
+                  {isTR ? 'Geleneksel maliyet' : 'Traditional cost'}
+                </p>
+                <p style={{ marginTop: 8, fontSize: 14, color: 'var(--fg-2)', lineHeight: 1.5 }}>
+                  {isTR
+                    ? `1 çalışan: ${formatRegionalMoney(employeeCost)}/ay (maaş + SGK + yol + yemek).`
+                    : `1 employee: ${formatRegionalMoney(employeeCost)}/mo (salary + benefits).`}
+                </p>
+              </div>
+              <div
+                style={{
+                  padding: 16,
+                  background: 'var(--paper)',
+                  border: '1px solid var(--ember)',
+                  borderRadius: 'var(--r-md)',
+                }}
+              >
+                <p style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--ember)', margin: 0 }}>
+                  MGL AI
+                </p>
+                <p style={{ marginTop: 8, fontSize: 14, color: 'var(--ink)', lineHeight: 1.5 }}>
+                  {isTR
+                    ? `${formatRegionalMoney(aiAssistantCost)}/ay · 7/24 aktif · izin yok · ölçeklenir.`
+                    : `${formatRegionalMoney(aiAssistantCost)}/mo · 24/7 active · no leave · scales.`}
+                </p>
+              </div>
+            </div>
+
+            <div
+              style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+                gap: 16,
+              }}
+            >
+              {activeSector.sliders.map((slider) => (
+                <label
+                  key={slider.key}
+                  style={{
+                    padding: 16,
+                    background: 'var(--paper)',
+                    border: '1px solid var(--border)',
+                    borderRadius: 'var(--r-md)',
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 12,
+                  }}
+                >
+                  <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', gap: 8 }}>
+                    <span style={{ fontSize: 13, color: 'var(--fg-2)', lineHeight: 1.3 }}>
+                      {getSliderLabel(slider)}
+                    </span>
+                    <strong
+                      style={{
+                        fontFamily: 'var(--font-mono)',
+                        fontSize: 13,
+                        color: 'var(--ember)',
+                        whiteSpace: 'nowrap',
+                      }}
+                    >
+                      {slider.key === 'basketValue' && !isTR
+                        ? `£${formatMoney(values[slider.key])}`
+                        : formatMoney(values[slider.key])}
+                      {getSliderSuffix(slider)}
+                    </strong>
+                  </div>
+                  <input
+                    type="range"
+                    value={values[slider.key]}
+                    min={slider.min}
+                    max={slider.max}
+                    step={slider.step ?? 1}
+                    onChange={(event) =>
+                      setValues((prev) => ({ ...prev, [slider.key]: Number(event.target.value) }))
+                    }
+                    style={{
+                      width: '100%',
+                      height: 4,
+                      appearance: 'none',
+                      background: 'var(--border)',
+                      borderRadius: 999,
+                      cursor: 'pointer',
+                      accentColor: 'var(--ember)',
+                    }}
+                  />
+                </label>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Result */}
+      <section style={{ background: 'var(--paper-2)', padding: 'clamp(56px, 5vw + 16px, 96px) 0', borderTop: '1px solid var(--border)' }}>
+        <div className="container">
+          <span className="eyebrow">{isEnglish ? 'STEP 03 · RESULT' : 'ADIM 03 · SONUÇ'}</span>
+          <h3
+            style={{
+              marginTop: 12,
+              fontFamily: 'var(--font-serif)',
+              fontSize: 'clamp(1.5rem, 1.1rem + 1vw, 2rem)',
+              lineHeight: 1.15,
+              letterSpacing: '-0.02em',
+              fontWeight: 500,
+              color: 'var(--ink)',
+              margin: '12px 0 0',
+            }}
+          >
+            {isTR ? 'Hesap dökümü' : 'Calculation breakdown'}
           </h3>
 
-          <div className="rounded-2xl border border-dashed border-slate-600 bg-slate-900/70 p-5 font-mono text-sm text-slate-200">
-            <p className="mb-3 text-xs uppercase tracking-[0.2em] text-slate-400">
-              {isTR ? 'Aylık Kayıp Formülü' : 'Monthly Loss Formula'}
+          <div
+            style={{
+              marginTop: 24,
+              padding: 24,
+              background: 'var(--paper)',
+              border: '1px dashed var(--border)',
+              borderRadius: 'var(--r-md)',
+              fontFamily: 'var(--font-mono)',
+            }}
+          >
+            <p style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--fg-3)', margin: 0 }}>
+              {isTR ? 'Aylık kayıp formülü' : 'Monthly loss formula'}
             </p>
-            <p className="text-base leading-relaxed">
+            <p
+              style={{
+                marginTop: 12,
+                fontSize: 14,
+                lineHeight: 1.7,
+                color: 'var(--fg-2)',
+                wordBreak: 'break-word',
+              }}
+            >
               {getBreakdown(activeSector).join(' × ')}
-              <span className="mx-2 text-slate-500">=</span>
-              <span className={`${aiMode ? 'text-emerald-300' : 'text-rose-300'} text-2xl font-black`}>
-                {aiMode
-                  ? formatRegionalMoney(convertToRegionalCurrency(monthlyNetGain))
-                  : formatRegionalMoney(convertToRegionalCurrency(monthlyLoss))}
+              <span style={{ margin: '0 8px', color: 'var(--fg-3)' }}>=</span>
+              <span
+                style={{
+                  fontFamily: 'var(--font-serif)',
+                  fontSize: 'clamp(1.5rem, 1rem + 1.5vw, 2rem)',
+                  fontWeight: 500,
+                  color: aiMode ? 'var(--ember)' : 'var(--ink)',
+                  letterSpacing: '-0.02em',
+                }}
+              >
+                {aiMode ? formatRegionalMoney(monthlyNetGain) : formatRegionalMoney(monthlyLoss)}
               </span>
             </p>
           </div>
 
-          <p className="mt-4 text-sm text-slate-300">{getExplanation(activeSector)}</p>
-          <p className="mt-2 text-sm font-semibold text-cyan-300">
-            {isTR ? 'MGL Yapay Zeka Asistanı ile bu kaybı kazanca dönüştürün.' : 'Turn this loss into profit with MGL AI Assistant.'}
-          </p>
-          <p className="mt-4 text-center text-xs text-slate-400">
-            {isTR
-              ? 'Küçük veya büyük, her ölçekteki işletme için gerçek zamanlı kayıp analizi.'
-              : 'Real-time loss analysis for businesses of all sizes, small or large.'}
+          <p style={{ marginTop: 16, fontSize: 14, color: 'var(--fg-2)', lineHeight: 1.6 }}>
+            {getExplanation(activeSector)}
           </p>
 
-          <div className="mt-6 grid gap-4 md:grid-cols-2">
-            <div className="rounded-2xl border border-slate-600/60 bg-slate-900/80 p-5">
-              <p className="text-xs uppercase tracking-[0.2em] text-slate-400">
-                {isTR ? 'Manuel Sistem Tahmini Aylık Kayıp' : 'Estimated Monthly Loss (Manual System)'}
+          <div
+            style={{
+              marginTop: 32,
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+              gap: 16,
+            }}
+          >
+            <div
+              style={{
+                padding: 24,
+                background: 'var(--paper)',
+                border: '1px solid var(--border)',
+                borderRadius: 'var(--r-md)',
+              }}
+            >
+              <p style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--fg-3)', margin: 0 }}>
+                {isTR ? 'Manuel sistem: aylık tahmini kayıp' : 'Manual system: monthly loss'}
               </p>
-              <p className="mt-2 text-3xl font-black text-rose-300">{formatRegionalMoney(convertToRegionalCurrency(monthlyLoss))}</p>
+              <p
+                style={{
+                  marginTop: 12,
+                  fontFamily: 'var(--font-serif)',
+                  fontSize: 'clamp(1.75rem, 1.2rem + 1.5vw, 2.5rem)',
+                  fontWeight: 500,
+                  letterSpacing: '-0.025em',
+                  color: 'var(--ink)',
+                  margin: 0,
+                }}
+              >
+                {formatRegionalMoney(monthlyLoss)}
+              </p>
             </div>
-            <div className="rounded-2xl border border-emerald-400/50 bg-emerald-500/10 p-5">
-              <p className="text-xs uppercase tracking-[0.2em] text-emerald-200">
-                {isTR ? 'MGL Yapay Zeka Asistanı Paket Fiyatı' : 'MGL AI Assistant Package Price'}
+
+            <div
+              style={{
+                padding: 24,
+                background: 'var(--paper)',
+                border: '1px solid var(--ember)',
+                borderRadius: 'var(--r-md)',
+              }}
+            >
+              <p style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--ember)', margin: 0 }}>
+                {isTR ? 'MGL AI · Profesyonel Paket' : 'MGL AI · Pro Package'}
               </p>
-              <p className="mt-2 text-lg font-bold text-emerald-100">
-                {isTR ? activeSector.packageName : 'Pro Package'}
-              </p>
-              <p className="mt-1 text-3xl font-black text-emerald-300">
-                {formatRegionalMoney(aiAssistantCost)} / {isTR ? 'ay' : 'mo'}
+              <p
+                style={{
+                  marginTop: 12,
+                  fontFamily: 'var(--font-serif)',
+                  fontSize: 'clamp(1.75rem, 1.2rem + 1.5vw, 2.5rem)',
+                  fontWeight: 500,
+                  letterSpacing: '-0.025em',
+                  color: 'var(--ink)',
+                  margin: 0,
+                }}
+              >
+                {formatRegionalMoney(aiAssistantCost)}
+                <span style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--fg-3)', fontWeight: 400, marginLeft: 6 }}>
+                  / {isTR ? 'ay' : 'mo'}
+                </span>
               </p>
               {aiMode && (
-                <p className="mt-3 text-sm font-semibold text-emerald-100">
+                <p style={{ marginTop: 10, fontSize: 13, color: 'var(--ember)' }}>
                   {isTR
-                    ? `Yapay Zeka Asistanı modu açık: Net tasarruf/kazanç ≈ ${formatRegionalMoney(convertToRegionalCurrency(monthlyNetGain))} / ay`
-                    : `AI Assistant mode on: net savings/gain ≈ ${formatRegionalMoney(Math.max(convertToRegionalCurrency(monthlyLoss) - aiAssistantCost, 0))} / mo`}
+                    ? `Net tasarruf ≈ ${formatRegionalMoney(monthlyNetGain)} / ay`
+                    : `Net savings ≈ ${formatRegionalMoney(monthlyNetGain)} / mo`}
                 </p>
               )}
             </div>
@@ -784,22 +736,41 @@ export default function Pricing() {
 
           <a
             href="/packages"
-            className="mt-5 block rounded-2xl border border-cyan-300/45 bg-cyan-500/10 p-5 transition hover:border-cyan-200 hover:bg-cyan-400/20"
+            style={{
+              marginTop: 24,
+              display: 'block',
+              padding: 24,
+              background: 'var(--paper)',
+              border: '1px solid var(--border)',
+              borderLeft: '3px solid var(--ember)',
+              borderRadius: 'var(--r-md)',
+              textDecoration: 'none',
+              transition: 'background 160ms',
+            }}
           >
-            <p className="text-lg font-bold text-cyan-200">
-              💡 {isTR ? 'Önerilen Çözüm' : 'Recommended Solution'}: {recommendedPackage.name}
+            <p
+              style={{
+                fontFamily: 'var(--font-serif)',
+                fontSize: 18,
+                lineHeight: 1.3,
+                fontWeight: 500,
+                color: 'var(--ink)',
+                margin: 0,
+              }}
+            >
+              {isTR ? 'Önerilen çözüm' : 'Recommended'}: {recommendedPackage.name}
             </p>
-            <p className="mt-1 text-sm text-slate-200">{recommendedPackage.message}</p>
+            <p style={{ marginTop: 8, fontSize: 14, color: 'var(--fg-2)', lineHeight: 1.5 }}>
+              {recommendedPackage.message}
+            </p>
           </a>
 
-          <a
-            href="/packages"
-            className="mt-6 inline-flex items-center gap-2 rounded-xl bg-emerald-400 px-5 py-3 font-bold text-slate-900 transition hover:bg-emerald-300"
-          >
-            {isTR ? 'Hemen Başla (Beta Programı)' : 'Get Started (Beta Program)'} <ArrowRight size={18} />
+          <a href="/packages" className="btn btn-primary btn-lg" style={{ marginTop: 24 }}>
+            {isTR ? 'Paketlere git' : 'See packages'}
+            <ArrowUpRight size={16} />
           </a>
-        </section>
-      </div>
-    </div>
+        </div>
+      </section>
+    </>
   );
 }

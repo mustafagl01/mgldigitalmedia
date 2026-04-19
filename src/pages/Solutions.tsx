@@ -1,7 +1,8 @@
 import { useMemo, useState } from 'react';
 import {
   AlertTriangle,
-  CheckCircle2,
+  Check,
+  ChevronDown,
   Home as HomeIcon,
   MessageCircle,
   Scissors,
@@ -11,7 +12,6 @@ import {
   Wrench,
 } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
-import { PageNav } from '../components/ui/PageNav';
 import { Seo, BASE_SCHEMAS, breadcrumbSchema, faqSchema } from '../components/seo/Seo';
 
 type SectorKey = 'dental' | 'realestate' | 'beauty' | 'restaurant' | 'local';
@@ -27,7 +27,6 @@ type PainPoint = {
 type Sector = {
   key: SectorKey;
   icon: typeof Stethoscope;
-  accent: string;
   name: { tr: string; en: string };
   intro: { tr: string; en: string };
   points: PainPoint[];
@@ -41,7 +40,6 @@ const SECTORS: Sector[] = [
   {
     key: 'dental',
     icon: Stethoscope,
-    accent: 'from-cyan-500 to-blue-500',
     name: { tr: 'Diş & Estetik Klinikleri', en: 'Dental & Aesthetic Clinics' },
     intro: {
       tr: 'Diş kliniklerinde ciro kaybının büyük kısmı tedavi masasında değil, cevaplanamayan WhatsApp mesajında ve gelmeyen hastada oluşuyor. Aşağıdaki üç akış bu sızıntıları kapatıyor.',
@@ -124,7 +122,6 @@ const SECTORS: Sector[] = [
   {
     key: 'realestate',
     icon: HomeIcon,
-    accent: 'from-amber-500 to-orange-500',
     name: { tr: 'Emlak & Gayrimenkul', en: 'Real Estate' },
     intro: {
       tr: 'Emlakçı sunumdayken açılmayan telefon, deftere yazılıp unutulan kriterler, "konum atar mısın?" mesaj yığını — komisyonu yakan üç darboğaz. Aşağıdaki akışlar bunları tek tek kapatıyor.',
@@ -207,7 +204,6 @@ const SECTORS: Sector[] = [
   {
     key: 'beauty',
     icon: Scissors,
-    accent: 'from-pink-500 to-rose-500',
     name: { tr: 'Güzellik & Kuaför Salonları', en: 'Beauty & Hair Salons' },
     intro: {
       tr: 'Güzellik sektöründe ciro; dolu takvim, geri dönen müşteri ve doğru zamanda atılan hatırlatmada saklı. Aşağıdaki üç akış bu üç kaldıracı otomatize ediyor.',
@@ -290,7 +286,6 @@ const SECTORS: Sector[] = [
   {
     key: 'restaurant',
     icon: UtensilsCrossed,
-    accent: 'from-amber-500 to-red-500',
     name: { tr: 'Restoran & Cafe', en: 'Restaurant & Cafe' },
     intro: {
       tr: 'Restoranlarda en pahalı kayıp boş masa değil, geri gelmeyen müşteri. Rezervasyon, sadakat ve yorum üçlüsünü otomatize etmek ciroyu anlamlı şekilde büyütüyor.',
@@ -374,7 +369,6 @@ const SECTORS: Sector[] = [
   {
     key: 'local',
     icon: Wrench,
-    accent: 'from-emerald-500 to-teal-500',
     name: { tr: 'Lokal Hizmet İşletmeleri', en: 'Local Service Businesses' },
     intro: {
       tr: 'Tamirci, veteriner, petshop, eğitim kurumu, özel öğretmen — her gün aynı soruları cevaplayan işletmeler için üç vurucu otomasyon. Google\'da "yakınımdaki X" aramasında öne geçmek için de yerel SEO dahil.',
@@ -537,61 +531,148 @@ function SectorCard({ sector, isEnglish }: { sector: Sector; isEnglish: boolean 
     <section
       id={`sector-${sector.key}`}
       aria-labelledby={`sector-${sector.key}-title`}
-      className="scroll-mt-24"
+      style={{ scrollMarginTop: 96 }}
     >
-      <header className="mb-8 flex flex-col gap-4 md:flex-row md:items-center">
-        <div className={`shrink-0 rounded-2xl bg-gradient-to-br ${sector.accent} p-3 shadow-lg`}>
-          <Icon className="h-6 w-6 text-white" />
+      <header style={{ display: 'flex', gap: 20, alignItems: 'flex-start', marginBottom: 32, flexWrap: 'wrap' }}>
+        <div
+          style={{
+            flexShrink: 0,
+            padding: 14,
+            border: '1px solid var(--border)',
+            background: 'var(--paper-2)',
+            borderRadius: 'var(--r-md)',
+            color: 'var(--ember)',
+          }}
+        >
+          <Icon size={22} />
         </div>
-        <div>
+        <div style={{ flex: 1, minWidth: 280 }}>
           <h2
             id={`sector-${sector.key}-title`}
-            className="text-2xl font-black text-white md:text-3xl"
+            style={{
+              fontFamily: 'var(--font-serif)',
+              fontSize: 'clamp(1.75rem, 1.2rem + 1.5vw, 2.25rem)',
+              lineHeight: 1.1,
+              letterSpacing: '-0.025em',
+              fontWeight: 500,
+              color: 'var(--ink)',
+              margin: 0,
+            }}
           >
             {name}
           </h2>
-          <p className="mt-2 max-w-3xl text-sm leading-relaxed text-slate-300 md:text-base">
+          <p
+            style={{
+              marginTop: 12,
+              maxWidth: 720,
+              color: 'var(--fg-2)',
+              fontSize: 15,
+              lineHeight: 1.6,
+            }}
+          >
             {intro}
           </p>
         </div>
       </header>
 
-      <div className="grid gap-6 md:grid-cols-3">
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+          gap: 16,
+        }}
+      >
         {sector.points.map((point) => (
           <article
             key={point.id}
-            className="flex flex-col rounded-2xl border border-white/10 bg-slate-900/50 p-5 backdrop-blur-sm transition hover:border-white/20 hover:bg-slate-900/70"
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              padding: 24,
+              background: 'var(--paper-2)',
+              border: '1px solid var(--border)',
+              borderRadius: 'var(--r-md)',
+            }}
           >
-            <div className="mb-3 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-amber-300">
-              <AlertTriangle className="h-3.5 w-3.5" />
+            <div
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 6,
+                fontFamily: 'var(--font-mono)',
+                fontSize: 11,
+                letterSpacing: '0.14em',
+                textTransform: 'uppercase',
+                color: 'var(--ember)',
+                marginBottom: 10,
+              }}
+            >
+              <AlertTriangle size={12} />
               {isEnglish ? 'Problem' : 'Problem'}
             </div>
-            <p className="text-sm leading-relaxed text-slate-100">
+            <p style={{ fontSize: 14, lineHeight: 1.55, color: 'var(--ink)', margin: 0 }}>
               {isEnglish ? point.problem.en : point.problem.tr}
             </p>
 
-            <div className="mt-5 mb-3 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-cyan-300">
-              <Target className="h-3.5 w-3.5" />
+            <div
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 6,
+                fontFamily: 'var(--font-mono)',
+                fontSize: 11,
+                letterSpacing: '0.14em',
+                textTransform: 'uppercase',
+                color: 'var(--fg-3)',
+                marginTop: 20,
+                marginBottom: 10,
+              }}
+            >
+              <Target size={12} />
               {isEnglish ? 'Solution' : 'Çözüm'}
             </div>
-            <p className="text-sm leading-relaxed text-slate-200">
+            <p style={{ fontSize: 14, lineHeight: 1.55, color: 'var(--fg-1)', margin: 0 }}>
               {isEnglish ? point.solution.en : point.solution.tr}
             </p>
 
-            <div className="mt-5 mb-3 inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-emerald-300">
-              <CheckCircle2 className="h-3.5 w-3.5" />
+            <div
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: 6,
+                fontFamily: 'var(--font-mono)',
+                fontSize: 11,
+                letterSpacing: '0.14em',
+                textTransform: 'uppercase',
+                color: 'var(--fg-3)',
+                marginTop: 20,
+                marginBottom: 10,
+              }}
+            >
+              <Check size={12} />
               {isEnglish ? 'Value' : 'Değer'}
             </div>
-            <p className="text-sm leading-relaxed text-slate-200">
+            <p style={{ fontSize: 14, lineHeight: 1.55, color: 'var(--fg-1)', margin: 0 }}>
               {isEnglish ? point.value.en : point.value.tr}
             </p>
 
-            <div className="mt-5 flex flex-wrap gap-1.5">
+            <div style={{ marginTop: 20, display: 'flex', flexWrap: 'wrap', gap: 6 }}>
               {point.linkedSkus.map((sku) => (
                 <a
                   key={sku.anchor}
                   href={`/services#${sku.anchor}`}
-                  className="inline-flex items-center gap-1 rounded-full border border-cyan-400/30 bg-cyan-500/10 px-2.5 py-1 text-[11px] font-semibold text-cyan-300 transition hover:bg-cyan-500/20"
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    padding: '4px 10px',
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: 11,
+                    letterSpacing: '0.04em',
+                    color: 'var(--ember)',
+                    background: 'var(--ember-soft)',
+                    border: '1px solid var(--ember)',
+                    borderRadius: 999,
+                  }}
                 >
                   {sku.label}
                 </a>
@@ -601,10 +682,19 @@ function SectorCard({ sector, isEnglish }: { sector: Sector; isEnglish: boolean 
         ))}
       </div>
 
-      <div className="mt-6 flex flex-col items-start gap-3 md:flex-row md:items-center md:justify-between">
+      <div
+        style={{
+          marginTop: 24,
+          display: 'flex',
+          flexWrap: 'wrap',
+          gap: 12,
+          alignItems: 'center',
+          justifyContent: 'space-between',
+        }}
+      >
         <button
           onClick={() => setFlowsOpen(!flowsOpen)}
-          className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-semibold text-slate-300 transition hover:border-white/25 hover:text-white"
+          className="btn btn-ghost"
           aria-expanded={flowsOpen}
         >
           {flowsOpen
@@ -614,24 +704,54 @@ function SectorCard({ sector, isEnglish }: { sector: Sector; isEnglish: boolean 
             : isEnglish
               ? `See all ${sector.points.length + extras.length}+ flows`
               : `Tüm ${sector.points.length + extras.length}+ akışı gör`}
+          <ChevronDown
+            size={14}
+            style={{
+              marginLeft: 4,
+              transform: flowsOpen ? 'rotate(180deg)' : 'none',
+              transition: 'transform 200ms var(--ease-out)',
+            }}
+          />
         </button>
 
         <a
           href={createWhatsAppLink(waMessage)}
           target="_blank"
           rel="noreferrer"
-          className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-fuchsia-500 via-purple-500 to-cyan-500 px-5 py-2.5 text-sm font-bold text-white shadow-lg transition hover:scale-[1.02]"
+          className="btn btn-primary"
         >
-          <MessageCircle className="h-4 w-4" />
+          <MessageCircle size={14} />
           {isEnglish ? 'Discuss this sector' : 'Bu sektörü konuşalım'}
         </a>
       </div>
 
       {flowsOpen && (
-        <ul className="mt-4 grid gap-2 rounded-2xl border border-white/10 bg-slate-950/40 p-5 md:grid-cols-2">
+        <ul
+          style={{
+            marginTop: 20,
+            padding: 24,
+            listStyle: 'none',
+            background: 'var(--paper-2)',
+            border: '1px solid var(--border)',
+            borderRadius: 'var(--r-md)',
+            display: 'grid',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+            gap: 10,
+          }}
+        >
           {extras.map((flow) => (
-            <li key={flow} className="flex items-start gap-2 text-sm text-slate-200">
-              <CheckCircle2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-400" />
+            <li
+              key={flow}
+              style={{
+                display: 'flex',
+                alignItems: 'flex-start',
+                gap: 10,
+                fontSize: 14,
+                color: 'var(--fg-1)',
+                lineHeight: 1.5,
+              }}
+            >
+              <Check size={14} style={{ marginTop: 3, flexShrink: 0, color: 'var(--ember)' }} />
               <span>{flow}</span>
             </li>
           ))}
@@ -674,7 +794,7 @@ export default function Solutions() {
   ];
 
   return (
-    <div className="min-h-screen bg-[#030712] text-slate-100 font-['Inter',_sans-serif]">
+    <>
       <Seo
         title={title}
         description={description}
@@ -703,124 +823,229 @@ export default function Solutions() {
         jsonLd={jsonLd}
       />
 
-      <PageNav current="solutions" />
-
-      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-        <div className="absolute top-[-10%] left-[-10%] h-[45%] w-[45%] rounded-full bg-purple-600/15 blur-[120px]" />
-        <div className="absolute bottom-[-10%] right-[-10%] h-[45%] w-[45%] rounded-full bg-cyan-600/15 blur-[120px]" />
-      </div>
-
-      <div className="relative z-10 mx-auto max-w-7xl px-4 py-14 md:px-8 md:py-20">
-        <header className="mx-auto max-w-3xl text-center">
-          <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold text-cyan-300">
-            {isEnglish ? 'Sector playbooks' : 'Sektörel akış haritaları'}
+      {/* Hero */}
+      <section
+        style={{
+          background: 'var(--paper)',
+          padding: 'clamp(64px, 5vw + 24px, 120px) 0 clamp(40px, 3vw + 16px, 72px)',
+          borderBottom: '1px solid var(--border)',
+        }}
+      >
+        <div className="container" style={{ maxWidth: 960 }}>
+          <span className="eyebrow">
+            {isEnglish ? 'SECTOR PLAYBOOKS' : 'SEKTÖREL AKIŞ HARİTALARI'}
           </span>
-          <h1 className="mt-5 text-4xl font-black leading-tight text-white md:text-5xl">
-            {isEnglish ? 'Built for your sector.' : 'Sektörünüze göre kurulmuş.'}
-            <br />
-            <span className="bg-gradient-to-r from-fuchsia-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
-              {isEnglish ? 'Not one-size-fits-all.' : 'Tek tip değil.'}
-            </span>
+          <h1
+            style={{
+              marginTop: 16,
+              fontFamily: 'var(--font-serif)',
+              fontSize: 'clamp(2.25rem, 1.2rem + 3.5vw, 4rem)',
+              lineHeight: 0.98,
+              letterSpacing: '-0.035em',
+              fontWeight: 500,
+              color: 'var(--ink)',
+            }}
+          >
+            {isEnglish ? (
+              <>
+                Built for your sector.
+                <br />
+                <span style={{ fontStyle: 'italic', color: 'var(--fg-2)' }}>Not one-size-fits-all.</span>
+              </>
+            ) : (
+              <>
+                Sektörünüze göre kurulmuş.
+                <br />
+                <span style={{ fontStyle: 'italic', color: 'var(--fg-2)' }}>Tek tip değil.</span>
+              </>
+            )}
           </h1>
-          <p className="mt-5 text-base leading-relaxed text-slate-300 md:text-lg">
+          <p className="lede" style={{ marginTop: 20, color: 'var(--fg-2)', maxWidth: 680 }}>
             {isEnglish
               ? 'Five sectors, three highest-impact workflows each, plus linked services so you can see exactly which building blocks run in the background.'
               : 'Beş sektör, her birinde en yüksek etkili üç akış — ve arka planda hangi hizmetlerin çalıştığını gösteren bağlantılı yapı taşları.'}
           </p>
-        </header>
+        </div>
+      </section>
 
-        <nav
-          aria-label={isEnglish ? 'Filter by sector' : 'Sektöre göre filtrele'}
-          className="mt-12 flex flex-wrap items-center justify-center gap-2"
-        >
-          <button
-            onClick={() => setActiveKey('all')}
-            className={`rounded-full border px-4 py-2 text-sm font-semibold transition ${
-              activeKey === 'all'
-                ? 'border-white/30 bg-white/10 text-white'
-                : 'border-white/10 bg-slate-900/60 text-slate-300 hover:bg-slate-900'
-            }`}
+      {/* Filter */}
+      <section
+        style={{
+          position: 'sticky',
+          top: 72,
+          zIndex: 5,
+          background: 'rgba(245, 241, 234, 0.92)',
+          backdropFilter: 'saturate(140%) blur(10px)',
+          WebkitBackdropFilter: 'saturate(140%) blur(10px)',
+          borderBottom: '1px solid var(--border)',
+          padding: '16px 0',
+        }}
+      >
+        <div className="container">
+          <nav
+            aria-label={isEnglish ? 'Filter by sector' : 'Sektöre göre filtrele'}
+            style={{ display: 'flex', flexWrap: 'wrap', gap: 8, alignItems: 'center' }}
           >
-            {isEnglish ? 'All sectors' : 'Tüm sektörler'} ({SECTORS.length})
-          </button>
-          {SECTORS.map((s) => {
-            const Icon = s.icon;
-            return (
-              <button
-                key={s.key}
-                onClick={() => setActiveKey(s.key)}
-                className={`inline-flex items-center gap-1.5 rounded-full border px-4 py-2 text-sm font-semibold transition ${
-                  activeKey === s.key
-                    ? 'border-white/30 bg-white/10 text-white'
-                    : 'border-white/10 bg-slate-900/60 text-slate-300 hover:bg-slate-900'
-                }`}
-              >
-                <Icon className="h-3.5 w-3.5" />
-                {isEnglish ? s.name.en : s.name.tr}
-              </button>
-            );
-          })}
-        </nav>
+            <button
+              onClick={() => setActiveKey('all')}
+              className={activeKey === 'all' ? 'btn btn-secondary' : 'btn btn-ghost'}
+            >
+              {isEnglish ? 'All sectors' : 'Tüm sektörler'} ({SECTORS.length})
+            </button>
+            {SECTORS.map((s) => {
+              const Icon = s.icon;
+              const isActive = activeKey === s.key;
+              return (
+                <button
+                  key={s.key}
+                  onClick={() => setActiveKey(s.key)}
+                  className={isActive ? 'btn btn-secondary' : 'btn btn-ghost'}
+                >
+                  <Icon size={14} />
+                  {isEnglish ? s.name.en : s.name.tr}
+                </button>
+              );
+            })}
+          </nav>
+        </div>
+      </section>
 
-        <div className="mt-16 space-y-20">
+      {/* Sectors */}
+      <section style={{ background: 'var(--paper)', padding: 'clamp(56px, 5vw + 16px, 96px) 0' }}>
+        <div className="container" style={{ display: 'flex', flexDirection: 'column', gap: 96 }}>
           {visibleSectors.map((sector) => (
             <SectorCard key={sector.key} sector={sector} isEnglish={isEnglish} />
           ))}
         </div>
+      </section>
 
-        <section
-          aria-labelledby="solutions-faq-heading"
-          className="mt-24 rounded-3xl border border-white/10 bg-slate-900/40 p-8 backdrop-blur-sm"
-        >
+      {/* FAQ */}
+      <section
+        style={{
+          background: 'var(--paper-2)',
+          padding: 'clamp(64px, 5vw + 16px, 104px) 0',
+          borderTop: '1px solid var(--border)',
+          borderBottom: '1px solid var(--border)',
+        }}
+      >
+        <div className="container" style={{ maxWidth: 820 }}>
+          <span className="eyebrow">{isEnglish ? 'FAQ' : 'SIK SORULAN'}</span>
           <h2
-            id="solutions-faq-heading"
-            className="text-2xl font-black text-white md:text-3xl"
+            style={{
+              marginTop: 16,
+              fontFamily: 'var(--font-serif)',
+              fontSize: 'clamp(1.75rem, 1.2rem + 1.8vw, 2.5rem)',
+              lineHeight: 1.1,
+              letterSpacing: '-0.025em',
+              fontWeight: 500,
+              color: 'var(--ink)',
+            }}
           >
-            {isEnglish ? 'Frequently asked questions' : 'Sık Sorulan Sorular'}
+            {isEnglish ? 'Questions we hear most.' : 'En sık duyduğumuz sorular.'}
           </h2>
-          <p className="mt-3 max-w-3xl text-sm leading-relaxed text-slate-300">
+          <p style={{ marginTop: 16, maxWidth: 640, color: 'var(--fg-2)', fontSize: 15, lineHeight: 1.6 }}>
             {isEnglish
               ? 'Fast answers on fit, integration, setup timelines and risk models.'
               : 'Uygunluk, entegrasyon, kurulum süresi ve risk modelleriyle ilgili kısa cevaplar.'}
           </p>
 
-          <div className="mt-6 space-y-4">
+          <div style={{ marginTop: 32 }}>
             {FAQS.map((faq, i) => (
               <details
                 key={i}
-                className="group rounded-xl border border-white/10 bg-slate-950/40 p-4 open:bg-slate-950/60"
+                style={{
+                  borderTop: i === 0 ? '1px solid var(--border)' : 'none',
+                  borderBottom: '1px solid var(--border)',
+                  padding: '20px 0',
+                }}
               >
-                <summary className="flex cursor-pointer items-center justify-between gap-3 text-sm font-semibold text-white">
+                <summary
+                  style={{
+                    cursor: 'pointer',
+                    listStyle: 'none',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    gap: 16,
+                    fontFamily: 'var(--font-serif)',
+                    fontSize: 'clamp(1rem, 0.9rem + 0.3vw, 1.25rem)',
+                    fontWeight: 500,
+                    color: 'var(--ink)',
+                    lineHeight: 1.35,
+                  }}
+                >
                   <span>{isEnglish ? faq.q.en : faq.q.tr}</span>
-                  <span className="text-cyan-300 transition group-open:rotate-45">+</span>
+                  <span style={{ color: 'var(--ember)', fontSize: 20 }}>+</span>
                 </summary>
-                <p className="mt-3 text-sm leading-relaxed text-slate-300">
+                <p
+                  style={{
+                    marginTop: 12,
+                    paddingRight: 34,
+                    fontSize: 15,
+                    lineHeight: 1.6,
+                    color: 'var(--fg-2)',
+                  }}
+                >
                   {isEnglish ? faq.a.en : faq.a.tr}
                 </p>
               </details>
             ))}
           </div>
-        </section>
+        </div>
+      </section>
 
-        <section className="mt-16 overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-slate-900 via-slate-950 to-black p-8 md:p-12">
-          <div className="grid gap-8 md:grid-cols-2 md:items-center">
+      {/* Sector not listed CTA */}
+      <section style={{ background: 'var(--paper)', padding: 'clamp(72px, 6vw + 24px, 128px) 0' }}>
+        <div className="container">
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+              gap: 40,
+              alignItems: 'center',
+              padding: 'clamp(32px, 3vw + 16px, 56px)',
+              background: 'var(--paper-2)',
+              border: '1px solid var(--border)',
+              borderRadius: 'var(--r-lg)',
+            }}
+          >
             <div>
-              <h2 className="text-3xl font-black text-white md:text-4xl">
-                {isEnglish
-                  ? 'Your sector not listed?'
-                  : 'Sektörünüz listede yok mu?'}
+              <span className="eyebrow">{isEnglish ? 'NOT LISTED?' : 'LİSTEDE YOK MU?'}</span>
+              <h2
+                style={{
+                  marginTop: 16,
+                  fontFamily: 'var(--font-serif)',
+                  fontSize: 'clamp(1.75rem, 1.2rem + 1.8vw, 2.5rem)',
+                  lineHeight: 1.1,
+                  letterSpacing: '-0.025em',
+                  fontWeight: 500,
+                  color: 'var(--ink)',
+                }}
+              >
+                {isEnglish ? 'Your sector not listed?' : 'Sektörünüz listede yok mu?'}
               </h2>
-              <p className="mt-4 text-base leading-relaxed text-slate-300">
+              <p style={{ marginTop: 16, color: 'var(--fg-2)', fontSize: 15, lineHeight: 1.6 }}>
                 {isEnglish
-                  ? 'We also serve e-commerce, legal, healthcare groups, tourism, education, coaches and content creators. The building blocks are the same — only the wiring changes. A 15-minute discovery call maps it to your business.'
-                  : 'E-ticaret, hukuk büroları, sağlık grupları, turizm, eğitim, koçlar ve içerik üreticilerine de hizmet veriyoruz. Yapı taşları aynı — sadece bağlantılar değişiyor. 15 dakikalık keşif görüşmesi sizin iş akışınıza uyarlar.'}
+                  ? 'We also serve e-commerce, legal, healthcare groups, tourism, education, coaches and content creators. The building blocks are the same — only the wiring changes.'
+                  : 'E-ticaret, hukuk büroları, sağlık grupları, turizm, eğitim, koçlar ve içerik üreticilerine de hizmet veriyoruz. Yapı taşları aynı — sadece bağlantılar değişiyor.'}
               </p>
-
-              <div className="mt-6 flex flex-wrap gap-2">
-                {['E-ticaret', 'Hukuk', 'Turizm', 'Eğitim', 'Koçluk', 'İçerik Üretimi'].map((s) => (
+              <div style={{ marginTop: 20, display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+                {(isEnglish
+                  ? ['E-commerce', 'Legal', 'Tourism', 'Education', 'Coaching', 'Content']
+                  : ['E-ticaret', 'Hukuk', 'Turizm', 'Eğitim', 'Koçluk', 'İçerik']
+                ).map((s) => (
                   <span
                     key={s}
-                    className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs text-slate-300"
+                    style={{
+                      padding: '4px 10px',
+                      fontFamily: 'var(--font-mono)',
+                      fontSize: 11,
+                      letterSpacing: '0.04em',
+                      color: 'var(--fg-2)',
+                      background: 'var(--paper)',
+                      border: '1px solid var(--border)',
+                      borderRadius: 999,
+                    }}
                   >
                     {s}
                   </span>
@@ -828,16 +1053,31 @@ export default function Solutions() {
               </div>
             </div>
 
-            <div className="rounded-2xl border border-white/10 bg-slate-950/60 p-6">
-              <h3 className="text-lg font-bold text-white">
+            <div
+              style={{
+                padding: 28,
+                background: 'var(--paper)',
+                border: '1px solid var(--border)',
+                borderRadius: 'var(--r-md)',
+              }}
+            >
+              <h3
+                style={{
+                  fontFamily: 'var(--font-serif)',
+                  fontSize: 22,
+                  lineHeight: 1.2,
+                  fontWeight: 500,
+                  color: 'var(--ink)',
+                  margin: 0,
+                }}
+              >
                 {isEnglish ? 'Book a 15-min discovery' : '15 dakikalık keşif görüşmesi'}
               </h3>
-              <p className="mt-2 text-sm leading-relaxed text-slate-300">
+              <p style={{ marginTop: 12, fontSize: 14, color: 'var(--fg-2)', lineHeight: 1.55 }}>
                 {isEnglish
-                  ? 'Tell us your top bottleneck. We map it to the right workflow, show you similar ones running in production, and you decide what to pilot first.'
+                  ? 'Tell us your top bottleneck. We map it to the right workflow, show a similar one running, and you decide what to pilot first.'
                   : 'Bize en büyük darboğazınızı söyleyin. Size uygun akışı çıkarırız, benzerinden bir örnek gösteririz, ilk neyi pilot yapacağınıza siz karar verirsiniz.'}
               </p>
-
               <a
                 href={createWhatsAppLink(
                   isEnglish
@@ -846,15 +1086,28 @@ export default function Solutions() {
                 )}
                 target="_blank"
                 rel="noreferrer"
-                className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-fuchsia-500 via-purple-500 to-cyan-500 px-4 py-3 text-sm font-bold text-white shadow-lg transition hover:scale-[1.02]"
+                className="btn btn-primary"
+                style={{ marginTop: 20, width: '100%', justifyContent: 'center' }}
               >
-                <MessageCircle className="h-4 w-4" />
-                {isEnglish ? 'WhatsApp us' : 'WhatsApp\'tan bize yazın'} ({WHATSAPP_LABEL})
+                <MessageCircle size={14} />
+                {isEnglish ? 'WhatsApp us' : 'WhatsApp\'tan yazın'}
               </a>
+              <p
+                style={{
+                  marginTop: 10,
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: 11,
+                  color: 'var(--fg-3)',
+                  textAlign: 'center',
+                  letterSpacing: '0.08em',
+                }}
+              >
+                {WHATSAPP_LABEL}
+              </p>
             </div>
           </div>
-        </section>
-      </div>
-    </div>
+        </div>
+      </section>
+    </>
   );
 }

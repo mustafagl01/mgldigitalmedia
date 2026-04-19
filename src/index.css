@@ -1,182 +1,101 @@
+/* ═══════════════════════════════════════════════════════════
+   MGL Digital — Design System
+   Paper + Ink + Ember accent · Fraunces / Geist / Geist Mono
+   Tokens + component primitives imported below.
+   ═══════════════════════════════════════════════════════════ */
+@import './styles/design-tokens.css';
+@import './styles/design-components.css';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
-  body {
-    @apply bg-[#030712] text-slate-200 overflow-x-hidden;
-  }
-}
-
-@layer components {
-  .glass-card {
-    @apply bg-slate-900/40 backdrop-blur-xl border border-white/10 shadow-2xl;
+  html, body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: var(--font-sans);
+    overflow-x: hidden;
   }
 
-  .glass-card-hover {
-    @apply hover:bg-slate-900/60 hover:border-purple-500/30 transition-all duration-500;
-  }
-
-  .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-200 to-purple-400;
-  }
+  /* Tailwind's preflight clobbers our heading sizes — restore the token scale */
+  h1, .h1 { font-size: var(--t-h1); line-height: var(--lh-tight); letter-spacing: var(--ls-snug); }
+  h2, .h2 { font-size: var(--t-h2); line-height: var(--lh-tight); letter-spacing: var(--ls-snug); }
+  h3, .h3 { font-size: var(--t-h3); line-height: var(--lh-snug); letter-spacing: var(--ls-body); }
+  h4, .h4 { font-size: var(--t-h4); line-height: var(--lh-snug); }
 }
 
-/* ═══════════════════════════════════════════════════
-   PREMIUM ANIMATIONS — MGL Digital Media
-   ═══════════════════════════════════════════════════ */
+/* ═══════════════════════════════════════════════════════════
+   MOTION — restrained, no bounce, no glow
+   ═══════════════════════════════════════════════════════════ */
 
-/* Background Blobs */
-@keyframes blob-bounce {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  33% { transform: translate(30px, -50px) scale(1.1); }
-  66% { transform: translate(-20px, 20px) scale(0.9); }
+@keyframes fade-up {
+  0%   { opacity: 0; transform: translateY(12px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up {
+  animation: fade-up 0.7s var(--ease-out) both;
 }
 
-.animate-blob {
-  animation: blob-bounce 7s infinite alternate;
+@keyframes fade-in {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+.animate-fade-in {
+  animation: fade-in 0.6s var(--ease-out) both;
 }
 
-.animation-delay-2000 {
-  animation-delay: 2s;
+/* Ember underline sweep — used on "bağlanır" type words */
+@keyframes ember-sweep {
+  0%   { background-size: 0% 100%; }
+  100% { background-size: 100% 100%; }
+}
+.ember-underline {
+  background-image: linear-gradient(transparent 62%, var(--ember-soft) 62%);
+  background-repeat: no-repeat;
+  background-position: 0 0;
+  background-size: 100% 100%;
+}
+.ember-underline-sweep {
+  background-image: linear-gradient(transparent 62%, var(--ember-soft) 62%);
+  background-repeat: no-repeat;
+  background-size: 0% 100%;
+  animation: ember-sweep 1.1s var(--ease-out) 0.5s forwards;
 }
 
-.animation-delay-4000 {
-  animation-delay: 4s;
-}
-
-/* Animated Gradient Text */
-@keyframes gradient-x {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
-}
-
-.animate-gradient-text {
-  background-size: 200% auto;
-  animation: gradient-x 4s ease infinite;
-}
-
-/* Rotating Gradient Border */
-@keyframes rotate-gradient {
-  0% { --angle: 0deg; }
-  100% { --angle: 360deg; }
-}
-
-@property --angle {
-  syntax: "<angle>";
-  initial-value: 0deg;
-  inherits: false;
-}
-
-.card-glow {
-  position: relative;
-  overflow: hidden;
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.card-glow::before {
-  content: "";
-  position: absolute;
-  inset: -1px;
-  z-index: -1;
-  border-radius: inherit;
-  background: conic-gradient(
-    from var(--angle),
-    transparent 40%,
-    rgba(139, 92, 246, 0.5) 50%,
-    rgba(34, 211, 238, 0.5) 60%,
-    transparent 70%
-  );
-  animation: rotate-gradient 4s linear infinite;
-  opacity: 0;
-  transition: opacity 0.5s;
-}
-
-.card-glow:hover::before {
-  opacity: 1;
-}
-
-.card-glow::after {
-  content: "";
-  position: absolute;
-  inset: 1px;
-  border-radius: inherit;
-  background: inherit;
-  z-index: -1;
-}
-
-/* Pulse Glow */
-@keyframes pulse-glow {
-  0%, 100% { box-shadow: 0 0 20px -5px rgba(139, 92, 246, 0.3); }
-  50% { box-shadow: 0 0 40px -5px rgba(139, 92, 246, 0.6); }
-}
-
-.animate-pulse-glow {
-  animation: pulse-glow 3s ease-in-out infinite;
-}
-
-/* Float Animation */
-@keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-10px); }
-}
-
-.animate-float {
-  animation: float 6s ease-in-out infinite;
-}
-
-/* Shimmer Effect */
-@keyframes shimmer {
-  0% { background-position: -200% 0; }
-  100% { background-position: 200% 0; }
-}
-
-.animate-shimmer {
-  background: linear-gradient(
-    90deg,
-    transparent 0%,
-    rgba(255, 255, 255, 0.05) 50%,
-    transparent 100%
-  );
-  background-size: 200% 100%;
-  animation: shimmer 3s ease-in-out infinite;
-}
-
-/* Marquee (proper infinite) */
+/* Marquee — used for logo/credential ticker strips */
 @keyframes marquee {
-  0% { transform: translateX(0); }
+  0%   { transform: translateX(0); }
   100% { transform: translateX(-50%); }
 }
-
 .animate-marquee {
-  animation: marquee 30s linear infinite;
+  animation: marquee 40s linear infinite;
 }
 
-/* Count-up animation helper */
-@keyframes count-fade {
-  0% { opacity: 0; transform: translateY(20px) scale(0.8); }
-  100% { opacity: 1; transform: translateY(0) scale(1); }
+/* Reduce motion — respect user preference */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
 }
 
-.animate-count-in {
-  animation: count-fade 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+/* ═══════════════════════════════════════════════════════════
+   SECTION RHYTHM
+   ═══════════════════════════════════════════════════════════ */
+.section {
+  padding-block: clamp(64px, 5vw + 32px, 128px);
+}
+.section-tight {
+  padding-block: clamp(48px, 3vw + 24px, 80px);
 }
 
-/* Geometric Section Divider */
-.section-divider {
-  position: relative;
-  height: 120px;
-  overflow: hidden;
+/* Hairline rule used between editorial sections */
+.hairline {
+  border: 0;
+  border-top: 1px solid var(--border);
 }
-
-.section-divider::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: -5%;
-  right: -5%;
-  bottom: 0;
-  background: linear-gradient(160deg, #030712 45%, transparent 45.5%),
-    linear-gradient(200deg, #030712 45%, transparent 45.5%),
-    linear-gradient(180deg, transparent 70%, #f8fafc 70%);
+.on-coal .hairline {
+  border-top-color: var(--coal-3);
 }

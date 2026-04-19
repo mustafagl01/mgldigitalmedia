@@ -13,11 +13,11 @@ import {
   Sparkles,
   Target,
   Workflow,
+  ArrowUpRight,
 } from 'lucide-react';
 import { useLocation } from '../contexts/LocationContext';
 import { useLanguage } from '../contexts/LanguageContext';
 import { Seo, BASE_SCHEMAS, breadcrumbSchema, serviceSchema } from '../components/seo/Seo';
-import { PageNav } from '../components/ui/PageNav';
 
 type RiskModel = 'A' | 'B' | 'C' | 'project';
 type CategoryKey = 'automation' | 'web' | 'marketing' | 'infrastructure';
@@ -38,52 +38,19 @@ type ServiceSku = {
 };
 
 const WHATSAPP_NUMBER = '905318299701';
-const WHATSAPP_LABEL = '+90 531 829 97 01';
 
-const CATEGORIES: Record<CategoryKey, { tr: string; en: string; accent: string }> = {
-  automation: {
-    tr: 'Otomasyon & AI Asistan',
-    en: 'Automation & AI Assistant',
-    accent: 'from-purple-500 to-fuchsia-500',
-  },
-  web: {
-    tr: 'Web & İçerik',
-    en: 'Web & Content',
-    accent: 'from-cyan-500 to-blue-500',
-  },
-  marketing: {
-    tr: 'Performans Pazarlama',
-    en: 'Performance Marketing',
-    accent: 'from-amber-500 to-orange-500',
-  },
-  infrastructure: {
-    tr: 'Altyapı & Raporlama',
-    en: 'Infrastructure & Reporting',
-    accent: 'from-emerald-500 to-teal-500',
-  },
+const CATEGORIES: Record<CategoryKey, { tr: string; en: string }> = {
+  automation: { tr: 'Otomasyon & AI Asistan', en: 'Automation & AI Assistant' },
+  web: { tr: 'Web & İçerik', en: 'Web & Content' },
+  marketing: { tr: 'Performans Pazarlama', en: 'Performance Marketing' },
+  infrastructure: { tr: 'Altyapı & Raporlama', en: 'Infrastructure & Reporting' },
 };
 
-const RISK_LABELS: Record<RiskModel, { tr: string; en: string; color: string }> = {
-  A: {
-    tr: '30 gün ücretsiz',
-    en: '30-day free trial',
-    color: 'bg-emerald-500/15 text-emerald-300 border-emerald-400/30',
-  },
-  B: {
-    tr: 'İlk ay %50 pilot',
-    en: '50% pilot month',
-    color: 'bg-amber-500/15 text-amber-300 border-amber-400/30',
-  },
-  C: {
-    tr: 'İlk ay yönetim %50',
-    en: '50% first-month management',
-    color: 'bg-cyan-500/15 text-cyan-300 border-cyan-400/30',
-  },
-  project: {
-    tr: 'Proje bazlı teslim',
-    en: 'Project-based delivery',
-    color: 'bg-slate-500/15 text-slate-300 border-slate-400/30',
-  },
+const RISK_LABELS: Record<RiskModel, { tr: string; en: string }> = {
+  A: { tr: '30 gün ücretsiz', en: '30-day free trial' },
+  B: { tr: 'İlk ay %50 pilot', en: '50% pilot month' },
+  C: { tr: 'İlk ay yönetim %50', en: '50% first-month management' },
+  project: { tr: 'Proje bazlı teslim', en: 'Project-based delivery' },
 };
 
 const SERVICES: ServiceSku[] = [
@@ -96,10 +63,7 @@ const SERVICES: ServiceSku[] = [
       tr: '7/24 lead yakalar, randevu alır, SSS cevaplar.',
       en: 'Captures leads, books appointments, answers FAQs 24/7.',
     },
-    setupTR: '0 ₺',
-    monthlyTR: '1.999 – 4.999 ₺',
-    setupGB: 'Free',
-    monthlyGB: '£59 – £149',
+    setupTR: '0 ₺', monthlyTR: '1.999 – 4.999 ₺', setupGB: 'Free', monthlyGB: '£59 – £149',
     risk: 'A',
     features: {
       tr: [
@@ -126,16 +90,13 @@ const SERVICES: ServiceSku[] = [
       tr: 'Telefona doğal sesle cevap verir, randevu oluşturur.',
       en: 'Answers your phone with natural voice, books appointments.',
     },
-    setupTR: '14.999 ₺',
-    monthlyTR: '9.999 – 14.999 ₺',
-    setupGB: '£450',
-    monthlyGB: '£399 – £749',
+    setupTR: '14.999 ₺', monthlyTR: '9.999 – 14.999 ₺', setupGB: '£450', monthlyGB: '£399 – £749',
     risk: 'B',
     features: {
       tr: [
         'Türkçe doğal ses (dudak senkronu gerekmez)',
         '500–2.000 dakika/ay çağrı karşılama',
-        'Çağrı özeti + tam transkript CRM\'e',
+        'Çağrı özeti + tam transkript CRM’e',
         'Acil durumda insana aktarma',
       ],
       en: [
@@ -155,10 +116,7 @@ const SERVICES: ServiceSku[] = [
       tr: 'Tekrar eden iş akışlarını tek otomatik sisteme bağlarız.',
       en: 'Connect repetitive workflows into one automated system.',
     },
-    setupTR: '2.999 – 7.999 ₺',
-    monthlyTR: '1.499 – 2.499 ₺',
-    setupGB: '£90 – £240',
-    monthlyGB: '£45 – £75',
+    setupTR: '2.999 – 7.999 ₺', monthlyTR: '1.499 – 2.499 ₺', setupGB: '£90 – £240', monthlyGB: '£45 – £75',
     risk: 'A',
     features: {
       tr: [
@@ -184,10 +142,7 @@ const SERVICES: ServiceSku[] = [
       tr: 'React tabanlı, mobil-öncelikli, SEO-hazır modern site.',
       en: 'React-based, mobile-first, SEO-ready modern website.',
     },
-    setupTR: '14.999 – 39.999 ₺',
-    monthlyTR: '499 ₺ (hosting)',
-    setupGB: '£450 – £1.200',
-    monthlyGB: '£15 (hosting)',
+    setupTR: '14.999 – 39.999 ₺', monthlyTR: '499 ₺ (hosting)', setupGB: '£450 – £1.200', monthlyGB: '£15 (hosting)',
     risk: 'project',
     features: {
       tr: [
@@ -213,10 +168,7 @@ const SERVICES: ServiceSku[] = [
       tr: 'Tek odaklı, reklam trafiği için yüksek dönüşüm sayfası.',
       en: 'Single-focus, high-conversion page for ad traffic.',
     },
-    setupTR: '4.999 – 9.999 ₺',
-    monthlyTR: '—',
-    setupGB: '£150 – £300',
-    monthlyGB: '—',
+    setupTR: '4.999 – 9.999 ₺', monthlyTR: '—', setupGB: '£150 – £300', monthlyGB: '—',
     risk: 'project',
     features: {
       tr: [
@@ -242,17 +194,14 @@ const SERVICES: ServiceSku[] = [
       tr: 'Sosyal medya görseli + kısa motion + caption takvimi.',
       en: 'Social visuals + short motion + caption calendar.',
     },
-    setupTR: '0 ₺',
-    monthlyTR: '1.999 – 3.499 ₺',
-    setupGB: 'Free',
-    monthlyGB: '£59 – £109',
+    setupTR: '0 ₺', monthlyTR: '1.999 – 3.499 ₺', setupGB: 'Free', monthlyGB: '£59 – £109',
     risk: 'B',
     features: {
       tr: [
         'Aylık 8–15 statik + 2–4 kısa motion (≤10 sn)',
         'Marka rengine + fontuna uyumlu',
         'Caption + yayın takvimi',
-        'Video projesi opsiyonel (proje bazlı 5.000 – 15.000 ₺)',
+        'Video projesi opsiyonel (proje bazlı)',
       ],
       en: [
         '8–15 static + 2–4 short motion (≤10s) per month',
@@ -267,14 +216,8 @@ const SERVICES: ServiceSku[] = [
     category: 'marketing',
     icon: Search,
     name: { tr: 'SEO', en: 'SEO' },
-    tagline: {
-      tr: 'Teknik SEO + içerik + aylık raporlama.',
-      en: 'Technical SEO + content + monthly reporting.',
-    },
-    setupTR: '4.999 ₺',
-    monthlyTR: '2.999 – 5.999 ₺',
-    setupGB: '£150',
-    monthlyGB: '£89 – £179',
+    tagline: { tr: 'Teknik SEO + içerik + aylık raporlama.', en: 'Technical SEO + content + monthly reporting.' },
+    setupTR: '4.999 ₺', monthlyTR: '2.999 – 5.999 ₺', setupGB: '£150', monthlyGB: '£89 – £179',
     risk: 'A',
     features: {
       tr: [
@@ -298,12 +241,9 @@ const SERVICES: ServiceSku[] = [
     name: { tr: 'Meta Reklam Yönetimi', en: 'Meta Ads Management' },
     tagline: {
       tr: 'Hibrit model: sabit yönetim + spend komisyonu. Bütçe sizin kartınızda.',
-      en: 'Hybrid model: fixed management + spend commission. Budget stays on your card.',
+      en: 'Hybrid: fixed management + spend commission. Budget stays on your card.',
     },
-    setupTR: '2.999 ₺',
-    monthlyTR: '5.000 ₺ + spend × %10',
-    setupGB: '£90',
-    monthlyGB: '£150 + spend × 10%',
+    setupTR: '2.999 ₺', monthlyTR: '5.000 ₺ + spend × %10', setupGB: '£90', monthlyGB: '£150 + spend × 10%',
     risk: 'C',
     features: {
       tr: [
@@ -329,10 +269,7 @@ const SERVICES: ServiceSku[] = [
       tr: 'Search + PMax + YouTube. Niyet bazlı trafik yakalama.',
       en: 'Search + PMax + YouTube. Intent-based traffic capture.',
     },
-    setupTR: '2.999 ₺',
-    monthlyTR: '5.000 ₺ + spend × %10',
-    setupGB: '£90',
-    monthlyGB: '£150 + spend × 10%',
+    setupTR: '2.999 ₺', monthlyTR: '5.000 ₺ + spend × %10', setupGB: '£90', monthlyGB: '£150 + spend × 10%',
     risk: 'C',
     features: {
       tr: [
@@ -358,10 +295,7 @@ const SERVICES: ServiceSku[] = [
       tr: 'HubSpot, Notion veya özel CRM — ekip tek doğruluk kaynağında.',
       en: 'HubSpot, Notion or custom CRM — one source of truth.',
     },
-    setupTR: '9.999 – 24.999 ₺',
-    monthlyTR: '1.499 ₺ (destek)',
-    setupGB: '£300 – £750',
-    monthlyGB: '£45 (support)',
+    setupTR: '9.999 – 24.999 ₺', monthlyTR: '1.499 ₺ (destek)', setupGB: '£300 – £750', monthlyGB: '£45 (support)',
     risk: 'project',
     features: {
       tr: [
@@ -385,12 +319,9 @@ const SERVICES: ServiceSku[] = [
     name: { tr: 'Analitik Rapor', en: 'Analytics Report' },
     tagline: {
       tr: 'Aktif servislerin performansını tek aylık rapora indirger.',
-      en: 'Distills all active service performance into one monthly report.',
+      en: 'Distills active service performance into one monthly report.',
     },
-    setupTR: '0 ₺',
-    monthlyTR: '499 – 999 ₺',
-    setupGB: 'Free',
-    monthlyGB: '£15 – £29',
+    setupTR: '0 ₺', monthlyTR: '499 – 999 ₺', setupGB: 'Free', monthlyGB: '£15 – £29',
     risk: 'A',
     features: {
       tr: [
@@ -420,62 +351,142 @@ function ServiceCard({ service, isEnglish, isGB }: { service: ServiceSku; isEngl
   const features = isEnglish ? service.features.en : service.features.tr;
   const setup = isGB ? service.setupGB : service.setupTR;
   const monthly = isGB ? service.monthlyGB : service.monthlyTR;
-  const categoryAccent = CATEGORIES[service.category].accent;
   const riskLabel = RISK_LABELS[service.risk];
+  const categoryLabel = CATEGORIES[service.category][isEnglish ? 'en' : 'tr'];
 
   const waMessage = isEnglish
     ? `Hi, I'd like details on the "${service.name.en}" service.`
     : `Merhaba, "${service.name.tr}" hizmeti hakkında bilgi almak istiyorum.`;
 
   return (
-    <div
-      className={`relative flex flex-col rounded-2xl border border-white/10 bg-slate-900/60 p-6 backdrop-blur-sm transition hover:border-white/25 hover:bg-slate-900/80 ${
-        service.recommended ? 'ring-1 ring-emerald-400/40' : ''
-      }`}
+    <article
+      id={service.id}
+      style={{
+        position: 'relative',
+        display: 'flex',
+        flexDirection: 'column',
+        background: service.recommended ? 'var(--paper-2)' : 'var(--paper)',
+        border: `1px solid ${service.recommended ? 'var(--ember)' : 'var(--border)'}`,
+        borderRadius: 'var(--r-lg)',
+        padding: 28,
+        gap: 16,
+        transition: 'border-color 200ms var(--ease-out), transform 200ms var(--ease-out)',
+      }}
     >
       {service.recommended && (
-        <span className="absolute -top-3 right-4 rounded-full bg-emerald-500 px-3 py-1 text-xs font-bold text-slate-950">
-          {isEnglish ? 'Most popular' : 'En çok tercih edilen'}
+        <span
+          className="badge"
+          style={{
+            position: 'absolute',
+            top: -11,
+            left: 24,
+            background: 'var(--ember)',
+            color: 'var(--paper)',
+            borderColor: 'transparent',
+          }}
+        >
+          {isEnglish ? 'Most picked' : 'En çok seçilen'}
         </span>
       )}
 
-      <div className="flex items-start gap-3">
-        <div className={`rounded-xl bg-gradient-to-br ${categoryAccent} p-2.5 shadow-lg`}>
-          <Icon className="h-5 w-5 text-white" />
+      <div style={{ display: 'flex', alignItems: 'flex-start', gap: 14 }}>
+        <div
+          style={{
+            display: 'inline-flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            width: 40,
+            height: 40,
+            borderRadius: 'var(--r-md)',
+            background: 'var(--paper-3)',
+            border: '1px solid var(--border)',
+            color: 'var(--ember)',
+            flexShrink: 0,
+          }}
+        >
+          <Icon size={18} />
         </div>
-        <div className="flex-1 min-w-0">
-          <h3 className="text-lg font-bold text-white">{name}</h3>
-          <p className="mt-1 text-sm text-slate-300 leading-relaxed">{tagline}</p>
+        <div style={{ flex: 1, minWidth: 0 }}>
+          <span
+            style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: 11,
+              textTransform: 'uppercase',
+              letterSpacing: '0.14em',
+              color: 'var(--fg-3)',
+              fontWeight: 500,
+            }}
+          >
+            {categoryLabel}
+          </span>
+          <h3
+            style={{
+              marginTop: 6,
+              fontFamily: 'var(--font-serif)',
+              fontSize: '1.25rem',
+              fontWeight: 600,
+              letterSpacing: '-0.02em',
+              lineHeight: 1.2,
+              color: 'var(--ink)',
+            }}
+          >
+            {name}
+          </h3>
+          <p style={{ marginTop: 6, color: 'var(--fg-2)', fontSize: 14, lineHeight: 1.55 }}>{tagline}</p>
         </div>
       </div>
 
-      <div className="mt-5 grid grid-cols-2 gap-3 rounded-xl border border-white/10 bg-slate-950/50 p-3">
+      <div
+        style={{
+          display: 'grid',
+          gridTemplateColumns: '1fr 1fr',
+          gap: 12,
+          padding: 14,
+          background: 'var(--paper-3)',
+          border: '1px solid var(--border)',
+          borderRadius: 'var(--r-md)',
+        }}
+      >
         <div>
-          <p className="text-[11px] uppercase tracking-wider text-slate-400">
+          <span className="stat-label" style={{ marginTop: 0, fontSize: 10 }}>
             {isEnglish ? 'Setup' : 'Kurulum'}
-          </p>
-          <p className="mt-0.5 text-sm font-bold text-white">{setup}</p>
+          </span>
+          <div style={{ marginTop: 4, fontFamily: 'var(--font-serif)', fontWeight: 600, color: 'var(--ink)' }}>
+            {setup}
+          </div>
         </div>
         <div>
-          <p className="text-[11px] uppercase tracking-wider text-slate-400">
+          <span className="stat-label" style={{ marginTop: 0, fontSize: 10 }}>
             {isEnglish ? 'Monthly' : 'Aylık'}
-          </p>
-          <p className="mt-0.5 text-sm font-bold text-white">{monthly}</p>
+          </span>
+          <div style={{ marginTop: 4, fontFamily: 'var(--font-serif)', fontWeight: 600, color: 'var(--ink)' }}>
+            {monthly}
+          </div>
         </div>
       </div>
 
       <span
-        className={`mt-3 inline-flex w-fit items-center gap-1.5 rounded-full border px-2.5 py-1 text-[11px] font-semibold ${riskLabel.color}`}
+        className="badge badge-accent"
+        style={{ alignSelf: 'flex-start' }}
       >
-        <Check className="h-3 w-3" />
-        {isEnglish ? riskLabel.en : riskLabel.tr}
+        <Check size={11} /> {isEnglish ? riskLabel.en : riskLabel.tr}
       </span>
 
-      <ul className="mt-5 flex-1 space-y-2">
-        {features.map((feature) => (
-          <li key={feature} className="flex items-start gap-2 text-sm text-slate-200">
-            <Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-400" />
-            <span className="leading-relaxed">{feature}</span>
+      <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 10, flex: 1 }}>
+        {features.map((f) => (
+          <li
+            key={f}
+            style={{
+              display: 'flex',
+              alignItems: 'flex-start',
+              gap: 8,
+              fontSize: 14,
+              color: 'var(--fg-2)',
+              lineHeight: 1.5,
+            }}
+          >
+            <Check size={14} style={{ marginTop: 3, color: 'var(--ember)', flexShrink: 0 }} />
+            <span>{f}</span>
           </li>
         ))}
       </ul>
@@ -484,12 +495,14 @@ function ServiceCard({ service, isEnglish, isGB }: { service: ServiceSku; isEngl
         href={createWhatsAppLink(waMessage)}
         target="_blank"
         rel="noreferrer"
-        className="mt-6 inline-flex items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-fuchsia-500 via-purple-500 to-cyan-500 px-4 py-2.5 text-sm font-bold text-white shadow-lg transition hover:scale-[1.02]"
+        className="btn btn-primary btn-md"
+        style={{ marginTop: 8, width: '100%' }}
       >
-        <MessageCircle className="h-4 w-4" />
-        {isEnglish ? 'Ask on WhatsApp' : 'WhatsApp\'tan Danış'}
+        <MessageCircle size={14} />
+        {isEnglish ? 'Ask on WhatsApp' : 'WhatsApp’tan danış'}
+        <ArrowUpRight size={14} />
       </a>
-    </div>
+    </article>
   );
 }
 
@@ -502,17 +515,13 @@ export default function Services() {
 
   const grouped = useMemo(() => {
     const byCategory: Record<CategoryKey, ServiceSku[]> = {
-      automation: [],
-      web: [],
-      marketing: [],
-      infrastructure: [],
+      automation: [], web: [], marketing: [], infrastructure: [],
     };
     for (const s of SERVICES) byCategory[s.category].push(s);
     return byCategory;
   }, []);
 
-  const visible =
-    activeCategory === 'all' ? SERVICES : grouped[activeCategory];
+  const visible = activeCategory === 'all' ? SERVICES : grouped[activeCategory];
 
   const seoTitle = isEnglish
     ? 'Digital Services — WhatsApp, Voice, n8n, Web, SEO & Ads | MGL Digital Media'
@@ -536,7 +545,7 @@ export default function Services() {
   ]);
 
   return (
-    <div className="min-h-screen bg-[#030712] text-slate-100 font-['Inter',_sans-serif]">
+    <div style={{ background: 'var(--paper)', color: 'var(--ink)' }}>
       <Seo
         title={seoTitle}
         description={seoDescription}
@@ -549,172 +558,232 @@ export default function Services() {
         }
         jsonLd={[...BASE_SCHEMAS, breadcrumb, ...servicesJsonLd]}
       />
-      <PageNav current="services" />
-      <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
-        <div className="absolute top-[-10%] left-[-10%] h-[45%] w-[45%] rounded-full bg-purple-600/15 blur-[120px]" />
-        <div className="absolute bottom-[-10%] right-[-10%] h-[45%] w-[45%] rounded-full bg-cyan-600/15 blur-[120px]" />
-      </div>
 
-      <div className="relative z-10 mx-auto max-w-7xl px-4 py-14 md:px-8 md:py-20">
-        <header className="mx-auto max-w-3xl text-center">
-          <span className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-3 py-1 text-xs font-semibold text-cyan-300">
-            <Sparkles className="h-3 w-3" />
-            {isEnglish ? 'Full-service digital agency' : 'Tam hizmet dijital ajans'}
+      {/* HERO */}
+      <section style={{ padding: 'clamp(64px, 5vw + 24px, 112px) 0 48px' }}>
+        <div className="container" style={{ maxWidth: 860 }}>
+          <span className="eyebrow">
+            {isEnglish ? 'SERVICE CATALOG · 11 SKUS' : 'HİZMET KATALOĞU · 11 KALEM'}
           </span>
-          <h1 className="mt-5 text-4xl font-black leading-tight text-white md:text-5xl">
-            {isEnglish ? 'Pick the services you need.' : 'İhtiyacınız olan hizmeti seçin.'}
-            <br />
-            <span className="bg-gradient-to-r from-fuchsia-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent">
-              {isEnglish ? 'Skip what you don\'t.' : 'Gerekmeyeni atlayın.'}
-            </span>
+          <h1
+            style={{
+              marginTop: 16,
+              fontFamily: 'var(--font-serif)',
+              fontSize: 'var(--t-h1)',
+              lineHeight: 'var(--lh-tight)',
+              letterSpacing: 'var(--ls-snug)',
+              fontWeight: 600,
+              color: 'var(--ink)',
+            }}
+          >
+            {isEnglish ? (
+              <>
+                Pick what you need.{' '}
+                <span style={{ fontStyle: 'italic', color: 'var(--fg-2)', fontWeight: 500 }}>
+                  Skip what you don’t.
+                </span>
+              </>
+            ) : (
+              <>
+                İhtiyacınızı seçin.{' '}
+                <span style={{ fontStyle: 'italic', color: 'var(--fg-2)', fontWeight: 500 }}>
+                  Gerekmeyeni atlayın.
+                </span>
+              </>
+            )}
           </h1>
-          <p className="mt-5 text-base leading-relaxed text-slate-300 md:text-lg">
+          <p className="lede" style={{ marginTop: 18, color: 'var(--fg-2)' }}>
             {isEnglish
-              ? '11 independent services. Mix them à la carte, or combine for 10–15% bundle discount. AI is our internal leverage — you get the outcome, not buzzwords.'
-              : '11 bağımsız hizmet. Tek tek alın, ya da paket olarak %10–15 indirimle birleştirin. AI bizim iç kaldıracımız — siz sonucu alırsınız, pazarlama sloganını değil.'}
+              ? '11 independent services across four categories. Mix à la carte, or combine for 10–15% bundle discount. AI is our internal leverage — you get the outcome, not buzzwords.'
+              : '11 bağımsız hizmet, dört kategori. Tek tek alın ya da %10–15 indirimle birleştirin. AI bizim iç kaldıracımız — siz sonucu alırsınız, sloganı değil.'}
           </p>
 
-          <div className="mt-6 flex flex-wrap items-center justify-center gap-2 text-xs text-slate-300">
-            <span className="inline-flex items-center gap-1 rounded-full border border-emerald-400/30 bg-emerald-500/10 px-3 py-1">
-              <Check className="h-3 w-3 text-emerald-400" />
+          <div style={{ marginTop: 24, display: 'flex', gap: 16, flexWrap: 'wrap', fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--fg-3)', letterSpacing: '0.04em' }}>
+            <span>
               {isEnglish ? 'Transparent pricing' : 'Şeffaf fiyat'}
             </span>
-            <span className="inline-flex items-center gap-1 rounded-full border border-emerald-400/30 bg-emerald-500/10 px-3 py-1">
-              <Check className="h-3 w-3 text-emerald-400" />
-              {isEnglish ? 'No lock-in contract' : 'Taahhüt yok'}
-            </span>
-            <span className="inline-flex items-center gap-1 rounded-full border border-emerald-400/30 bg-emerald-500/10 px-3 py-1">
-              <Check className="h-3 w-3 text-emerald-400" />
-              {isEnglish ? 'Risk-matched trials' : 'Hizmete uygun deneme modeli'}
-            </span>
+            <span style={{ opacity: 0.4 }}>·</span>
+            <span>{isEnglish ? 'No lock-in' : 'Taahhüt yok'}</span>
+            <span style={{ opacity: 0.4 }}>·</span>
+            <span>{isEnglish ? 'Risk-matched trials' : 'Hizmete uygun deneme modeli'}</span>
           </div>
-        </header>
+        </div>
+      </section>
 
-        <nav className="mt-12 flex flex-wrap items-center justify-center gap-2">
+      {/* FILTER */}
+      <section
+        style={{
+          position: 'sticky',
+          top: 60,
+          zIndex: 20,
+          background: 'rgba(245, 241, 234, 0.92)',
+          backdropFilter: 'saturate(140%) blur(10px)',
+          WebkitBackdropFilter: 'saturate(140%) blur(10px)',
+          borderBlock: '1px solid var(--border)',
+          padding: '16px 0',
+        }}
+      >
+        <div className="container" style={{ display: 'flex', gap: 8, flexWrap: 'wrap', alignItems: 'center' }}>
           <button
             onClick={() => setActiveCategory('all')}
-            className={`rounded-full border px-4 py-2 text-sm font-semibold transition ${
-              activeCategory === 'all'
-                ? 'border-white/30 bg-white/10 text-white'
-                : 'border-white/10 bg-slate-900/60 text-slate-300 hover:bg-slate-900'
-            }`}
+            className={activeCategory === 'all' ? 'btn btn-secondary btn-sm' : 'btn btn-ghost btn-sm'}
           >
-            {isEnglish ? 'All services' : 'Tüm hizmetler'}{' '}
-            <span className="text-slate-500">({SERVICES.length})</span>
+            {isEnglish ? 'All' : 'Tümü'}
+            <span style={{ marginLeft: 6, opacity: 0.6 }}>({SERVICES.length})</span>
           </button>
           {(Object.keys(CATEGORIES) as CategoryKey[]).map((key) => (
             <button
               key={key}
               onClick={() => setActiveCategory(key)}
-              className={`rounded-full border px-4 py-2 text-sm font-semibold transition ${
-                activeCategory === key
-                  ? 'border-white/30 bg-white/10 text-white'
-                  : 'border-white/10 bg-slate-900/60 text-slate-300 hover:bg-slate-900'
-              }`}
+              className={activeCategory === key ? 'btn btn-secondary btn-sm' : 'btn btn-ghost btn-sm'}
             >
-              {isEnglish ? CATEGORIES[key].en : CATEGORIES[key].tr}{' '}
-              <span className="text-slate-500">({grouped[key].length})</span>
+              {isEnglish ? CATEGORIES[key].en : CATEGORIES[key].tr}
+              <span style={{ marginLeft: 6, opacity: 0.6 }}>({grouped[key].length})</span>
             </button>
           ))}
-        </nav>
+        </div>
+      </section>
 
-        <section className="mt-10 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {visible.map((service) => (
-            <ServiceCard key={service.id} service={service} isEnglish={isEnglish} isGB={isGB} />
-          ))}
-        </section>
+      {/* GRID */}
+      <section style={{ padding: '48px 0 80px' }}>
+        <div className="container">
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
+              gap: 20,
+            }}
+          >
+            {visible.map((service) => (
+              <ServiceCard key={service.id} service={service} isEnglish={isEnglish} isGB={isGB} />
+            ))}
+          </div>
+        </div>
+      </section>
 
-        <section className="mt-20 overflow-hidden rounded-3xl border border-white/10 bg-gradient-to-br from-slate-900 via-slate-950 to-black p-8 md:p-12">
-          <div className="grid gap-8 md:grid-cols-2 md:items-center">
+      {/* BUNDLE CTA */}
+      <section style={{ padding: '80px 0', background: 'var(--paper-2)', borderTop: '1px solid var(--border)' }}>
+        <div className="container">
+          <div
+            style={{
+              display: 'grid',
+              gridTemplateColumns: '1fr',
+              gap: 48,
+              alignItems: 'center',
+            }}
+            className="bundle-grid"
+          >
             <div>
-              <span className="inline-flex items-center gap-2 rounded-full border border-amber-400/30 bg-amber-500/10 px-3 py-1 text-xs font-semibold text-amber-300">
-                <Sparkles className="h-3 w-3" />
-                {isEnglish ? 'Bundle savings' : 'Paket avantajı'}
-              </span>
-              <h2 className="mt-4 text-3xl font-black text-white md:text-4xl">
+              <span className="eyebrow">{isEnglish ? 'BUNDLE SAVINGS' : 'PAKET AVANTAJI'}</span>
+              <h2
+                style={{
+                  marginTop: 16,
+                  fontFamily: 'var(--font-serif)',
+                  fontSize: 'var(--t-h2)',
+                  fontWeight: 600,
+                  letterSpacing: 'var(--ls-snug)',
+                  lineHeight: 'var(--lh-tight)',
+                  color: 'var(--ink)',
+                }}
+              >
                 {isEnglish ? 'Combine services. Save 10–15%.' : 'Birleştirin. %10–15 indirim kazanın.'}
               </h2>
-              <p className="mt-4 text-base leading-relaxed text-slate-300">
+              <p style={{ marginTop: 16, color: 'var(--fg-2)', lineHeight: 1.6 }}>
                 {isEnglish
-                  ? 'Three curated bundles for different business stages: Starter (2 services, 10% off), Growth (3–4 services, 12% off), and Full Operations (5+ services, 15% off).'
+                  ? 'Three curated bundles for different stages. Starter (2 services, 10% off), Growth (3–4 services, 12% off), Full Operations (5+ services, 15% off).'
                   : 'İşletmenizin aşamasına göre 3 hazır paket: Başlangıç (2 hizmet, %10), Büyüme (3–4 hizmet, %12), Tam Operasyon (5+ hizmet, %15).'}
               </p>
-
-              <ul className="mt-6 space-y-2 text-sm text-slate-200">
+              <ul style={{ marginTop: 24, listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: 10 }}>
                 {[
-                  {
-                    tr: 'Başlangıç — WhatsApp Bot + Landing Page',
-                    en: 'Starter — WhatsApp Bot + Landing Page',
-                  },
-                  {
-                    tr: 'Büyüme — Web + WhatsApp Bot + SEO + Analitik',
-                    en: 'Growth — Website + WhatsApp Bot + SEO + Analytics',
-                  },
-                  {
-                    tr: 'Tam Operasyon — Web + Bot + n8n + CRM + Reklam + SEO',
-                    en: 'Full Ops — Website + Bot + n8n + CRM + Ads + SEO',
-                  },
+                  { tr: 'Başlangıç — WhatsApp Bot + Landing Page', en: 'Starter — WhatsApp Bot + Landing Page' },
+                  { tr: 'Büyüme — Web + WhatsApp Bot + SEO + Analitik', en: 'Growth — Website + WhatsApp Bot + SEO + Analytics' },
+                  { tr: 'Tam Operasyon — Web + Bot + n8n + CRM + Reklam + SEO', en: 'Full Ops — Website + Bot + n8n + CRM + Ads + SEO' },
                 ].map((item) => (
-                  <li key={item.tr} className="flex items-start gap-2">
-                    <Check className="mt-0.5 h-4 w-4 shrink-0 text-emerald-400" />
+                  <li key={item.tr} style={{ display: 'flex', alignItems: 'flex-start', gap: 10, fontSize: 15, color: 'var(--fg)' }}>
+                    <Check size={16} style={{ color: 'var(--ember)', marginTop: 3, flexShrink: 0 }} />
                     <span>{isEnglish ? item.en : item.tr}</span>
                   </li>
                 ))}
               </ul>
             </div>
 
-            <div className="rounded-2xl border border-white/10 bg-slate-950/60 p-6">
-              <h3 className="text-lg font-bold text-white">
+            <div className="card">
+              <h3 style={{ fontFamily: 'var(--font-serif)', fontSize: '1.25rem', fontWeight: 600, color: 'var(--ink)', margin: 0 }}>
                 {isEnglish ? 'Not sure where to start?' : 'Nereden başlayacağınızdan emin değil misiniz?'}
               </h3>
-              <p className="mt-2 text-sm leading-relaxed text-slate-300">
+              <p style={{ marginTop: 10, color: 'var(--fg-2)', fontSize: 14, lineHeight: 1.55 }}>
                 {isEnglish
-                  ? '15-minute discovery call: we look at your current bottleneck, suggest the highest-leverage service first, and only layer more when the first one proves ROI.'
-                  : '15 dakikalık keşif görüşmesi: mevcut darboğazınıza bakarız, en yüksek kaldıraçlı hizmeti ilk olarak öneririz; ROI kanıtlanmadan ikincisini eklemeyiz.'}
+                  ? '15-minute discovery call: we look at your bottleneck, suggest the highest-leverage service first, and only layer more once the first proves ROI.'
+                  : '15 dakikalık keşif görüşmesi: mevcut darboğazınıza bakarız, en yüksek kaldıraçlı hizmeti öneririz; ROI kanıtlanmadan ikincisini eklemeyiz.'}
               </p>
-
               <a
                 href={createWhatsAppLink(
                   isEnglish
-                    ? 'Hi, I\'d like a 15-minute discovery call to pick the right service.'
+                    ? 'Hi, I’d like a 15-minute discovery call to pick the right service.'
                     : 'Merhaba, doğru hizmeti seçmek için 15 dakikalık keşif görüşmesi istiyorum.',
                 )}
                 target="_blank"
                 rel="noreferrer"
-                className="mt-5 inline-flex w-full items-center justify-center gap-2 rounded-xl bg-gradient-to-r from-fuchsia-500 via-purple-500 to-cyan-500 px-4 py-3 text-sm font-bold text-white shadow-lg transition hover:scale-[1.02]"
+                className="btn btn-primary btn-md"
+                style={{ marginTop: 20, width: '100%' }}
               >
-                <MessageCircle className="h-4 w-4" />
-                {isEnglish ? 'Book discovery on WhatsApp' : 'WhatsApp\'ta Keşif Görüşmesi'} ({WHATSAPP_LABEL})
+                <MessageCircle size={16} />
+                {isEnglish ? 'Book on WhatsApp' : 'WhatsApp’ta randevu'}
               </a>
-
-              <p className="mt-3 text-[11px] text-slate-500">
-                {isEnglish
-                  ? 'Londra / Istanbul — Monday to Saturday, 09:00–20:00 GMT+3'
-                  : 'Londra / İstanbul — Pazartesi–Cumartesi, 09:00–20:00'}
+              <p style={{ marginTop: 12, fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--fg-3)', letterSpacing: '0.08em' }}>
+                {isEnglish ? 'London / Istanbul · Mon–Sat, 09:00–20:00' : 'Londra / İstanbul · Pzt–Cmt, 09:00–20:00'}
               </p>
             </div>
           </div>
-        </section>
+        </div>
 
-        <section className="mt-16 rounded-3xl border border-white/10 bg-slate-900/40 p-8 backdrop-blur-sm">
-          <h2 className="text-2xl font-black text-white md:text-3xl">
-            {isEnglish ? 'How our risk-matched trials work' : 'Deneme modelleri nasıl çalışır'}
-          </h2>
-          <p className="mt-3 max-w-3xl text-sm leading-relaxed text-slate-300">
-            {isEnglish
-              ? 'Not every service has the same cost structure — so "30-day free" can\'t apply to all. We use three calibrated models that protect both sides.'
-              : '"30 gün ücretsiz" her hizmet için uygun değil — değişken maliyetli hizmetlerde dürüst olmamak iki tarafı da yakar. 3 farklı model kullanıyoruz.'}
-          </p>
-          <div className="mt-6 grid gap-4 md:grid-cols-3">
+        <style>{`
+          @media (min-width: 900px) {
+            .bundle-grid { grid-template-columns: 1.2fr 1fr !important; gap: 64px !important; }
+          }
+        `}</style>
+      </section>
+
+      {/* RISK MODELS */}
+      <section style={{ padding: '80px 0', borderTop: '1px solid var(--border)' }}>
+        <div className="container">
+          <div className="section-head" style={{ maxWidth: 760 }}>
+            <span className="eyebrow">{isEnglish ? 'RISK MODELS' : 'RİSK MODELLERİ'}</span>
+            <h2
+              style={{
+                marginTop: 16,
+                fontFamily: 'var(--font-serif)',
+                fontSize: 'var(--t-h2)',
+                fontWeight: 600,
+                letterSpacing: 'var(--ls-snug)',
+                lineHeight: 'var(--lh-tight)',
+                color: 'var(--ink)',
+              }}
+            >
+              {isEnglish ? 'Three calibrated ways to start.' : 'Üç farklı başlama modeli.'}
+            </h2>
+            <p className="lede" style={{ marginTop: 16, color: 'var(--fg-2)' }}>
+              {isEnglish
+                ? 'Not every service has the same cost structure — so “30-day free” can’t apply to all. We use three honest models.'
+                : '"30 gün ücretsiz" her hizmet için uygun değil — değişken maliyetli hizmetlerde dürüst olmak gerek. 3 kalibre model kullanıyoruz.'}
+            </p>
+          </div>
+
+          <div
+            style={{
+              marginTop: 40,
+              display: 'grid',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+              gap: 16,
+            }}
+          >
             {[
               {
                 key: 'A' as const,
-                skus: isEnglish
-                  ? 'WhatsApp Bot · n8n · SEO · Analytics'
-                  : 'WhatsApp Bot · n8n · SEO · Analitik',
+                skus: isEnglish ? 'WhatsApp Bot · n8n · SEO · Analytics' : 'WhatsApp Bot · n8n · SEO · Analitik',
                 desc: {
                   tr: 'Düşük değişken maliyetli hizmetlerde ilk 30 gün tamamen ücretsiz. Beğenmezseniz tek mesajla iptal, ücret yok.',
-                  en: 'For low-variable-cost services: fully free for 30 days. Cancel with one message, no charge.',
+                  en: 'Low-variable-cost services: fully free for 30 days. Cancel with one message, no charge.',
                 },
               },
               {
@@ -722,36 +791,42 @@ export default function Services() {
                 skus: isEnglish ? 'Voice Assistant · AI Content' : 'Sesli Asistan · AI İçerik',
                 desc: {
                   tr: 'Değişken maliyetli hizmetlerde ilk ay %50 pilot fiyatla. Memnun kalmazsanız sadece pilot dönem ücreti.',
-                  en: 'For variable-cost services: 50% pilot rate in the first month. Cancel and only pay the pilot.',
+                  en: 'Variable-cost services: 50% pilot rate in the first month. Cancel and only pay the pilot.',
                 },
               },
               {
                 key: 'C' as const,
                 skus: isEnglish ? 'Meta Ads · Google Ads' : 'Meta Reklam · Google Reklam',
                 desc: {
-                  tr: 'Reklam yönetiminde ilk ay ücret %50. Reklam bütçesi her zaman sizin kartınızdan Meta/Google\'a gider — bize uğramaz.',
+                  tr: 'Reklam yönetiminde ilk ay ücret %50. Reklam bütçesi her zaman sizin kartınızdan Meta/Google’a gider — bize uğramaz.',
                   en: 'Ad management: 50% first-month fee. Ad spend always flows from your card direct to Meta/Google — never through us.',
                 },
               },
-            ].map((model) => {
-              const riskLabel = RISK_LABELS[model.key];
-              return (
-                <div key={model.key} className="rounded-2xl border border-white/10 bg-slate-950/40 p-5">
-                  <span
-                    className={`inline-flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[11px] font-semibold ${riskLabel.color}`}
-                  >
-                    {isEnglish ? `Model ${model.key}` : `Model ${model.key}`} · {isEnglish ? riskLabel.en : riskLabel.tr}
-                  </span>
-                  <p className="mt-3 text-xs uppercase tracking-wider text-slate-400">{model.skus}</p>
-                  <p className="mt-2 text-sm leading-relaxed text-slate-200">
-                    {isEnglish ? model.desc.en : model.desc.tr}
-                  </p>
-                </div>
-              );
-            })}
+            ].map((model) => (
+              <div key={model.key} className="card-muted">
+                <span className="badge badge-accent">
+                  Model {model.key} · {isEnglish ? RISK_LABELS[model.key].en : RISK_LABELS[model.key].tr}
+                </span>
+                <p
+                  style={{
+                    marginTop: 12,
+                    fontFamily: 'var(--font-mono)',
+                    fontSize: 11,
+                    textTransform: 'uppercase',
+                    letterSpacing: '0.12em',
+                    color: 'var(--fg-3)',
+                  }}
+                >
+                  {model.skus}
+                </p>
+                <p style={{ marginTop: 10, color: 'var(--fg-2)', fontSize: 14, lineHeight: 1.55 }}>
+                  {isEnglish ? model.desc.en : model.desc.tr}
+                </p>
+              </div>
+            ))}
           </div>
-        </section>
-      </div>
+        </div>
+      </section>
     </div>
   );
 }
