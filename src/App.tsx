@@ -27,6 +27,7 @@ import { AnnouncementBar } from './components/site/AnnouncementBar';
 import { SiteHeader } from './components/site/SiteHeader';
 import { SiteFooter } from './components/site/SiteFooter';
 import { ScrollProgress } from './components/site/ScrollProgress';
+import { ChatBot } from './components/site/ChatBot';
 
 // New homepage sections
 import { HeroV2 } from './components/sections/v2/HeroV2';
@@ -107,6 +108,7 @@ function AppContent() {
       />
       <main style={{ flex: 1 }}>{node}</main>
       <SiteFooter onNavigate={navigateSite} />
+      <ChatBot />
     </div>
   );
 
@@ -154,6 +156,8 @@ function AppContent() {
 
         <SiteFooter onNavigate={navigateSite} />
       </div>
+
+      <ChatBot />
 
       <EmailDemoModal isOpen={activeDemo === 'email'} onClose={() => setActiveDemo(null)} />
       <AuthModal
