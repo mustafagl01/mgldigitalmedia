@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Helmet, HelmetProvider } from 'react-helmet-async';
+import { HelmetProvider } from 'react-helmet-async';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { LanguageProvider, useLanguage } from './contexts/LanguageContext';
 import { LocationProvider, useLocation } from './contexts/LocationContext';
@@ -31,6 +31,9 @@ import { SiteHeader } from './components/site/SiteHeader';
 import { SiteFooter } from './components/site/SiteFooter';
 import { ScrollProgress } from './components/site/ScrollProgress';
 import { ChatBot } from './components/site/ChatBot';
+
+// SEO
+import { Seo, BASE_SCHEMAS, breadcrumbSchema } from './components/seo/Seo';
 
 // New homepage sections
 import { HeroV2 } from './components/sections/v2/HeroV2';
@@ -86,7 +89,7 @@ function AppContent() {
   );
   const [activeDemo, setActiveDemo] = useState<string | null>(null);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
   useLocation(); // keeps region hydrated for pricing
   useAuth(); // keeps session hydrated
 
@@ -96,14 +99,15 @@ function AppContent() {
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
 
-  const navigateTo = (page: AppPage) => {
+  const navigateTo = (page: AppPage, hash?: string) => {
     setCurrentPage(page);
-    const path = page === 'home' ? '/' : `/${page}`;
+    const basePath = page === 'home' ? '/' : `/${page}`;
+    const path = hash ? `${basePath}#${hash}` : basePath;
     window.history.pushState({}, '', path);
     window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
   };
 
-  const navigateSite = (page: SitePage) => navigateTo(page as AppPage);
+  const navigateSite = (page: SitePage, hash?: string) => navigateTo(page as AppPage, hash);
 
   const openAnalysis = () => {
     window.open(CALENDAR_URL, '_blank', 'noopener,noreferrer');
@@ -139,14 +143,33 @@ function AppContent() {
   if (currentPage === 'notfound') return wrapPage(<NotFound onHome={() => navigateTo('home')} />);
 
   // HOME
+  const isEN = language === 'en';
+  const homeBreadcrumb = breadcrumbSchema([
+    { name: isEN ? 'Home' : 'Ana Sayfa', path: '/' },
+  ]);
+
   return (
     <>
-      <Helmet>
-        <title>{t('header.title')} — {t('header.agency')}</title>
-        <meta name="description" content={t('header.metaDescription')} />
-        <meta property="og:title" content={`${t('header.title')} — ${t('header.agency')}`} />
-        <meta property="og:description" content={t('header.ogDescription')} />
-      </Helmet>
+      <Seo
+        title={
+          isEN
+            ? 'MGL Digital Media · AI Agents, Ads, Web & Automation for SMBs'
+            : 'MGL Digital Media · AI Asistan, Reklam, Web ve Otomasyon Ajansı'
+        }
+        description={
+          isEN
+            ? 'We automate your operational load — AI voice/email agents, Meta & Google ads, n8n workflows, conversion-first web and SEO. One team. One system. London & Istanbul.'
+            : 'Operasyonel yüklerinizi otomatize ederiz — sesli/e-posta AI asistanları, Meta ve Google reklamları, n8n akışları, dönüştüren web ve SEO. Tek ekip, tek sistem. Londra ve İstanbul.'
+        }
+        path="/"
+        locale={isEN ? 'en_GB' : 'tr_TR'}
+        keywords={
+          isEN
+            ? ['AI agency', 'automation agency', 'voice AI', 'n8n automation', 'Meta ads', 'Google ads', 'conversion web', 'London AI agency']
+            : ['AI ajans', 'otomasyon ajansı', 'sesli asistan', 'n8n otomasyon', 'Meta reklam', 'Google reklam', 'dönüşüm odaklı web', 'İstanbul AI ajansı']
+        }
+        jsonLd={[...BASE_SCHEMAS, homeBreadcrumb]}
+      />
 
       <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', background: 'var(--paper)' }}>
         <ScrollProgress />

@@ -34,8 +34,8 @@
   /* Signature Accent — "Ember"
      A single saturated orange-red. Used for CTAs, focus,
      hot spots. NEVER gradients — one flat color. */
-  --ember:       #E8481C;   /* primary accent */
-  --ember-hover: #D13D14;   /* pressed / hover darker */
+  --ember:       #BC3B15;   /* primary accent — AA-compliant on paper (5.0:1) */
+  --ember-hover: #9E3210;   /* pressed / hover darker */
   --ember-soft:  #FCE6DC;   /* 10% tint — highlights on paper */
   --ember-ink:   #6A1B06;   /* dark ember — text on ember-soft */
 

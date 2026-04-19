@@ -3,7 +3,7 @@ import { useLanguage } from '../../contexts/LanguageContext';
 type Page = 'home' | 'services' | 'solutions' | 'packages' | 'pricing' | 'legal';
 
 interface Props {
-  onNavigate: (page: Page) => void;
+  onNavigate: (page: Page, hash?: string) => void;
 }
 
 export function SiteFooter({ onNavigate }: Props) {
@@ -17,8 +17,8 @@ export function SiteFooter({ onNavigate }: Props) {
             heading: 'Sistem',
             links: [
               { label: 'AI Reklam', go: 'packages' as Page },
-              { label: 'AI Agent & Otomasyon', go: 'services' as Page },
-              { label: 'Web Tasarım', go: 'services' as Page },
+              { label: 'AI Agent & Otomasyon', go: 'services' as Page, hash: 'automation' },
+              { label: 'Web Tasarım', go: 'services' as Page, hash: 'web' },
               { label: 'Sektörel Çözümler', go: 'solutions' as Page },
             ],
           },
@@ -36,8 +36,8 @@ export function SiteFooter({ onNavigate }: Props) {
             heading: 'System',
             links: [
               { label: 'AI Advertising', go: 'packages' as Page },
-              { label: 'AI Agents & Automation', go: 'services' as Page },
-              { label: 'Web Design', go: 'services' as Page },
+              { label: 'AI Agents & Automation', go: 'services' as Page, hash: 'automation' },
+              { label: 'Web Design', go: 'services' as Page, hash: 'web' },
               { label: 'Industry Solutions', go: 'solutions' as Page },
             ],
           },
@@ -145,7 +145,7 @@ export function SiteFooter({ onNavigate }: Props) {
                 {col.links.map((l, j) => (
                   <li key={j}>
                     <button
-                      onClick={() => onNavigate(l.go)}
+                      onClick={() => onNavigate(l.go, l.hash)}
                       style={{
                         color: 'var(--bone-2)',
                         fontSize: 14,

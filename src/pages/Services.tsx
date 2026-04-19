@@ -511,7 +511,14 @@ export default function Services() {
   const { region } = useLocation();
   const isEnglish = language === 'en';
   const isGB = region === 'GB';
-  const [activeCategory, setActiveCategory] = useState<CategoryKey | 'all'>('all');
+  const [activeCategory, setActiveCategory] = useState<CategoryKey | 'all'>(() => {
+    if (typeof window === 'undefined') return 'all';
+    const hash = window.location.hash.replace('#', '');
+    if (hash === 'automation' || hash === 'web' || hash === 'marketing' || hash === 'infrastructure') {
+      return hash;
+    }
+    return 'all';
+  });
 
   const grouped = useMemo(() => {
     const byCategory: Record<CategoryKey, ServiceSku[]> = {
