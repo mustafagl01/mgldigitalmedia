@@ -55,8 +55,8 @@ export function SiteFooter({ onNavigate }: Props) {
   const legalHeading = language === 'tr' ? 'Hukuki' : 'Legal';
   const companyDesc =
     language === 'tr'
-      ? 'AI agent, otomasyon ve dönüşüm odaklı web — KOBİ’ler için. Londra merkezli, Türkiye ve Birleşik Krallık\'ta uzaktan hizmet.'
-      : 'AI agents, automation, and conversion-first web — for SMBs. London HQ, serving the UK & Turkey remotely.';
+      ? 'AI asistan, otomasyon ve dönüşüm odaklı web — işletmeler ve kurumlar için. Londra merkezli, Türkiye ve Birleşik Krallık\'ta uzaktan hizmet.'
+      : 'AI assistants, automation, and conversion-first web — for businesses and enterprises. London HQ, serving the UK & Turkey remotely.';
 
   return (
     <footer
