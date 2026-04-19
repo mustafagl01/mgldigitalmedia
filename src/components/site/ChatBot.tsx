@@ -111,6 +111,44 @@ export function ChatBot() {
     }
   }, [open]);
 
+  const [overDark, setOverDark] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    let raf = 0;
+    const check = () => {
+      raf = 0;
+      const cx = window.innerWidth - 48;
+      const cy = window.innerHeight - 48;
+      const darkNodes = document.querySelectorAll<HTMLElement>('.on-coal, footer.on-coal');
+      let hit = false;
+      for (const node of Array.from(darkNodes)) {
+        const r = node.getBoundingClientRect();
+        if (r.width === 0 || r.height === 0) continue;
+        if (cx >= r.left && cx <= r.right && cy >= r.top && cy <= r.bottom) {
+          hit = true;
+          break;
+        }
+      }
+      setOverDark((prev) => (prev === hit ? prev : hit));
+    };
+
+    const schedule = () => {
+      if (raf) return;
+      raf = window.requestAnimationFrame(check);
+    };
+
+    check();
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule);
+    return () => {
+      if (raf) window.cancelAnimationFrame(raf);
+      window.removeEventListener('scroll', schedule);
+      window.removeEventListener('resize', schedule);
+    };
+  }, []);
+
   const pushMessage = (m: Message) => {
     setSession((prev) => {
       const base = prev.messages.length === 0 ? [greeting] : prev.messages;
@@ -245,6 +283,7 @@ export function ChatBot() {
       <button
         onClick={() => setOpen((o) => !o)}
         aria-label={isTR ? 'Era ile konuş' : 'Chat with Era'}
+        data-over-dark={overDark ? 'true' : 'false'}
         style={{
           position: 'fixed',
           right: 20,
@@ -253,16 +292,18 @@ export function ChatBot() {
           width: 56,
           height: 56,
           borderRadius: '50%',
-          background: 'var(--ink)',
+          background: overDark ? 'var(--ember)' : 'var(--ink)',
           color: 'var(--paper)',
-          border: '1px solid var(--ink)',
-          boxShadow:
-            '0 14px 40px -14px rgba(0,0,0,0.45), 0 2px 8px rgba(0,0,0,0.15)',
+          border: `1px solid ${overDark ? 'var(--ember)' : 'var(--ink)'}`,
+          boxShadow: overDark
+            ? '0 14px 40px -14px rgba(214, 89, 31, 0.55), 0 2px 10px rgba(214, 89, 31, 0.25)'
+            : '0 14px 40px -14px rgba(0,0,0,0.45), 0 2px 8px rgba(0,0,0,0.15)',
           cursor: 'pointer',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          transition: 'transform 200ms ease',
+          transition:
+            'background 320ms ease, border-color 320ms ease, box-shadow 320ms ease, transform 200ms ease',
         }}
         onMouseEnter={(e) => {
           e.currentTarget.style.transform = 'translateY(-2px)';
@@ -290,8 +331,9 @@ export function ChatBot() {
               width: 10,
               height: 10,
               borderRadius: '50%',
-              background: 'var(--ember)',
-              border: '2px solid var(--ink)',
+              background: overDark ? 'var(--paper)' : 'var(--ember)',
+              border: `2px solid ${overDark ? 'var(--ember)' : 'var(--ink)'}`,
+              transition: 'background 320ms ease, border-color 320ms ease',
             }}
           />
         )}
