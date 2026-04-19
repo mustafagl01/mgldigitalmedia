@@ -16,10 +16,9 @@ export function GoogleCalendarButton({
   label = 'Randevu oluşturun',
   color = '#039BE5',
 }: Props) {
-  const targetRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    // Load CSS once
     if (!document.querySelector(`link[href="${CSS_URL}"]`)) {
       const link = document.createElement('link');
       link.rel = 'stylesheet';
@@ -28,19 +27,25 @@ export function GoogleCalendarButton({
     }
 
     const init = () => {
+      const container = containerRef.current;
       const cal = (window as Record<string, unknown>).calendar as
         | { schedulingButton: { load: (opts: unknown) => void } }
         | undefined;
-      if (targetRef.current && cal?.schedulingButton) {
-        // Clear previous button before loading new one
-        targetRef.current.innerHTML = '';
-        cal.schedulingButton.load({
-          url: CALENDAR_URL,
-          color,
-          label,
-          target: targetRef.current,
-        });
-      }
+      if (!container || !cal?.schedulingButton) return;
+
+      // Clear everything the script previously injected (button is a sibling of target)
+      container.innerHTML = '';
+
+      // Fresh target — the scheduling button gets inserted as a sibling inside our container
+      const target = document.createElement('div');
+      container.appendChild(target);
+
+      cal.schedulingButton.load({
+        url: CALENDAR_URL,
+        color,
+        label,
+        target,
+      });
     };
 
     let script = document.querySelector<HTMLScriptElement>(
@@ -54,7 +59,6 @@ export function GoogleCalendarButton({
       script.onload = init;
       document.head.appendChild(script);
     } else {
-      // Script already in DOM — may or may not be loaded yet
       const cal = (window as Record<string, unknown>).calendar as
         | { schedulingButton: { load: (opts: unknown) => void } }
         | undefined;
@@ -66,11 +70,11 @@ export function GoogleCalendarButton({
     }
 
     return () => {
-      if (targetRef.current) {
-        targetRef.current.innerHTML = '';
+      if (containerRef.current) {
+        containerRef.current.innerHTML = '';
       }
     };
   }, [label, color]);
 
-  return <div ref={targetRef} />;
+  return <div ref={containerRef} style={{ display: 'inline-flex' }} />;
 }
