@@ -31,14 +31,14 @@ export function SiteHeader({ currentPage, onNavigate, onAnalysisClick }: Props) 
           ['services', 'Servisler'],
           ['solutions', 'Çözümler'],
           ['packages', 'Paketler'],
-          ['pricing', 'Fiyatlar'],
+          ['pricing', 'ROI Simülasyonu'],
         ]
       : [
           ['home', 'Home'],
           ['services', 'Services'],
           ['solutions', 'Solutions'],
           ['packages', 'Packages'],
-          ['pricing', 'Pricing'],
+          ['pricing', 'ROI Simulator'],
         ];
 
   const handleNav = (p: Page) => {

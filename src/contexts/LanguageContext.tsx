@@ -33,7 +33,7 @@ const translations = {
     'header.menuButton': 'Menüyü aç',
     'header.packages': 'Paketler',
     'header.contact': 'İletişim',
-    'header.calculateProfit': 'Fiyatları İncele',
+    'header.calculateProfit': 'ROI Simülasyonu',
     'header.metaDescription': 'Stratejiyle dönüşüm sağlıyoruz. Reklam ve iş süreçlerinizi AI Agent ile otomatikleştirerek size sadece \'tıklama\' değil, gerçek \'sonuç\' getiriyoruz.',
     'header.ogDescription': 'AI Agent ve Otomasyon çözümleriyle iş süreçlerinizi dönüştürün. Manuel işlere son verin, verimliliği artırın.',
 
@@ -182,7 +182,7 @@ const translations = {
     'header.menuButton': 'Open Menu',
     'header.packages': 'Packages',
     'header.contact': 'Contact',
-    'header.calculateProfit': 'View Pricing',
+    'header.calculateProfit': 'ROI Simulator',
     'header.metaDescription': 'We drive transformation through strategy. By automating your advertising and business processes with AI Agents, we bring real \'results\', not just \'clicks\'.',
     'header.ogDescription': 'Transform your business processes with AI Agent and Automation solutions. End manual tasks, increase efficiency.',
 

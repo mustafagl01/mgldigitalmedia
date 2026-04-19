@@ -26,7 +26,7 @@ export function SiteFooter({ onNavigate }: Props) {
             heading: 'Firma',
             links: [
               { label: 'Paketler', go: 'packages' as Page },
-              { label: 'Fiyatlar', go: 'pricing' as Page },
+              { label: 'ROI Simülasyonu', go: 'pricing' as Page },
               { label: 'Servisler', go: 'services' as Page },
             ],
           },
@@ -45,7 +45,7 @@ export function SiteFooter({ onNavigate }: Props) {
             heading: 'Company',
             links: [
               { label: 'Packages', go: 'packages' as Page },
-              { label: 'Pricing', go: 'pricing' as Page },
+              { label: 'ROI Simulator', go: 'pricing' as Page },
               { label: 'Services', go: 'services' as Page },
             ],
           },
