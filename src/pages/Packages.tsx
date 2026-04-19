@@ -1169,15 +1169,14 @@ export default function Packages() {
           <div
             role="tablist"
             aria-label={isEnglish ? 'Package categories' : 'Paket kategorileri'}
+            className="category-tabs"
             style={{
               marginTop: 36,
-              display: 'inline-flex',
               gap: 4,
               padding: 4,
               background: 'var(--paper-2)',
               border: '1px solid var(--border)',
               borderRadius: 999,
-              flexWrap: 'wrap',
             }}
           >
             {(['ads', 'agents', 'web'] as PackageCategoryKey[]).map((cat) => {
@@ -1190,16 +1189,17 @@ export default function Packages() {
                   aria-selected={isActive}
                   type="button"
                   onClick={() => switchCategory(cat)}
+                  className="category-tab"
                   style={{
-                    padding: '8px 20px',
                     borderRadius: 999,
                     background: isActive ? 'var(--ink)' : 'transparent',
                     color: isActive ? 'var(--paper)' : 'var(--fg-2)',
-                    fontSize: 13,
                     fontWeight: 500,
                     transition: 'background 160ms, color 160ms',
                     border: 'none',
                     cursor: 'pointer',
+                    textAlign: 'center',
+                    lineHeight: 1.25,
                   }}
                 >
                   {isEnglish ? en : tr}
@@ -1207,6 +1207,32 @@ export default function Packages() {
               );
             })}
           </div>
+
+          <style>{`
+            .category-tabs {
+              display: grid;
+              grid-template-columns: repeat(3, 1fr);
+              width: 100%;
+              max-width: 440px;
+            }
+            .category-tab {
+              padding: 10px 8px;
+              font-size: 12px;
+              white-space: normal;
+            }
+            @media (min-width: 640px) {
+              .category-tabs {
+                display: inline-flex;
+                width: auto;
+                max-width: none;
+              }
+              .category-tab {
+                padding: 8px 20px;
+                font-size: 13px;
+                white-space: nowrap;
+              }
+            }
+          `}</style>
         </div>
       </section>
 
