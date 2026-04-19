@@ -113,8 +113,8 @@ export function HeroV2({ onAnalysisClick, onDemoClick }: Props) {
             }}
           >
             {language === 'tr'
-              ? 'AI asistanlardan Meta/Google reklamlarına, n8n otomasyonundan dönüştüren web ve SEO\'ya — bir işletmenin tüm dijital motorlarını tek ekipten, tek sistemden kuruyoruz. Konuşan biz, kapatan biz.'
-              : 'From AI assistants to Meta/Google ads, n8n automation to conversion-first web and SEO — we build every digital motor your business runs on from one team, one system. We start the conversation and we close it.'}
+              ? 'AI asistanlardan Meta/Google reklamlarına, n8n otomasyonundan dönüştüren web ve SEO\'ya — bir işletmenin tüm dijital motorlarını tek ekipten, tek sistemden kuruyoruz. Biz kurarız, sistem çalıştırır.'
+              : 'From AI assistants to Meta/Google ads, n8n automation to conversion-first web and SEO — we build every digital motor your business runs on from one team, one system. We build it. The system runs it.'}
           </p>
 
           {/* CTAs */}
