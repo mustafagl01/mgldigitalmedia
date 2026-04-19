@@ -32,6 +32,8 @@ export function GoogleCalendarButton({
         | { schedulingButton: { load: (opts: unknown) => void } }
         | undefined;
       if (targetRef.current && cal?.schedulingButton) {
+        // Clear previous button before loading new one
+        targetRef.current.innerHTML = '';
         cal.schedulingButton.load({
           url: CALENDAR_URL,
           color,
@@ -62,6 +64,12 @@ export function GoogleCalendarButton({
         script.addEventListener('load', init);
       }
     }
+
+    return () => {
+      if (targetRef.current) {
+        targetRef.current.innerHTML = '';
+      }
+    };
   }, [label, color]);
 
   return <div ref={targetRef} />;
