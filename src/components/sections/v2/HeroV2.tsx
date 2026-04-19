@@ -86,18 +86,18 @@ export function HeroV2({ onAnalysisClick, onDemoClick }: Props) {
           >
             {language === 'tr' ? (
               <>
-                Müşteriniz sabah{' '}
-                <span style={{ fontStyle: 'italic', fontWeight: 400, color: 'var(--fg-2)' }}>üçte</span>{' '}
-                yazar.
+                Operasyonel{' '}
+                <span style={{ fontStyle: 'italic', fontWeight: 400, color: 'var(--fg-2)' }}>yüklerinizi</span>{' '}
+                otomatize ederiz.
                 <br />
-                Biz <span style={{ color: 'var(--ember)' }}>üç</span> saniyede cevap veririz.
+                Siz sadece <span style={{ color: 'var(--ember)' }}>büyümeye</span> odaklanırsınız.
               </>
             ) : (
               <>
-                Your customers message at{' '}
-                <span style={{ fontStyle: 'italic', fontWeight: 400, color: 'var(--fg-2)' }}>3am</span>.
+                We automate your operational{' '}
+                <span style={{ fontStyle: 'italic', fontWeight: 400, color: 'var(--fg-2)' }}>load</span>.
                 <br />
-                We reply in <span style={{ color: 'var(--ember)' }}>three</span> seconds.
+                You focus only on <span style={{ color: 'var(--ember)' }}>growth</span>.
               </>
             )}
           </h1>

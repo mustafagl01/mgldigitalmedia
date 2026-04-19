@@ -492,12 +492,12 @@ const FAQS: Array<{ q: { tr: string; en: string }; a: { tr: string; en: string }
   },
   {
     q: {
-      tr: 'Türkçe ve İngilizce desteği var mı?',
-      en: 'Do you support Turkish and English?',
+      tr: 'Hangi dilleri destekliyorsunuz?',
+      en: 'Which languages do you support?',
     },
     a: {
-      tr: 'Evet. WhatsApp bot GPT-4o arkasında çalışır ve iki dilde de doğal yanıt üretir. Sesli asistan Türkçe doğal ses + İngilizce aksansız seçeneğiyle gelir. Tüm akışlar iki dilde çalışacak şekilde kurulur.',
-      en: 'Yes. The WhatsApp bot runs on GPT-4o and produces natural replies in both languages. Voice assistant ships with natural Turkish and neutral-accent English. Every workflow is built bilingual by default.',
+      tr: 'WhatsApp ve e-posta asistanları GPT-4o üzerinde 30+ dilde doğal yanıt üretir — Türkçe, İngilizce, Almanca, Fransızca, İspanyolca, Arapça, Rusça dahil. Sesli asistan Türkçe doğal ses + çok dilli aksansız seçeneklerle gelir. Müşteri hangi dilde yazarsa sistem o dilde yanıtlar.',
+      en: 'WhatsApp and email assistants run on GPT-4o and reply naturally in 30+ languages — Turkish, English, German, French, Spanish, Arabic, Russian, and more. The voice agent ships with natural Turkish plus neutral-accent options across major languages. Customers get answered in whatever language they write in.',
     },
   },
   {
