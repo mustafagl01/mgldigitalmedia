@@ -69,8 +69,15 @@ export function ChatBot() {
   const [input, setInput] = useState('');
   const [sending, setSending] = useState(false);
   const [unread, setUnread] = useState(false);
+  const [callbackOpen, setCallbackOpen] = useState(false);
+  const [phone, setPhone] = useState('');
+  const [callbackName, setCallbackName] = useState('');
+  const [callbackSending, setCallbackSending] = useState(false);
+  const [callbackDone, setCallbackDone] = useState(false);
+  const [callbackError, setCallbackError] = useState<string | null>(null);
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const phoneRef = useRef<HTMLInputElement>(null);
 
   const isTR = language === 'tr';
 
@@ -171,6 +178,63 @@ export function ChatBot() {
     const fresh: Session = { id: newSessionId(), messages: [] };
     setSession(fresh);
     saveSession(fresh);
+    setCallbackOpen(false);
+    setCallbackDone(false);
+    setCallbackError(null);
+    setPhone('');
+    setCallbackName('');
+  };
+
+  const openCallback = () => {
+    setCallbackOpen(true);
+    setCallbackDone(false);
+    setCallbackError(null);
+    setTimeout(() => phoneRef.current?.focus(), 50);
+  };
+
+  const submitCallback = async () => {
+    const normalized = phone.replace(/[^\d+]/g, '');
+    if (normalized.length < 7) {
+      setCallbackError(
+        isTR ? 'Geçerli bir numara girin.' : 'Enter a valid phone number.',
+      );
+      return;
+    }
+    setCallbackSending(true);
+    setCallbackError(null);
+    try {
+      const res = await fetch(WEBHOOK_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          type: 'callback',
+          sessionId: session.id,
+          language,
+          phone: normalized,
+          name: callbackName.trim() || null,
+          page:
+            typeof window !== 'undefined' ? window.location.pathname : '/',
+          history: messages.map((m) => ({ role: m.role, content: m.text })),
+        }),
+      });
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      setCallbackDone(true);
+      pushMessage({
+        role: 'assistant',
+        text: isTR
+          ? `Numaranızı aldım (${normalized}). Asistanımız birazdan sizi arayacak.`
+          : `Got your number (${normalized}). Our assistant will call you shortly.`,
+        ts: Date.now(),
+      });
+    } catch {
+      setCallbackError(
+        isTR
+          ? 'Şu an gönderemedik. Tekrar dener misiniz?'
+          : "Couldn't send. Please try again.",
+      );
+    } finally {
+      setCallbackSending(false);
+    }
   };
 
   return (
@@ -381,44 +445,260 @@ export function ChatBot() {
             )}
           </div>
 
-          {/* Calendar nudge */}
+          {/* Callback nudge / form */}
           <div
             style={{
-              padding: '8px 16px',
               borderTop: '1px solid var(--border)',
               background: 'var(--paper-2)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              gap: 10,
             }}
           >
-            <span
-              style={{
-                fontSize: 11,
-                color: 'var(--fg-muted)',
-                fontFamily: 'var(--font-mono)',
-                letterSpacing: '0.06em',
-                textTransform: 'uppercase',
-              }}
-            >
-              {isTR ? 'Hazırsan kısa görüşme' : 'Ready? Short call'}
-            </span>
-            <a
-              href={CALENDAR_URL}
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                fontSize: 12,
-                color: 'var(--ember)',
-                textDecoration: 'none',
-                fontWeight: 500,
-                borderBottom: '1px solid var(--ember)',
-                paddingBottom: 1,
-              }}
-            >
-              {isTR ? 'Takvim aç →' : 'Open calendar →'}
-            </a>
+            {!callbackOpen && !callbackDone && (
+              <div
+                style={{
+                  padding: '10px 16px',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  gap: 10,
+                }}
+              >
+                <span
+                  style={{
+                    fontSize: 11,
+                    color: 'var(--fg-muted)',
+                    fontFamily: 'var(--font-mono)',
+                    letterSpacing: '0.06em',
+                    textTransform: 'uppercase',
+                  }}
+                >
+                  {isTR ? 'Sizi arayalım' : 'We call you'}
+                </span>
+                <button
+                  onClick={openCallback}
+                  style={{
+                    fontSize: 12,
+                    color: 'var(--paper)',
+                    background: 'var(--ember)',
+                    border: 'none',
+                    padding: '6px 12px',
+                    borderRadius: 6,
+                    cursor: 'pointer',
+                    fontWeight: 500,
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    gap: 6,
+                  }}
+                >
+                  <svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.9.34 1.78.63 2.62a2 2 0 0 1-.45 2.11L8 9.91a16 16 0 0 0 6 6l1.46-1.29a2 2 0 0 1 2.11-.45c.84.29 1.72.5 2.62.63A2 2 0 0 1 22 16.92z" />
+                  </svg>
+                  {isTR ? 'Numara bırak' : 'Leave number'}
+                </button>
+              </div>
+            )}
+
+            {callbackOpen && !callbackDone && (
+              <div style={{ padding: '12px 16px' }}>
+                <div
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    marginBottom: 8,
+                  }}
+                >
+                  <span
+                    style={{
+                      fontSize: 11,
+                      color: 'var(--fg-muted)',
+                      fontFamily: 'var(--font-mono)',
+                      letterSpacing: '0.06em',
+                      textTransform: 'uppercase',
+                    }}
+                  >
+                    {isTR
+                      ? 'Numaranızı bırakın, asistanımız arasın'
+                      : 'Leave your number, our assistant will call'}
+                  </span>
+                  <button
+                    onClick={() => setCallbackOpen(false)}
+                    aria-label={isTR ? 'Kapat' : 'Close'}
+                    style={{
+                      background: 'transparent',
+                      border: 'none',
+                      color: 'var(--fg-muted)',
+                      cursor: 'pointer',
+                      fontSize: 14,
+                      lineHeight: 1,
+                      padding: 0,
+                    }}
+                  >
+                    ×
+                  </button>
+                </div>
+                <input
+                  value={callbackName}
+                  onChange={(e) => setCallbackName(e.target.value)}
+                  placeholder={isTR ? 'İsim (opsiyonel)' : 'Name (optional)'}
+                  style={{
+                    width: '100%',
+                    padding: '8px 10px',
+                    fontSize: 13,
+                    border: '1px solid var(--border)',
+                    borderRadius: 6,
+                    background: 'var(--paper)',
+                    color: 'var(--ink)',
+                    marginBottom: 6,
+                    fontFamily: 'inherit',
+                    outline: 'none',
+                  }}
+                />
+                <div style={{ display: 'flex', gap: 6 }}>
+                  <input
+                    ref={phoneRef}
+                    value={phone}
+                    onChange={(e) => setPhone(e.target.value)}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' && !callbackSending)
+                        submitCallback();
+                    }}
+                    placeholder={
+                      isTR ? '+90 5XX XXX XX XX' : '+44 7XXX XXX XXX'
+                    }
+                    inputMode="tel"
+                    style={{
+                      flex: 1,
+                      padding: '8px 10px',
+                      fontSize: 14,
+                      border: '1px solid var(--border)',
+                      borderRadius: 6,
+                      background: 'var(--paper)',
+                      color: 'var(--ink)',
+                      fontFamily: 'inherit',
+                      outline: 'none',
+                    }}
+                  />
+                  <button
+                    onClick={submitCallback}
+                    disabled={callbackSending || !phone.trim()}
+                    style={{
+                      padding: '8px 14px',
+                      fontSize: 13,
+                      fontWeight: 500,
+                      color: 'var(--paper)',
+                      background:
+                        callbackSending || !phone.trim()
+                          ? 'var(--border)'
+                          : 'var(--ember)',
+                      border: 'none',
+                      borderRadius: 6,
+                      cursor:
+                        callbackSending || !phone.trim()
+                          ? 'not-allowed'
+                          : 'pointer',
+                    }}
+                  >
+                    {callbackSending
+                      ? isTR
+                        ? 'Gönderiliyor…'
+                        : 'Sending…'
+                      : isTR
+                      ? 'Beni ara'
+                      : 'Call me'}
+                  </button>
+                </div>
+                {callbackError && (
+                  <div
+                    style={{
+                      marginTop: 6,
+                      fontSize: 12,
+                      color: 'var(--ember)',
+                    }}
+                  >
+                    {callbackError}
+                  </div>
+                )}
+                <div
+                  style={{
+                    marginTop: 8,
+                    fontSize: 10,
+                    color: 'var(--fg-muted)',
+                    fontFamily: 'var(--font-mono)',
+                    letterSpacing: '0.04em',
+                  }}
+                >
+                  {isTR ? (
+                    <>
+                      Ya da{' '}
+                      <a
+                        href={CALENDAR_URL}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{ color: 'var(--ember)' }}
+                      >
+                        takvimden randevu al →
+                      </a>
+                    </>
+                  ) : (
+                    <>
+                      Or{' '}
+                      <a
+                        href={CALENDAR_URL}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        style={{ color: 'var(--ember)' }}
+                      >
+                        book on the calendar →
+                      </a>
+                    </>
+                  )}
+                </div>
+              </div>
+            )}
+
+            {callbackDone && (
+              <div
+                style={{
+                  padding: '12px 16px',
+                  fontSize: 13,
+                  color: 'var(--ink)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 8,
+                }}
+              >
+                <span
+                  style={{
+                    width: 18,
+                    height: 18,
+                    borderRadius: '50%',
+                    background: 'var(--ember)',
+                    color: 'var(--paper)',
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    fontSize: 11,
+                    flexShrink: 0,
+                  }}
+                >
+                  ✓
+                </span>
+                <span style={{ flex: 1 }}>
+                  {isTR
+                    ? 'Numaranız alındı. Asistanımız birazdan arayacak.'
+                    : 'Got your number. Our assistant is calling shortly.'}
+                </span>
+              </div>
+            )}
           </div>
 
           {/* Input */}
