@@ -502,12 +502,12 @@ const FAQS: Array<{ q: { tr: string; en: string }; a: { tr: string; en: string }
   },
   {
     q: {
-      tr: 'Londra ve İstanbul dışında hizmet veriyor musunuz?',
-      en: 'Do you serve cities beyond London and Istanbul?',
+      tr: 'Hangi bölgelere hizmet veriyorsunuz?',
+      en: 'Which regions do you serve?',
     },
     a: {
-      tr: 'Evet. Merkez Londra (Enfield), satış operasyonu İstanbul — ama tüm Türkiye ve Birleşik Krallık\'ta uzaktan hizmet veriyoruz. Tüm akışlar bulut tabanlı, yerinde kurulum gerekmiyor.',
-      en: 'Yes. HQ in London (Enfield), sales operations in Istanbul — but we serve all of Turkey and the UK remotely. Every workflow is cloud-based; no on-site installation required.',
+      tr: 'Merkezimiz Londra (Enfield) — tüm Türkiye ve Birleşik Krallık\'a uzaktan hizmet veriyoruz. Tüm akışlar bulut tabanlı, yerinde kurulum gerekmiyor; görüşmeler Zoom/Meet üzerinden yürür.',
+      en: 'HQ in London (Enfield) — we serve all of the UK and Turkey remotely. Every workflow is cloud-based, no on-site installation required; meetings run over Zoom/Meet.',
     },
   },
 ];
@@ -776,8 +776,8 @@ export default function Solutions() {
     : 'Sektörel Çözümler: WhatsApp, Sesli Asistan ve Otomasyon Akışları | MGL Digital Media';
 
   const description = isEnglish
-    ? 'Sector-specific WhatsApp bots, voice assistants and n8n workflows for dental clinics, real estate, beauty salons, restaurants and local service businesses. London + Istanbul based.'
-    : 'Diş klinikleri, emlak, güzellik salonları, restoranlar ve lokal hizmet işletmeleri için hazır WhatsApp botları, sesli asistanlar ve n8n otomasyon akışları. Londra + İstanbul.';
+    ? 'Sector-specific WhatsApp bots, voice assistants and n8n workflows for dental clinics, real estate, beauty salons, restaurants and local service businesses. London HQ, serving UK & Turkey remotely.'
+    : 'Diş klinikleri, emlak, güzellik salonları, restoranlar ve lokal hizmet işletmeleri için hazır WhatsApp botları, sesli asistanlar ve n8n otomasyon akışları. Londra merkezli, UK ve Türkiye\'ye uzaktan hizmet.';
 
   const jsonLd = [
     ...BASE_SCHEMAS,

@@ -55,8 +55,8 @@ export function SiteFooter({ onNavigate }: Props) {
   const legalHeading = language === 'tr' ? 'Hukuki' : 'Legal';
   const companyDesc =
     language === 'tr'
-      ? 'AI agent, otomasyon ve dönüşüm odaklı web — KOBİ’ler için. Londra merkezli, İstanbul bağlantılı.'
-      : 'AI agents, automation, and conversion-first web — for SMBs. London HQ, Istanbul roots.';
+      ? 'AI agent, otomasyon ve dönüşüm odaklı web — KOBİ’ler için. Londra merkezli, Türkiye ve Birleşik Krallık\'ta uzaktan hizmet.'
+      : 'AI agents, automation, and conversion-first web — for SMBs. London HQ, serving the UK & Turkey remotely.';
 
   return (
     <footer
@@ -121,7 +121,7 @@ export function SiteFooter({ onNavigate }: Props) {
               }}
             >
               <span>MGL Digital Media LTD</span>
-              <span>London · Istanbul</span>
+              <span>London, United Kingdom</span>
             </div>
           </div>
 
@@ -241,6 +241,23 @@ export function SiteFooter({ onNavigate }: Props) {
             {legalHeading} · KVKK · GDPR
           </button>
         </div>
+
+        <p
+          style={{
+            marginTop: 12,
+            marginBottom: 0,
+            fontFamily: 'var(--font-mono)',
+            fontSize: 10,
+            letterSpacing: '0.08em',
+            color: 'var(--bone-3)',
+            opacity: 0.7,
+            lineHeight: 1.6,
+          }}
+        >
+          {language === 'tr'
+            ? 'Company No 16007414 · Registered in England & Wales · Registered Office: 112 Bertram Road, Enfield EN1 1LS, United Kingdom.'
+            : 'Company No 16007414 · Registered in England & Wales · Registered Office: 112 Bertram Road, Enfield EN1 1LS, United Kingdom.'}
+        </p>
       </div>
 
       <style>{`

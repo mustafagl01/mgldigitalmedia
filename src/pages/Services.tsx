@@ -328,7 +328,7 @@ const SERVICES: ServiceSku[] = [
         'GA4 + platform verileri (WhatsApp, Meta, Google)',
         'Önceki ay karşılaştırma + 3 ana insight',
         'Kapsamlı tier: aylık 30dk strateji toplantısı',
-        'Mevcut müşterilere özel (upsell)',
+        'Mevcut partnerlere özel tamamlayıcı servis',
       ],
       en: [
         'GA4 + platform data (WhatsApp, Meta, Google)',
@@ -561,7 +561,7 @@ export default function Services() {
         keywords={
           isEnglish
             ? ['WhatsApp bot', 'AI voice assistant', 'n8n automation', 'web design', 'SEO', 'Meta Ads', 'Google Ads', 'CRM setup', 'digital agency London', 'Turkey']
-            : ['WhatsApp botu', 'sesli asistan', 'n8n otomasyon', 'web tasarım', 'SEO', 'Meta reklam', 'Google reklam', 'CRM kurulumu', 'dijital ajans İstanbul', 'Londra']
+            : ['WhatsApp botu', 'sesli asistan', 'n8n otomasyon', 'web tasarım', 'SEO', 'Meta reklam', 'Google reklam', 'CRM kurulumu', 'dijital ajans Londra', 'Türkiye']
         }
         jsonLd={[...BASE_SCHEMAS, breadcrumb, ...servicesJsonLd]}
       />
@@ -775,7 +775,7 @@ export default function Services() {
                 {isEnglish ? 'Book on WhatsApp' : 'WhatsApp’ta randevu'}
               </a>
               <p style={{ marginTop: 12, fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--fg-3)', letterSpacing: '0.08em' }}>
-                {isEnglish ? 'London / Istanbul · Mon–Sat, 09:00–20:00' : 'Londra / İstanbul · Pzt–Cmt, 09:00–20:00'}
+                {isEnglish ? 'London HQ · Mon–Sat, 09:00–20:00' : 'Londra merkezli · Pzt–Cmt, 09:00–20:00'}
               </p>
             </div>
           </div>

@@ -50,7 +50,7 @@ export function HeroV2({ onAnalysisClick, onDemoClick }: Props) {
           className="animate-fade-in"
         >
           <span className="eyebrow">
-            {language === 'tr' ? 'AI AJANS · İSTANBUL / LONDRA' : 'AI AGENCY · ISTANBUL / LONDON'}
+            {language === 'tr' ? 'LONDRA MERKEZLİ · AI & OTOMASYON AJANSI' : 'LONDON-BASED · AI & AUTOMATION AGENCY'}
           </span>
           <span
             style={{
