@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="tr">
+<head>
+<meta charset="utf-8" />
+<title>MGL AI — Logo Export</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;1,9..144,500&family=Geist:wght@400;500&family=Geist+Mono:wght@500&display=swap" rel="stylesheet" />
+<style>
+  :root { --paper:#F5F1EA; --ink:#0E0E0C; --ember:#BC3B15; --coal:#161410; }
+  * { box-sizing: border-box; }
+  body { margin:0; background:#EDE8DE; font-family:'Geist', system-ui, sans-serif; color:var(--ink); padding:48px 24px; }
+  h1 { font-family:'Fraunces', serif; font-weight:600; font-size:28px; letter-spacing:-0.02em; margin:0 0 8px; }
+  p { font-size:14px; color:#555; margin:0 0 32px; max-width:640px; line-height:1.6; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); gap:24px; max-width:1200px; }
+  .card { background:#fff; border:1px solid #ddd; border-radius:12px; padding:20px; display:flex; flex-direction:column; gap:12px; }
+  .card h3 { margin:0; font-size:13px; font-family:'Geist Mono', monospace; letter-spacing:0.12em; text-transform:uppercase; color:#666; }
+  .preview { width:100%; aspect-ratio:1/1; border-radius:8px; overflow:hidden; display:flex; align-items:center; justify-content:center; }
+  .preview.paper { background:var(--paper); }
+  .preview.coal  { background:var(--coal); }
+  .preview.transparent {
+    background-image:
+      linear-gradient(45deg, #ccc 25%, transparent 25%),
+      linear-gradient(-45deg, #ccc 25%, transparent 25%),
+      linear-gradient(45deg, transparent 75%, #ccc 75%),
+      linear-gradient(-45deg, transparent 75%, #ccc 75%);
+    background-size: 16px 16px;
+    background-position: 0 0, 0 8px, 8px -8px, -8px 0;
+  }
+  .wordmark { font-family:'Fraunces', serif; font-weight:600; letter-spacing:-0.02em; line-height:1; display:inline-flex; align-items:baseline; gap:8px; }
+  .wordmark .ai { color:var(--ember); font-style:italic; font-weight:500; }
+  .wordmark.dark { color:var(--paper); }
+  .wordmark.light { color:var(--ink); }
+  .tag { font-family:'Geist Mono', monospace; font-size:0.11em; color:rgba(14,14,12,0.5); letter-spacing:0.14em; font-weight:500; margin-left:0.2em; }
+  .wordmark.dark .tag { color:rgba(245,241,234,0.5); }
+  button { background:var(--ink); color:var(--paper); border:0; padding:10px 14px; border-radius:8px; font-family:'Geist', sans-serif; font-size:13px; font-weight:500; cursor:pointer; }
+  button:hover { background:var(--ember); }
+  .row { display:flex; gap:8px; flex-wrap:wrap; }
+  small { color:#888; font-size:11px; }
+</style>
+</head>
+<body>
+<h1>mgl<span style="color:#BC3B15;font-style:italic;font-weight:500;">ai</span> / Logo Export</h1>
+<p>Tarayıcıda açtın. Her kart için <b>PNG 1080</b> veya <b>PNG 2160</b> butonuna tıkla — Instagram profil fotoğrafı için 1080×1080 yeterli, baskı kalitesi için 2160×2160 daha güvenli.</p>
+
+<div class="grid">
+
+  <div class="card">
+    <h3>Krem Arka Plan (varsayılan)</h3>
+    <div class="preview paper"><div class="wordmark light" style="font-size:min(36vw,200px);">mgl<span class="ai">ai</span></div></div>
+    <div class="row">
+      <button data-variant="paper" data-size="1080">PNG 1080</button>
+      <button data-variant="paper" data-size="2160">PNG 2160</button>
+      <button data-variant="paper" data-size="svg">SVG</button>
+    </div>
+    <small>Profil fotoğrafı için önerilen — site ile aynı krem ton.</small>
+  </div>
+
+  <div class="card">
+    <h3>Siyah Arka Plan</h3>
+    <div class="preview coal"><div class="wordmark dark" style="font-size:min(36vw,200px);">mgl<span class="ai">ai</span></div></div>
+    <div class="row">
+      <button data-variant="coal" data-size="1080">PNG 1080</button>
+      <button data-variant="coal" data-size="2160">PNG 2160</button>
+      <button data-variant="coal" data-size="svg">SVG</button>
+    </div>
+    <small>Karanlık temalı IG profili veya story için.</small>
+  </div>
+
+  <div class="card">
+    <h3>Şeffaf Arka Plan</h3>
+    <div class="preview transparent"><div class="wordmark light" style="font-size:min(36vw,200px);">mgl<span class="ai">ai</span></div></div>
+    <div class="row">
+      <button data-variant="transparent" data-size="1080">PNG 1080</button>
+      <button data-variant="transparent" data-size="2160">PNG 2160</button>
+      <button data-variant="transparent" data-size="svg">SVG</button>
+    </div>
+    <small>Başka bir arka plana overlay yapmak için.</small>
+  </div>
+
+  <div class="card">
+    <h3>Tam Kilit (/ SYSTEMS ile)</h3>
+    <div class="preview paper" style="flex-direction:column; gap:12px;">
+      <div class="wordmark light" style="font-size:min(32vw,180px);">mgl<span class="ai">ai</span></div>
+      <div style="font-family:'Geist Mono',monospace;font-size:min(3vw,14px);letter-spacing:0.14em;color:rgba(14,14,12,0.45);font-weight:500;">/ SYSTEMS</div>
+    </div>
+    <div class="row">
+      <button data-variant="full" data-size="1080">PNG 1080</button>
+      <button data-variant="full" data-size="2160">PNG 2160</button>
+      <button data-variant="full" data-size="svg">SVG</button>
+    </div>
+    <small>Kartvizit, LinkedIn banner, sunum kapağı için.</small>
+  </div>
+
+</div>
+
+<script>
+const svgSources = {
+  paper: `public/mgl-ai-paper.svg`,
+  coal: `public/mgl-ai-coal.svg`,
+  transparent: `public/mgl-ai-transparent.svg`,
+  full: `public/mgl-ai-full.svg`,
+};
+
+// Inline SVG strings so this works even opened directly via file://
+const svgInline = {
+  paper: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080" width="1080" height="1080"><defs><style>@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;1,9..144,500&amp;display=swap');.mgl{font-family:'Fraunces',Georgia,serif;font-weight:600;fill:#0E0E0C;letter-spacing:-0.02em}.ai{font-family:'Fraunces',Georgia,serif;font-weight:500;font-style:italic;fill:#BC3B15;letter-spacing:-0.02em}</style></defs><rect width="1080" height="1080" fill="#F5F1EA"/><g font-size="360" text-anchor="middle"><text x="540" y="620"><tspan class="mgl">mgl</tspan><tspan class="ai" dx="30">ai</tspan></text></g></svg>`,
+  coal: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080" width="1080" height="1080"><defs><style>@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;1,9..144,500&amp;display=swap');.mgl{font-family:'Fraunces',Georgia,serif;font-weight:600;fill:#F5F1EA;letter-spacing:-0.02em}.ai{font-family:'Fraunces',Georgia,serif;font-weight:500;font-style:italic;fill:#BC3B15;letter-spacing:-0.02em}</style></defs><rect width="1080" height="1080" fill="#161410"/><g font-size="360" text-anchor="middle"><text x="540" y="620"><tspan class="mgl">mgl</tspan><tspan class="ai" dx="30">ai</tspan></text></g></svg>`,
+  transparent: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080" width="1080" height="1080"><defs><style>@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;1,9..144,500&amp;display=swap');.mgl{font-family:'Fraunces',Georgia,serif;font-weight:600;fill:#0E0E0C;letter-spacing:-0.02em}.ai{font-family:'Fraunces',Georgia,serif;font-weight:500;font-style:italic;fill:#BC3B15;letter-spacing:-0.02em}</style></defs><g font-size="360" text-anchor="middle"><text x="540" y="620"><tspan class="mgl">mgl</tspan><tspan class="ai" dx="30">ai</tspan></text></g></svg>`,
+  full: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080" width="1080" height="1080"><defs><style>@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;1,9..144,500&amp;family=Geist+Mono:wght@500&amp;display=swap');.mgl{font-family:'Fraunces',Georgia,serif;font-weight:600;fill:#0E0E0C;letter-spacing:-0.02em}.ai{font-family:'Fraunces',Georgia,serif;font-weight:500;font-style:italic;fill:#BC3B15;letter-spacing:-0.02em}.tag{font-family:'Geist Mono','Courier New',monospace;font-weight:500;fill:#0E0E0C;fill-opacity:0.45;letter-spacing:0.14em}</style></defs><rect width="1080" height="1080" fill="#F5F1EA"/><g text-anchor="middle"><text x="540" y="580" font-size="320"><tspan class="mgl">mgl</tspan><tspan class="ai" dx="26">ai</tspan></text><text x="540" y="700" font-size="48" class="tag">/ SYSTEMS</text></g></svg>`,
+};
+
+function download(name, href) {
+  const a = document.createElement('a');
+  a.href = href; a.download = name;
+  document.body.appendChild(a); a.click(); a.remove();
+}
+
+async function exportPNG(variant, size) {
+  const svgString = svgInline[variant];
+  const blob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const img = new Image();
+  img.crossOrigin = 'anonymous';
+  await new Promise((resolve, reject) => { img.onload = resolve; img.onerror = reject; img.src = url; });
+  const canvas = document.createElement('canvas');
+  canvas.width = size; canvas.height = size;
+  const ctx = canvas.getContext('2d');
+  ctx.drawImage(img, 0, 0, size, size);
+  canvas.toBlob((pngBlob) => {
+    const pngUrl = URL.createObjectURL(pngBlob);
+    download(`mgl-ai-${variant}-${size}.png`, pngUrl);
+    setTimeout(() => URL.revokeObjectURL(pngUrl), 1000);
+    URL.revokeObjectURL(url);
+  }, 'image/png');
+}
+
+function exportSVG(variant) {
+  const svgString = svgInline[variant];
+  const blob = new Blob([svgString], { type: 'image/svg+xml;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  download(`mgl-ai-${variant}.svg`, url);
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+document.querySelectorAll('button[data-variant]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const v = btn.dataset.variant, s = btn.dataset.size;
+    if (s === 'svg') exportSVG(v);
+    else exportPNG(v, parseInt(s, 10));
+  });
+});
+</script>
+</body>
+</html>

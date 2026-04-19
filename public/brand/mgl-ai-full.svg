@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1080 1080" width="1080" height="1080">
+  <defs>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,600;1,9..144,500&amp;family=Geist+Mono:wght@500&amp;display=swap');
+      .mgl { font-family: 'Fraunces', Georgia, serif; font-weight: 600; fill: #0E0E0C; letter-spacing: -0.02em; }
+      .ai  { font-family: 'Fraunces', Georgia, serif; font-weight: 500; font-style: italic; fill: #BC3B15; letter-spacing: -0.02em; }
+      .tag { font-family: 'Geist Mono', 'Courier New', monospace; font-weight: 500; fill: #0E0E0C; fill-opacity: 0.45; letter-spacing: 0.14em; }
+    </style>
+  </defs>
+  <rect width="1080" height="1080" fill="#F5F1EA"/>
+  <g text-anchor="middle">
+    <text x="540" y="580" font-size="320">
+      <tspan class="mgl">mgl</tspan><tspan class="ai" dx="26">ai</tspan>
+    </text>
+    <text x="540" y="700" font-size="48" class="tag">/ SYSTEMS</text>
+  </g>
+</svg>

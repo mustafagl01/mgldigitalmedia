@@ -22,6 +22,7 @@ import Pricing from './pages/Pricing';
 import Packages from './pages/Packages';
 import Services from './pages/Services';
 import Solutions from './pages/Solutions';
+import SolutionDetail from './pages/SolutionDetail';
 import Legal from './pages/Legal';
 import NotFound from './pages/NotFound';
 
@@ -53,10 +54,19 @@ type AppPage =
   | 'packages'
   | 'services'
   | 'solutions'
+  | 'solution-klinik'
+  | 'solution-emlak'
+  | 'solution-eticaret'
   | 'legal'
   | 'notfound';
 
 type SitePage = 'home' | 'services' | 'solutions' | 'packages' | 'pricing' | 'legal';
+
+const NESTED_PATHS: Partial<Record<AppPage, string>> = {
+  'solution-klinik': '/solutions/klinik',
+  'solution-emlak': '/solutions/emlak',
+  'solution-eticaret': '/solutions/eticaret',
+};
 
 const KNOWN_PATHS = new Set([
   '/',
@@ -67,20 +77,27 @@ const KNOWN_PATHS = new Set([
   '/packages',
   '/services',
   '/solutions',
+  '/solutions/klinik',
+  '/solutions/emlak',
+  '/solutions/eticaret',
   '/legal',
 ]);
 
 function pathToPage(path: string): AppPage {
-  if (path === '/' || path === '') return 'home';
-  if (path === '/products') return 'products';
-  if (path === '/success') return 'success';
-  if (path === '/cancel') return 'cancel';
-  if (path === '/pricing') return 'pricing';
-  if (path === '/packages') return 'packages';
-  if (path === '/services') return 'services';
-  if (path === '/solutions') return 'solutions';
-  if (path === '/legal') return 'legal';
-  return KNOWN_PATHS.has(path) ? 'home' : 'notfound';
+  const clean = path.replace(/\/$/, '') || '/';
+  if (clean === '/' || clean === '') return 'home';
+  if (clean === '/products') return 'products';
+  if (clean === '/success') return 'success';
+  if (clean === '/cancel') return 'cancel';
+  if (clean === '/pricing') return 'pricing';
+  if (clean === '/packages') return 'packages';
+  if (clean === '/services') return 'services';
+  if (clean === '/solutions') return 'solutions';
+  if (clean === '/solutions/klinik') return 'solution-klinik';
+  if (clean === '/solutions/emlak') return 'solution-emlak';
+  if (clean === '/solutions/eticaret') return 'solution-eticaret';
+  if (clean === '/legal') return 'legal';
+  return KNOWN_PATHS.has(clean) ? 'home' : 'notfound';
 }
 
 function AppContent() {
@@ -101,7 +118,7 @@ function AppContent() {
 
   const navigateTo = (page: AppPage, hash?: string) => {
     setCurrentPage(page);
-    const basePath = page === 'home' ? '/' : `/${page}`;
+    const basePath = page === 'home' ? '/' : (NESTED_PATHS[page] ?? `/${page}`);
     const path = hash ? `${basePath}#${hash}` : basePath;
     window.history.pushState({}, '', path);
     // Notify hash-aware listeners (pushState doesn't fire hashchange/popstate natively)
@@ -122,12 +139,16 @@ function AppContent() {
     return <CancelPage onBack={() => navigateTo('home')} onRetry={() => navigateTo('products')} />;
 
   // Content pages — wrap in site shell (header/footer)
+  const headerPage: SitePage = currentPage.startsWith('solution')
+    ? 'solutions'
+    : ((currentPage as SitePage) ?? 'home');
+
   const wrapPage = (node: React.ReactNode) => (
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', background: 'var(--paper)' }}>
       <ScrollProgress />
       <AnnouncementBar onClaim={openAnalysis} />
       <SiteHeader
-        currentPage={(currentPage as SitePage) ?? 'home'}
+        currentPage={headerPage}
         onNavigate={navigateSite}
         onAnalysisClick={openAnalysis}
       />
@@ -140,7 +161,10 @@ function AppContent() {
   if (currentPage === 'pricing') return wrapPage(<Pricing />);
   if (currentPage === 'packages') return wrapPage(<Packages />);
   if (currentPage === 'services') return wrapPage(<Services />);
-  if (currentPage === 'solutions') return wrapPage(<Solutions />);
+  if (currentPage === 'solutions') return wrapPage(<Solutions onNavigate={navigateTo} />);
+  if (currentPage === 'solution-klinik') return wrapPage(<SolutionDetail sectorKey="klinik" />);
+  if (currentPage === 'solution-emlak') return wrapPage(<SolutionDetail sectorKey="emlak" />);
+  if (currentPage === 'solution-eticaret') return wrapPage(<SolutionDetail sectorKey="eticaret" />);
   if (currentPage === 'legal') return wrapPage(<Legal />);
   if (currentPage === 'notfound') return wrapPage(<NotFound onHome={() => navigateTo('home')} />);
 

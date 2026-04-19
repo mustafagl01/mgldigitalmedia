@@ -46,7 +46,7 @@ export function Seo({
       )}
 
       <meta property="og:type" content="website" />
-      <meta property="og:site_name" content="MGL Digital Media" />
+      <meta property="og:site_name" content="MGL AI" />
       <meta property="og:locale" content={locale} />
       <meta property="og:locale:alternate" content={locale === 'tr_TR' ? 'en_GB' : 'tr_TR'} />
       <meta property="og:url" content={url} />
@@ -76,19 +76,45 @@ export function Seo({
   );
 }
 
+export const PERSON_SCHEMA = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  '@id': `${SITE_URL}/#founder`,
+  name: 'Mustafa Gül',
+  givenName: 'Mustafa',
+  familyName: 'Gül',
+  jobTitle: 'Founder & AI Automation Architect',
+  worksFor: { '@id': `${SITE_URL}/#organization` },
+  knowsAbout: [
+    'AI Voice Agents',
+    'WhatsApp Business API',
+    'n8n Automation',
+    'Conversion Rate Optimization',
+    'Meta Ads',
+    'Google Ads',
+    'Technical SEO',
+    'Generative Engine Optimization',
+  ],
+  sameAs: [
+    'https://www.instagram.com/mgl_digital_media/',
+  ],
+};
+
 export const ORGANIZATION_SCHEMA = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
   '@id': `${SITE_URL}/#organization`,
   name: 'MGL Digital Media',
+  alternateName: ['MGL AI', 'MGL'],
   legalName: 'MGL DIGITAL MEDIA LTD',
   url: SITE_URL,
   logo: `${SITE_URL}${DEFAULT_OG}`,
   image: `${SITE_URL}${DEFAULT_OG}`,
   description:
-    'AI automation agency building WhatsApp assistants, voice bots, n8n workflows, websites, and performance marketing for SMEs in Turkey and the UK.',
+    'London-headquartered AI & automation studio for businesses and brands. MGL Digital Media builds production-grade WhatsApp AI assistants, voice agents, n8n automation workflows, conversion-first websites, and performance advertising operations — serving clients remotely across Turkey and the United Kingdom. Transparent fixed pricing per tier, no price ranges.',
   foundingDate: '2024',
-  founders: [{ '@type': 'Person', name: 'Mustafa Gül' }],
+  founder: { '@id': `${SITE_URL}/#founder` },
+  founders: [{ '@id': `${SITE_URL}/#founder` }],
   address: {
     '@type': 'PostalAddress',
     streetAddress: '112 Bertram Road',
@@ -102,14 +128,48 @@ export const ORGANIZATION_SCHEMA = {
     { '@type': 'Country', name: 'United Kingdom' },
   ],
   identifier: 'Company Number 16007414',
-  contactPoint: {
-    '@type': 'ContactPoint',
-    telephone: '+90 531 829 97 01',
-    contactType: 'sales',
-    availableLanguage: ['tr', 'en'],
-    areaServed: ['TR', 'GB'],
-  },
-  sameAs: ['https://www.instagram.com/mgl_digital_media/'],
+  contactPoint: [
+    {
+      '@type': 'ContactPoint',
+      telephone: '+90 531 829 97 01',
+      contactType: 'sales',
+      availableLanguage: ['tr', 'en'],
+      areaServed: ['TR', 'GB'],
+    },
+    {
+      '@type': 'ContactPoint',
+      telephone: '+44 7414 605612',
+      contactType: 'customer support',
+      availableLanguage: ['en'],
+      areaServed: ['GB'],
+      description: 'AI voice agent demo line',
+    },
+    {
+      '@type': 'ContactPoint',
+      email: 'info@mgldigitalmedia.com',
+      contactType: 'customer support',
+      availableLanguage: ['tr', 'en'],
+    },
+  ],
+  knowsAbout: [
+    'AI Voice Agents',
+    'WhatsApp AI Assistants',
+    'n8n Automation Workflows',
+    'Conversion-First Web Design',
+    'Meta Advertising',
+    'Google Advertising',
+    'Technical SEO',
+    'CRM Integration',
+    'AI Content Generation',
+    'Call Deflection',
+    'Appointment Automation',
+    'Lead Qualification',
+  ],
+  slogan: 'Biz ajans değil, otopilot sistem kurarız.',
+  sameAs: [
+    'https://www.instagram.com/mgl_digital_media/',
+    'https://find-and-update.company-information.service.gov.uk/company/16007414',
+  ],
 };
 
 export const WEBSITE_SCHEMA = {
@@ -167,7 +227,7 @@ export const LOCAL_BUSINESS_SCHEMA = {
   ],
 };
 
-export const BASE_SCHEMAS = [ORGANIZATION_SCHEMA, WEBSITE_SCHEMA, LOCAL_BUSINESS_SCHEMA];
+export const BASE_SCHEMAS = [ORGANIZATION_SCHEMA, PERSON_SCHEMA, WEBSITE_SCHEMA, LOCAL_BUSINESS_SCHEMA];
 
 export function breadcrumbSchema(items: Array<{ name: string; path: string }>) {
   return {
@@ -222,5 +282,93 @@ export function serviceSchema(params: {
         ...(o.priceFrom && { priceSpecification: { '@type': 'PriceSpecification', minPrice: o.price, priceCurrency: o.priceCurrency } }),
       })),
     }),
+  };
+}
+
+export function aboutPageSchema(params: {
+  path: string;
+  headline: string;
+  summary: string;
+  inLanguage?: 'tr-TR' | 'en-GB';
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'AboutPage',
+    url: `${SITE_URL}${params.path}`,
+    name: params.headline,
+    description: params.summary,
+    inLanguage: params.inLanguage ?? 'tr-TR',
+    about: { '@id': `${SITE_URL}/#organization` },
+    mainEntity: { '@id': `${SITE_URL}/#organization` },
+  };
+}
+
+export function howToSchema(params: {
+  name: string;
+  description: string;
+  path: string;
+  totalTime?: string;
+  steps: Array<{ name: string; text: string }>;
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name: params.name,
+    description: params.description,
+    url: `${SITE_URL}${params.path}`,
+    ...(params.totalTime && { totalTime: params.totalTime }),
+    step: params.steps.map((s, i) => ({
+      '@type': 'HowToStep',
+      position: i + 1,
+      name: s.name,
+      text: s.text,
+    })),
+  };
+}
+
+export function webPageSchema(params: {
+  path: string;
+  title: string;
+  description: string;
+  inLanguage?: 'tr-TR' | 'en-GB';
+  primaryTopic?: string;
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'WebPage',
+    '@id': `${SITE_URL}${params.path}#webpage`,
+    url: `${SITE_URL}${params.path}`,
+    name: params.title,
+    description: params.description,
+    inLanguage: params.inLanguage ?? 'tr-TR',
+    isPartOf: { '@id': `${SITE_URL}/#website` },
+    publisher: { '@id': `${SITE_URL}/#organization` },
+    ...(params.primaryTopic && { about: { '@type': 'Thing', name: params.primaryTopic } }),
+  };
+}
+
+export function solutionSchema(params: {
+  name: string;
+  sector: string;
+  problem: string;
+  solution: string;
+  path: string;
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: params.name,
+    serviceType: `AI Automation for ${params.sector}`,
+    description: `${params.problem} ${params.solution}`,
+    provider: { '@id': `${SITE_URL}/#organization` },
+    url: `${SITE_URL}${params.path}`,
+    areaServed: [
+      { '@type': 'Country', name: 'Turkey' },
+      { '@type': 'Country', name: 'United Kingdom' },
+    ],
+    audience: {
+      '@type': 'BusinessAudience',
+      audienceType: params.sector,
+    },
   };
 }

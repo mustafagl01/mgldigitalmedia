@@ -1,11 +1,13 @@
 import { useMemo, useState } from 'react';
 import {
   AlertTriangle,
+  ArrowRight,
   Check,
   ChevronDown,
   Home as HomeIcon,
   MessageCircle,
   Scissors,
+  ShoppingBag,
   Stethoscope,
   Target,
   UtensilsCrossed,
@@ -14,7 +16,8 @@ import {
 import { useLanguage } from '../contexts/LanguageContext';
 import { Seo, BASE_SCHEMAS, breadcrumbSchema, faqSchema } from '../components/seo/Seo';
 
-type SectorKey = 'dental' | 'realestate' | 'beauty' | 'restaurant' | 'local';
+type SectorKey = 'dental' | 'realestate' | 'ecommerce' | 'beauty' | 'restaurant' | 'local';
+type DeepPage = 'solution-klinik' | 'solution-emlak' | 'solution-eticaret';
 
 type PainPoint = {
   id: string;
@@ -31,6 +34,7 @@ type Sector = {
   intro: { tr: string; en: string };
   points: PainPoint[];
   extraFlows: { tr: string[]; en: string[] };
+  deepPage?: DeepPage;
 };
 
 const WHATSAPP_NUMBER = '905318299701';
@@ -40,10 +44,11 @@ const SECTORS: Sector[] = [
   {
     key: 'dental',
     icon: Stethoscope,
-    name: { tr: 'Diş & Estetik Klinikleri', en: 'Dental & Aesthetic Clinics' },
+    deepPage: 'solution-klinik',
+    name: { tr: 'Klinik & Estetik', en: 'Clinic & Aesthetic' },
     intro: {
-      tr: 'Diş kliniklerinde ciro kaybının büyük kısmı tedavi masasında değil, cevaplanamayan WhatsApp mesajında ve gelmeyen hastada oluşuyor. Aşağıdaki üç akış bu sızıntıları kapatıyor.',
-      en: 'In dental clinics, revenue loss rarely happens at the chair — it happens in unanswered WhatsApp messages and no-shows. The three workflows below close those leaks.',
+      tr: 'Diş ve estetik kliniklerinde ciro kaybının büyük kısmı tedavi masasında değil, cevaplanamayan WhatsApp mesajında ve gelmeyen hastada oluşuyor. Aşağıdaki üç akış bu sızıntıları kapatıyor.',
+      en: 'In dental and aesthetic clinics, revenue loss rarely happens at the chair — it happens in unanswered WhatsApp messages and no-shows. The three workflows below close those leaks.',
     },
     points: [
       {
@@ -122,6 +127,7 @@ const SECTORS: Sector[] = [
   {
     key: 'realestate',
     icon: HomeIcon,
+    deepPage: 'solution-emlak',
     name: { tr: 'Emlak & Gayrimenkul', en: 'Real Estate' },
     intro: {
       tr: 'Emlakçı sunumdayken açılmayan telefon, deftere yazılıp unutulan kriterler, "konum atar mısın?" mesaj yığını — komisyonu yakan üç darboğaz. Aşağıdaki akışlar bunları tek tek kapatıyor.',
@@ -198,6 +204,89 @@ const SECTORS: Sector[] = [
         'Post-viewing "how was the property?" micro-survey',
         'Neighborhood pricing report (weekly)',
         'Multi-portal listing management from one dashboard',
+      ],
+    },
+  },
+  {
+    key: 'ecommerce',
+    icon: ShoppingBag,
+    deepPage: 'solution-eticaret',
+    name: { tr: 'E-ticaret', en: 'E-commerce' },
+    intro: {
+      tr: 'E-ticarette en pahalı kayıp boş sepet, yavaş destek ve verimsiz reklam. WhatsApp sepet kurtarma, AI destek botu ve Meta/Google ROAS yönetimi bu üç sızıntıyı tek sistemde kapatır.',
+      en: 'In e-commerce the most expensive leaks are abandoned carts, slow support, and inefficient ads. WhatsApp cart recovery, an AI support bot, and Meta/Google ROAS management close all three in one system.',
+    },
+    points: [
+      {
+        id: 'ec-cart',
+        problem: {
+          tr: 'Sepete ürün eklenir ama %70+ oranında ödeme yapılmadan çıkılır; kurtarma mesajı atılmaz.',
+          en: '70%+ of shoppers add to cart but leave before checkout; no recovery message goes out.',
+        },
+        solution: {
+          tr: 'WhatsApp sepet kurtarma zinciri: 30 dk sonra hatırlatma, 24 sa sonra kişisel indirim kodu, 72 sa sonra son fırsat mesajı.',
+          en: 'WhatsApp cart-recovery chain: 30-min reminder, 24-hour personal discount, 72-hour final-chance message.',
+        },
+        value: {
+          tr: 'Terkedilen sepetlerin bir kısmı ciroya döner; ortalama sepet değerine göre aylık 6-7 haneli kurtarma potansiyeli açılır.',
+          en: 'A share of abandoned carts returns to revenue; depending on basket size, monthly recovery opens into 6-7 figures.',
+        },
+        linkedSkus: [
+          { label: 'WhatsApp AI Bot', anchor: 'whatsapp-bot' },
+          { label: 'n8n Otomasyon', anchor: 'n8n-automation' },
+        ],
+      },
+      {
+        id: 'ec-support',
+        problem: {
+          tr: 'Müşteri destek 6+ saatten önce cevap veremez, müşteri rakipten satın alır.',
+          en: 'Support takes 6+ hours to reply; the customer buys from a competitor instead.',
+        },
+        solution: {
+          tr: 'WhatsApp AI destek botu: sipariş durumu, kargo takibi, iade süreci, SSS — saniyeler içinde yanıt; karmaşık sorun insana eskalasyon.',
+          en: 'WhatsApp AI support bot: order status, shipping, returns, FAQ — seconds to reply; complex cases escalate to a human.',
+        },
+        value: {
+          tr: 'Destek cevap süresi dakikalara düşer, müşteri memnuniyeti ve tekrar satış oranı artar.',
+          en: 'Response time drops to minutes; satisfaction and repeat-purchase rates climb.',
+        },
+        linkedSkus: [
+          { label: 'WhatsApp AI Bot', anchor: 'whatsapp-bot' },
+          { label: 'CRM Kurulumu', anchor: 'crm-setup' },
+        ],
+      },
+      {
+        id: 'ec-roas',
+        problem: {
+          tr: 'Meta ROAS 2.0 altında, bütçe verimsiz yanıyor; creative haftalarca değişmiyor.',
+          en: 'Meta ROAS below 2.0, budget burns; creatives go weeks without refresh.',
+        },
+        solution: {
+          tr: 'Haftalık creative rotasyonu, lookalike + retargeting segmentasyonu, UTM standardı ve Google Shopping feed yönetimi.',
+          en: 'Weekly creative rotation, lookalike + retargeting segmentation, UTM standard, and Google Shopping feed management.',
+        },
+        value: {
+          tr: 'ROAS trendi 3 ay içinde stabilleşir; reklam spend\'i başına gelir katsayısı ölçülebilir şekilde iyileşir.',
+          en: 'ROAS trend stabilizes in 3 months; revenue per ad-spend unit improves measurably.',
+        },
+        linkedSkus: [
+          { label: 'Meta Reklam', anchor: 'meta-ads' },
+          { label: 'Google Reklam', anchor: 'google-ads' },
+        ],
+      },
+    ],
+    extraFlows: {
+      tr: [
+        'Sipariş durumu ve kargo takibi WhatsApp bildirimi',
+        'Stok tükenen ürün için müşteriye otomatik "tekrar stokta" uyarısı',
+        'Değerlendirme (yorum) isteme akışı — teslimat sonrası 3 gün',
+        'İade/değişim self-servis WhatsApp akışı',
+      ],
+      en: [
+        'Order status and shipping notifications on WhatsApp',
+        'Auto "back in stock" alerts for sold-out items',
+        'Post-delivery review request flow (day 3)',
+        'Self-serve return/exchange WhatsApp flow',
       ],
     },
   },
@@ -516,7 +605,15 @@ function createWhatsAppLink(message: string) {
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
 }
 
-function SectorCard({ sector, isEnglish }: { sector: Sector; isEnglish: boolean }) {
+function SectorCard({
+  sector,
+  isEnglish,
+  onNavigate,
+}: {
+  sector: Sector;
+  isEnglish: boolean;
+  onNavigate?: (page: DeepPage) => void;
+}) {
   const Icon = sector.icon;
   const [flowsOpen, setFlowsOpen] = useState(false);
   const name = isEnglish ? sector.name.en : sector.name.tr;
@@ -714,15 +811,26 @@ function SectorCard({ sector, isEnglish }: { sector: Sector; isEnglish: boolean 
           />
         </button>
 
-        <a
-          href={createWhatsAppLink(waMessage)}
-          target="_blank"
-          rel="noreferrer"
-          className="btn btn-primary"
-        >
-          <MessageCircle size={14} />
-          {isEnglish ? 'Discuss this sector' : 'Bu sektörü konuşalım'}
-        </a>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+          {sector.deepPage && onNavigate && (
+            <button
+              onClick={() => onNavigate(sector.deepPage!)}
+              className="btn btn-primary"
+            >
+              {isEnglish ? 'See detail page' : 'Detay sayfası'}
+              <ArrowRight size={14} />
+            </button>
+          )}
+          <a
+            href={createWhatsAppLink(waMessage)}
+            target="_blank"
+            rel="noreferrer"
+            className={sector.deepPage && onNavigate ? 'btn btn-secondary' : 'btn btn-primary'}
+          >
+            <MessageCircle size={14} />
+            {isEnglish ? 'Discuss' : 'Konuşalım'}
+          </a>
+        </div>
       </div>
 
       {flowsOpen && (
@@ -761,7 +869,11 @@ function SectorCard({ sector, isEnglish }: { sector: Sector; isEnglish: boolean 
   );
 }
 
-export default function Solutions() {
+type SolutionsProps = {
+  onNavigate?: (page: DeepPage) => void;
+};
+
+export default function Solutions({ onNavigate }: SolutionsProps = {}) {
   const { language } = useLanguage();
   const isEnglish = language === 'en';
   const [activeKey, setActiveKey] = useState<SectorKey | 'all'>('all');
@@ -914,7 +1026,12 @@ export default function Solutions() {
       <section style={{ background: 'var(--paper)', padding: 'clamp(56px, 5vw + 16px, 96px) 0' }}>
         <div className="container" style={{ display: 'flex', flexDirection: 'column', gap: 96 }}>
           {visibleSectors.map((sector) => (
-            <SectorCard key={sector.key} sector={sector} isEnglish={isEnglish} />
+            <SectorCard
+              key={sector.key}
+              sector={sector}
+              isEnglish={isEnglish}
+              onNavigate={onNavigate}
+            />
           ))}
         </div>
       </section>
