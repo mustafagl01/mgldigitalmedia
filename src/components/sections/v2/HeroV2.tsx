@@ -36,7 +36,8 @@ export function HeroV2({ onAnalysisClick, onDemoClick }: Props) {
       {/* Animated sine-wave backdrop — ember, breathing, mouse-parallax */}
       <HeroBackdrop />
 
-      <div className="container" style={{ position: 'relative' }}>
+      <div className="container hero-grid" style={{ position: 'relative' }}>
+        <div>
         {/* Eyebrow row */}
         <div
           style={{
@@ -70,7 +71,7 @@ export function HeroV2({ onAnalysisClick, onDemoClick }: Props) {
         </div>
 
         {/* Headline */}
-        <div style={{ maxWidth: 1060 }} className="animate-fade-up">
+        <div className="animate-fade-up">
           <h1
             style={{
               fontFamily: 'var(--font-serif)',
@@ -164,6 +165,120 @@ export function HeroV2({ onAnalysisClick, onDemoClick }: Props) {
             </span>
           </div>
         </div>
+        </div>
+
+        {/* Right column — Editorial System Artifact (desktop ≥1024px only) */}
+        <aside
+          className="hero-artifact animate-fade-up"
+          style={{
+            position: 'relative',
+            fontFamily: 'var(--font-sans)',
+          }}
+        >
+          {/* Eyebrow */}
+          <div
+            style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: 11,
+              letterSpacing: '0.22em',
+              textTransform: 'uppercase',
+              color: 'var(--ember)',
+              paddingBottom: 10,
+              borderBottom: '1px solid rgba(188, 59, 21, 0.22)',
+              marginBottom: 28,
+            }}
+          >
+            {language === 'tr' ? 'SİSTEM KANITI' : 'SYSTEM PROOF'}
+          </div>
+
+          {/* WhatsApp-style bubble — brand-native palette, no WhatsApp green */}
+          <div
+            style={{
+              background: 'rgba(255, 255, 255, 0.55)',
+              border: '1px solid rgba(14, 14, 12, 0.08)',
+              borderLeft: '3px solid var(--ember)',
+              borderRadius: 14,
+              padding: '18px 20px',
+              marginBottom: 24,
+            }}
+          >
+            <div
+              style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: 11,
+                letterSpacing: '0.08em',
+                color: 'var(--fg-3)',
+                textTransform: 'uppercase',
+                marginBottom: 10,
+              }}
+            >
+              14:02 · {language === 'tr' ? 'Asistan' : 'Agent'}
+            </div>
+            <div
+              style={{
+                fontSize: 15,
+                lineHeight: 1.5,
+                color: 'var(--ink)',
+              }}
+            >
+              {language === 'tr'
+                ? 'Merhaba Ayşe Hanım, cuma 15:00 uygun. Onaylıyor musunuz?'
+                : 'Hi Alice, Friday 3 pm works. Shall I confirm?'}
+            </div>
+          </div>
+
+          {/* Trace lines */}
+          <div
+            style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: 12,
+              lineHeight: 1.9,
+              color: 'var(--fg-3)',
+              paddingLeft: 2,
+              marginBottom: 24,
+            }}
+          >
+            <div>
+              <span style={{ color: 'var(--ember)' }}>›</span> agent.n8n.webhook
+              <span style={{ opacity: 0.5 }}> → 14:02:08</span>
+            </div>
+            <div>
+              <span style={{ color: 'var(--ember)' }}>›</span> lead.sentiment
+              <span style={{ opacity: 0.5 }}> → ok</span>
+            </div>
+            <div>
+              <span style={{ color: 'var(--ember)' }}>›</span> message.delivered
+              <span style={{ opacity: 0.5 }}> → seen</span>
+            </div>
+          </div>
+
+          {/* Divider */}
+          <div
+            style={{
+              height: 1,
+              background: 'rgba(14, 14, 12, 0.1)',
+              marginBottom: 18,
+              maxWidth: 120,
+            }}
+          />
+
+          {/* Italic tagline */}
+          <p
+            style={{
+              fontFamily: 'var(--font-serif)',
+              fontStyle: 'italic',
+              fontSize: 18,
+              lineHeight: 1.45,
+              color: 'var(--fg-2)',
+              margin: 0,
+              fontWeight: 400,
+            }}
+          >
+            {language === 'tr'
+              ? 'Bu mesajı bir insan yazmadı. Sistem yazdı, onay sizde kaldı.'
+              : "A human didn't write this. The system did — the approval stayed with you."}
+          </p>
+        </aside>
       </div>
     </section>
   );

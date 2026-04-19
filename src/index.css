@@ -99,3 +99,22 @@
 .on-coal .hairline {
   border-top-color: var(--coal-3);
 }
+
+/* Hero 2-col grid — desktop only; mobile stays single column */
+.hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: clamp(48px, 5vw, 96px);
+  align-items: center;
+}
+.hero-grid .hero-artifact {
+  display: none;
+}
+@media (min-width: 1024px) {
+  .hero-grid {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 420px);
+  }
+  .hero-grid .hero-artifact {
+    display: block;
+  }
+}
