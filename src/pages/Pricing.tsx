@@ -735,7 +735,7 @@ export default function Pricing() {
           </div>
 
           <a
-            href="/packages"
+            href="/packages#agents"
             style={{
               marginTop: 24,
               display: 'block',
@@ -765,10 +765,82 @@ export default function Pricing() {
             </p>
           </a>
 
-          <a href="/packages" className="btn btn-primary btn-lg" style={{ marginTop: 24 }}>
-            {isTR ? 'Paketlere git' : 'See packages'}
+          <a href="/packages#agents" className="btn btn-primary btn-lg" style={{ marginTop: 24 }}>
+            {isTR ? 'Agent paketlerine git' : 'See agent packages'}
             <ArrowUpRight size={16} />
           </a>
+
+          {/* Category bridges */}
+          <div
+            style={{
+              marginTop: 48,
+              paddingTop: 32,
+              borderTop: '1px solid var(--border)',
+            }}
+          >
+            <p
+              style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: 11,
+                letterSpacing: '0.14em',
+                textTransform: 'uppercase',
+                color: 'var(--fg-3)',
+                fontWeight: 500,
+                margin: 0,
+              }}
+            >
+              {isTR ? 'FARKLI BİR İHTİYACINIZ MI VAR?' : 'DIFFERENT NEED?'}
+            </p>
+            <div
+              style={{
+                marginTop: 16,
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(240px, 1fr))',
+                gap: 12,
+              }}
+            >
+              <a
+                href="/packages#ads"
+                style={{
+                  padding: 20,
+                  background: 'var(--paper-2)',
+                  border: '1px solid var(--border)',
+                  borderLeft: '2px solid var(--ember)',
+                  borderRadius: 'var(--r-md)',
+                  textDecoration: 'none',
+                  color: 'var(--ink)',
+                  display: 'block',
+                }}
+              >
+                <p style={{ fontFamily: 'var(--font-serif)', fontSize: 16, fontWeight: 500, margin: 0, lineHeight: 1.3 }}>
+                  {isTR ? 'Reklam yapmak istiyorum →' : 'I want to run ads →'}
+                </p>
+                <p style={{ marginTop: 6, fontSize: 13, color: 'var(--fg-2)', lineHeight: 1.45 }}>
+                  {isTR ? 'Meta + Google + SEO paketleri.' : 'Meta + Google + SEO packages.'}
+                </p>
+              </a>
+              <a
+                href="/packages#web"
+                style={{
+                  padding: 20,
+                  background: 'var(--paper-2)',
+                  border: '1px solid var(--border)',
+                  borderLeft: '2px solid var(--ember)',
+                  borderRadius: 'var(--r-md)',
+                  textDecoration: 'none',
+                  color: 'var(--ink)',
+                  display: 'block',
+                }}
+              >
+                <p style={{ fontFamily: 'var(--font-serif)', fontSize: 16, fontWeight: 500, margin: 0, lineHeight: 1.3 }}>
+                  {isTR ? 'Yeni site istiyorum →' : 'I need a new website →'}
+                </p>
+                <p style={{ marginTop: 6, fontSize: 13, color: 'var(--fg-2)', lineHeight: 1.45 }}>
+                  {isTR ? 'Landing, kurumsal, dönüşüm platformu.' : 'Landing, corporate, conversion platform.'}
+                </p>
+              </a>
+            </div>
+          </div>
         </div>
       </section>
     </>

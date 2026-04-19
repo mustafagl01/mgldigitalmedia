@@ -2,12 +2,17 @@ import { ArrowUpRight } from 'lucide-react';
 import { useLanguage } from '../../../contexts/LanguageContext';
 
 interface Props {
+  onAdsClick: () => void;
+  onAgentsClick: () => void;
+  onWebClick: () => void;
   onServicesClick: () => void;
-  onPackagesClick: () => void;
 }
+
+type BucketKind = 'ads' | 'agents' | 'web';
 
 type Bucket = {
   num: string;
+  kind: BucketKind;
   title: string;
   body: string;
   lines: string[];
@@ -15,7 +20,7 @@ type Bucket = {
   highlight?: boolean;
 };
 
-export function ThreeBuckets({ onServicesClick, onPackagesClick }: Props) {
+export function ThreeBuckets({ onAdsClick, onAgentsClick, onWebClick, onServicesClick }: Props) {
   const { language } = useLanguage();
 
   const buckets: Bucket[] =
@@ -23,6 +28,7 @@ export function ThreeBuckets({ onServicesClick, onPackagesClick }: Props) {
       ? [
           {
             num: '01',
+            kind: 'ads',
             title: 'AI Reklam',
             body: 'Meta ve Google reklamlarınızı AI karar katmanıyla yönetiyoruz. Günlük optimizasyon, düzenli kreatif rotasyonu, şeffaf rapor.',
             lines: [
@@ -34,6 +40,7 @@ export function ThreeBuckets({ onServicesClick, onPackagesClick }: Props) {
           },
           {
             num: '02',
+            kind: 'agents',
             title: 'AI Agent & Otomasyon',
             body: 'WhatsApp, sesli asistan ve e-posta için 7/24 çalışan AI asistanlar. Randevu alır, satışa hazırlar, ekibinizi rutinden kurtarır.',
             lines: [
@@ -41,11 +48,12 @@ export function ThreeBuckets({ onServicesClick, onPackagesClick }: Props) {
               'CRM ve takvim entegrasyonu',
               '30+ dilde doğal konuşma',
             ],
-            cta: 'Agent kurulumu',
+            cta: 'Agent paketleri',
             highlight: true,
           },
           {
             num: '03',
+            kind: 'web',
             title: 'Dönüşüm Odaklı Web',
             body: 'Güzel görünen değil; satan, randevu aldıran, ölçülebilir siteler. Hızlı, SEO-hazır, reklamla tam uyumlu.',
             lines: [
@@ -53,12 +61,13 @@ export function ThreeBuckets({ onServicesClick, onPackagesClick }: Props) {
               'Dönüşüm testi dahil',
               'Bakım + barındırma',
             ],
-            cta: 'Web teklifleri',
+            cta: 'Web paketleri',
           },
         ]
       : [
           {
             num: '01',
+            kind: 'ads',
             title: 'AI Advertising',
             body: 'We run your Meta and Google ads with an AI decision layer. Daily optimisation, regular creative rotation, transparent reporting.',
             lines: ['Hybrid management + performance model', 'Creative production included', 'Weekly live reporting'],
@@ -66,20 +75,28 @@ export function ThreeBuckets({ onServicesClick, onPackagesClick }: Props) {
           },
           {
             num: '02',
+            kind: 'agents',
             title: 'AI Agents & Automation',
             body: 'Always-on AI assistants for WhatsApp, voice and email. They book appointments, qualify leads, and free your team from repetitive work.',
             lines: ['WhatsApp + phone + email', 'CRM and calendar integration', '30+ languages, native-sounding'],
-            cta: 'See agent setup',
+            cta: 'See agent packages',
             highlight: true,
           },
           {
             num: '03',
+            kind: 'web',
             title: 'Conversion-first Web',
             body: 'Not pretty — profitable. Websites that sell, book meetings, and measure every step. Fast, SEO-ready, fully aligned with ads.',
             lines: ['Next.js / Astro performance', 'Conversion testing included', 'Hosting + maintenance'],
-            cta: 'See web offers',
+            cta: 'See web packages',
           },
         ];
+
+  const handlerFor = (kind: BucketKind) => {
+    if (kind === 'ads') return onAdsClick;
+    if (kind === 'web') return onWebClick;
+    return onAgentsClick;
+  };
 
   return (
     <section
@@ -234,7 +251,7 @@ export function ThreeBuckets({ onServicesClick, onPackagesClick }: Props) {
                 </ul>
 
                 <button
-                  onClick={isHighlight ? onServicesClick : onPackagesClick}
+                  onClick={handlerFor(b.kind)}
                   style={{
                     marginTop: 'auto',
                     display: 'inline-flex',

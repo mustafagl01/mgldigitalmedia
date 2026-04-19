@@ -104,6 +104,8 @@ function AppContent() {
     const basePath = page === 'home' ? '/' : `/${page}`;
     const path = hash ? `${basePath}#${hash}` : basePath;
     window.history.pushState({}, '', path);
+    // Notify hash-aware listeners (pushState doesn't fire hashchange/popstate natively)
+    window.dispatchEvent(new PopStateEvent('popstate'));
     window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
   };
 
@@ -189,8 +191,10 @@ function AppContent() {
           />
           <CredentialsStrip />
           <ThreeBuckets
+            onAdsClick={() => navigateTo('packages', 'ads')}
+            onAgentsClick={() => navigateTo('packages', 'agents')}
+            onWebClick={() => navigateTo('packages', 'web')}
             onServicesClick={() => navigateTo('services')}
-            onPackagesClick={() => navigateTo('packages')}
           />
           <ProcessTimeline />
           <DemoSection

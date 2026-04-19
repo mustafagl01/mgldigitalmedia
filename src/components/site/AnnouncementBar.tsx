@@ -24,8 +24,8 @@ export function AnnouncementBar({ onClaim }: Props) {
     >
       <span style={{ color: 'var(--ember)', marginRight: 10 }}>●</span>
       {language === 'tr'
-        ? 'Londra merkezli · 3 pilot kontenjanı açık'
-        : 'London-based · 3 pilot slots open'}
+        ? 'Pilot partner programı · İlk 3 müşteriye kurulum ücretsiz · Case study karşılığı'
+        : 'Pilot Partner programme · Setup free for the first 3 customers · Case study partnership'}
       <button
         onClick={onClaim}
         style={{
@@ -41,7 +41,7 @@ export function AnnouncementBar({ onClaim }: Props) {
           cursor: 'pointer',
         }}
       >
-        {language === 'tr' ? 'Randevu al →' : 'Book now →'}
+        {language === 'tr' ? 'Yerini al →' : 'Claim slot →'}
       </button>
     </div>
   );

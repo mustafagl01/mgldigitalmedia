@@ -63,20 +63,20 @@ const SERVICES: ServiceSku[] = [
       tr: '7/24 lead yakalar, randevu alır, SSS cevaplar.',
       en: 'Captures leads, books appointments, answers FAQs 24/7.',
     },
-    setupTR: '0 ₺', monthlyTR: '1.999 – 4.999 ₺', setupGB: 'Free', monthlyGB: '£59 – £149',
+    setupTR: '0 ₺', monthlyTR: '3.999 ₺', setupGB: 'Free', monthlyGB: '£119',
     risk: 'A',
     features: {
       tr: [
         'Meta Business API resmi kurulumu',
         'İşletme verisiyle özel eğitilmiş asistan',
         'Takvim + Google Sheets + CRM senkronu',
-        'Aylık 500–1.500 konuşma, aşım şeffaf',
+        '1.500 konuşma / ay, aşım 0,40 ₺ / görüşme',
       ],
       en: [
         'Official Meta Business API setup',
         'Assistant trained on your business data',
         'Calendar + Google Sheets + CRM sync',
-        '500–1,500 conversations/mo, transparent overages',
+        '1,500 conversations / month, overage £0.012 / conversation',
       ],
     },
     recommended: true,
@@ -90,18 +90,18 @@ const SERVICES: ServiceSku[] = [
       tr: 'Telefona doğal sesle cevap verir, randevu oluşturur.',
       en: 'Answers your phone with natural voice, books appointments.',
     },
-    setupTR: '14.999 ₺', monthlyTR: '9.999 – 14.999 ₺', setupGB: '£450', monthlyGB: '£399 – £749',
+    setupTR: '14.999 ₺', monthlyTR: '12.999 ₺', setupGB: '£450', monthlyGB: '£399',
     risk: 'B',
     features: {
       tr: [
         'Türkçe doğal ses (dudak senkronu gerekmez)',
-        '500–2.000 dakika/ay çağrı karşılama',
+        '500 dakika / ay çağrı karşılama',
         'Çağrı özeti + tam transkript CRM’e',
         'Acil durumda insana aktarma',
       ],
       en: [
         'Natural multi-language voice',
-        '500–2,000 minutes/mo inbound',
+        '500 inbound minutes / month',
         'Call summary + full transcript to CRM',
         'Human handoff on escalation',
       ],
@@ -116,20 +116,20 @@ const SERVICES: ServiceSku[] = [
       tr: 'Tekrar eden iş akışlarını tek otomatik sisteme bağlarız.',
       en: 'Connect repetitive workflows into one automated system.',
     },
-    setupTR: '2.999 – 7.999 ₺', monthlyTR: '1.499 – 2.499 ₺', setupGB: '£90 – £240', monthlyGB: '£45 – £75',
+    setupTR: '4.999 ₺', monthlyTR: '1.999 ₺', setupGB: '£149', monthlyGB: '£59',
     risk: 'A',
     features: {
       tr: [
-        '3–13+ workflow (lead aktarımı, email, CRM, stok)',
+        '5 workflow (lead aktarımı, email, CRM, stok, hatırlatma)',
         'Self-hosted veya n8n Cloud',
-        'Hata bildirimi Telegram/email',
+        'Hata bildirimi Telegram / email',
         'Aylık 2 minor değişiklik dahil',
       ],
       en: [
-        '3–13+ workflows (lead routing, email, CRM, inventory)',
+        '5 workflows (lead routing, email, CRM, inventory, reminders)',
         'Self-hosted or n8n Cloud',
-        'Error alerts to Telegram/email',
-        '2 minor changes/mo included',
+        'Error alerts to Telegram / email',
+        '2 minor changes / month included',
       ],
     },
   },
@@ -142,17 +142,17 @@ const SERVICES: ServiceSku[] = [
       tr: 'React tabanlı, mobil-öncelikli, SEO-hazır modern site.',
       en: 'React-based, mobile-first, SEO-ready modern website.',
     },
-    setupTR: '14.999 – 39.999 ₺', monthlyTR: '499 ₺ (hosting)', setupGB: '£450 – £1.200', monthlyGB: '£15 (hosting)',
+    setupTR: '24.999 ₺', monthlyTR: '499 ₺ (hosting)', setupGB: '£749', monthlyGB: '£15 (hosting)',
     risk: 'project',
     features: {
       tr: [
-        '5–15+ sayfa, çok dil opsiyonu',
+        '5–7 sayfa, çok dil opsiyonu',
         'Core Web Vitals ≥ 90 hedef',
         'GA4 + Search Console + Open Graph',
         '2 major revizyon turu dahil',
       ],
       en: [
-        '5–15+ pages, multi-language optional',
+        '5–7 pages, multi-language optional',
         'Core Web Vitals ≥ 90 target',
         'GA4 + Search Console + Open Graph',
         '2 major revision rounds included',
@@ -168,7 +168,7 @@ const SERVICES: ServiceSku[] = [
       tr: 'Tek odaklı, reklam trafiği için yüksek dönüşüm sayfası.',
       en: 'Single-focus, high-conversion page for ad traffic.',
     },
-    setupTR: '4.999 – 9.999 ₺', monthlyTR: '—', setupGB: '£150 – £300', monthlyGB: '—',
+    setupTR: '7.999 ₺', monthlyTR: '—', setupGB: '£239', monthlyGB: '—',
     risk: 'project',
     features: {
       tr: [
@@ -194,17 +194,17 @@ const SERVICES: ServiceSku[] = [
       tr: 'Sosyal medya görseli + kısa motion + caption takvimi.',
       en: 'Social visuals + short motion + caption calendar.',
     },
-    setupTR: '0 ₺', monthlyTR: '1.999 – 3.499 ₺', setupGB: 'Free', monthlyGB: '£59 – £109',
+    setupTR: '0 ₺', monthlyTR: '2.999 ₺', setupGB: 'Free', monthlyGB: '£89',
     risk: 'B',
     features: {
       tr: [
-        'Aylık 8–15 statik + 2–4 kısa motion (≤10 sn)',
+        'Aylık 12 statik + 3 kısa motion (≤10 sn)',
         'Marka rengine + fontuna uyumlu',
         'Caption + yayın takvimi',
         'Video projesi opsiyonel (proje bazlı)',
       ],
       en: [
-        '8–15 static + 2–4 short motion (≤10s) per month',
+        '12 statics + 3 short motion (≤10s) per month',
         'Brand-color & font consistent',
         'Caption + publishing calendar',
         'Optional video project (project-based)',
@@ -217,18 +217,18 @@ const SERVICES: ServiceSku[] = [
     icon: Search,
     name: { tr: 'SEO', en: 'SEO' },
     tagline: { tr: 'Teknik SEO + içerik + aylık raporlama.', en: 'Technical SEO + content + monthly reporting.' },
-    setupTR: '4.999 ₺', monthlyTR: '2.999 – 5.999 ₺', setupGB: '£150', monthlyGB: '£89 – £179',
+    setupTR: '4.999 ₺', monthlyTR: '4.499 ₺', setupGB: '£149', monthlyGB: '£139',
     risk: 'A',
     features: {
       tr: [
-        'Audit + anahtar kelime haritası (30–50 kelime)',
-        'Aylık 2–4 blog yazısı (SEO-optimize)',
+        'Audit + 40 anahtar kelime haritası',
+        'Aylık 3 blog yazısı (SEO-optimize)',
         'Schema.org + Core Web Vitals düzeltmeleri',
         'Aylık sıralama + rakip raporu',
       ],
       en: [
-        'Audit + keyword map (30–50 keywords)',
-        '2–4 SEO-optimized blog posts/mo',
+        'Audit + 40-keyword map',
+        '3 SEO-optimized blog posts / month',
         'Schema.org + Core Web Vitals fixes',
         'Monthly ranking + competitor report',
       ],
@@ -295,7 +295,7 @@ const SERVICES: ServiceSku[] = [
       tr: 'HubSpot, Notion veya özel CRM — ekip tek doğruluk kaynağında.',
       en: 'HubSpot, Notion or custom CRM — one source of truth.',
     },
-    setupTR: '9.999 – 24.999 ₺', monthlyTR: '1.499 ₺ (destek)', setupGB: '£300 – £750', monthlyGB: '£45 (support)',
+    setupTR: '14.999 ₺', monthlyTR: '1.499 ₺ (destek)', setupGB: '£450', monthlyGB: '£45 (support)',
     risk: 'project',
     features: {
       tr: [
@@ -321,7 +321,7 @@ const SERVICES: ServiceSku[] = [
       tr: 'Aktif servislerin performansını tek aylık rapora indirger.',
       en: 'Distills active service performance into one monthly report.',
     },
-    setupTR: '0 ₺', monthlyTR: '499 – 999 ₺', setupGB: 'Free', monthlyGB: '£15 – £29',
+    setupTR: '0 ₺', monthlyTR: '799 ₺', setupGB: 'Free', monthlyGB: '£24',
     risk: 'A',
     features: {
       tr: [
