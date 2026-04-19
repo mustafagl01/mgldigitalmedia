@@ -11,7 +11,7 @@ export type SeoProps = {
   noindex?: boolean;
 };
 
-const SITE_URL = 'https://mgldigitalmedia.com';
+const SITE_URL = 'https://mgl-ai.uk';
 const DEFAULT_OG = '/00bc7320-6f8f-42ae-a0b7-0c24b609e70f.png';
 
 export function Seo({
