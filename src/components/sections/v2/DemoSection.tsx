@@ -164,11 +164,11 @@ export function DemoSection({ onEmailDemo }: Props) {
                 style={{
                   marginTop: 8,
                   fontFamily: 'var(--font-serif)',
-                  fontSize: 'clamp(1.5rem, 1rem + 1.2vw, 2rem)',
+                  fontSize: 'clamp(1.25rem, 0.9rem + 1vw, 1.6rem)',
                   fontWeight: 500,
-                  letterSpacing: '-0.02em',
+                  letterSpacing: '-0.015em',
                   color: 'var(--ink)',
-                  lineHeight: 1.1,
+                  lineHeight: 1.2,
                 }}
               >
                 +90 531 829 97 01
@@ -215,11 +215,13 @@ export function DemoSection({ onEmailDemo }: Props) {
                 style={{
                   marginTop: 8,
                   fontFamily: 'var(--font-serif)',
-                  fontSize: 'clamp(1.5rem, 1rem + 1.2vw, 2rem)',
+                  fontSize: 'clamp(1.125rem, 0.85rem + 0.9vw, 1.5rem)',
                   fontWeight: 500,
-                  letterSpacing: '-0.02em',
+                  letterSpacing: '-0.015em',
                   color: 'var(--ink)',
-                  lineHeight: 1.1,
+                  lineHeight: 1.2,
+                  overflowWrap: 'anywhere',
+                  wordBreak: 'break-word',
                 }}
               >
                 info@mgldigitalmedia.com
