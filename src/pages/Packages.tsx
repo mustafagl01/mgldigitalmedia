@@ -265,6 +265,28 @@ function PlanCard({
         >
           {isEnglish ? 'per month' : 'aylık'}
         </p>
+        {(plan.key === 'starter' || plan.key === 'pro') && (
+          <div
+            style={{
+              marginTop: 10,
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: 6,
+              padding: '5px 10px',
+              background: 'color-mix(in srgb, var(--ember) 12%, transparent)',
+              border: '1px solid color-mix(in srgb, var(--ember) 35%, transparent)',
+              borderRadius: 999,
+              fontFamily: 'var(--font-mono)',
+              fontSize: 11,
+              letterSpacing: '0.08em',
+              textTransform: 'uppercase',
+              color: 'var(--ember)',
+              fontWeight: 600,
+            }}
+          >
+            {isEnglish ? '✓ First month free' : '✓ İlk ay ücretsiz'}
+          </div>
+        )}
       </div>
 
       <div
