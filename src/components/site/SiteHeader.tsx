@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Menu, X, Globe } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { Wordmark } from './Wordmark';
 import { GoogleCalendarButton } from './GoogleCalendarButton';
@@ -129,33 +129,6 @@ export function SiteHeader({ currentPage, onNavigate, onAnalysisClick }: Props) 
           </div>
 
           <button
-            className="lang-toggle-mobile"
-            onClick={() => setLanguage(language === 'tr' ? 'en' : 'tr')}
-            aria-label={language === 'tr' ? 'Switch to English' : 'Türkçeye geç'}
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 6,
-              height: 40,
-              padding: '0 12px',
-              border: '1px solid var(--border)',
-              borderRadius: 'var(--r-md)',
-              background: 'var(--paper)',
-              color: 'var(--ink)',
-              fontFamily: 'var(--font-mono)',
-              fontSize: 11,
-              fontWeight: 600,
-              textTransform: 'uppercase',
-              letterSpacing: '0.14em',
-              cursor: 'pointer',
-              transition: 'all 160ms var(--ease-out)',
-            }}
-          >
-            <Globe size={14} style={{ color: 'var(--ember)' }} />
-            {language === 'tr' ? 'EN' : 'TR'}
-          </button>
-
-          <button
             onClick={handleWhatsApp}
             className="btn btn-ghost btn-sm"
             style={{ display: 'none' }}
@@ -257,19 +230,9 @@ export function SiteHeader({ currentPage, onNavigate, onAnalysisClick }: Props) 
       )}
 
       <style>{`
-        .lang-toggle-mobile:hover,
-        .lang-toggle-mobile:active {
-          background: var(--ink) !important;
-          color: var(--paper) !important;
-          border-color: var(--ink) !important;
-        }
-        .lang-toggle-mobile:active {
-          transform: scale(0.96);
-        }
         @media (min-width: 960px) {
           .nav-desktop { display: flex !important; gap: 4px; }
           .lang-switcher { display: inline-flex !important; }
-          .lang-toggle-mobile { display: none !important; }
           [data-hide-mobile] { display: inline-flex !important; }
           .nav-mobile-toggle { display: none !important; }
           .mobile-drawer { display: none !important; }
