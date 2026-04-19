@@ -10,7 +10,8 @@ import { Toaster } from './components/ui/Toast';
 // Modals (kept from previous build)
 import { AuthModal } from './components/auth/AuthModal';
 import { EmailDemoModal } from './components/modals/EmailDemoModal';
-import { IdeaAssistantModal } from './components/modals/IdeaAssistantModal';
+
+const CALENDAR_URL = 'https://calendar.app.google/FZnTjsWGfCy33WF36';
 
 // Pages
 import { ProductsPage } from './components/pages/ProductsPage';
@@ -64,15 +65,10 @@ function AppContent() {
     pathToPage(window.location.pathname),
   );
   const [activeDemo, setActiveDemo] = useState<string | null>(null);
-  const [isIdeaAssistantModalOpen, setIdeaAssistantModalOpen] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
-  const { setLanguage, t } = useLanguage();
-  const { region } = useLocation();
+  const { t } = useLanguage();
+  useLocation(); // keeps region hydrated for pricing
   useAuth(); // keeps session hydrated
-
-  React.useEffect(() => {
-    setLanguage(region === 'TR' ? 'tr' : 'en');
-  }, [region, setLanguage]);
 
   React.useEffect(() => {
     const handlePopState = () => setCurrentPage(pathToPage(window.location.pathname));
@@ -89,12 +85,8 @@ function AppContent() {
 
   const navigateSite = (page: SitePage) => navigateTo(page as AppPage);
 
-  const openAnalysis = () => setIdeaAssistantModalOpen(true);
-  const handleDemoRedirect = () => {
-    setIdeaAssistantModalOpen(false);
-    setTimeout(() => {
-      document.getElementById('demos')?.scrollIntoView({ behavior: 'smooth' });
-    }, 250);
+  const openAnalysis = () => {
+    window.open(CALENDAR_URL, '_blank', 'noopener,noreferrer');
   };
 
   // Dedicated pages render without the site shell
@@ -164,11 +156,6 @@ function AppContent() {
       </div>
 
       <EmailDemoModal isOpen={activeDemo === 'email'} onClose={() => setActiveDemo(null)} />
-      <IdeaAssistantModal
-        isOpen={isIdeaAssistantModalOpen}
-        onClose={() => setIdeaAssistantModalOpen(false)}
-        onDemoRedirect={handleDemoRedirect}
-      />
       <AuthModal
         isOpen={isAuthModalOpen}
         onClose={() => setIsAuthModalOpen(false)}

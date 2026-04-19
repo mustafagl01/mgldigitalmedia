@@ -135,10 +135,10 @@ const faqItems: FaqItem[] = [
     },
   },
   {
-    q: { tr: 'İlk ay gerçekten ücretsiz mi?', en: 'Is the first month really free?' },
+    q: { tr: 'İlk ay gerçekten ücretsiz mi?', en: 'How does the first month work?' },
     a: {
-      tr: 'Evet. Kurulumu tamamlıyoruz, sisteminiz 30 gün boyunca gerçek trafikle çalışıyor. Sistemden memnun kalmazsanız hiçbir yükümlülük olmadan ayrılırsınız — aylık ücret yalnızca 31. günde başlar.',
-      en: 'Yes. We build it, your system runs on real traffic for 30 days. If you are not satisfied, you walk away with zero obligation — monthly billing only starts on day 31.',
+      tr: 'Başlangıç ve Büyüme paketleri için ilk ay ajans ücreti alınmaz — kurulum + 30 gün gerçek trafik bizden, aylık ücret 31. günde başlar. Oto-Sekreter ve Tam Otonomi için ilk ay ajans ücreti yok; yalnızca kullandığınız Twilio/telefon dakikası pass-through maliyet üzerinden faturaya yansır (hiç sonuç görmediyseniz devam etmek zorunda değilsiniz).',
+      en: 'For Starter and Growth the first month has zero agency fee — we cover setup + 30 days of real traffic, monthly billing starts on day 31. For Auto-Receptionist and Full Autonomy, the first month still has no agency fee; only the Twilio/voice minutes you actually use are billed at pass-through cost (if it didn’t deliver, you don’t have to continue).',
     },
   },
   {
@@ -368,7 +368,7 @@ function PlanCard({
         style={{ marginTop: 20, width: '100%', justifyContent: 'center' }}
       >
         <MessageCircle size={14} />
-        {isEnglish ? '30-day free start' : '30 gün ücretsiz başla'}
+        {isEnglish ? 'Talk about this plan' : 'Bu paketi konuşalım'}
       </a>
     </article>
   );
@@ -409,8 +409,8 @@ export default function Packages() {
     ? 'Packages — Starter, Growth, Auto-Receptionist, Full Autonomy | MGL Digital Media'
     : 'Paketler — Başlangıç, Büyüme, Oto-Sekreter, Tam Otonomi | MGL Digital Media';
   const seoDescription = isEnglish
-    ? 'Four pre-configured AI packages for SMEs: WhatsApp, voice, CRM, automation. TRY and GBP pricing. 30-day free trial. Monthly cancellation.'
-    : 'KOBİ\'ler için dört hazır AI paketi: WhatsApp, ses, CRM, otomasyon. TRY ve GBP fiyatlandırma. 30 gün ücretsiz. Aylık çıkış hakkı.';
+    ? 'Four pre-configured AI packages for SMEs: WhatsApp, voice, CRM, automation. TRY and GBP pricing. Setup on us, monthly cancellation, pass-through voice/ad spend.'
+    : 'KOBİ\'ler için dört hazır AI paketi: WhatsApp, ses, CRM, otomasyon. TRY ve GBP fiyatlandırma. Kurulum bizden, aylık çıkış, ses/reklam harcaması pass-through.';
   const breadcrumb = breadcrumbSchema([
     { name: isEnglish ? 'Home' : 'Ana Sayfa', path: '/' },
     { name: isEnglish ? 'Packages' : 'Paketler', path: '/packages' },
@@ -471,10 +471,11 @@ export default function Packages() {
             {[
               {
                 icon: <ShieldCheck size={14} />,
-                tr: '30 gün ücretsiz deneme',
-                en: '30-day free trial',
+                tr: 'Kurulum bizden',
+                en: 'Setup on us',
               },
               { tr: 'Aylık çıkış hakkı', en: 'Monthly cancellation' },
+              { tr: 'Ses & reklam pass-through', en: 'Voice & ad spend pass-through' },
               { tr: 'Veriler AB sunucularında', en: 'EU-region data hosting' },
             ].map((chip, i) => (
               <span
@@ -498,6 +499,43 @@ export default function Packages() {
                 {isEnglish ? chip.en : chip.tr}
               </span>
             ))}
+          </div>
+
+          <div
+            style={{
+              marginTop: 28,
+              padding: '16px 20px',
+              background: 'var(--paper-2)',
+              border: '1px solid var(--border)',
+              borderLeft: '2px solid var(--ember)',
+              borderRadius: 'var(--r-md)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              gap: 16,
+              flexWrap: 'wrap',
+            }}
+          >
+            <div style={{ fontSize: 14, color: 'var(--fg-1)', lineHeight: 1.5 }}>
+              <strong style={{ color: 'var(--ink)' }}>
+                {isEnglish ? 'Only need one thing?' : 'Tek bir şey mi lazım?'}
+              </strong>{' '}
+              {isEnglish
+                ? 'These packages bundle several services together. If you only need one (e.g. WhatsApp bot or SEO), buy it à la carte.'
+                : 'Paketler birden fazla hizmeti birleştirir. Tek bir şey gerekiyorsa (ör. WhatsApp bot veya SEO) servisleri tek tek alabilirsin.'}
+            </div>
+            <a
+              href="/services"
+              onClick={(e) => {
+                e.preventDefault();
+                window.history.pushState({}, '', '/services');
+                window.dispatchEvent(new PopStateEvent('popstate'));
+                window.scrollTo(0, 0);
+              }}
+              className="btn btn-secondary btn-sm"
+            >
+              {isEnglish ? 'See à la carte →' : 'Tek tek servisler →'}
+            </a>
           </div>
 
           {/* Tab switcher */}

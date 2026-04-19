@@ -152,7 +152,7 @@ export function HeroV2({ onAnalysisClick, onDemoClick }: Props) {
             }}
           >
             <span>
-              {language === 'tr' ? '30 gün ücretsiz deneme' : '30-day free trial'}
+              {language === 'tr' ? 'Kurulum bizden' : 'Setup on us'}
             </span>
             <span style={{ opacity: 0.4 }}>·</span>
             <span>

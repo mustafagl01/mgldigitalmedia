@@ -319,34 +319,29 @@ const translations = {
   }
 };
 
+const LANG_STORAGE_KEY = 'mgl-language';
+
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
-  const [language, setLanguage] = useState<Language>(() => {
-    // Check timezone first (location priority), then language as fallback
+  const [language, setLanguageState] = useState<Language>(() => {
+    const stored = typeof window !== 'undefined' ? window.localStorage.getItem(LANG_STORAGE_KEY) : null;
+    if (stored === 'tr' || stored === 'en') return stored;
+
     const browserLang = navigator.language.toLowerCase();
     const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone?.toUpperCase() ?? '';
 
-    console.log('[Language] Detection:', { browserLang, timezone });
-
-    // Timezone-based detection (priority)
-    if (timezone.includes('ISTANBUL') || timezone.includes('TURKEY')) {
-      console.log('[Language] Set to Turkish (timezone)');
-      return 'tr';
-    }
-
-    if (timezone.includes('LONDON') || timezone.includes('EUROPE/LONDON')) {
-      console.log('[Language] Set to English (UK timezone)');
-      return 'en';
-    }
-
-    // Language-based fallback
-    if (browserLang === 'tr' || browserLang.startsWith('tr-')) {
-      console.log('[Language] Set to Turkish (language fallback)');
-      return 'tr';
-    }
-
-    console.log('[Language] Defaulting to English');
+    if (timezone.includes('ISTANBUL') || timezone.includes('TURKEY')) return 'tr';
+    if (browserLang === 'tr' || browserLang.startsWith('tr-')) return 'tr';
     return 'en';
   });
+
+  const setLanguage = (lang: Language) => {
+    setLanguageState(lang);
+    try {
+      window.localStorage.setItem(LANG_STORAGE_KEY, lang);
+    } catch {
+      /* ignore storage errors */
+    }
+  };
 
   const t = (key: string): string => {
     return translations[language][key] || key;

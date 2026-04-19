@@ -12,8 +12,8 @@ export function FoundersBet({ onAnalysisClick }: Props) {
     language === 'tr'
       ? [
           {
-            h: 'İlk 30 gün ücretsiz deneyin',
-            p: 'Asistan çalışmazsa, sonuç göremezseniz — hiçbir şey ödemezsiniz. Sistem sizde kalır.',
+            h: 'Kurulum bizden, ilk ay risksiz',
+            p: 'Kurulumu biz yapıyoruz, sistem gerçek trafikle çalışıyor. Sonuç görmezseniz aylık ücret 31. günde başlamaz — ses ve reklam harcaması bizdeyken pass-through maliyet üzerinden fatura edilir.',
           },
           {
             h: 'Sabit fiyat, yazılı kapsam',
@@ -26,8 +26,8 @@ export function FoundersBet({ onAnalysisClick }: Props) {
         ]
       : [
           {
-            h: 'First 30 days free',
-            p: 'If the assistant doesn’t work or you don’t see results — you pay nothing. You keep the system.',
+            h: 'Setup on us, first month risk-free',
+            p: 'We build it, the system runs on real traffic. If you don’t see results, monthly billing doesn’t start — voice and ad spend run at pass-through cost with no agency fee.',
           },
           {
             h: 'Fixed price, written scope',

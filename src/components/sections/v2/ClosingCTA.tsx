@@ -68,8 +68,8 @@ export function ClosingCTA({ onAnalysisClick }: Props) {
 
         <p style={{ color: 'var(--fg-2)', fontSize: '1.125rem', lineHeight: 1.55, maxWidth: 620 }}>
           {language === 'tr'
-            ? 'Hiçbir kart, hiçbir taahhüt. 15 dakikada; nerede zaman kaybettiğinizi, nerede para kaçtığını ve birkaç asistanın neyi değiştireceğini konuşuruz.'
-            : 'No card, no commitment. In 15 minutes we show you where time is lost, where money leaks, and what a couple of assistants would change.'}
+            ? 'Hiçbir kart, hiçbir taahhüt. 15 dakikada; nerede zaman kaybettiğinizi, gelir sızdıran noktalarınızı ve birkaç asistanın neyi değiştireceğini konuşuruz.'
+            : 'No card, no commitment. In 15 minutes we map where time is lost, where revenue leaks, and what a couple of assistants would change.'}
         </p>
 
         <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', justifyContent: 'center', marginTop: 8 }}>

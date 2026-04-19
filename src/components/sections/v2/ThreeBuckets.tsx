@@ -166,7 +166,7 @@ export function ThreeBuckets({ onServicesClick, onPackagesClick }: Props) {
                   </span>
                   {isHighlight && (
                     <span className="badge" style={{ background: 'var(--ember)', color: 'var(--paper)' }}>
-                      {language === 'tr' ? 'Çekirdek' : 'Core'}
+                      {language === 'tr' ? 'En çok seçilen' : 'Most chosen'}
                     </span>
                   )}
                 </div>

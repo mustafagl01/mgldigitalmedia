@@ -607,6 +607,43 @@ export default function Services() {
             <span style={{ opacity: 0.4 }}>·</span>
             <span>{isEnglish ? 'Risk-matched trials' : 'Hizmete uygun deneme modeli'}</span>
           </div>
+
+          <div
+            style={{
+              marginTop: 28,
+              padding: '16px 20px',
+              background: 'var(--paper-2)',
+              border: '1px solid var(--border)',
+              borderLeft: '2px solid var(--ember)',
+              borderRadius: 'var(--r-md)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'space-between',
+              gap: 16,
+              flexWrap: 'wrap',
+            }}
+          >
+            <div style={{ fontSize: 14, color: 'var(--fg-1)', lineHeight: 1.5 }}>
+              <strong style={{ color: 'var(--ink)' }}>
+                {isEnglish ? 'Looking for a bundle?' : 'Paket mi arıyorsun?'}
+              </strong>{' '}
+              {isEnglish
+                ? 'If you need several of these together, our pre-configured Packages are cheaper than buying each service separately.'
+                : 'Birkaç hizmet birden gerekiyorsa, hazır Paketler tek tek almaktan daha uygun olur.'}
+            </div>
+            <a
+              href="/packages"
+              onClick={(e) => {
+                e.preventDefault();
+                window.history.pushState({}, '', '/packages');
+                window.dispatchEvent(new PopStateEvent('popstate'));
+                window.scrollTo(0, 0);
+              }}
+              className="btn btn-secondary btn-sm"
+            >
+              {isEnglish ? 'See packages →' : 'Paketleri gör →'}
+            </a>
+          </div>
         </div>
       </section>
 

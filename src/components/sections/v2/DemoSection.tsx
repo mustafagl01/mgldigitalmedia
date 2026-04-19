@@ -15,13 +15,14 @@ export function DemoSection({ onEmailDemo }: Props) {
   return (
     <section
       id="demos"
-      className="on-coal"
       style={{
-        background: 'var(--coal)',
-        color: 'var(--bone)',
+        background: 'var(--paper-2)',
+        color: 'var(--ink)',
         padding: 'clamp(80px, 6vw + 32px, 140px) 0',
         position: 'relative',
         overflow: 'hidden',
+        borderTop: '1px solid var(--border)',
+        borderBottom: '1px solid var(--border)',
       }}
     >
       {/* subtle dot pattern */}
@@ -30,7 +31,7 @@ export function DemoSection({ onEmailDemo }: Props) {
           position: 'absolute',
           inset: 0,
           backgroundImage:
-            'radial-gradient(circle at 1px 1px, rgba(245,241,234,0.04) 1px, transparent 0)',
+            'radial-gradient(circle at 1px 1px, rgba(14,14,12,0.05) 1px, transparent 0)',
           backgroundSize: '28px 28px',
           pointerEvents: 'none',
         }}
@@ -38,7 +39,7 @@ export function DemoSection({ onEmailDemo }: Props) {
 
       <div className="container" style={{ position: 'relative' }}>
         <div style={{ maxWidth: 760, marginBottom: 48 }}>
-          <span className="eyebrow" style={{ color: 'var(--bone-3)' }}>
+          <span className="eyebrow">
             {language === 'tr' ? 'CANLI DEMO' : 'LIVE DEMO'}
           </span>
           <h2
@@ -49,17 +50,17 @@ export function DemoSection({ onEmailDemo }: Props) {
               lineHeight: 'var(--lh-tight)',
               letterSpacing: 'var(--ls-snug)',
               fontWeight: 600,
-              color: 'var(--bone)',
+              color: 'var(--ink)',
             }}
           >
             {language === 'tr'
-              ? 'Okumak yerine, gerçekten konuşun.'
+              ? 'Okumak yerine, bir tanesiyle konuşun.'
               : 'Don’t just read — talk to one right now.'}
           </h2>
-          <p className="lede" style={{ marginTop: 16, color: 'var(--bone-2)' }}>
+          <p className="lede" style={{ marginTop: 16, color: 'var(--fg-2)' }}>
             {language === 'tr'
-              ? 'Aşağıdaki numara bir AI asistanın canlı demosudur. Bir randevu ayarlamayı deneyin, saatlerce dinleyin. Hiçbir kart, hiçbir kayıt gerekmez.'
-              : 'The number below is an AI assistant live demo. Try booking an appointment, grill it as long as you like. No card, no signup.'}
+              ? 'Aşağıdaki numara bir AI asistanın canlı demosudur. Bir randevu ayarlayın, limitleri bizzat zorlayın. Hiçbir kart, hiçbir kayıt gerekmez.'
+              : 'The number below is a live AI assistant demo. Try booking an appointment, push it to its limits. No card, no signup.'}
           </p>
         </div>
 
@@ -78,8 +79,8 @@ export function DemoSection({ onEmailDemo }: Props) {
               flexDirection: 'column',
               gap: 18,
               padding: 32,
-              background: 'var(--coal-2)',
-              border: '1px solid var(--coal-3)',
+              background: 'var(--paper)',
+              border: '1px solid var(--border)',
               borderRadius: 'var(--r-lg)',
               textDecoration: 'none',
               color: 'inherit',
@@ -101,7 +102,7 @@ export function DemoSection({ onEmailDemo }: Props) {
                 style={{
                   fontFamily: 'var(--font-mono)',
                   fontSize: 11,
-                  color: 'var(--bone-3)',
+                  color: 'var(--fg-3)',
                   letterSpacing: '0.14em',
                   textTransform: 'uppercase',
                 }}
@@ -115,13 +116,13 @@ export function DemoSection({ onEmailDemo }: Props) {
                   fontSize: 'clamp(1.5rem, 1rem + 1.2vw, 2rem)',
                   fontWeight: 500,
                   letterSpacing: '-0.02em',
-                  color: 'var(--bone)',
+                  color: 'var(--ink)',
                   lineHeight: 1.1,
                 }}
               >
                 {DEMO_PHONE}
               </div>
-              <p style={{ marginTop: 12, color: 'var(--bone-2)', fontSize: 14, lineHeight: 1.55 }}>
+              <p style={{ marginTop: 12, color: 'var(--fg-2)', fontSize: 14, lineHeight: 1.55 }}>
                 {language === 'tr'
                   ? 'Tıklayıp arayın. Asistan randevu alır, fiyat söyler, sizi geri arama kuyruğuna koyar.'
                   : 'Tap to call. The agent books, quotes, and schedules callbacks.'}
@@ -139,20 +140,20 @@ export function DemoSection({ onEmailDemo }: Props) {
               flexDirection: 'column',
               gap: 18,
               padding: 32,
-              background: 'var(--coal-2)',
-              border: '1px solid var(--coal-3)',
+              background: 'var(--paper)',
+              border: '1px solid var(--border)',
               borderRadius: 'var(--r-lg)',
               textDecoration: 'none',
               color: 'inherit',
             }}
           >
-            <MessageCircle size={20} style={{ color: 'var(--bone)' }} />
+            <MessageCircle size={20} style={{ color: 'var(--ink)' }} />
             <div>
               <span
                 style={{
                   fontFamily: 'var(--font-mono)',
                   fontSize: 11,
-                  color: 'var(--bone-3)',
+                  color: 'var(--fg-3)',
                   letterSpacing: '0.14em',
                   textTransform: 'uppercase',
                 }}
@@ -166,13 +167,13 @@ export function DemoSection({ onEmailDemo }: Props) {
                   fontSize: 'clamp(1.5rem, 1rem + 1.2vw, 2rem)',
                   fontWeight: 500,
                   letterSpacing: '-0.02em',
-                  color: 'var(--bone)',
+                  color: 'var(--ink)',
                   lineHeight: 1.1,
                 }}
               >
                 +90 531 829 97 01
               </div>
-              <p style={{ marginTop: 12, color: 'var(--bone-2)', fontSize: 14, lineHeight: 1.55 }}>
+              <p style={{ marginTop: 12, color: 'var(--fg-2)', fontSize: 14, lineHeight: 1.55 }}>
                 {language === 'tr'
                   ? 'Mustafa’ya doğrudan yazın. Analiz randevusu burada ayarlanır.'
                   : 'Message Mustafa directly. We set audit meetings here.'}
@@ -188,8 +189,8 @@ export function DemoSection({ onEmailDemo }: Props) {
               flexDirection: 'column',
               gap: 18,
               padding: 32,
-              background: 'var(--coal-2)',
-              border: '1px solid var(--coal-3)',
+              background: 'var(--paper)',
+              border: '1px solid var(--border)',
               borderRadius: 'var(--r-lg)',
               color: 'inherit',
               textAlign: 'left',
@@ -197,13 +198,13 @@ export function DemoSection({ onEmailDemo }: Props) {
               fontFamily: 'inherit',
             }}
           >
-            <Mail size={20} style={{ color: 'var(--bone)' }} />
+            <Mail size={20} style={{ color: 'var(--ink)' }} />
             <div>
               <span
                 style={{
                   fontFamily: 'var(--font-mono)',
                   fontSize: 11,
-                  color: 'var(--bone-3)',
+                  color: 'var(--fg-3)',
                   letterSpacing: '0.14em',
                   textTransform: 'uppercase',
                 }}
@@ -217,13 +218,13 @@ export function DemoSection({ onEmailDemo }: Props) {
                   fontSize: 'clamp(1.5rem, 1rem + 1.2vw, 2rem)',
                   fontWeight: 500,
                   letterSpacing: '-0.02em',
-                  color: 'var(--bone)',
+                  color: 'var(--ink)',
                   lineHeight: 1.1,
                 }}
               >
                 info@mgldigitalmedia.com
               </div>
-              <p style={{ marginTop: 12, color: 'var(--bone-2)', fontSize: 14, lineHeight: 1.55 }}>
+              <p style={{ marginTop: 12, color: 'var(--fg-2)', fontSize: 14, lineHeight: 1.55 }}>
                 {language === 'tr'
                   ? 'Bir örnek yazışma görün: AI asistanın dil tonu, randevu akışı, hatırlatma örnekleri.'
                   : 'See a sample thread: AI tone, booking flow, reminder examples.'}

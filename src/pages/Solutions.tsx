@@ -472,12 +472,12 @@ const FAQS: Array<{ q: { tr: string; en: string }; a: { tr: string; en: string }
   },
   {
     q: {
-      tr: '30 gün ücretsiz deneme tüm akışlarda geçerli mi?',
-      en: 'Is the 30-day free trial available for all workflows?',
+      tr: 'İlk ay risk modeli her akış için aynı mı?',
+      en: 'Is the first-month risk model the same for every workflow?',
     },
     a: {
-      tr: 'Değişken maliyet düşük hizmetlerde (WhatsApp bot, n8n, SEO, analitik) evet. Sesli asistan ve içerik üretimi gibi değişken maliyetli hizmetlerde ilk ay %50 pilot fiyat; reklam yönetiminde ilk ay yönetim ücreti %50.',
-      en: 'Yes for low-variable-cost services (WhatsApp bot, n8n, SEO, analytics). Variable-cost services (voice, content) run at 50% pilot pricing in the first month; ad management at 50% first-month fee.',
+      tr: 'Değişken maliyet düşük hizmetlerde (WhatsApp bot, n8n, SEO, analitik) ilk ay ajans ücreti yok — kurulum + 30 gün gerçek trafik bizden. Sesli asistan ve içerik üretimi gibi değişken maliyetli hizmetlerde ilk ay %50 pilot fiyat; reklam yönetiminde ilk ay yönetim ücreti %50 ve reklam harcaması pass-through.',
+      en: 'Low-variable-cost services (WhatsApp bot, n8n, SEO, analytics) have zero agency fee in month one — setup + 30 days of real traffic on us. Variable-cost services (voice, content) run at 50% pilot pricing in the first month; ad management at 50% first-month fee with ad spend pass-through.',
     },
   },
   {
