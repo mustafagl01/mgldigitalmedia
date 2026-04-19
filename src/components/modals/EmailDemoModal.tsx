@@ -1,9 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Mail, Send, CheckCircle } from 'lucide-react';
-import { Button } from '../ui/Button';
-import { Input } from '../ui/Input';
-import { Label } from '../ui/Label';
+import { Mail, Send, CheckCircle, X } from 'lucide-react';
+import { useLanguage } from '../../contexts/LanguageContext';
 import { toast } from '../../hooks/useToast';
 
 interface EmailDemoModalProps {
@@ -14,6 +12,8 @@ interface EmailDemoModalProps {
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
 
 export const EmailDemoModal: React.FC<EmailDemoModalProps> = ({ isOpen, onClose }) => {
+  const { language } = useLanguage();
+  const isEN = language === 'en';
   const [formData, setFormData] = useState({ name: '', email: '' });
   const [errors, setErrors] = useState<{ name?: string; email?: string }>({});
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -57,9 +57,16 @@ export const EmailDemoModal: React.FC<EmailDemoModalProps> = ({ isOpen, onClose 
     if (isLoading) return;
 
     const nextErrors: { name?: string; email?: string } = {};
-    if (!formData.name.trim()) nextErrors.name = 'Adınızı girin.';
-    if (!formData.email.trim()) nextErrors.email = 'E-posta adresinizi girin.';
-    else if (!EMAIL_RE.test(formData.email.trim())) nextErrors.email = 'Geçerli bir e-posta girin (ornek@email.com).';
+    if (!formData.name.trim()) {
+      nextErrors.name = isEN ? 'Please enter your name.' : 'Adınızı girin.';
+    }
+    if (!formData.email.trim()) {
+      nextErrors.email = isEN ? 'Please enter your email.' : 'E-posta adresinizi girin.';
+    } else if (!EMAIL_RE.test(formData.email.trim())) {
+      nextErrors.email = isEN
+        ? 'Enter a valid email (example@email.com).'
+        : 'Geçerli bir e-posta girin (ornek@email.com).';
+    }
 
     if (Object.keys(nextErrors).length > 0) {
       setErrors(nextErrors);
@@ -68,21 +75,30 @@ export const EmailDemoModal: React.FC<EmailDemoModalProps> = ({ isOpen, onClose 
     setErrors({});
 
     setIsLoading(true);
-    const webhookUrl = 'https://nt3ys1ml.rpcd.host/webhook/b258d591-af79-4580-9e8c-3c661256359b'; 
+    const webhookUrl = 'https://nt3ys1ml.rpcd.host/webhook/b258d591-af79-4580-9e8c-3c661256359b';
 
     try {
-        await fetch(webhookUrl, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(formData)
-        });
-        setIsSubmitted(true);
-        toast({ title: "İstek Gönderildi! 🚀", description: "Bilgileriniz iş akışına başarıyla iletildi." });
-    } catch(error) {
-        console.error('Webhook error:', error);
-        toast({ title: "Hata!", description: "İş akışına bağlanırken bir sorun oluştu.", variant: "destructive" });
+      await fetch(webhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+      setIsSubmitted(true);
+      toast({
+        title: isEN ? 'Request sent.' : 'İstek gönderildi.',
+        description: isEN
+          ? 'Your details were passed to the workflow.'
+          : 'Bilgileriniz iş akışına iletildi.',
+      });
+    } catch (error) {
+      console.error('Webhook error:', error);
+      toast({
+        title: isEN ? 'Error' : 'Hata!',
+        description: isEN ? 'Failed to reach the workflow.' : 'İş akışına bağlanırken bir sorun oluştu.',
+        variant: 'destructive',
+      });
     } finally {
-        setIsLoading(false);
+      setIsLoading(false);
     }
   };
 
@@ -93,112 +109,340 @@ export const EmailDemoModal: React.FC<EmailDemoModalProps> = ({ isOpen, onClose 
     onClose();
   };
 
+  const eyebrow = isEN ? 'EMAIL AGENT / DEMO' : 'E-POSTA ASİSTANI / DEMO';
+  const title = isEN ? 'See the email automation in action' : 'E-posta otomasyonunu canlı görün';
+  const lede = isEN
+    ? 'Drop your name and email — our agent will start the follow-up sequence in your inbox within seconds.'
+    : 'Adınızı ve e-postanızı bırakın — asistanımız saniyeler içinde gelen kutunuza bir takip akışı başlatsın.';
+  const submitLabel = isEN ? 'Start the automation' : 'Otomasyonu başlat';
+
   return (
     <AnimatePresence>
       {isOpen && (
-        <motion.div 
-          initial={{ opacity: 0 }} 
-          animate={{ opacity: 1 }} 
-          exit={{ opacity: 0 }} 
-          className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4" 
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          className="fixed inset-0 z-50 flex items-center justify-center p-4"
+          style={{ background: 'rgba(15, 17, 20, 0.72)', backdropFilter: 'blur(6px)' }}
           onClick={handleClose}
         >
           <motion.div
             ref={dialogRef}
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            exit={{ scale: 0.8, opacity: 0 }}
+            initial={{ scale: 0.96, opacity: 0, y: 8 }}
+            animate={{ scale: 1, opacity: 1, y: 0 }}
+            exit={{ scale: 0.96, opacity: 0, y: 8 }}
+            transition={{ duration: 0.18 }}
             onClick={(e) => e.stopPropagation()}
             role="dialog"
             aria-modal="true"
             aria-labelledby="email-demo-title"
-            className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-3xl p-8 max-w-lg w-full border border-gray-700 shadow-2xl"
+            style={{
+              background: 'var(--paper)',
+              color: 'var(--ink)',
+              border: '1px solid var(--border)',
+              borderRadius: 'var(--r-lg)',
+              width: '100%',
+              maxWidth: 520,
+              padding: 32,
+              boxShadow: '0 30px 80px -20px rgba(15, 17, 20, 0.45)',
+              position: 'relative',
+            }}
           >
-            <div className="flex items-center justify-between mb-6">
-              <h3 id="email-demo-title" className="text-2xl font-bold text-white flex items-center">
-                <Mail className="w-6 h-6 mr-2 text-blue-400" />
-                Otomatik E-posta Demo
-              </h3>
-              <Button variant="ghost" onClick={handleClose} aria-label="Kapat">✕</Button>
+            <button
+              type="button"
+              onClick={handleClose}
+              aria-label={isEN ? 'Close' : 'Kapat'}
+              style={{
+                position: 'absolute',
+                top: 16,
+                right: 16,
+                width: 32,
+                height: 32,
+                display: 'inline-flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                background: 'transparent',
+                border: '1px solid var(--border)',
+                borderRadius: '50%',
+                color: 'var(--fg-2)',
+                cursor: 'pointer',
+                transition: 'color 120ms, border-color 120ms',
+              }}
+            >
+              <X size={14} />
+            </button>
+
+            <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
+              <span
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  width: 36,
+                  height: 36,
+                  borderRadius: '50%',
+                  background: 'var(--coal)',
+                  color: 'var(--ember)',
+                }}
+              >
+                <Mail size={16} />
+              </span>
+              <span
+                style={{
+                  fontFamily: 'var(--font-mono)',
+                  fontSize: 11,
+                  letterSpacing: '0.14em',
+                  textTransform: 'uppercase',
+                  color: 'var(--fg-3)',
+                }}
+              >
+                {eyebrow}
+              </span>
             </div>
+
+            <h3
+              id="email-demo-title"
+              style={{
+                fontFamily: 'var(--font-serif)',
+                fontSize: 'clamp(1.5rem, 1rem + 0.9vw, 1.875rem)',
+                lineHeight: 1.15,
+                letterSpacing: '-0.02em',
+                fontWeight: 600,
+                color: 'var(--ink)',
+                margin: 0,
+              }}
+            >
+              {title}
+            </h3>
+
             {!isSubmitted ? (
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <p className="text-gray-300">Bu formu doldurun ve e-posta otomasyonunun nasıl başladığını görün.</p>
-                <div>
-                  <Label htmlFor="name" className="text-gray-400">Adınız</Label>
-                  <Input
-                    id="name"
-                    type="text"
-                    placeholder="Örn: Ahmet Yılmaz"
-                    value={formData.name}
-                    onChange={(e) => {
-                      setFormData(prev => ({ ...prev, name: e.target.value }));
-                      if (errors.name) setErrors(prev => ({ ...prev, name: undefined }));
-                    }}
-                    className="mt-1"
-                    disabled={isLoading}
-                    aria-invalid={Boolean(errors.name)}
-                    aria-describedby={errors.name ? 'email-demo-name-error' : undefined}
-                  />
-                  {errors.name && (
-                    <p id="email-demo-name-error" role="alert" className="mt-1 text-sm text-rose-300">
-                      {errors.name}
-                    </p>
-                  )}
-                </div>
-                <div>
-                  <Label htmlFor="email" className="text-gray-400">E-posta Adresiniz</Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    placeholder="ornek@email.com"
-                    value={formData.email}
-                    onChange={(e) => {
-                      setFormData(prev => ({ ...prev, email: e.target.value }));
-                      if (errors.email) setErrors(prev => ({ ...prev, email: undefined }));
-                    }}
-                    className="mt-1"
-                    disabled={isLoading}
-                    aria-invalid={Boolean(errors.email)}
-                    aria-describedby={errors.email ? 'email-demo-email-error' : undefined}
-                  />
-                  {errors.email && (
-                    <p id="email-demo-email-error" role="alert" className="mt-1 text-sm text-rose-300">
-                      {errors.email}
-                    </p>
-                  )}
-                </div>
-                <Button type="submit" className="w-full bg-blue-600 hover:bg-blue-700 py-3 text-lg" disabled={isLoading}>
+              <form onSubmit={handleSubmit} style={{ marginTop: 16, display: 'flex', flexDirection: 'column', gap: 14 }}>
+                <p style={{ margin: 0, color: 'var(--fg-2)', fontSize: 14, lineHeight: 1.6 }}>{lede}</p>
+
+                <Field
+                  id="name"
+                  label={isEN ? 'Your name' : 'Adınız'}
+                  placeholder={isEN ? 'e.g. Ahmet Yılmaz' : 'Örn: Ahmet Yılmaz'}
+                  type="text"
+                  value={formData.name}
+                  onChange={(v) => {
+                    setFormData((prev) => ({ ...prev, name: v }));
+                    if (errors.name) setErrors((prev) => ({ ...prev, name: undefined }));
+                  }}
+                  error={errors.name}
+                  disabled={isLoading}
+                />
+
+                <Field
+                  id="email"
+                  label={isEN ? 'Email address' : 'E-posta adresiniz'}
+                  placeholder="ornek@email.com"
+                  type="email"
+                  value={formData.email}
+                  onChange={(v) => {
+                    setFormData((prev) => ({ ...prev, email: v }));
+                    if (errors.email) setErrors((prev) => ({ ...prev, email: undefined }));
+                  }}
+                  error={errors.email}
+                  disabled={isLoading}
+                />
+
+                <button
+                  type="submit"
+                  disabled={isLoading}
+                  style={{
+                    marginTop: 4,
+                    height: 48,
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: 8,
+                    background: 'var(--ember)',
+                    color: 'var(--paper)',
+                    border: 0,
+                    borderRadius: 'var(--r-md)',
+                    fontFamily: 'var(--font-sans)',
+                    fontWeight: 600,
+                    fontSize: 15,
+                    letterSpacing: '0.01em',
+                    cursor: isLoading ? 'progress' : 'pointer',
+                    opacity: isLoading ? 0.7 : 1,
+                    transition: 'opacity 120ms',
+                  }}
+                >
                   {isLoading ? (
-                    <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                    <span
+                      aria-hidden
+                      style={{
+                        width: 16,
+                        height: 16,
+                        border: '2px solid var(--paper)',
+                        borderTopColor: 'transparent',
+                        borderRadius: '50%',
+                        animation: 'spin 0.8s linear infinite',
+                      }}
+                    />
                   ) : (
-                    <Send className="w-5 h-5 mr-2" />
+                    <>
+                      <Send size={16} />
+                      {submitLabel}
+                    </>
                   )}
-                  {isLoading ? '' : 'Otomasyonu Başlat'}
-                </Button>
+                </button>
+
+                <p
+                  style={{
+                    marginTop: 4,
+                    marginBottom: 0,
+                    fontSize: 12,
+                    fontFamily: 'var(--font-mono)',
+                    letterSpacing: '0.04em',
+                    color: 'var(--fg-3)',
+                    lineHeight: 1.6,
+                  }}
+                >
+                  {isEN
+                    ? 'We only use your address for this demo · Unsubscribe in one click.'
+                    : 'Adresiniz yalnızca bu demo için kullanılır · Tek tık ile çıkabilirsiniz.'}
+                </p>
               </form>
             ) : (
-              <div className="text-center">
-                <motion.div 
-                  initial={{scale: 0.5, opacity: 0}} 
-                  animate={{scale: 1, opacity: 1}} 
-                  transition={{type: 'spring', delay: 0.2}}
+              <div style={{ marginTop: 20 }}>
+                <motion.div
+                  initial={{ scale: 0.6, opacity: 0 }}
+                  animate={{ scale: 1, opacity: 1 }}
+                  transition={{ type: 'spring', delay: 0.1 }}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: 56,
+                    height: 56,
+                    borderRadius: '50%',
+                    background: 'var(--coal)',
+                    color: 'var(--ember)',
+                    marginBottom: 16,
+                  }}
                 >
-                  <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
+                  <CheckCircle size={24} />
                 </motion.div>
-                <h3 className="text-2xl font-bold text-white mb-2">Harika, {formData.name}!</h3>
-                <p className="text-gray-300 mb-6 max-w-sm mx-auto">
-                  Otomasyonunuz başarıyla başlatıldı. İlk e-postamız gelen kutunuza ulaştı bile. 
-                  Cevap verdiğinizde AI asistanımızla fikirler geliştirebilirsiniz.
+                <h4
+                  style={{
+                    fontFamily: 'var(--font-serif)',
+                    fontSize: 22,
+                    fontWeight: 600,
+                    letterSpacing: '-0.01em',
+                    color: 'var(--ink)',
+                    margin: 0,
+                  }}
+                >
+                  {isEN ? `Great, ${formData.name || 'friend'}.` : `Harika, ${formData.name || ''}.`}
+                </h4>
+                <p style={{ marginTop: 12, color: 'var(--fg-2)', fontSize: 14, lineHeight: 1.6 }}>
+                  {isEN
+                    ? 'Your automation is live. The first email is on its way to your inbox — reply to it and you can brainstorm with our agent.'
+                    : 'Otomasyonunuz başladı. İlk e-posta gelen kutunuza düşüyor — cevapladığınızda AI asistanımızla fikirler geliştirebilirsiniz.'}
                 </p>
-                <Button onClick={handleClose} className="w-full bg-gray-600 hover:bg-gray-700 mt-4">
-                  Harika!
-                </Button>
+                <button
+                  type="button"
+                  onClick={handleClose}
+                  style={{
+                    marginTop: 20,
+                    height: 44,
+                    width: '100%',
+                    background: 'var(--ink)',
+                    color: 'var(--paper)',
+                    border: 0,
+                    borderRadius: 'var(--r-md)',
+                    fontFamily: 'var(--font-sans)',
+                    fontWeight: 500,
+                    fontSize: 14,
+                    letterSpacing: '0.01em',
+                    cursor: 'pointer',
+                  }}
+                >
+                  {isEN ? 'Close' : 'Kapat'}
+                </button>
               </div>
             )}
+
+            <style>{`
+              @keyframes spin { to { transform: rotate(360deg); } }
+            `}</style>
           </motion.div>
         </motion.div>
       )}
     </AnimatePresence>
   );
 };
+
+interface FieldProps {
+  id: string;
+  label: string;
+  placeholder: string;
+  type: string;
+  value: string;
+  error?: string;
+  disabled?: boolean;
+  onChange: (value: string) => void;
+}
+
+function Field({ id, label, placeholder, type, value, error, disabled, onChange }: FieldProps) {
+  return (
+    <div>
+      <label
+        htmlFor={id}
+        style={{
+          display: 'block',
+          fontFamily: 'var(--font-mono)',
+          fontSize: 11,
+          letterSpacing: '0.12em',
+          textTransform: 'uppercase',
+          color: 'var(--fg-3)',
+          marginBottom: 8,
+        }}
+      >
+        {label}
+      </label>
+      <input
+        id={id}
+        type={type}
+        placeholder={placeholder}
+        value={value}
+        disabled={disabled}
+        onChange={(e) => onChange(e.target.value)}
+        aria-invalid={Boolean(error)}
+        aria-describedby={error ? `${id}-error` : undefined}
+        style={{
+          width: '100%',
+          height: 44,
+          padding: '0 14px',
+          background: 'var(--paper-2)',
+          color: 'var(--ink)',
+          border: `1px solid ${error ? 'var(--ember)' : 'var(--border)'}`,
+          borderRadius: 'var(--r-md)',
+          fontFamily: 'var(--font-sans)',
+          fontSize: 15,
+          outline: 'none',
+        }}
+      />
+      {error && (
+        <p
+          id={`${id}-error`}
+          role="alert"
+          style={{
+            marginTop: 6,
+            marginBottom: 0,
+            fontSize: 13,
+            color: 'var(--ember)',
+            fontFamily: 'var(--font-mono)',
+            letterSpacing: '0.02em',
+          }}
+        >
+          {error}
+        </p>
+      )}
+    </div>
+  );
+}
