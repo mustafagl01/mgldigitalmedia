@@ -598,177 +598,145 @@ export default function Pricing() {
                 </label>
               ))}
             </div>
-          </div>
-        </div>
-      </section>
 
-      {/* Result */}
-      <section style={{ background: 'var(--paper-2)', padding: 'clamp(56px, 5vw + 16px, 96px) 0', borderTop: '1px solid var(--border)' }}>
-        <div className="container">
-          <span className="eyebrow">{isEnglish ? 'STEP 03 · RESULT' : 'ADIM 03 · SONUÇ'}</span>
-          <h3
-            style={{
-              marginTop: 12,
-              fontFamily: 'var(--font-serif)',
-              fontSize: 'clamp(1.5rem, 1.1rem + 1vw, 2rem)',
-              lineHeight: 1.15,
-              letterSpacing: '-0.02em',
-              fontWeight: 500,
-              color: 'var(--ink)',
-              margin: '12px 0 0',
-            }}
-          >
-            {isTR ? 'Hesap dökümü' : 'Calculation breakdown'}
-          </h3>
-
-          <div
-            style={{
-              marginTop: 24,
-              padding: 24,
-              background: 'var(--paper)',
-              border: '1px dashed var(--border)',
-              borderRadius: 'var(--r-md)',
-              fontFamily: 'var(--font-mono)',
-            }}
-          >
-            <p style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--fg-3)', margin: 0 }}>
-              {isTR ? 'Aylık kayıp formülü' : 'Monthly loss formula'}
-            </p>
-            <p
-              style={{
-                marginTop: 12,
-                fontSize: 14,
-                lineHeight: 1.7,
-                color: 'var(--fg-2)',
-                wordBreak: 'break-word',
-              }}
-            >
-              {getBreakdown(activeSector).join(' × ')}
-              <span style={{ margin: '0 8px', color: 'var(--fg-3)' }}>=</span>
-              <span
+            {/* Result — inline, directly below sliders */}
+            <div style={{ marginTop: 24, paddingTop: 24, borderTop: '1px dashed var(--border)' }}>
+              <div
                 style={{
-                  fontFamily: 'var(--font-serif)',
-                  fontSize: 'clamp(1.5rem, 1rem + 1.5vw, 2rem)',
-                  fontWeight: 500,
-                  color: aiMode ? 'var(--ember)' : 'var(--ink)',
-                  letterSpacing: '-0.02em',
+                  padding: 16,
+                  background: 'var(--paper)',
+                  border: '1px dashed var(--border)',
+                  borderRadius: 'var(--r-md)',
+                  fontFamily: 'var(--font-mono)',
+                  marginBottom: 16,
                 }}
               >
-                {aiMode ? formatRegionalMoney(monthlyNetGain) : formatRegionalMoney(monthlyLoss)}
-              </span>
-            </p>
-          </div>
-
-          <p style={{ marginTop: 16, fontSize: 14, color: 'var(--fg-2)', lineHeight: 1.6 }}>
-            {getExplanation(activeSector)}
-          </p>
-
-          <div
-            style={{
-              marginTop: 32,
-              display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
-              gap: 16,
-            }}
-          >
-            <div
-              style={{
-                padding: 24,
-                background: 'var(--paper)',
-                border: '1px solid var(--border)',
-                borderRadius: 'var(--r-md)',
-              }}
-            >
-              <p style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--fg-3)', margin: 0 }}>
-                {isTR ? 'Manuel sistem: aylık tahmini kayıp' : 'Manual system: monthly loss'}
-              </p>
-              <p
-                style={{
-                  marginTop: 12,
-                  fontFamily: 'var(--font-serif)',
-                  fontSize: 'clamp(1.75rem, 1.2rem + 1.5vw, 2.5rem)',
-                  fontWeight: 500,
-                  letterSpacing: '-0.025em',
-                  color: 'var(--ink)',
-                  margin: 0,
-                }}
-              >
-                {formatRegionalMoney(monthlyLoss)}
-              </p>
-            </div>
-
-            <div
-              style={{
-                padding: 24,
-                background: 'var(--paper)',
-                border: '1px solid var(--ember)',
-                borderRadius: 'var(--r-md)',
-              }}
-            >
-              <p style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--ember)', margin: 0 }}>
-                {isTR ? 'MGL AI · Profesyonel Paket' : 'MGL AI · Pro Package'}
-              </p>
-              <p
-                style={{
-                  marginTop: 12,
-                  fontFamily: 'var(--font-serif)',
-                  fontSize: 'clamp(1.75rem, 1.2rem + 1.5vw, 2.5rem)',
-                  fontWeight: 500,
-                  letterSpacing: '-0.025em',
-                  color: 'var(--ink)',
-                  margin: 0,
-                }}
-              >
-                {formatRegionalMoney(aiAssistantCost)}
-                <span style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--fg-3)', fontWeight: 400, marginLeft: 6 }}>
-                  / {isTR ? 'ay' : 'mo'}
-                </span>
-              </p>
-              {aiMode && (
-                <p style={{ marginTop: 10, fontSize: 13, color: 'var(--ember)' }}>
-                  {isTR
-                    ? `Net tasarruf ≈ ${formatRegionalMoney(monthlyNetGain)} / ay`
-                    : `Net savings ≈ ${formatRegionalMoney(monthlyNetGain)} / mo`}
+                <p style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--fg-3)', margin: 0 }}>
+                  {isTR ? 'Aylık kayıp formülü' : 'Monthly loss formula'}
                 </p>
-              )}
+                <p
+                  style={{
+                    marginTop: 8,
+                    fontSize: 13,
+                    lineHeight: 1.7,
+                    color: 'var(--fg-2)',
+                    wordBreak: 'break-word',
+                  }}
+                >
+                  {getBreakdown(activeSector).join(' × ')}
+                  <span style={{ margin: '0 8px', color: 'var(--fg-3)' }}>=</span>
+                  <span
+                    style={{
+                      fontFamily: 'var(--font-serif)',
+                      fontSize: 'clamp(1.25rem, 0.9rem + 1vw, 1.75rem)',
+                      fontWeight: 500,
+                      color: aiMode ? 'var(--ember)' : 'var(--ink)',
+                      letterSpacing: '-0.02em',
+                    }}
+                  >
+                    {aiMode ? formatRegionalMoney(monthlyNetGain) : formatRegionalMoney(monthlyLoss)}
+                  </span>
+                </p>
+              </div>
+
+              <div
+                style={{
+                  display: 'grid',
+                  gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+                  gap: 12,
+                }}
+              >
+                <div
+                  style={{
+                    padding: 20,
+                    background: 'var(--paper)',
+                    border: '1px solid var(--border)',
+                    borderRadius: 'var(--r-md)',
+                  }}
+                >
+                  <p style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--fg-3)', margin: 0 }}>
+                    {isTR ? 'Aylık tahmini kayıp' : 'Monthly estimated loss'}
+                  </p>
+                  <p
+                    style={{
+                      marginTop: 8,
+                      fontFamily: 'var(--font-serif)',
+                      fontSize: 'clamp(1.5rem, 1rem + 1.2vw, 2.25rem)',
+                      fontWeight: 500,
+                      letterSpacing: '-0.025em',
+                      color: 'var(--ink)',
+                      margin: '8px 0 0',
+                    }}
+                  >
+                    {formatRegionalMoney(monthlyLoss)}
+                  </p>
+                </div>
+
+                <div
+                  style={{
+                    padding: 20,
+                    background: 'var(--paper)',
+                    border: '1px solid var(--ember)',
+                    borderRadius: 'var(--r-md)',
+                  }}
+                >
+                  <p style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--ember)', margin: 0 }}>
+                    {isTR ? 'MGL AI · Profesyonel Paket' : 'MGL AI · Pro Package'}
+                  </p>
+                  <p
+                    style={{
+                      marginTop: 8,
+                      fontFamily: 'var(--font-serif)',
+                      fontSize: 'clamp(1.5rem, 1rem + 1.2vw, 2.25rem)',
+                      fontWeight: 500,
+                      letterSpacing: '-0.025em',
+                      color: 'var(--ink)',
+                      margin: '8px 0 0',
+                    }}
+                  >
+                    {formatRegionalMoney(aiAssistantCost)}
+                    <span style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--fg-3)', fontWeight: 400, marginLeft: 6 }}>
+                      / {isTR ? 'ay' : 'mo'}
+                    </span>
+                  </p>
+                  {aiMode && (
+                    <p style={{ marginTop: 8, fontSize: 13, color: 'var(--ember)', fontWeight: 500 }}>
+                      {isTR
+                        ? `Net tasarruf ≈ ${formatRegionalMoney(monthlyNetGain)} / ay`
+                        : `Net savings ≈ ${formatRegionalMoney(monthlyNetGain)} / mo`}
+                    </p>
+                  )}
+                </div>
+              </div>
+
+              <a
+                href="/packages"
+                style={{
+                  marginTop: 16,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'space-between',
+                  padding: '16px 20px',
+                  background: 'var(--paper)',
+                  border: '1px solid var(--border)',
+                  borderLeft: '3px solid var(--ember)',
+                  borderRadius: 'var(--r-md)',
+                  textDecoration: 'none',
+                  gap: 12,
+                }}
+              >
+                <div>
+                  <p style={{ fontFamily: 'var(--font-serif)', fontSize: 16, fontWeight: 500, color: 'var(--ink)', margin: 0 }}>
+                    {isTR ? 'Önerilen çözüm' : 'Recommended'}: {recommendedPackage.name}
+                  </p>
+                  <p style={{ marginTop: 4, fontSize: 13, color: 'var(--fg-2)', margin: '4px 0 0' }}>
+                    {recommendedPackage.message}
+                  </p>
+                </div>
+                <ArrowUpRight size={16} style={{ flexShrink: 0, color: 'var(--ember)' }} />
+              </a>
             </div>
           </div>
-
-          <a
-            href="/packages"
-            style={{
-              marginTop: 24,
-              display: 'block',
-              padding: 24,
-              background: 'var(--paper)',
-              border: '1px solid var(--border)',
-              borderLeft: '3px solid var(--ember)',
-              borderRadius: 'var(--r-md)',
-              textDecoration: 'none',
-              transition: 'background 160ms',
-            }}
-          >
-            <p
-              style={{
-                fontFamily: 'var(--font-serif)',
-                fontSize: 18,
-                lineHeight: 1.3,
-                fontWeight: 500,
-                color: 'var(--ink)',
-                margin: 0,
-              }}
-            >
-              {isTR ? 'Önerilen çözüm' : 'Recommended'}: {recommendedPackage.name}
-            </p>
-            <p style={{ marginTop: 8, fontSize: 14, color: 'var(--fg-2)', lineHeight: 1.5 }}>
-              {recommendedPackage.message}
-            </p>
-          </a>
-
-          <a href="/packages" className="btn btn-primary btn-lg" style={{ marginTop: 24 }}>
-            {isTR ? 'Paketlere git' : 'See packages'}
-            <ArrowUpRight size={16} />
-          </a>
         </div>
       </section>
     </>
