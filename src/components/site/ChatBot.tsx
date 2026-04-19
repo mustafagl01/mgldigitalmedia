@@ -3,6 +3,8 @@ import { useLanguage } from '../../contexts/LanguageContext';
 
 const WEBHOOK_URL =
   'https://nt3ys1ml.rpcd.host/webhook/b7256006-aad8-48e9-a2c6-88f10664f5a8';
+const CALLBACK_WEBHOOK_URL =
+  'https://nt3ys1ml.rpcd.host/webhook/a1efbd5d-e366-4aeb-affb-8c75dbcfe5f8';
 const CALENDAR_URL = 'https://calendar.app.google/FZnTjsWGfCy33WF36';
 const STORAGE_KEY = 'mgl-chat-session';
 
@@ -203,11 +205,10 @@ export function ChatBot() {
     setCallbackSending(true);
     setCallbackError(null);
     try {
-      const res = await fetch(WEBHOOK_URL, {
+      const res = await fetch(CALLBACK_WEBHOOK_URL, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          type: 'callback',
           sessionId: session.id,
           language,
           phone: normalized,
