@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
-import { Menu, X, ArrowUpRight } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { Wordmark } from './Wordmark';
+import { GoogleCalendarButton } from './GoogleCalendarButton';
 
 type Page = 'home' | 'services' | 'solutions' | 'packages' | 'pricing';
 
@@ -136,10 +137,10 @@ export function SiteHeader({ currentPage, onNavigate, onAnalysisClick }: Props) 
             WhatsApp
           </button>
 
-          <button onClick={onAnalysisClick} className="btn btn-primary btn-sm">
-            {language === 'tr' ? 'Analiz al' : 'Get analysis'}
-            <ArrowUpRight size={14} style={{ marginLeft: 4 }} />
-          </button>
+          <GoogleCalendarButton
+            label={language === 'tr' ? 'Randevu al' : 'Book a call'}
+            color="#C0392B"
+          />
 
           <button
             className="nav-mobile-toggle"
@@ -220,15 +221,10 @@ export function SiteHeader({ currentPage, onNavigate, onAnalysisClick }: Props) 
             <button onClick={handleWhatsApp} className="btn btn-ghost btn-md">
               WhatsApp
             </button>
-            <button
-              onClick={() => {
-                onAnalysisClick();
-                setMobileOpen(false);
-              }}
-              className="btn btn-primary btn-md"
-            >
-              {language === 'tr' ? 'Analiz al' : 'Get analysis'}
-            </button>
+            <GoogleCalendarButton
+              label={language === 'tr' ? 'Randevu al' : 'Book a call'}
+              color="#C0392B"
+            />
           </div>
         </div>
       )}
