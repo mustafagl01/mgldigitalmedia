@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
+import { GoogleCalendarButton } from './GoogleCalendarButton';
 
 const WEBHOOK_URL =
   'https://nt3ys1ml.rpcd.host/webhook/b7256006-aad8-48e9-a2c6-88f10664f5a8';
@@ -631,37 +632,20 @@ export function ChatBot() {
                 <div
                   style={{
                     marginTop: 8,
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: 6,
                     fontSize: 10,
                     color: 'var(--fg-muted)',
                     fontFamily: 'var(--font-mono)',
                     letterSpacing: '0.04em',
                   }}
                 >
-                  {isTR ? (
-                    <>
-                      Ya da{' '}
-                      <a
-                        href={CALENDAR_URL}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        style={{ color: 'var(--ember)' }}
-                      >
-                        takvimden randevu al →
-                      </a>
-                    </>
-                  ) : (
-                    <>
-                      Or{' '}
-                      <a
-                        href={CALENDAR_URL}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        style={{ color: 'var(--ember)' }}
-                      >
-                        book on the calendar →
-                      </a>
-                    </>
-                  )}
+                  <span>{isTR ? 'Ya da' : 'Or'}</span>
+                  <GoogleCalendarButton
+                    label={isTR ? 'takvimden randevu al' : 'book on the calendar'}
+                    color="#C0392B"
+                  />
                 </div>
               </div>
             )}
