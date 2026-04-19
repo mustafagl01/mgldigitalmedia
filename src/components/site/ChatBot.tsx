@@ -81,6 +81,57 @@ export function ChatBot() {
   const scrollRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const phoneRef = useRef<HTMLInputElement>(null);
+  const triggerRef = useRef<HTMLButtonElement>(null);
+  const [emberMask, setEmberMask] = useState<{ top: number; bottom: number } | null>(null);
+
+  useEffect(() => {
+    let raf = 0;
+    const measure = () => {
+      const btn = triggerRef.current;
+      if (!btn) return;
+      const br = btn.getBoundingClientRect();
+      const coals = document.querySelectorAll<HTMLElement>('.on-coal');
+      let iTop = br.bottom;
+      let iBottom = br.top;
+      let hit = false;
+      coals.forEach((el) => {
+        const r = el.getBoundingClientRect();
+        const top = Math.max(br.top, r.top);
+        const bottom = Math.min(br.bottom, r.bottom);
+        if (bottom > top) {
+          if (!hit || top < iTop) iTop = top;
+          if (!hit || bottom > iBottom) iBottom = bottom;
+          hit = true;
+        }
+      });
+      if (!hit) {
+        setEmberMask((prev) => (prev === null ? prev : null));
+        return;
+      }
+      const top = Math.max(0, iTop - br.top);
+      const bottom = Math.max(0, br.bottom - iBottom);
+      setEmberMask((prev) =>
+        prev && Math.abs(prev.top - top) < 0.5 && Math.abs(prev.bottom - bottom) < 0.5
+          ? prev
+          : { top, bottom },
+      );
+    };
+    const schedule = () => {
+      if (raf) return;
+      raf = window.requestAnimationFrame(() => {
+        raf = 0;
+        measure();
+      });
+    };
+    measure();
+    window.addEventListener('scroll', schedule, { passive: true });
+    window.addEventListener('resize', schedule);
+    return () => {
+      window.removeEventListener('scroll', schedule);
+      window.removeEventListener('resize', schedule);
+      if (raf) window.cancelAnimationFrame(raf);
+    };
+  }, []);
 
   const isTR = language === 'tr';
 
@@ -243,6 +294,7 @@ export function ChatBot() {
     <>
       {/* Floating trigger */}
       <button
+        ref={triggerRef}
         onClick={() => setOpen((o) => !o)}
         aria-label={isTR ? 'Era ile konuş' : 'Chat with Era'}
         style={{
@@ -263,6 +315,8 @@ export function ChatBot() {
           alignItems: 'center',
           justifyContent: 'center',
           transition: 'transform 200ms ease',
+          overflow: 'hidden',
+          isolation: 'isolate',
         }}
         onMouseEnter={(e) => {
           e.currentTarget.style.transform = 'translateY(-2px)';
@@ -271,16 +325,34 @@ export function ChatBot() {
           e.currentTarget.style.transform = 'translateY(0)';
         }}
       >
-        {open ? (
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <line x1="18" y1="6" x2="6" y2="18" />
-            <line x1="6" y1="6" x2="18" y2="18" />
-          </svg>
-        ) : (
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
-            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
-          </svg>
-        )}
+        {/* Ember fill — revealed only where the button overlaps a dark (.on-coal) section */}
+        <span
+          aria-hidden
+          style={{
+            position: 'absolute',
+            inset: 0,
+            background: 'var(--ember)',
+            borderRadius: '50%',
+            clipPath: emberMask
+              ? `inset(${emberMask.top}px 0 ${emberMask.bottom}px 0)`
+              : 'inset(100% 0 0 0)',
+            transition: 'clip-path 220ms cubic-bezier(0.22, 0.61, 0.36, 1)',
+            zIndex: 0,
+            pointerEvents: 'none',
+          }}
+        />
+        <span style={{ position: 'relative', zIndex: 1, display: 'inline-flex' }}>
+          {open ? (
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <line x1="18" y1="6" x2="6" y2="18" />
+              <line x1="6" y1="6" x2="18" y2="18" />
+            </svg>
+          ) : (
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+            </svg>
+          )}
+        </span>
         {unread && !open && (
           <span
             style={{
@@ -292,6 +364,7 @@ export function ChatBot() {
               borderRadius: '50%',
               background: 'var(--ember)',
               border: '2px solid var(--ink)',
+              zIndex: 2,
             }}
           />
         )}
