@@ -22,6 +22,8 @@ import Pricing from './pages/Pricing';
 import Packages from './pages/Packages';
 import Services from './pages/Services';
 import Solutions from './pages/Solutions';
+import Legal from './pages/Legal';
+import NotFound from './pages/NotFound';
 
 // New site shell
 import { AnnouncementBar } from './components/site/AnnouncementBar';
@@ -47,11 +49,26 @@ type AppPage =
   | 'pricing'
   | 'packages'
   | 'services'
-  | 'solutions';
+  | 'solutions'
+  | 'legal'
+  | 'notfound';
 
-type SitePage = 'home' | 'services' | 'solutions' | 'packages' | 'pricing';
+type SitePage = 'home' | 'services' | 'solutions' | 'packages' | 'pricing' | 'legal';
+
+const KNOWN_PATHS = new Set([
+  '/',
+  '/products',
+  '/success',
+  '/cancel',
+  '/pricing',
+  '/packages',
+  '/services',
+  '/solutions',
+  '/legal',
+]);
 
 function pathToPage(path: string): AppPage {
+  if (path === '/' || path === '') return 'home';
   if (path === '/products') return 'products';
   if (path === '/success') return 'success';
   if (path === '/cancel') return 'cancel';
@@ -59,7 +76,8 @@ function pathToPage(path: string): AppPage {
   if (path === '/packages') return 'packages';
   if (path === '/services') return 'services';
   if (path === '/solutions') return 'solutions';
-  return 'home';
+  if (path === '/legal') return 'legal';
+  return KNOWN_PATHS.has(path) ? 'home' : 'notfound';
 }
 
 function AppContent() {
@@ -117,6 +135,8 @@ function AppContent() {
   if (currentPage === 'packages') return wrapPage(<Packages />);
   if (currentPage === 'services') return wrapPage(<Services />);
   if (currentPage === 'solutions') return wrapPage(<Solutions />);
+  if (currentPage === 'legal') return wrapPage(<Legal />);
+  if (currentPage === 'notfound') return wrapPage(<NotFound onHome={() => navigateTo('home')} />);
 
   // HOME
   return (

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Phone, Bot, CheckCircle } from 'lucide-react';
 import { Button } from '../ui/Button';
@@ -13,15 +13,32 @@ interface PhoneDemoModalProps {
 export const PhoneDemoModal: React.FC<PhoneDemoModalProps> = ({ isOpen, onClose }) => {
   const [countryCode, setCountryCode] = useState('+90');
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [inlineError, setInlineError] = useState<string | null>(null);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
+  useEffect(() => {
+    if (!isOpen) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    document.addEventListener('keydown', onKey);
+    return () => document.removeEventListener('keydown', onKey);
+  }, [isOpen, onClose]);
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!phoneNumber.trim() || isLoading) {
-      toast({ title: "Geçersiz Numara", description: "Lütfen geçerli bir telefon numarası girin.", variant: "destructive" });
+    const digits = phoneNumber.replace(/\D/g, '');
+    if (isLoading) return;
+    if (!digits) {
+      setInlineError('Telefon numaranızı girin.');
       return;
     }
+    if (digits.length < 9) {
+      setInlineError('Geçerli bir telefon numarası girin (en az 9 rakam).');
+      return;
+    }
+    setInlineError(null);
     setIsLoading(true);
     const fullPhoneNumber = `${countryCode}${phoneNumber.replace(/\s/g, '')}`;
     const webhookUrl = 'https://nt3ys1ml.rpcd.host/webhook/a1efbd5d-e366-4aeb-affb-8c75dbcfe5f8';
@@ -46,6 +63,7 @@ export const PhoneDemoModal: React.FC<PhoneDemoModalProps> = ({ isOpen, onClose 
     setPhoneNumber('');
     setCountryCode('+90');
     setIsSubmitted(false);
+    setInlineError(null);
     onClose();
   };
 
@@ -59,19 +77,27 @@ export const PhoneDemoModal: React.FC<PhoneDemoModalProps> = ({ isOpen, onClose 
           className="fixed inset-0 bg-black/80 backdrop-blur-sm z-50 flex items-center justify-center p-4" 
           onClick={handleClose}
         >
-          <motion.div 
-            initial={{ scale: 0.8, opacity: 0 }} 
-            animate={{ scale: 1, opacity: 1 }} 
-            exit={{ scale: 0.8, opacity: 0 }} 
-            onClick={(e) => e.stopPropagation()} 
+          <motion.div
+            initial={{ scale: 0.8, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.8, opacity: 0 }}
+            onClick={(e) => e.stopPropagation()}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="phone-demo-title"
             className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-3xl p-8 max-w-md w-full border border-gray-700 shadow-2xl text-center"
           >
             <div className="flex items-center justify-between mb-6 relative">
-              <h3 className="text-2xl font-bold text-white flex items-center mx-auto">
-                <Phone className="w-6 h-6 mr-3 text-rose-400" /> 
+              <h3 id="phone-demo-title" className="text-2xl font-bold text-white flex items-center mx-auto">
+                <Phone className="w-6 h-6 mr-3 text-rose-400" />
                 AI Sesli Asistan Demo
               </h3>
-              <Button variant="ghost" onClick={handleClose} className="text-gray-400 hover:text-white absolute -top-4 -right-4">
+              <Button
+                variant="ghost"
+                onClick={handleClose}
+                aria-label="Kapat"
+                className="text-gray-400 hover:text-white absolute -top-4 -right-4"
+              >
                 ✕
               </Button>
             </div>
@@ -99,15 +125,29 @@ export const PhoneDemoModal: React.FC<PhoneDemoModalProps> = ({ isOpen, onClose 
                         <option value="+90">TR +90</option>
                         <option value="+44">UK +44</option>
                       </select>
-                      <Input 
-                        id="phoneNumber" 
-                        type="tel" 
-                        placeholder="555 123 4567" 
-                        value={phoneNumber} 
-                        onChange={(e) => setPhoneNumber(e.target.value)} 
+                      <Input
+                        id="phoneNumber"
+                        type="tel"
+                        placeholder="555 123 4567"
+                        value={phoneNumber}
+                        onChange={(e) => {
+                          setPhoneNumber(e.target.value);
+                          if (inlineError) setInlineError(null);
+                        }}
                         disabled={isLoading}
+                        aria-invalid={Boolean(inlineError)}
+                        aria-describedby={inlineError ? 'phone-demo-error' : undefined}
                       />
                     </div>
+                    {inlineError && (
+                      <p
+                        id="phone-demo-error"
+                        role="alert"
+                        className="text-left text-sm text-rose-300"
+                      >
+                        {inlineError}
+                      </p>
+                    )}
                     <Button type="submit" className="w-full bg-rose-600 hover:bg-rose-700 py-3 text-lg" disabled={isLoading}>
                       {isLoading ? (
                         <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />

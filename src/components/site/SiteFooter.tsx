@@ -1,6 +1,6 @@
 import { useLanguage } from '../../contexts/LanguageContext';
 
-type Page = 'home' | 'services' | 'solutions' | 'packages' | 'pricing';
+type Page = 'home' | 'services' | 'solutions' | 'packages' | 'pricing' | 'legal';
 
 interface Props {
   onNavigate: (page: Page) => void;
@@ -221,7 +221,25 @@ export function SiteFooter({ onNavigate }: Props) {
           }}
         >
           <span>© {year} MGL Digital Media LTD</span>
-          <span>{legalHeading} · KVKK · GDPR</span>
+          <button
+            onClick={() => onNavigate('legal')}
+            style={{
+              background: 'transparent',
+              border: 0,
+              padding: 0,
+              color: 'var(--bone-3)',
+              fontFamily: 'inherit',
+              fontSize: 'inherit',
+              letterSpacing: 'inherit',
+              textTransform: 'inherit',
+              cursor: 'pointer',
+              textDecoration: 'underline',
+              textDecorationColor: 'var(--coal-3)',
+              textUnderlineOffset: 4,
+            }}
+          >
+            {legalHeading} · KVKK · GDPR
+          </button>
         </div>
       </div>
 

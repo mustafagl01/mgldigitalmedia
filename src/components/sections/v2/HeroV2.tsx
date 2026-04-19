@@ -113,8 +113,8 @@ export function HeroV2({ onAnalysisClick, onDemoClick }: Props) {
             }}
           >
             {language === 'tr'
-              ? 'WhatsApp, telefon ve e-postanız için 7/24 çalışan AI asistanlar kuruyoruz. Randevu alır, soruları cevaplar, müşteriyi satışa hazırlar — uyumaz, hastalanmaz, maaş istemez.'
-              : 'We build AI assistants that handle your WhatsApp, phone, and email 24/7. They book appointments, answer questions, and warm up leads — no sleep, no sick days, no salary.'}
+              ? 'AI asistanlardan Meta/Google reklamlarına, n8n otomasyonundan dönüştüren web ve SEO\'ya — bir işletmenin tüm dijital motorlarını tek ekipten, tek sistemden kuruyoruz. Konuşan biz, kapatan biz.'
+              : 'From AI assistants to Meta/Google ads, n8n automation to conversion-first web and SEO — we build every digital motor your business runs on from one team, one system. We start the conversation and we close it.'}
           </p>
 
           {/* CTAs */}
