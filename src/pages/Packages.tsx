@@ -4,6 +4,8 @@ import type { PackageTierKey } from '../config/pricing';
 import { useLocation } from '../contexts/LocationContext';
 import { useLanguage } from '../contexts/LanguageContext';
 import { formatPrice } from '../utils/formatPrice';
+import { Seo, BASE_SCHEMAS, breadcrumbSchema } from '../components/seo/Seo';
+import { PageNav } from '../components/ui/PageNav';
 
 type PackagePlan = {
   key: PackageTierKey;
@@ -348,16 +350,33 @@ export default function Packages() {
 
   const readyPlans = useMemo(() => buildReadyPlans(pricing, isEnglish), [pricing, isEnglish]);
 
+  const seoTitle = isEnglish
+    ? 'Ready Packages — Starter, Growth, Scale | MGL Digital Media'
+    : 'Hazır Paketler — Başlangıç, Büyüme, Ölçeklendirme | MGL Digital Media';
+  const seoDescription = isEnglish
+    ? 'Pre-configured digital packages for SMEs: WhatsApp + voice bot + n8n + website + ads. Starter, Growth, Scale tiers in TRY and GBP. No lock-in.'
+    : 'KOBİ\'ler için hazır dijital paketler: WhatsApp + sesli bot + n8n + web + reklam. Başlangıç, Büyüme, Ölçeklendirme seviyeleri. Taahhüt yok.';
+  const breadcrumb = breadcrumbSchema([
+    { name: isEnglish ? 'Home' : 'Ana Sayfa', path: '/' },
+    { name: isEnglish ? 'Packages' : 'Paketler', path: '/packages' },
+  ]);
+
   return (
-    <div className="min-h-screen bg-[#05060a] px-4 py-10 text-white">
-      <div className="mx-auto max-w-7xl space-y-8">
-        <button
-          onClick={() => (window.location.href = '/')}
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-xl border border-white/20 bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white transition-colors"
-        >
-          <Home size={18} />
-          <span>{isEnglish ? 'Home' : 'Ana Sayfa'}</span>
-        </button>
+    <div className="min-h-screen bg-[#05060a] text-white">
+      <Seo
+        title={seoTitle}
+        description={seoDescription}
+        path="/packages"
+        locale={isEnglish ? 'en_GB' : 'tr_TR'}
+        keywords={
+          isEnglish
+            ? ['digital agency packages', 'SME automation bundle', 'WhatsApp bot package', 'voice assistant package', 'website and ads bundle']
+            : ['dijital ajans paketleri', 'KOBİ otomasyon paketi', 'WhatsApp bot paketi', 'sesli asistan paketi', 'web ve reklam paketi']
+        }
+        jsonLd={[...BASE_SCHEMAS, breadcrumb]}
+      />
+      <PageNav current="packages" />
+      <div className="mx-auto max-w-7xl space-y-8 px-4 py-10">
 
         {/* Hero */}
         <section className="rounded-3xl border border-cyan-300/20 bg-white/5 p-6 shadow-[0_0_70px_rgba(34,211,238,0.08)] backdrop-blur-2xl md:p-10">

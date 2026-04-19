@@ -16,6 +16,8 @@ import {
 } from 'lucide-react';
 import { useLocation } from '../contexts/LocationContext';
 import { useLanguage } from '../contexts/LanguageContext';
+import { Seo, BASE_SCHEMAS, breadcrumbSchema, serviceSchema } from '../components/seo/Seo';
+import { PageNav } from '../components/ui/PageNav';
 
 type RiskModel = 'A' | 'B' | 'C' | 'project';
 type CategoryKey = 'automation' | 'web' | 'marketing' | 'infrastructure';
@@ -512,8 +514,42 @@ export default function Services() {
   const visible =
     activeCategory === 'all' ? SERVICES : grouped[activeCategory];
 
+  const seoTitle = isEnglish
+    ? 'Digital Services — WhatsApp, Voice, n8n, Web, SEO & Ads | MGL Digital Media'
+    : 'Dijital Hizmetler — WhatsApp, Sesli, n8n, Web, SEO & Reklam | MGL Digital Media';
+  const seoDescription = isEnglish
+    ? '11 à la carte digital services: WhatsApp bots, voice assistants, n8n automation, web design, SEO, Meta & Google Ads, CRM setup. Transparent TRY and GBP pricing, no lock-in.'
+    : '11 bağımsız dijital hizmet: WhatsApp botları, sesli asistan, n8n otomasyon, web tasarım, SEO, Meta & Google Ads, CRM kurulumu. Şeffaf TRY ve GBP fiyat, taahhütsüz.';
+
+  const servicesJsonLd = SERVICES.map((s) =>
+    serviceSchema({
+      name: isEnglish ? s.name.en : s.name.tr,
+      description: isEnglish ? s.tagline.en : s.tagline.tr,
+      path: `/services#${s.id}`,
+      category: CATEGORIES[s.category][isEnglish ? 'en' : 'tr'],
+    }),
+  );
+
+  const breadcrumb = breadcrumbSchema([
+    { name: isEnglish ? 'Home' : 'Ana Sayfa', path: '/' },
+    { name: isEnglish ? 'Services' : 'Hizmetler', path: '/services' },
+  ]);
+
   return (
     <div className="min-h-screen bg-[#030712] text-slate-100 font-['Inter',_sans-serif]">
+      <Seo
+        title={seoTitle}
+        description={seoDescription}
+        path="/services"
+        locale={isEnglish ? 'en_GB' : 'tr_TR'}
+        keywords={
+          isEnglish
+            ? ['WhatsApp bot', 'AI voice assistant', 'n8n automation', 'web design', 'SEO', 'Meta Ads', 'Google Ads', 'CRM setup', 'digital agency London', 'Turkey']
+            : ['WhatsApp botu', 'sesli asistan', 'n8n otomasyon', 'web tasarım', 'SEO', 'Meta reklam', 'Google reklam', 'CRM kurulumu', 'dijital ajans İstanbul', 'Londra']
+        }
+        jsonLd={[...BASE_SCHEMAS, breadcrumb, ...servicesJsonLd]}
+      />
+      <PageNav current="services" />
       <div className="fixed inset-0 pointer-events-none overflow-hidden z-0">
         <div className="absolute top-[-10%] left-[-10%] h-[45%] w-[45%] rounded-full bg-purple-600/15 blur-[120px]" />
         <div className="absolute bottom-[-10%] right-[-10%] h-[45%] w-[45%] rounded-full bg-cyan-600/15 blur-[120px]" />

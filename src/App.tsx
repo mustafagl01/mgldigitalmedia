@@ -34,10 +34,11 @@ import { FloatingBookingButton } from './components/ui/FloatingBookingButton';
 import Pricing from './pages/Pricing';
 import Packages from './pages/Packages';
 import Services from './pages/Services';
+import Solutions from './pages/Solutions';
 
 
 
-type AppPage = 'home' | 'products' | 'success' | 'cancel' | 'pricing' | 'packages' | 'services';
+type AppPage = 'home' | 'products' | 'success' | 'cancel' | 'pricing' | 'packages' | 'services' | 'solutions';
 
 function AppContent() {
   const [currentPage, setCurrentPage] = useState<AppPage>(() => {
@@ -48,6 +49,7 @@ function AppContent() {
     if (path === '/pricing') return 'pricing';
     if (path === '/packages') return 'packages';
     if (path === '/services') return 'services';
+    if (path === '/solutions') return 'solutions';
     return 'home';
   });
   const [activeDemo, setActiveDemo] = useState<string | null>(null);
@@ -72,6 +74,7 @@ function AppContent() {
       else if (path === '/pricing') setCurrentPage('pricing');
       else if (path === '/packages') setCurrentPage('packages');
       else if (path === '/services') setCurrentPage('services');
+      else if (path === '/solutions') setCurrentPage('solutions');
       else setCurrentPage('home');
     };
 
@@ -128,6 +131,10 @@ function AppContent() {
 
   if (currentPage === 'services') {
     return <Services />;
+  }
+
+  if (currentPage === 'solutions') {
+    return <Solutions />;
   }
 
   return (
@@ -214,6 +221,9 @@ function AppContent() {
                 <button onClick={() => navigateTo('services')} className="hover:text-cyan-300 transition-colors">
                   {language === 'en' ? 'Services' : 'Hizmetler'}
                 </button>
+                <button onClick={() => navigateTo('solutions')} className="hover:text-cyan-300 transition-colors">
+                  {language === 'en' ? 'Solutions' : 'Sektörel Çözümler'}
+                </button>
                 <button onClick={() => navigateTo('packages')} className="hover:text-cyan-300 transition-colors">
                   {t('header.packages')}
                 </button>
@@ -249,6 +259,9 @@ function AppContent() {
                   </button>
                   <button onClick={() => navigateTo('services')} className="text-left px-3 py-2 rounded-md hover:bg-slate-800">
                     {language === 'en' ? 'Services' : 'Hizmetler'}
+                  </button>
+                  <button onClick={() => navigateTo('solutions')} className="text-left px-3 py-2 rounded-md hover:bg-slate-800">
+                    {language === 'en' ? 'Solutions' : 'Sektörel Çözümler'}
                   </button>
                   <button onClick={() => navigateTo('packages')} className="text-left px-3 py-2 rounded-md hover:bg-slate-800">
                     {t('header.packages')}

@@ -16,6 +16,7 @@ import {
 } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { useLocation } from '../contexts/LocationContext';
+import { Seo, BASE_SCHEMAS, breadcrumbSchema } from '../components/seo/Seo';
 
 type SectorId =
   | 'health'
@@ -555,8 +556,27 @@ export default function Pricing() {
   const getExplanation = (sector: SectorConfig) => isTR ? sector.explanationTR(values) : sector.explanationEN(values);
   const getBreakdown = (sector: SectorConfig) => isTR ? sector.breakdownTR(values) : sector.breakdownEN(values);
 
+  const seoTitle = isTR
+    ? 'ROI Hesaplayıcı — Kaybın Nereden Geliyor? | MGL Digital Media'
+    : 'ROI Calculator — Where Is Your Loss Coming From? | MGL Digital Media';
+  const seoDescription = isTR
+    ? 'Sektöre göre kayıp hesaplayıcı. 9 sektör, canlı simülasyon. 1 çalışan maliyetine 3 AI asistan.'
+    : 'Sector-based loss calculator. 9 sectors, live simulation. 3 AI assistants for the cost of 1 employee.';
+  const breadcrumb = breadcrumbSchema([
+    { name: isTR ? 'Ana Sayfa' : 'Home', path: '/' },
+    { name: isTR ? 'ROI Hesaplayıcı' : 'ROI Calculator', path: '/pricing' },
+  ]);
+
   return (
     <div className={`min-h-screen px-4 py-10 text-white transition-colors duration-300 ${aiMode ? 'bg-[#03110a]' : 'bg-[#0a0710]'}`}>
+      <Seo
+        title={seoTitle}
+        description={seoDescription}
+        path="/pricing"
+        locale={isTR ? 'tr_TR' : 'en_GB'}
+        keywords={isTR ? ['ROI hesaplayıcı', 'kayıp hesabı', 'KOBİ otomasyon ROI'] : ['ROI calculator', 'SME automation ROI', 'loss calculator']}
+        jsonLd={[...BASE_SCHEMAS, breadcrumb]}
+      />
       <div className="mx-auto max-w-7xl space-y-8">
         {/* Back to Home Button */}
         <button
