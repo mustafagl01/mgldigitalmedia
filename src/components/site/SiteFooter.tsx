@@ -96,12 +96,11 @@ export function SiteFooter({ onNavigate }: Props) {
                   fontSize: 11,
                   color: 'var(--bone-3)',
                   fontWeight: 500,
-                  letterSpacing: '0.08em',
-                  textTransform: 'uppercase',
+                  letterSpacing: '0.14em',
                   marginLeft: 10,
                 }}
               >
-                / digital
+                / systems
               </span>
             </div>
             <p style={{ marginTop: 16, color: 'var(--bone-2)', fontSize: 14, lineHeight: 1.6 }}>

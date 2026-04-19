@@ -20,8 +20,8 @@ export function Wordmark({ size = 22 }: Props) {
     >
       <span>mgl</span>
       <span style={{ color: 'var(--ember)', fontStyle: 'italic', fontWeight: 500 }}>ai</span>
-      <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--fg-3)', fontWeight: 500, letterSpacing: '0.08em', textTransform: 'uppercase', marginLeft: 8 }}>
-        / digital
+      <span style={{ fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--fg-3)', fontWeight: 500, letterSpacing: '0.14em', marginLeft: 8 }}>
+        / systems
       </span>
     </span>
   );
