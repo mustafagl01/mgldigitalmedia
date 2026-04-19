@@ -41,6 +41,20 @@
     <xhtml:link rel="alternate" hreflang="en" href="https://mgl-ai.uk/solutions/eticaret" />
   </url>
   <url>
+    <loc>https://mgl-ai.uk/solutions/guzellik</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://mgl-ai.uk/solutions/guzellik" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://mgl-ai.uk/solutions/guzellik" />
+  </url>
+  <url>
+    <loc>https://mgl-ai.uk/solutions/restoran</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+    <xhtml:link rel="alternate" hreflang="tr" href="https://mgl-ai.uk/solutions/restoran" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://mgl-ai.uk/solutions/restoran" />
+  </url>
+  <url>
     <loc>https://mgl-ai.uk/packages</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>

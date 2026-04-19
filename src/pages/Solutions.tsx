@@ -17,7 +17,12 @@ import { useLanguage } from '../contexts/LanguageContext';
 import { Seo, BASE_SCHEMAS, breadcrumbSchema, faqSchema } from '../components/seo/Seo';
 
 type SectorKey = 'dental' | 'realestate' | 'ecommerce' | 'beauty' | 'restaurant' | 'local';
-type DeepPage = 'solution-klinik' | 'solution-emlak' | 'solution-eticaret';
+type DeepPage =
+  | 'solution-klinik'
+  | 'solution-emlak'
+  | 'solution-eticaret'
+  | 'solution-guzellik'
+  | 'solution-restoran';
 
 type PainPoint = {
   id: string;
@@ -293,6 +298,7 @@ const SECTORS: Sector[] = [
   {
     key: 'beauty',
     icon: Scissors,
+    deepPage: 'solution-guzellik',
     name: { tr: 'Güzellik & Kuaför Salonları', en: 'Beauty & Hair Salons' },
     intro: {
       tr: 'Güzellik sektöründe ciro; dolu takvim, geri dönen müşteri ve doğru zamanda atılan hatırlatmada saklı. Aşağıdaki üç akış bu üç kaldıracı otomatize ediyor.',
@@ -375,6 +381,7 @@ const SECTORS: Sector[] = [
   {
     key: 'restaurant',
     icon: UtensilsCrossed,
+    deepPage: 'solution-restoran',
     name: { tr: 'Restoran & Cafe', en: 'Restaurant & Cafe' },
     intro: {
       tr: 'Restoranlarda en pahalı kayıp boş masa değil, geri gelmeyen müşteri. Rezervasyon, sadakat ve yorum üçlüsünü otomatize etmek ciroyu anlamlı şekilde büyütüyor.',

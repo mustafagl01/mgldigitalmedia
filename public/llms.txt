@@ -43,6 +43,8 @@ Web tiers: Landing (19,999 TRY / £599 setup), Corporate Site (49,999 TRY / £1,
 - Clinic & aesthetic solutions: https://mgl-ai.uk/solutions/klinik
 - Real estate solutions: https://mgl-ai.uk/solutions/emlak
 - E-commerce solutions: https://mgl-ai.uk/solutions/eticaret
+- Beauty & hair salon solutions: https://mgl-ai.uk/solutions/guzellik
+- Restaurant & cafe solutions: https://mgl-ai.uk/solutions/restoran
 - Packages (AI ads / AI agents / web): https://mgl-ai.uk/packages
 - Pricing & ROI calculator: https://mgl-ai.uk/pricing
 - Sitemap: https://mgl-ai.uk/sitemap.xml

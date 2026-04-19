@@ -57,6 +57,8 @@ type AppPage =
   | 'solution-klinik'
   | 'solution-emlak'
   | 'solution-eticaret'
+  | 'solution-guzellik'
+  | 'solution-restoran'
   | 'legal'
   | 'notfound';
 
@@ -66,6 +68,8 @@ const NESTED_PATHS: Partial<Record<AppPage, string>> = {
   'solution-klinik': '/solutions/klinik',
   'solution-emlak': '/solutions/emlak',
   'solution-eticaret': '/solutions/eticaret',
+  'solution-guzellik': '/solutions/guzellik',
+  'solution-restoran': '/solutions/restoran',
 };
 
 const KNOWN_PATHS = new Set([
@@ -80,6 +84,8 @@ const KNOWN_PATHS = new Set([
   '/solutions/klinik',
   '/solutions/emlak',
   '/solutions/eticaret',
+  '/solutions/guzellik',
+  '/solutions/restoran',
   '/legal',
 ]);
 
@@ -96,6 +102,8 @@ function pathToPage(path: string): AppPage {
   if (clean === '/solutions/klinik') return 'solution-klinik';
   if (clean === '/solutions/emlak') return 'solution-emlak';
   if (clean === '/solutions/eticaret') return 'solution-eticaret';
+  if (clean === '/solutions/guzellik') return 'solution-guzellik';
+  if (clean === '/solutions/restoran') return 'solution-restoran';
   if (clean === '/legal') return 'legal';
   return KNOWN_PATHS.has(clean) ? 'home' : 'notfound';
 }
@@ -165,6 +173,8 @@ function AppContent() {
   if (currentPage === 'solution-klinik') return wrapPage(<SolutionDetail sectorKey="klinik" />);
   if (currentPage === 'solution-emlak') return wrapPage(<SolutionDetail sectorKey="emlak" />);
   if (currentPage === 'solution-eticaret') return wrapPage(<SolutionDetail sectorKey="eticaret" />);
+  if (currentPage === 'solution-guzellik') return wrapPage(<SolutionDetail sectorKey="guzellik" />);
+  if (currentPage === 'solution-restoran') return wrapPage(<SolutionDetail sectorKey="restoran" />);
   if (currentPage === 'legal') return wrapPage(<Legal />);
   if (currentPage === 'notfound') return wrapPage(<NotFound onHome={() => navigateTo('home')} />);
 

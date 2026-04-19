@@ -1,4 +1,4 @@
-export type SectorKey = 'klinik' | 'emlak' | 'eticaret';
+export type SectorKey = 'klinik' | 'emlak' | 'eticaret' | 'guzellik' | 'restoran';
 
 export type Bilingual = { tr: string; en: string };
 
@@ -152,7 +152,7 @@ export const SOLUTIONS: Record<SectorKey, SectorContent> = {
         },
       },
       {
-        skuKey: 'voice-agent',
+        skuKey: 'voice-bot',
         label: { tr: 'Sesli AI Resepsiyonist', en: 'Voice AI Receptionist' },
         blurb: {
           tr: 'Kaçan çağrıyı saniyeler içinde karşılar, randevuya yazar.',
@@ -736,6 +736,473 @@ export const SOLUTIONS: Record<SectorKey, SectorContent> = {
       en: 'E-commerce cart abandonment averages 77%. MGL AI ships a WhatsApp recovery flow, AI support bot, and Meta/Google ROAS management in one system. Live in 10 days, transparent pricing.',
     },
   },
+
+  guzellik: {
+    slug: 'guzellik',
+    emberBadge: { tr: 'GÜZELLİK OTOMASYONU', en: 'BEAUTY SALON AUTOMATION' },
+    displayName: { tr: 'Güzellik & Kuaför', en: 'Beauty & Hair Salon' },
+    heroTitle: {
+      tr: 'Koltuğunuz boş mu kalıyor?',
+      en: 'Are your chairs sitting empty?',
+    },
+    heroAnswer: {
+      tr: 'Güzellik sektöründe ciro; dolu takvim, geri dönen müşteri ve doğru zamanda atılan hatırlatmada saklı. MGL AI\'ın WhatsApp asistanı 60+ gün gelmeyen dormant müşteriyi geri çağırır, randevu hatırlatması atar, doğum günü ve sadakat akışlarını otomatikleştirir.',
+      en: 'In beauty, revenue hides in a full calendar, returning clients, and reminders at the right moment. The MGL AI WhatsApp assistant re-engages dormant clients (60+ days without a visit), sends appointment reminders, and automates birthday and loyalty flows.',
+    },
+    heroStats: [
+      {
+        label: { tr: 'Ortalama no-show', en: 'Average no-show rate' },
+        value: { tr: '%30', en: '30%' },
+      },
+      {
+        label: { tr: 'Dormant eşiği', en: 'Dormant threshold' },
+        value: { tr: '60 gün', en: '60 days' },
+      },
+      {
+        label: { tr: 'Kurulum süresi', en: 'Setup time' },
+        value: { tr: '5 gün', en: '5 days' },
+      },
+    ],
+    painPoints: [
+      {
+        pain: {
+          tr: '60-90 gün gelmeyen müşteri sessizce unutulur; salon boş saatte çalışırken kayıp ciroda kalır.',
+          en: 'Clients who skip 60-90 days get quietly forgotten; revenue leaks while the salon runs half-empty.',
+        },
+        cost: { tr: '~35.000 TL/ay tahmini kayıp', en: '~35,000 TL/month est. loss' },
+      },
+      {
+        pain: {
+          tr: 'Randevu hatırlatma elle atılamaz; son dakika iptal ve no-show takvimi deler.',
+          en: 'Manual reminders don\'t scale; last-minute cancellations and no-shows puncture the calendar.',
+        },
+        cost: { tr: '~40.000 TL/ay tahmini kayıp', en: '~40,000 TL/month est. loss' },
+      },
+      {
+        pain: {
+          tr: 'Doğum günü, yıl dönümü, düğün-nişan tarihleri unutulur; sadakat sessizce erir.',
+          en: 'Birthdays, anniversaries, wedding dates get forgotten; loyalty erodes silently.',
+        },
+        cost: { tr: 'tekrar ziyaret kaybı', en: 'repeat-visit loss' },
+      },
+      {
+        pain: {
+          tr: 'Google yorum sayısı düşük kalır; "yakınımdaki kuaför" aramasında rakip üstte çıkar.',
+          en: 'Google reviews stay low; competitors win "hairdresser near me" searches.',
+        },
+        cost: { tr: 'organik trafik kaybı', en: 'organic traffic loss' },
+      },
+      {
+        pain: {
+          tr: 'Personel ayrıldığında hangi müşteriye kim baktı, tercih notları belirsizleşir.',
+          en: 'When staff leave, client history and preferences disappear with them.',
+        },
+        cost: { tr: 'kurumsal hafıza kaybı', en: 'institutional memory loss' },
+      },
+      {
+        pain: {
+          tr: 'Instagram DM, WhatsApp ve telefon dağınık yönetilir; aynı müşteriye çelişen bilgi gider.',
+          en: 'Instagram DM, WhatsApp and phone are managed in silos; the same client gets conflicting answers.',
+        },
+        cost: { tr: 'güven + zaman kaybı', en: 'trust + time loss' },
+      },
+    ],
+    howItWorks: [
+      {
+        name: { tr: '1. Bağlıyoruz', en: '1. We connect' },
+        desc: {
+          tr: 'WhatsApp Business API, randevu sisteminiz (SalonLife, Appoint, Booksy veya Google Takvim) ve müşteri listenizi tek akışta birleştiriyoruz.',
+          en: 'We wire WhatsApp Business API, your booking system (SalonLife, Appoint, Booksy or Google Calendar) and your client list into a single flow.',
+        },
+      },
+      {
+        name: { tr: '2. Kuruyoruz', en: '2. We build' },
+        desc: {
+          tr: 'Dormant geri çağırma (60+ gün), randevu öncesi hatırlatma, doğum günü ve sadakat kampanyası akışlarını salonunuza özel promptluyoruz.',
+          en: 'We prompt dormant re-engagement (60+ days), pre-appointment reminders, and birthday/loyalty flows tailored to your salon.',
+        },
+      },
+      {
+        name: { tr: '3. Eğitiyoruz', en: '3. We train' },
+        desc: {
+          tr: '2 saatlik seansta salon ekibine WhatsApp devralma, iptal/erteleme ve özel talep yönetimini aktarıyoruz.',
+          en: 'A 2-hour session trains the salon team on WhatsApp handoff, cancellations/reschedules and special requests.',
+        },
+      },
+      {
+        name: { tr: '4. Ölçüyoruz', en: '4. We measure' },
+        desc: {
+          tr: 'Haftalık rapor: dönen dormant müşteri sayısı, no-show oranı, tekrar ziyaret aralığı, Google yorum artışı.',
+          en: 'Weekly report: reactivated dormant clients, no-show rate, visit frequency, Google review growth.',
+        },
+      },
+    ],
+    includedServices: [
+      {
+        skuKey: 'whatsapp-bot',
+        label: { tr: 'WhatsApp AI Asistanı', en: 'WhatsApp AI Assistant' },
+        blurb: {
+          tr: 'Dormant geri çağırma, hatırlatma ve doğum günü akışları tek asistanda.',
+          en: 'Dormant re-engagement, reminders and birthday flows in one assistant.',
+        },
+      },
+      {
+        skuKey: 'crm-setup',
+        label: { tr: 'CRM Kurulumu', en: 'CRM Setup' },
+        blurb: {
+          tr: 'Müşteri geçmişi, son ziyaret, tercih notu tek panelde.',
+          en: 'Client history, last visit, preferences — one panel.',
+        },
+      },
+      {
+        skuKey: 'n8n-automation',
+        label: { tr: 'n8n Otomasyon', en: 'n8n Automation' },
+        blurb: {
+          tr: 'Randevu sistemi + takvim + WhatsApp + CRM zinciri otomatik çalışır.',
+          en: 'Booking system + calendar + WhatsApp + CRM chain runs end-to-end.',
+        },
+      },
+      {
+        skuKey: 'seo',
+        label: { tr: 'Yerel SEO', en: 'Local SEO' },
+        blurb: {
+          tr: 'Google Business profil ve yorum akışı optimizasyonu.',
+          en: 'Google Business profile and review-flow optimization.',
+        },
+      },
+    ],
+    recommendedPackage: 'agents',
+    packageCta: {
+      tr: 'Bu sistem AI Asistan paketiyle kurulur.',
+      en: 'This system is delivered with the AI Assistant package.',
+    },
+    faq: [
+      {
+        q: { tr: 'Kurulum ne kadar sürer?', en: 'How long does setup take?' },
+        a: {
+          tr: '5 iş günü: 2 gün WhatsApp + randevu sistemi entegrasyonu, 2 gün dormant ve hatırlatma akışı kurulumu, 1 gün eğitim ve canlıya alma.',
+          en: '5 business days: 2 days WhatsApp + booking integration, 2 days dormant and reminder flow setup, 1 day training and go-live.',
+        },
+      },
+      {
+        q: { tr: 'Aylık ücret nedir?', en: 'What is the monthly fee?' },
+        a: {
+          tr: 'Growth tier 9.999 TL / £299 ajans ücreti. WhatsApp API harcaması geçişli faturalandırılır (aylık yaklaşık 300-800 TL).',
+          en: 'Growth tier 9,999 TL / £299 agency fee. WhatsApp API consumption is pass-through (typically 300-800 TL/month).',
+        },
+      },
+      {
+        q: {
+          tr: 'Mevcut randevu sistemimle entegre olur mu?',
+          en: 'Does it integrate with my existing booking system?',
+        },
+        a: {
+          tr: 'Evet. SalonLife, Appoint, Booksy, Fresha, Google Takvim ve API\'si olan özel sistemler — tamamı desteklenir.',
+          en: 'Yes. SalonLife, Appoint, Booksy, Fresha, Google Calendar and any custom system with an API are supported.',
+        },
+      },
+      {
+        q: { tr: 'WhatsApp\'ta mesaj hacmi limiti var mı?', en: 'Is there a WhatsApp message volume limit?' },
+        a: {
+          tr: 'WhatsApp Business API\'nin kademeli limitleri vardır (1K → 10K → 100K günlük). Yeni numara ilk hafta ısınır; sonraki hafta limit otomatik yükselir.',
+          en: 'WhatsApp Business API has tiered limits (1K → 10K → 100K per day). A new number warms up the first week; limits upgrade automatically thereafter.',
+        },
+      },
+      {
+        q: { tr: 'Müşteri verisi KVKK/GDPR uyumlu mu?', en: 'Is client data KVKK/GDPR compliant?' },
+        a: {
+          tr: 'Evet. Sunucular AB bölgesinde (Frankfurt), veriler şifrelidir; işleyici sözleşmesi (DPA) kurulum sırasında imzalanır.',
+          en: 'Yes. Servers are in the EU (Frankfurt), data is encrypted, and a Data Processing Agreement is signed at setup.',
+        },
+      },
+      {
+        q: { tr: 'İptal edersem ne olur?', en: 'What happens if I cancel?' },
+        a: {
+          tr: 'Aylık sözleşme, 30 gün öncesinden haber verip iptal edersiniz. Müşteri listesi ve akışlar (n8n JSON) export edilip size teslim edilir.',
+          en: 'Month-to-month contract, 30-day notice to cancel. Client list and workflows (n8n JSON) are exported and handed over.',
+        },
+      },
+      {
+        q: {
+          tr: 'Diğer ajanslardan farkınız ne?',
+          en: 'How are you different from other agencies?',
+        },
+        a: {
+          tr: 'Tek operatör model: WhatsApp + CRM + otomasyon tek ekipten çıkar; salonunuzla kurucu direkt konuşur. Ajans-freelancer zinciri yok.',
+          en: 'Single-operator model: WhatsApp + CRM + automation from one team; you talk directly to the founder. No agency-freelancer chain.',
+        },
+      },
+      {
+        q: { tr: 'Pilot imkanı var mı?', en: 'Is a pilot available?' },
+        a: {
+          tr: 'İlk ay %50 pilot fiyat; 30 gün sonunda dormant geri dönüş ve no-show metriğine bakıp devam kararı verirsiniz.',
+          en: '50% pilot pricing in month one; after 30 days you decide to continue based on dormant reactivation and no-show metrics.',
+        },
+      },
+    ],
+    seoKeywords: {
+      tr: [
+        'güzellik salonu WhatsApp botu',
+        'kuaför randevu otomasyonu',
+        'dormant müşteri geri çağırma',
+        'salon no-show hatırlatma',
+        'kuaför CRM kurulumu',
+        'güzellik merkezi otomasyon',
+      ],
+      en: [
+        'beauty salon WhatsApp bot',
+        'hair salon booking automation',
+        'dormant client re-engagement',
+        'salon no-show reminders',
+        'beauty CRM setup',
+        'salon automation system',
+      ],
+    },
+    metaTitle: {
+      tr: 'Güzellik Salonu & Kuaför WhatsApp Otomasyonu | MGL AI',
+      en: 'Beauty Salon & Hair Salon WhatsApp Automation | MGL AI',
+    },
+    metaDescription: {
+      tr: 'Güzellik salonunda ciro dolu takvim ve geri dönen müşteride. MGL AI\'ın WhatsApp asistanı 60+ gün gelmeyen dormant müşteriyi geri çağırır, hatırlatma ve doğum günü akışlarını otomatikleştirir. 5 günde kurulum.',
+      en: 'Beauty revenue lives in a full calendar and returning clients. MGL AI\'s WhatsApp assistant re-engages dormant clients (60+ days), automates reminders and birthday flows. 5-day setup.',
+    },
+  },
+
+  restoran: {
+    slug: 'restoran',
+    emberBadge: { tr: 'RESTORAN OTOMASYONU', en: 'RESTAURANT AUTOMATION' },
+    displayName: { tr: 'Restoran & Cafe', en: 'Restaurant & Cafe' },
+    heroTitle: {
+      tr: 'Boş masanız var ama rezervasyon telefonu açılmıyor mu?',
+      en: 'Tables empty while the reservation line rings unanswered?',
+    },
+    heroAnswer: {
+      tr: 'Restoranlarda en pahalı kayıp boş masa değil, geri gelmeyen müşteridir. MGL AI WhatsApp rezervasyon asistanı telefonda bekleyen misafiri anında karşılar, QR menüden müşteri datasını toplar, yorum ve sadakat akışlarını çalıştırır.',
+      en: 'The costliest loss in a restaurant isn\'t the empty table — it\'s the guest who never comes back. The MGL AI WhatsApp reservation assistant greets waiting guests instantly, captures customer data from the QR menu, and runs review and loyalty flows.',
+    },
+    heroStats: [
+      {
+        label: { tr: 'Servis saatinde kaçan çağrı', en: 'Calls missed during service' },
+        value: { tr: '%40+', en: '40%+' },
+      },
+      {
+        label: { tr: 'QR → CRM', en: 'QR → CRM' },
+        value: { tr: 'otomatik', en: 'automatic' },
+      },
+      {
+        label: { tr: 'Kurulum süresi', en: 'Setup time' },
+        value: { tr: '7 gün', en: '7 days' },
+      },
+    ],
+    painPoints: [
+      {
+        pain: {
+          tr: 'Servis yoğunluğunda rezervasyon telefonu açılmaz; misafir başka yere gider.',
+          en: 'During peak service, the reservation line goes unanswered; guests book elsewhere.',
+        },
+        cost: { tr: '~60.000 TL/ay tahmini kayıp', en: '~60,000 TL/month est. loss' },
+      },
+      {
+        pain: {
+          tr: 'Instagram DM akşam servisinde kaybolur; planlı rezervasyon kaçar.',
+          en: 'Instagram DMs get lost during evening service; planned reservations slip away.',
+        },
+        cost: { tr: '~25.000 TL/ay tahmini kayıp', en: '~25,000 TL/month est. loss' },
+      },
+      {
+        pain: {
+          tr: 'QR menü sadece menü gösterir, müşteri datasını toplamaz; tekrar pazarlama kanalı yok.',
+          en: 'The QR menu only shows the menu — no customer capture, no remarketing channel.',
+        },
+        cost: { tr: 'sıfır re-marketing', en: 'zero remarketing asset' },
+      },
+      {
+        pain: {
+          tr: 'Google yorum sayısı düşük kalır; "yakınımdaki restoran" aramasında rakip seçilir.',
+          en: 'Low Google review counts; competitors win "restaurant near me" searches.',
+        },
+        cost: { tr: 'organik trafik kaybı', en: 'organic traffic loss' },
+      },
+      {
+        pain: {
+          tr: 'No-show rezervasyonlar doluluk planını deler; hazırlanan masa boş kalır.',
+          en: 'No-show reservations break occupancy planning; prepared tables sit empty.',
+        },
+        cost: { tr: 'hazırlık + gelir kaybı', en: 'prep + revenue loss' },
+      },
+      {
+        pain: {
+          tr: 'Gel-al ve paket servis siparişi Instagram DM, WhatsApp ve telefon arasında karışır.',
+          en: 'Takeaway and delivery orders get mixed across Instagram DM, WhatsApp and phone.',
+        },
+        cost: { tr: 'operasyon kaosu', en: 'operational chaos' },
+      },
+    ],
+    howItWorks: [
+      {
+        name: { tr: '1. Bağlıyoruz', en: '1. We connect' },
+        desc: {
+          tr: 'WhatsApp Business, Google Takvim veya rezervasyon sisteminiz (OpenTable, TheFork, ReservationDesk) ve POS\'unuzu tek akışta birleştiriyoruz.',
+          en: 'We wire WhatsApp Business, Google Calendar or your reservation system (OpenTable, TheFork, ReservationDesk) and your POS into a single flow.',
+        },
+      },
+      {
+        name: { tr: '2. Kuruyoruz', en: '2. We build' },
+        desc: {
+          tr: 'Rezervasyon akışı, QR menü → mini form → CRM geçişi, servis sonrası yorum isteme ve sadakat kampanyası akışlarını kuruyoruz.',
+          en: 'We build the reservation flow, QR menu → mini form → CRM bridge, post-service review requests, and loyalty campaign flows.',
+        },
+      },
+      {
+        name: { tr: '3. Eğitiyoruz', en: '3. We train' },
+        desc: {
+          tr: 'Hostes ve garson ekibine WhatsApp devralma, masa durumu güncelleme ve özel talep akışını 1.5 saatlik seansla aktarıyoruz.',
+          en: 'A 1.5-hour session trains host/wait staff on WhatsApp handoff, table status updates, and special-request flows.',
+        },
+      },
+      {
+        name: { tr: '4. Ölçüyoruz', en: '4. We measure' },
+        desc: {
+          tr: 'Haftalık rapor: rezervasyon dönüşümü, doluluk oranı, Google yorum artışı, tekrar ziyaret oranı.',
+          en: 'Weekly report: reservation conversion, occupancy rate, Google review growth, repeat-visit rate.',
+        },
+      },
+    ],
+    includedServices: [
+      {
+        skuKey: 'whatsapp-bot',
+        label: { tr: 'WhatsApp AI Asistanı', en: 'WhatsApp AI Assistant' },
+        blurb: {
+          tr: 'Rezervasyon + sipariş + yorum akışı tek botta.',
+          en: 'Reservations + orders + review requests in one bot.',
+        },
+      },
+      {
+        skuKey: 'n8n-automation',
+        label: { tr: 'n8n Otomasyon', en: 'n8n Automation' },
+        blurb: {
+          tr: 'Rezervasyon + POS + CRM + yorum zinciri otomatik çalışır.',
+          en: 'Reservation + POS + CRM + review chain runs end-to-end.',
+        },
+      },
+      {
+        skuKey: 'crm-setup',
+        label: { tr: 'CRM Kurulumu', en: 'CRM Setup' },
+        blurb: {
+          tr: 'Misafir geçmişi, tercih notu, alerji bilgisi tek panelde.',
+          en: 'Guest history, preferences, allergy notes — one panel.',
+        },
+      },
+      {
+        skuKey: 'landing-page',
+        label: { tr: 'QR Form Sayfası', en: 'QR Form Page' },
+        blurb: {
+          tr: 'QR menü sonrası mini form: isim + tel + doğum ayı.',
+          en: 'Post-QR mini form: name + phone + birth month.',
+        },
+      },
+      {
+        skuKey: 'seo',
+        label: { tr: 'Yerel SEO', en: 'Local SEO' },
+        blurb: {
+          tr: 'Google Business profil ve yorum akışı optimizasyonu.',
+          en: 'Google Business profile and review-flow optimization.',
+        },
+      },
+    ],
+    recommendedPackage: 'agents',
+    packageCta: {
+      tr: 'Bu sistem AI Asistan paketiyle kurulur.',
+      en: 'This system is delivered with the AI Assistant package.',
+    },
+    faq: [
+      {
+        q: { tr: 'Kurulum ne kadar sürer?', en: 'How long does setup take?' },
+        a: {
+          tr: '7 iş günü: 2 gün WhatsApp + rezervasyon entegrasyonu, 3 gün QR form ve yorum akışı, 2 gün eğitim ve canlıya alma.',
+          en: '7 business days: 2 days WhatsApp + reservation integration, 3 days QR form and review flow, 2 days training and go-live.',
+        },
+      },
+      {
+        q: { tr: 'Aylık ücret nedir?', en: 'What is the monthly fee?' },
+        a: {
+          tr: 'Growth tier 9.999 TL / £299 ajans ücreti. WhatsApp API harcaması geçişli faturalandırılır (aylık yaklaşık 400-1.000 TL).',
+          en: 'Growth tier 9,999 TL / £299 agency fee. WhatsApp API consumption is pass-through (typically 400-1,000 TL/month).',
+        },
+      },
+      {
+        q: {
+          tr: 'Mevcut rezervasyon sistemimle entegre olur mu?',
+          en: 'Does it integrate with my existing reservation system?',
+        },
+        a: {
+          tr: 'Evet. OpenTable, TheFork, ReservationDesk, Zomato Book, Google Takvim ve API\'si olan özel sistemler — tamamı desteklenir.',
+          en: 'Yes. OpenTable, TheFork, ReservationDesk, Zomato Book, Google Calendar and any custom system with an API are supported.',
+        },
+      },
+      {
+        q: { tr: 'Birden fazla şubemiz var, nasıl ayrışır?', en: 'How does routing work for multi-branch?' },
+        a: {
+          tr: 'Her şubeye ayrı WhatsApp numarası + ayrı takvim + ayrı personel panel. Misafir hangi şubeye yazarsa o şubenin müsaitliğinde rezervasyon açılır.',
+          en: 'Per-branch WhatsApp numbers + separate calendars + separate staff panels. Guests book against the availability of the branch they contact.',
+        },
+      },
+      {
+        q: { tr: 'Menü değiştiğinde tek tuşla bildirim atılabilir mi?', en: 'Can menu updates be broadcast in one click?' },
+        a: {
+          tr: 'Evet. CRM\'de segmentlenmiş müşteri listesine (son 30 günde ziyaret eden, vegan tercih, vb.) tek tıkla WhatsApp kampanyası gönderilir.',
+          en: 'Yes. A segmented CRM audience (visited in last 30 days, vegan preference, etc.) can receive a one-click WhatsApp broadcast.',
+        },
+      },
+      {
+        q: { tr: 'Misafir verisi KVKK/GDPR uyumlu mu?', en: 'Is guest data KVKK/GDPR compliant?' },
+        a: {
+          tr: 'Evet. Sunucular AB bölgesinde (Frankfurt), veriler şifrelidir; işleyici sözleşmesi (DPA) kurulum sırasında imzalanır.',
+          en: 'Yes. Servers are in the EU (Frankfurt), data is encrypted, and a Data Processing Agreement is signed at setup.',
+        },
+      },
+      {
+        q: { tr: 'İptal edersem ne olur?', en: 'What happens if I cancel?' },
+        a: {
+          tr: 'Aylık sözleşme, 30 gün öncesinden haber verip iptal edersiniz. Misafir listesi ve akışlar (n8n JSON) export edilip size teslim edilir.',
+          en: 'Month-to-month contract, 30-day notice to cancel. Guest list and workflows (n8n JSON) are exported and handed over.',
+        },
+      },
+      {
+        q: { tr: 'Pilot imkanı var mı?', en: 'Is a pilot available?' },
+        a: {
+          tr: 'İlk ay %50 pilot fiyat; 30 gün sonunda rezervasyon dönüşümü ve yorum artışı metriğine bakıp devam kararı verirsiniz.',
+          en: '50% pilot pricing in month one; after 30 days you decide to continue based on reservation conversion and review growth.',
+        },
+      },
+    ],
+    seoKeywords: {
+      tr: [
+        'restoran WhatsApp rezervasyon',
+        'cafe rezervasyon otomasyonu',
+        'QR menü CRM entegrasyonu',
+        'restoran yorum otomasyonu',
+        'restoran no-show yönetimi',
+        'restoran sadakat programı',
+      ],
+      en: [
+        'restaurant WhatsApp reservation',
+        'cafe booking automation',
+        'QR menu CRM integration',
+        'restaurant review automation',
+        'restaurant no-show management',
+        'restaurant loyalty program',
+      ],
+    },
+    metaTitle: {
+      tr: 'Restoran & Cafe WhatsApp Rezervasyon Otomasyonu | MGL AI',
+      en: 'Restaurant & Cafe WhatsApp Reservation Automation | MGL AI',
+    },
+    metaDescription: {
+      tr: 'Restoranda en pahalı kayıp boş masa değil, geri gelmeyen misafir. MGL AI WhatsApp rezervasyon asistanı telefonda bekleyen misafiri anında karşılar, QR menüden data toplar, yorum akışı çalıştırır. 7 günde kurulum.',
+      en: 'The costliest restaurant loss isn\'t empty tables — it\'s guests who don\'t return. MGL AI\'s WhatsApp assistant greets callers instantly, captures data from the QR menu, and runs review flows. 7-day setup.',
+    },
+  },
 };
 
-export const SECTOR_KEYS: SectorKey[] = ['klinik', 'emlak', 'eticaret'];
+export const SECTOR_KEYS: SectorKey[] = ['klinik', 'emlak', 'eticaret', 'guzellik', 'restoran'];
