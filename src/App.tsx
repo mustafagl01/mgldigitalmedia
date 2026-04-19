@@ -33,10 +33,11 @@ import { BookingAnnouncementBar } from './components/ui/BookingAnnouncementBar';
 import { FloatingBookingButton } from './components/ui/FloatingBookingButton';
 import Pricing from './pages/Pricing';
 import Packages from './pages/Packages';
+import Services from './pages/Services';
 
 
 
-type AppPage = 'home' | 'products' | 'success' | 'cancel' | 'pricing' | 'packages';
+type AppPage = 'home' | 'products' | 'success' | 'cancel' | 'pricing' | 'packages' | 'services';
 
 function AppContent() {
   const [currentPage, setCurrentPage] = useState<AppPage>(() => {
@@ -46,6 +47,7 @@ function AppContent() {
     if (path === '/cancel') return 'cancel';
     if (path === '/pricing') return 'pricing';
     if (path === '/packages') return 'packages';
+    if (path === '/services') return 'services';
     return 'home';
   });
   const [activeDemo, setActiveDemo] = useState<string | null>(null);
@@ -69,6 +71,7 @@ function AppContent() {
       else if (path === '/cancel') setCurrentPage('cancel');
       else if (path === '/pricing') setCurrentPage('pricing');
       else if (path === '/packages') setCurrentPage('packages');
+      else if (path === '/services') setCurrentPage('services');
       else setCurrentPage('home');
     };
 
@@ -121,6 +124,10 @@ function AppContent() {
 
   if (currentPage === 'packages') {
     return <Packages />;
+  }
+
+  if (currentPage === 'services') {
+    return <Services />;
   }
 
   return (
@@ -204,6 +211,9 @@ function AppContent() {
                 <button onClick={() => navigateTo('home')} className="hover:text-cyan-300 transition-colors">
                   {t('header.home')}
                 </button>
+                <button onClick={() => navigateTo('services')} className="hover:text-cyan-300 transition-colors">
+                  {language === 'en' ? 'Services' : 'Hizmetler'}
+                </button>
                 <button onClick={() => navigateTo('packages')} className="hover:text-cyan-300 transition-colors">
                   {t('header.packages')}
                 </button>
@@ -236,6 +246,9 @@ function AppContent() {
                 <nav className="flex flex-col gap-1 text-sm text-slate-200">
                   <button onClick={() => navigateTo('home')} className="text-left px-3 py-2 rounded-md hover:bg-slate-800">
                     {t('header.home')}
+                  </button>
+                  <button onClick={() => navigateTo('services')} className="text-left px-3 py-2 rounded-md hover:bg-slate-800">
+                    {language === 'en' ? 'Services' : 'Hizmetler'}
                   </button>
                   <button onClick={() => navigateTo('packages')} className="text-left px-3 py-2 rounded-md hover:bg-slate-800">
                     {t('header.packages')}
