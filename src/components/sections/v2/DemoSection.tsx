@@ -3,13 +3,13 @@ import { useLanguage } from '../../../contexts/LanguageContext';
 
 interface Props {
   onEmailDemo: () => void;
+  onPhoneDemo: () => void;
 }
 
 const DEMO_PHONE = '+44 7414 605612';
-const DEMO_PHONE_TEL = 'tel:+447414605612';
 const WHATSAPP_LINK = 'https://wa.me/905318299701';
 
-export function DemoSection({ onEmailDemo }: Props) {
+export function DemoSection({ onEmailDemo, onPhoneDemo }: Props) {
   const { language } = useLanguage();
 
   return (
@@ -72,8 +72,8 @@ export function DemoSection({ onEmailDemo }: Props) {
           }}
         >
           {/* PHONE — primary */}
-          <a
-            href={DEMO_PHONE_TEL}
+          <button
+            onClick={onPhoneDemo}
             style={{
               display: 'flex',
               flexDirection: 'column',
@@ -82,8 +82,10 @@ export function DemoSection({ onEmailDemo }: Props) {
               background: 'var(--paper)',
               border: '1px solid var(--border)',
               borderRadius: 'var(--r-lg)',
-              textDecoration: 'none',
               color: 'inherit',
+              textAlign: 'left',
+              cursor: 'pointer',
+              fontFamily: 'inherit',
               transition: 'border-color 200ms, transform 200ms',
               position: 'relative',
             }}
@@ -124,11 +126,11 @@ export function DemoSection({ onEmailDemo }: Props) {
               </div>
               <p style={{ marginTop: 12, color: 'var(--fg-2)', fontSize: 14, lineHeight: 1.55 }}>
                 {language === 'tr'
-                  ? 'Tıklayıp arayın. Asistan randevu alır, fiyat söyler, sizi geri arama kuyruğuna koyar.'
-                  : 'Tap to call. The agent books, quotes, and schedules callbacks.'}
+                  ? 'Numaranızı girin, AI asistan sizi arasın. Randevu alır, fiyat söyler, geri arama kuyruğuna koyar.'
+                  : 'Enter your number and get called back. The agent books, quotes, and schedules callbacks.'}
               </p>
             </div>
-          </a>
+          </button>
 
           {/* WHATSAPP */}
           <a

@@ -10,6 +10,7 @@ import { Toaster } from './components/ui/Toast';
 // Modals (kept from previous build)
 import { AuthModal } from './components/auth/AuthModal';
 import { EmailDemoModal } from './components/modals/EmailDemoModal';
+import { PhoneDemoModal } from './components/modals/PhoneDemoModal';
 
 const CALENDAR_URL = 'https://calendar.app.google/FZnTjsWGfCy33WF36';
 
@@ -149,7 +150,10 @@ function AppContent() {
             onPackagesClick={() => navigateTo('packages')}
           />
           <ProcessTimeline />
-          <DemoSection onEmailDemo={() => setActiveDemo('email')} />
+          <DemoSection
+            onEmailDemo={() => setActiveDemo('email')}
+            onPhoneDemo={() => setActiveDemo('phone')}
+          />
           <FoundersBet onAnalysisClick={openAnalysis} />
           <ClosingCTA onAnalysisClick={openAnalysis} />
         </main>
@@ -160,6 +164,7 @@ function AppContent() {
       <ChatBot />
 
       <EmailDemoModal isOpen={activeDemo === 'email'} onClose={() => setActiveDemo(null)} />
+      <PhoneDemoModal isOpen={activeDemo === 'phone'} onClose={() => setActiveDemo(null)} />
       <AuthModal
         isOpen={isAuthModalOpen}
         onClose={() => setIsAuthModalOpen(false)}
