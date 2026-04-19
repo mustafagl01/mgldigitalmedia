@@ -9,13 +9,13 @@ export function CredentialsStrip() {
           ['7/24', 'Kesintisiz çalışma'],
           ['~3 sn', 'Ortalama yanıt süresi'],
           ['3 gün', 'Kurulum taahhüdü'],
-          ['TR · EN', 'İki dil, tek sistem'],
+          ['30+ dil', 'AI asistan desteği'],
         ]
       : [
           ['24/7', 'Always-on uptime'],
           ['~3 s', 'Average response'],
           ['3 days', 'Delivery promise'],
-          ['TR · EN', 'Bilingual by default'],
+          ['30+ languages', 'AI agent coverage'],
         ];
 
   return (
