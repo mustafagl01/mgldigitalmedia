@@ -24,7 +24,7 @@ export function ThreeBuckets({ onServicesClick, onPackagesClick }: Props) {
           {
             num: '01',
             title: 'AI Reklam',
-            body: 'Meta ve Google reklamlarınızı AI karar katmanıyla yönetiyoruz. Günlük optimizasyon, saatlik kreatif rotasyonu, şeffaf rapor.',
+            body: 'Meta ve Google reklamlarınızı AI karar katmanıyla yönetiyoruz. Günlük optimizasyon, düzenli kreatif rotasyonu, şeffaf rapor.',
             lines: [
               'Hibrit model: yönetim + performans payı',
               'Kreatif üretim dahil',
@@ -39,7 +39,7 @@ export function ThreeBuckets({ onServicesClick, onPackagesClick }: Props) {
             lines: [
               'WhatsApp + telefon + e-posta',
               'CRM ve takvim entegrasyonu',
-              'Türkçe + İngilizce',
+              '30+ dilde doğal konuşma',
             ],
             cta: 'Agent kurulumu',
             highlight: true,
@@ -60,7 +60,7 @@ export function ThreeBuckets({ onServicesClick, onPackagesClick }: Props) {
           {
             num: '01',
             title: 'AI Advertising',
-            body: 'We run your Meta and Google ads with an AI decision layer. Daily optimisation, hourly creative rotation, transparent reporting.',
+            body: 'We run your Meta and Google ads with an AI decision layer. Daily optimisation, regular creative rotation, transparent reporting.',
             lines: ['Hybrid management + performance model', 'Creative production included', 'Weekly live reporting'],
             cta: 'See ad packages',
           },
@@ -68,7 +68,7 @@ export function ThreeBuckets({ onServicesClick, onPackagesClick }: Props) {
             num: '02',
             title: 'AI Agents & Automation',
             body: 'Always-on AI assistants for WhatsApp, voice and email. They book appointments, qualify leads, and free your team from repetitive work.',
-            lines: ['WhatsApp + phone + email', 'CRM and calendar integration', 'Turkish + English'],
+            lines: ['WhatsApp + phone + email', 'CRM and calendar integration', '30+ languages, native-sounding'],
             cta: 'See agent setup',
             highlight: true,
           },
