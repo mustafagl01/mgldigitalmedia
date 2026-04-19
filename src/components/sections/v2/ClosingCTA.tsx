@@ -1,5 +1,5 @@
-import { ArrowUpRight } from 'lucide-react';
 import { useLanguage } from '../../../contexts/LanguageContext';
+import { GoogleCalendarButton } from '../../site/GoogleCalendarButton';
 
 interface Props {
   onAnalysisClick: () => void;
@@ -72,11 +72,11 @@ export function ClosingCTA({ onAnalysisClick }: Props) {
             : 'No card, no commitment. In 15 minutes we map where time is lost, where revenue leaks, and what a couple of assistants would change.'}
         </p>
 
-        <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', justifyContent: 'center', marginTop: 8 }}>
-          <button onClick={onAnalysisClick} className="btn btn-primary btn-lg">
-            {language === 'tr' ? 'Ücretsiz analiz al' : 'Book the free audit'}
-            <ArrowUpRight size={18} />
-          </button>
+        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16, marginTop: 8 }}>
+          <GoogleCalendarButton
+            label={language === 'tr' ? 'Ücretsiz analiz al' : 'Book the free audit'}
+            color="#C0392B"
+          />
           <button onClick={handleWhatsApp} className="btn btn-ghost btn-lg">
             WhatsApp
           </button>
