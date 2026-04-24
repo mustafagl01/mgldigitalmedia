@@ -116,6 +116,7 @@ export function SiteFooter({ onNavigate }: Props) {
               {companyDesc}
             </p>
             <div
+              lang="en"
               style={{
                 marginTop: 20,
                 fontFamily: 'var(--font-mono)',
@@ -270,7 +271,7 @@ export function SiteFooter({ onNavigate }: Props) {
             color: 'var(--bone-3)',
           }}
         >
-          <span>© {year} MGL Digital Media LTD</span>
+          <span lang="en">© {year} MGL Digital Media LTD</span>
           <button
             onClick={() => onNavigate('legal')}
             style={{
