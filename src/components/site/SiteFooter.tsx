@@ -1,4 +1,11 @@
+import { Instagram, Linkedin, Facebook } from 'lucide-react';
 import { useLanguage } from '../../contexts/LanguageContext';
+
+const SOCIAL_LINKS = [
+  { label: 'Instagram', href: 'https://instagram.com/mgl.ai.uk', Icon: Instagram },
+  { label: 'LinkedIn', href: 'https://www.linkedin.com/in/mustafa-gul-311090287/', Icon: Linkedin },
+  { label: 'Facebook', href: 'https://www.facebook.com/profile.php?id=61552306640065', Icon: Facebook },
+];
 
 type Page = 'home' | 'services' | 'solutions' | 'packages' | 'pricing' | 'legal';
 
@@ -60,12 +67,14 @@ export function SiteFooter({ onNavigate }: Props) {
 
   return (
     <footer
+      id="contact"
       className="on-coal"
       style={{
         background: 'var(--coal)',
         color: 'var(--bone)',
         padding: '80px 0 40px',
         marginTop: 'auto',
+        scrollMarginTop: 80,
       }}
     >
       <div className="container">
@@ -121,6 +130,48 @@ export function SiteFooter({ onNavigate }: Props) {
             >
               <span>MGL Digital Media LTD</span>
               <span>London, United Kingdom</span>
+            </div>
+
+            <div
+              style={{
+                marginTop: 20,
+                display: 'flex',
+                alignItems: 'center',
+                gap: 10,
+              }}
+            >
+              {SOCIAL_LINKS.map(({ label, href, Icon }) => (
+                <a
+                  key={label}
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={label}
+                  style={{
+                    display: 'inline-flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    width: 36,
+                    height: 36,
+                    borderRadius: '50%',
+                    border: '1px solid var(--coal-3)',
+                    color: 'var(--bone-2)',
+                    transition: 'all 160ms var(--ease-out)',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.background = 'var(--ember)';
+                    e.currentTarget.style.color = 'var(--coal)';
+                    e.currentTarget.style.borderColor = 'var(--ember)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.background = 'transparent';
+                    e.currentTarget.style.color = 'var(--bone-2)';
+                    e.currentTarget.style.borderColor = 'var(--coal-3)';
+                  }}
+                >
+                  <Icon size={16} strokeWidth={1.6} />
+                </a>
+              ))}
             </div>
           </div>
 

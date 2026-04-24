@@ -46,6 +46,16 @@ export function SiteHeader({ currentPage, onNavigate, onAnalysisClick }: Props) 
     setMobileOpen(false);
   };
 
+  const handleContact = () => {
+    setMobileOpen(false);
+    const el = document.getElementById('contact');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  };
+
+  const contactLabel = language === 'tr' ? 'İletişim' : 'Contact';
+
   const handleWhatsApp = () => {
     window.open('https://wa.me/905318299701', '_blank', 'noopener,noreferrer');
   };
@@ -92,6 +102,9 @@ export function SiteHeader({ currentPage, onNavigate, onAnalysisClick }: Props) 
               {label}
             </button>
           ))}
+          <button onClick={handleContact} className="nav-link">
+            {contactLabel}
+          </button>
         </nav>
 
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
@@ -192,6 +205,21 @@ export function SiteHeader({ currentPage, onNavigate, onAnalysisClick }: Props) 
                 {label}
               </button>
             ))}
+            <button
+              onClick={handleContact}
+              style={{
+                textAlign: 'left',
+                padding: '12px 0',
+                fontFamily: 'var(--font-sans)',
+                fontSize: 16,
+                fontWeight: 500,
+                color: 'var(--fg-2)',
+                borderBottom: '1px solid var(--border)',
+                background: 'transparent',
+              }}
+            >
+              {contactLabel}
+            </button>
           </nav>
 
           <div style={{ display: 'flex', gap: 8, marginTop: 20 }}>
