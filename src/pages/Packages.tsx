@@ -91,8 +91,8 @@ const PLAN_CONTENT: Record<PackageTierKey, PlanContent> = {
   // ---------------- AGENTS ----------------
   starter: {
     subtitle: {
-      tr: 'Mesai dışı kayıp biter.',
-      en: 'Stop losing leads after hours.',
+      tr: 'Senin Google Calendar\'ına bağlanır. Veriler senin sisteminde.',
+      en: 'Connects to your Google Calendar. Data stays in your system.',
     },
     included: {
       tr: [
@@ -1312,6 +1312,54 @@ export default function Packages() {
               />
             ))}
           </div>
+
+          {/* Agents: RandevuAI self-serve cross-link */}
+          {activeCategory === 'agents' && (
+            <div
+              style={{
+                marginTop: 36,
+                padding: '20px 24px',
+                background: 'var(--paper-2)',
+                border: '1px solid var(--border)',
+                borderLeft: '2px solid #25D366',
+                borderRadius: 'var(--r-md)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                gap: 16,
+                flexWrap: 'wrap',
+              }}
+            >
+              <div style={{ fontSize: 14, color: 'var(--fg-1)', lineHeight: 1.6 }}>
+                <strong style={{ color: 'var(--ink)' }}>
+                  {isEnglish ? 'Smaller budget? Try self-serve: ' : 'Daha uygun bütçe? Kendin kur: '}
+                </strong>
+                {isEnglish
+                  ? 'RandevuAI (₺1.290/mo) — sector template, 5-min setup, WhatsApp Evolution API, 5,000 conversations/mo included. No custom CRM/Calendar integration. Data stays in RandevuAI dashboard.'
+                  : 'RandevuAI (₺1.290/ay) — sektör şablonu, 5 dk kurulum, WhatsApp Evolution API, 5.000 sohbet/ay dahil. CRM/Calendar entegrasyonu yok, veriler RandevuAI\'de durur. Farklı ihtiyaç = farklı ürün.'}
+              </div>
+              <a
+                href={isEnglish ? 'https://www.randevu-ai.com' : 'https://www.randevu-ai.com'}
+                target="_blank"
+                rel="noreferrer"
+                style={{
+                  display: 'inline-flex',
+                  alignItems: 'center',
+                  gap: 6,
+                  padding: '8px 16px',
+                  background: '#25D366',
+                  color: '#111B21',
+                  borderRadius: 999,
+                  fontSize: 13,
+                  fontWeight: 600,
+                  textDecoration: 'none',
+                  whiteSpace: 'nowrap',
+                }}
+              >
+                {isEnglish ? 'RandevuAI →' : 'RandevuAI →'}
+              </a>
+            </div>
+          )}
 
           {/* Ads extra note */}
           {activeCategory === 'ads' && (
