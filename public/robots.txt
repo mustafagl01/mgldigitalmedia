@@ -17,4 +17,7 @@ Allow: /
 User-agent: CCBot
 Allow: /
 
+User-agent: Bytespider
+Disallow: /
+
 Sitemap: https://mgl-ai.uk/sitemap.xml
