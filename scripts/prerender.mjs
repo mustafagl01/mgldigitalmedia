@@ -1,324 +1,169 @@
 /**
- * prerender.mjs — Static HTML pre-render for mgl-ai.uk
- *
- * Her route için dist/index.html'i kopyalar ve route-spesifik
- * <title>, <meta description>, <link rel="canonical">, OG tag'lerini inject eder.
- * react-snap veya Puppeteer gerektirmez — saf Node.js.
- *
- * Kullanım:
- *   node scripts/prerender.mjs
- *
- * package.json postbuild hook'una ekle:
- *   "postbuild": "node scripts/prerender.mjs"
+ * prerender.mjs v2 - Static HTML pre-render for mgl-ai.uk
+ * Blog markdown content injected via noscript for GEO crawlers.
+ * Perplexity/GPTBot/ClaudeBot can read real blog text without JS.
  */
 
-import { readFileSync, writeFileSync, mkdirSync, existsSync } from 'fs';
+import { readFileSync, writeFileSync, mkdirSync, existsSync, readdirSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
 const DIST = join(ROOT, 'dist');
+const CONTENT_DIR = join(ROOT, 'src', 'content', 'blog');
 const SITE_URL = 'https://mgl-ai.uk';
 const DEFAULT_OG = `${SITE_URL}/00bc7320-6f8f-42ae-a0b7-0c24b609e70f.png`;
 
-// ─── Route tanımları ────────────────────────────────────────────────────────
+// Minimal markdown to HTML (zero deps)
+function mdToHtml(md) {
+  let html = md.replace(/^---[\s\S]*?---\n?/, '');
+  html = html.replace(/```[\w]*\n([\s\S]*?)```/g, '<pre><code>$1</code></pre>');
+  html = html.replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+  html = html.replace(/\*(.+?)\*/g, '<em>$1</em>');
+  html = html.replace(/`([^`]+)`/g, '<code>$1</code>');
+  html = html.replace(/^### (.+)$/gm, '<h3>$1</h3>');
+  html = html.replace(/^## (.+)$/gm, '<h2>$1</h2>');
+  html = html.replace(/^# (.+)$/gm, '<h1>$1</h1>');
+  html = html.replace(/^\s*[-*+] (.+)$/gm, '<li>$1</li>');
+  html = html.replace(/^\s*\d+\. (.+)$/gm, '<li>$1</li>');
+  html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
+  const blocks = html.split(/\n{2,}/);
+  return blocks.map(b => {
+    b = b.trim(); if (!b) return '';
+    if (/^<(h[1-6]|pre|hr)/.test(b)) return b;
+    if (b.includes('<li>')) return '<ul>' + b + '</ul>';
+    return '<p>' + b.replace(/\n/g, ' ') + '</p>';
+  }).filter(Boolean).join('\n');
+}
+
+function parseFrontmatter(raw) {
+  const lines = raw.split('\n');
+  let s = -1, e = -1;
+  for (let i = 0; i < lines.length; i++) {
+    if (/^---[ \t]*$/.test(lines[i])) { if (s === -1) s = i; else { e = i; break; } }
+  }
+  if (s === -1 || e === -1) return { data: {}, content: raw };
+  const data = {};
+  lines.slice(s+1, e).forEach(l => {
+    const m = l.match(/^(\w+)\s*:\s*"?([^"\n]+)"?/);
+    if (m) data[m[1]] = m[2].trim();
+  });
+  return { data, content: lines.slice(e+1).join('\n').trimStart() };
+}
+
+function loadBlogContent() {
+  const map = {};
+  if (!existsSync(CONTENT_DIR)) return map;
+  readdirSync(CONTENT_DIR).filter(f => f.endsWith('.md')).forEach(file => {
+    const slug = file.replace('.md', '');
+    try {
+      const raw = readFileSync(join(CONTENT_DIR, file), 'utf-8');
+      const { data, content } = parseFrontmatter(raw);
+      map[slug] = { title: data.title || '', description: data.description || '', date: data.date || '', content };
+    } catch(e) { console.warn('[WARN] Cannot read:', file); }
+  });
+  return map;
+}
+
 const ROUTES = [
-  // ── Servis sayfaları
-  {
-    path: '/whatsapp-ai-asistan',
-    lang: 'tr',
-    title: 'WhatsApp AI Asistan | MGL Digital Media',
-    description:
-      'WhatsApp AI asistan ile müşteri sorularını 7/24 yanıtlayın, randevu alın, sipariş yönetin. Evolution API + n8n tabanlı gerçek kurulum. Ücretsiz demo.',
-    keywords: 'whatsapp ai asistan, whatsapp bot, evolution api, n8n, otomasyon, chatbot',
-  },
-  {
-    path: '/sesli-ai',
-    lang: 'tr',
-    title: 'Sesli AI Telefon Asistanı | MGL Digital Media',
-    description:
-      'Retell AI ile sesli AI telefon asistanı kurun. Çağrı karşılama, randevu alma, FAQ yanıtlama — 7/24 insan gibi. UK ve Türkiye işletmeleri için.',
-    keywords: 'sesli ai, voice ai, retell ai, telefon asistanı, çağrı merkezi otomasyonu',
-  },
-  {
-    path: '/n8n-otomasyon',
-    lang: 'tr',
-    title: 'n8n Otomasyon Ajansı | MGL Digital Media',
-    description:
-      'n8n ile iş akışlarınızı otomatize edin. CRM entegrasyonu, lead yönetimi, bildirim sistemleri. UK merkezli n8n uzmanı ekip.',
-    keywords: 'n8n otomasyon, workflow otomasyon, iş akışı, crm entegrasyon, n8n ajansı',
-  },
-  {
-    path: '/lead-uretimi',
-    lang: 'tr',
-    title: 'AI ile Lead Üretimi | MGL Digital Media',
-    description:
-      'Google Maps, Apollo ve AI tabanlı lead üretim pipeline. Enrichment, dedupe, cold outreach otomasyonu. UK ve TR pazarları için.',
-    keywords: 'lead üretimi, lead generation, apollo, google maps, cold email, outreach',
-  },
-
-  // ── Karşılaştırma sayfaları
-  {
-    path: '/n8n-vs-zapier',
-    lang: 'tr',
-    title: "N8N vs Zapier: 2026'da KOBİ'ler için Hangisi Daha İyi? | MGL",
-    description:
-      "N8N ve Zapier'ı fiyat, özellik, Türkçe destek ve KOBİ uyumu açısından karşılaştırdık. Hangi otomasyon aracı sizin için doğru?",
-    keywords: 'n8n vs zapier, n8n karşılaştırma, zapier alternatif, otomasyon araçları, kobi',
-  },
-  {
-    path: '/whatsapp-cloud-api-vs-baileys',
-    lang: 'en',
-    title: 'WhatsApp Cloud API vs Baileys/Evolution API: Which is Right for Your Business? | MGL',
-    description:
-      'Complete comparison of WhatsApp Cloud API (Meta) vs Baileys/Evolution API. Cost, compliance, features, and which to choose for your SMB.',
-    keywords: 'whatsapp cloud api, baileys, evolution api, whatsapp business, comparison',
-  },
-  {
-    path: '/voiceflow-vs-retell-ai',
-    lang: 'en',
-    title: 'Voiceflow vs Retell AI: Voice Agent Platform Comparison 2026 | MGL',
-    description:
-      'In-depth comparison of Voiceflow and Retell AI for building voice agents. Features, pricing, latency, and which platform suits UK SMBs.',
-    keywords: 'voiceflow vs retell ai, voice agent platform, voice ai comparison, retell ai',
-  },
-  {
-    path: '/uk-ai-agencies-comparison',
-    lang: 'en',
-    title: 'UK AI Agencies Comparison 2026: Who Actually Delivers? | MGL',
-    description:
-      'Honest comparison of UK AI automation agencies — pricing, services, transparency and results. See how MGL stacks up against the competition.',
-    keywords: 'uk ai agency, ai automation agency london, ai agency comparison, mgl digital media',
-  },
-
-  // ── Genel sayfalar
-  {
-    path: '/services',
-    lang: 'tr',
-    title: 'Hizmetler | MGL Digital Media',
-    description:
-      'WhatsApp AI, sesli asistan, n8n otomasyon, lead üretimi, Meta & Google reklam, dönüşüm odaklı web tasarımı. Tek sistem, tam otomasyon.',
-    keywords: 'ai hizmetleri, otomasyon hizmetleri, whatsapp bot, sesli asistan, reklam yönetimi',
-  },
-  {
-    path: '/pricing',
-    lang: 'en',
-    title: 'Pricing | MGL Digital Media — Fixed Price AI Automation',
-    description:
-      'Transparent fixed pricing for AI automation services. WhatsApp agents, voice AI, n8n workflows, web design and ads. No hidden fees.',
-    keywords: 'ai agency pricing, automation pricing, whatsapp ai price, n8n pricing, uk ai agency',
-  },
-  {
-    path: '/packages',
-    lang: 'en',
-    title: 'Packages | MGL Digital Media — AI Automation Bundles',
-    description:
-      'Choose from our AI Automation, Ads, and Web packages. Fixed price bundles for UK and Turkish SMBs. No lock-in, results guaranteed.',
-    keywords: 'ai automation packages, agency packages, ads management, web design package',
-  },
-  {
-    path: '/solutions',
-    lang: 'tr',
-    title: 'Sektöre Özel AI Çözümleri | MGL Digital Media',
-    description:
-      'Klinik, emlak, e-ticaret, güzellik merkezi ve restoran için özelleştirilmiş AI otomasyon çözümleri. Sektörünüze özel demo.',
-    keywords: 'sektöre özel ai, klinik otomasyonu, emlak ai, e-ticaret otomasyon, restoran bot',
-  },
-
-  // ── Blog listesi
-  {
-    path: '/blog',
-    lang: 'tr',
-    title: 'Blog — AI Otomasyon & Dijital Pazarlama | MGL Digital Media',
-    description:
-      'WhatsApp AI, sesli asistanlar, n8n otomasyon ve dijital pazarlama üzerine uzman rehberleri. UK ve Türkiye işletmeleri için pratik içerikler.',
-    keywords: 'ai blog, otomasyon blog, whatsapp ai, n8n rehber, dijital pazarlama',
-  },
-
-  // ── Blog yazıları
-  {
-    path: '/blog/whatsapp-ai-asistan-isletme-otomasyonu-2026',
-    lang: 'tr',
-    title: 'WhatsApp AI Asistan ile İşletme Otomasyonu: 2026 Tam Rehberi | MGL',
-    description:
-      'WhatsApp AI asistan nedir, nasıl kurulur, hangi işletmelere uygun? Evolution API + n8n tabanlı gerçek kurulum rehberi ve 2026 maliyet analizi.',
-    keywords: 'whatsapp ai asistan, evolution api, n8n, işletme otomasyonu, whatsapp bot kurulum',
-    ogType: 'article',
-  },
-  {
-    path: '/blog/n8n-vs-zapier-turkce-rehber',
-    lang: 'tr',
-    title: "N8N vs Zapier: 2026'da Türkiye'de KOBİ'ler için Hangisi Daha İyi? | MGL",
-    description:
-      "N8N ve Zapier'ı fiyat, özellik, Türkçe destek ve KOBİ uyumu açısından karşılaştırdık. Hangi otomasyon aracı sizin için doğru?",
-    keywords: 'n8n vs zapier, n8n türkçe, zapier alternatif, otomasyon karşılaştırma',
-    ogType: 'article',
-  },
-  {
-    path: '/blog/sesli-ai-telefon-asistani-rehberi',
-    lang: 'tr',
-    title: "Sesli AI Telefon Asistanı: KOBİ'ler için Tam Rehber (2026) | MGL",
-    description:
-      'Sesli AI asistan nedir, nasıl çalışır, Retell AI ile nasıl kurulur? Türkiye ve UK işletmeleri için maliyet, özellik ve kurulum rehberi.',
-    keywords: 'sesli ai asistan, retell ai, voice ai, telefon asistanı, çağrı otomasyonu',
-    ogType: 'article',
-  },
-  {
-    path: '/blog/kobi-icin-ai-otomasyon-2026',
-    lang: 'tr',
-    title: "KOBİ'ler için AI Otomasyon: 2026 Pratik Yol Haritası | MGL",
-    description:
-      'Küçük ve orta ölçekli işletmeler için yapay zeka otomasyona nereden başlanır, hangi araçlar seçilir ve ROI nasıl hesaplanır? Adım adım 2026 rehberi.',
-    keywords: 'kobi ai otomasyon, yapay zeka kobi, ai yol haritası, dijital dönüşüm',
-    ogType: 'article',
-  },
-  {
-    path: '/blog/how-to-set-up-whatsapp-ai-agent-uk',
-    lang: 'en',
-    title: 'How to Set Up a WhatsApp AI Agent for Your UK Business in 30 Minutes | MGL',
-    description:
-      'Step-by-step guide to deploying a WhatsApp AI chatbot for UK SMBs using Evolution API and n8n. No coding required.',
-    keywords: 'whatsapp ai agent uk, whatsapp chatbot setup, evolution api, n8n uk, sme automation',
-    ogType: 'article',
-  },
+  { path: '/whatsapp-ai-asistan', lang: 'tr', title: 'WhatsApp AI Asistan | MGL Digital Media', description: 'WhatsApp AI asistan ile musteri sorularini 7/24 yanitlayin.', keywords: 'whatsapp ai asistan, whatsapp bot, evolution api, n8n' },
+  { path: '/sesli-ai', lang: 'tr', title: 'Sesli AI Telefon Asistani | MGL Digital Media', description: 'Retell AI ile sesli AI telefon asistani. 7/24.', keywords: 'sesli ai, voice ai, retell ai, telefon asistani' },
+  { path: '/n8n-otomasyon', lang: 'tr', title: 'n8n Otomasyon Ajansi | MGL Digital Media', description: 'n8n ile is akislarinizi otomatize edin.', keywords: 'n8n otomasyon, workflow, crm entegrasyon' },
+  { path: '/lead-uretimi', lang: 'tr', title: 'AI ile Lead Uretimi | MGL Digital Media', description: 'Google Maps, Apollo tabanli lead uretim pipeline.', keywords: 'lead uretimi, lead generation, apollo, google maps' },
+  { path: '/n8n-vs-zapier', lang: 'tr', title: 'N8N vs Zapier: 2026 | MGL', description: 'N8N ve Zapier karsilastirmasi.', keywords: 'n8n vs zapier, otomasyon karsilastirma, kobi' },
+  { path: '/whatsapp-cloud-api-vs-baileys', lang: 'en', title: 'WhatsApp Cloud API vs Baileys/Evolution API | MGL', description: 'Comparison of WhatsApp Cloud API vs Baileys.', keywords: 'whatsapp cloud api, baileys, evolution api' },
+  { path: '/voiceflow-vs-retell-ai', lang: 'en', title: 'Voiceflow vs Retell AI: 2026 | MGL', description: 'Comparison of Voiceflow and Retell AI.', keywords: 'voiceflow vs retell ai, voice agent platform' },
+  { path: '/uk-ai-agencies-comparison', lang: 'en', title: 'UK AI Agencies Comparison 2026 | MGL', description: 'Comparison of UK AI automation agencies.', keywords: 'uk ai agency, ai automation agency london' },
+  { path: '/services', lang: 'tr', title: 'Hizmetler | MGL Digital Media', description: 'WhatsApp AI, sesli asistan, n8n otomasyon, lead uretimi.', keywords: 'ai hizmetleri, otomasyon, whatsapp bot' },
+  { path: '/pricing', lang: 'en', title: 'Pricing | MGL Digital Media', description: 'Transparent fixed pricing for AI automation.', keywords: 'ai agency pricing, automation pricing' },
+  { path: '/packages', lang: 'en', title: 'Packages | MGL Digital Media', description: 'AI Automation packages for UK and Turkish SMBs.', keywords: 'ai automation packages, agency packages' },
+  { path: '/solutions', lang: 'tr', title: 'Sektore Ozel AI Cozumleri | MGL Digital Media', description: 'Klinik, emlak, e-ticaret icin AI otomasyon.', keywords: 'sektore ozel ai, klinik otomasyonu' },
+  { path: '/blog', lang: 'tr', title: 'Blog - AI Otomasyon | MGL Digital Media', description: 'AI otomasyon ve dijital pazarlama rehberleri.', keywords: 'ai blog, otomasyon blog, n8n rehber' },
+  { path: '/blog/whatsapp-ai-asistan-isletme-otomasyonu-2026', lang: 'tr', title: 'WhatsApp AI Asistan ile Isletme Otomasyonu: 2026 | MGL', description: 'WhatsApp AI asistan nedir, nasil kurulur?', keywords: 'whatsapp ai asistan, evolution api, n8n', ogType: 'article', blogSlug: 'whatsapp-ai-asistan-isletme-otomasyonu-2026' },
+  { path: '/blog/n8n-vs-zapier-turkce-rehber', lang: 'tr', title: 'N8N vs Zapier: 2026 Turkce Rehber | MGL', description: 'N8N ve Zapier Turkce karsilastirmasi.', keywords: 'n8n vs zapier, n8n turkce', ogType: 'article', blogSlug: 'n8n-vs-zapier-turkce-rehber' },
+  { path: '/blog/sesli-ai-telefon-asistani-rehberi', lang: 'tr', title: 'Sesli AI Telefon Asistani: Tam Rehber (2026) | MGL', description: 'Sesli AI asistan nedir?', keywords: 'sesli ai asistan, retell ai, voice ai', ogType: 'article', blogSlug: 'sesli-ai-telefon-asistani-rehberi' },
+  { path: '/blog/kobi-icin-ai-otomasyon-2026', lang: 'tr', title: 'KOBIler icin AI Otomasyon: 2026 Yol Haritasi | MGL', description: 'KOBIler icin AI otomasyona nasil baslanir?', keywords: 'kobi ai otomasyon, yapay zeka kobi', ogType: 'article', blogSlug: 'kobi-icin-ai-otomasyon-2026' },
+  { path: '/blog/how-to-set-up-whatsapp-ai-agent-uk', lang: 'en', title: 'How to Set Up a WhatsApp AI Agent for UK Business | MGL', description: 'WhatsApp AI chatbot for UK SMBs using Evolution API and n8n.', keywords: 'whatsapp ai agent uk, evolution api, n8n uk', ogType: 'article', blogSlug: 'how-to-set-up-whatsapp-ai-agent-uk' },
 ];
 
-// ─── Yardımcı: meta tag replacement ─────────────────────────────────────────
-function injectMeta(html, route) {
-  const {
-    path,
-    lang = 'tr',
-    title,
-    description,
-    keywords = '',
-    ogType = 'website',
-  } = route;
+function escHtml(s) { return String(s).replace(/&/g,'&amp;').replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function escRegex(s) { return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'); }
 
+function replaceMetaContent(html, attrType, attrValue, newContent) {
+  const re = new RegExp(`(<meta\\s+${escRegex(attrType)}="${escRegex(attrValue)}"\\s+content=")[^"]*("\\s*/?>)`, 'g');
+  const re2 = new RegExp(`(<meta\\s+content="[^"]*"\\s+${escRegex(attrType)}="${escRegex(attrValue)}"\\s*/?>)`, 'g');
+  if (re.test(html)) return html.replace(re, `$1${escHtml(newContent)}$2`);
+  if (re2.test(html)) return html.replace(re2, m => m.replace(/content="[^"]*"/, `content="${escHtml(newContent)}"`));
+  return html;
+}
+
+function injectMeta(html, route) {
+  const { path, lang = 'tr', title, description, keywords = '', ogType = 'website' } = route;
   const locale = lang === 'en' ? 'en_GB' : 'tr_TR';
   const canonicalUrl = `${SITE_URL}${path}`;
-  const ogImageUrl = DEFAULT_OG;
-
   let out = html;
-
-  // <html lang>
   out = out.replace(/<html([^>]*)lang="[^"]*"/, `<html$1lang="${lang}"`);
-
-  // <title>
   out = out.replace(/<title>[^<]*<\/title>/, `<title>${escHtml(title)}</title>`);
-
-  // description
   out = replaceMetaContent(out, 'name', 'description', description);
-
-  // keywords
-  if (keywords) {
-    out = replaceMetaContent(out, 'name', 'keywords', keywords);
-  }
-
-  // canonical
-  out = out.replace(
-    /<link rel="canonical"[^>]*>/,
-    `<link rel="canonical" href="${canonicalUrl}" />`,
-  );
-
-  // hreflang — güncelle veya ekle (mevcut href'i değiştir)
-  const hreflangHref = lang === 'en' ? canonicalUrl : canonicalUrl;
-  out = out.replace(
-    /<link rel="alternate" hreflang="[^"]*" href="[^"]*"[^>]*>/g,
-    (match) => {
-      if (match.includes('x-default')) {
-        return `<link rel="alternate" hreflang="x-default" href="${SITE_URL}/" />`;
-      }
-      return `<link rel="alternate" hreflang="${lang === 'en' ? 'en' : 'tr'}" href="${canonicalUrl}" />`;
-    },
-  );
-
-  // OG tags
-  const localeAlternate = lang === 'en' ? 'tr_TR' : 'en_GB';
+  if (keywords) out = replaceMetaContent(out, 'name', 'keywords', keywords);
+  out = out.replace(/<link rel="canonical"[^>]*>/, `<link rel="canonical" href="${canonicalUrl}" />`);
+  out = out.replace(/<link rel="alternate" hreflang="[^"]*" href="[^"]*"[^>]*>/g, m => {
+    if (m.includes('x-default')) return `<link rel="alternate" hreflang="x-default" href="${SITE_URL}/" />`;
+    return `<link rel="alternate" hreflang="${lang === 'en' ? 'en' : 'tr'}" href="${canonicalUrl}" />`;
+  });
   out = replaceMetaContent(out, 'property', 'og:type', ogType);
   out = replaceMetaContent(out, 'property', 'og:locale', locale);
-  out = replaceMetaContent(out, 'property', 'og:locale:alternate', localeAlternate);
+  out = replaceMetaContent(out, 'property', 'og:locale:alternate', lang === 'en' ? 'tr_TR' : 'en_GB');
   out = replaceMetaContent(out, 'property', 'og:url', canonicalUrl);
   out = replaceMetaContent(out, 'property', 'og:title', title);
   out = replaceMetaContent(out, 'property', 'og:description', description);
-  out = replaceMetaContent(out, 'property', 'og:image', ogImageUrl);
+  out = replaceMetaContent(out, 'property', 'og:image', DEFAULT_OG);
   out = replaceMetaContent(out, 'property', 'og:image:alt', title);
-
-  // Twitter tags
   out = replaceMetaContent(out, 'name', 'twitter:title', title);
   out = replaceMetaContent(out, 'name', 'twitter:description', description);
-  out = replaceMetaContent(out, 'name', 'twitter:image', ogImageUrl);
-
+  out = replaceMetaContent(out, 'name', 'twitter:image', DEFAULT_OG);
   return out;
 }
 
-function replaceMetaContent(html, attrType, attrValue, newContent) {
-  // <meta name="X" content="Y"> veya <meta property="X" content="Y">
-  const re = new RegExp(
-    `(<meta\\s+${attrType}="${escRegex(attrValue)}"\\s+content=")[^"]*("\\s*/?>)`,
-    'g',
-  );
-  const re2 = new RegExp(
-    `(<meta\\s+content="[^"]*"\\s+${attrType}="${escRegex(attrValue)}"\\s*/?>)`,
-    'g',
-  );
-
-  let out = html;
-  if (re.test(html)) {
-    out = out.replace(re, `$1${escHtml(newContent)}$2`);
-  } else if (re2.test(html)) {
-    // content-first attribute order — daha az yaygın ama güvenli taraf
-    out = out.replace(re2, (m) =>
-      m.replace(/content="[^"]*"/, `content="${escHtml(newContent)}"`),
-    );
-  }
-  return out;
+function injectBlogContent(html, route, blogMap) {
+  if (!route.blogSlug) return html;
+  const post = blogMap[route.blogSlug];
+  if (!post || !post.content) return html;
+  const articleHtml = mdToHtml(post.content);
+  const dateStr = post.date ? `<time datetime="${post.date}">${post.date}</time>` : '';
+  const noscriptBlock = `<noscript id="ssr-blog-content">
+<article style="font-family:system-ui,sans-serif;max-width:760px;margin:0 auto;padding:2rem 1.5rem;line-height:1.7;color:#1a1a1a;">
+<h1 style="font-size:1.75rem;font-weight:700;margin-bottom:0.5rem;">${escHtml(post.title || route.title)}</h1>
+${dateStr ? `<p style="color:#666;margin-bottom:2rem;">${dateStr}</p>` : ''}
+${articleHtml}
+</article>
+</noscript>`;
+  return html.replace(/(<body[^>]*>)/, `$1\n${noscriptBlock}`);
 }
 
-function escHtml(s) {
-  return s.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
-}
-
-function escRegex(s) {
-  return s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-}
-
-// ─── Ana akış ────────────────────────────────────────────────────────────────
 const indexPath = join(DIST, 'index.html');
-if (!existsSync(indexPath)) {
-  console.error('HATA: dist/index.html bulunamadı. Önce `npm run build` çalıştırın.');
-  process.exit(1);
-}
+if (!existsSync(indexPath)) { console.error('ERROR: dist/index.html not found.'); process.exit(1); }
 
 const baseHtml = readFileSync(indexPath, 'utf-8');
-console.log(`\nPrerender başlıyor — ${ROUTES.length} route\n`);
+const blogMap = loadBlogContent();
+console.log(`\nPrerender starting - ${ROUTES.length} routes | Blog posts: ${Object.keys(blogMap).length}\n`);
 
-let ok = 0;
-let fail = 0;
-
+let ok = 0, fail = 0;
 for (const route of ROUTES) {
   try {
-    const injected = injectMeta(baseHtml, route);
-
-    // dist/{route}/index.html yolunu oluştur
+    let injected = injectMeta(baseHtml, route);
+    injected = injectBlogContent(injected, route, blogMap);
     const routeDir = join(DIST, route.path);
     mkdirSync(routeDir, { recursive: true });
-    const outPath = join(routeDir, 'index.html');
-    writeFileSync(outPath, injected, 'utf-8');
-
-    // Hızlı kontrol: canonical doğru inject edildi mi?
-    const expectedCanonical = `href="${SITE_URL}${route.path}"`;
-    if (!injected.includes(expectedCanonical)) {
-      console.warn(`  [UYARI] Canonical inject edilemedi: ${route.path}`);
-    }
-
-    console.log(`  [OK] ${route.path}`);
+    writeFileSync(join(routeDir, 'index.html'), injected, 'utf-8');
+    const hasBlog = route.blogSlug && injected.includes('ssr-blog-content');
+    console.log(`  [OK] ${route.path}${hasBlog ? ' +blog-content' : ''}`);
     ok++;
   } catch (err) {
-    console.error(`  [FAIL] ${route.path} — ${err.message}`);
+    console.error(`  [FAIL] ${route.path} - ${err.message}`);
     fail++;
   }
 }
-
-console.log(`\nTamamlandı: ${ok} OK, ${fail} FAIL\n`);
+console.log(`\nDone: ${ok} OK, ${fail} FAIL\n`);
 if (fail > 0) process.exit(1);
