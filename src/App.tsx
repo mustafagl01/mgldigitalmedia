@@ -26,6 +26,22 @@ import SolutionDetail from './pages/SolutionDetail';
 import Legal from './pages/Legal';
 import NotFound from './pages/NotFound';
 
+// Service pages (E)
+import WhatsappAiAsistan from './pages/services/WhatsappAiAsistan';
+import SesliAi from './pages/services/SesliAi';
+import N8nOtomasyon from './pages/services/N8nOtomasyon';
+import LeadUretimi from './pages/services/LeadUretimi';
+
+// Blog pages (F)
+import BlogList from './pages/BlogList';
+import BlogPost from './pages/BlogPost';
+
+// Comparison pages (G)
+import N8nVsZapier from './pages/comparisons/N8nVsZapier';
+import WhatsappCloudApiVsBaileys from './pages/comparisons/WhatsappCloudApiVsBaileys';
+import VoiceflowVsRetellAi from './pages/comparisons/VoiceflowVsRetellAi';
+import UkAiAgenciesComparison from './pages/comparisons/UkAiAgenciesComparison';
+
 // New site shell
 import { AnnouncementBar } from './components/site/AnnouncementBar';
 import { SiteHeader } from './components/site/SiteHeader';
@@ -60,7 +76,20 @@ type AppPage =
   | 'solution-guzellik'
   | 'solution-restoran'
   | 'legal'
-  | 'notfound';
+  | 'notfound'
+  // Service pages (E)
+  | 'whatsapp-ai-asistan'
+  | 'sesli-ai'
+  | 'n8n-otomasyon'
+  | 'lead-uretimi'
+  // Blog (F)
+  | 'blog'
+  | 'blog-post'
+  // Comparison pages (G)
+  | 'n8n-vs-zapier'
+  | 'whatsapp-cloud-api-vs-baileys'
+  | 'voiceflow-vs-retell-ai'
+  | 'uk-ai-agencies-comparison';
 
 type SitePage = 'home' | 'services' | 'solutions' | 'packages' | 'pricing' | 'legal';
 
@@ -87,6 +116,15 @@ const KNOWN_PATHS = new Set([
   '/solutions/guzellik',
   '/solutions/restoran',
   '/legal',
+  '/whatsapp-ai-asistan',
+  '/sesli-ai',
+  '/n8n-otomasyon',
+  '/lead-uretimi',
+  '/blog',
+  '/n8n-vs-zapier',
+  '/whatsapp-cloud-api-vs-baileys',
+  '/voiceflow-vs-retell-ai',
+  '/uk-ai-agencies-comparison',
 ]);
 
 function pathToPage(path: string): AppPage {
@@ -105,6 +143,19 @@ function pathToPage(path: string): AppPage {
   if (clean === '/solutions/guzellik') return 'solution-guzellik';
   if (clean === '/solutions/restoran') return 'solution-restoran';
   if (clean === '/legal') return 'legal';
+  // Service pages
+  if (clean === '/whatsapp-ai-asistan') return 'whatsapp-ai-asistan';
+  if (clean === '/sesli-ai') return 'sesli-ai';
+  if (clean === '/n8n-otomasyon') return 'n8n-otomasyon';
+  if (clean === '/lead-uretimi') return 'lead-uretimi';
+  // Blog
+  if (clean === '/blog') return 'blog';
+  if (clean.startsWith('/blog/')) return 'blog-post';
+  // Comparisons
+  if (clean === '/n8n-vs-zapier') return 'n8n-vs-zapier';
+  if (clean === '/whatsapp-cloud-api-vs-baileys') return 'whatsapp-cloud-api-vs-baileys';
+  if (clean === '/voiceflow-vs-retell-ai') return 'voiceflow-vs-retell-ai';
+  if (clean === '/uk-ai-agencies-comparison') return 'uk-ai-agencies-comparison';
   return KNOWN_PATHS.has(clean) ? 'home' : 'notfound';
 }
 
@@ -114,6 +165,11 @@ function AppContent() {
   );
   const [activeDemo, setActiveDemo] = useState<string | null>(null);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  // Blog slug — extracted from URL for blog-post pages
+  const [blogSlug, setBlogSlug] = useState<string>(() => {
+    const parts = window.location.pathname.split('/');
+    return parts.length >= 3 && parts[1] === 'blog' ? parts[2] : '';
+  });
   const { t, language } = useLanguage();
   useLocation(); // keeps region hydrated for pricing
   useAuth(); // keeps session hydrated
@@ -131,6 +187,13 @@ function AppContent() {
     window.history.pushState({}, '', path);
     // Notify hash-aware listeners (pushState doesn't fire hashchange/popstate natively)
     window.dispatchEvent(new PopStateEvent('popstate'));
+    window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
+  };
+
+  const navigateToBlogPost = (slug: string) => {
+    setBlogSlug(slug);
+    setCurrentPage('blog-post');
+    window.history.pushState({}, '', `/blog/${slug}`);
     window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
   };
 
@@ -177,6 +240,22 @@ function AppContent() {
   if (currentPage === 'solution-restoran') return wrapPage(<SolutionDetail sectorKey="restoran" />);
   if (currentPage === 'legal') return wrapPage(<Legal />);
   if (currentPage === 'notfound') return wrapPage(<NotFound onHome={() => navigateTo('home')} />);
+
+  // Service pages (E)
+  if (currentPage === 'whatsapp-ai-asistan') return wrapPage(<WhatsappAiAsistan />);
+  if (currentPage === 'sesli-ai') return wrapPage(<SesliAi />);
+  if (currentPage === 'n8n-otomasyon') return wrapPage(<N8nOtomasyon />);
+  if (currentPage === 'lead-uretimi') return wrapPage(<LeadUretimi />);
+
+  // Blog pages (F)
+  if (currentPage === 'blog') return wrapPage(<BlogList onPost={navigateToBlogPost} />);
+  if (currentPage === 'blog-post') return wrapPage(<BlogPost slug={blogSlug} onBack={() => navigateTo('blog')} onPost={navigateToBlogPost} />);
+
+  // Comparison pages (G)
+  if (currentPage === 'n8n-vs-zapier') return wrapPage(<N8nVsZapier />);
+  if (currentPage === 'whatsapp-cloud-api-vs-baileys') return wrapPage(<WhatsappCloudApiVsBaileys />);
+  if (currentPage === 'voiceflow-vs-retell-ai') return wrapPage(<VoiceflowVsRetellAi />);
+  if (currentPage === 'uk-ai-agencies-comparison') return wrapPage(<UkAiAgenciesComparison />);
 
   // HOME
   const isEN = language === 'en';
