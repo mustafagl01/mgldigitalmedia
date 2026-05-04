@@ -534,8 +534,8 @@ export default function Services() {
     ? 'Digital Services — WhatsApp, Voice, n8n, Web, SEO & Ads | MGL Digital Media'
     : 'Dijital Hizmetler — WhatsApp, Sesli, n8n, Web, SEO & Reklam | MGL Digital Media';
   const seoDescription = isEnglish
-    ? '11 à la carte digital services: WhatsApp bots, voice assistants, n8n automation, web design, SEO, Meta & Google Ads, CRM setup. Transparent TRY and GBP pricing, no lock-in.'
-    : '11 bağımsız dijital hizmet: WhatsApp botları, sesli asistan, n8n otomasyon, web tasarım, SEO, Meta & Google Ads, CRM kurulumu. Şeffaf TRY ve GBP fiyat, taahhütsüz.';
+    ? '11 à la carte digital services: WhatsApp agents, voice assistants, n8n automation, web design, SEO, Meta & Google Ads, CRM setup. Transparent TRY and GBP pricing, no lock-in.'
+    : '11 bağımsız dijital hizmet: WhatsApp asistanları, sesli asistan, n8n otomasyon, web tasarım, SEO, Meta & Google Ads, CRM kurulumu. Şeffaf TRY ve GBP fiyat, taahhütsüz.';
 
   const servicesJsonLd = SERVICES.map((s) =>
     serviceSchema({
@@ -739,8 +739,8 @@ export default function Services() {
               </p>
               <ul style={{ marginTop: 24, listStyle: 'none', padding: 0, display: 'flex', flexDirection: 'column', gap: 10 }}>
                 {[
-                  { tr: 'Başlangıç — WhatsApp Bot + Landing Page', en: 'Starter — WhatsApp Bot + Landing Page' },
-                  { tr: 'Büyüme — Web + WhatsApp Bot + SEO + Analitik', en: 'Growth — Website + WhatsApp Bot + SEO + Analytics' },
+                  { tr: 'Başlangıç — WhatsApp Asistanı + Landing Page', en: 'Starter — WhatsApp Agent + Landing Page' },
+                  { tr: 'Büyüme — Web + WhatsApp Asistanı + SEO + Analitik', en: 'Growth — Website + WhatsApp Agent + SEO + Analytics' },
                   { tr: 'Tam Operasyon — Web + Bot + n8n + CRM + Reklam + SEO', en: 'Full Ops — Website + Bot + n8n + CRM + Ads + SEO' },
                 ].map((item) => (
                   <li key={item.tr} style={{ display: 'flex', alignItems: 'flex-start', gap: 10, fontSize: 15, color: 'var(--fg)' }}>
@@ -824,7 +824,7 @@ export default function Services() {
             {[
               {
                 key: 'A' as const,
-                skus: isEnglish ? 'WhatsApp Bot · n8n · SEO · Analytics' : 'WhatsApp Bot · n8n · SEO · Analitik',
+                skus: isEnglish ? 'WhatsApp Agent · n8n · SEO · Analytics' : 'WhatsApp Asistanı · n8n · SEO · Analitik',
                 desc: {
                   tr: 'Düşük değişken maliyetli hizmetlerde ilk 30 gün tamamen ücretsiz. Beğenmezseniz tek mesajla iptal, ücret yok.',
                   en: 'Low-variable-cost services: fully free for 30 days. Cancel with one message, no charge.',

@@ -449,13 +449,13 @@ const SECTORS: Sector[] = [
     ],
     extraFlows: {
       tr: [
-        'Gel-al siparişi için WhatsApp bot + ödeme linki',
+        'Gel-al siparişi için WhatsApp asistanı + ödeme linki',
         'VIP müşteri algılayıcı (yüksek tutarlı hesapta ekibe Slack bildirimi)',
         'Menü değişikliğinde kayıtlı müşterilere otomatik haberleşme',
         'Çalışan yemek siparişi akışı (B2B)',
       ],
       en: [
-        'Takeaway ordering via WhatsApp bot + payment link',
+        'Takeaway ordering via WhatsApp agent + payment link',
         'VIP detector (Slack alert for high-ticket bills)',
         'Auto-broadcast menu changes to opt-in list',
         'Corporate lunch order workflow (B2B)',
@@ -496,8 +496,8 @@ const SECTORS: Sector[] = [
           en: 'Clients, appointments, orders tracked in Excel; if someone leaves, the data is lost.',
         },
         solution: {
-          tr: 'Notion veya Airtable CRM + WhatsApp bot entegrasyonu; tek sistemde müşteri geçmişi, notlar, hatırlatmalar.',
-          en: 'Notion or Airtable CRM + WhatsApp bot integration; one system for client history, notes, reminders.',
+          tr: 'Notion veya Airtable CRM + WhatsApp asistanı entegrasyonu; tek sistemde müşteri geçmişi, notlar, hatırlatmalar.',
+          en: 'Notion or Airtable CRM + WhatsApp agent integration; one system for client history, notes, reminders.',
         },
         value: {
           tr: 'Hiçbir müşteri kaybolmaz, ekip devir-tesliminde bilgi aktarılır, kurumsal hafıza oluşur.',
@@ -562,8 +562,8 @@ const FAQS: Array<{ q: { tr: string; en: string }; a: { tr: string; en: string }
       en: 'How long does setup take?',
     },
     a: {
-      tr: 'WhatsApp bot 3 iş günü, n8n otomasyon 5–15 iş günü, CRM kurulumu 10–25 iş günü. SEO ve reklam yönetimi için kurulum 7 iş günü; sonuçlar 4–12 hafta içinde olgunlaşır.',
-      en: 'WhatsApp bot 3 business days, n8n automation 5–15 business days, CRM setup 10–25 business days. SEO and ad management setup 7 business days; results mature in 4–12 weeks.',
+      tr: 'WhatsApp asistanı 3 iş günü, n8n otomasyon 5–15 iş günü, CRM kurulumu 10–25 iş günü. SEO ve reklam yönetimi için kurulum 7 iş günü; sonuçlar 4–12 hafta içinde olgunlaşır.',
+      en: 'WhatsApp agent 3 business days, n8n automation 5–15 business days, CRM setup 10–25 business days. SEO and ad management setup 7 business days; results mature in 4–12 weeks.',
     },
   },
   {
@@ -572,8 +572,8 @@ const FAQS: Array<{ q: { tr: string; en: string }; a: { tr: string; en: string }
       en: 'Is the first-month risk model the same for every workflow?',
     },
     a: {
-      tr: 'Değişken maliyet düşük hizmetlerde (WhatsApp bot, n8n, SEO, analitik) ilk ay ajans ücreti yok — kurulum + 30 gün gerçek trafik bizden. Sesli asistan ve içerik üretimi gibi değişken maliyetli hizmetlerde ilk ay %50 pilot fiyat; reklam yönetiminde ilk ay yönetim ücreti %50 ve reklam harcaması pass-through.',
-      en: 'Low-variable-cost services (WhatsApp bot, n8n, SEO, analytics) have zero agency fee in month one — setup + 30 days of real traffic on us. Variable-cost services (voice, content) run at 50% pilot pricing in the first month; ad management at 50% first-month fee with ad spend pass-through.',
+      tr: 'Değişken maliyet düşük hizmetlerde (WhatsApp asistanı, n8n, SEO, analitik) ilk ay ajans ücreti yok — kurulum + 30 gün gerçek trafik bizden. Sesli asistan ve içerik üretimi gibi değişken maliyetli hizmetlerde ilk ay %50 pilot fiyat; reklam yönetiminde ilk ay yönetim ücreti %50 ve reklam harcaması pass-through.',
+      en: 'Low-variable-cost services (WhatsApp agent, n8n, SEO, analytics) have zero agency fee in month one — setup + 30 days of real traffic on us. Variable-cost services (voice, content) run at 50% pilot pricing in the first month; ad management at 50% first-month fee with ad spend pass-through.',
     },
   },
   {
@@ -895,8 +895,8 @@ export default function Solutions({ onNavigate }: SolutionsProps = {}) {
     : 'Sektörel Çözümler: WhatsApp, Sesli Asistan ve Otomasyon Akışları | MGL Digital Media';
 
   const description = isEnglish
-    ? 'Sector-specific WhatsApp bots, voice assistants and n8n workflows for dental clinics, real estate, beauty salons, restaurants and local service businesses. London HQ, serving UK & Turkey remotely.'
-    : 'Diş klinikleri, emlak, güzellik salonları, restoranlar ve lokal hizmet işletmeleri için hazır WhatsApp botları, sesli asistanlar ve n8n otomasyon akışları. Londra merkezli, UK ve Türkiye\'ye uzaktan hizmet.';
+    ? 'Sector-specific WhatsApp agents, voice assistants and n8n workflows for dental clinics, real estate, beauty salons, restaurants and local service businesses. London HQ, serving UK & Turkey remotely.'
+    : 'Diş klinikleri, emlak, güzellik salonları, restoranlar ve lokal hizmet işletmeleri için hazır WhatsApp asistanları, sesli asistanlar ve n8n otomasyon akışları. Londra merkezli, UK ve Türkiye\'ye uzaktan hizmet.';
 
   const jsonLd = [
     ...BASE_SCHEMAS,
