@@ -207,11 +207,27 @@ export default function BlogPost({ slug, onBack, onPost: _onPost }: BlogPostProp
                   {children}
                 </h3>
               ),
-              p: ({ children }) => (
-                <p style={{ lineHeight: 1.75, marginBottom: '1rem', color: 'var(--body)', fontSize: '1rem' }}>
-                  {children}
-                </p>
-              ),
+              p: ({ children }) => {
+                // TL;DR paragrafını Özet kutusuna çevir
+                const text = typeof children === 'string' ? children : (Array.isArray(children) ? children.map(c => typeof c === 'string' ? c : (c as React.ReactElement)?.props?.children ?? '').join('') : '');
+                const isTldr = text.startsWith('TL;DR') || text.startsWith('TL:DR') || (Array.isArray(children) && String((children as React.ReactElement[])[0]?.props?.children ?? '').startsWith('TL;DR'));
+                if (isTldr) {
+                  return (
+                    <div style={{ background: 'var(--surface)', borderLeft: '4px solid var(--accent)', borderRadius: '0 10px 10px 0', padding: '1rem 1.25rem', margin: '1.5rem 0' }}>
+                      <p style={{ fontSize: '0.7rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--muted)', margin: '0 0 0.4rem' }}>Özet</p>
+                      <p style={{ lineHeight: 1.7, color: 'var(--body)', fontSize: '0.95rem', margin: 0, fontStyle: 'italic' }}>
+                        {Array.isArray(children)
+                          ? (children as React.ReactNode[]).map((child, i) => {
+                              if (i === 0 && typeof child === 'object' && (child as React.ReactElement)?.props?.children?.toString().startsWith('TL;DR')) return null;
+                              return child;
+                            })
+                          : children}
+                      </p>
+                    </div>
+                  );
+                }
+                return <p style={{ lineHeight: 1.75, marginBottom: '1rem', color: 'var(--body)', fontSize: '1rem' }}>{children}</p>;
+              },
               ul: ({ children }) => (
                 <ul style={{ paddingLeft: '1.5rem', marginBottom: '1rem', lineHeight: 1.7, color: 'var(--body)' }}>
                   {children}
