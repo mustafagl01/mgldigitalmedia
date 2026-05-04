@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, Suspense, lazy } from 'react';
 import { HelmetProvider } from 'react-helmet-async';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { LanguageProvider, useLanguage } from './contexts/LanguageContext';
@@ -14,33 +14,33 @@ import { PhoneDemoModal } from './components/modals/PhoneDemoModal';
 
 const CALENDAR_URL = 'https://calendar.app.google/FZnTjsWGfCy33WF36';
 
-// Pages
-import { ProductsPage } from './components/pages/ProductsPage';
-import { SuccessPage } from './components/pages/SuccessPage';
-import { CancelPage } from './components/pages/CancelPage';
-import Pricing from './pages/Pricing';
-import Packages from './pages/Packages';
-import Services from './pages/Services';
-import Solutions from './pages/Solutions';
-import SolutionDetail from './pages/SolutionDetail';
-import Legal from './pages/Legal';
-import NotFound from './pages/NotFound';
+// Pages — lazy loaded to reduce initial bundle
+const ProductsPage = lazy(() => import('./components/pages/ProductsPage').then(m => ({ default: m.ProductsPage })));
+const SuccessPage = lazy(() => import('./components/pages/SuccessPage').then(m => ({ default: m.SuccessPage })));
+const CancelPage = lazy(() => import('./components/pages/CancelPage').then(m => ({ default: m.CancelPage })));
+const Pricing = lazy(() => import('./pages/Pricing'));
+const Packages = lazy(() => import('./pages/Packages'));
+const Services = lazy(() => import('./pages/Services'));
+const Solutions = lazy(() => import('./pages/Solutions'));
+const SolutionDetail = lazy(() => import('./pages/SolutionDetail'));
+const Legal = lazy(() => import('./pages/Legal'));
+const NotFound = lazy(() => import('./pages/NotFound'));
 
 // Service pages (E)
-import WhatsappAiAsistan from './pages/services/WhatsappAiAsistan';
-import SesliAi from './pages/services/SesliAi';
-import N8nOtomasyon from './pages/services/N8nOtomasyon';
-import LeadUretimi from './pages/services/LeadUretimi';
+const WhatsappAiAsistan = lazy(() => import('./pages/services/WhatsappAiAsistan'));
+const SesliAi = lazy(() => import('./pages/services/SesliAi'));
+const N8nOtomasyon = lazy(() => import('./pages/services/N8nOtomasyon'));
+const LeadUretimi = lazy(() => import('./pages/services/LeadUretimi'));
 
 // Blog pages (F)
-import BlogList from './pages/BlogList';
-import BlogPost from './pages/BlogPost';
+const BlogList = lazy(() => import('./pages/BlogList'));
+const BlogPost = lazy(() => import('./pages/BlogPost'));
 
 // Comparison pages (G)
-import N8nVsZapier from './pages/comparisons/N8nVsZapier';
-import WhatsappCloudApiVsBaileys from './pages/comparisons/WhatsappCloudApiVsBaileys';
-import VoiceflowVsRetellAi from './pages/comparisons/VoiceflowVsRetellAi';
-import UkAiAgenciesComparison from './pages/comparisons/UkAiAgenciesComparison';
+const N8nVsZapier = lazy(() => import('./pages/comparisons/N8nVsZapier'));
+const WhatsappCloudApiVsBaileys = lazy(() => import('./pages/comparisons/WhatsappCloudApiVsBaileys'));
+const VoiceflowVsRetellAi = lazy(() => import('./pages/comparisons/VoiceflowVsRetellAi'));
+const UkAiAgenciesComparison = lazy(() => import('./pages/comparisons/UkAiAgenciesComparison'));
 
 // New site shell
 import { AnnouncementBar } from './components/site/AnnouncementBar';
@@ -204,10 +204,10 @@ function AppContent() {
   };
 
   // Dedicated pages render without the site shell
-  if (currentPage === 'products') return <ProductsPage onBack={() => navigateTo('home')} />;
-  if (currentPage === 'success') return <SuccessPage onBack={() => navigateTo('home')} />;
+  if (currentPage === 'products') return <Suspense fallback={<div />}><ProductsPage onBack={() => navigateTo('home')} /></Suspense>;
+  if (currentPage === 'success') return <Suspense fallback={<div />}><SuccessPage onBack={() => navigateTo('home')} /></Suspense>;
   if (currentPage === 'cancel')
-    return <CancelPage onBack={() => navigateTo('home')} onRetry={() => navigateTo('products')} />;
+    return <Suspense fallback={<div />}><CancelPage onBack={() => navigateTo('home')} onRetry={() => navigateTo('products')} /></Suspense>;
 
   // Content pages — wrap in site shell (header/footer)
   const headerPage: SitePage = currentPage.startsWith('solution')
@@ -229,33 +229,33 @@ function AppContent() {
     </div>
   );
 
-  if (currentPage === 'pricing') return wrapPage(<Pricing />);
-  if (currentPage === 'packages') return wrapPage(<Packages />);
-  if (currentPage === 'services') return wrapPage(<Services />);
-  if (currentPage === 'solutions') return wrapPage(<Solutions onNavigate={navigateTo} />);
-  if (currentPage === 'solution-klinik') return wrapPage(<SolutionDetail sectorKey="klinik" />);
-  if (currentPage === 'solution-emlak') return wrapPage(<SolutionDetail sectorKey="emlak" />);
-  if (currentPage === 'solution-eticaret') return wrapPage(<SolutionDetail sectorKey="eticaret" />);
-  if (currentPage === 'solution-guzellik') return wrapPage(<SolutionDetail sectorKey="guzellik" />);
-  if (currentPage === 'solution-restoran') return wrapPage(<SolutionDetail sectorKey="restoran" />);
-  if (currentPage === 'legal') return wrapPage(<Legal />);
-  if (currentPage === 'notfound') return wrapPage(<NotFound onHome={() => navigateTo('home')} />);
+  if (currentPage === 'pricing') return wrapPage(<Suspense fallback={<div />}><Pricing /></Suspense>);
+  if (currentPage === 'packages') return wrapPage(<Suspense fallback={<div />}><Packages /></Suspense>);
+  if (currentPage === 'services') return wrapPage(<Suspense fallback={<div />}><Services /></Suspense>);
+  if (currentPage === 'solutions') return wrapPage(<Suspense fallback={<div />}><Solutions onNavigate={navigateTo} /></Suspense>);
+  if (currentPage === 'solution-klinik') return wrapPage(<Suspense fallback={<div />}><SolutionDetail sectorKey="klinik" /></Suspense>);
+  if (currentPage === 'solution-emlak') return wrapPage(<Suspense fallback={<div />}><SolutionDetail sectorKey="emlak" /></Suspense>);
+  if (currentPage === 'solution-eticaret') return wrapPage(<Suspense fallback={<div />}><SolutionDetail sectorKey="eticaret" /></Suspense>);
+  if (currentPage === 'solution-guzellik') return wrapPage(<Suspense fallback={<div />}><SolutionDetail sectorKey="guzellik" /></Suspense>);
+  if (currentPage === 'solution-restoran') return wrapPage(<Suspense fallback={<div />}><SolutionDetail sectorKey="restoran" /></Suspense>);
+  if (currentPage === 'legal') return wrapPage(<Suspense fallback={<div />}><Legal /></Suspense>);
+  if (currentPage === 'notfound') return wrapPage(<Suspense fallback={<div />}><NotFound onHome={() => navigateTo('home')} /></Suspense>);
 
   // Service pages (E)
-  if (currentPage === 'whatsapp-ai-asistan') return wrapPage(<WhatsappAiAsistan />);
-  if (currentPage === 'sesli-ai') return wrapPage(<SesliAi />);
-  if (currentPage === 'n8n-otomasyon') return wrapPage(<N8nOtomasyon />);
-  if (currentPage === 'lead-uretimi') return wrapPage(<LeadUretimi />);
+  if (currentPage === 'whatsapp-ai-asistan') return wrapPage(<Suspense fallback={<div />}><WhatsappAiAsistan /></Suspense>);
+  if (currentPage === 'sesli-ai') return wrapPage(<Suspense fallback={<div />}><SesliAi /></Suspense>);
+  if (currentPage === 'n8n-otomasyon') return wrapPage(<Suspense fallback={<div />}><N8nOtomasyon /></Suspense>);
+  if (currentPage === 'lead-uretimi') return wrapPage(<Suspense fallback={<div />}><LeadUretimi /></Suspense>);
 
   // Blog pages (F)
-  if (currentPage === 'blog') return wrapPage(<BlogList onPost={navigateToBlogPost} />);
-  if (currentPage === 'blog-post') return wrapPage(<BlogPost slug={blogSlug} onBack={() => navigateTo('blog')} onPost={navigateToBlogPost} />);
+  if (currentPage === 'blog') return wrapPage(<Suspense fallback={<div />}><BlogList onPost={navigateToBlogPost} /></Suspense>);
+  if (currentPage === 'blog-post') return wrapPage(<Suspense fallback={<div />}><BlogPost slug={blogSlug} onBack={() => navigateTo('blog')} onPost={navigateToBlogPost} /></Suspense>);
 
   // Comparison pages (G)
-  if (currentPage === 'n8n-vs-zapier') return wrapPage(<N8nVsZapier />);
-  if (currentPage === 'whatsapp-cloud-api-vs-baileys') return wrapPage(<WhatsappCloudApiVsBaileys />);
-  if (currentPage === 'voiceflow-vs-retell-ai') return wrapPage(<VoiceflowVsRetellAi />);
-  if (currentPage === 'uk-ai-agencies-comparison') return wrapPage(<UkAiAgenciesComparison />);
+  if (currentPage === 'n8n-vs-zapier') return wrapPage(<Suspense fallback={<div />}><N8nVsZapier /></Suspense>);
+  if (currentPage === 'whatsapp-cloud-api-vs-baileys') return wrapPage(<Suspense fallback={<div />}><WhatsappCloudApiVsBaileys /></Suspense>);
+  if (currentPage === 'voiceflow-vs-retell-ai') return wrapPage(<Suspense fallback={<div />}><VoiceflowVsRetellAi /></Suspense>);
+  if (currentPage === 'uk-ai-agencies-comparison') return wrapPage(<Suspense fallback={<div />}><UkAiAgenciesComparison /></Suspense>);
 
   // HOME
   const isEN = language === 'en';

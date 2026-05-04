@@ -11,9 +11,14 @@ export default defineConfig({
     outDir: 'dist',
     assetsDir: 'assets',
     sourcemap: false,
+    target: 'es2015',
     rollupOptions: {
       output: {
-        manualChunks: undefined,
+        manualChunks: {
+          vendor: ['react', 'react-dom'],
+          ui: ['react-helmet-async'],
+          icons: ['lucide-react'],
+        },
       },
     },
   },
