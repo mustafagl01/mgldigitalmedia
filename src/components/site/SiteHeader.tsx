@@ -102,6 +102,9 @@ export function SiteHeader({ currentPage, onNavigate, onAnalysisClick }: Props) 
               {label}
             </button>
           ))}
+          <a href="/blog" className="nav-link">
+            Blog
+          </a>
           <button onClick={handleContact} className="nav-link">
             {contactLabel}
           </button>
@@ -205,6 +208,22 @@ export function SiteHeader({ currentPage, onNavigate, onAnalysisClick }: Props) 
                 {label}
               </button>
             ))}
+            <a
+              href="/blog"
+              style={{
+                display: 'block',
+                textAlign: 'left',
+                padding: '12px 0',
+                fontFamily: 'var(--font-sans)',
+                fontSize: 16,
+                fontWeight: 500,
+                color: 'var(--fg-2)',
+                borderBottom: '1px solid var(--border)',
+                textDecoration: 'none',
+              }}
+            >
+              Blog
+            </a>
             <button
               onClick={handleContact}
               style={{
