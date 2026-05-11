@@ -33,6 +33,20 @@ const sectors = [
     name: 'İhracat & E-ticaret',
     color: '#F38181',
     description: 'Saat farkı yok, çok dilli destek'
+  },
+  {
+    id: 'estate',
+    icon: '🏠',
+    name: 'Emlak & Gayrimenkul',
+    color: '#7C5CFF',
+    description: 'Sunumdayken kaçan çağrı = rakibe giden komisyon'
+  },
+  {
+    id: 'beauty',
+    icon: '💇',
+    name: 'Güzellik & Salon',
+    color: '#FF8FB1',
+    description: 'Meşgulken kaçan yeni müşteri = başka salona giden ciro'
   }
 ];
 

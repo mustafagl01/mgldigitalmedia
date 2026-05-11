@@ -69,7 +69,7 @@ export const REGIONAL_PRICING: Record<PricingRegionCode, RegionalPricing> = {
       starter: {
         key: 'starter',
         category: 'agents',
-        name: 'Başlangıç',
+        name: 'WhatsApp Asistan',
         price: 3999,
         setupFee: 0,
         voiceMinutes: 0,
@@ -82,7 +82,7 @@ export const REGIONAL_PRICING: Record<PricingRegionCode, RegionalPricing> = {
       pro: {
         key: 'pro',
         category: 'agents',
-        name: 'Büyüme',
+        name: 'Çok Kanal Asistan',
         price: 9999,
         setupFee: 4999,
         voiceMinutes: 0,
@@ -95,7 +95,7 @@ export const REGIONAL_PRICING: Record<PricingRegionCode, RegionalPricing> = {
       advanced: {
         key: 'advanced',
         category: 'agents',
-        name: 'Oto-Sekreter',
+        name: 'AI Resepsiyon',
         price: 14999,
         setupFee: 14999,
         voiceMinutes: 500,
@@ -212,7 +212,7 @@ export const REGIONAL_PRICING: Record<PricingRegionCode, RegionalPricing> = {
       starter: {
         key: 'starter',
         category: 'agents',
-        name: 'Starter',
+        name: 'WhatsApp Assistant',
         price: 119,
         setupFee: 0,
         voiceMinutes: 0,
@@ -225,7 +225,7 @@ export const REGIONAL_PRICING: Record<PricingRegionCode, RegionalPricing> = {
       pro: {
         key: 'pro',
         category: 'agents',
-        name: 'Growth',
+        name: 'Multi-Channel Assistant',
         price: 299,
         setupFee: 149,
         voiceMinutes: 0,
@@ -238,7 +238,7 @@ export const REGIONAL_PRICING: Record<PricingRegionCode, RegionalPricing> = {
       advanced: {
         key: 'advanced',
         category: 'agents',
-        name: 'Auto-Receptionist',
+        name: 'AI Reception',
         price: 449,
         setupFee: 450,
         voiceMinutes: 500,

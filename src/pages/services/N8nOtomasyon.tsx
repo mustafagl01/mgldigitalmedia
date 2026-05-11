@@ -10,7 +10,7 @@ const FAQS_TR = [
   { question: 'Hangi uygulamalarla entegre olabilir?', answer: 'Gmail, WhatsApp (Evolution API), HubSpot, Pipedrive, Zoho, Stripe, iyzico, Google Sheets, Airtable, Slack, Telegram ve 400+ uygulama. Özel REST API olan herhangi bir yazılıma da bağlanılabilir.' },
   { question: 'Teknik bilgim olmadan kullanabilir miyim?', answer: 'MGL olarak tüm tasarım, kurulum ve bakımı yapıyoruz; sizin teknik bilgiye ihtiyacınız yok. Sistemin çalışıp çalışmadığını görmek için basit bir dashboard sunuyoruz.' },
   { question: 'Bir sorun olduğunda ne yapıyorsunuz?', answer: 'Otomatik hata bildirimleri kurulu; bir workflow hata alırsa Telegram/e-posta ile anında bilgi veriyoruz. Bakım sözleşmesi kapsamında 24 saat içinde müdahale garantisi.' },
-  { question: 'Aylık ücret ne kadar?', answer: 'Starter Agent Paketi 3.999 TRY/ay\'dan başlar; n8n kurulumu ve bakımı dahildir. Daha kapsamlı entegrasyonlar için Growth ve Advanced paketler mevcuttur.' },
+  { question: 'Aylık ücret ne kadar?', answer: 'n8n otomasyon akışları Çok Kanal Asistan ve AI Resepsiyon paketlerine dahildir; WhatsApp Asistan pakette yer almaz. Çok Kanal Asistan paketi 9.999 TRY/ay\'dan başlar (n8n kurulumu ve bakımı dahil). Daha kapsamlı çok kanallı + sesli entegrasyonlar için AI Resepsiyon paketi /packages sayfasında.' },
 ];
 
 const FAQS_EN = [
@@ -19,7 +19,7 @@ const FAQS_EN = [
   { question: 'What apps can it integrate with?', answer: 'Gmail, WhatsApp (Evolution API), HubSpot, Pipedrive, Zoho, Stripe, Google Sheets, Airtable, Slack, Telegram and 400+ more. Any custom REST API can also be integrated.' },
   { question: 'Do I need technical knowledge?', answer: 'No. MGL handles all design, setup and maintenance. We provide a simple monitoring dashboard so you can see your automations are running.' },
   { question: 'What happens if something breaks?', answer: 'Automated error notifications are built in — if a workflow fails you\'re notified via Telegram/email immediately. Maintenance contracts include a 24-hour response SLA.' },
-  { question: 'How much does it cost?', answer: 'Starter Agent Package from £119/month includes n8n setup and maintenance. Growth and Advanced packages available for more complex integrations.' },
+  { question: 'How much does it cost?', answer: 'n8n automation workflows are included in the Multi-Channel Assistant and AI Reception plans (not in the WhatsApp Assistant plan). Multi-Channel Assistant starts at £299/month with n8n setup and maintenance included. For multi-channel + voice integrations, see AI Reception at /packages.' },
 ];
 
 const PROCESS_TR = [
@@ -75,8 +75,8 @@ export default function N8nOtomasyon() {
     path: '/n8n-otomasyon',
     category: 'Workflow Automation',
     offers: [
-      { name: 'Starter', price: 3999, priceCurrency: 'TRY', priceFrom: true },
-      { name: 'Starter UK', price: 119, priceCurrency: 'GBP', priceFrom: true },
+      { name: 'Çok Kanal Asistan', price: 9999, priceCurrency: 'TRY', priceFrom: true },
+      { name: 'Multi-Channel Assistant', price: 299, priceCurrency: 'GBP', priceFrom: true },
     ],
   });
 

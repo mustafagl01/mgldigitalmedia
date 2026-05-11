@@ -20,4 +20,4 @@ Allow: /
 User-agent: Bytespider
 Disallow: /
 
-Sitemap: https://mgl-ai.uk/sitemap.xml
+Sitemap: https://mgl-ai.com/sitemap.xml

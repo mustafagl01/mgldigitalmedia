@@ -3,7 +3,7 @@ import { Seo, serviceSchema, faqSchema, breadcrumbSchema } from '../../component
 import { useLanguage } from '../../contexts/LanguageContext';
 
 const CALENDAR_URL = 'https://calendar.app.google/FZnTjsWGfCy33WF36';
-const SITE_URL = 'https://mgl-ai.uk';
+const SITE_URL = 'https://mgl-ai.com';
 
 const FAQS_TR = [
   { question: 'Sesli AI Türkçe konuşabiliyor mu?', answer: 'Evet. Retell AI, Türkçe konuşma tanıma (ASR) ve ElevenLabs ses sentezi (TTS) ile doğal Türkçe konuşma sağlar.' },
@@ -57,8 +57,8 @@ export default function SesliAi() {
     path: '/sesli-ai',
     category: 'AI Voice Agent',
     offers: [
-      { name: 'Starter', price: 3999, priceCurrency: 'TRY', priceFrom: true },
-      { name: 'Starter UK', price: 119, priceCurrency: 'GBP', priceFrom: true },
+      { name: 'AI Resepsiyon', price: 14999, priceCurrency: 'TRY', priceFrom: true },
+      { name: 'AI Reception UK', price: 449, priceCurrency: 'GBP', priceFrom: true },
     ],
   });
 
@@ -72,8 +72,8 @@ export default function SesliAi() {
         }
         description={
           isEN
-            ? 'AI voice receptionist powered by Retell AI. Answers calls in under 1.5 seconds, books appointments, handles FAQs. Turkish and English. From £119/month.'
-            : 'Retell AI destekli sesli AI asistan. Aramaları 1.5 saniyede karşılar, randevu alır, SSS yanıtlar. Türkçe ve İngilizce. 3.999 TRY/ay\'dan başlar.'
+            ? 'AI voice receptionist powered by Retell AI. Answers calls in under 1.5 seconds, books appointments, handles FAQs. Turkish and English. Included in the AI Reception plan.'
+            : 'Retell AI destekli sesli AI asistan. Aramaları 1.5 saniyede karşılar, randevu alır, SSS yanıtlar. Türkçe ve İngilizce. AI Resepsiyon paketine dahildir.'
         }
         path="/sesli-ai"
         locale={isEN ? 'en_GB' : 'tr_TR'}

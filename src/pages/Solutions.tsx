@@ -113,6 +113,25 @@ const SECTORS: Sector[] = [
           { label: 'SEO', anchor: 'seo' },
         ],
       },
+      {
+        id: 'dental-voice',
+        problem: {
+          tr: 'Hastalar gece-mesai dışı arıyor; sekreter olmadığı için telefon çalıp düşüyor, hasta sabah olmadan başka kliniğin numarasını çeviriyor.',
+          en: 'Patients call after-hours; the phone rings with no one to answer, and they dial a competitor before morning.',
+        },
+        solution: {
+          tr: 'Sesli AI asistan gelen çağrıyı saniyeler içinde karşılıyor, müsait saatleri öneriyor, sabah kliniğe randevu listesi olarak düşürüyor.',
+          en: 'A voice AI assistant picks up within seconds, proposes available slots, and delivers a morning booking list to the clinic.',
+        },
+        value: {
+          tr: 'Gece çağrıları kaçırılmaz; sabah dolu takvim ve sıcak hasta listesi hazır.',
+          en: 'After-hours calls are no longer missed; the morning starts with a full calendar of warm patients.',
+        },
+        linkedSkus: [
+          { label: 'Sesli AI Asistan', anchor: 'voice-ai' },
+          { label: 'WhatsApp AI Bot', anchor: 'whatsapp-bot' },
+        ],
+      },
     ],
     extraFlows: {
       tr: [
@@ -194,6 +213,25 @@ const SECTORS: Sector[] = [
         linkedSkus: [
           { label: 'WhatsApp AI Bot', anchor: 'whatsapp-bot' },
           { label: 'n8n Otomasyon', anchor: 'n8n-automation' },
+        ],
+      },
+      {
+        id: 're-voice-callback',
+        problem: {
+          tr: 'Sunum sırasında gelen çağrı kaçırılınca, rakibe gidiyor. Cevapsız çağrılara saatler sonra dönülüyor.',
+          en: 'Calls missed during showings go to competitors; agents return calls hours later, when the lead is cold.',
+        },
+        solution: {
+          tr: 'Sesli AI cevapsız çağrıyı dakikalar içinde geri arıyor; hangi ilanı sorduğunu öğreniyor, emlakçıya CRM\'e hazır bilgi paketiyle düşürüyor.',
+          en: 'Voice AI calls back missed calls within minutes, identifies which listing they asked about, and pushes a CRM-ready package to the agent.',
+        },
+        value: {
+          tr: 'Komisyon rakibe gitmez; emlakçı döndüğünde hazırlıklı arar.',
+          en: 'Commissions stay with you; the agent calls back prepared.',
+        },
+        linkedSkus: [
+          { label: 'Sesli AI Asistan', anchor: 'voice-ai' },
+          { label: 'WhatsApp AI Bot', anchor: 'whatsapp-bot' },
         ],
       },
     ],
@@ -279,6 +317,25 @@ const SECTORS: Sector[] = [
           { label: 'Google Reklam', anchor: 'google-ads' },
         ],
       },
+      {
+        id: 'ec-voice-multilang',
+        problem: {
+          tr: 'Uluslararası müşteri saat farkı yüzünden cevap alamıyor, dil bariyeri ek sorun.',
+          en: 'International customers can\'t reach support due to timezone gaps; language barriers compound the issue.',
+        },
+        solution: {
+          tr: 'Sesli AI 7 dil destekli, 7/24 müşteri çağrılarını karşılıyor; sipariş, iade, kargo sorgusu yapıyor.',
+          en: 'Voice AI supports 7 languages, 24/7 customer calls; handles orders, returns, shipping inquiries.',
+        },
+        value: {
+          tr: 'Yurtdışı satış kaçmaz; destek ekibinden 3 kişilik tasarruf.',
+          en: 'Overseas sales don\'t slip away; saves 3 support staff equivalents.',
+        },
+        linkedSkus: [
+          { label: 'Sesli AI Asistan', anchor: 'voice-ai' },
+          { label: 'WhatsApp AI Bot', anchor: 'whatsapp-bot' },
+        ],
+      },
     ],
     extraFlows: {
       tr: [
@@ -359,6 +416,25 @@ const SECTORS: Sector[] = [
         },
         linkedSkus: [
           { label: 'CRM Kurulumu', anchor: 'crm-setup' },
+          { label: 'WhatsApp AI Bot', anchor: 'whatsapp-bot' },
+        ],
+      },
+      {
+        id: 'beauty-voice-instant',
+        problem: {
+          tr: 'Yeni müşteri salonu arıyor, hat meşgul olunca rakip salonu arıyor. Anlık karşılama olmadan lead kayboluyor.',
+          en: 'New clients call the salon, hit busy lines, and dial a competitor. Without instant response, leads vanish.',
+        },
+        solution: {
+          tr: 'Sesli AI 5 saniyede karşılıyor, randevu öneriyor, hizmet hakkında bilgi veriyor; randevu CRM\'e yazılıyor.',
+          en: 'Voice AI picks up in 5 seconds, proposes appointments, answers service questions; booking flows to CRM.',
+        },
+        value: {
+          tr: 'İlk çağrıda yakalanan müşteri rakibe gitmez.',
+          en: 'Leads caught on the first call don\'t escape to competitors.',
+        },
+        linkedSkus: [
+          { label: 'Sesli AI Asistan', anchor: 'voice-ai' },
           { label: 'WhatsApp AI Bot', anchor: 'whatsapp-bot' },
         ],
       },
@@ -446,6 +522,25 @@ const SECTORS: Sector[] = [
           { label: 'Landing Page', anchor: 'landing-page' },
         ],
       },
+      {
+        id: 'rest-voice-order',
+        problem: {
+          tr: 'Yoğun saatlerde telefon siparişi kasiyeri kilitliyor; sıradaki müşteri bekliyor, gelen çağrı düşüyor.',
+          en: 'During peak hours, phone orders lock the cashier; waiting customers stack up, incoming calls drop.',
+        },
+        solution: {
+          tr: 'Sesli AI siparişi alıyor, menüyü okuyor, POS sistemine direkt aktarıyor; mutfağa yazıcıdan düşürüyor.',
+          en: 'Voice AI takes orders, reads the menu, sends directly to POS; prints to kitchen.',
+        },
+        value: {
+          tr: 'Kasiyer salona odaklanır, telefon siparişleri kaçmaz.',
+          en: 'Cashier focuses on the dining room; phone orders stop being lost.',
+        },
+        linkedSkus: [
+          { label: 'Sesli AI Asistan', anchor: 'voice-ai' },
+          { label: 'WhatsApp AI Bot', anchor: 'whatsapp-bot' },
+        ],
+      },
     ],
     extraFlows: {
       tr: [
@@ -525,6 +620,25 @@ const SECTORS: Sector[] = [
         linkedSkus: [
           { label: 'SEO', anchor: 'seo' },
           { label: 'Web Sitesi', anchor: 'website' },
+        ],
+      },
+      {
+        id: 'local-voice-247',
+        problem: {
+          tr: 'Tek kişilik işletmede cevap verecek kimse yok; arayan müşteri gitti.',
+          en: 'Solo-operated businesses have no one to answer; the caller is gone.',
+        },
+        solution: {
+          tr: 'Sesli AI 7/24 karşılıyor, talepleri yazılı özet olarak WhatsApp\'tan işletme sahibine iletiyor.',
+          en: 'Voice AI answers 24/7; sends a written summary of requests to the owner via WhatsApp.',
+        },
+        value: {
+          tr: 'Tek kişilik işletme bile kaçırılmış müşteri tanımıyor.',
+          en: 'Even solo operations stop missing customers.',
+        },
+        linkedSkus: [
+          { label: 'Sesli AI Asistan', anchor: 'voice-ai' },
+          { label: 'WhatsApp AI Bot', anchor: 'whatsapp-bot' },
         ],
       },
     ],

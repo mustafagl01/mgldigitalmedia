@@ -6,7 +6,7 @@ import { Seo, breadcrumbSchema, faqSchema } from '../components/seo/Seo';
 import { useLanguage } from '../contexts/LanguageContext';
 import { getPostBySlug } from '../lib/blog';
 
-const SITE_URL = 'https://mgl-ai.uk';
+const SITE_URL = 'https://mgl-ai.com';
 const CALENDAR_URL = 'https://calendar.app.google/FZnTjsWGfCy33WF36';
 
 interface BlogPostProps {

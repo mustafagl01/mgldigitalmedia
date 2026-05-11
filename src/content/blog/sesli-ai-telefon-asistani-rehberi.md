@@ -121,7 +121,7 @@ Gerçek telefon numarasına yönlendirme yapılır. İlk 1-2 hafta konuşma logl
 |---------|--------------|---------|
 | Tam zamanlı asistan (asgari ücret) | ~11.000 TRY | Mesai saati, 1 hat |
 | Yarı zamanlı asistan | ~5.500 TRY | Sınırlı saatler |
-| Sesli AI (MGL Starter) | 3.999 TRY | 7/24, sınırsız eşzamanlı hat |
+| Sesli AI (MGL WhatsApp Asistan) | 3.999 TRY | 7/24, sınırsız eşzamanlı hat |
 
 **ROI hesabı:** Aylık 500 arayan, her aramanın 3 dakika sürdüğünü varsayalım. Bir asistanın aynı anda 1 arama karşılayabildiğini düşünürsek, en yoğun saatlerde %20-30 arama kaçırılır. Ortalama bilet değeri 1.500 TRY olan bir klinikte bu, aylık 15.000-20.000 TRY kayıp anlamına gelir.
 

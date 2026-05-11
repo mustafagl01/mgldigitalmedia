@@ -2,7 +2,7 @@ import React from 'react';
 import { Seo, serviceSchema, faqSchema, breadcrumbSchema } from '../../components/seo/Seo';
 import { useLanguage } from '../../contexts/LanguageContext';
 
-const SITE_URL = 'https://mgl-ai.uk';
+const SITE_URL = 'https://mgl-ai.com';
 const CALENDAR_URL = 'https://calendar.app.google/FZnTjsWGfCy33WF36';
 
 const FAQS_TR = [
@@ -11,7 +11,7 @@ const FAQS_TR = [
   { question: 'Mevcut CRM\'imle entegre olabilir mi?', answer: 'Evet. n8n; HubSpot, Pipedrive, Zoho, Salesforce ve 400+ uygulamaya resmi entegrasyon sunar. Özel REST API olan herhangi bir yazılıma da bağlanılabilir.' },
   { question: 'Ses mesajlarını da anlayabiliyor mu?', answer: 'Evet. Whisper API entegrasyonu ile asistan gelen sesli mesajları metne çevirip yanıtlayabilir.' },
   { question: 'Müşteriler botla konuştuğunu anlıyor mu?', answer: 'İyi tasarlanmış sistemlerde çoğunluk fark etmez. Ancak "insan mısın?" sorusuna dürüst yanıt vermesi için sistemi yapılandırıyoruz.' },
-  { question: 'Aylık ücret ne kadar?', answer: 'Starter Agent Paketi 3.999 TRY/ay\'dan başlar (kurulum dahil, teknik bakım dahil). Growth ve Advanced paketler için fiyatlandırma sayfasını inceleyin.' },
+  { question: 'Aylık ücret ne kadar?', answer: 'WhatsApp AI Asistan; WhatsApp Asistan, Çok Kanal Asistan ve AI Resepsiyon paketlerinin hepsinde dahildir. WhatsApp Asistan paketi 3.999 TRY/ay\'dan başlar (kurulum dahil, teknik bakım dahil). Daha fazla kanal, CRM ve sesli AI için Çok Kanal Asistan ve AI Resepsiyon paketleri /packages sayfasında.' },
 ];
 
 const FAQS_EN = [
@@ -20,7 +20,7 @@ const FAQS_EN = [
   { question: 'Can it integrate with my existing CRM?', answer: 'Yes. n8n connects to HubSpot, Pipedrive, Zoho, Salesforce and 400+ apps natively. Any custom REST API can also be integrated via the HTTP node.' },
   { question: 'Can it handle voice messages?', answer: 'Yes. With Whisper API integration, the agent transcribes incoming voice messages and responds accordingly.' },
   { question: 'Will customers know they\'re talking to a bot?', answer: 'Most customers won\'t notice with a well-designed agent. We configure the system to respond honestly when directly asked "are you a bot?".' },
-  { question: 'How much does it cost per month?', answer: 'Starter Agent Package starts at £119/month (includes setup and technical maintenance). See /packages for Growth and Advanced tiers.' },
+  { question: 'How much does it cost per month?', answer: 'WhatsApp AI Agent is included in all three plans: WhatsApp Assistant, Multi-Channel Assistant and AI Reception. WhatsApp Assistant starts at £119/month (includes setup and technical maintenance). For multi-channel, CRM and voice AI, see Multi-Channel Assistant and AI Reception at /packages.' },
 ];
 
 const PROCESS_TR = [
@@ -70,8 +70,8 @@ export default function WhatsappAiAsistan() {
     path: '/whatsapp-ai-asistan',
     category: 'AI Automation',
     offers: [
-      { name: 'Starter', price: 3999, priceCurrency: 'TRY', priceFrom: true },
-      { name: 'Starter UK', price: 119, priceCurrency: 'GBP', priceFrom: true },
+      { name: 'WhatsApp Asistan', price: 3999, priceCurrency: 'TRY', priceFrom: true },
+      { name: 'WhatsApp Assistant', price: 119, priceCurrency: 'GBP', priceFrom: true },
     ],
   });
 

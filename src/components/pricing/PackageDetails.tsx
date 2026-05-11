@@ -57,6 +57,63 @@ export default function PackageDetails({ sectorId, onRequestDemo }: PackageDetai
           ))}
         </div>
 
+        {/* Karşılaştır — Kanal Matrisi */}
+        <div className="mb-8">
+          <h4 className="text-lg font-bold text-white mb-4">Karşılaştır</h4>
+          <div className="overflow-x-auto rounded-xl border border-slate-700 bg-slate-900/50">
+            <table className="w-full text-xs sm:text-sm">
+              <thead>
+                <tr className="border-b border-slate-700">
+                  <th className="text-left text-gray-400 font-medium px-3 py-2">Yetenek</th>
+                  <th className="text-center text-gray-300 font-medium px-2 py-2">WhatsApp Asistan</th>
+                  <th className="text-center text-gray-300 font-medium px-2 py-2">Çok Kanal Asistan</th>
+                  <th className="text-center text-cyan-300 font-medium px-2 py-2">AI Resepsiyon</th>
+                </tr>
+              </thead>
+              <tbody>
+                {[
+                  { label: 'WhatsApp', basic: 'yes', growth: 'yes', advanced: 'yes' },
+                  { label: 'Instagram DM', basic: 'no', growth: 'yes', advanced: 'yes' },
+                  { label: 'Sesli arama', basic: 'no', growth: 'addon', advanced: 'yes' },
+                  { label: 'CRM', basic: 'no', growth: 'yes', advanced: 'yes' },
+                  { label: 'n8n Otomasyon', basic: 'no', growth: 'yes', advanced: 'yes' },
+                  { label: 'Randevu', basic: 'yes', growth: 'yes', advanced: 'yes' },
+                  { label: 'Ödeme', basic: 'no', growth: 'no', advanced: 'optional' },
+                ].map((row) => (
+                  <tr key={row.label} className="border-b border-slate-800 last:border-b-0">
+                    <td className="text-gray-300 px-3 py-2">{row.label}</td>
+                    <td className="text-center px-2 py-2">
+                      {row.basic === 'yes' ? (
+                        <span className="text-green-400 font-bold">✓</span>
+                      ) : (
+                        <span className="text-gray-500">—</span>
+                      )}
+                    </td>
+                    <td className="text-center px-2 py-2">
+                      {row.growth === 'yes' ? (
+                        <span className="text-green-400 font-bold">✓</span>
+                      ) : row.growth === 'addon' ? (
+                        <span className="text-amber-300 text-[10px] sm:text-xs">Add-on</span>
+                      ) : (
+                        <span className="text-gray-500">—</span>
+                      )}
+                    </td>
+                    <td className="text-center px-2 py-2">
+                      {row.advanced === 'yes' ? (
+                        <span className="text-green-400 font-bold">✓</span>
+                      ) : row.advanced === 'optional' ? (
+                        <span className="text-amber-300 text-[10px] sm:text-xs">Opsiyonel</span>
+                      ) : (
+                        <span className="text-gray-500">—</span>
+                      )}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        </div>
+
         <div className="mb-8 rounded-xl border border-slate-700 bg-slate-900/50 p-4 text-sm text-slate-300 space-y-2">
           <p>
             <strong className="text-white">Dakika aşımı:</strong> Paket dakikası dolduğunda sistem durmaz. Ek kullanım dakika başına 5 TL olarak faturalandırılır.

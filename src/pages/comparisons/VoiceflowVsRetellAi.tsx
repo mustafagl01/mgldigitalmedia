@@ -3,7 +3,7 @@ import { Seo, faqSchema, breadcrumbSchema } from '../../components/seo/Seo';
 import { useLanguage } from '../../contexts/LanguageContext';
 
 const CALENDAR_URL = 'https://calendar.app.google/FZnTjsWGfCy33WF36';
-const SITE_URL = 'https://mgl-ai.uk';
+const SITE_URL = 'https://mgl-ai.com';
 
 const FAQS_TR = [
   { question: 'Voiceflow nedir?', answer: 'Voiceflow, görsel sürükle-bırak arayüzüyle sesli ve metin bazlı konuşma akışları tasarlamanızı sağlayan bir platformdur. Hem web chatbot hem de sesli asistan için kullanılabilir.' },

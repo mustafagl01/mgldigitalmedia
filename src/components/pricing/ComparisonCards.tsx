@@ -13,7 +13,25 @@ export default function ComparisonCards({ sectorId }: ComparisonCardsProps) {
   const oldWay = config.comparison_cards.old_way;
   const aiWay = config.comparison_cards.ai_way;
 
+  const channelMatrix = [
+    { label: 'WhatsApp', basic: 'yes', growth: 'yes', advanced: 'yes' },
+    { label: 'Instagram DM', basic: 'no', growth: 'yes', advanced: 'yes' },
+    { label: 'Sesli arama', basic: 'no', growth: 'addon', advanced: 'yes' },
+    { label: 'CRM', basic: 'no', growth: 'yes', advanced: 'yes' },
+    { label: 'n8n Otomasyon', basic: 'no', growth: 'yes', advanced: 'yes' },
+    { label: 'Randevu', basic: 'yes', growth: 'yes', advanced: 'yes' },
+    { label: 'Ödeme', basic: 'no', growth: 'no', advanced: 'optional' },
+  ];
+
+  const renderCell = (val: string) => {
+    if (val === 'yes') return <span className="text-green-400 font-bold">✓</span>;
+    if (val === 'addon') return <span className="text-amber-300 text-[10px] sm:text-xs">Add-on</span>;
+    if (val === 'optional') return <span className="text-amber-300 text-[10px] sm:text-xs">Opsiyonel</span>;
+    return <span className="text-gray-500">—</span>;
+  };
+
   return (
+    <>
     <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-6xl mx-auto mb-12">
       {/* Old Way Card */}
       <motion.div
@@ -146,5 +164,37 @@ export default function ComparisonCards({ sectorId }: ComparisonCardsProps) {
         </div>
       </motion.div>
     </div>
+
+    {/* Paket Kanal Matrisi */}
+    <motion.div
+      initial={{ opacity: 0, y: 30 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="max-w-6xl mx-auto mb-12"
+    >
+      <h3 className="text-2xl font-bold text-white mb-4 text-center">Paketler Hangi Kanalları Kapsıyor?</h3>
+      <div className="overflow-x-auto rounded-2xl border border-slate-700 bg-[#1A1F3A]">
+        <table className="w-full text-xs sm:text-sm">
+          <thead>
+            <tr className="border-b border-slate-700 bg-slate-900/50">
+              <th className="text-left text-gray-400 font-medium px-3 sm:px-4 py-3">Yetenek</th>
+              <th className="text-center text-gray-200 font-semibold px-2 sm:px-4 py-3">WhatsApp Asistan</th>
+              <th className="text-center text-gray-200 font-semibold px-2 sm:px-4 py-3">Çok Kanal Asistan</th>
+              <th className="text-center text-cyan-300 font-semibold px-2 sm:px-4 py-3">AI Resepsiyon</th>
+            </tr>
+          </thead>
+          <tbody>
+            {channelMatrix.map((row) => (
+              <tr key={row.label} className="border-b border-slate-800 last:border-b-0">
+                <td className="text-gray-300 px-3 sm:px-4 py-3 font-medium">{row.label}</td>
+                <td className="text-center px-2 sm:px-4 py-3">{renderCell(row.basic)}</td>
+                <td className="text-center px-2 sm:px-4 py-3">{renderCell(row.growth)}</td>
+                <td className="text-center px-2 sm:px-4 py-3">{renderCell(row.advanced)}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </motion.div>
+    </>
   );
 }

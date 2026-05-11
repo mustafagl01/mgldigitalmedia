@@ -3,7 +3,7 @@ import { Seo, faqSchema, breadcrumbSchema } from '../../components/seo/Seo';
 import { useLanguage } from '../../contexts/LanguageContext';
 
 const CALENDAR_URL = 'https://calendar.app.google/FZnTjsWGfCy33WF36';
-const SITE_URL = 'https://mgl-ai.uk';
+const SITE_URL = 'https://mgl-ai.com';
 
 const FAQS_EN = [
   { question: 'What should I look for in a UK AI automation agency?', answer: 'Key criteria: technical stack transparency (what tools they actually use), fixed pricing vs retainer, ability to integrate with your existing software, Turkish/bilingual support if needed, and actual case studies rather than vague claims.' },

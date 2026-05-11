@@ -3,7 +3,7 @@ import { Seo, faqSchema, breadcrumbSchema } from '../../components/seo/Seo';
 import { useLanguage } from '../../contexts/LanguageContext';
 
 const CALENDAR_URL = 'https://calendar.app.google/FZnTjsWGfCy33WF36';
-const SITE_URL = 'https://mgl-ai.uk';
+const SITE_URL = 'https://mgl-ai.com';
 
 const FAQS_TR = [
   { question: 'WhatsApp Cloud API ve Evolution API arasındaki temel fark nedir?', answer: 'WhatsApp Cloud API, Meta\'nın resmi bulut çözümüdür; mesaj başına ~$0.05-0.15 ücret alır. Evolution API, Baileys kütüphanesi üzerine kurulmuş açık kaynak bir alternatiftir; sabit sunucu maliyetiyle sınırsız mesaj işler.' },

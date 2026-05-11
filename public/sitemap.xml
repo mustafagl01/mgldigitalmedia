@@ -4,217 +4,217 @@
 
   <!-- Homepage -->
   <url>
-    <loc>https://mgl-ai.uk/</loc>
+    <loc>https://mgl-ai.com/</loc>
     <lastmod>2026-05-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
-    <xhtml:link rel="alternate" hreflang="tr" href="https://mgl-ai.uk/" />
-    <xhtml:link rel="alternate" hreflang="en-gb" href="https://mgl-ai.uk/" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://mgl-ai.uk/" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://mgl-ai.com/" />
+    <xhtml:link rel="alternate" hreflang="en-gb" href="https://mgl-ai.com/" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mgl-ai.com/" />
   </url>
 
   <!-- Service pages -->
   <url>
-    <loc>https://mgl-ai.uk/services</loc>
+    <loc>https://mgl-ai.com/services</loc>
     <lastmod>2026-05-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="tr" href="https://mgl-ai.uk/services" />
-    <xhtml:link rel="alternate" hreflang="en-gb" href="https://mgl-ai.uk/services" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://mgl-ai.uk/services" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://mgl-ai.com/services" />
+    <xhtml:link rel="alternate" hreflang="en-gb" href="https://mgl-ai.com/services" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mgl-ai.com/services" />
   </url>
 
   <!-- New service detail pages (E) -->
   <url>
-    <loc>https://mgl-ai.uk/whatsapp-ai-asistan</loc>
+    <loc>https://mgl-ai.com/whatsapp-ai-asistan</loc>
     <lastmod>2026-05-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.95</priority>
-    <xhtml:link rel="alternate" hreflang="tr" href="https://mgl-ai.uk/whatsapp-ai-asistan" />
-    <xhtml:link rel="alternate" hreflang="en-gb" href="https://mgl-ai.uk/whatsapp-ai-asistan" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://mgl-ai.uk/whatsapp-ai-asistan" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://mgl-ai.com/whatsapp-ai-asistan" />
+    <xhtml:link rel="alternate" hreflang="en-gb" href="https://mgl-ai.com/whatsapp-ai-asistan" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mgl-ai.com/whatsapp-ai-asistan" />
   </url>
   <url>
-    <loc>https://mgl-ai.uk/sesli-ai</loc>
+    <loc>https://mgl-ai.com/sesli-ai</loc>
     <lastmod>2026-05-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="tr" href="https://mgl-ai.uk/sesli-ai" />
-    <xhtml:link rel="alternate" hreflang="en-gb" href="https://mgl-ai.uk/sesli-ai" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://mgl-ai.uk/sesli-ai" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://mgl-ai.com/sesli-ai" />
+    <xhtml:link rel="alternate" hreflang="en-gb" href="https://mgl-ai.com/sesli-ai" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mgl-ai.com/sesli-ai" />
   </url>
   <url>
-    <loc>https://mgl-ai.uk/n8n-otomasyon</loc>
+    <loc>https://mgl-ai.com/n8n-otomasyon</loc>
     <lastmod>2026-05-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="tr" href="https://mgl-ai.uk/n8n-otomasyon" />
-    <xhtml:link rel="alternate" hreflang="en-gb" href="https://mgl-ai.uk/n8n-otomasyon" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://mgl-ai.uk/n8n-otomasyon" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://mgl-ai.com/n8n-otomasyon" />
+    <xhtml:link rel="alternate" hreflang="en-gb" href="https://mgl-ai.com/n8n-otomasyon" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mgl-ai.com/n8n-otomasyon" />
   </url>
   <url>
-    <loc>https://mgl-ai.uk/lead-uretimi</loc>
+    <loc>https://mgl-ai.com/lead-uretimi</loc>
     <lastmod>2026-05-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.9</priority>
-    <xhtml:link rel="alternate" hreflang="tr" href="https://mgl-ai.uk/lead-uretimi" />
-    <xhtml:link rel="alternate" hreflang="en-gb" href="https://mgl-ai.uk/lead-uretimi" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://mgl-ai.uk/lead-uretimi" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://mgl-ai.com/lead-uretimi" />
+    <xhtml:link rel="alternate" hreflang="en-gb" href="https://mgl-ai.com/lead-uretimi" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mgl-ai.com/lead-uretimi" />
   </url>
 
   <!-- Solutions -->
   <url>
-    <loc>https://mgl-ai.uk/solutions</loc>
+    <loc>https://mgl-ai.com/solutions</loc>
     <lastmod>2026-05-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
   </url>
   <url>
-    <loc>https://mgl-ai.uk/solutions/klinik</loc>
+    <loc>https://mgl-ai.com/solutions/klinik</loc>
     <lastmod>2026-05-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="tr" href="https://mgl-ai.uk/solutions/klinik" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://mgl-ai.uk/solutions/klinik" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://mgl-ai.com/solutions/klinik" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mgl-ai.com/solutions/klinik" />
   </url>
   <url>
-    <loc>https://mgl-ai.uk/solutions/emlak</loc>
+    <loc>https://mgl-ai.com/solutions/emlak</loc>
     <lastmod>2026-05-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="tr" href="https://mgl-ai.uk/solutions/emlak" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://mgl-ai.uk/solutions/emlak" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://mgl-ai.com/solutions/emlak" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mgl-ai.com/solutions/emlak" />
   </url>
   <url>
-    <loc>https://mgl-ai.uk/solutions/eticaret</loc>
+    <loc>https://mgl-ai.com/solutions/eticaret</loc>
     <lastmod>2026-05-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="tr" href="https://mgl-ai.uk/solutions/eticaret" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://mgl-ai.uk/solutions/eticaret" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://mgl-ai.com/solutions/eticaret" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mgl-ai.com/solutions/eticaret" />
   </url>
   <url>
-    <loc>https://mgl-ai.uk/solutions/guzellik</loc>
+    <loc>https://mgl-ai.com/solutions/guzellik</loc>
     <lastmod>2026-05-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="tr" href="https://mgl-ai.uk/solutions/guzellik" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://mgl-ai.uk/solutions/guzellik" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://mgl-ai.com/solutions/guzellik" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mgl-ai.com/solutions/guzellik" />
   </url>
   <url>
-    <loc>https://mgl-ai.uk/solutions/restoran</loc>
+    <loc>https://mgl-ai.com/solutions/restoran</loc>
     <lastmod>2026-05-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="tr" href="https://mgl-ai.uk/solutions/restoran" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://mgl-ai.uk/solutions/restoran" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://mgl-ai.com/solutions/restoran" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mgl-ai.com/solutions/restoran" />
   </url>
 
   <!-- Blog list -->
   <url>
-    <loc>https://mgl-ai.uk/blog</loc>
+    <loc>https://mgl-ai.com/blog</loc>
     <lastmod>2026-05-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.85</priority>
-    <xhtml:link rel="alternate" hreflang="tr" href="https://mgl-ai.uk/blog" />
-    <xhtml:link rel="alternate" hreflang="en-gb" href="https://mgl-ai.uk/blog" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://mgl-ai.uk/blog" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://mgl-ai.com/blog" />
+    <xhtml:link rel="alternate" hreflang="en-gb" href="https://mgl-ai.com/blog" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mgl-ai.com/blog" />
   </url>
 
   <!-- Blog posts (F6) -->
   <url>
-    <loc>https://mgl-ai.uk/blog/whatsapp-ai-asistan-isletme-otomasyonu-2026</loc>
+    <loc>https://mgl-ai.com/blog/whatsapp-ai-asistan-isletme-otomasyonu-2026</loc>
     <lastmod>2026-05-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
-    <xhtml:link rel="alternate" hreflang="tr" href="https://mgl-ai.uk/blog/whatsapp-ai-asistan-isletme-otomasyonu-2026" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://mgl-ai.uk/blog/whatsapp-ai-asistan-isletme-otomasyonu-2026" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://mgl-ai.com/blog/whatsapp-ai-asistan-isletme-otomasyonu-2026" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mgl-ai.com/blog/whatsapp-ai-asistan-isletme-otomasyonu-2026" />
   </url>
   <url>
-    <loc>https://mgl-ai.uk/blog/n8n-vs-zapier-turkce-rehber</loc>
+    <loc>https://mgl-ai.com/blog/n8n-vs-zapier-turkce-rehber</loc>
     <lastmod>2026-05-02</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
-    <xhtml:link rel="alternate" hreflang="tr" href="https://mgl-ai.uk/blog/n8n-vs-zapier-turkce-rehber" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://mgl-ai.uk/blog/n8n-vs-zapier-turkce-rehber" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://mgl-ai.com/blog/n8n-vs-zapier-turkce-rehber" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mgl-ai.com/blog/n8n-vs-zapier-turkce-rehber" />
   </url>
   <url>
-    <loc>https://mgl-ai.uk/blog/sesli-ai-telefon-asistani-rehberi</loc>
+    <loc>https://mgl-ai.com/blog/sesli-ai-telefon-asistani-rehberi</loc>
     <lastmod>2026-05-01</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="tr" href="https://mgl-ai.uk/blog/sesli-ai-telefon-asistani-rehberi" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://mgl-ai.uk/blog/sesli-ai-telefon-asistani-rehberi" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://mgl-ai.com/blog/sesli-ai-telefon-asistani-rehberi" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mgl-ai.com/blog/sesli-ai-telefon-asistani-rehberi" />
   </url>
   <url>
-    <loc>https://mgl-ai.uk/blog/kobi-icin-ai-otomasyon-2026</loc>
+    <loc>https://mgl-ai.com/blog/kobi-icin-ai-otomasyon-2026</loc>
     <lastmod>2026-04-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="tr" href="https://mgl-ai.uk/blog/kobi-icin-ai-otomasyon-2026" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://mgl-ai.uk/blog/kobi-icin-ai-otomasyon-2026" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://mgl-ai.com/blog/kobi-icin-ai-otomasyon-2026" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mgl-ai.com/blog/kobi-icin-ai-otomasyon-2026" />
   </url>
   <url>
-    <loc>https://mgl-ai.uk/blog/how-to-set-up-whatsapp-ai-agent-uk</loc>
+    <loc>https://mgl-ai.com/blog/how-to-set-up-whatsapp-ai-agent-uk</loc>
     <lastmod>2026-04-28</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en-gb" href="https://mgl-ai.uk/blog/how-to-set-up-whatsapp-ai-agent-uk" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://mgl-ai.uk/blog/how-to-set-up-whatsapp-ai-agent-uk" />
+    <xhtml:link rel="alternate" hreflang="en-gb" href="https://mgl-ai.com/blog/how-to-set-up-whatsapp-ai-agent-uk" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mgl-ai.com/blog/how-to-set-up-whatsapp-ai-agent-uk" />
   </url>
 
   <!-- Comparison pages (G) -->
   <url>
-    <loc>https://mgl-ai.uk/n8n-vs-zapier</loc>
+    <loc>https://mgl-ai.com/n8n-vs-zapier</loc>
     <lastmod>2026-05-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="tr" href="https://mgl-ai.uk/n8n-vs-zapier" />
-    <xhtml:link rel="alternate" hreflang="en-gb" href="https://mgl-ai.uk/n8n-vs-zapier" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://mgl-ai.uk/n8n-vs-zapier" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://mgl-ai.com/n8n-vs-zapier" />
+    <xhtml:link rel="alternate" hreflang="en-gb" href="https://mgl-ai.com/n8n-vs-zapier" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mgl-ai.com/n8n-vs-zapier" />
   </url>
   <url>
-    <loc>https://mgl-ai.uk/whatsapp-cloud-api-vs-baileys</loc>
+    <loc>https://mgl-ai.com/whatsapp-cloud-api-vs-baileys</loc>
     <lastmod>2026-05-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="tr" href="https://mgl-ai.uk/whatsapp-cloud-api-vs-baileys" />
-    <xhtml:link rel="alternate" hreflang="en-gb" href="https://mgl-ai.uk/whatsapp-cloud-api-vs-baileys" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://mgl-ai.uk/whatsapp-cloud-api-vs-baileys" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://mgl-ai.com/whatsapp-cloud-api-vs-baileys" />
+    <xhtml:link rel="alternate" hreflang="en-gb" href="https://mgl-ai.com/whatsapp-cloud-api-vs-baileys" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mgl-ai.com/whatsapp-cloud-api-vs-baileys" />
   </url>
   <url>
-    <loc>https://mgl-ai.uk/voiceflow-vs-retell-ai</loc>
+    <loc>https://mgl-ai.com/voiceflow-vs-retell-ai</loc>
     <lastmod>2026-05-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.75</priority>
-    <xhtml:link rel="alternate" hreflang="tr" href="https://mgl-ai.uk/voiceflow-vs-retell-ai" />
-    <xhtml:link rel="alternate" hreflang="en-gb" href="https://mgl-ai.uk/voiceflow-vs-retell-ai" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://mgl-ai.uk/voiceflow-vs-retell-ai" />
+    <xhtml:link rel="alternate" hreflang="tr" href="https://mgl-ai.com/voiceflow-vs-retell-ai" />
+    <xhtml:link rel="alternate" hreflang="en-gb" href="https://mgl-ai.com/voiceflow-vs-retell-ai" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mgl-ai.com/voiceflow-vs-retell-ai" />
   </url>
   <url>
-    <loc>https://mgl-ai.uk/uk-ai-agencies-comparison</loc>
+    <loc>https://mgl-ai.com/uk-ai-agencies-comparison</loc>
     <lastmod>2026-05-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
-    <xhtml:link rel="alternate" hreflang="en-gb" href="https://mgl-ai.uk/uk-ai-agencies-comparison" />
-    <xhtml:link rel="alternate" hreflang="x-default" href="https://mgl-ai.uk/uk-ai-agencies-comparison" />
+    <xhtml:link rel="alternate" hreflang="en-gb" href="https://mgl-ai.com/uk-ai-agencies-comparison" />
+    <xhtml:link rel="alternate" hreflang="x-default" href="https://mgl-ai.com/uk-ai-agencies-comparison" />
   </url>
 
   <!-- Other pages -->
   <url>
-    <loc>https://mgl-ai.uk/packages</loc>
+    <loc>https://mgl-ai.com/packages</loc>
     <lastmod>2026-05-03</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://mgl-ai.uk/pricing</loc>
+    <loc>https://mgl-ai.com/pricing</loc>
     <lastmod>2026-05-03</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
-    <loc>https://mgl-ai.uk/legal</loc>
+    <loc>https://mgl-ai.com/legal</loc>
     <lastmod>2026-05-03</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>

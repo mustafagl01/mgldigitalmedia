@@ -1,5 +1,5 @@
 /**
- * prerender.mjs v2 - Static HTML pre-render for mgl-ai.uk
+ * prerender.mjs v2 - Static HTML pre-render for mgl-ai.com
  * Blog markdown content injected via noscript for GEO crawlers.
  * Perplexity/GPTBot/ClaudeBot can read real blog text without JS.
  */
@@ -12,7 +12,7 @@ const __dirname = dirname(fileURLToPath(import.meta.url));
 const ROOT = join(__dirname, '..');
 const DIST = join(ROOT, 'dist');
 const CONTENT_DIR = join(ROOT, 'src', 'content', 'blog');
-const SITE_URL = 'https://mgl-ai.uk';
+const SITE_URL = 'https://mgl-ai.com';
 const DEFAULT_OG = `${SITE_URL}/00bc7320-6f8f-42ae-a0b7-0c24b609e70f.png`;
 
 // Minimal markdown to HTML (zero deps)

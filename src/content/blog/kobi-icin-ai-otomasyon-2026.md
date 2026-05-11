@@ -138,7 +138,7 @@ Haftalık satış raporu otomatik hazırlanıp Slack/Telegram'a gönderilebilir.
 - Kaçan aramaların AI ile karşılanması: +20 ek randevu/ay = +10.000 TRY
 
 **Maliyet:**
-- Aylık 9.999 TRY (Growth Agent Paketi)
+- Aylık 9.999 TRY (Çok Kanal Asistan Paketi)
 
 **Net fayda:**
 - Personel tasarrufu: 80 saat × ~70 TRY/saat = 5.600 TRY

@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useState } from 'react';
-import { Check, ChevronDown, MessageCircle, ShieldCheck, ArrowUpRight, X } from 'lucide-react';
+import { useEffect, useMemo, useState, type ReactNode } from 'react';
+import { Check, ChevronDown, MessageCircle, ShieldCheck, ArrowUpRight, X, Stethoscope, UtensilsCrossed, Home as HomeIcon, ShoppingBag, Scissors, Wrench } from 'lucide-react';
 import {
   type PackageCategoryKey,
   type PackageTier,
@@ -187,7 +187,7 @@ const PLAN_CONTENT: Record<PackageTierKey, PlanContent> = {
     },
     included: {
       tr: [
-        'Büyüme paketinin tamamı',
+        'Çok Kanal Asistan paketinin tamamı',
         'AI sesli asistan — gelen çağrı (500 dk / ay)',
         'Çağrı özeti + tam transkript CRM\'e',
         'Otomatik randevu oluşturma & güncelleme',
@@ -195,7 +195,7 @@ const PLAN_CONTENT: Record<PackageTierKey, PlanContent> = {
         'Dedicated onboarding (2 hafta)',
       ],
       en: [
-        'Everything in Growth',
+        'Everything in Multi-Channel Assistant',
         'AI voice assistant — inbound calls (500 min / month)',
         'Call summary + full transcript pushed to CRM',
         'Automatic appointment creation & rescheduling',
@@ -223,14 +223,14 @@ const PLAN_CONTENT: Record<PackageTierKey, PlanContent> = {
     },
     included: {
       tr: [
-        'Oto-Sekreter paketinin tamamı',
+        'AI Resepsiyon paketinin tamamı',
         'Web chat + özel entegrasyonlar (Stripe, iyzico, klinik yazılımı)',
         'Derin CRM ve ödeme otomasyonları',
         'Dedicated success manager',
         'SLA garantisi + öncelikli altyapı',
       ],
       en: [
-        'Everything in Auto-Receptionist',
+        'Everything in AI Reception',
         'Web chat + bespoke integrations (Stripe, clinic software)',
         'Deep CRM & payment automations',
         'Dedicated success manager',
@@ -604,15 +604,15 @@ const CATEGORY_FAQ: Record<PackageCategoryKey, FaqItem[]> = {
     {
       q: { tr: 'Kurulum ne kadar sürer?', en: 'How long does setup take?' },
       a: {
-        tr: 'Başlangıç 3 iş günü, Büyüme 5 iş günü. Oto-Sekreter ve Tam Otonomi ortalama 2–3 hafta (telefon hattı entegrasyonu ve ses eğitimi dahil).',
-        en: 'Starter in 3 business days, Growth in 5. Auto-Receptionist and Full Autonomy average 2–3 weeks (phone line integration and voice training included).',
+        tr: 'WhatsApp Asistan 3 iş günü, Çok Kanal Asistan 5 iş günü. AI Resepsiyon ve Tam Otonomi ortalama 2–3 hafta (telefon hattı entegrasyonu ve ses eğitimi dahil).',
+        en: 'WhatsApp Assistant in 3 business days, Multi-Channel Assistant in 5. AI Reception and Full Autonomy average 2–3 weeks (phone line integration and voice training included).',
       },
     },
     {
       q: { tr: 'Mevcut CRM\'ime entegre olur mu?', en: 'Does it integrate with my existing CRM?' },
       a: {
-        tr: 'HubSpot, Pipedrive, Zoho ve Salesforce Büyüme paketinden itibaren standarttır. Özel klinik yönetim yazılımları (CDR, Dentrix, Akıllı Klinik vb.) Oto-Sekreter ve üstü paketlerde entegre edilir.',
-        en: 'HubSpot, Pipedrive, Zoho and Salesforce are standard from Growth up. Custom clinic management software is integrated on Auto-Receptionist and above.',
+        tr: 'HubSpot, Pipedrive, Zoho ve Salesforce Çok Kanal Asistan paketinden itibaren standarttır. Özel klinik yönetim yazılımları (CDR, Dentrix, Akıllı Klinik vb.) AI Resepsiyon ve üstü paketlerde entegre edilir.',
+        en: 'HubSpot, Pipedrive, Zoho and Salesforce are standard from Multi-Channel Assistant up. Custom clinic management software is integrated on AI Reception and above.',
       },
     },
     {
@@ -998,6 +998,102 @@ function PlanCard({ tier, content, region, isEnglish }: PlanCardProps) {
   );
 }
 
+type SectorExampleProps = {
+  icon: ReactNode;
+  title: string;
+  examples: string[];
+  packageMatch: string;
+  packageLabel: string;
+};
+
+function SectorExample({ icon, title, examples, packageMatch, packageLabel }: SectorExampleProps) {
+  return (
+    <article
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        background: 'var(--paper-2)',
+        border: '1px solid var(--border)',
+        borderRadius: 'var(--r-md)',
+        padding: 24,
+        height: '100%',
+      }}
+    >
+      <div
+        style={{
+          width: 40,
+          height: 40,
+          display: 'inline-flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          background: 'var(--paper)',
+          border: '1px solid var(--border)',
+          borderRadius: 8,
+          color: 'var(--ember)',
+          marginBottom: 14,
+        }}
+      >
+        {icon}
+      </div>
+      <h3
+        style={{
+          fontFamily: 'var(--font-serif)',
+          fontSize: '1.125rem',
+          fontWeight: 600,
+          letterSpacing: '-0.015em',
+          color: 'var(--ink)',
+          margin: 0,
+        }}
+      >
+        {title}
+      </h3>
+      <ul
+        style={{
+          marginTop: 12,
+          padding: 0,
+          listStyle: 'none',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: 6,
+          flex: 1,
+        }}
+      >
+        {examples.map((example) => (
+          <li
+            key={example}
+            style={{
+              display: 'flex',
+              alignItems: 'flex-start',
+              gap: 8,
+              fontSize: 13.5,
+              color: 'var(--fg-1)',
+              lineHeight: 1.45,
+            }}
+          >
+            <Check size={13} style={{ marginTop: 4, flexShrink: 0, color: 'var(--ember)' }} />
+            <span>{example}</span>
+          </li>
+        ))}
+      </ul>
+      <div
+        style={{
+          marginTop: 16,
+          paddingTop: 12,
+          borderTop: '1px solid var(--border)',
+          fontFamily: 'var(--font-mono)',
+          fontSize: 11,
+          letterSpacing: '0.08em',
+          textTransform: 'uppercase',
+          color: 'var(--fg-3)',
+        }}
+      >
+        <span>{packageLabel}: </span>
+        <strong style={{ color: 'var(--ink)' }}>{packageMatch}</strong>
+      </div>
+    </article>
+  );
+}
+
 export default function Packages() {
   const { pricing, region } = useLocation();
   const { language } = useLanguage();
@@ -1051,8 +1147,8 @@ export default function Packages() {
         : 'Web Sitesi Paketleri — Landing, Kurumsal, Platform | MGL Digital Media';
     }
     return isEnglish
-      ? 'AI Agent Packages — Starter, Growth, Auto-Receptionist, Full Autonomy | MGL Digital Media'
-      : 'AI Agent Paketleri — Başlangıç, Büyüme, Oto-Sekreter, Tam Otonomi | MGL Digital Media';
+      ? 'AI Agent Packages — WhatsApp Assistant, Multi-Channel Assistant, AI Reception, Full Autonomy | MGL Digital Media'
+      : 'AI Agent Paketleri — WhatsApp Asistan, Çok Kanal Asistan, AI Resepsiyon, Tam Otonomi | MGL Digital Media';
   }, [activeCategory, isEnglish]);
 
   const seoDescription = useMemo(() => {
@@ -1386,6 +1482,191 @@ export default function Packages() {
           )}
         </div>
       </section>
+
+      {/* Sektörlere göre kullanım örnekleri */}
+      {activeCategory === 'agents' && (
+        <section
+          style={{
+            background: 'var(--paper)',
+            padding: 'clamp(56px, 4vw + 24px, 96px) 0',
+            borderTop: '1px solid var(--border)',
+          }}
+        >
+          <div className="container" style={{ maxWidth: 1080 }}>
+            <span className="eyebrow">
+              {isEnglish ? 'INDUSTRY EXAMPLES' : 'SEKTÖR ÖRNEKLERİ'}
+            </span>
+            <h2
+              style={{
+                marginTop: 16,
+                fontFamily: 'var(--font-serif)',
+                fontSize: 'clamp(1.75rem, 1.2rem + 1.8vw, 2.5rem)',
+                lineHeight: 1.1,
+                letterSpacing: '-0.025em',
+                fontWeight: 500,
+                color: 'var(--ink)',
+              }}
+            >
+              {isEnglish ? 'AI assistants by industry' : 'Sektörünüze göre AI asistanlar'}
+            </h2>
+            <p
+              style={{
+                marginTop: 12,
+                color: 'var(--fg-2)',
+                maxWidth: 720,
+                fontSize: 'clamp(0.95rem, 0.88rem + 0.25vw, 1.0625rem)',
+                lineHeight: 1.6,
+              }}
+            >
+              {isEnglish
+                ? 'Packages are sector-agnostic. Same package infrastructure, flows tailored per industry.'
+                : 'Paketler sektör bağımsız. Aynı paket altyapısı, sektöre göre özelleştirilmiş akışlar.'}
+            </p>
+
+            <div
+              style={{
+                marginTop: 32,
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(260px, 1fr))',
+                gap: 16,
+              }}
+            >
+              <SectorExample
+                icon={<Stethoscope size={20} />}
+                title={isEnglish ? 'Clinic & Aesthetic' : 'Klinik & Estetik'}
+                examples={
+                  isEnglish
+                    ? [
+                        'After-hours WhatsApp booking',
+                        'No-show reducing reminders',
+                        'Voice AI for night-time calls',
+                      ]
+                    : [
+                        'Mesai dışı WhatsApp randevu',
+                        'No-show azaltan hatırlatma',
+                        'Gece çağrılarına Sesli AI',
+                      ]
+                }
+                packageMatch={isEnglish ? 'Multi-Channel Assistant or AI Reception' : 'Çok Kanal Asistan veya AI Resepsiyon'}
+                packageLabel={isEnglish ? 'Best fit' : 'Uygun paket'}
+              />
+              <SectorExample
+                icon={<UtensilsCrossed size={20} />}
+                title={isEnglish ? 'Restaurant & Cafe' : 'Restoran & Kafe'}
+                examples={
+                  isEnglish
+                    ? [
+                        'WhatsApp reservations',
+                        'Voice AI takes orders',
+                        'Peak-hour phone load handled',
+                      ]
+                    : [
+                        'WhatsApp rezervasyon',
+                        'Sesli AI sipariş alır',
+                        'Yoğun saat telefon yükü',
+                      ]
+                }
+                packageMatch={
+                  isEnglish
+                    ? 'WhatsApp Assistant or AI Reception'
+                    : 'WhatsApp Asistan veya AI Resepsiyon'
+                }
+                packageLabel={isEnglish ? 'Best fit' : 'Uygun paket'}
+              />
+              <SectorExample
+                icon={<HomeIcon size={20} />}
+                title={isEnglish ? 'Real Estate' : 'Emlak & Gayrimenkul'}
+                examples={
+                  isEnglish
+                    ? [
+                        'Missed-call callbacks',
+                        'Buyer criteria captured in CRM',
+                        'Listing-match notifications',
+                      ]
+                    : [
+                        'Cevapsız çağrı dönüşü',
+                        'Müşteri kriteri CRM',
+                        'İlan eşleşme bildirimleri',
+                      ]
+                }
+                packageMatch={isEnglish ? 'Multi-Channel Assistant' : 'Çok Kanal Asistan'}
+                packageLabel={isEnglish ? 'Best fit' : 'Uygun paket'}
+              />
+              <SectorExample
+                icon={<ShoppingBag size={20} />}
+                title={isEnglish ? 'E-commerce' : 'E-ticaret'}
+                examples={
+                  isEnglish
+                    ? [
+                        '7-language multilingual support',
+                        'Order / return / shipping replies',
+                        'Time-zone gap solved',
+                      ]
+                    : [
+                        '7 dil çok dilli destek',
+                        'Sipariş/iade/kargo cevabı',
+                        'Saat farkı çözümü',
+                      ]
+                }
+                packageMatch={isEnglish ? 'Multi-Channel Assistant or AI Reception' : 'Çok Kanal Asistan veya AI Resepsiyon'}
+                packageLabel={isEnglish ? 'Best fit' : 'Uygun paket'}
+              />
+              <SectorExample
+                icon={<Scissors size={20} />}
+                title={isEnglish ? 'Beauty & Salon' : 'Güzellik & Salon'}
+                examples={
+                  isEnglish
+                    ? [
+                        'Instant booking welcome',
+                        'Reminders that cut no-shows',
+                        '5-second voice AI greeting',
+                      ]
+                    : [
+                        'Anlık randevu karşılama',
+                        'Hatırlatma + no-show düşürme',
+                        'Sesli AI 5 sn karşılama',
+                      ]
+                }
+                packageMatch={isEnglish ? 'Multi-Channel Assistant' : 'Çok Kanal Asistan'}
+                packageLabel={isEnglish ? 'Best fit' : 'Uygun paket'}
+              />
+              <SectorExample
+                icon={<Wrench size={20} />}
+                title={isEnglish ? 'Service Firm / Education' : 'Servis Firması / Eğitim'}
+                examples={
+                  isEnglish
+                    ? [
+                        'Fault / enrolment intake forms',
+                        'Quote follow-up',
+                        'Consultation scheduling',
+                      ]
+                    : [
+                        'Arıza/kayıt formu',
+                        'Teklif takibi',
+                        'Görüşme planlama',
+                      ]
+                }
+                packageMatch={isEnglish ? 'WhatsApp Assistant or Multi-Channel Assistant' : 'WhatsApp Asistan veya Çok Kanal Asistan'}
+                packageLabel={isEnglish ? 'Best fit' : 'Uygun paket'}
+              />
+            </div>
+
+            <p
+              style={{
+                marginTop: 24,
+                textAlign: 'center',
+                fontSize: 13,
+                color: 'var(--fg-3)',
+                fontStyle: 'italic',
+              }}
+            >
+              {isEnglish
+                ? 'Industry packs are not sold separately — the examples run on the same package infrastructure.'
+                : 'Sektör paketleri ayrı satılmaz — örnekler aynı paket altyapısıyla çalışır.'}
+            </p>
+          </div>
+        </section>
+      )}
 
       {/* FAQ */}
       <section

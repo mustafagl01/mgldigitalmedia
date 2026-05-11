@@ -17,7 +17,7 @@ faqs:
   - question: "What happens if the AI doesn't know the answer?"
     answer: "You define fallback behaviour in your n8n workflow. Common options: escalate to a human agent, ask the customer to call during business hours, or send a 'I'll get back to you' message and notify your team via Slack/email."
   - question: "How do I get started with MGL?"
-    answer: "Book a free 15-minute audit at mgl-ai.uk/whatsapp-ai-asistan. We'll assess your current setup, identify the highest-impact automation opportunities, and walk you through what a WhatsApp AI agent would look like for your specific business."
+    answer: "Book a free 15-minute audit at mgl-ai.com/whatsapp-ai-asistan. We'll assess your current setup, identify the highest-impact automation opportunities, and walk you through what a WhatsApp AI agent would look like for your specific business."
 ---
 
 **TL;DR:** A WhatsApp AI agent answers your business messages 24/7, books appointments, handles FAQs, and qualifies leads — all without human involvement. Using Evolution API + n8n, a functional agent can be live within 30 minutes for testing (full production setup takes 2-5 days). No coding required if you use a visual workflow builder.

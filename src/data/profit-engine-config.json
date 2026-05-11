@@ -180,47 +180,145 @@
         "old_way_cost": 1200,
         "old_way_label": "Çok dilli satış ekibi maaşı (USD)"
       }
+    },
+    "estate": {
+      "icon": "🏠",
+      "name": "Emlak & Gayrimenkul",
+      "color": "#7C5CFF",
+      "inputs": [
+        {
+          "id": "missed_calls",
+          "label": "Sunumdayken Günde Kaç Çağrı Kaçıyor?",
+          "type": "slider",
+          "min": 1,
+          "max": 50,
+          "default": 10,
+          "unit": "arama"
+        },
+        {
+          "id": "avg_commission",
+          "label": "Ortalama Satış/Kira Komisyonu?",
+          "type": "slider",
+          "min": 10000,
+          "max": 200000,
+          "default": 50000,
+          "unit": "TL"
+        },
+        {
+          "id": "conversion_rate",
+          "label": "Arama → Satış Dönüşüm Oranı?",
+          "type": "slider",
+          "min": 1,
+          "max": 20,
+          "default": 5,
+          "unit": "%"
+        }
+      ],
+      "calculation": {
+        "formula": "(missed_calls * 30 * avg_commission * conversion_rate) / 100",
+        "yearly_multiplier": 1,
+        "pain_label": "🔥 SUNUMDA KAÇAN KOMİSYON",
+        "solution_label": "💰 YAKALAYACAĞINIZ KOMİSYON"
+      },
+      "recommended_package": "professional",
+      "package_price": 13999,
+      "package_price_currency": "TRY",
+      "killer_argument": "Sunumdayken kaçırılan çağrı = rakibe giden komisyon. AI asistan 7/24 cevap verir, randevu açar.",
+      "comparison": {
+        "old_way_cost": 25000,
+        "old_way_label": "Aylık kaçan komisyon"
+      }
+    },
+    "beauty": {
+      "icon": "💇",
+      "name": "Güzellik & Salon",
+      "color": "#FF8FB1",
+      "inputs": [
+        {
+          "id": "missed_inquiries",
+          "label": "Meşgulken Günde Kaç Yeni Müşteri Kaçıyor?",
+          "type": "slider",
+          "min": 1,
+          "max": 30,
+          "default": 6,
+          "unit": "kişi"
+        },
+        {
+          "id": "avg_service_value",
+          "label": "Ortalama İşlem Ücreti?",
+          "type": "slider",
+          "min": 200,
+          "max": 5000,
+          "default": 1200,
+          "unit": "TL"
+        },
+        {
+          "id": "conversion_rate",
+          "label": "Yeni Müşteri Dönüşüm Oranı?",
+          "type": "slider",
+          "min": 10,
+          "max": 60,
+          "default": 30,
+          "unit": "%"
+        }
+      ],
+      "calculation": {
+        "formula": "(missed_inquiries * 26 * avg_service_value * conversion_rate) / 100",
+        "yearly_multiplier": 1,
+        "pain_label": "🔥 KAÇIRDIĞINIZ AYLIK CİRO",
+        "solution_label": "💰 YAKALAYACAĞINIZ CİRO"
+      },
+      "recommended_package": "professional",
+      "package_price": 13999,
+      "package_price_currency": "TRY",
+      "killer_argument": "Yeni müşteri arıyor, meşgul → başka salonu arıyor. AI asistan 7/24 cevap verir, randevu açar.",
+      "comparison": {
+        "old_way_cost": 18000,
+        "old_way_label": "Kaçan aylık ciro"
+      }
     }
   },
   "packages": {
     "restaurant_pro": {
-      "name": "Starter",
+      "name": "WhatsApp Asistan",
       "price_try": 16999,
       "features": [
-        "WhatsApp Sipariş Botu (5000 mesaj/ay)",
-        "Sesli Sipariş Asistanı (1200 dk/ay)",
-        "Mutfak Yazıcı Entegrasyonu",
-        "Rezervasyon Sistemi",
-        "QR Menü Sistemi",
-        "SMS Kampanya (500 SMS dahil)",
-        "2 Dil Desteği"
+        "WhatsApp'tan gelen müşteri mesajlarını AI asistan 7/24 karşılar — her sektör için",
+        "WhatsApp AI Asistan (5.000 mesaj/ay)",
+        "Randevu / rezervasyon karşılama",
+        "Otomatik SSS cevapları",
+        "Hatırlatma akışları (WhatsApp + SMS)",
+        "5 dakikada kurulum, kart istemez",
+        "Çoklu Dil Desteği"
       ]
     },
     "professional": {
-      "name": "Pro",
+      "name": "Çok Kanal Asistan",
       "price_usd": 399,
       "price_try": 13999,
       "features": [
+        "WhatsApp + Instagram DM + CRM tek panelde — her sektör için tam paket",
         "Sesli Asistan (800 dk/ay)",
         "WhatsApp + Instagram Bot",
         "Website Chatbot (GPT-4)",
         "MGL altyapısı ile yüksek hızlı, SEO uyumlu Landing Page (Tanıtım Sayfası) + Yönetim Paneli",
         "CRM Integration",
-        "2 Dil Desteği",
+        "Çoklu Dil Desteği",
         "Advanced Analytics",
         "Priority Support"
       ]
     },
     "business": {
-      "name": "İleri Seviye (Advanced)",
+      "name": "AI Resepsiyon",
       "price_try": 24999,
       "features": [
+        "WhatsApp mesajları, Instagram DM'leri ve gelen telefonları tek AI asistan yönetir",
         "Sesli Asistan (2000 dk/ay)",
         "Multi-channel Bot (WhatsApp/IG/TG)",
         "Web Scraping (3000 kayıt)",
         "MGL altyapısı ile yüksek hızlı, SEO uyumlu Landing Page (Tanıtım Sayfası) + Yönetim Paneli",
         "Website Bakım",
-        "3 Dil Desteği",
+        "Çoklu Dil Desteği",
         "Custom Dashboard",
         "Dedicated Support"
       ]

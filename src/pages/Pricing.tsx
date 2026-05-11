@@ -68,7 +68,7 @@ const sectorConfigs: SectorConfig[] = [
     breakdownEN: (v) => [`${v.dailyCalls} (Missed calls/day)`, '30 (Days)', '20% (Conversion)', `£${formatMoney(v.patientValue)} (Patient value)`],
     explanationTR: (v) => `Günde ${v.dailyCalls} çağrı kaçırmak, ayda ${v.dailyCalls * 30} potansiyel hasta kaybı demektir. Ortalama %20 dönüşüm oranı ile hesaplanmıştır.`,
     explanationEN: (v) => `Missing ${v.dailyCalls} calls daily means ${v.dailyCalls * 30} potential patients lost per month. Calculated with an average 20% conversion rate.`,
-    packageName: 'Profesyonel Paket',
+    packageName: 'Çok Kanal Asistan',
     packagePrice: 13999,
   },
   {
@@ -103,7 +103,7 @@ const sectorConfigs: SectorConfig[] = [
     breakdownEN: (v) => [`${v.monthlyLeads} (Missed leads/mo)`, '5% (Conversion)', `${formatMoney(v.estateCommission)} (Commission)`],
     explanationTR: () => 'Yoğunluktan dönemediğiniz müşterilerin %5\'inin satışa döneceği varsayılmıştır.',
     explanationEN: () => 'It is assumed that 5% of customers you couldn\'t respond to due to busyness will convert to sales.',
-    packageName: 'Profesyonel Paket',
+    packageName: 'Çok Kanal Asistan',
     packagePrice: 13999,
   },
   {
@@ -120,7 +120,7 @@ const sectorConfigs: SectorConfig[] = [
     breakdownEN: (v) => [`${v.staffCount} (Staff)`, `$${formatMoney(v.staffCost)} (Cost per person)`, '34 (Fixed TRY rate)'],
     explanationTR: () => '7/24 çalışacak bir AI asistan yerine, vardiyalı personel çalıştırmanın aylık maliyetidir.',
     explanationEN: () => 'The monthly cost of employing shift staff instead of an AI Assistant that works 24/7.',
-    packageName: 'Profesyonel Paket',
+    packageName: 'Çok Kanal Asistan',
     packagePrice: 13999,
   },
   {
@@ -137,7 +137,7 @@ const sectorConfigs: SectorConfig[] = [
     breakdownEN: (v) => [`${v.emptySlots} (Empty slots/day)`, `${formatMoney(v.serviceValue)} (Service)`, '26 (Working days)'],
     explanationTR: () => 'Randevu hatırlatma yapılmadığı için gelmeyen veya boş geçen saatlerin maliyetidir.',
     explanationEN: () => 'The cost of no-shows or empty hours due to lack of appointment reminders.',
-    packageName: 'Profesyonel Paket',
+    packageName: 'Çok Kanal Asistan',
     packagePrice: 13999,
   },
   {
@@ -154,7 +154,7 @@ const sectorConfigs: SectorConfig[] = [
     breakdownEN: (v) => [`${v.tickets} (Requests/day)`, `${formatMoney(v.costPerTicket)} (Per request)`, '30 (Days)'],
     explanationTR: () => 'Müşteri sorularını manuel yanıtlamanın operasyonel maliyetidir.',
     explanationEN: () => 'The operational cost of manually responding to customer inquiries.',
-    packageName: 'Profesyonel Paket',
+    packageName: 'Çok Kanal Asistan',
     packagePrice: 13999,
   },
   {
@@ -171,7 +171,7 @@ const sectorConfigs: SectorConfig[] = [
     breakdownEN: (v) => [`${v.missedLeads} (Missed calls/mo)`, '10% (Conversion)', `${formatMoney(v.studentValue)} / 12`],
     explanationTR: () => 'Bilgi alamadığı için kayıttan vazgeçen öğrencilerin aylık ciro etkisi.',
     explanationEN: () => 'The monthly revenue impact of students who give up on registration because they couldn\'t get information.',
-    packageName: 'Profesyonel Paket',
+    packageName: 'Çok Kanal Asistan',
     packagePrice: 13999,
   },
   {
@@ -188,7 +188,7 @@ const sectorConfigs: SectorConfig[] = [
     breakdownEN: (v) => [`${v.weeklyHours} hours (Weekly)`, `${formatMoney(v.hourlyRate)} (Hourly)`, '4 (Weeks)'],
     explanationTR: () => 'Bilgi vermek için telefonda harcadığınız vaktin nakit karşılığıdır.',
     explanationEN: () => 'The cash equivalent of the time you spend on the phone providing information.',
-    packageName: 'Profesyonel Paket',
+    packageName: 'Çok Kanal Asistan',
     packagePrice: 13999,
   },
   {
@@ -205,7 +205,7 @@ const sectorConfigs: SectorConfig[] = [
     breakdownEN: (v) => [`${formatMoney(v.turnover)} (Monthly revenue)`, `${v.inefficiency}% (Inefficiency)`],
     explanationTR: () => 'Otomatik işlemler eksikliği nedeniyle kaybedilen tahmini ciro payı.',
     explanationEN: () => 'Estimated revenue share lost due to lack of automated processes.',
-    packageName: 'Profesyonel Paket',
+    packageName: 'Çok Kanal Asistan',
     packagePrice: 13999,
   },
 ];
@@ -244,18 +244,18 @@ function getRecommendedPackage(monthlyLoss: number, region: 'TR' | 'GB') {
 
   if (monthlyLoss < starterThreshold) {
     return {
-      name: region === 'TR' ? 'Başlangıç Paketi' : 'Starter Package',
+      name: region === 'TR' ? 'WhatsApp Asistan' : 'WhatsApp Assistant',
       message: region === 'TR' ? 'Küçük kayıpları önlemek için ideal başlangıç.' : 'Ideal starting point to prevent small losses.',
     };
   }
   if (monthlyLoss <= proThreshold) {
     return {
-      name: region === 'TR' ? 'Profesyonel Paket' : 'Pro Package',
+      name: region === 'TR' ? 'Çok Kanal Asistan' : 'Multi-Channel Assistant',
       message: region === 'TR' ? 'Bu kaybı önlemek için en popüler çözümümüz.' : 'Our most popular solution to prevent this loss.',
     };
   }
   return {
-    name: region === 'TR' ? 'Premium Paket' : 'Business Package',
+    name: region === 'TR' ? 'AI Resepsiyon' : 'AI Reception',
     message: region === 'TR' ? 'Büyük operasyonel kayıplar için tam otomasyon.' : 'Full automation for large operational losses.',
   };
 }
@@ -706,7 +706,7 @@ export default function Pricing() {
               }}
             >
               <p style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--ember)', margin: 0 }}>
-                {isTR ? 'MGL AI · Profesyonel Paket' : 'MGL AI · Pro Package'}
+                {isTR ? 'MGL AI · Çok Kanal Asistan' : 'MGL AI · Multi-Channel Assistant'}
               </p>
               <p
                 style={{

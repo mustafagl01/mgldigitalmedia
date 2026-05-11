@@ -192,8 +192,8 @@ export const SOLUTIONS: Record<SectorKey, SectorContent> = {
       {
         q: { tr: 'Aylık ücret nedir?', en: 'What is the monthly fee?' },
         a: {
-          tr: 'Growth tier 9.999 TL / £299 ajans ücreti. WhatsApp ve sesli API harcaması size ait, geçişli faturalandırılır (aylık yaklaşık 500-1.500 TL).',
-          en: 'Growth tier 9,999 TL / £299 agency fee. WhatsApp and voice API consumption is pass-through (typically 500-1,500 TL/month), billed separately.',
+          tr: 'Çok Kanal Asistan paketi 9.999 TL / £299 ajans ücreti. WhatsApp ve sesli API harcaması size ait, geçişli faturalandırılır (aylık yaklaşık 500-1.500 TL).',
+          en: 'Multi-Channel Assistant tier 9,999 TL / £299 agency fee. WhatsApp and voice API consumption is pass-through (typically 500-1,500 TL/month), billed separately.',
         },
       },
       {
@@ -433,8 +433,8 @@ export const SOLUTIONS: Record<SectorKey, SectorContent> = {
       {
         q: { tr: 'Aylık ücret nedir?', en: 'What is the monthly fee?' },
         a: {
-          tr: 'Growth tier 9.999 TL / £299 ajans ücreti. Portal ve reklam harcaması size ait — direkt Sahibinden, Meta, Google\'a ödenir.',
-          en: 'Growth tier 9,999 TL / £299 agency fee. Portal and ad spend is yours — paid directly to Sahibinden, Meta, Google.',
+          tr: 'Çok Kanal Asistan paketi 9.999 TL / £299 ajans ücreti. Portal ve reklam harcaması size ait — direkt Sahibinden, Meta, Google\'a ödenir.',
+          en: 'Multi-Channel Assistant tier 9,999 TL / £299 agency fee. Portal and ad spend is yours — paid directly to Sahibinden, Meta, Google.',
         },
       },
       {
@@ -697,8 +697,8 @@ export const SOLUTIONS: Record<SectorKey, SectorContent> = {
       {
         q: { tr: 'Aylık ücret nedir?', en: 'What is the monthly fee?' },
         a: {
-          tr: 'Reklam Growth tier 19.999 TL / £699 + Asistan Growth tier 9.999 TL / £299. Reklam spend pass-through (asgari 50.000 TL/ay tavsiye).',
-          en: 'Ads Growth tier 19,999 TL / £699 + Assistant Growth tier 9,999 TL / £299. Ad spend pass-through (50,000 TL/month minimum recommended).',
+          tr: 'Reklam Çift Kanal + SEO tier 19.999 TL / £699 + Çok Kanal Asistan paketi 9.999 TL / £299. Reklam spend pass-through (asgari 50.000 TL/ay tavsiye).',
+          en: 'Ads Dual Channel + SEO tier 19,999 TL / £699 + Multi-Channel Assistant tier 9,999 TL / £299. Ad spend pass-through (50,000 TL/month minimum recommended).',
         },
       },
       {
@@ -887,8 +887,8 @@ export const SOLUTIONS: Record<SectorKey, SectorContent> = {
       {
         q: { tr: 'Aylık ücret nedir?', en: 'What is the monthly fee?' },
         a: {
-          tr: 'Growth tier 9.999 TL / £299 ajans ücreti. WhatsApp API harcaması geçişli faturalandırılır (aylık yaklaşık 300-800 TL).',
-          en: 'Growth tier 9,999 TL / £299 agency fee. WhatsApp API consumption is pass-through (typically 300-800 TL/month).',
+          tr: 'Çok Kanal Asistan paketi 9.999 TL / £299 ajans ücreti. WhatsApp API harcaması geçişli faturalandırılır (aylık yaklaşık 300-800 TL).',
+          en: 'Multi-Channel Assistant tier 9,999 TL / £299 agency fee. WhatsApp API consumption is pass-through (typically 300-800 TL/month).',
         },
       },
       {
@@ -1126,8 +1126,8 @@ export const SOLUTIONS: Record<SectorKey, SectorContent> = {
       {
         q: { tr: 'Aylık ücret nedir?', en: 'What is the monthly fee?' },
         a: {
-          tr: 'Growth tier 9.999 TL / £299 ajans ücreti. WhatsApp API harcaması geçişli faturalandırılır (aylık yaklaşık 400-1.000 TL).',
-          en: 'Growth tier 9,999 TL / £299 agency fee. WhatsApp API consumption is pass-through (typically 400-1,000 TL/month).',
+          tr: 'Çok Kanal Asistan paketi 9.999 TL / £299 ajans ücreti. WhatsApp API harcaması geçişli faturalandırılır (aylık yaklaşık 400-1.000 TL).',
+          en: 'Multi-Channel Assistant tier 9,999 TL / £299 agency fee. WhatsApp API consumption is pass-through (typically 400-1,000 TL/month).',
         },
       },
       {

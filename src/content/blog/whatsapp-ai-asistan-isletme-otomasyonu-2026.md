@@ -125,8 +125,8 @@ Potansiyel alıcı Avrupa'dan "Beşiktaş'ta 2+1 daireniz var mı?" diye sorar. 
 - **Toplam: ~€60-90/ay** + kurulum emeği
 
 ### MGL Digital Media ile
-- Starter Agent Paketi: 3.999 TRY/ay (£119)
-- Growth Agent Paketi: 9.999 TRY/ay (£299)
+- WhatsApp Asistan Paketi: 3.999 TRY/ay (£119)
+- Çok Kanal Asistan Paketi: 9.999 TRY/ay (£299)
 - Kurulum dahil, teknik bakım dahil, destek dahil
 
 [Fiyat detayları için → /whatsapp-ai-asistan](/whatsapp-ai-asistan)

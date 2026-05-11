@@ -56,8 +56,8 @@ export default function LeadUretimi() {
     path: '/lead-uretimi',
     category: 'Lead Generation',
     offers: [
-      { name: 'Starter', price: 3999, priceCurrency: 'TRY', priceFrom: true },
-      { name: 'Starter UK', price: 119, priceCurrency: 'GBP', priceFrom: true },
+      { name: 'Çok Kanal Asistan', price: 9999, priceCurrency: 'TRY', priceFrom: true },
+      { name: 'Multi-Channel Assistant', price: 299, priceCurrency: 'GBP', priceFrom: true },
     ],
   });
 
