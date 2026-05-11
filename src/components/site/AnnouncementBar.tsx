@@ -24,8 +24,8 @@ export function AnnouncementBar({ onClaim }: Props) {
     >
       <span style={{ color: 'var(--ember)', marginRight: 10 }}>●</span>
       {language === 'tr'
-        ? 'Pilot partner programı · İlk 3 müşteriye kurulum ücretsiz · Case study karşılığı'
-        : 'Pilot Partner programme · Setup free for the first 3 customers · Case study partnership'}
+        ? 'Pilot partner programı · Case study karşılığında kurulum ücretsiz'
+        : 'Pilot Partner programme · Setup free in exchange for a case study'}
       <button
         onClick={onClaim}
         style={{
