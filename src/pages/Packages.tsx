@@ -556,8 +556,8 @@ const COMMON_FAQ: FaqItem[] = [
   {
     q: { tr: 'Pilot Partner programı nedir?', en: 'What is the Pilot Partner programme?' },
     a: {
-      tr: 'İlk 3 müşteriye case study karşılığı kurulum ücretini sıfırlıyoruz. Aylık fee aynı kalır; kampanya bütçesi / reklam harcaması pass-through. Pilot kontenjanı dolduğunda listeden kaldırılır.',
-      en: 'For our first 3 customers we waive the setup fee in exchange for a case study. Monthly fee stays the same; campaign budget / ad spend is pass-through. Listing is removed once the 3 slots are filled.',
+      tr: 'Pilot programa katılan işletmelerden case study karşılığında kurulum ücreti almıyoruz. Aylık fee aynı kalır; kampanya bütçesi / reklam harcaması pass-through olarak işler.',
+      en: 'For Pilot Partner businesses we waive the setup fee in exchange for a case study. The monthly fee stays the same; campaign budget / ad spend is pass-through.',
     },
   },
   {
@@ -565,6 +565,13 @@ const COMMON_FAQ: FaqItem[] = [
     a: {
       tr: 'Hayır. Aylık abonelik — istediğiniz zaman durdurabilirsiniz. Yıllık ödemede indirim konuşulabilir.',
       en: 'No. Monthly subscription — cancel anytime. Annual billing discount is negotiable.',
+    },
+  },
+  {
+    q: { tr: 'Aşım tarifesi nedir?', en: 'What is the overage tariff?' },
+    a: {
+      tr: 'Pakete dahil mesaj veya sesli dakika limitiniz aşıldığında trafik kesilmez. Otomatik uyarı gönderilir ve ekstra kullanım faturanıza eklenir. WhatsApp / Instagram mesaj aşımı 1 TL / mesaj, sesli AI dakika aşımı 9 TL / dakika olarak işler. Tüm paketler için aynı tarife geçerlidir ve aşım kullanımı dashboard\'unuzda gerçek zamanlı görülebilir.',
+      en: 'When you exceed your package message or voice minute allowance, traffic is never cut off. An automatic alert is sent and the extra usage is added to your invoice. WhatsApp / Instagram message overage is 2p / message and voice AI minute overage is 20p / minute. The same tariff applies to every package, and overage usage is visible in real time in your dashboard.',
     },
   },
   {
@@ -990,8 +997,8 @@ function PlanCard({ tier, content, region, isEnglish }: PlanCardProps) {
           }}
         >
           {isEnglish
-            ? (isWeb ? '3 pilot slots · setup fee waived' : '3 pilot slots · setup waived')
-            : '3 pilot kontenjan · kurulum ücretsiz'}
+            ? 'Pilot Partner programme · setup fee waived'
+            : 'Pilot Partner programı · kurulum ücretsiz'}
         </p>
       </div>
     </article>
@@ -1369,8 +1376,8 @@ export default function Packages() {
               </span>
               <span style={{ fontSize: 14, lineHeight: 1.45, color: 'var(--bone)' }}>
                 {isEnglish
-                  ? <>First 3 customers: we waive the <strong style={{ color: 'var(--ember)' }}>setup fee</strong> in exchange for a case study.</>
-                  : <>İlk 3 müşteriye <strong style={{ color: 'var(--ember)' }}>kurulum ücretini</strong> case study karşılığı sıfırlıyoruz.</>}
+                  ? <>Pilot Partner businesses: we waive the <strong style={{ color: 'var(--ember)' }}>setup fee</strong> in exchange for a case study.</>
+                  : <>Pilot programa katılan işletmelerden <strong style={{ color: 'var(--ember)' }}>kurulum ücreti</strong> almıyoruz — case study karşılığında.</>}
               </span>
             </div>
             <span

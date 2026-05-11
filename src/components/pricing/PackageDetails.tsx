@@ -116,12 +116,17 @@ export default function PackageDetails({ sectorId, onRequestDemo }: PackageDetai
 
         <div className="mb-8 rounded-xl border border-slate-700 bg-slate-900/50 p-4 text-sm text-slate-300 space-y-2">
           <p>
-            <strong className="text-white">Dakika aşımı:</strong> Paket dakikası dolduğunda sistem durmaz. Ek kullanım dakika başına 5 TL olarak faturalandırılır.
+            <strong className="text-white">Aşım tarifesi:</strong> Paket limiti dolduğunda sistem durmaz. WhatsApp / Instagram mesaj aşımı 1 TL/mesaj, sesli AI dakika aşımı 9 TL/dakika olarak faturaya eklenir.
           </p>
           <p>
             <strong className="text-white">WhatsApp notu:</strong> WhatsApp konuşma ücretleri (Meta tarafından alınan) müşteriye aittir.
           </p>
         </div>
+
+        {/* Aşım tarifesi — paket kartı altında küçük yazı */}
+        <p className="text-[11px] text-slate-400 text-center -mt-4 mb-6 leading-relaxed">
+          Aşım: 1 TL/mesaj · 9 TL/dakika
+        </p>
 
         {/* CTAs */}
         <div className="space-y-4">
