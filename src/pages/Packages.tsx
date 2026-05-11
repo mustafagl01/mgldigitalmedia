@@ -125,12 +125,12 @@ const PLAN_CONTENT: Record<PackageTierKey, PlanContent> = {
       ],
     },
     quotas: {
-      tr: ['500 WhatsApp görüşmesi / ay'],
-      en: ['500 WhatsApp conversations / month'],
+      tr: ['Sınırsız WhatsApp mesajı'],
+      en: ['Unlimited WhatsApp messages'],
     },
     overages: {
-      tr: ['Ek görüşme: 0,50 ₺ / görüşme'],
-      en: ['Extra conversation: £0.015 / conversation'],
+      tr: [],
+      en: [],
     },
   },
   pro: {
@@ -171,12 +171,12 @@ const PLAN_CONTENT: Record<PackageTierKey, PlanContent> = {
       ],
     },
     quotas: {
-      tr: ['1.500 WhatsApp + IG DM görüşmesi / ay (toplam)'],
-      en: ['1,500 WhatsApp + IG DM conversations / month (combined)'],
+      tr: ['Sınırsız WhatsApp + Instagram DM'],
+      en: ['Unlimited WhatsApp + Instagram DM'],
     },
     overages: {
-      tr: ['Ek görüşme: 0,40 ₺ / görüşme'],
-      en: ['Extra conversation: £0.012 / conversation'],
+      tr: [],
+      en: [],
     },
     recommended: true,
   },
@@ -208,12 +208,12 @@ const PLAN_CONTENT: Record<PackageTierKey, PlanContent> = {
       en: ['Web chat widget', 'E-commerce integration', 'SLA guarantee'],
     },
     quotas: {
-      tr: ['1.500 görüşme (yazılı) + 500 voice dk / ay'],
-      en: ['1,500 conversations (text) + 500 voice min / month'],
+      tr: ['Sınırsız WhatsApp + IG DM · 500 voice dakika / ay'],
+      en: ['Unlimited WhatsApp + IG DM · 300 voice minutes / month'],
     },
     overages: {
-      tr: ['Ek görüşme: 0,40 ₺', 'Ek voice dk: 5 ₺'],
-      en: ['Extra conversation: £0.012', 'Extra voice min: £0.15'],
+      tr: ['Voice aşımı: 9 ₺ / dakika'],
+      en: ['Voice overage: £0.20 / minute'],
     },
   },
   business: {
@@ -242,12 +242,12 @@ const PLAN_CONTENT: Record<PackageTierKey, PlanContent> = {
       en: ['Bespoke — anything can be scoped in on request'],
     },
     quotas: {
-      tr: ['5.000 görüşme + 2.000 voice dk / ay'],
-      en: ['5,000 conversations + 2,000 voice min / month'],
+      tr: ['Sınırsız WhatsApp + IG DM · 2.000 voice dakika / ay'],
+      en: ['Unlimited WhatsApp + IG DM · 1,000 voice minutes / month'],
     },
     overages: {
-      tr: ['Ek görüşme: 0,30 ₺', 'Ek voice dk: 4 ₺'],
-      en: ['Extra conversation: £0.009', 'Extra voice min: £0.12'],
+      tr: ['Voice aşımı: 9 ₺ / dakika'],
+      en: ['Voice overage: £0.20 / minute'],
     },
   },
 

@@ -195,7 +195,7 @@ export default function ComparisonCards({ sectorId }: ComparisonCardsProps) {
         </table>
       </div>
       <p className="text-center text-xs text-slate-400 mt-3">
-        Tüm paketlerde aşım: 1 TL/mesaj · 9 TL/dakika
+        Tüm paketlerde sınırsız WhatsApp · Sesli aşım: 9 TL/dakika
       </p>
     </motion.div>
     </>

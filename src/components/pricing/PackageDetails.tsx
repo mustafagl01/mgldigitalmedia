@@ -116,16 +116,19 @@ export default function PackageDetails({ sectorId, onRequestDemo }: PackageDetai
 
         <div className="mb-8 rounded-xl border border-slate-700 bg-slate-900/50 p-4 text-sm text-slate-300 space-y-2">
           <p>
-            <strong className="text-white">Aşım tarifesi:</strong> Paket limiti dolduğunda sistem durmaz. WhatsApp / Instagram mesaj aşımı 1 TL/mesaj, sesli AI dakika aşımı 9 TL/dakika olarak faturaya eklenir.
+            <strong className="text-white">Sınırsız WhatsApp:</strong> Mesaj kotası yok. Tüm paketlerde WhatsApp ve Instagram DM sınırsız.
           </p>
           <p>
-            <strong className="text-white">WhatsApp notu:</strong> WhatsApp konuşma ücretleri (Meta tarafından alınan) müşteriye aittir.
+            <strong className="text-white">Sesli AI aşımı:</strong> Pakete dahil dakikalar aşıldığında sistem durmaz. Aşım 9 TL/dakika olarak faturaya eklenir.
+          </p>
+          <p>
+            <strong className="text-white">WhatsApp notu:</strong> WhatsApp konuşma ücretleri (Meta Business API üzerinden alınan) müşteriye aittir; kendi sunucumuzda çalıştığı sürece marjinal maliyet yoktur.
           </p>
         </div>
 
-        {/* Aşım tarifesi — paket kartı altında küçük yazı */}
+        {/* Sesli aşım — küçük yazı */}
         <p className="text-[11px] text-slate-400 text-center -mt-4 mb-6 leading-relaxed">
-          Aşım: 1 TL/mesaj · 9 TL/dakika
+          Sınırsız WhatsApp · Sesli aşım: 9 TL/dakika
         </p>
 
         {/* CTAs */}
