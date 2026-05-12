@@ -86,16 +86,16 @@ const CATEGORY_META: Record<PackageCategoryKey, CategoryMeta> = {
   },
   web: {
     key: 'web',
-    label: { tr: 'Dönüşüm Odaklı Web', en: 'Conversion Web' },
+    label: { tr: 'Web Siteleri', en: 'Websites' },
     hero: {
       eyebrow: { tr: 'WEB SİTESİ PAKETLERİ', en: 'WEBSITE PACKAGES' },
       title: {
-        tr: 'Satan site. Yavaş site değil.',
-        en: 'Sites that convert. Not just pretty.',
+        tr: 'Müşteri kazandıran küçük işletme siteleri.',
+        en: 'Websites that win you customers.',
       },
       lede: {
-        tr: 'Landing, kurumsal site ve dönüşüm platformu. Core Web Vitals optimize, SEO-hazır, AI içerik motoru entegre.',
-        en: 'Landing, corporate and conversion platform. Core Web Vitals tuned, SEO-ready, AI content engine built in.',
+        tr: 'Tek seferlik kurulum, sabit yıllık hosting. Kafenizden takeaway\'inize, randevu alan kliniğinizden online sipariş alan dükkanınıza uygun, sade ve profesyonel paketler.',
+        en: 'One clear setup fee, one flat yearly hosting cost. Honest packages built for UK cafés, clinics, takeaways, and small businesses — not freelance shortcuts.',
       },
     },
   },
@@ -272,23 +272,23 @@ const PLAN_CONTENT: Record<PackageTierKey, PlanContent> = {
   // ---------------- WEB ----------------
   'web-landing': {
     subtitle: {
-      tr: 'Hızlı, ölçülebilir tek sayfa lansman sprinti.',
-      en: 'A fast, measurable single-page launch sprint.',
+      tr: 'Kafeler, yerel dükkanlar ve küçük işletmeler için.',
+      en: 'Best for cafés, local shops, and small businesses.',
     },
     included: {
       tr: [
-        '1 landing page',
+        'Tek sayfa kaydırmalı web sitesi',
         'Mobil uyumlu tasarım',
-        'Temel metin parlatma',
-        'İletişim formu kurulumu',
+        'İletişim bilgileri, harita, çalışma saatleri',
+        'Temel menü / hizmet bölümü',
         '1 revizyon turu',
       ],
       en: [
-        '1 landing page',
+        'One-page scrolling website',
         'Mobile responsive design',
-        'Basic copy polish',
-        'Contact form setup',
-        '1 revision round',
+        'Contact details, map, opening hours',
+        'Basic menu / services section',
+        'One revision round',
       ],
     },
     excluded: { tr: [], en: [] },
@@ -297,25 +297,25 @@ const PLAN_CONTENT: Record<PackageTierKey, PlanContent> = {
   },
   'web-site': {
     subtitle: {
-      tr: 'KOBİ\'ler için kurumsal ve dönüşüm odaklı bir site.',
-      en: 'A polished site for established businesses.',
+      tr: 'Online randevu veya rezervasyon talebi alan işletmeler için.',
+      en: 'For businesses that need online booking or appointment requests.',
     },
     included: {
       tr: [
-        '5 sayfaya kadar',
+        'Tek sayfa veya küçük çok bölümlü site',
+        'Rezervasyon / talep formu',
+        'Takvim bağlantısı',
+        'Onay mesajı',
         'Mobil uyumlu tasarım',
-        'Metin yapısı ve bölüm düzeni',
-        'Temel SEO kurulumu',
-        'İletişim formu + analitik',
         '2 revizyon turu',
       ],
       en: [
-        'Up to 5 pages',
+        'One-page or small multi-section website',
+        'Booking / request form',
+        'Calendar connection',
+        'Confirmation message',
         'Mobile responsive design',
-        'Copy structure and section layout',
-        'Basic SEO setup',
-        'Contact form + analytics',
-        '2 revision rounds',
+        'Two revision rounds',
       ],
     },
     excluded: { tr: [], en: [] },
@@ -325,25 +325,25 @@ const PLAN_CONTENT: Record<PackageTierKey, PlanContent> = {
   },
   'web-platform': {
     subtitle: {
-      tr: 'Strateji yönlendirmeli, dönüşüm odaklı kurumsal site.',
-      en: 'Strategy-led website built for conversions.',
+      tr: 'Restoranlar, marketler ve paket servis tarzı işletmeler için.',
+      en: 'For restaurants, markets, and takeaway-style businesses.',
     },
     included: {
       tr: [
-        'Strateji yönlendirmeli site yapısı',
-        'Özel tasarım yönü',
-        'Metin parlatma',
-        'SEO temelleri',
-        'Dönüşüm odaklı düzen',
+        'Sipariş sayfası',
+        'Teslimat tarihi / saati seçimi',
+        'Sipariş onay akışı',
+        'Yönetici bildirimi',
+        'Mobil uyumlu tasarım',
         '3 revizyon turu',
       ],
       en: [
-        'Strategy-led website structure',
-        'Custom design direction',
-        'Copy refinement',
-        'SEO foundations',
-        'Conversion-focused layout',
-        '3 revision rounds',
+        'Ordering page',
+        'Delivery date / time selection',
+        'Order confirmation flow',
+        'Admin notification',
+        'Mobile responsive design',
+        'Three revision rounds',
       ],
     },
     excluded: { tr: [], en: [] },
@@ -352,16 +352,29 @@ const PLAN_CONTENT: Record<PackageTierKey, PlanContent> = {
   },
   'web-custom': {
     subtitle: {
-      tr: 'Gelişmiş web siteleri, entegrasyonlar veya özel projeler için.',
-      en: 'For advanced websites, integrations, or bespoke builds.',
+      tr: 'Arka planda otomasyonla çalışan bir site isteyen işletmeler için.',
+      en: 'For businesses that want a website with automation behind the scenes.',
     },
-    included: { tr: [], en: [] },
+    included: {
+      tr: [
+        'Özel site yapısı',
+        'Sipariş / rezervasyon / lead akışı',
+        'Bildirim otomasyonu',
+        'CRM veya tablo senkronizasyonu',
+        'Öncelikli kurulum ve destek',
+      ],
+      en: [
+        'Custom website structure',
+        'Order / booking / lead flow',
+        'Notification automation',
+        'CRM or spreadsheet sync',
+        'Priority setup and support',
+      ],
+    },
     excluded: { tr: [], en: [] },
     quotas: { tr: [], en: [] },
     overages: { tr: [], en: [] },
     premium: true,
-    ctaType: 'booking',
-    ctaLabel: { tr: 'Teklif İste', en: 'Request a Quote' },
   },
 };
 
@@ -575,6 +588,49 @@ function PlanCard({ tier, content, region, isEnglish }: PlanCardProps) {
           >
             {isEnglish ? 'Quote only' : 'Talep üzerine'}
           </p>
+        ) : tier.oneOffSetup ? (
+          <>
+            <p
+              style={{
+                fontFamily: 'var(--font-serif)',
+                fontSize: 'clamp(2rem, 1.4rem + 1.4vw, 2.5rem)',
+                lineHeight: 1,
+                letterSpacing: '-0.02em',
+                fontWeight: 500,
+                color: priceColor,
+                margin: 0,
+              }}
+            >
+              {tier.priceFrom && (
+                <span
+                  style={{
+                    fontSize: '0.55em',
+                    color: labelMutedColor,
+                    fontFamily: 'var(--font-mono)',
+                    letterSpacing: '0.08em',
+                    textTransform: 'uppercase',
+                    marginRight: 8,
+                    verticalAlign: 'middle',
+                  }}
+                >
+                  {isEnglish ? 'From' : 'Başlangıç'}
+                </span>
+              )}
+              {formatPrice(tier.setupFee, region)}
+            </p>
+            <p
+              style={{
+                marginTop: 6,
+                fontFamily: 'var(--font-mono)',
+                fontSize: 11,
+                letterSpacing: '0.14em',
+                textTransform: 'uppercase',
+                color: labelMutedColor,
+              }}
+            >
+              {isEnglish ? 'one-off setup' : 'tek seferlik kurulum'}
+            </p>
+          </>
         ) : (
           <>
             <p
@@ -628,7 +684,7 @@ function PlanCard({ tier, content, region, isEnglish }: PlanCardProps) {
         )}
       </div>
 
-      {/* Setup fee */}
+      {/* Recurring / setup line below the headline */}
       {!tier.customPrice && (
         <div
           style={{
@@ -640,7 +696,21 @@ function PlanCard({ tier, content, region, isEnglish }: PlanCardProps) {
             borderTop: `1px solid ${dividerColor}`,
           }}
         >
-          {hasSetup ? (
+          {tier.oneOffSetup ? (
+            <span>
+              {isEnglish ? 'Yearly hosting: ' : 'Yıllık hosting: '}
+              <strong style={{ color: titleColor }}>
+                {formatPrice(tier.price, region)}
+                {tier.priceUnit === 'year'
+                  ? isEnglish
+                    ? ' / year'
+                    : ' / yıl'
+                  : isEnglish
+                  ? ' / month'
+                  : ' / ay'}
+              </strong>
+            </span>
+          ) : hasSetup ? (
             <span>
               {content.setupPrefix
                 ? isEnglish
@@ -1345,7 +1415,7 @@ export default function Packages() {
             </ul>
           )}
 
-          {/* Web disclaimer */}
+          {/* Web disclaimer — what hosting covers + scope expectations */}
           {activeCategory === 'web' && (
             <ul
               style={{
@@ -1362,16 +1432,18 @@ export default function Packages() {
                 fontStyle: 'italic',
               }}
             >
-              <li>{isEnglish ? '* GBP pricing on the UK site.' : '* UK sitesinde GBP fiyatlandırma.'}</li>
               <li>
                 {isEnglish
-                  ? '* Hosting, domains, and third-party services are billed separately where applicable.'
-                  : '* Hosting, alan adı ve 3. parti servisler ilgili olduğunda ayrıca faturalandırılır.'}
+                  ? '* Yearly hosting covers hosting, SSL, basic uptime monitoring, and core maintenance.'
+                  : '* Yıllık hosting; hosting, SSL, temel uptime izleme ve ana bakım masraflarını kapsar.'}
               </li>
               <li>
                 {isEnglish
-                  ? '* Ad spend is not included — see the Marketing packages for paid acquisition.'
-                  : '* Reklam bütçesi dahil değildir — ücretli edinme için Reklam paketlerine bakın.'}
+                  ? '* Major content changes, extra pages, or new features are quoted separately.'
+                  : '* Büyük içerik değişiklikleri, ek sayfalar veya yeni özellikler ayrıca fiyatlandırılır.'}
+              </li>
+              <li>
+                {isEnglish ? '* GBP pricing on the UK site.' : '* UK sitesinde GBP fiyatlandırma.'}
               </li>
             </ul>
           )}
