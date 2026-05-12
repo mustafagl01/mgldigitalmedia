@@ -12,7 +12,6 @@ export type PackageTierKey =
   | 'starter'
   | 'pro'
   | 'advanced'
-  | 'business'
   | 'ads-starter'
   | 'ads-growth'
   | 'ads-scale'
@@ -24,11 +23,11 @@ export type PackageTier = {
   key: PackageTierKey;
   category: PackageCategoryKey;
   name: string;
-  /** Monthly retainer price in regional currency */
+  /** Monthly retainer price in regional currency. Ignored when customPrice is true. */
   price: number;
-  /** One-time setup fee in regional currency (0 = included) */
+  /** One-time setup fee in regional currency (0 = included). Ignored when customSetup is true. */
   setupFee: number;
-  /** Agent-only: included voice assistant minutes per month (0 = no voice) */
+  /** Agent-only: included voice assistant minutes per month (0 = no voice / pass-through) */
   voiceMinutes: number;
   /** Agent-only: included chat conversations per month (WhatsApp / IG DM) */
   chatConversations: number;
@@ -40,6 +39,8 @@ export type PackageTier = {
   adManagementPercent: number;
   /** Shared: promised delivery / setup time in business days (0 = N/A) */
   deliveryDays: number;
+  /** Display a "From £X" prefix on the price */
+  priceFrom?: boolean;
 };
 
 export type RegionalPricing = {
@@ -69,54 +70,44 @@ export const REGIONAL_PRICING: Record<PricingRegionCode, RegionalPricing> = {
       starter: {
         key: 'starter',
         category: 'agents',
-        name: 'WhatsApp Asistan',
-        price: 3999,
-        setupFee: 0,
+        name: 'Temel Otomasyon',
+        price: 6999,
+        setupFee: 19999,
         voiceMinutes: 0,
-        chatConversations: 500,
-        overageChatPer100: 50,
+        chatConversations: 0,
+        overageChatPer100: 0,
         overageVoicePer100: 0,
         adManagementPercent: 0,
-        deliveryDays: 3,
+        deliveryDays: 7,
+        priceFrom: true,
       },
       pro: {
         key: 'pro',
         category: 'agents',
-        name: 'Çok Kanal Asistan',
-        price: 9999,
-        setupFee: 4999,
+        name: 'Operasyonel Merkez',
+        price: 17999,
+        setupFee: 49999,
         voiceMinutes: 0,
-        chatConversations: 1500,
-        overageChatPer100: 40,
+        chatConversations: 0,
+        overageChatPer100: 0,
         overageVoicePer100: 0,
         adManagementPercent: 0,
-        deliveryDays: 5,
+        deliveryDays: 14,
+        priceFrom: true,
       },
       advanced: {
         key: 'advanced',
         category: 'agents',
-        name: 'AI Resepsiyon',
-        price: 14999,
-        setupFee: 14999,
-        voiceMinutes: 500,
-        chatConversations: 1500,
-        overageChatPer100: 40,
-        overageVoicePer100: 500,
+        name: 'AI Çözüm Ortağı',
+        price: 34999,
+        setupFee: 89999,
+        voiceMinutes: 0,
+        chatConversations: 0,
+        overageChatPer100: 0,
+        overageVoicePer100: 0,
         adManagementPercent: 0,
-        deliveryDays: 14,
-      },
-      business: {
-        key: 'business',
-        category: 'agents',
-        name: 'Tam Otonomi',
-        price: 24999,
-        setupFee: 24999,
-        voiceMinutes: 2000,
-        chatConversations: 5000,
-        overageChatPer100: 30,
-        overageVoicePer100: 400,
-        adManagementPercent: 0,
-        deliveryDays: 21,
+        deliveryDays: 0,
+        priceFrom: true,
       },
       'ads-starter': {
         key: 'ads-starter',
@@ -212,54 +203,44 @@ export const REGIONAL_PRICING: Record<PricingRegionCode, RegionalPricing> = {
       starter: {
         key: 'starter',
         category: 'agents',
-        name: 'WhatsApp Assistant',
-        price: 39,
-        setupFee: 100,
+        name: 'Core Automation',
+        price: 199,
+        setupFee: 499,
         voiceMinutes: 0,
-        chatConversations: 999999,
+        chatConversations: 0,
         overageChatPer100: 0,
         overageVoicePer100: 0,
         adManagementPercent: 0,
-        deliveryDays: 3,
+        deliveryDays: 7,
+        priceFrom: true,
       },
       pro: {
         key: 'pro',
         category: 'agents',
-        name: 'Multi-Channel Assistant',
-        price: 79,
-        setupFee: 250,
+        name: 'Operational Hub',
+        price: 499,
+        setupFee: 1200,
         voiceMinutes: 0,
-        chatConversations: 999999,
+        chatConversations: 0,
         overageChatPer100: 0,
         overageVoicePer100: 0,
         adManagementPercent: 0,
-        deliveryDays: 5,
+        deliveryDays: 14,
+        priceFrom: true,
       },
       advanced: {
         key: 'advanced',
         category: 'agents',
-        name: 'AI Reception',
-        price: 120,
-        setupFee: 500,
-        voiceMinutes: 300,
-        chatConversations: 999999,
+        name: 'AI Solution Partner',
+        price: 999,
+        setupFee: 2500,
+        voiceMinutes: 0,
+        chatConversations: 0,
         overageChatPer100: 0,
-        overageVoicePer100: 20,
+        overageVoicePer100: 0,
         adManagementPercent: 0,
-        deliveryDays: 14,
-      },
-      business: {
-        key: 'business',
-        category: 'agents',
-        name: 'Full Autonomy',
-        price: 249,
-        setupFee: 900,
-        voiceMinutes: 1000,
-        chatConversations: 999999,
-        overageChatPer100: 0,
-        overageVoicePer100: 20,
-        adManagementPercent: 0,
-        deliveryDays: 21,
+        deliveryDays: 0,
+        priceFrom: true,
       },
       'ads-starter': {
         key: 'ads-starter',
@@ -347,7 +328,7 @@ export function resolveRegionByCountry(countryCode?: string | null): PricingRegi
   return countryCode?.toUpperCase() === 'TR' ? 'TR' : 'GB';
 }
 
-export const AGENT_TIER_KEYS: PackageTierKey[] = ['starter', 'pro', 'advanced', 'business'];
+export const AGENT_TIER_KEYS: PackageTierKey[] = ['starter', 'pro', 'advanced'];
 export const ADS_TIER_KEYS: PackageTierKey[] = ['ads-starter', 'ads-growth', 'ads-scale'];
 export const WEB_TIER_KEYS: PackageTierKey[] = ['web-landing', 'web-site', 'web-platform'];
 

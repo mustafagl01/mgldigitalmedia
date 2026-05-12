@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState, type ReactNode } from 'react';
-import { Check, ChevronDown, MessageCircle, ShieldCheck, ArrowUpRight, X, Stethoscope, UtensilsCrossed, Home as HomeIcon, ShoppingBag, Scissors, Wrench } from 'lucide-react';
+import { Calendar, Check, ChevronDown, MessageCircle, ShieldCheck, ArrowUpRight, X, Stethoscope, UtensilsCrossed, Home as HomeIcon, ShoppingBag, Scissors, Wrench } from 'lucide-react';
 import {
   type PackageCategoryKey,
   type PackageTier,
@@ -12,6 +12,8 @@ import { useLanguage } from '../contexts/LanguageContext';
 import { formatPrice } from '../utils/formatPrice';
 import { Seo, BASE_SCHEMAS, breadcrumbSchema } from '../components/seo/Seo';
 
+type PlanCtaType = 'whatsapp' | 'booking';
+
 type PlanContent = {
   subtitle: { tr: string; en: string };
   included: { tr: string[]; en: string[] };
@@ -19,7 +21,19 @@ type PlanContent = {
   quotas: { tr: string[]; en: string[] };
   overages: { tr: string[]; en: string[] };
   recommended?: boolean;
+  /** Render the card with a dark, premium treatment (for the enterprise tier). */
+  premium?: boolean;
+  /** Override the CTA destination; defaults to WhatsApp pilot flow. */
+  ctaType?: PlanCtaType;
+  /** Optional custom CTA label override. */
+  ctaLabel?: { tr: string; en: string };
+  /** Optional override for the setup-fee prefix label (e.g. "Custom Architecture from"). */
+  setupPrefix?: { tr: string; en: string };
+  /** Optional note rendered between the feature list and the CTA (e.g. dev-hour rate). */
+  footnote?: { tr: string; en: string };
 };
+
+const STRATEGY_CALL_URL = 'https://calendar.app.google/jgu53NFAy7BnYVui8';
 
 type FaqItem = {
   q: { tr: string; en: string };
@@ -91,163 +105,90 @@ const PLAN_CONTENT: Record<PackageTierKey, PlanContent> = {
   // ---------------- AGENTS ----------------
   starter: {
     subtitle: {
-      tr: 'Senin Google Calendar\'ına bağlanır. Veriler senin sisteminde.',
-      en: 'Connects to your Google Calendar. Data stays in your system.',
+      tr: 'En sık tekrarlanan işleri otomatikleştirmek için temel AI entegrasyonu.',
+      en: 'Essential AI integration to automate your most repetitive tasks.',
     },
     included: {
       tr: [
-        'WhatsApp AI asistan (7/24)',
-        'Google Calendar senkronizasyonu',
-        'İşletmeye özel prompt eğitimi',
-        'E-posta destek (48 saat SLA)',
+        '1 Özel AI Agent (Sesli VEYA WhatsApp)',
+        'Temel n8n Workflow Otomasyonu',
+        'Takvim & Temel Tablo Senkronizasyonu',
+        'Standart Destek (48 saat SLA)',
+        'Aylık Performans Raporu',
+        'Aylık 1 saate kadar workflow güncellemesi',
       ],
       en: [
-        'WhatsApp AI assistant (24/7)',
-        'Google Calendar sync',
-        'Business-tuned prompt training',
-        'Email support (48h SLA)',
+        '1 Dedicated AI Agent (Voice OR WhatsApp)',
+        'Core n8n Workflow Automation',
+        'Calendar & Basic Spreadsheet Sync',
+        'Standard Support (48h SLA)',
+        'Monthly Performance Report',
+        'Up to 1 hour/month of workflow updates',
       ],
     },
-    excluded: {
-      tr: [
-        'Sesli asistan (voice)',
-        'CRM entegrasyonu',
-        'Instagram DM',
-        'n8n otomasyon akışları',
-        'Öncelikli destek',
-      ],
-      en: [
-        'Voice assistant',
-        'CRM integration',
-        'Instagram DM',
-        'n8n automation flows',
-        'Priority support',
-      ],
-    },
-    quotas: {
-      tr: ['Sınırsız WhatsApp mesajı'],
-      en: ['Unlimited WhatsApp messages'],
-    },
-    overages: {
-      tr: [],
-      en: [],
-    },
+    excluded: { tr: [], en: [] },
+    quotas: { tr: [], en: [] },
+    overages: { tr: [], en: [] },
   },
   pro: {
     subtitle: {
-      tr: 'Tüm yazılı kanallar tek akılla.',
-      en: 'One brain for every text channel.',
+      tr: 'Büyüyen işletmeler için çok kanallı AI altyapısı.',
+      en: 'Multi-channel AI infrastructure for growing businesses.',
     },
     included: {
       tr: [
-        'WhatsApp + Instagram DM AI asistan',
-        'n8n otomasyon akışları (randevu, hatırlatma, CRM senkron)',
-        'CRM entegrasyonu (HubSpot / Pipedrive / özel)',
-        'Rakip & lead izleme',
-        'Öncelikli destek (24 saat SLA)',
-        'Aylık optimizasyon raporu',
+        'Senkronize Sesli + WhatsApp AI Agent\'ları',
+        'Derin CRM Entegrasyonu (HubSpot, GoHighLevel vb.)',
+        'Çok adımlı gelişmiş n8n Workflow\'ları',
+        'Öncelikli WhatsApp Desteği (24 saat SLA)',
+        '1 Aylık Strateji Görüşmesi',
+        'Aylık 3 saate kadar workflow güncellemesi',
       ],
       en: [
-        'WhatsApp + Instagram DM AI assistant',
-        'n8n automation flows (booking, reminders, CRM sync)',
-        'CRM integration (HubSpot / Pipedrive / custom)',
-        'Competitor & lead tracking',
-        'Priority support (24h SLA)',
-        'Monthly optimisation report',
+        'Synchronised Voice + WhatsApp AI Agents',
+        'Deep CRM Integration (HubSpot, GoHighLevel, etc.)',
+        'Advanced Multi-step n8n Workflows',
+        'Priority WhatsApp Support (24h SLA)',
+        '1 Monthly Strategy Call',
+        'Up to 3 hours/month of workflow updates',
       ],
     },
-    excluded: {
-      tr: [
-        'Sesli asistan (voice)',
-        'E-ticaret / ödeme entegrasyonları',
-        'Dedicated success manager',
-        'SLA garantisi',
-      ],
-      en: [
-        'Voice assistant',
-        'E-commerce / payment integrations',
-        'Dedicated success manager',
-        'SLA guarantee',
-      ],
-    },
-    quotas: {
-      tr: ['Sınırsız WhatsApp + Instagram DM'],
-      en: ['Unlimited WhatsApp + Instagram DM'],
-    },
-    overages: {
-      tr: [],
-      en: [],
-    },
+    excluded: { tr: [], en: [] },
+    quotas: { tr: [], en: [] },
+    overages: { tr: [], en: [] },
     recommended: true,
   },
   advanced: {
     subtitle: {
-      tr: 'Telefonunuzu AI, bir insan gibi karşılar.',
-      en: 'AI answers your phone like a human.',
+      tr: 'Büyük kurumlar için uçtan uca operasyonel otonomi.',
+      en: 'End-to-end operational autonomy tailored for large enterprises.',
     },
     included: {
       tr: [
-        'Çok Kanal Asistan paketinin tamamı',
-        'AI sesli asistan — gelen çağrı (500 dk / ay)',
-        'Çağrı özeti + tam transkript CRM\'e',
-        'Otomatik randevu oluşturma & güncelleme',
-        'Özel ses klonlama (opsiyonel)',
-        'Dedicated onboarding (2 hafta)',
+        'Sınırsız n8n Workflow Senaryosu',
+        'Çoklu Departman AI Agent\'ları (Tahsilat, İK, vb.)',
+        'Dedicated Sunucu / On-Premise Seçenekleri',
+        'Atanmış Hesap Yöneticisi',
+        'Aylık 10 saate kadar Özel Geliştirme',
       ],
       en: [
-        'Everything in Multi-Channel Assistant',
-        'AI voice assistant — inbound calls (500 min / month)',
-        'Call summary + full transcript pushed to CRM',
-        'Automatic appointment creation & rescheduling',
-        'Custom voice cloning (optional)',
-        'Dedicated onboarding (2 weeks)',
+        'Unlimited n8n Workflow Scenarios',
+        'Multi-department AI Agents (Collections, HR, etc.)',
+        'Dedicated Server / On-Premise Options',
+        'Dedicated Account Manager',
+        'Up to 10 hours/month of Custom Development',
       ],
     },
-    excluded: {
-      tr: ['Web chat widget', 'E-ticaret entegrasyonu', 'SLA garantisi'],
-      en: ['Web chat widget', 'E-commerce integration', 'SLA guarantee'],
-    },
-    quotas: {
-      tr: ['Sınırsız WhatsApp + IG DM · 500 voice dakika / ay'],
-      en: ['Unlimited WhatsApp + IG DM · 300 voice minutes / month'],
-    },
-    overages: {
-      tr: ['Voice aşımı: 9 ₺ / dakika'],
-      en: ['Voice overage: £0.20 / minute'],
-    },
-  },
-  business: {
-    subtitle: {
-      tr: 'İşletmenizin görünmez 7/24 yöneticisi.',
-      en: 'Your invisible 24/7 operations manager.',
-    },
-    included: {
-      tr: [
-        'AI Resepsiyon paketinin tamamı',
-        'Web chat + özel entegrasyonlar (Stripe, iyzico, klinik yazılımı)',
-        'Derin CRM ve ödeme otomasyonları',
-        'Dedicated success manager',
-        'SLA garantisi + öncelikli altyapı',
-      ],
-      en: [
-        'Everything in AI Reception',
-        'Web chat + bespoke integrations (Stripe, clinic software)',
-        'Deep CRM & payment automations',
-        'Dedicated success manager',
-        'SLA guarantee + priority infrastructure',
-      ],
-    },
-    excluded: {
-      tr: ['Özel müzakere — isteğe göre her şey dahil edilir'],
-      en: ['Bespoke — anything can be scoped in on request'],
-    },
-    quotas: {
-      tr: ['Sınırsız WhatsApp + IG DM · 2.000 voice dakika / ay'],
-      en: ['Unlimited WhatsApp + IG DM · 1,000 voice minutes / month'],
-    },
-    overages: {
-      tr: ['Voice aşımı: 9 ₺ / dakika'],
-      en: ['Voice overage: £0.20 / minute'],
+    excluded: { tr: [], en: [] },
+    quotas: { tr: [], en: [] },
+    overages: { tr: [], en: [] },
+    premium: true,
+    ctaType: 'booking',
+    ctaLabel: { tr: 'Strateji Görüşmesi Planla', en: 'Book a Strategy Call' },
+    setupPrefix: { tr: 'Özel Mimari Kurulum, başlangıç ', en: 'Custom Architecture from ' },
+    footnote: {
+      tr: 'Ek geliştirme saati £80/saat üzerinden faturalandırılır.',
+      en: 'Additional dev hours billed at £80/hr.',
     },
   },
 
@@ -674,10 +615,21 @@ type PlanCardProps = {
 
 function PlanCard({ tier, content, region, isEnglish }: PlanCardProps) {
   const rec = content.recommended;
+  const premium = content.premium;
   const hasSetup = tier.setupFee > 0;
   const isAds = tier.category === 'ads';
-  const isWeb = tier.category === 'web';
-  const isAgents = tier.category === 'agents';
+
+  // Premium variant uses a darker, enterprise treatment
+  const cardBg = premium ? 'var(--coal)' : 'var(--paper-2)';
+  const cardBorder = premium
+    ? '1px solid var(--coal-3)'
+    : `1px solid ${rec ? 'var(--ember)' : 'var(--border)'}`;
+  const titleColor = premium ? 'var(--bone)' : 'var(--ink)';
+  const subtitleColor = premium ? 'var(--bone-2)' : 'var(--fg-2)';
+  const priceColor = premium ? 'var(--bone)' : 'var(--ink)';
+  const labelMutedColor = premium ? 'var(--bone-3)' : 'var(--fg-3)';
+  const featureColor = premium ? 'var(--bone)' : 'var(--fg-1)';
+  const dividerColor = premium ? 'var(--coal-3)' : 'var(--border)';
 
   return (
     <article
@@ -685,12 +637,17 @@ function PlanCard({ tier, content, region, isEnglish }: PlanCardProps) {
         position: 'relative',
         display: 'flex',
         flexDirection: 'column',
-        background: 'var(--paper-2)',
-        border: `1px solid ${rec ? 'var(--ember)' : 'var(--border)'}`,
+        background: cardBg,
+        border: cardBorder,
         borderRadius: 'var(--r-lg)',
         padding: 28,
         minHeight: 640,
-        boxShadow: rec ? '0 2px 0 var(--ember-soft)' : 'none',
+        boxShadow: premium
+          ? '0 20px 50px -28px rgba(0,0,0,0.55)'
+          : rec
+          ? '0 2px 0 var(--ember-soft)'
+          : 'none',
+        color: premium ? 'var(--bone)' : 'inherit',
       }}
     >
       {rec && (
@@ -704,7 +661,7 @@ function PlanCard({ tier, content, region, isEnglish }: PlanCardProps) {
             color: 'var(--paper)',
           }}
         >
-          {isEnglish ? 'Most chosen' : 'En çok seçilen'}
+          {isEnglish ? 'Most Popular' : 'En Popüler'}
         </span>
       )}
 
@@ -714,7 +671,7 @@ function PlanCard({ tier, content, region, isEnglish }: PlanCardProps) {
           fontSize: 11,
           letterSpacing: '0.14em',
           textTransform: 'uppercase',
-          color: 'var(--fg-3)',
+          color: labelMutedColor,
         }}
       >
         / {tier.key}
@@ -728,12 +685,12 @@ function PlanCard({ tier, content, region, isEnglish }: PlanCardProps) {
           lineHeight: 1.15,
           letterSpacing: '-0.02em',
           fontWeight: 600,
-          color: 'var(--ink)',
+          color: titleColor,
         }}
       >
         {tier.name}
       </h2>
-      <p style={{ marginTop: 6, fontSize: 14, color: 'var(--fg-2)', lineHeight: 1.45 }}>
+      <p style={{ marginTop: 6, fontSize: 14, color: subtitleColor, lineHeight: 1.45 }}>
         {isEnglish ? content.subtitle.en : content.subtitle.tr}
       </p>
 
@@ -746,10 +703,25 @@ function PlanCard({ tier, content, region, isEnglish }: PlanCardProps) {
             lineHeight: 1,
             letterSpacing: '-0.02em',
             fontWeight: 500,
-            color: 'var(--ink)',
+            color: priceColor,
             margin: 0,
           }}
         >
+          {tier.priceFrom && (
+            <span
+              style={{
+                fontSize: '0.55em',
+                color: labelMutedColor,
+                fontFamily: 'var(--font-mono)',
+                letterSpacing: '0.08em',
+                textTransform: 'uppercase',
+                marginRight: 8,
+                verticalAlign: 'middle',
+              }}
+            >
+              {isEnglish ? 'From' : 'Başlangıç'}
+            </span>
+          )}
           {formatPrice(tier.price, region)}
         </p>
         <p
@@ -759,16 +731,16 @@ function PlanCard({ tier, content, region, isEnglish }: PlanCardProps) {
             fontSize: 11,
             letterSpacing: '0.14em',
             textTransform: 'uppercase',
-            color: 'var(--fg-3)',
+            color: labelMutedColor,
           }}
         >
           {isEnglish ? 'per month' : 'aylık'}
         </p>
         {isAds && (
-          <p style={{ marginTop: 8, fontSize: 12, color: 'var(--fg-2)', lineHeight: 1.5 }}>
+          <p style={{ marginTop: 8, fontSize: 12, color: subtitleColor, lineHeight: 1.5 }}>
             {isEnglish
               ? `+ your ad budget × ${tier.adManagementPercent}% management fee (budget is paid directly to Meta / Google)`
-              : `+ reklam bütçeniz × %${tier.adManagementPercent} yönetim payı (bütçe direkt Meta / Google\'a ödenir)`}
+              : `+ reklam bütçeniz × %${tier.adManagementPercent} yönetim payı (bütçe direkt Meta / Google'a ödenir)`}
           </p>
         )}
       </div>
@@ -779,15 +751,21 @@ function PlanCard({ tier, content, region, isEnglish }: PlanCardProps) {
           marginTop: 14,
           fontFamily: 'var(--font-mono)',
           fontSize: 12,
-          color: 'var(--fg-2)',
+          color: subtitleColor,
           paddingTop: 14,
-          borderTop: '1px solid var(--border)',
+          borderTop: `1px solid ${dividerColor}`,
         }}
       >
         {hasSetup ? (
           <span>
-            {isEnglish ? 'One-time setup: ' : 'Kurulum: '}
-            <strong style={{ color: 'var(--ink)' }}>{formatPrice(tier.setupFee, region)}</strong>
+            {content.setupPrefix
+              ? isEnglish
+                ? content.setupPrefix.en
+                : content.setupPrefix.tr
+              : isEnglish
+              ? 'One-time setup from '
+              : 'Tek seferlik kurulum: '}
+            <strong style={{ color: titleColor }}>{formatPrice(tier.setupFee, region)}</strong>
           </span>
         ) : (
           <span style={{ color: 'var(--ember)' }}>
@@ -795,7 +773,7 @@ function PlanCard({ tier, content, region, isEnglish }: PlanCardProps) {
           </span>
         )}
         {tier.deliveryDays > 0 && (
-          <span style={{ marginLeft: 12, color: 'var(--fg-3)' }}>
+          <span style={{ marginLeft: 12, color: labelMutedColor }}>
             ·{' '}
             {isEnglish
               ? `Delivery ${tier.deliveryDays} business days`
@@ -837,7 +815,7 @@ function PlanCard({ tier, content, region, isEnglish }: PlanCardProps) {
                 alignItems: 'flex-start',
                 gap: 10,
                 fontSize: 14,
-                color: 'var(--fg-1)',
+                color: featureColor,
                 lineHeight: 1.45,
               }}
             >
@@ -848,57 +826,59 @@ function PlanCard({ tier, content, region, isEnglish }: PlanCardProps) {
         </ul>
       </div>
 
-      {/* Dahil değil */}
-      <div style={{ marginTop: 18 }}>
-        <p
-          style={{
-            fontFamily: 'var(--font-mono)',
-            fontSize: 11,
-            letterSpacing: '0.14em',
-            textTransform: 'uppercase',
-            color: 'var(--fg-3)',
-            fontWeight: 600,
-            margin: 0,
-          }}
-        >
-          {isEnglish ? 'NOT INCLUDED' : 'DAHİL DEĞİL'}
-        </p>
-        <ul
-          style={{
-            marginTop: 10,
-            padding: 0,
-            listStyle: 'none',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 8,
-          }}
-        >
-          {(isEnglish ? content.excluded.en : content.excluded.tr).map((feature) => (
-            <li
-              key={feature}
-              style={{
-                display: 'flex',
-                alignItems: 'flex-start',
-                gap: 10,
-                fontSize: 13,
-                color: 'var(--fg-3)',
-                lineHeight: 1.45,
-              }}
-            >
-              <X size={13} style={{ marginTop: 4, flexShrink: 0, color: 'var(--fg-3)' }} />
-              <span>{feature}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
+      {/* Dahil değil — sadece içerik varsa */}
+      {content.excluded.tr.length > 0 && (
+        <div style={{ marginTop: 18 }}>
+          <p
+            style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: 11,
+              letterSpacing: '0.14em',
+              textTransform: 'uppercase',
+              color: labelMutedColor,
+              fontWeight: 600,
+              margin: 0,
+            }}
+          >
+            {isEnglish ? 'NOT INCLUDED' : 'DAHİL DEĞİL'}
+          </p>
+          <ul
+            style={{
+              marginTop: 10,
+              padding: 0,
+              listStyle: 'none',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 8,
+            }}
+          >
+            {(isEnglish ? content.excluded.en : content.excluded.tr).map((feature) => (
+              <li
+                key={feature}
+                style={{
+                  display: 'flex',
+                  alignItems: 'flex-start',
+                  gap: 10,
+                  fontSize: 13,
+                  color: labelMutedColor,
+                  lineHeight: 1.45,
+                }}
+              >
+                <X size={13} style={{ marginTop: 4, flexShrink: 0, color: labelMutedColor }} />
+                <span>{feature}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
 
-      {/* Kota */}
-      {(isAgents || content.quotas.tr.length > 0) && (
+      {/* Kota — sadece içerik varsa */}
+      {content.quotas.tr.length > 0 && (
         <div
           style={{
             marginTop: 18,
             paddingTop: 14,
-            borderTop: '1px solid var(--border)',
+            borderTop: `1px solid ${dividerColor}`,
           }}
         >
           <p
@@ -907,7 +887,7 @@ function PlanCard({ tier, content, region, isEnglish }: PlanCardProps) {
               fontSize: 11,
               letterSpacing: '0.14em',
               textTransform: 'uppercase',
-              color: 'var(--fg-2)',
+              color: premium ? 'var(--bone-2)' : 'var(--fg-2)',
               fontWeight: 600,
               margin: 0,
             }}
@@ -924,7 +904,7 @@ function PlanCard({ tier, content, region, isEnglish }: PlanCardProps) {
               gap: 4,
               fontFamily: 'var(--font-mono)',
               fontSize: 12,
-              color: 'var(--fg-1)',
+              color: featureColor,
             }}
           >
             {(isEnglish ? content.quotas.en : content.quotas.tr).map((q) => (
@@ -943,7 +923,7 @@ function PlanCard({ tier, content, region, isEnglish }: PlanCardProps) {
               fontSize: 11,
               letterSpacing: '0.12em',
               textTransform: 'uppercase',
-              color: 'var(--fg-3)',
+              color: labelMutedColor,
               margin: 0,
             }}
           >
@@ -959,7 +939,7 @@ function PlanCard({ tier, content, region, isEnglish }: PlanCardProps) {
               gap: 4,
               fontFamily: 'var(--font-mono)',
               fontSize: 11,
-              color: 'var(--fg-2)',
+              color: subtitleColor,
             }}
           >
             {(isEnglish ? content.overages.en : content.overages.tr).map((o) => (
@@ -969,37 +949,62 @@ function PlanCard({ tier, content, region, isEnglish }: PlanCardProps) {
         </div>
       )}
 
-      {/* CTA — pilot-aware */}
-      <div style={{ marginTop: 20, flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
-        <a
-          href={createWhatsAppLink(
-            isEnglish
-              ? `Hello, coming from the MGL site. I'd like to join the Pilot Partner programme for the ${tier.name} package.`
-              : `Merhaba, MGL sitesinden geliyorum. Pilot partner olarak ${tier.name} paketini almak istiyorum.`,
-          )}
-          target="_blank"
-          rel="noreferrer"
-          className={rec ? 'btn btn-primary' : 'btn btn-secondary'}
-          style={{ width: '100%', justifyContent: 'center' }}
-        >
-          <MessageCircle size={14} />
-          {isEnglish ? 'Claim pilot pricing' : 'Pilot fiyatı al'}
-        </a>
+      {/* Footnote (e.g. dev-hour rate) — sits above CTA */}
+      {content.footnote && (
         <p
           style={{
-            marginTop: 8,
+            marginTop: 14,
             fontFamily: 'var(--font-mono)',
-            fontSize: 10,
-            letterSpacing: '0.08em',
-            textTransform: 'uppercase',
-            color: 'var(--fg-3)',
-            textAlign: 'center',
+            fontSize: 11,
+            letterSpacing: '0.04em',
+            color: labelMutedColor,
+            lineHeight: 1.5,
+            margin: '14px 0 0',
           }}
         >
-          {isEnglish
-            ? 'Pilot Partner programme · setup fee waived'
-            : 'Pilot Partner programı · kurulum ücretsiz'}
+          {isEnglish ? content.footnote.en : content.footnote.tr}
         </p>
+      )}
+
+      {/* CTA — booking link for enterprise, WhatsApp for everyone else */}
+      <div style={{ marginTop: 20, flex: 1, display: 'flex', flexDirection: 'column', justifyContent: 'flex-end' }}>
+        {content.ctaType === 'booking' ? (
+          <a
+            href={STRATEGY_CALL_URL}
+            target="_blank"
+            rel="noreferrer"
+            className="btn btn-primary"
+            style={{
+              width: '100%',
+              justifyContent: 'center',
+              background: 'var(--ember)',
+              color: 'var(--paper)',
+              borderColor: 'var(--ember)',
+            }}
+          >
+            <Calendar size={14} />
+            {isEnglish
+              ? content.ctaLabel?.en ?? 'Book a Strategy Call'
+              : content.ctaLabel?.tr ?? 'Strateji Görüşmesi Planla'}
+          </a>
+        ) : (
+          <a
+            href={createWhatsAppLink(
+              isEnglish
+                ? `Hello, coming from the MGL site. I'd like to get started with the ${tier.name} package.`
+                : `Merhaba, MGL sitesinden geliyorum. ${tier.name} paketiyle başlamak istiyorum.`,
+            )}
+            target="_blank"
+            rel="noreferrer"
+            className={rec ? 'btn btn-primary' : 'btn btn-secondary'}
+            style={{ width: '100%', justifyContent: 'center' }}
+          >
+            <MessageCircle size={14} />
+            {isEnglish
+              ? content.ctaLabel?.en ?? 'Get Started'
+              : content.ctaLabel?.tr ?? 'Hemen Başla'}
+          </a>
+        )}
       </div>
     </article>
   );
@@ -1415,6 +1420,24 @@ export default function Packages() {
               />
             ))}
           </div>
+
+          {/* Disclaimer — API usage costs + dev-hour transparency */}
+          {activeCategory === 'agents' && (
+            <p
+              style={{
+                marginTop: 28,
+                maxWidth: 920,
+                fontSize: 13,
+                lineHeight: 1.6,
+                color: 'var(--fg-3)',
+                fontStyle: 'italic',
+              }}
+            >
+              {isEnglish
+                ? '* All plans exclude 3rd-party API usage costs (e.g., Voice minutes, WhatsApp templates). API costs are billed strictly based on your actual usage. Technical support for bugs is free and unlimited; custom feature development uses your monthly hour quota.'
+                : '* Tüm planlar 3. parti API kullanım maliyetlerini (ör. sesli dakikalar, WhatsApp şablonları) kapsamaz. API maliyetleri yalnızca gerçek kullanımınız üzerinden faturalandırılır. Hata düzeltme için teknik destek ücretsiz ve sınırsızdır; özel özellik geliştirmesi aylık saat kotanızı kullanır.'}
+            </p>
+          )}
 
           {/* Agents: RandevuAI self-serve cross-link */}
           {activeCategory === 'agents' && (
