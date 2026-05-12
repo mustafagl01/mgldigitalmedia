@@ -1376,8 +1376,8 @@ export default function Packages() {
             </p>
           )}
 
-          {/* Agents: RandevuAI self-serve cross-link */}
-          {activeCategory === 'agents' && (
+          {/* Agents: RandevuAI self-serve cross-link — TR only */}
+          {activeCategory === 'agents' && region === 'TR' && (
             <div
               style={{
                 marginTop: 36,
