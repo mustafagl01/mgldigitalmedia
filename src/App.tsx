@@ -43,7 +43,6 @@ const VoiceflowVsRetellAi = lazy(() => import('./pages/comparisons/VoiceflowVsRe
 const UkAiAgenciesComparison = lazy(() => import('./pages/comparisons/UkAiAgenciesComparison'));
 
 // New site shell
-import { AnnouncementBar } from './components/site/AnnouncementBar';
 import { SiteHeader } from './components/site/SiteHeader';
 import { SiteFooter } from './components/site/SiteFooter';
 import { ScrollProgress } from './components/site/ScrollProgress';
@@ -217,7 +216,7 @@ function AppContent() {
   const wrapPage = (node: React.ReactNode) => (
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', background: 'var(--paper)' }}>
       <ScrollProgress />
-      <AnnouncementBar onClaim={openAnalysis} />
+
       <SiteHeader
         currentPage={headerPage}
         onNavigate={navigateSite}
@@ -288,7 +287,7 @@ function AppContent() {
 
       <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', background: 'var(--paper)' }}>
         <ScrollProgress />
-        <AnnouncementBar onClaim={openAnalysis} />
+  
         <SiteHeader
           currentPage="home"
           onNavigate={navigateSite}

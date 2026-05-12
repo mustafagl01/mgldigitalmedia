@@ -495,13 +495,6 @@ const PLAN_CONTENT: Record<PackageTierKey, PlanContent> = {
 
 const COMMON_FAQ: FaqItem[] = [
   {
-    q: { tr: 'Pilot Partner programı nedir?', en: 'What is the Pilot Partner programme?' },
-    a: {
-      tr: 'Pilot programa katılan işletmelerden case study karşılığında kurulum ücreti almıyoruz. Aylık fee aynı kalır; kampanya bütçesi / reklam harcaması pass-through olarak işler.',
-      en: 'For Pilot Partner businesses we waive the setup fee in exchange for a case study. The monthly fee stays the same; campaign budget / ad spend is pass-through.',
-    },
-  },
-  {
     q: { tr: 'Sözleşme süresi var mı?', en: 'Is there a contract term?' },
     a: {
       tr: 'Hayır. Aylık abonelik — istediğiniz zaman durdurabilirsiniz. Yıllık ödemede indirim konuşulabilir.',
@@ -1341,62 +1334,6 @@ export default function Packages() {
               }
             }
           `}</style>
-        </div>
-      </section>
-
-      {/* Pilot Partner callout */}
-      <section
-        style={{
-          background: 'var(--coal)',
-          color: 'var(--bone)',
-          padding: '20px 0',
-          borderBottom: '1px solid var(--coal-3)',
-        }}
-      >
-        <div className="container">
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 16,
-              flexWrap: 'wrap',
-              justifyContent: 'space-between',
-            }}
-          >
-            <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
-              <span
-                style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: 10,
-                  letterSpacing: '0.14em',
-                  textTransform: 'uppercase',
-                  background: 'var(--ember)',
-                  color: 'var(--paper)',
-                  padding: '4px 10px',
-                  borderRadius: 4,
-                  fontWeight: 600,
-                }}
-              >
-                {isEnglish ? 'PILOT PARTNER' : 'PİLOT PARTNER'}
-              </span>
-              <span style={{ fontSize: 14, lineHeight: 1.45, color: 'var(--bone)' }}>
-                {isEnglish
-                  ? <>Pilot Partner businesses: we waive the <strong style={{ color: 'var(--ember)' }}>setup fee</strong> in exchange for a case study.</>
-                  : <>Pilot programa katılan işletmelerden <strong style={{ color: 'var(--ember)' }}>kurulum ücreti</strong> almıyoruz — case study karşılığında.</>}
-              </span>
-            </div>
-            <span
-              style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: 11,
-                letterSpacing: '0.1em',
-                textTransform: 'uppercase',
-                color: 'var(--bone-2)',
-              }}
-            >
-              {isEnglish ? '3 slots remaining' : '3 kontenjan kaldı'}
-            </span>
-          </div>
         </div>
       </section>
 
