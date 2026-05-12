@@ -5,6 +5,17 @@
 [functions]
   node_bundler = "esbuild"
 
+[[edge_functions]]
+  path = "/api/location"
+  function = "location"
+
+# Keep /api/* paths reachable by functions / edge functions
+# (the SPA fallback below must not swallow them).
+[[redirects]]
+  from = "/api/*"
+  to = "/api/:splat"
+  status = 200
+
 [[redirects]]
   from = "/*"
   to = "/index.html"
