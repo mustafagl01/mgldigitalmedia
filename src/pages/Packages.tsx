@@ -195,301 +195,173 @@ const PLAN_CONTENT: Record<PackageTierKey, PlanContent> = {
   // ---------------- ADS ----------------
   'ads-starter': {
     subtitle: {
-      tr: 'Tek kanal, temiz başlangıç.',
-      en: 'One channel, clean start.',
+      tr: 'Tek platformda temiz, ölçülebilir bir başlangıç.',
+      en: 'A clean, measurable start on a single platform.',
     },
     included: {
       tr: [
-        '1 reklam kanalı (Meta VEYA Google — siz seçersiniz)',
-        'AI kreatif üretimi (4 görsel / ay)',
-        'Günlük bütçe optimizasyonu',
-        'Aylık 1 canlı rapor',
-        'Temel analytics dashboard (GA4 + Meta Pixel kurulumu)',
+        'Kampanya kurulumu',
+        'Temel optimizasyon',
+        'Aylık raporlama',
+        '1 platform',
       ],
       en: [
-        '1 ad channel (Meta OR Google — you choose)',
-        'AI creative production (4 assets / month)',
-        'Daily budget optimisation',
-        '1 live report per month',
-        'Core analytics dashboard (GA4 + Meta Pixel setup)',
+        'Campaign setup',
+        'Basic optimisation',
+        'Monthly reporting',
+        '1 platform',
       ],
     },
-    excluded: {
-      tr: [
-        'İkinci reklam kanalı',
-        'SEO',
-        'Landing page build',
-        'Haftalık rapor',
-        'Dedicated strategist',
-        'UTM sistemi',
-      ],
-      en: [
-        'Second ad channel',
-        'SEO',
-        'Landing page build',
-        'Weekly report',
-        'Dedicated strategist',
-        'UTM system',
-      ],
-    },
-    quotas: {
-      tr: ['1 kampanya', '4 ad set', '4 AI kreatif / ay'],
-      en: ['1 campaign', '4 ad sets', '4 AI creatives / month'],
-    },
-    overages: {
-      tr: ['Ek kreatif: 500 ₺ / görsel'],
-      en: ['Extra creative: £15 / asset'],
-    },
+    excluded: { tr: [], en: [] },
+    quotas: { tr: [], en: [] },
+    overages: { tr: [], en: [] },
   },
   'ads-growth': {
     subtitle: {
-      tr: 'İki kanal, SEO, haftalık rapor.',
-      en: 'Two channels, SEO, weekly reporting.',
+      tr: 'Çoklu kampanya yönetimi ve sürekli iyileştirme.',
+      en: 'Multi-campaign management with ongoing improvement.',
     },
     included: {
       tr: [
-        'Meta + Google (iki kanal birlikte)',
-        'AI kreatif üretimi (12 görsel / ay)',
-        'SEO starter (on-page + 2 blog / ay)',
-        'Haftalık canlı rapor',
-        'ROI dashboard (GA4 + Meta Ads + Google Ads tek ekran)',
-        'UTM tagging sistemi',
+        'Çoklu kampanya yönetimi',
+        'Haftalık optimizasyon',
+        'Kreatif yönlendirme',
+        'Aylık performans değerlendirmesi',
+        '1–2 platform',
       ],
       en: [
-        'Meta + Google (both channels)',
-        'AI creative production (12 assets / month)',
-        'SEO starter (on-page + 2 blog posts / month)',
-        'Weekly live report',
-        'ROI dashboard (GA4 + Meta Ads + Google Ads unified)',
-        'UTM tagging system',
+        'Multi-campaign management',
+        'Weekly optimisation',
+        'Creative guidance',
+        'Monthly performance review',
+        '1–2 platforms',
       ],
     },
-    excluded: {
-      tr: [
-        'Landing page build',
-        'Dedicated strategist',
-        'Günlük ops',
-        'A/B test setup',
-        'Heatmap',
-      ],
-      en: [
-        'Landing page build',
-        'Dedicated strategist',
-        'Daily ops',
-        'A/B test setup',
-        'Heatmap',
-      ],
-    },
-    quotas: {
-      tr: ['3 kampanya / kanal', '12 kreatif / ay', '2 blog yazısı / ay'],
-      en: ['3 campaigns / channel', '12 creatives / month', '2 blog posts / month'],
-    },
-    overages: {
-      tr: ['Ek blog: 1.500 ₺', 'Ek kreatif: 400 ₺'],
-      en: ['Extra blog: £45', 'Extra creative: £12'],
-    },
+    excluded: { tr: [], en: [] },
+    quotas: { tr: [], en: [] },
+    overages: { tr: [], en: [] },
     recommended: true,
   },
   'ads-scale': {
     subtitle: {
-      tr: 'Full funnel, dedicated strategist.',
-      en: 'Full funnel, dedicated strategist.',
+      tr: 'Ölçeklenmek için tam strateji ve operasyon ortaklığı.',
+      en: 'Full strategy and operational partnership for scaling.',
     },
     included: {
       tr: [
-        'Meta + Google + TikTok / LinkedIn (üç kanal)',
-        'SEO pro (on-page + 4 blog + teknik SEO)',
-        '1 conversion landing page dahil',
-        'A/B test & heatmap kurulumu',
-        'Dedicated strategist (haftalık 1 saat call)',
-        'Günlük optimizasyon',
-        'Günlük ROI raporu',
+        'Tam strateji ve yönetim',
+        'Reklam kreatif desteği',
+        'Sürekli optimizasyon',
+        'Raporlama ve analiz',
+        'Çoklu platform desteği',
       ],
       en: [
-        'Meta + Google + TikTok / LinkedIn (three channels)',
-        'SEO pro (on-page + 4 blog posts + technical SEO)',
-        '1 conversion landing page included',
-        'A/B test & heatmap setup',
-        'Dedicated strategist (1h weekly call)',
-        'Daily optimisation',
-        'Daily ROI report',
+        'Full strategy and management',
+        'Ad creative support',
+        'Ongoing optimisation',
+        'Reporting and analysis',
+        'Multi-platform support',
       ],
     },
-    excluded: {
-      tr: [
-        'Marka yenileme (rebranding)',
-        'Video prodüksiyon',
-        'Influencer yönetimi',
-        'CRM kurulumu (AI Agent paketlerinde)',
-      ],
-      en: [
-        'Rebranding',
-        'Video production',
-        'Influencer management',
-        'CRM setup (see AI Agent packages)',
-      ],
-    },
-    quotas: {
-      tr: ['5+ kampanya', '24 kreatif / ay (video + görsel)', '4 blog / ay', '1 landing page'],
-      en: ['5+ campaigns', '24 creatives / month (video + image)', '4 blog posts / month', '1 landing page'],
-    },
-    overages: {
-      tr: ['Ek landing: 4.999 ₺', 'Ek video kreatif: 1.500 ₺'],
-      en: ['Extra landing: £149', 'Extra video creative: £45'],
-    },
+    excluded: { tr: [], en: [] },
+    quotas: { tr: [], en: [] },
+    overages: { tr: [], en: [] },
+    premium: true,
   },
 
   // ---------------- WEB ----------------
   'web-landing': {
     subtitle: {
-      tr: 'Tek sayfa, 7 gün, dönüşüm odaklı.',
-      en: 'Single page, 7 days, conversion-first.',
+      tr: 'Hızlı, ölçülebilir tek sayfa lansman sprinti.',
+      en: 'A fast, measurable single-page launch sprint.',
     },
     included: {
       tr: [
-        '1 landing page, mobile-first responsive',
-        'Figma\'dan doğrudan tasarım',
-        'Temel on-page SEO',
-        'İletişim formu + Google Sheets entegrasyonu',
-        'GA4 kurulumu',
-        'SSL + hosting (Vercel / Netlify)',
-        'SEO-hazır meta ve schema',
+        '1 landing page',
+        'Mobil uyumlu tasarım',
+        'Temel metin parlatma',
+        'İletişim formu kurulumu',
+        '1 revizyon turu',
       ],
       en: [
-        '1 landing page, mobile-first responsive',
-        'Direct handoff from Figma',
-        'Basic on-page SEO',
-        'Contact form + Google Sheets integration',
-        'GA4 setup',
-        'SSL + hosting (Vercel / Netlify)',
-        'SEO-ready meta and schema',
+        '1 landing page',
+        'Mobile responsive design',
+        'Basic copy polish',
+        'Contact form setup',
+        '1 revision round',
       ],
     },
-    excluded: {
-      tr: [
-        'Çoklu sayfa',
-        'CMS panel',
-        'Blog altyapısı',
-        'E-ticaret / ödeme altyapısı',
-        'A/B test',
-        'Dedicated strategist',
-      ],
-      en: [
-        'Multiple pages',
-        'CMS panel',
-        'Blog system',
-        'E-commerce / payment',
-        'A/B test',
-        'Dedicated strategist',
-      ],
-    },
-    quotas: {
-      tr: ['2 revizyon turu', 'Teslim sonrası 30 gün ücretsiz content edit'],
-      en: ['2 revision rounds', '30 days of free content edits after launch'],
-    },
-    overages: {
-      tr: ['Ek revizyon turu: 1.500 ₺', 'Ek sayfa: 2.999 ₺'],
-      en: ['Extra revision round: £45', 'Extra page: £90'],
-    },
+    excluded: { tr: [], en: [] },
+    quotas: { tr: [], en: [] },
+    overages: { tr: [], en: [] },
   },
   'web-site': {
     subtitle: {
-      tr: '5–7 sayfa, CMS, AI blog, 21 gün.',
-      en: '5–7 pages, CMS, AI blog, 21 days.',
+      tr: 'KOBİ\'ler için kurumsal ve dönüşüm odaklı bir site.',
+      en: 'A polished site for established businesses.',
     },
     included: {
       tr: [
-        '5–7 sayfa (Ana Sayfa, Hakkımızda, Hizmetler, Blog, İletişim + 2 özel)',
-        'CMS panel (içerik değişimi sizde)',
-        'AI blog üretimi (4 yazı / ay, SEO optimize)',
-        'On-page SEO + 5 anahtar kelime takibi',
-        'Hosting + uptime monitor, SSL',
-        'Core Web Vitals optimize',
-        'Form + CRM entegrasyonu',
-        'GA4 + Hotjar kurulumu',
+        '5 sayfaya kadar',
+        'Mobil uyumlu tasarım',
+        'Metin yapısı ve bölüm düzeni',
+        'Temel SEO kurulumu',
+        'İletişim formu + analitik',
+        '2 revizyon turu',
       ],
       en: [
-        '5–7 pages (Home, About, Services, Blog, Contact + 2 custom)',
-        'CMS panel (you control content)',
-        'AI blog engine (4 posts / month, SEO-optimised)',
-        'On-page SEO + 5 keyword tracking',
-        'Hosting + uptime monitor, SSL',
-        'Core Web Vitals tuned',
-        'Form + CRM integration',
-        'GA4 + Hotjar setup',
+        'Up to 5 pages',
+        'Mobile responsive design',
+        'Copy structure and section layout',
+        'Basic SEO setup',
+        'Contact form + analytics',
+        '2 revision rounds',
       ],
     },
-    excluded: {
-      tr: [
-        'E-ticaret (Shopify / WooCommerce)',
-        'Ödeme altyapısı (Stripe / iyzico)',
-        'Rezervasyon sistemi',
-        'A/B test',
-        'Multi-language (+7.999 ₺ ile eklenebilir)',
-      ],
-      en: [
-        'E-commerce (Shopify / WooCommerce)',
-        'Payment (Stripe / iyzico)',
-        'Booking system',
-        'A/B test',
-        'Multi-language (+£239 add-on)',
-      ],
-    },
-    quotas: {
-      tr: ['3 revizyon turu', '4 blog / ay', '5 keyword tracking'],
-      en: ['3 revision rounds', '4 blog posts / month', '5 keyword tracking'],
-    },
-    overages: {
-      tr: ['Ek revizyon: 2.000 ₺', 'Ek blog: 1.500 ₺', 'Ek keyword: 300 ₺'],
-      en: ['Extra revision: £59', 'Extra blog: £45', 'Extra keyword: £9'],
-    },
+    excluded: { tr: [], en: [] },
+    quotas: { tr: [], en: [] },
+    overages: { tr: [], en: [] },
     recommended: true,
   },
   'web-platform': {
     subtitle: {
-      tr: 'E-ticaret + A/B + heatmap + success manager.',
-      en: 'E-commerce + A/B + heatmap + success manager.',
+      tr: 'Strateji yönlendirmeli, dönüşüm odaklı kurumsal site.',
+      en: 'Strategy-led website built for conversions.',
     },
     included: {
       tr: [
-        'Kurumsal Site paketinin tamamı',
-        'E-ticaret (Shopify / WooCommerce) VEYA rezervasyon sistemi (klinik / restoran / hotel)',
-        'Stripe + iyzico entegrasyonu',
-        'A/B test platformu (VWO / Optimize)',
-        'Heatmap + session recording (Hotjar Pro)',
-        'Aylık conversion rate raporu',
-        'Dedicated success manager',
+        'Strateji yönlendirmeli site yapısı',
+        'Özel tasarım yönü',
+        'Metin parlatma',
+        'SEO temelleri',
+        'Dönüşüm odaklı düzen',
+        '3 revizyon turu',
       ],
       en: [
-        'Everything in Corporate Site',
-        'E-commerce (Shopify / WooCommerce) OR booking system (clinic / restaurant / hotel)',
-        'Stripe + iyzico integration',
-        'A/B test platform (VWO / Optimize)',
-        'Heatmap + session recording (Hotjar Pro)',
-        'Monthly conversion rate report',
-        'Dedicated success manager',
+        'Strategy-led website structure',
+        'Custom design direction',
+        'Copy refinement',
+        'SEO foundations',
+        'Conversion-focused layout',
+        '3 revision rounds',
       ],
     },
-    excluded: {
-      tr: [
-        'Mobil uygulama (iOS / Android)',
-        'Custom backend (Node / Python)',
-        'ERP entegrasyonu (SAP / NetSuite)',
-      ],
-      en: [
-        'Mobile app (iOS / Android)',
-        'Custom backend (Node / Python)',
-        'ERP integration (SAP / NetSuite)',
-      ],
+    excluded: { tr: [], en: [] },
+    quotas: { tr: [], en: [] },
+    overages: { tr: [], en: [] },
+  },
+  'web-custom': {
+    subtitle: {
+      tr: 'Gelişmiş web siteleri, entegrasyonlar veya özel projeler için.',
+      en: 'For advanced websites, integrations, or bespoke builds.',
     },
-    quotas: {
-      tr: ['Sınırsız revizyon (ilk 60 gün)', '8 blog / ay', '15 keyword tracking', '1 A/B test / ay'],
-      en: ['Unlimited revisions (first 60 days)', '8 blog posts / month', '15 keyword tracking', '1 A/B test / month'],
-    },
-    overages: {
-      tr: ['Ek A/B test: 2.500 ₺', 'Ek blog: 1.500 ₺'],
-      en: ['Extra A/B test: £75', 'Extra blog: £45'],
-    },
+    included: { tr: [], en: [] },
+    excluded: { tr: [], en: [] },
+    quotas: { tr: [], en: [] },
+    overages: { tr: [], en: [] },
+    premium: true,
+    ctaType: 'booking',
+    ctaLabel: { tr: 'Teklif İste', en: 'Request a Quote' },
   },
 };
 
@@ -689,47 +561,65 @@ function PlanCard({ tier, content, region, isEnglish }: PlanCardProps) {
 
       {/* Price */}
       <div style={{ marginTop: 20 }}>
-        <p
-          style={{
-            fontFamily: 'var(--font-serif)',
-            fontSize: 'clamp(2rem, 1.4rem + 1.4vw, 2.5rem)',
-            lineHeight: 1,
-            letterSpacing: '-0.02em',
-            fontWeight: 500,
-            color: priceColor,
-            margin: 0,
-          }}
-        >
-          {tier.priceFrom && (
-            <span
+        {tier.customPrice ? (
+          <p
+            style={{
+              fontFamily: 'var(--font-serif)',
+              fontSize: 'clamp(1.75rem, 1.2rem + 1.2vw, 2.25rem)',
+              lineHeight: 1,
+              letterSpacing: '-0.02em',
+              fontWeight: 500,
+              color: priceColor,
+              margin: 0,
+            }}
+          >
+            {isEnglish ? 'Quote only' : 'Talep üzerine'}
+          </p>
+        ) : (
+          <>
+            <p
               style={{
-                fontSize: '0.55em',
-                color: labelMutedColor,
-                fontFamily: 'var(--font-mono)',
-                letterSpacing: '0.08em',
-                textTransform: 'uppercase',
-                marginRight: 8,
-                verticalAlign: 'middle',
+                fontFamily: 'var(--font-serif)',
+                fontSize: 'clamp(2rem, 1.4rem + 1.4vw, 2.5rem)',
+                lineHeight: 1,
+                letterSpacing: '-0.02em',
+                fontWeight: 500,
+                color: priceColor,
+                margin: 0,
               }}
             >
-              {isEnglish ? 'From' : 'Başlangıç'}
-            </span>
-          )}
-          {formatPrice(tier.price, region)}
-        </p>
-        <p
-          style={{
-            marginTop: 6,
-            fontFamily: 'var(--font-mono)',
-            fontSize: 11,
-            letterSpacing: '0.14em',
-            textTransform: 'uppercase',
-            color: labelMutedColor,
-          }}
-        >
-          {isEnglish ? 'per month' : 'aylık'}
-        </p>
-        {isAds && (
+              {tier.priceFrom && (
+                <span
+                  style={{
+                    fontSize: '0.55em',
+                    color: labelMutedColor,
+                    fontFamily: 'var(--font-mono)',
+                    letterSpacing: '0.08em',
+                    textTransform: 'uppercase',
+                    marginRight: 8,
+                    verticalAlign: 'middle',
+                  }}
+                >
+                  {isEnglish ? 'From' : 'Başlangıç'}
+                </span>
+              )}
+              {formatPrice(tier.price, region)}
+            </p>
+            <p
+              style={{
+                marginTop: 6,
+                fontFamily: 'var(--font-mono)',
+                fontSize: 11,
+                letterSpacing: '0.14em',
+                textTransform: 'uppercase',
+                color: labelMutedColor,
+              }}
+            >
+              {isEnglish ? 'per month' : 'aylık'}
+            </p>
+          </>
+        )}
+        {isAds && tier.adManagementPercent > 0 && (
           <p style={{ marginTop: 8, fontSize: 12, color: subtitleColor, lineHeight: 1.5 }}>
             {isEnglish
               ? `+ your ad budget × ${tier.adManagementPercent}% management fee (budget is paid directly to Meta / Google)`
@@ -739,85 +629,89 @@ function PlanCard({ tier, content, region, isEnglish }: PlanCardProps) {
       </div>
 
       {/* Setup fee */}
-      <div
-        style={{
-          marginTop: 14,
-          fontFamily: 'var(--font-mono)',
-          fontSize: 12,
-          color: subtitleColor,
-          paddingTop: 14,
-          borderTop: `1px solid ${dividerColor}`,
-        }}
-      >
-        {hasSetup ? (
-          <span>
-            {content.setupPrefix
-              ? isEnglish
-                ? content.setupPrefix.en
-                : content.setupPrefix.tr
-              : isEnglish
-              ? 'One-time setup from '
-              : 'Tek seferlik kurulum: '}
-            <strong style={{ color: titleColor }}>{formatPrice(tier.setupFee, region)}</strong>
-          </span>
-        ) : (
-          <span style={{ color: 'var(--ember)' }}>
-            {isEnglish ? '✓ Setup included' : '✓ Kurulum dahil'}
-          </span>
-        )}
-        {tier.deliveryDays > 0 && (
-          <span style={{ marginLeft: 12, color: labelMutedColor }}>
-            ·{' '}
-            {isEnglish
-              ? `Delivery ${tier.deliveryDays} business days`
-              : `Teslim ${tier.deliveryDays} iş günü`}
-          </span>
-        )}
-      </div>
-
-      {/* Dahil */}
-      <div style={{ marginTop: 18 }}>
-        <p
+      {!tier.customPrice && (
+        <div
           style={{
+            marginTop: 14,
             fontFamily: 'var(--font-mono)',
-            fontSize: 11,
-            letterSpacing: '0.14em',
-            textTransform: 'uppercase',
-            color: 'var(--ember)',
-            fontWeight: 600,
-            margin: 0,
+            fontSize: 12,
+            color: subtitleColor,
+            paddingTop: 14,
+            borderTop: `1px solid ${dividerColor}`,
           }}
         >
-          {isEnglish ? 'INCLUDED' : 'DAHİL'}
-        </p>
-        <ul
-          style={{
-            marginTop: 10,
-            padding: 0,
-            listStyle: 'none',
-            display: 'flex',
-            flexDirection: 'column',
-            gap: 8,
-          }}
-        >
-          {(isEnglish ? content.included.en : content.included.tr).map((feature) => (
-            <li
-              key={feature}
-              style={{
-                display: 'flex',
-                alignItems: 'flex-start',
-                gap: 10,
-                fontSize: 14,
-                color: featureColor,
-                lineHeight: 1.45,
-              }}
-            >
-              <Check size={14} style={{ marginTop: 4, flexShrink: 0, color: 'var(--ember)' }} />
-              <span>{feature}</span>
-            </li>
-          ))}
-        </ul>
-      </div>
+          {hasSetup ? (
+            <span>
+              {content.setupPrefix
+                ? isEnglish
+                  ? content.setupPrefix.en
+                  : content.setupPrefix.tr
+                : isEnglish
+                ? 'One-time setup from '
+                : 'Tek seferlik kurulum: '}
+              <strong style={{ color: titleColor }}>{formatPrice(tier.setupFee, region)}</strong>
+            </span>
+          ) : (
+            <span style={{ color: 'var(--ember)' }}>
+              {isEnglish ? '✓ Setup included' : '✓ Kurulum dahil'}
+            </span>
+          )}
+          {tier.deliveryDays > 0 && (
+            <span style={{ marginLeft: 12, color: labelMutedColor }}>
+              ·{' '}
+              {isEnglish
+                ? `Delivery ${tier.deliveryDays} business days`
+                : `Teslim ${tier.deliveryDays} iş günü`}
+            </span>
+          )}
+        </div>
+      )}
+
+      {/* Dahil — sadece içerik varsa */}
+      {content.included.tr.length > 0 && (
+        <div style={{ marginTop: 18 }}>
+          <p
+            style={{
+              fontFamily: 'var(--font-mono)',
+              fontSize: 11,
+              letterSpacing: '0.14em',
+              textTransform: 'uppercase',
+              color: 'var(--ember)',
+              fontWeight: 600,
+              margin: 0,
+            }}
+          >
+            {isEnglish ? 'INCLUDED' : 'DAHİL'}
+          </p>
+          <ul
+            style={{
+              marginTop: 10,
+              padding: 0,
+              listStyle: 'none',
+              display: 'flex',
+              flexDirection: 'column',
+              gap: 8,
+            }}
+          >
+            {(isEnglish ? content.included.en : content.included.tr).map((feature) => (
+              <li
+                key={feature}
+                style={{
+                  display: 'flex',
+                  alignItems: 'flex-start',
+                  gap: 10,
+                  fontSize: 14,
+                  color: featureColor,
+                  lineHeight: 1.45,
+                }}
+              >
+                <Check size={14} style={{ marginTop: 4, flexShrink: 0, color: 'var(--ember)' }} />
+                <span>{feature}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
 
       {/* Dahil değil — sadece içerik varsa */}
       {content.excluded.tr.length > 0 && (
@@ -1424,28 +1318,62 @@ export default function Packages() {
             </div>
           )}
 
-          {/* Ads extra note */}
+          {/* Ads disclaimer */}
           {activeCategory === 'ads' && (
-            <div
+            <ul
               style={{
-                marginTop: 36,
-                padding: '20px 24px',
-                background: 'var(--paper-2)',
-                border: '1px solid var(--border)',
-                borderLeft: '2px solid var(--ember)',
-                borderRadius: 'var(--r-md)',
-                fontSize: 14,
-                color: 'var(--fg-1)',
+                marginTop: 28,
+                maxWidth: 920,
+                padding: 0,
+                listStyle: 'none',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 6,
+                fontSize: 13,
                 lineHeight: 1.6,
+                color: 'var(--fg-3)',
+                fontStyle: 'italic',
               }}
             >
-              <strong style={{ color: 'var(--ink)' }}>
-                {isEnglish ? 'How ad spend is billed: ' : 'Reklam bütçesi nasıl faturalanır: '}
-              </strong>
-              {isEnglish
-                ? 'Your ad budget is paid directly to Meta / Google from your own card. We never collect or deduct it. The 10% management fee is calculated monthly on actual spend and invoiced separately from the retainer.'
-                : 'Reklam bütçeniz direkt kendi kartınızdan Meta / Google\'a ödenir. Biz tahsil etmez, biz kesmez. %10 yönetim payı gerçek harcama üzerinden aylık hesaplanır ve aylık fee\'den ayrı fatura edilir.'}
-            </div>
+              <li>{isEnglish ? '* GBP pricing on the UK site.' : '* UK sitesinde GBP fiyatlandırma.'}</li>
+              <li>{isEnglish ? '* Ad spend is not included — paid directly to the ad platforms.' : '* Reklam bütçesi dahil değildir — direkt reklam platformlarına ödenir.'}</li>
+              <li>
+                {isEnglish
+                  ? '* Third-party costs (creative tools, tracking, etc.) are billed separately where applicable.'
+                  : '* 3. parti maliyetler (kreatif araçlar, izleme vb.) ilgili olduğunda ayrıca faturalandırılır.'}
+              </li>
+            </ul>
+          )}
+
+          {/* Web disclaimer */}
+          {activeCategory === 'web' && (
+            <ul
+              style={{
+                marginTop: 28,
+                maxWidth: 920,
+                padding: 0,
+                listStyle: 'none',
+                display: 'flex',
+                flexDirection: 'column',
+                gap: 6,
+                fontSize: 13,
+                lineHeight: 1.6,
+                color: 'var(--fg-3)',
+                fontStyle: 'italic',
+              }}
+            >
+              <li>{isEnglish ? '* GBP pricing on the UK site.' : '* UK sitesinde GBP fiyatlandırma.'}</li>
+              <li>
+                {isEnglish
+                  ? '* Hosting, domains, and third-party services are billed separately where applicable.'
+                  : '* Hosting, alan adı ve 3. parti servisler ilgili olduğunda ayrıca faturalandırılır.'}
+              </li>
+              <li>
+                {isEnglish
+                  ? '* Ad spend is not included — see the Marketing packages for paid acquisition.'
+                  : '* Reklam bütçesi dahil değildir — ücretli edinme için Reklam paketlerine bakın.'}
+              </li>
+            </ul>
           )}
         </div>
       </section>
