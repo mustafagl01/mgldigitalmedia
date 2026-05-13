@@ -31,6 +31,8 @@ type PlanContent = {
   setupPrefix?: { tr: string; en: string };
   /** Optional note rendered between the feature list and the CTA (e.g. dev-hour rate). */
   footnote?: { tr: string; en: string };
+  /** Tiny usage caveat shown in the fine-print row (e.g. "Voice usage billed separately."). */
+  usageNote?: { tr: string; en: string };
 };
 
 const STRATEGY_CALL_URL = 'https://calendar.app.google/jgu53NFAy7BnYVui8';
@@ -129,6 +131,10 @@ const PLAN_CONTENT: Record<PackageTierKey, PlanContent> = {
     excluded: { tr: [], en: [] },
     quotas: { tr: [], en: [] },
     overages: { tr: [], en: [] },
+    usageNote: {
+      tr: 'Sesli kullanım ayrıca faturalandırılır.',
+      en: 'Voice usage billed separately.',
+    },
   },
   pro: {
     subtitle: {
@@ -157,6 +163,10 @@ const PLAN_CONTENT: Record<PackageTierKey, PlanContent> = {
     quotas: { tr: [], en: [] },
     overages: { tr: [], en: [] },
     recommended: true,
+    usageNote: {
+      tr: 'Sesli kullanım ayrıca faturalandırılır.',
+      en: 'Voice usage billed separately.',
+    },
   },
   advanced: {
     subtitle: {
@@ -189,6 +199,10 @@ const PLAN_CONTENT: Record<PackageTierKey, PlanContent> = {
     footnote: {
       tr: 'Ek geliştirme saati £80/saat üzerinden faturalandırılır.',
       en: 'Additional dev hours billed at £80/hr.',
+    },
+    usageNote: {
+      tr: 'Sesli kullanım ayrıca faturalandırılır.',
+      en: 'Voice usage billed separately.',
     },
   },
 
@@ -906,6 +920,24 @@ function PlanCard({ tier, content, region, isEnglish }: PlanCardProps) {
         </div>
       )}
 
+      {/* Tiny usage caveat (e.g. voice usage billed separately) */}
+      {content.usageNote && (
+        <p
+          style={{
+            margin: '14px 0 0',
+            paddingTop: 14,
+            borderTop: `1px solid ${dividerColor}`,
+            fontFamily: 'var(--font-mono)',
+            fontSize: 11,
+            letterSpacing: '0.04em',
+            color: labelMutedColor,
+            lineHeight: 1.5,
+          }}
+        >
+          {isEnglish ? content.usageNote.en : content.usageNote.tr}
+        </p>
+      )}
+
       {/* Footnote (e.g. dev-hour rate) — sits above CTA */}
       {content.footnote && (
         <p
@@ -1405,7 +1437,6 @@ export default function Packages() {
                 fontStyle: 'italic',
               }}
             >
-              <li>{isEnglish ? '* GBP pricing on the UK site.' : '* UK sitesinde GBP fiyatlandırma.'}</li>
               <li>{isEnglish ? '* Ad spend is not included — paid directly to the ad platforms.' : '* Reklam bütçesi dahil değildir — direkt reklam platformlarına ödenir.'}</li>
               <li>
                 {isEnglish
@@ -1441,9 +1472,6 @@ export default function Packages() {
                 {isEnglish
                   ? '* Major content changes, extra pages, or new features are quoted separately.'
                   : '* Büyük içerik değişiklikleri, ek sayfalar veya yeni özellikler ayrıca fiyatlandırılır.'}
-              </li>
-              <li>
-                {isEnglish ? '* GBP pricing on the UK site.' : '* UK sitesinde GBP fiyatlandırma.'}
               </li>
             </ul>
           )}

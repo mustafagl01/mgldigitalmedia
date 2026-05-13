@@ -113,8 +113,9 @@ export function SiteHeader({ currentPage, onNavigate, onAnalysisClick }: Props) 
         <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
           <div
             className="lang-switcher"
+            aria-label={language === 'tr' ? 'Dil seçimi' : 'Language switcher'}
             style={{
-              display: 'none',
+              display: 'inline-flex',
               alignItems: 'center',
               gap: 0,
               border: '1px solid var(--border)',
@@ -126,10 +127,11 @@ export function SiteHeader({ currentPage, onNavigate, onAnalysisClick }: Props) 
               <button
                 key={l}
                 onClick={() => setLanguage(l)}
+                aria-pressed={language === l}
                 style={{
                   fontFamily: 'var(--font-mono)',
                   fontSize: 11,
-                  padding: '4px 10px',
+                  padding: '4px 9px',
                   textTransform: 'uppercase',
                   letterSpacing: '0.14em',
                   borderRadius: 'var(--r-xs)',
@@ -241,30 +243,7 @@ export function SiteHeader({ currentPage, onNavigate, onAnalysisClick }: Props) 
             </button>
           </nav>
 
-          <div style={{ display: 'flex', gap: 8, marginTop: 20 }}>
-            {(['tr', 'en'] as const).map((l) => (
-              <button
-                key={l}
-                onClick={() => setLanguage(l)}
-                style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: 11,
-                  padding: '6px 12px',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.14em',
-                  borderRadius: 'var(--r-sm)',
-                  background: language === l ? 'var(--ink)' : 'transparent',
-                  color: language === l ? 'var(--paper)' : 'var(--fg-3)',
-                  fontWeight: 500,
-                  border: '1px solid var(--border)',
-                }}
-              >
-                {l}
-              </button>
-            ))}
-          </div>
-
-          <div style={{ display: 'grid', gap: 10, marginTop: 16 }}>
+          <div style={{ display: 'grid', gap: 10, marginTop: 20 }}>
             <button onClick={handleWhatsApp} className="btn btn-ghost btn-md">
               WhatsApp
             </button>
