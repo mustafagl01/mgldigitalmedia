@@ -1180,8 +1180,8 @@ export default function Packages() {
     }
     if (activeCategory === 'web') {
       return isEnglish
-        ? 'Website Packages — Landing, Corporate, Conversion Platform | MGL Digital Media'
-        : 'Web Sitesi Paketleri — Landing, Kurumsal, Platform | MGL Digital Media';
+        ? 'Website Packages — Business, Booking, Ordering, Smart & Bespoke Professional | MGL Digital Media'
+        : 'Web Sitesi Paketleri — Kurumsal, Randevu, Sipariş, Akıllı ve Profesyonel | MGL Digital Media';
     }
     return isEnglish
       ? 'AI Agent Packages — WhatsApp Assistant, Multi-Channel Assistant, AI Reception, Full Autonomy | MGL Digital Media'
