@@ -18,7 +18,8 @@ export type PackageTierKey =
   | 'web-landing'
   | 'web-site'
   | 'web-platform'
-  | 'web-custom';
+  | 'web-custom'
+  | 'web-pro';
 
 export type PackageTier = {
   key: PackageTierKey;
@@ -222,6 +223,22 @@ export const REGIONAL_PRICING: Record<PricingRegionCode, RegionalPricing> = {
         oneOffSetup: true,
         priceUnit: 'year',
       },
+      'web-pro': {
+        key: 'web-pro',
+        category: 'web',
+        name: 'Profesyonel Hizmet Sitesi',
+        price: 3499,
+        setupFee: 44999,
+        voiceMinutes: 0,
+        chatConversations: 0,
+        overageChatPer100: 0,
+        overageVoicePer100: 0,
+        adManagementPercent: 0,
+        deliveryDays: 28,
+        priceFrom: true,
+        oneOffSetup: true,
+        priceUnit: 'year',
+      },
     },
   },
   GB: {
@@ -383,6 +400,22 @@ export const REGIONAL_PRICING: Record<PricingRegionCode, RegionalPricing> = {
         oneOffSetup: true,
         priceUnit: 'year',
       },
+      'web-pro': {
+        key: 'web-pro',
+        category: 'web',
+        name: 'Bespoke Professional',
+        price: 100,
+        setupFee: 1250,
+        voiceMinutes: 0,
+        chatConversations: 0,
+        overageChatPer100: 0,
+        overageVoicePer100: 0,
+        adManagementPercent: 0,
+        deliveryDays: 28,
+        priceFrom: true,
+        oneOffSetup: true,
+        priceUnit: 'year',
+      },
     },
   },
 };
@@ -393,7 +426,7 @@ export function resolveRegionByCountry(countryCode?: string | null): PricingRegi
 
 export const AGENT_TIER_KEYS: PackageTierKey[] = ['starter', 'pro', 'advanced'];
 export const ADS_TIER_KEYS: PackageTierKey[] = ['ads-starter', 'ads-growth', 'ads-scale'];
-export const WEB_TIER_KEYS: PackageTierKey[] = ['web-landing', 'web-site', 'web-platform', 'web-custom'];
+export const WEB_TIER_KEYS: PackageTierKey[] = ['web-landing', 'web-site', 'web-platform', 'web-custom', 'web-pro'];
 
 export function tierKeysForCategory(category: PackageCategoryKey): PackageTierKey[] {
   if (category === 'ads') return ADS_TIER_KEYS;

@@ -236,7 +236,7 @@ export function SiteFooter({ onNavigate }: Props) {
               </li>
               <li>
                 <a href="https://wa.me/905318299701" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--bone-2)' }}>
-                  WhatsApp: +90 531 829 97 01
+                  {language === 'tr' ? 'WhatsApp: +90 531 829 97 01' : 'WhatsApp — message us directly'}
                 </a>
               </li>
               <li>
@@ -289,7 +289,7 @@ export function SiteFooter({ onNavigate }: Props) {
               textUnderlineOffset: 4,
             }}
           >
-            {legalHeading} · KVKK · GDPR
+            {language === 'tr' ? `${legalHeading} · KVKK · GDPR` : `${legalHeading} · GDPR · Privacy`}
           </button>
         </div>
 

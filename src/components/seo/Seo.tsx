@@ -191,7 +191,7 @@ export const LOCAL_BUSINESS_SCHEMA = {
   name: 'MGL Digital Media',
   image: `${SITE_URL}${DEFAULT_OG}`,
   url: SITE_URL,
-  telephone: '+90 531 829 97 01',
+  telephone: '+44 7414 605612',
   priceRange: '££ – £££',
   address: {
     '@type': 'PostalAddress',

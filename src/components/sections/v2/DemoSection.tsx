@@ -173,7 +173,7 @@ export function DemoSection({ onEmailDemo, onPhoneDemo }: Props) {
                   lineHeight: 1.2,
                 }}
               >
-                +90 531 829 97 01
+                {language === 'tr' ? '+90 531 829 97 01' : 'Chat on WhatsApp'}
               </div>
               <p style={{ marginTop: 12, color: 'var(--fg-2)', fontSize: 14, lineHeight: 1.55 }}>
                 {language === 'tr'

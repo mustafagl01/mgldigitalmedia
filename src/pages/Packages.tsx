@@ -92,12 +92,12 @@ const CATEGORY_META: Record<PackageCategoryKey, CategoryMeta> = {
     hero: {
       eyebrow: { tr: 'WEB SİTESİ PAKETLERİ', en: 'WEBSITE PACKAGES' },
       title: {
-        tr: 'Müşteri kazandıran küçük işletme siteleri.',
+        tr: 'Müşteri kazandıran web siteleri.',
         en: 'Websites that win you customers.',
       },
       lede: {
-        tr: 'Tek seferlik kurulum, sabit yıllık hosting. Kafenizden takeaway\'inize, randevu alan kliniğinizden online sipariş alan dükkanınıza uygun, sade ve profesyonel paketler.',
-        en: 'One clear setup fee, one flat yearly hosting cost. Honest packages built for UK cafés, clinics, takeaways, and small businesses — not freelance shortcuts.',
+        tr: 'Tek seferlik kurulum, sabit yıllık hosting. Kafenizden takeaway\'inize, randevu alan kliniğinizden muhasebe ve hukuk bürolarına — her ölçek için sade, profesyonel paketler.',
+        en: 'One clear setup fee, one flat yearly hosting cost. Honest packages for UK cafés, takeaways, clinics — and bespoke builds for accountants, solicitors and consultancies.',
       },
     },
   },
@@ -386,6 +386,42 @@ const PLAN_CONTENT: Record<PackageTierKey, PlanContent> = {
       ],
     },
     excluded: { tr: [], en: [] },
+    quotas: { tr: [], en: [] },
+    overages: { tr: [], en: [] },
+  },
+  'web-pro': {
+    subtitle: {
+      tr: 'Muhasebeciler, avukatlar, danışmanlar ve klinikler için üst düzey kurumsal varlık.',
+      en: 'For accountants, solicitors, consultants and clinics — a flagship online presence.',
+    },
+    included: {
+      tr: [
+        'Tamamen özel çok sayfalı tasarım — şablon yok (5–8 sayfa)',
+        'Mevcut içeriğin taşınması + metinlerin profesyonelce düzenlenmesi',
+        'Markaya özel üretilmiş görseller — stok fotoğraf yok',
+        'Online randevu / booking entegrasyonu',
+        'SEO altyapısı: schema, sitemap, Search Console + indexleme',
+        'Domain bağlama + SSL',
+        'Gerçek cihazlarda mobil, tablet ve masaüstü testi',
+        '3 revizyon turu',
+        '30 gün yayın sonrası destek',
+      ],
+      en: [
+        'Fully bespoke multi-page design — no templates (5–8 pages)',
+        'Existing content migrated + professionally edited copy',
+        'Custom brand-matched imagery — no stock photos',
+        'Online booking / appointment integration',
+        'SEO foundation: schema, sitemap, Search Console + indexing',
+        'Domain connection + SSL',
+        'Tested on real mobile, tablet and desktop devices',
+        'Three revision rounds',
+        '30 days post-launch support',
+      ],
+    },
+    excluded: {
+      tr: ['Logo tasarımı', 'Sıfırdan içerik yazarlığı', 'Ek sayfalar ve yeni özellikler ayrıca fiyatlandırılır'],
+      en: ['Logo design', 'Copywriting from scratch', 'Extra pages and new features quoted separately'],
+    },
     quotas: { tr: [], en: [] },
     overages: { tr: [], en: [] },
     premium: true,
@@ -1160,8 +1196,8 @@ export default function Packages() {
     }
     if (activeCategory === 'web') {
       return isEnglish
-        ? 'Three flat-price website packages: Single Landing (7 days), Corporate Site (21 days), Conversion Platform (45 days). Vercel / Netlify hosting and AI content engine included.'
-        : 'Üç sabit fiyatlı web paketi: Tek Sayfa (7 gün), Kurumsal Site (21 gün), Dönüşüm Platformu (45 gün). Vercel / Netlify hosting ve AI içerik motoru dahil.';
+        ? 'Five flat-price website packages, from a £200 one-pager to a fully bespoke professional-services site: booking, online ordering, automation and SEO foundations included per tier.'
+        : 'Beş sabit fiyatlı web paketi: £200 tek sayfadan muhasebeci ve hukuk büroları için tamamen özel profesyonel siteye. Randevu, online sipariş, otomasyon ve SEO kademeye göre dahil.';
     }
     return isEnglish
       ? 'Four flat-price AI agent tiers: WhatsApp, Instagram DM, voice, CRM, automation. TRY and GBP pricing. Monthly cancellation, transparent overage, KVKK/GDPR compliant.'
@@ -1339,7 +1375,7 @@ export default function Packages() {
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
               gap: 20,
             }}
           >
