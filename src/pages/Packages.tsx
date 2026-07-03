@@ -480,8 +480,8 @@ const CATEGORY_FAQ: Record<PackageCategoryKey, FaqItem[]> = {
     {
       q: { tr: 'Kurulum ne kadar sürer?', en: 'How long does setup take?' },
       a: {
-        tr: 'WhatsApp Asistan 3 iş günü, Çok Kanal Asistan 5 iş günü. AI Resepsiyon ve Tam Otonomi ortalama 2–3 hafta (telefon hattı entegrasyonu ve ses eğitimi dahil).',
-        en: 'WhatsApp Assistant in 3 business days, Multi-Channel Assistant in 5. AI Reception and Full Autonomy average 2–3 weeks (phone line integration and voice training included).',
+        tr: 'Core Automation ve Operasyonel Merkez 3 iş günü içinde kurulur ve devreye alınır. AI Çözüm Ortağı özel mimari gerektirdiği için süre görüşme sonrası netleşir.',
+        en: 'Core Automation and Operational Hub are set up and live within 3 business days. AI Solution Partner requires custom architecture, so timing is confirmed after the call.',
       },
     },
     {
