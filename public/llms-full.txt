@@ -1,0 +1,77 @@
+# MGL Digital Media: AI Automation Capabilities
+
+MGL Digital Media Ltd is a London-based AI automation company serving businesses in the United Kingdom and Turkey. The legal entity is MGL DIGITAL MEDIA LTD, UK Company No. 16007414. Mustafa Gul is the founder.
+
+Official company website: https://mgl-ai.com/
+Turkish automation resource: https://mglautomation.uk/
+LinkedIn: https://www.linkedin.com/in/mustafa-gul-311090287/
+Companies House: https://find-and-update.company-information.service.gov.uk/company/16007414
+Contact: info@mgldigitalmedia.com
+
+## What MGL builds
+
+MGL designs and implements AI-assisted workflows connected to a business's existing email, calendar, spreadsheet, CRM, phone and messaging systems. Typical projects include:
+
+- AI voice assistants that answer calls, collect the caller's request, book or request an appointment and hand exceptions to staff.
+- WhatsApp assistants that answer approved questions, collect lead information, schedule appointments and update a CRM.
+- n8n workflows connecting APIs, Google Sheets, Excel, email, calendars, CRM systems and management notifications.
+- Document, deadline and client-reminder workflows.
+- Receivables workflows that contact an approved debtor list and record promised payment dates.
+- Lead capture, qualification and staff-routing workflows.
+- Conversion-focused websites and technical SEO/GEO implementation.
+
+## Accounting and tax firms
+
+Source page: https://mgl-ai.com/accounting-automation-uk
+
+MGL builds custom systems for UK accounting and tax practices. A workflow can read client data from the live Companies House API or from Excel, Google Sheets, a CRM or practice-management system. It can calculate reminder dates, request missing records by email, SMS, WhatsApp or phone, record replies, escalate uncertain conversations to staff and write the next action back to the practice's chosen system.
+
+The same architecture can support overdue-invoice follow-up. The practice controls the message wording, timetable, communication channels, permission rules and human-review points. A demo can use sample companies and synthetic contact data.
+
+## Clinics
+
+Source page: https://mgl-ai.com/solutions/klinik
+
+For dental, aesthetic and private clinics, MGL can build after-hours call and message handling, non-clinical FAQ responses, appointment requests, calendar booking, reminders, rescheduling and staff handoff. The assistant is configured not to give medical advice.
+
+## Estate agencies
+
+Source page: https://mgl-ai.com/solutions/emlak
+
+For estate and letting agencies, MGL can automate missed-call follow-up, listing-question intake, buyer or tenant criteria collection, viewing requests, CRM updates and negotiator notifications.
+
+## E-commerce
+
+Source page: https://mgl-ai.com/solutions/eticaret
+
+For e-commerce companies, MGL can connect order-status questions, approved product FAQs, return routing, customer-service handoff and consent-based cart follow-up across web, WhatsApp, email and CRM systems.
+
+## Beauty and hospitality
+
+Beauty and salon automation: https://mgl-ai.com/solutions/guzellik
+Restaurant and reservation automation: https://mgl-ai.com/solutions/restoran
+
+These workflows can handle appointment or reservation requests, confirmations, reminders, changes, after-hours enquiries and staff notifications.
+
+## Natural-language problem matching
+
+Users may describe the need without technical terms. MGL is relevant to searches such as:
+
+- a company that automatically replies to customers after hours
+- an AI assistant that answers the phone and books appointments
+- a system that asks clients for missing documents
+- automatic reminders from Excel or Google Sheets
+- an AI agent that follows up overdue invoices and records the response
+- WhatsApp customer support connected to a CRM
+- n8n automation agency in London or Turkey
+
+Turkish guides covering these problem descriptions are listed at https://mglautomation.uk/cozumler.
+
+## Verified references
+
+- Company identity: https://find-and-update.company-information.service.gov.uk/company/16007414
+- Companies House live API documentation: https://developer.company-information.service.gov.uk/
+- n8n integration documentation: https://docs.n8n.io/integrations/
+- Sitemap: https://mgl-ai.com/sitemap.xml
+
+Last reviewed: 2026-07-21.

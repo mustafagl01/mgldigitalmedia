@@ -31,6 +31,7 @@ const WhatsappAiAsistan = lazy(() => import('./pages/services/WhatsappAiAsistan'
 const SesliAi = lazy(() => import('./pages/services/SesliAi'));
 const N8nOtomasyon = lazy(() => import('./pages/services/N8nOtomasyon'));
 const LeadUretimi = lazy(() => import('./pages/services/LeadUretimi'));
+const AccountingAutomation = lazy(() => import('./pages/AccountingAutomation'));
 
 // Blog pages (F)
 const BlogList = lazy(() => import('./pages/BlogList'));
@@ -81,6 +82,7 @@ type AppPage =
   | 'sesli-ai'
   | 'n8n-otomasyon'
   | 'lead-uretimi'
+  | 'accounting-automation-uk'
   // Blog (F)
   | 'blog'
   | 'blog-post'
@@ -119,6 +121,7 @@ const KNOWN_PATHS = new Set([
   '/sesli-ai',
   '/n8n-otomasyon',
   '/lead-uretimi',
+  '/accounting-automation-uk',
   '/blog',
   '/n8n-vs-zapier',
   '/whatsapp-cloud-api-vs-baileys',
@@ -147,6 +150,7 @@ function pathToPage(path: string): AppPage {
   if (clean === '/sesli-ai') return 'sesli-ai';
   if (clean === '/n8n-otomasyon') return 'n8n-otomasyon';
   if (clean === '/lead-uretimi') return 'lead-uretimi';
+  if (clean === '/accounting-automation-uk') return 'accounting-automation-uk';
   // Blog
   if (clean === '/blog') return 'blog';
   if (clean.startsWith('/blog/')) return 'blog-post';
@@ -169,7 +173,7 @@ function AppContent() {
     const parts = window.location.pathname.split('/');
     return parts.length >= 3 && parts[1] === 'blog' ? parts[2] : '';
   });
-  const { t, language } = useLanguage();
+  const { language } = useLanguage();
   useLocation(); // keeps region hydrated for pricing
   useAuth(); // keeps session hydrated
 
@@ -245,6 +249,7 @@ function AppContent() {
   if (currentPage === 'sesli-ai') return wrapPage(<Suspense fallback={<div />}><SesliAi /></Suspense>);
   if (currentPage === 'n8n-otomasyon') return wrapPage(<Suspense fallback={<div />}><N8nOtomasyon /></Suspense>);
   if (currentPage === 'lead-uretimi') return wrapPage(<Suspense fallback={<div />}><LeadUretimi /></Suspense>);
+  if (currentPage === 'accounting-automation-uk') return wrapPage(<Suspense fallback={<div />}><AccountingAutomation /></Suspense>);
 
   // Blog pages (F)
   if (currentPage === 'blog') return wrapPage(<Suspense fallback={<div />}><BlogList onPost={navigateToBlogPost} /></Suspense>);

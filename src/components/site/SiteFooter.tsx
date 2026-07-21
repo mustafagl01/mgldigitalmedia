@@ -244,6 +244,16 @@ export function SiteFooter({ onNavigate }: Props) {
                   {language === 'tr' ? 'Sesli asistan: +44 7414 605612' : 'Voice agent: +44 7414 605612'}
                 </a>
               </li>
+              <li>
+                <a href="/accounting-automation-uk" style={{ color: 'var(--bone-2)' }}>
+                  {language === 'tr' ? 'Muhasebe firmaları için otomasyon' : 'Automation for accounting firms'}
+                </a>
+              </li>
+              <li>
+                <a href="https://mglautomation.uk/" style={{ color: 'var(--bone-2)' }}>
+                  {language === 'tr' ? 'MGL AI Türkiye çözümleri' : 'MGL AI Turkey solutions'}
+                </a>
+              </li>
             </ul>
           </div>
         </div>

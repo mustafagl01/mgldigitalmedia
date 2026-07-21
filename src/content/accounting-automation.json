@@ -1,0 +1,92 @@
+{
+  "updated": "2026-07-21",
+  "title": "AI Automation for Accounting and Tax Firms UK | MGL AI",
+  "description": "Custom AI automation for UK accounting and tax firms: Companies House deadline monitoring, document collection, client reminders, receivables follow-up and CRM reporting.",
+  "eyebrow": "AI AUTOMATION FOR ACCOUNTING & TAX FIRMS",
+  "heading": "Deadline, document and payment follow-up without the repetitive chasing.",
+  "answer": "MGL Digital Media builds custom automation systems for UK accounting and tax firms. A workflow can read client data from Companies House, Excel, Google Sheets or a CRM; calculate reminder dates; request missing records by email, SMS, WhatsApp or phone; record replies; escalate exceptions to staff; and follow up overdue invoices using rules approved by the practice.",
+  "fit": "This is a tailored implementation service rather than a fixed off-the-shelf accounting product. The channels, timing, wording, approval points and reporting destination are configured around the practice's existing process.",
+  "capabilities": [
+    {
+      "title": "Deadline monitoring",
+      "body": "Retrieve live public company information through the Companies House API where appropriate, or use dates already held in the practice's spreadsheet, CRM or practice-management system."
+    },
+    {
+      "title": "Document collection",
+      "body": "Send an initial request, identify outstanding records and continue polite follow-up according to the firm's timetable and escalation rules."
+    },
+    {
+      "title": "Multichannel reminders",
+      "body": "Use email, SMS, WhatsApp or an AI voice assistant. A practice can use one channel or a controlled sequence across several channels."
+    },
+    {
+      "title": "Receivables follow-up",
+      "body": "Contact clients about overdue invoices, ask when payment is expected and write the promised date or response back to the source system."
+    },
+    {
+      "title": "Staff handoff",
+      "body": "Route unclear, sensitive or exceptional replies to a named team member instead of allowing the workflow to make an unsupported decision."
+    },
+    {
+      "title": "Audit trail and reporting",
+      "body": "Record each reminder, reply, status change and next action in Excel, Google Sheets, a CRM, a dashboard or a management notification."
+    }
+  ],
+  "workflow": [
+    "Connect the approved client list and deadline source.",
+    "Apply the practice's reminder timetable, communication wording and consent rules.",
+    "Send due reminders and request only the records relevant to that client.",
+    "Update the client status when a reply or document event is received.",
+    "Escalate exceptions and send the team a clear outstanding-work summary."
+  ],
+  "integrations": [
+    "Companies House API",
+    "Microsoft Excel and Google Sheets",
+    "Gmail, Outlook and SMTP email",
+    "CRM and practice-management APIs",
+    "SMS, WhatsApp and voice providers",
+    "Slack, Microsoft Teams and Telegram reporting"
+  ],
+  "safeguards": [
+    "The system does not provide accounting, tax or legal advice to clients.",
+    "The practice approves message templates, timing, channels and escalation rules.",
+    "Sensitive or ambiguous conversations can be held for human review.",
+    "A demonstration can use sample companies and synthetic contact data, so live client records are not required."
+  ],
+  "faqs": [
+    {
+      "question": "Can the system obtain deadlines from Companies House?",
+      "answer": "Yes. The Companies House API provides live public company information. The exact fields and reminder logic are confirmed during scoping; internal tax or client-specific dates can also be read from the firm's own spreadsheet, CRM or practice-management system."
+    },
+    {
+      "question": "Does an accounting firm need to replace its current software?",
+      "answer": "Usually not. The workflow is designed to sit alongside the firm's existing spreadsheet, email, CRM or practice-management system, subject to the available APIs and access controls."
+    },
+    {
+      "question": "Can reminders be sent by email, WhatsApp, SMS or phone?",
+      "answer": "Yes. The firm chooses the permitted channels and sequence. Voice and messaging workflows can hand sensitive or uncertain replies to staff."
+    },
+    {
+      "question": "Can MGL AI prepare a demo without client data?",
+      "answer": "Yes. A scheduled reminder demo can use sample company numbers, synthetic contacts and test dates. It can show deadline selection, message delivery and status reporting without using confidential client information."
+    },
+    {
+      "question": "Can the same workflow chase overdue invoices?",
+      "answer": "Yes. A separate collections workflow can contact an approved list of debtors, ask for an expected payment date and write the outcome to the practice's chosen system."
+    }
+  ],
+  "sources": [
+    {
+      "label": "Companies House API overview",
+      "url": "https://developer.company-information.service.gov.uk/"
+    },
+    {
+      "label": "n8n Google Sheets integration documentation",
+      "url": "https://docs.n8n.io/integrations/builtin/app-nodes/n8n-nodes-base.googlesheets/"
+    },
+    {
+      "label": "MGL AI Turkish accounting automation page",
+      "url": "https://mglautomation.uk/muhasebe-otomasyonu"
+    }
+  ]
+}

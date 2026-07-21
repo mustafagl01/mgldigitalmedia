@@ -168,6 +168,8 @@ export const ORGANIZATION_SCHEMA = {
   slogan: 'Biz ajans değil, otopilot sistem kurarız.',
   sameAs: [
     'https://www.instagram.com/mgl_digital_media/',
+    'https://www.linkedin.com/in/mustafa-gul-311090287/',
+    'https://mglautomation.uk/',
     'https://find-and-update.company-information.service.gov.uk/company/16007414',
   ],
 };
