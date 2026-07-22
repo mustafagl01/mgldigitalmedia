@@ -13,12 +13,14 @@ Unlike traditional marketing agencies that produce deliverables, MGL ships persi
 ## Primary Services
 
 ### WhatsApp AI Assistant
-- Stack: Evolution API (self-hosted, open-source Baileys) + n8n + GPT-4o
+- Stack: Evolution API (self-hosted, open-source Baileys) + n8n + a selected text model
 - NOT using: Meta WhatsApp Business API (too expensive for SMBs), Twilio, 360dialog
 - Capabilities: 7/24 auto-response, appointment booking, FAQ handling, lead qualification, CRM sync
 - Languages: Turkish and English
-- Pricing: From 3,999 TRY/month (£119/month)
-- Setup time: 3-7 business days
+- Pricing: From 6,999 TRY / £199 per month, plus 19,999 TRY / £499 one-off setup
+- Included allowance: 2,000 AI replies per month; additional AI replies are 2 TL / £0.02 each
+- Official Meta/BSP conversation fees are passed through only when that route is selected and used
+- Setup time: approximately 5 business days after access and approved content are supplied
 - URL: https://mgl-ai.com/whatsapp-ai-asistan
 
 ### Voice AI Phone Agent
@@ -26,15 +28,18 @@ Unlike traditional marketing agencies that produce deliverables, MGL ships persi
 - Capabilities: Inbound call handling, appointment booking, FAQ, real-time calendar sync
 - Response latency: 0.8-1.5 seconds
 - Languages: Turkish (Türkçe) and English
-- Pricing: From 3,999 TRY/month (£119/month)
-- Setup time: 3-7 business days
+- Pricing: From 8,999 TRY / £249 per month, plus 24,999 TRY / £750 one-off setup
+- Voice usage: currently standardised at 9 TL / £0.15 per connected minute; the exact Retell, telephony, voice and model stack is confirmed before launch
+- Only connected calls are billed for voice usage; the monthly system fee and voice usage are separate
+- Setup time: approximately 7 business days after access and approved content are supplied
 - URL: https://mgl-ai.com/sesli-ai
 
 ### n8n Automation Workflows
 - Stack: n8n (self-hosted for GDPR/KVKK compliance) — no task limits
 - Integrations: HubSpot, Pipedrive, Zoho, Stripe, iyzico, Google Sheets, Airtable, Slack, Telegram, WhatsApp (Evolution API), and 400+ more
 - Use cases: CRM sync, appointment reminders, payment notifications, lead nurture sequences, weekly reports, e-commerce flows
-- Pricing: From 3,999 TRY/month (£119/month)
+- Pricing: From 4,999 TRY / £149 per month, plus 24,999 TRY / £750 one-off setup
+- Included scope: up to 3 production workflows, 2 integrations, monitoring, failure alerts and monthly maintenance
 - URL: https://mgl-ai.com/n8n-otomasyon
 
 ### AI-Powered Lead Generation
@@ -70,11 +75,12 @@ Unlike traditional marketing agencies that produce deliverables, MGL ships persi
 
 ## Pricing Model
 
-Transparent fixed pricing per tier, no price ranges. All tiers include setup fee (one-time) plus monthly retainer. Advertising budgets are pass-through — clients pay Meta / Google directly; MGL charges 10% management fee on ad spend.
+Transparent fixed pricing per tier, no price ranges. Agent tiers separate the one-off implementation fee, monthly system fee and channel usage so low-usage clients do not subsidise high-volume calling. Text AI/API usage is included within the stated reply allowance; voice is billed per connected minute; official Meta/BSP, SMS and other provider charges are passed through only when used. Advertising budgets are pass-through — clients pay Meta / Google directly; MGL charges 10% management fee on ad spend.
 
-Agent tiers: WhatsApp Assistant (3,999 TRY / £119 monthly), Multi-Channel Assistant (9,999 TRY / £299), AI Reception (14,999 TRY / £449), Full Autonomy (24,999 TRY / £749).
-Advertising tiers: Starter (9,999 TRY / £349), Growth (19,999 TRY / £699), Scale (39,999 TRY / £1,399).
-Web tiers: Landing (19,999 TRY / £599 setup), Corporate Site (49,999 TRY / £1,499 setup), Conversion Platform (89,999 TRY / £2,699 setup).
+Agent tiers: WhatsApp AI Assistant (6,999 TRY / £199 monthly + 19,999 TRY / £499 setup), Voice AI Receptionist (8,999 TRY / £249 monthly + 24,999 TRY / £750 setup), AI Front Desk (15,999 TRY / £449 monthly + 44,999 TRY / £1,250 setup), AI Operations Hub (31,999 TRY / £899 monthly + 89,999 TRY / £2,500 setup).
+Voice usage is currently 9 TL / £0.15 per connected minute; the final rate is confirmed against the selected Retell, telephony, TTS and model configuration.
+Advertising tiers: Starter (9,999 TRY / £300), Growth (24,999 TRY / £750), Scale (49,999 TRY / £1,500).
+Web tiers: Business Website (6,999 TRY / £200 setup + 3,499 TRY / £100 yearly hosting), Booking Website (12,499 TRY / £350 setup + hosting), Online Ordering Website (17,999 TRY / £500 setup + hosting), Smart Website (32,999 TRY / £900 setup + hosting), Bespoke Professional (44,999 TRY / £1,250 setup + hosting).
 
 ## Technology Stack (Full Disclosure)
 
@@ -82,7 +88,7 @@ Web tiers: Landing (19,999 TRY / £599 setup), Corporate Site (49,999 TRY / £1,
 - **Workflow engine**: n8n (self-hosted for data compliance, unlimited tasks)
 - **Voice AI**: Retell AI (real-time, low-latency phone calls)
 - **Text-to-speech**: ElevenLabs (natural voice synthesis, Turkish support)
-- **LLM**: OpenAI GPT-4o (primary), Claude 3.5 Sonnet (secondary)
+- **LLM**: The model is selected per workflow and can include GLM, OpenAI, Claude or another suitable provider
 - **Lead data**: Apollo.io, Google Maps Places API
 - **Web**: Vite + React, Next.js, Cloudflare Pages, Vercel
 - **CRM integrations**: HubSpot, Pipedrive, Zoho (via n8n)

@@ -77,12 +77,12 @@ const CATEGORY_META: Record<PackageCategoryKey, CategoryMeta> = {
     hero: {
       eyebrow: { tr: 'AI AGENT PAKETLERİ', en: 'AI AGENT PACKAGES' },
       title: {
-        tr: 'Dört kademe. Tek şeffaf anlaşma.',
-        en: 'Four tiers. One honest deal.',
+        tr: 'İhtiyacınız olan sistemi seçin.',
+        en: 'Choose the system you actually need.',
       },
       lede: {
-        tr: 'WhatsApp, Instagram DM ve sesli asistanla 7/24 operasyon. Aylık çıkış hakkı, şeffaf aşım, KVKK/GDPR uyumlu.',
-        en: 'WhatsApp, IG DM and voice — 24/7 operations. Monthly cancellation, transparent overage, KVKK/GDPR compliant.',
+        tr: 'Yalnızca WhatsApp, yalnızca telefon, birleşik ön büro veya çok süreçli operasyon. Her pakette kurulum, kapsam ve kullanım ücretleri açık.',
+        en: 'WhatsApp only, phone only, a joined-up front desk, or multi-process operations. Setup, scope and usage are clear in every plan.',
       },
     },
   },
@@ -107,102 +107,182 @@ const PLAN_CONTENT: Record<PackageTierKey, PlanContent> = {
   // ---------------- AGENTS ----------------
   starter: {
     subtitle: {
-      tr: 'En sık tekrarlanan işleri otomatikleştirmek için temel AI entegrasyonu.',
-      en: 'Essential AI integration to automate your most repetitive tasks.',
+      tr: 'WhatsApp mesajlarını 7/24 yanıtlar, bilgi toplar ve müşteriyi doğru sonraki adıma götürür.',
+      en: 'Replies on WhatsApp 24/7, captures the enquiry and moves each customer to the right next step.',
     },
     included: {
       tr: [
-        '1 Özel AI Agent (Sesli VEYA WhatsApp)',
-        'Temel n8n Workflow Otomasyonu',
-        'Takvim & Temel Tablo Senkronizasyonu',
-        'Standart Destek (48 saat SLA)',
+        'Onaylı işletme bilgilerinizle 7/24 WhatsApp yanıtı',
+        'Sık sorulan sorular, lead bilgisi ve talep toplama',
+        'Randevu linki veya takvim, CRM ya da tablo bağlantısı',
+        'Gerektiğinde personele aktarma ve kısa görüşme özeti',
+        'En fazla 2 n8n otomasyon akışı ve 1 entegrasyon',
         'Aylık Performans Raporu',
-        'Aylık 1 saate kadar workflow güncellemesi',
+        'Aylık 1 saate kadar içerik veya akış güncellemesi',
       ],
       en: [
-        '1 Dedicated AI Agent (Voice OR WhatsApp)',
-        'Core n8n Workflow Automation',
-        'Calendar & Basic Spreadsheet Sync',
-        'Standard Support (48h SLA)',
+        '24/7 WhatsApp replies using your approved business information',
+        'FAQs, lead details and enquiry capture',
+        'Booking link or one calendar, CRM or spreadsheet connection',
+        'Human hand-off with a concise conversation summary',
+        'Up to 2 n8n automation workflows and 1 integration',
         'Monthly Performance Report',
-        'Up to 1 hour/month of workflow updates',
+        'Up to 1 hour/month of content or workflow updates',
       ],
     },
-    excluded: { tr: [], en: [] },
-    quotas: { tr: [], en: [] },
-    overages: { tr: [], en: [] },
+    excluded: {
+      tr: ['Telefon aramalarını yanıtlama', 'Çoklu CRM veya özel klinik yazılımı entegrasyonu'],
+      en: ['Phone-call handling', 'Multiple CRM or bespoke clinic-software integrations'],
+    },
+    quotas: {
+      tr: ['Aylık 2.000 AI yanıtı', '1 WhatsApp numarası', '1 bağlı sistem'],
+      en: ['2,000 AI replies per month', '1 WhatsApp number', '1 connected system'],
+    },
+    overages: {
+      tr: ['Ek AI yanıtı: 2 TL', 'Resmî Meta/BSP mesaj ücretleri kullanılırsa ayrıca yansıtılır'],
+      en: ['Additional AI reply: £0.02', 'Official Meta/BSP messaging fees are passed through when used'],
+    },
     usageNote: {
-      tr: 'Sesli kullanım ayrıca faturalandırılır.',
-      en: 'Voice usage billed separately.',
+      tr: 'AI model/API kullanımı belirtilen kota içinde dahildir. Telefon özelliği bu pakette yoktur.',
+      en: 'AI model/API usage is included within the stated allowance. Phone answering is not included.',
+    },
+  },
+  voice: {
+    subtitle: {
+      tr: 'Gelen çağrıları 7/24 yanıtlar, arayanın talebini anlar ve randevu ya da geri arama oluşturur.',
+      en: 'Answers inbound calls 24/7, understands the request and books an appointment or callback.',
+    },
+    included: {
+      tr: [
+        'Doğal sesli AI ile 7/24 gelen çağrı yanıtlama',
+        'Sık sorulan sorular, arayan bilgisi ve talep toplama',
+        'Randevu alma veya geri arama talebi oluşturma',
+        'Canlı personele aktarma ve cevapsız durumda güvenli yönlendirme',
+        'Çağrı metni, özet ve e-posta/Telegram bildirimi',
+        'En fazla 2 n8n otomasyon akışı ve 1 entegrasyon',
+        'Aylık 1 saate kadar içerik veya akış güncellemesi',
+      ],
+      en: [
+        '24/7 inbound call handling with a natural AI voice',
+        'FAQs, caller details and enquiry capture',
+        'Appointment booking or callback-request creation',
+        'Live staff transfer with a safe fallback when unavailable',
+        'Call transcript, summary and email/Telegram notification',
+        'Up to 2 n8n automation workflows and 1 integration',
+        'Up to 1 hour/month of content or workflow updates',
+      ],
+    },
+    excluded: {
+      tr: ['WhatsApp mesaj yanıtlama', 'Toplu veya yüksek hacimli giden arama kampanyaları'],
+      en: ['WhatsApp message handling', 'Bulk or high-volume outbound call campaigns'],
+    },
+    quotas: {
+      tr: ['1 telefon numarası veya çağrı yönlendirmesi', '1 takvim, CRM veya tablo entegrasyonu'],
+      en: ['1 phone number or call-forwarding route', '1 calendar, CRM or spreadsheet integration'],
+    },
+    overages: {
+      tr: ['Sesli kullanım: bağlı dakika başına 9 TL (Retell/telefon/ses seçimine göre netleşir)'],
+      en: ['Voice usage: £0.15 per connected minute (confirmed against the selected Retell/telephony/voice stack)'],
+    },
+    usageNote: {
+      tr: 'Ses, telefon ve AI model/API maliyeti dakika ücretine dahildir. Yalnızca bağlanan çağrılar ücretlenir.',
+      en: 'Voice, telephony and AI model/API costs are included in the minute rate. Only connected calls are billed.',
     },
   },
   pro: {
     subtitle: {
-      tr: 'Büyüyen işletmeler için çok kanallı AI altyapısı.',
-      en: 'Multi-channel AI infrastructure for growing businesses.',
+      tr: 'Telefon, WhatsApp ve web taleplerini tek randevu ve müşteri akışında birleştirir.',
+      en: 'Joins phone, WhatsApp and website enquiries into one booking and customer workflow.',
     },
     included: {
       tr: [
-        'Senkronize Sesli + WhatsApp AI Agent\'ları',
-        'Derin CRM Entegrasyonu (HubSpot, GoHighLevel vb.)',
-        'Çok adımlı gelişmiş n8n Workflow\'ları',
-        'Öncelikli WhatsApp Desteği (24 saat SLA)',
-        '1 Aylık Strateji Görüşmesi',
-        'Aylık 3 saate kadar workflow güncellemesi',
+        'Birlikte çalışan Sesli AI + WhatsApp asistanı',
+        'Web formu veya web chat taleplerini aynı akışa alma',
+        'Randevu alma, değiştirme, hatırlatma ve no-show takibi',
+        'Lead qualification, insan devri ve görüşme özetleri',
+        'En fazla 5 n8n otomasyon akışı ve 3 entegrasyon',
+        'CRM, takvim, booking sistemi veya Google Sheets bağlantıları',
+        'Öncelikli destek ve aylık strateji görüşmesi',
+        'Aylık 3 saate kadar içerik veya akış güncellemesi',
       ],
       en: [
-        'Synchronised Voice + WhatsApp AI Agents',
-        'Deep CRM Integration (HubSpot, GoHighLevel, etc.)',
-        'Advanced Multi-step n8n Workflows',
-        'Priority WhatsApp Support (24h SLA)',
-        '1 Monthly Strategy Call',
-        'Up to 3 hours/month of workflow updates',
+        'Voice AI and WhatsApp assistants working together',
+        'Website form or live-chat enquiries routed into the same journey',
+        'Booking, rescheduling, reminders and no-show follow-up',
+        'Lead qualification, human hand-off and conversation summaries',
+        'Up to 5 n8n automation workflows and 3 integrations',
+        'CRM, calendar, booking-system or Google Sheets connections',
+        'Priority support and a monthly strategy call',
+        'Up to 3 hours/month of content or workflow updates',
       ],
     },
-    excluded: { tr: [], en: [] },
-    quotas: { tr: [], en: [] },
-    overages: { tr: [], en: [] },
+    excluded: {
+      tr: ['Birden fazla departman için ayrı AI agent ekipleri', 'Özel on-premise veya dedicated sunucu'],
+      en: ['Separate AI-agent teams for multiple departments', 'Bespoke on-premise or dedicated infrastructure'],
+    },
+    quotas: {
+      tr: ['Aylık 5.000 AI yanıtı', 'Telefon + WhatsApp + web', '5 iş akışı ve 3 entegrasyon'],
+      en: ['5,000 AI replies per month', 'Phone + WhatsApp + web', '5 workflows and 3 integrations'],
+    },
+    overages: {
+      tr: ['Sesli kullanım: bağlı dakika başına 9 TL', 'Ek AI yanıtı: 2 TL', 'Üçüncü taraf mesaj ücretleri ayrıca'],
+      en: ['Voice usage: £0.15 per connected minute', 'Additional AI reply: £0.02', 'Third-party messaging fees are separate'],
+    },
     recommended: true,
     usageNote: {
-      tr: 'Sesli kullanım ayrıca faturalandırılır.',
-      en: 'Voice usage billed separately.',
+      tr: 'Metin AI model/API kullanımı kota içinde dahildir. Sesli kullanım ilk bağlı dakikadan ayrıca ücretlenir.',
+      en: 'Text AI model/API usage is included within the allowance. Voice is billed separately from the first connected minute.',
     },
   },
   advanced: {
     subtitle: {
-      tr: 'Büyük kurumlar için uçtan uca operasyonel otonomi.',
-      en: 'End-to-end operational autonomy tailored for large enterprises.',
+      tr: 'Müşteri iletişiminin yanında tahsilat, belge, lead ve iç operasyon akışlarını da otomatikleştirir.',
+      en: 'Automates collections, documents, lead follow-up and internal operations alongside customer communication.',
     },
     included: {
       tr: [
-        'Sınırsız n8n Workflow Senaryosu',
-        'Çoklu Departman AI Agent\'ları (Tahsilat, İK, vb.)',
-        'Dedicated Sunucu / On-Premise Seçenekleri',
-        'Atanmış Hesap Yöneticisi',
-        'Aylık 10 saate kadar Özel Geliştirme',
+        'En fazla 3 ayrı AI agent veya iş süreci',
+        'Gelen/giden telefon, WhatsApp, e-posta, SMS ve web akışları',
+        'Tahsilat, eksik belge, lead yeniden aktivasyonu ve randevu takibi',
+        'En fazla 10 üretim n8n akışı ve 6 entegrasyon',
+        'Yönetim dashboard\'u, denetim kaydı ve otomatik raporlama',
+        'Hata uyarıları, güvenli insan devri ve operasyon izleme',
+        'Atanmış hesap yöneticisi ve öncelikli destek',
+        'Aylık 5 saate kadar özel geliştirme veya iyileştirme',
       ],
       en: [
-        'Unlimited n8n Workflow Scenarios',
-        'Multi-department AI Agents (Collections, HR, etc.)',
-        'Dedicated Server / On-Premise Options',
-        'Dedicated Account Manager',
-        'Up to 10 hours/month of Custom Development',
+        'Up to 3 separate AI agents or business processes',
+        'Inbound/outbound phone, WhatsApp, email, SMS and web workflows',
+        'Collections, missing documents, lead reactivation and booking follow-up',
+        'Up to 10 production n8n workflows and 6 integrations',
+        'Management dashboard, audit trail and automated reporting',
+        'Failure alerts, safe human hand-off and operational monitoring',
+        'Named account manager and priority support',
+        'Up to 5 hours/month of custom development or optimisation',
       ],
     },
-    excluded: { tr: [], en: [] },
-    quotas: { tr: [], en: [] },
-    overages: { tr: [], en: [] },
+    excluded: {
+      tr: ['On-premise, SSO ve kurumsal 7/24 SLA; Enterprise teklifi gerektirir'],
+      en: ['On-premise, SSO and enterprise 24/7 SLA; these require an Enterprise quote'],
+    },
+    quotas: {
+      tr: ['Aylık 10.000 AI yanıtı', '3 agent/süreç', '10 iş akışı ve 6 entegrasyon'],
+      en: ['10,000 AI replies per month', '3 agents/processes', '10 workflows and 6 integrations'],
+    },
+    overages: {
+      tr: ['Sesli kullanım: bağlı dakika başına 9 TL', 'Ek AI yanıtı: 2 TL', 'Ek geliştirme: £80/saat karşılığı'],
+      en: ['Voice usage: £0.15 per connected minute', 'Additional AI reply: £0.02', 'Additional development: £80/hour'],
+    },
     premium: true,
     ctaType: 'booking',
     ctaLabel: { tr: 'Strateji Görüşmesi Planla', en: 'Book a Strategy Call' },
-    setupPrefix: { tr: 'Özel Mimari Kurulum, başlangıç ', en: 'Custom Architecture from ' },
     footnote: {
-      tr: 'Ek geliştirme saati £80/saat üzerinden faturalandırılır.',
-      en: 'Additional dev hours billed at £80/hr.',
+      tr: 'Çok şube, dedicated altyapı, SSO veya on-premise ihtiyaçları Enterprise olarak ayrıca kapsamlandırılır.',
+      en: 'Multi-location, dedicated infrastructure, SSO or on-premise requirements are scoped separately as Enterprise.',
     },
     usageNote: {
-      tr: 'Sesli kullanım ayrıca faturalandırılır.',
-      en: 'Voice usage billed separately.',
+      tr: 'Metin AI model/API kullanımı kota içinde dahildir. Sesli ve üçüncü taraf kanal ücretleri kullanıma göre ayrıca faturalandırılır.',
+      en: 'Text AI model/API usage is included within the allowance. Voice and third-party channel fees are billed separately by usage.',
     },
   },
 
@@ -437,10 +517,17 @@ const COMMON_FAQ: FaqItem[] = [
     },
   },
   {
-    q: { tr: 'Aşım tarifesi nedir?', en: 'What is the overage tariff?' },
+    q: { tr: 'Kullanım ve aşım ücretleri nasıl işler?', en: 'How do usage and overage charges work?' },
     a: {
-      tr: 'Pakete dahil mesaj veya sesli dakika limitiniz aşıldığında trafik kesilmez. Otomatik uyarı gönderilir ve ekstra kullanım faturanıza eklenir. WhatsApp / Instagram mesaj aşımı 1 TL / mesaj, sesli AI dakika aşımı 9 TL / dakika olarak işler. Tüm paketler için aynı tarife geçerlidir ve aşım kullanımı dashboard\'unuzda gerçek zamanlı görülebilir.',
-      en: 'When you exceed your package message or voice minute allowance, traffic is never cut off. An automatic alert is sent and the extra usage is added to your invoice. WhatsApp / Instagram message overage is 2p / message and voice AI minute overage is 20p / minute. The same tariff applies to every package, and overage usage is visible in real time in your dashboard.',
+      tr: 'Aylık ücret sistemin kurulumu, bakımı ve belirtilen metin AI yanıt kotasını kapsar. Kota sonrası ek AI yanıtı 2 TL\'dir. Sesli çağrı kullanımı Retell, telefon hattı, ses ve seçilen model maliyetlerini kapsayan ayrı bir kullanım kalemidir; standart oran bağlı dakika başına 9 TL\'dir ve teklif öncesi netleştirilir. Resmî Meta/BSP, SMS veya benzeri kanal ücretleri yalnızca o kanal kullanılırsa ayrıca yansıtılır. Kota dolduğunda sistem durmaz; uyarı gönderilir ve kullanım devam eder.',
+      en: 'The monthly fee covers the system, maintenance and the stated text-AI reply allowance. Additional AI replies cost £0.02 each. Voice is a separate usage line covering Retell, telephony, voice and the selected model; the current standard rate is £0.15 per connected minute and is confirmed before launch. Official Meta/BSP, SMS or similar channel fees are passed through only when that channel is used. The system does not stop at quota; you receive an alert and service continues.',
+    },
+  },
+  {
+    q: { tr: 'Neden WhatsApp ve sesli kullanım ayrı fiyatlanıyor?', en: 'Why are WhatsApp and voice usage priced separately?' },
+    a: {
+      tr: 'Çünkü WhatsApp mesajı ile telefon görüşmesinin üçüncü taraf maliyetleri aynı değildir. Böylece az kullanan müşteri yüksek arama hacmini sübvanse etmez; siz de yalnızca gerçek kanal kullanımınız kadar ödersiniz. Aylık paket sistemin işletmesini, kullanım kalemi ise dış servis trafiğini karşılar.',
+      en: 'Because the third-party cost of a WhatsApp message is different from the cost of a live phone minute. Separating them means low-usage clients do not subsidise heavy calling, and you pay for the channels you actually use. The monthly plan runs the system; usage covers external channel traffic.',
     },
   },
   {
@@ -480,15 +567,22 @@ const CATEGORY_FAQ: Record<PackageCategoryKey, FaqItem[]> = {
     {
       q: { tr: 'Kurulum ne kadar sürer?', en: 'How long does setup take?' },
       a: {
-        tr: 'Core Automation ve Operasyonel Merkez 3 iş günü içinde kurulur ve devreye alınır. AI Çözüm Ortağı özel mimari gerektirdiği için süre görüşme sonrası netleşir.',
-        en: 'Core Automation and Operational Hub are set up and live within 3 business days. AI Solution Partner requires custom architecture, so timing is confirmed after the call.',
+        tr: 'Gerekli erişim ve içerikler teslim edildikten sonra WhatsApp AI Asistan yaklaşık 5, Sesli AI Resepsiyonist 7, AI Ön Büro 10 ve AI Operasyon Merkezi 15 iş gününde kurulur. Özel veya kısıtlı erişime sahip entegrasyonlarda takvim görüşme sonrası netleşir.',
+        en: 'Once access and approved content are supplied, setup is approximately 5 business days for WhatsApp AI Assistant, 7 for Voice AI Receptionist, 10 for AI Front Desk and 15 for AI Operations Hub. Bespoke or restricted integrations may require a separately agreed timeline.',
       },
     },
     {
       q: { tr: 'Mevcut CRM\'ime entegre olur mu?', en: 'Does it integrate with my existing CRM?' },
       a: {
-        tr: 'HubSpot, Pipedrive, Zoho ve Salesforce Çok Kanal Asistan paketinden itibaren standarttır. Özel klinik yönetim yazılımları (CDR, Dentrix, Akıllı Klinik vb.) AI Resepsiyon ve üstü paketlerde entegre edilir.',
-        en: 'HubSpot, Pipedrive, Zoho and Salesforce are standard from Multi-Channel Assistant up. Custom clinic management software is integrated on AI Reception and above.',
+        tr: 'Evet. WhatsApp ve Sesli AI paketleri bir CRM, takvim veya tablo bağlantısı içerir. AI Ön Büro 3, AI Operasyon Merkezi 6 entegrasyona kadar destekler. Özel klinik veya şirket yazılımı için kullanılabilir API ve erişim yetkisi kontrol edilir.',
+        en: 'Yes. The WhatsApp and Voice plans include one CRM, calendar or spreadsheet connection. AI Front Desk supports up to 3 integrations and AI Operations Hub up to 6. Bespoke clinic or business software is subject to available API access and permissions.',
+      },
+    },
+    {
+      q: { tr: '“AI model/API kullanımı dahil” ne demek?', en: 'What does “AI model/API usage included” mean?' },
+      a: {
+        tr: 'Müşteri mesajlarını anlayıp yanıt üreten üretim tipi yapay zeka servisinin maliyeti, paketinizdeki yanıt kotasına kadar aylık ücrete dahildir. Ayrı bir OpenAI veya benzeri model hesabı açıp fatura ödemeniz gerekmez. Sesli çağrı ve resmî mesaj kanalı ücretleri kartlarda ayrıca gösterilir.',
+        en: 'The production AI service that understands and drafts customer replies is covered up to your plan\'s reply allowance. You do not need to open and pay for a separate OpenAI or similar model account. Voice calls and official messaging-channel charges are shown separately on the plan cards.',
       },
     },
     {
@@ -602,7 +696,7 @@ function PlanCard({ tier, content, region, isEnglish }: PlanCardProps) {
           color: labelMutedColor,
         }}
       >
-        / {tier.key}
+        / {tier.category === 'agents' ? (isEnglish ? 'managed AI system' : 'yönetilen AI sistemi') : tier.key}
       </span>
 
       <h2
@@ -767,7 +861,7 @@ function PlanCard({ tier, content, region, isEnglish }: PlanCardProps) {
                   ? content.setupPrefix.en
                   : content.setupPrefix.tr
                 : isEnglish
-                ? 'One-time setup from '
+                ? 'One-time setup: '
                 : 'Tek seferlik kurulum: '}
               <strong style={{ color: titleColor }}>{formatPrice(tier.setupFee, region)}</strong>
             </span>
@@ -921,7 +1015,7 @@ function PlanCard({ tier, content, region, isEnglish }: PlanCardProps) {
         </div>
       )}
 
-      {/* Overage */}
+      {/* Usage and overage */}
       {content.overages.tr.length > 0 && (
         <div style={{ marginTop: 12 }}>
           <p
@@ -934,7 +1028,7 @@ function PlanCard({ tier, content, region, isEnglish }: PlanCardProps) {
               margin: 0,
             }}
           >
-            {isEnglish ? 'OVERAGE' : 'AŞIM'}
+            {isEnglish ? 'USAGE & OVERAGE' : 'KULLANIM VE AŞIM'}
           </p>
           <ul
             style={{
@@ -1184,8 +1278,8 @@ export default function Packages() {
         : 'Web Sitesi Paketleri — Kurumsal, Randevu, Sipariş, Akıllı ve Profesyonel | MGL Digital Media';
     }
     return isEnglish
-      ? 'AI Agent Packages — WhatsApp Assistant, Multi-Channel Assistant, AI Reception, Full Autonomy | MGL Digital Media'
-      : 'AI Agent Paketleri — WhatsApp Asistan, Çok Kanal Asistan, AI Resepsiyon, Tam Otonomi | MGL Digital Media';
+      ? 'AI Agent Packages — WhatsApp, Voice Receptionist, Front Desk & Operations | MGL Digital Media'
+      : 'AI Agent Paketleri — WhatsApp, Sesli Resepsiyon, AI Ön Büro ve Operasyon | MGL Digital Media';
   }, [activeCategory, isEnglish]);
 
   const seoDescription = useMemo(() => {
@@ -1200,8 +1294,8 @@ export default function Packages() {
         : 'Beş sabit fiyatlı web paketi: £200 tek sayfadan muhasebeci ve hukuk büroları için tamamen özel profesyonel siteye. Randevu, online sipariş, otomasyon ve SEO kademeye göre dahil.';
     }
     return isEnglish
-      ? 'Four flat-price AI agent tiers: WhatsApp, Instagram DM, voice, CRM, automation. TRY and GBP pricing. Monthly cancellation, transparent overage, KVKK/GDPR compliant.'
-      : 'Dört sabit fiyatlı AI agent kademesi: WhatsApp, IG DM, voice, CRM, otomasyon. TRY ve GBP fiyatlandırma. Aylık çıkış, şeffaf aşım, KVKK/GDPR uyumlu.';
+      ? 'Clear UK pricing for a WhatsApp AI assistant, Voice AI receptionist, joined-up AI Front Desk and multi-process AI Operations Hub. AI API allowances, setup and voice usage shown upfront.'
+      : 'WhatsApp AI asistan, Sesli AI resepsiyonist, birleşik AI Ön Büro ve çok süreçli AI Operasyon Merkezi için açık fiyatlar. AI API kotası, kurulum ve ses kullanımı baştan belirtilir.';
   }, [activeCategory, isEnglish]);
 
   const seoKeywords = useMemo(() => {
@@ -1369,13 +1463,146 @@ export default function Packages() {
         </div>
       </section>
 
+      {activeCategory === 'agents' && (
+        <section
+          style={{
+            background: 'var(--paper-2)',
+            borderBottom: '1px solid var(--border)',
+            padding: 'clamp(36px, 4vw, 60px) 0',
+          }}
+        >
+          <div className="container">
+            <span className="eyebrow">{isEnglish ? 'WHICH ONE FITS?' : 'HANGİSİ SİZE UYGUN?'}</span>
+            <h2
+              style={{
+                marginTop: 12,
+                fontFamily: 'var(--font-serif)',
+                fontSize: 'clamp(1.5rem, 1.1rem + 1.5vw, 2.25rem)',
+                lineHeight: 1.1,
+                fontWeight: 500,
+                color: 'var(--ink)',
+              }}
+            >
+              {isEnglish ? 'Start with the result, not the technology.' : 'Teknolojiden değil, ihtiyacınızdan başlayın.'}
+            </h2>
+            <div
+              style={{
+                marginTop: 28,
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+                gap: 24,
+              }}
+            >
+              {[
+                {
+                  title: isEnglish ? 'Choose WhatsApp' : 'WhatsApp seçin',
+                  text: isEnglish
+                    ? 'Customers mostly message you. The assistant answers approved questions, captures details and starts the booking journey.'
+                    : 'Müşterileriniz çoğunlukla mesaj yazıyorsa; asistan soruları yanıtlar, bilgileri toplar ve randevu sürecini başlatır.',
+                },
+                {
+                  title: isEnglish ? 'Choose Voice' : 'Sesli Asistan seçin',
+                  text: isEnglish
+                    ? 'You miss calls during appointments or after hours. The receptionist answers, books, transfers and sends a summary.'
+                    : 'Randevu sırasında veya mesai dışında çağrı kaçırıyorsanız; resepsiyonist telefonu açar, randevu alır, aktarır ve özet gönderir.',
+                },
+                {
+                  title: isEnglish ? 'Choose Front Desk' : 'AI Ön Büro seçin',
+                  text: isEnglish
+                    ? 'Calls, WhatsApp and website enquiries must share the same diary, CRM and follow-up rules.'
+                    : 'Telefon, WhatsApp ve web taleplerinin aynı takvim, CRM ve takip kurallarıyla çalışmasını istiyorsanız.',
+                },
+                {
+                  title: isEnglish ? 'Choose Operations Hub' : 'Operasyon Merkezi seçin',
+                  text: isEnglish
+                    ? 'You also want collections, document chasing, lead follow-up, reports or internal workflows automated.'
+                    : 'Resepsiyonun yanında tahsilat, evrak, lead takibi, raporlama veya iç süreçleri de otomatikleştirmek istiyorsanız.',
+                },
+              ].map((item) => (
+                <div key={item.title} style={{ paddingLeft: 18, borderLeft: '2px solid var(--ember)' }}>
+                  <h3 style={{ margin: 0, fontSize: 16, color: 'var(--ink)', fontWeight: 600 }}>{item.title}</h3>
+                  <p style={{ marginTop: 8, fontSize: 13, lineHeight: 1.6, color: 'var(--fg-2)' }}>{item.text}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
+      {activeCategory === 'agents' && (
+        <section
+          aria-labelledby="agent-billing-heading"
+          style={{
+            background: 'var(--paper-2)',
+            borderBottom: '1px solid var(--border)',
+            padding: 'clamp(36px, 4vw, 60px) 0',
+          }}
+        >
+          <div className="container">
+            <span className="eyebrow">{isEnglish ? 'HOW BILLING WORKS' : 'ÜCRET NASIL İŞLİYOR?'}</span>
+            <h2
+              id="agent-billing-heading"
+              style={{
+                marginTop: 12,
+                fontFamily: 'var(--font-serif)',
+                fontSize: 'clamp(1.5rem, 1.1rem + 1.5vw, 2.25rem)',
+                lineHeight: 1.1,
+                fontWeight: 500,
+                color: 'var(--ink)',
+              }}
+            >
+              {isEnglish ? 'One system fee. Clear channel usage.' : 'Tek sistem ücreti. Açık kanal kullanımı.'}
+            </h2>
+            <div
+              style={{
+                marginTop: 24,
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))',
+                gap: 20,
+              }}
+            >
+              {[
+                {
+                  title: isEnglish ? '1. Monthly system fee' : '1. Aylık sistem ücreti',
+                  text: isEnglish
+                    ? 'Covers the live AI assistant, n8n workflows, monitoring, maintenance, support and the text-AI allowance shown on the plan.'
+                    : 'Canlı AI asistanı, n8n akışlarını, izlemeyi, bakımı, desteği ve pakette yazan metin AI yanıt kotasını kapsar.',
+                },
+                {
+                  title: isEnglish ? '2. One-off setup' : '2. Tek seferlik kurulum',
+                  text: isEnglish
+                    ? 'Covers discovery, conversation design, integrations, testing, hand-off rules and launch. It is paid once.'
+                    : 'İhtiyaç analizi, konuşma tasarımı, entegrasyonlar, testler, insan devri kuralları ve canlıya almayı kapsar. Bir kez ödenir.',
+                },
+                {
+                  title: isEnglish ? '3. Channel usage' : '3. Kanal kullanımı',
+                  text: isEnglish
+                    ? 'Voice usage is billed per connected minute. Official Meta/BSP, SMS and other provider charges are passed through only when used.'
+                    : 'Sesli kullanım bağlı dakika üzerinden ücretlenir. Resmî Meta/BSP, SMS ve diğer sağlayıcı ücretleri yalnızca kullanılırsa ayrıca yansıtılır.',
+                },
+              ].map((item) => (
+                <div key={item.title} style={{ paddingLeft: 18, borderLeft: '2px solid var(--ember)' }}>
+                  <h3 style={{ margin: 0, fontSize: 16, color: 'var(--ink)', fontWeight: 600 }}>{item.title}</h3>
+                  <p style={{ marginTop: 8, fontSize: 13, lineHeight: 1.6, color: 'var(--fg-2)' }}>{item.text}</p>
+                </div>
+              ))}
+            </div>
+            <p style={{ marginTop: 22, fontSize: 13, lineHeight: 1.6, color: 'var(--fg-2)', maxWidth: 900 }}>
+              {isEnglish
+                ? 'In plain English: choose WhatsApp when most enquiries arrive as messages; choose Voice when missed calls cost you bookings; choose AI Front Desk when both channels must share the same calendar and CRM. We confirm the exact provider stack and usage estimate before launch.'
+                : 'Kısaca: Talepleriniz çoğunlukla mesajla geliyorsa WhatsApp\'ı, cevapsız çağrılar randevu kaybettiriyorsa Sesli AI\'ı, iki kanal aynı takvim ve CRM ile çalışacaksa AI Ön Büro\'yu seçin. Sağlayıcı altyapısını ve tahmini kullanım bedelini canlıya almadan önce netleştiririz.'}
+            </p>
+          </div>
+        </section>
+      )}
+
       {/* Plans grid */}
       <section style={{ background: 'var(--paper)', padding: 'clamp(48px, 4vw + 16px, 88px) 0' }}>
         <div className="container">
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(auto-fit, minmax(340px, 1fr))',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
               gap: 20,
             }}
           >
@@ -1390,6 +1617,45 @@ export default function Packages() {
             ))}
           </div>
 
+          {activeCategory === 'agents' && (
+            <div
+              style={{
+                marginTop: 32,
+                padding: '24px 28px',
+                border: '1px solid var(--border)',
+                borderLeft: '3px solid var(--ember)',
+                borderRadius: 'var(--r-md)',
+                background: 'var(--paper-2)',
+                display: 'grid',
+                gridTemplateColumns: 'minmax(0, 1fr) auto',
+                gap: 24,
+                alignItems: 'center',
+              }}
+            >
+              <div>
+                <p style={{ margin: 0, fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.12em', color: 'var(--ember)' }}>
+                  {isEnglish ? 'WORKFLOW AUTOMATION WITHOUT AN AI RECEPTIONIST' : 'AI RESEPSİYON OLMADAN İŞ AKIŞI OTOMASYONU'}
+                </p>
+                <h3 style={{ marginTop: 8, fontFamily: 'var(--font-serif)', fontSize: 22, color: 'var(--ink)' }}>
+                  {isEnglish ? 'Custom n8n Workflow Automation' : 'Özel n8n İş Akışı Otomasyonu'}
+                </h3>
+                <p style={{ marginTop: 8, fontSize: 14, lineHeight: 1.6, color: 'var(--fg-2)', maxWidth: 760 }}>
+                  {isEnglish
+                    ? 'For deadline reminders, document collection, payment follow-up, spreadsheet/CRM synchronisation or internal reports. Includes up to 3 production workflows, 2 integrations, monitoring, failure alerts and monthly maintenance.'
+                    : 'Deadline hatırlatma, evrak toplama, ödeme takibi, Excel/CRM senkronizasyonu veya iç raporlar için. En fazla 3 üretim akışı, 2 entegrasyon, izleme, hata uyarıları ve aylık bakım dahildir.'}
+                </p>
+              </div>
+              <div style={{ minWidth: 190, textAlign: 'right' }}>
+                <strong style={{ display: 'block', fontFamily: 'var(--font-serif)', fontSize: 25, color: 'var(--ink)' }}>
+                  {formatPrice(region === 'TR' ? 4999 : 149, region)} / {isEnglish ? 'month' : 'ay'}
+                </strong>
+                <span style={{ display: 'block', marginTop: 5, fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--fg-3)' }}>
+                  + {formatPrice(region === 'TR' ? 24999 : 750, region)} {isEnglish ? 'one-off setup' : 'tek seferlik kurulum'}
+                </span>
+              </div>
+            </div>
+          )}
+
           {/* Disclaimer — API usage costs + dev-hour transparency */}
           {activeCategory === 'agents' && (
             <p
@@ -1403,8 +1669,8 @@ export default function Packages() {
               }}
             >
               {isEnglish
-                ? '* All plans exclude 3rd-party API usage costs (e.g., Voice minutes, WhatsApp templates). API costs are billed strictly based on your actual usage. Technical support for bugs is free and unlimited; custom feature development uses your monthly hour quota.'
-                : '* Tüm planlar 3. parti API kullanım maliyetlerini (ör. sesli dakikalar, WhatsApp şablonları) kapsamaz. API maliyetleri yalnızca gerçek kullanımınız üzerinden faturalandırılır. Hata düzeltme için teknik destek ücretsiz ve sınırsızdır; özel özellik geliştirmesi aylık saat kotanızı kullanır.'}
+                ? '* Text AI model/API usage is included up to each plan\'s stated allowance. Connected voice calls are billed from the first minute. Official Meta/BSP, SMS and other third-party channel charges are passed through only when used.'
+                : '* Metin AI model/API kullanımı her paketin belirtilen kotasına kadar dahildir. Bağlanan sesli çağrılar ilk dakikadan ücretlenir. Resmî Meta/BSP, SMS ve diğer üçüncü taraf kanal ücretleri yalnızca kullanıldığında yansıtılır.'}
             </p>
           )}
 
@@ -1578,7 +1844,7 @@ export default function Packages() {
                         'Gece çağrılarına Sesli AI',
                       ]
                 }
-                packageMatch={isEnglish ? 'Multi-Channel Assistant or AI Reception' : 'Çok Kanal Asistan veya AI Resepsiyon'}
+                packageMatch={isEnglish ? 'AI Front Desk or AI Operations Hub' : 'AI Ön Büro veya AI Operasyon Merkezi'}
                 packageLabel={isEnglish ? 'Best fit' : 'Uygun paket'}
               />
               <SectorExample
@@ -1599,8 +1865,8 @@ export default function Packages() {
                 }
                 packageMatch={
                   isEnglish
-                    ? 'WhatsApp Assistant or AI Reception'
-                    : 'WhatsApp Asistan veya AI Resepsiyon'
+                    ? 'WhatsApp AI Assistant or Voice AI Receptionist'
+                    : 'WhatsApp AI Asistan veya Sesli AI Resepsiyonist'
                 }
                 packageLabel={isEnglish ? 'Best fit' : 'Uygun paket'}
               />
@@ -1620,7 +1886,7 @@ export default function Packages() {
                         'İlan eşleşme bildirimleri',
                       ]
                 }
-                packageMatch={isEnglish ? 'Multi-Channel Assistant' : 'Çok Kanal Asistan'}
+                packageMatch={isEnglish ? 'AI Front Desk' : 'AI Ön Büro'}
                 packageLabel={isEnglish ? 'Best fit' : 'Uygun paket'}
               />
               <SectorExample
@@ -1639,7 +1905,7 @@ export default function Packages() {
                         'Saat farkı çözümü',
                       ]
                 }
-                packageMatch={isEnglish ? 'Multi-Channel Assistant or AI Reception' : 'Çok Kanal Asistan veya AI Resepsiyon'}
+                packageMatch={isEnglish ? 'AI Front Desk or AI Operations Hub' : 'AI Ön Büro veya AI Operasyon Merkezi'}
                 packageLabel={isEnglish ? 'Best fit' : 'Uygun paket'}
               />
               <SectorExample
@@ -1658,7 +1924,7 @@ export default function Packages() {
                         'Sesli AI 5 sn karşılama',
                       ]
                 }
-                packageMatch={isEnglish ? 'Multi-Channel Assistant' : 'Çok Kanal Asistan'}
+                packageMatch={isEnglish ? 'AI Front Desk' : 'AI Ön Büro'}
                 packageLabel={isEnglish ? 'Best fit' : 'Uygun paket'}
               />
               <SectorExample
@@ -1677,7 +1943,7 @@ export default function Packages() {
                         'Görüşme planlama',
                       ]
                 }
-                packageMatch={isEnglish ? 'WhatsApp Assistant or Multi-Channel Assistant' : 'WhatsApp Asistan veya Çok Kanal Asistan'}
+                packageMatch={isEnglish ? 'WhatsApp AI Assistant or AI Front Desk' : 'WhatsApp AI Asistan veya AI Ön Büro'}
                 packageLabel={isEnglish ? 'Best fit' : 'Uygun paket'}
               />
             </div>
@@ -1831,8 +2097,8 @@ export default function Packages() {
               }}
             >
               {isEnglish
-                ? 'Beyond Full Autonomy we build bespoke: on-premise deployment, custom integrations (SAP, Nebim, Logo, ERP), dedicated infrastructure, named engineer on 24/7 priority support.'
-                : 'Tam Otonomi\'nin ötesinde terzi işi kuruyoruz: on-premise deployment, özel entegrasyonlar (SAP, Nebim, Logo, ERP), ayrılmış altyapı, atanmış mühendisle 7/24 öncelikli destek.'}
+                ? 'For requirements beyond AI Operations Hub, we scope an Enterprise system: on-premise deployment, custom integrations (SAP, Nebim, Logo, ERP), dedicated infrastructure and a named engineer with 24/7 priority support.'
+                : 'AI Operasyon Merkezi kapsamını aşan ihtiyaçlar için Enterprise sistem tasarlarız: on-premise kurulum, özel entegrasyonlar (SAP, Nebim, Logo, ERP), dedicated altyapı ve 7/24 öncelikli destek için atanmış mühendis.'}
             </p>
 
             <a
