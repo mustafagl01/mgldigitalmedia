@@ -7,20 +7,20 @@ const CALENDAR_URL = 'https://calendar.app.google/FZnTjsWGfCy33WF36';
 
 const FAQS_TR = [
   { question: 'WhatsApp AI asistan kurmak ne kadar sürer?', answer: 'Evolution API + n8n altyapısıyla temel bir WhatsApp AI asistan 3-7 iş günü içinde devreye alınabilir. CRM entegrasyonu ve sektöre özel bilgi tabanı eklenirse 2-3 haftaya uzayabilir.' },
-  { question: 'WhatsApp Business API mi kullanıyorsunuz?', answer: 'Hayır. Meta\'nın resmi Business API\'si mesaj başına ücret alır ve onay süreci gerektirir. Biz Evolution API (self-hosted, açık kaynak) kullanıyoruz; sabit maliyetle sınırsız mesaj işlenir.' },
+  { question: 'WhatsApp bağlantısı nasıl kurulur?', answer: 'Standart kurulumda self-hosted QR bağlantısı kullanılabilir. Daha yüksek kurumsal güvence veya resmî şablon mesajları gereken projelerde Meta Cloud API/BSP kullanılır; resmî kanal ücretleri yalnızca kullanılırsa ayrıca yansıtılır.' },
   { question: 'Mevcut CRM\'imle entegre olabilir mi?', answer: 'Evet. n8n; HubSpot, Pipedrive, Zoho, Salesforce ve 400+ uygulamaya resmi entegrasyon sunar. Özel REST API olan herhangi bir yazılıma da bağlanılabilir.' },
   { question: 'Ses mesajlarını da anlayabiliyor mu?', answer: 'Evet. Whisper API entegrasyonu ile asistan gelen sesli mesajları metne çevirip yanıtlayabilir.' },
   { question: 'Müşteriler botla konuştuğunu anlıyor mu?', answer: 'İyi tasarlanmış sistemlerde çoğunluk fark etmez. Ancak "insan mısın?" sorusuna dürüst yanıt vermesi için sistemi yapılandırıyoruz.' },
-  { question: 'Aylık ücret ne kadar?', answer: 'WhatsApp AI Asistan; WhatsApp Asistan, Çok Kanal Asistan ve AI Resepsiyon paketlerinin hepsinde dahildir. WhatsApp Asistan paketi 3.999 TRY/ay\'dan başlar (kurulum dahil, teknik bakım dahil). Daha fazla kanal, CRM ve sesli AI için Çok Kanal Asistan ve AI Resepsiyon paketleri /packages sayfasında.' },
+  { question: 'Aylık ücret ne kadar?', answer: 'WhatsApp AI Asistan 6.999 TRY/ay ve 19.999 TRY tek seferlik kurulumdur. Ayda 2.000 AI yanıtı ile bu kota içindeki üretim tipi AI model/API kullanımı dahildir. Telefon da gerekiyorsa AI Ön Büro paketine geçilebilir.' },
 ];
 
 const FAQS_EN = [
   { question: 'How long does it take to set up a WhatsApp AI agent?', answer: 'A basic WhatsApp AI agent using Evolution API + n8n can be live within 3-7 business days. Full CRM integration and custom knowledge base typically takes 2-3 weeks.' },
-  { question: 'Do you use the official WhatsApp Business API?', answer: 'No. Meta\'s official API charges per message and requires an approval process. We use Evolution API — self-hosted, open-source — which processes unlimited messages at a fixed server cost.' },
+  { question: 'How is WhatsApp connected?', answer: 'A self-hosted QR connection can be used for the standard deployment. Meta Cloud API/BSP is available where stronger enterprise controls or official template messaging are required; official channel fees are passed through only when used.' },
   { question: 'Can it integrate with my existing CRM?', answer: 'Yes. n8n connects to HubSpot, Pipedrive, Zoho, Salesforce and 400+ apps natively. Any custom REST API can also be integrated via the HTTP node.' },
   { question: 'Can it handle voice messages?', answer: 'Yes. With Whisper API integration, the agent transcribes incoming voice messages and responds accordingly.' },
   { question: 'Will customers know they\'re talking to a bot?', answer: 'Most customers won\'t notice with a well-designed agent. We configure the system to respond honestly when directly asked "are you a bot?".' },
-  { question: 'How much does it cost per month?', answer: 'WhatsApp AI Agent is included in all three plans: WhatsApp Assistant, Multi-Channel Assistant and AI Reception. WhatsApp Assistant starts at £119/month (includes setup and technical maintenance). For multi-channel, CRM and voice AI, see Multi-Channel Assistant and AI Reception at /packages.' },
+  { question: 'How much does it cost per month?', answer: 'WhatsApp AI Assistant is £199/month plus a £499 one-time setup. It includes 2,000 AI replies per month and production AI model/API usage within that allowance. Choose AI Front Desk if you also need phone handling.' },
 ];
 
 const PROCESS_TR = [
@@ -70,8 +70,8 @@ export default function WhatsappAiAsistan() {
     path: '/whatsapp-ai-asistan',
     category: 'AI Automation',
     offers: [
-      { name: 'WhatsApp Asistan', price: 3999, priceCurrency: 'TRY', priceFrom: true },
-      { name: 'WhatsApp Assistant', price: 119, priceCurrency: 'GBP', priceFrom: true },
+      { name: 'WhatsApp AI Asistan', price: 6999, priceCurrency: 'TRY' },
+      { name: 'WhatsApp AI Assistant', price: 199, priceCurrency: 'GBP' },
     ],
   });
 
@@ -101,8 +101,8 @@ export default function WhatsappAiAsistan() {
         }
         description={
           isEN
-            ? 'Deploy a WhatsApp AI agent in under a week. Evolution API + n8n stack. No per-message fees. Appointment booking, FAQ handling, CRM sync. From £119/month.'
-            : 'Bir haftadan kısa sürede WhatsApp AI asistan kurun. Evolution API + n8n altyapısı. Mesaj başına ücret yok. Randevu alma, SSS yanıtlama, CRM entegrasyonu. 3.999 TRY/ay\'dan başlar.'
+            ? 'Deploy a managed WhatsApp AI assistant in about five business days. Booking, FAQ handling and CRM sync. £199/month + £499 setup, with 2,000 AI replies and AI API usage included.'
+            : 'Yönetilen WhatsApp AI asistanınızı yaklaşık beş iş gününde kurun. Randevu, SSS ve CRM entegrasyonu. 6.999 TRY/ay + 19.999 TRY kurulum; 2.000 AI yanıtı ve AI API kullanımı dahil.'
         }
         path="/whatsapp-ai-asistan"
         locale={isEN ? 'en_GB' : 'tr_TR'}
@@ -225,14 +225,14 @@ export default function WhatsappAiAsistan() {
           </h2>
           <p style={{ color: 'var(--muted)', lineHeight: 1.7, maxWidth: 680, marginBottom: '2rem' }}>
             {isEN
-              ? "We don't use Meta's official WhatsApp Business API (which charges per message and takes weeks to approve). Our stack: Evolution API (open-source, self-hosted) + n8n for workflow logic + GPT-4o for natural language understanding. Result: unlimited messages at a fixed monthly cost."
-              : "Meta'nın resmi WhatsApp Business API'sini kullanmıyoruz (mesaj başına ücret alır, onayı haftalar sürer). Altyapımız: Evolution API (açık kaynak, self-hosted) + n8n workflow motoru + GPT-4o doğal dil anlama. Sonuç: sabit aylık maliyetle sınırsız mesaj."}
+              ? 'We select the connection method for the business: a self-hosted QR connection for suitable deployments, or Meta Cloud API/BSP where official templates and enterprise controls are required. n8n runs the workflow and a production LLM API handles language. AI API usage is included within the plan allowance.'
+              : 'İşletmeye uygun bağlantı yöntemini seçiyoruz: uygun projelerde self-hosted QR bağlantısı, resmî şablon ve kurumsal kontrol gereken projelerde Meta Cloud API/BSP. İş akışını n8n, dili ise üretim tipi bir LLM API yönetir. AI API kullanımı paket kotasına dahildir.'}
           </p>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px,1fr))', gap: '1rem' }}>
             {[
               { name: 'Evolution API', desc: isEN ? 'Open-source WhatsApp layer. No per-message fees.' : 'Açık kaynak WhatsApp katmanı. Mesaj başına ücret yok.' },
               { name: 'n8n', desc: isEN ? 'Visual workflow engine. 400+ integrations.' : 'Görsel workflow motoru. 400+ entegrasyon.' },
-              { name: 'GPT-4o / LLM', desc: isEN ? 'Natural language understanding & response generation.' : 'Doğal dil anlama ve yanıt üretimi.' },
+              { name: 'Production LLM API', desc: isEN ? 'Natural-language understanding and replies, included within quota.' : 'Doğal dil anlama ve yanıt üretimi; kota içinde dahil.' },
               { name: isEN ? 'Your CRM' : 'CRM\'iniz', desc: isEN ? 'HubSpot, Pipedrive, Zoho or custom — all connected.' : 'HubSpot, Pipedrive, Zoho veya özel — hepsi bağlı.' },
             ].map((item) => (
               <div

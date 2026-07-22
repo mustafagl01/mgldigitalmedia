@@ -244,18 +244,18 @@ function getRecommendedPackage(monthlyLoss: number, region: 'TR' | 'GB') {
 
   if (monthlyLoss < starterThreshold) {
     return {
-      name: region === 'TR' ? 'WhatsApp Asistan' : 'WhatsApp Assistant',
+      name: region === 'TR' ? 'WhatsApp AI Asistan' : 'WhatsApp AI Assistant',
       message: region === 'TR' ? 'Küçük kayıpları önlemek için ideal başlangıç.' : 'Ideal starting point to prevent small losses.',
     };
   }
   if (monthlyLoss <= proThreshold) {
     return {
-      name: region === 'TR' ? 'Çok Kanal Asistan' : 'Multi-Channel Assistant',
+      name: region === 'TR' ? 'AI Ön Büro' : 'AI Front Desk',
       message: region === 'TR' ? 'Bu kaybı önlemek için en popüler çözümümüz.' : 'Our most popular solution to prevent this loss.',
     };
   }
   return {
-    name: region === 'TR' ? 'AI Resepsiyon' : 'AI Reception',
+    name: region === 'TR' ? 'AI Operasyon Merkezi' : 'AI Operations Hub',
     message: region === 'TR' ? 'Büyük operasyonel kayıplar için tam otomasyon.' : 'Full automation for large operational losses.',
   };
 }
@@ -706,7 +706,7 @@ export default function Pricing() {
               }}
             >
               <p style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--ember)', margin: 0 }}>
-                {isTR ? 'MGL AI · Çok Kanal Asistan' : 'MGL AI · Multi-Channel Assistant'}
+                {isTR ? 'MGL AI · AI Ön Büro' : 'MGL AI · AI Front Desk'}
               </p>
               <p
                 style={{

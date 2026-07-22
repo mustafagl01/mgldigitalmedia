@@ -55,10 +55,6 @@ export default function LeadUretimi() {
       : 'Apollo.io ve Google Maps ile hedefli B2B lead üretimi. Özel enrichment, dedupe, e-posta doğrulama. Aylık temiz, nitelikli lead listesi teslimi.',
     path: '/lead-uretimi',
     category: 'Lead Generation',
-    offers: [
-      { name: 'Çok Kanal Asistan', price: 9999, priceCurrency: 'TRY', priceFrom: true },
-      { name: 'Multi-Channel Assistant', price: 299, priceCurrency: 'GBP', priceFrom: true },
-    ],
   });
 
   return (

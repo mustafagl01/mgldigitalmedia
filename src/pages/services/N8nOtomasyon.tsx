@@ -10,7 +10,7 @@ const FAQS_TR = [
   { question: 'Hangi uygulamalarla entegre olabilir?', answer: 'Gmail, WhatsApp (Evolution API), HubSpot, Pipedrive, Zoho, Stripe, iyzico, Google Sheets, Airtable, Slack, Telegram ve 400+ uygulama. Özel REST API olan herhangi bir yazılıma da bağlanılabilir.' },
   { question: 'Teknik bilgim olmadan kullanabilir miyim?', answer: 'MGL olarak tüm tasarım, kurulum ve bakımı yapıyoruz; sizin teknik bilgiye ihtiyacınız yok. Sistemin çalışıp çalışmadığını görmek için basit bir dashboard sunuyoruz.' },
   { question: 'Bir sorun olduğunda ne yapıyorsunuz?', answer: 'Otomatik hata bildirimleri kurulu; bir workflow hata alırsa Telegram/e-posta ile anında bilgi veriyoruz. Bakım sözleşmesi kapsamında 24 saat içinde müdahale garantisi.' },
-  { question: 'Aylık ücret ne kadar?', answer: 'n8n otomasyon akışları Çok Kanal Asistan ve AI Resepsiyon paketlerine dahildir; WhatsApp Asistan pakette yer almaz. Çok Kanal Asistan paketi 9.999 TRY/ay\'dan başlar (n8n kurulumu ve bakımı dahil). Daha kapsamlı çok kanallı + sesli entegrasyonlar için AI Resepsiyon paketi /packages sayfasında.' },
+  { question: 'Aylık ücret ne kadar?', answer: 'Bağımsız n8n otomasyon hizmeti 4.999 TRY/ay ve 24.999 TRY tek seferlik kurulumdur; 3 üretim akışı, 2 entegrasyon, izleme, hata uyarıları ve bakım dahildir. AI Ön Büro ve AI Operasyon Merkezi paketlerinde de n8n akışları bulunur.' },
 ];
 
 const FAQS_EN = [
@@ -19,7 +19,7 @@ const FAQS_EN = [
   { question: 'What apps can it integrate with?', answer: 'Gmail, WhatsApp (Evolution API), HubSpot, Pipedrive, Zoho, Stripe, Google Sheets, Airtable, Slack, Telegram and 400+ more. Any custom REST API can also be integrated.' },
   { question: 'Do I need technical knowledge?', answer: 'No. MGL handles all design, setup and maintenance. We provide a simple monitoring dashboard so you can see your automations are running.' },
   { question: 'What happens if something breaks?', answer: 'Automated error notifications are built in — if a workflow fails you\'re notified via Telegram/email immediately. Maintenance contracts include a 24-hour response SLA.' },
-  { question: 'How much does it cost?', answer: 'n8n automation workflows are included in the Multi-Channel Assistant and AI Reception plans (not in the WhatsApp Assistant plan). Multi-Channel Assistant starts at £299/month with n8n setup and maintenance included. For multi-channel + voice integrations, see AI Reception at /packages.' },
+  { question: 'How much does it cost?', answer: 'Standalone n8n automation is £149/month plus a £750 one-time setup, including 3 production workflows, 2 integrations, monitoring, failure alerts and maintenance. n8n workflows are also included within AI Front Desk and AI Operations Hub.' },
 ];
 
 const PROCESS_TR = [
@@ -70,13 +70,13 @@ export default function N8nOtomasyon() {
   const svc = serviceSchema({
     name: isEN ? 'n8n Automation Workflows' : 'N8N Otomasyon Workflow\'ları',
     description: isEN
-      ? 'Custom n8n automation workflows connecting your CRM, messaging, calendar and payments. Self-hosted, GDPR-compliant, unlimited task execution.'
-      : 'CRM, mesajlaşma, takvim ve ödeme sistemlerinizi bağlayan özel n8n otomasyon workflow\'ları. Self-hosted, KVKK uyumlu, sınırsız görev.',
+      ? 'Managed n8n workflows connecting CRM, messaging, calendars and payments. Up to 3 production workflows and 2 integrations with monitoring and maintenance.'
+      : 'CRM, mesajlaşma, takvim ve ödeme sistemlerini bağlayan yönetilen n8n otomasyonu. İzleme ve bakımla 3 üretim akışı ve 2 entegrasyona kadar.',
     path: '/n8n-otomasyon',
     category: 'Workflow Automation',
     offers: [
-      { name: 'Çok Kanal Asistan', price: 9999, priceCurrency: 'TRY', priceFrom: true },
-      { name: 'Multi-Channel Assistant', price: 299, priceCurrency: 'GBP', priceFrom: true },
+      { name: 'Özel n8n Otomasyonu', price: 4999, priceCurrency: 'TRY' },
+      { name: 'Custom n8n Automation', price: 149, priceCurrency: 'GBP' },
     ],
   });
 
@@ -90,8 +90,8 @@ export default function N8nOtomasyon() {
         }
         description={
           isEN
-            ? 'Custom n8n workflow automation: CRM sync, WhatsApp automation, appointment reminders, payment notifications and more. Self-hosted, no task limits. From £119/month.'
-            : 'Özel n8n workflow otomasyonu: CRM senkronizasyonu, WhatsApp otomasyonu, randevu hatırlatıcıları, ödeme bildirimleri. Self-hosted, görev limiti yok. 3.999 TRY/ay\'dan başlar.'
+            ? 'Managed n8n workflow automation for CRM sync, reminders, payments and reporting. £149/month + £750 setup for up to 3 production workflows and 2 integrations.'
+            : 'CRM senkronu, hatırlatma, ödeme ve raporlama için yönetilen n8n otomasyonu. 3 üretim akışı ve 2 entegrasyona kadar 4.999 TRY/ay + 24.999 TRY kurulum.'
         }
         path="/n8n-otomasyon"
         locale={isEN ? 'en_GB' : 'tr_TR'}

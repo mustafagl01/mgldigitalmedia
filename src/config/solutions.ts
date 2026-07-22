@@ -192,8 +192,8 @@ export const SOLUTIONS: Record<SectorKey, SectorContent> = {
       {
         q: { tr: 'Aylık ücret nedir?', en: 'What is the monthly fee?' },
         a: {
-          tr: 'Çok Kanal Asistan paketi 9.999 TL / £299 ajans ücreti. WhatsApp ve sesli API harcaması size ait, geçişli faturalandırılır (aylık yaklaşık 500-1.500 TL).',
-          en: 'Multi-Channel Assistant tier 9,999 TL / £299 agency fee. WhatsApp and voice API consumption is pass-through (typically 500-1,500 TL/month), billed separately.',
+          tr: 'Klinikler için önerilen AI Ön Büro paketi 15.999 TL/ay + 44.999 TL kurulumdur. 5.000 AI yanıtı ve kota içindeki AI model/API kullanımı dahildir; bağlanan sesli çağrılar 9 TL/dakikadır.',
+          en: 'For clinics, the recommended AI Front Desk plan is £449/month + £1,250 setup. It includes 5,000 AI replies and AI model/API usage within that allowance; connected voice calls are £0.15/min.',
         },
       },
       {
@@ -433,8 +433,8 @@ export const SOLUTIONS: Record<SectorKey, SectorContent> = {
       {
         q: { tr: 'Aylık ücret nedir?', en: 'What is the monthly fee?' },
         a: {
-          tr: 'Çok Kanal Asistan paketi 9.999 TL / £299 ajans ücreti. Portal ve reklam harcaması size ait — direkt Sahibinden, Meta, Google\'a ödenir.',
-          en: 'Multi-Channel Assistant tier 9,999 TL / £299 agency fee. Portal and ad spend is yours — paid directly to Sahibinden, Meta, Google.',
+          tr: 'Emlak ofisleri için önerilen AI Ön Büro paketi 15.999 TL/ay + 44.999 TL kurulumdur. 5.000 AI yanıtı ve kota içindeki AI model/API kullanımı dahildir. Portal lisansı ve reklam bütçesi size aittir.',
+          en: 'For estate agencies, the recommended AI Front Desk plan is £449/month + £1,250 setup. It includes 5,000 AI replies and AI model/API usage within that allowance. Portal licences and ad spend are separate.',
         },
       },
       {
@@ -468,8 +468,8 @@ export const SOLUTIONS: Record<SectorKey, SectorContent> = {
       {
         q: { tr: 'Reklam yönetimi dahil mi?', en: 'Is ad management included?' },
         a: {
-          tr: 'Ayrı paket. Ads Growth tier 19.999 TL / £699 aylık; eklenirse Meta lead campaign + WhatsApp handoff kurulur.',
-          en: 'Separate package. Ads Growth tier 19,999 TL / £699 monthly; when added, Meta lead campaigns + WhatsApp handoff are included.',
+          tr: 'Ayrı pakettir. Büyüme Reklamları 24.999 TL/ay (£750/ay); eklendiğinde Meta lead kampanyası ve WhatsApp devri birlikte kurulur. Reklam bütçesi ayrıca doğrudan platforma ödenir.',
+          en: 'This is a separate plan. Growth Ads is £750/month (24,999 TL/month); when added, Meta lead campaigns and WhatsApp hand-off are set up together. Ad spend is paid separately to the platform.',
         },
       },
     ],
@@ -697,8 +697,8 @@ export const SOLUTIONS: Record<SectorKey, SectorContent> = {
       {
         q: { tr: 'Aylık ücret nedir?', en: 'What is the monthly fee?' },
         a: {
-          tr: 'Reklam Çift Kanal + SEO tier 19.999 TL / £699 + Çok Kanal Asistan paketi 9.999 TL / £299. Reklam spend pass-through (asgari 50.000 TL/ay tavsiye).',
-          en: 'Ads Dual Channel + SEO tier 19,999 TL / £699 + Multi-Channel Assistant tier 9,999 TL / £299. Ad spend pass-through (50,000 TL/month minimum recommended).',
+          tr: 'Büyüme Reklamları 24.999 TL/ay (£750) + AI Ön Büro 15.999 TL/ay (£449). AI Ön Büro kurulum bedeli ayrıca alınır; reklam bütçesi doğrudan platforma ödenir.',
+          en: 'Growth Ads is £750/month plus AI Front Desk at £449/month. AI Front Desk setup is charged separately; ad spend is paid directly to the platform.',
         },
       },
       {
@@ -887,8 +887,8 @@ export const SOLUTIONS: Record<SectorKey, SectorContent> = {
       {
         q: { tr: 'Aylık ücret nedir?', en: 'What is the monthly fee?' },
         a: {
-          tr: 'Çok Kanal Asistan paketi 9.999 TL / £299 ajans ücreti. WhatsApp API harcaması geçişli faturalandırılır (aylık yaklaşık 300-800 TL).',
-          en: 'Multi-Channel Assistant tier 9,999 TL / £299 agency fee. WhatsApp API consumption is pass-through (typically 300-800 TL/month).',
+          tr: 'WhatsApp AI Asistan 6.999 TL/ay + 19.999 TL kurulumdur. 2.000 AI yanıtı ve kota içindeki AI model/API kullanımı dahildir; resmî Meta/BSP ücretleri yalnızca kullanılırsa ayrıca yansıtılır.',
+          en: 'WhatsApp AI Assistant is £199/month + £499 setup. It includes 2,000 AI replies and AI model/API usage within that allowance; official Meta/BSP fees are passed through only when used.',
         },
       },
       {
@@ -1126,8 +1126,8 @@ export const SOLUTIONS: Record<SectorKey, SectorContent> = {
       {
         q: { tr: 'Aylık ücret nedir?', en: 'What is the monthly fee?' },
         a: {
-          tr: 'Çok Kanal Asistan paketi 9.999 TL / £299 ajans ücreti. WhatsApp API harcaması geçişli faturalandırılır (aylık yaklaşık 400-1.000 TL).',
-          en: 'Multi-Channel Assistant tier 9,999 TL / £299 agency fee. WhatsApp API consumption is pass-through (typically 400-1,000 TL/month).',
+          tr: 'Telefon ve WhatsApp rezervasyonlarını birlikte yönetmek için AI Ön Büro 15.999 TL/ay + 44.999 TL kurulumdur. 5.000 AI yanıtı dahildir; bağlı sesli çağrılar 9 TL/dakikadır.',
+          en: 'To manage phone and WhatsApp reservations together, AI Front Desk is £449/month + £1,250 setup. It includes 5,000 AI replies; connected voice calls are £0.15/min.',
         },
       },
       {
