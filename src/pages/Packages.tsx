@@ -480,7 +480,9 @@ const PLAN_CONTENT: Record<PackageTierKey, PlanContent> = {
         'Ziyaretçinin kullandığı dilde 7/24 anında yanıt',
         'Hizmet, fiyat, çalışma saati ve sık sorulan sorular',
         'Mevcut randevu linki, telefon ve WhatsApp yönlendirmeleri',
-        'Hosting, SSL, uptime takibi ve AI model/API kullanımı',
+        'İlk yıl web hosting ve SSL kurulum ücretine dahil',
+        'Uptime takibi ve AI model/API kullanımı',
+        '2. yıldan itibaren web hosting ve temel bakım: 3.499 TL/yıl',
         'Aylık 30 dakikaya kadar bilgi ve içerik güncellemesi',
       ],
       en: [
@@ -489,7 +491,9 @@ const PLAN_CONTENT: Record<PackageTierKey, PlanContent> = {
         'Instant 24/7 replies in the visitor\'s own language',
         'Services, fees, opening hours and frequently asked questions',
         'Links to your existing booking, phone and WhatsApp channels',
-        'Hosting, SSL, uptime monitoring and AI model/API usage',
+        'First-year web hosting and SSL included in the setup fee',
+        'Uptime monitoring and AI model/API usage',
+        'Web hosting and core maintenance from year two: £100/year',
         'Up to 30 minutes/month of knowledge and content updates',
       ],
     },
@@ -666,8 +670,8 @@ const CATEGORY_FAQ: Record<PackageCategoryKey, FaqItem[]> = {
     {
       q: { tr: 'Hosting ve bakım aylık ücrete dahil mi?', en: 'Are hosting and maintenance included in the monthly fee?' },
       a: {
-        tr: 'Standart web paketlerinde kartta gösterilen yıllık hosting; Çok Dilli AI Web Sitesi paketinde ise aylık abonelik hosting, SSL, uptime takibi, güvenlik güncellemeleri ve belirtilen AI kullanımını kapsar.',
-        en: 'Standard website cards show a yearly hosting fee. For the Multilingual AI Website, the monthly subscription covers hosting, SSL, uptime monitoring, security updates and the stated AI allowance.',
+        tr: 'Çok Dilli AI Web Sitesi paketinde ilk yıl web hosting ve SSL, kurulum ücretine dahildir. İkinci yıldan itibaren web hosting ve temel bakım 3.499 TL/yıl olarak yenilenir. Aylık abonelik; AI model/API kullanımını, uptime takibini, güvenlik güncellemelerini ve belirtilen AI yanıt kotasını kapsar.',
+        en: 'For the Multilingual AI Website, first-year web hosting and SSL are included in the setup fee. From year two, web hosting and core maintenance renew at £100/year. The monthly subscription covers AI model/API usage, uptime monitoring, security updates and the stated AI reply allowance.',
       },
     },
     {
@@ -1841,6 +1845,11 @@ export default function Packages() {
                 {isEnglish
                   ? '* Yearly hosting covers hosting, SSL, basic uptime monitoring, and core maintenance.'
                   : '* Yıllık hosting; hosting, SSL, temel uptime izleme ve ana bakım masraflarını kapsar.'}
+              </li>
+              <li>
+                {isEnglish
+                  ? '* Multilingual AI Website: first-year hosting is included in setup; £100/year from year two.'
+                  : '* Çok Dilli AI Web Sitesi: ilk yıl hosting kuruluma dahil; 2. yıldan itibaren 3.499 TL/yıl.'}
               </li>
               <li>
                 {isEnglish
