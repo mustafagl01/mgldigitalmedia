@@ -20,6 +20,7 @@ export type PackageTierKey =
   | 'web-site'
   | 'web-platform'
   | 'web-custom'
+  | 'web-ai'
   | 'web-pro';
 
 export type PackageTier = {
@@ -234,6 +235,19 @@ export const REGIONAL_PRICING: Record<PricingRegionCode, RegionalPricing> = {
         oneOffSetup: true,
         priceUnit: 'year',
       },
+      'web-ai': {
+        key: 'web-ai',
+        category: 'web',
+        name: 'Çok Dilli AI Web Sitesi',
+        price: 4499,
+        setupFee: 44999,
+        voiceMinutes: 0,
+        chatConversations: 1000,
+        overageChatPer100: 500,
+        overageVoicePer100: 0,
+        adManagementPercent: 0,
+        deliveryDays: 10,
+      },
       'web-pro': {
         key: 'web-pro',
         category: 'web',
@@ -421,6 +435,19 @@ export const REGIONAL_PRICING: Record<PricingRegionCode, RegionalPricing> = {
         oneOffSetup: true,
         priceUnit: 'year',
       },
+      'web-ai': {
+        key: 'web-ai',
+        category: 'web',
+        name: 'Multilingual AI Website',
+        price: 129,
+        setupFee: 1250,
+        voiceMinutes: 0,
+        chatConversations: 1000,
+        overageChatPer100: 5,
+        overageVoicePer100: 0,
+        adManagementPercent: 0,
+        deliveryDays: 10,
+      },
       'web-pro': {
         key: 'web-pro',
         category: 'web',
@@ -447,7 +474,14 @@ export function resolveRegionByCountry(countryCode?: string | null): PricingRegi
 
 export const AGENT_TIER_KEYS: PackageTierKey[] = ['starter', 'voice', 'pro', 'advanced'];
 export const ADS_TIER_KEYS: PackageTierKey[] = ['ads-starter', 'ads-growth', 'ads-scale'];
-export const WEB_TIER_KEYS: PackageTierKey[] = ['web-landing', 'web-site', 'web-platform', 'web-custom', 'web-pro'];
+export const WEB_TIER_KEYS: PackageTierKey[] = [
+  'web-landing',
+  'web-site',
+  'web-platform',
+  'web-custom',
+  'web-ai',
+  'web-pro',
+];
 
 export function tierKeysForCategory(category: PackageCategoryKey): PackageTierKey[] {
   if (category === 'ads') return ADS_TIER_KEYS;

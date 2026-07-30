@@ -96,8 +96,8 @@ const CATEGORY_META: Record<PackageCategoryKey, CategoryMeta> = {
         en: 'Websites that win you customers.',
       },
       lede: {
-        tr: 'Tek seferlik kurulum, sabit yıllık hosting. Kafenizden takeaway\'inize, randevu alan kliniğinizden muhasebe ve hukuk bürolarına — her ölçek için sade, profesyonel paketler.',
-        en: 'One clear setup fee, one flat yearly hosting cost. Honest packages for UK cafés, takeaways, clinics — and bespoke builds for accountants, solicitors and consultancies.',
+        tr: 'Sade kurumsal sitelerden, müşteriye kendi dilinde 7/24 yanıt veren AI web sitelerine kadar — net kapsam, açık fiyat ve sürpriz entegrasyon yok.',
+        en: 'From straightforward business sites to AI websites that answer every visitor in their own language, 24/7 — clear scope, transparent pricing and no surprise integrations.',
       },
     },
   },
@@ -415,7 +415,6 @@ const PLAN_CONTENT: Record<PackageTierKey, PlanContent> = {
     excluded: { tr: [], en: [] },
     quotas: { tr: [], en: [] },
     overages: { tr: [], en: [] },
-    recommended: true,
   },
   'web-platform': {
     subtitle: {
@@ -468,6 +467,59 @@ const PLAN_CONTENT: Record<PackageTierKey, PlanContent> = {
     excluded: { tr: [], en: [] },
     quotas: { tr: [], en: [] },
     overages: { tr: [], en: [] },
+  },
+  'web-ai': {
+    subtitle: {
+      tr: 'Yeni web sitesi ve işletmenizin onaylı bilgileriyle çalışan 7/24 çok dilli AI asistanı.',
+      en: 'A new website with a 24/7 multilingual AI assistant trained on your approved business information.',
+    },
+    included: {
+      tr: [
+        'MGL tarafından hazırlanan yeni, mobil uyumlu web sitesi (5 ana sayfaya kadar)',
+        'Onaylı işletme bilgilerinizle eğitilmiş web AI asistanı',
+        'Ziyaretçinin kullandığı dilde 7/24 anında yanıt',
+        'Hizmet, fiyat, çalışma saati ve sık sorulan sorular',
+        'Mevcut randevu linki, telefon ve WhatsApp yönlendirmeleri',
+        'Hosting, SSL, uptime takibi ve AI model/API kullanımı',
+        'Aylık 30 dakikaya kadar bilgi ve içerik güncellemesi',
+      ],
+      en: [
+        'A new mobile-responsive website built by MGL (up to 5 core pages)',
+        'Website AI assistant trained on your approved business information',
+        'Instant 24/7 replies in the visitor\'s own language',
+        'Services, fees, opening hours and frequently asked questions',
+        'Links to your existing booking, phone and WhatsApp channels',
+        'Hosting, SSL, uptime monitoring and AI model/API usage',
+        'Up to 30 minutes/month of knowledge and content updates',
+      ],
+    },
+    excluded: {
+      tr: [
+        'Mevcut üçüncü taraf web sitesi veya CMS içine entegrasyon',
+        'CRM ya da randevu sisteminde doğrudan kayıt oluşturma',
+        'WhatsApp otomasyonu, sesli asistan ve telefon yanıtlama',
+        'Özel yazılım ve üçüncü taraf sistem entegrasyonları',
+      ],
+      en: [
+        'Integration into an existing third-party website or CMS',
+        'Creating records directly inside a CRM or booking system',
+        'WhatsApp automation, voice assistant or phone answering',
+        'Bespoke software and third-party system integrations',
+      ],
+    },
+    quotas: {
+      tr: ['1 yeni MGL web sitesi', 'Aylık 1.000 AI yanıtı', '1 onaylı bilgi bankası'],
+      en: ['1 new MGL-built website', '1,000 AI replies per month', '1 approved knowledge base'],
+    },
+    overages: {
+      tr: ['Kota sonrası ek yanıtlar 100 yanıtlık bloklar hâlinde faturalandırılır'],
+      en: ['Additional replies are billed in blocks of 100 after the allowance'],
+    },
+    recommended: true,
+    usageNote: {
+      tr: 'AI model/API kullanımı belirtilen kota içinde dahildir. Paket yalnızca MGL tarafından hazırlanan yeni web sitesi üzerinde sunulur.',
+      en: 'AI model/API usage is included within the stated allowance. This package is delivered only on the new website built by MGL.',
+    },
   },
   'web-pro': {
     subtitle: {
@@ -595,6 +647,16 @@ const CATEGORY_FAQ: Record<PackageCategoryKey, FaqItem[]> = {
   ],
   web: [
     {
+      q: {
+        tr: 'Çok Dilli AI Web Sitesi paketini mevcut siteme ekler misiniz?',
+        en: 'Can you add the Multilingual AI Website package to my existing site?',
+      },
+      a: {
+        tr: 'Bu paket, MGL tarafından hazırlanan yeni web sitesi üzerinde sunulur. Mevcut üçüncü taraf site, WordPress/CMS, CRM veya randevu sistemine entegrasyon pakete dahil değildir. Böyle bir ihtiyaç varsa erişim ve uyumluluk teknik olarak incelenir ve ayrı projelendirilir.',
+        en: 'This package is delivered on a new website built by MGL. Integration into an existing third-party site, WordPress/CMS, CRM or booking system is not included. If required, access and compatibility are reviewed first and the work is quoted as a separate project.',
+      },
+    },
+    {
       q: { tr: 'Mevcut siteyi yeniliyor musunuz yoksa sıfırdan mı?', en: 'Do you redesign existing sites or build from scratch?' },
       a: {
         tr: 'İkisi de. Mevcut bir siteniz varsa içerik ve URL yapısını taşıyıp SEO kaybını minimize ediyoruz. Sıfırdan istenirse tamamen yeni mimari kuruyoruz. Her iki durumda fiyat aynıdır.',
@@ -604,8 +666,8 @@ const CATEGORY_FAQ: Record<PackageCategoryKey, FaqItem[]> = {
     {
       q: { tr: 'Hosting ve bakım aylık ücrete dahil mi?', en: 'Are hosting and maintenance included in the monthly fee?' },
       a: {
-        tr: 'Evet — aylık fee\'ye Vercel / Netlify hosting, SSL, uptime monitor ve güvenlik güncellemeleri dahil. Ek bir sunucu kirası ödemezsiniz.',
-        en: 'Yes — the monthly fee includes Vercel / Netlify hosting, SSL, uptime monitor, and security updates. No separate server rental.',
+        tr: 'Standart web paketlerinde kartta gösterilen yıllık hosting; Çok Dilli AI Web Sitesi paketinde ise aylık abonelik hosting, SSL, uptime takibi, güvenlik güncellemeleri ve belirtilen AI kullanımını kapsar.',
+        en: 'Standard website cards show a yearly hosting fee. For the Multilingual AI Website, the monthly subscription covers hosting, SSL, uptime monitoring, security updates and the stated AI allowance.',
       },
     },
     {
@@ -640,6 +702,16 @@ function PlanCard({ tier, content, region, isEnglish }: PlanCardProps) {
   const premium = content.premium;
   const hasSetup = tier.setupFee > 0;
   const isAds = tier.category === 'ads';
+  const overageItems = tier.key === 'web-ai'
+    ? [
+        `${isEnglish ? 'Additional 100 AI replies' : 'Ek 100 AI yanıtı'}: ${formatPrice(
+          tier.overageChatPer100,
+          region,
+        )}`,
+      ]
+    : isEnglish
+    ? content.overages.en
+    : content.overages.tr;
 
   // Premium variant uses a darker, enterprise treatment
   const cardBg = premium ? 'var(--coal)' : 'var(--paper-2)';
@@ -1043,7 +1115,7 @@ function PlanCard({ tier, content, region, isEnglish }: PlanCardProps) {
               color: subtitleColor,
             }}
           >
-            {(isEnglish ? content.overages.en : content.overages.tr).map((o) => (
+            {overageItems.map((o) => (
               <li key={o}>· {o}</li>
             ))}
           </ul>
@@ -1274,8 +1346,8 @@ export default function Packages() {
     }
     if (activeCategory === 'web') {
       return isEnglish
-        ? 'Website Packages — Business, Booking, Ordering, Smart & Bespoke Professional | MGL Digital Media'
-        : 'Web Sitesi Paketleri — Kurumsal, Randevu, Sipariş, Akıllı ve Profesyonel | MGL Digital Media';
+        ? 'Website Packages — Business, Booking, Multilingual AI & Bespoke | MGL Digital Media'
+        : 'Web Sitesi Paketleri — Kurumsal, Randevu, Çok Dilli AI ve Profesyonel | MGL Digital Media';
     }
     return isEnglish
       ? 'AI Agent Packages — WhatsApp, Voice Receptionist, Front Desk & Operations | MGL Digital Media'
@@ -1290,8 +1362,8 @@ export default function Packages() {
     }
     if (activeCategory === 'web') {
       return isEnglish
-        ? 'Five flat-price website packages, from a £200 one-pager to a fully bespoke professional-services site: booking, online ordering, automation and SEO foundations included per tier.'
-        : 'Beş sabit fiyatlı web paketi: £200 tek sayfadan muhasebeci ve hukuk büroları için tamamen özel profesyonel siteye. Randevu, online sipariş, otomasyon ve SEO kademeye göre dahil.';
+        ? 'Six clear website packages, from a £200 one-pager to a multilingual AI website and a fully bespoke professional-services site. Scope, hosting and AI usage are shown upfront.'
+        : 'Altı açık web paketi: £200 tek sayfadan çok dilli AI web sitesine ve tamamen özel profesyonel siteye. Kapsam, hosting ve AI kullanımı baştan belirtilir.';
     }
     return isEnglish
       ? 'Clear UK pricing for a WhatsApp AI assistant, Voice AI receptionist, joined-up AI Front Desk and multi-process AI Operations Hub. AI API allowances, setup and voice usage shown upfront.'
@@ -1306,8 +1378,8 @@ export default function Packages() {
     }
     if (activeCategory === 'web') {
       return isEnglish
-        ? ['website packages', 'conversion web design', 'landing page agency', 'Next.js web agency', 'e-commerce web']
-        : ['web sitesi paketleri', 'dönüşüm odaklı web', 'landing page ajansı', 'kurumsal site paketi', 'e-ticaret web'];
+        ? ['website packages', 'multilingual AI website', 'website AI assistant', 'conversion web design', 'Next.js web agency']
+        : ['web sitesi paketleri', 'çok dilli AI web sitesi', 'web AI asistanı', 'dönüşüm odaklı web', 'kurumsal site paketi'];
     }
     return isEnglish
       ? ['AI agent packages', 'WhatsApp AI bot', 'voice assistant', 'AI automation bundle', 'SME AI package']
