@@ -62,7 +62,7 @@ export const CancelPage: React.FC<CancelPageProps> = ({ onBack, onRetry }) => {
           <div className="mt-6 pt-6 border-t border-slate-700">
             <Button
               onClick={() => {
-                const phoneNumber = '905318299701';
+                const phoneNumber = '447482670606';
                 const message = encodeURIComponent('Merhaba! Ödeme sürecinde sorun yaşıyorum. Yardım alabilir miyim?');
                 window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
               }}

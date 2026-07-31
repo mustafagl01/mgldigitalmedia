@@ -52,8 +52,8 @@ type CategoryMeta = {
   };
 };
 
-const WHATSAPP_NUMBER = '905318299701';
-const WHATSAPP_LABEL = '+90 531 829 97 01';
+const WHATSAPP_NUMBER = '447482670606';
+const WHATSAPP_LABEL = '+44 7482 670606';
 
 const CATEGORY_META: Record<PackageCategoryKey, CategoryMeta> = {
   ads: {

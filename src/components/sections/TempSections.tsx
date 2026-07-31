@@ -109,7 +109,7 @@ interface AutomationExamplesSectionProps {
 export const AutomationExamplesSection: React.FC<AutomationExamplesSectionProps> = ({ onDemoClick }) => {
   const handleAutomationClick = (automation: any) => {
     if (automation.id === 'whatsapp') {
-      const phoneNumber = '905318299701';
+      const phoneNumber = '447482670606';
       const message = encodeURIComponent('Merhaba Mustafa Bey, web siteniz üzerinden ulaşıyorum. Bir strateji görüşmesi planlamak istiyorum.');
       window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
     } else if (automation.demo) {

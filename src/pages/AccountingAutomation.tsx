@@ -12,7 +12,7 @@ import {
 
 const PATH = '/accounting-automation-uk';
 const CALENDAR_URL = 'https://calendar.app.google/FZnTjsWGfCy33WF36';
-const WHATSAPP_URL = 'https://wa.me/905318299701?text=Hi%2C%20I%27d%20like%20to%20see%20the%20accounting%20automation%20demo.';
+const WHATSAPP_URL = 'https://wa.me/447482670606?text=Hi%2C%20I%27d%20like%20to%20see%20the%20accounting%20automation%20demo.';
 
 const jsonLd = [
   ...BASE_SCHEMAS,

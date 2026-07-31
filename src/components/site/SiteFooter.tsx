@@ -235,8 +235,8 @@ export function SiteFooter({ onNavigate }: Props) {
                 </a>
               </li>
               <li>
-                <a href="https://wa.me/905318299701" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--bone-2)' }}>
-                  {language === 'tr' ? 'WhatsApp: +90 531 829 97 01' : 'WhatsApp — message us directly'}
+                <a href="https://wa.me/447482670606" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--bone-2)' }}>
+                  {language === 'tr' ? 'WhatsApp: +44 7482 670606' : 'WhatsApp — message us directly'}
                 </a>
               </li>
               <li>

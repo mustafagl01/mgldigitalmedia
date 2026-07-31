@@ -9,7 +9,7 @@ export function ClosingCTA({ onAnalysisClick }: Props) {
   const { language } = useLanguage();
 
   const handleWhatsApp = () => {
-    window.open('https://wa.me/905318299701', '_blank', 'noopener,noreferrer');
+    window.open('https://wa.me/447482670606', '_blank', 'noopener,noreferrer');
   };
 
   return (

@@ -37,7 +37,7 @@ type ServiceSku = {
   recommended?: boolean;
 };
 
-const WHATSAPP_NUMBER = '905318299701';
+const WHATSAPP_NUMBER = '447482670606';
 
 const CATEGORIES: Record<CategoryKey, { tr: string; en: string }> = {
   automation: { tr: 'Otomasyon & AI Asistan', en: 'Automation & AI Assistant' },

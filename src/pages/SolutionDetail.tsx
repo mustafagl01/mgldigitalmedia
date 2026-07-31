@@ -12,7 +12,7 @@ import {
 import { SOLUTIONS, type SectorKey } from '../config/solutions';
 import { MessageCircle, Calendar, ArrowRight, Check } from 'lucide-react';
 
-const WHATSAPP_NUMBER = '905318299701';
+const WHATSAPP_NUMBER = '447482670606';
 const CALENDAR_URL = 'https://calendar.app.google/FZnTjsWGfCy33WF36';
 
 function waLink(message: string) {

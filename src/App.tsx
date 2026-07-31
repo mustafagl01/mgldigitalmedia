@@ -329,7 +329,7 @@ function AppContent() {
 
       {/* Floating WhatsApp */}
       <a
-        href="https://wa.me/905318299701?text=Hi%2C%20I%27d%20like%20to%20learn%20more%20about%20MGL%20AI%20services"
+        href="https://wa.me/447482670606?text=Hi%2C%20I%27d%20like%20to%20learn%20more%20about%20MGL%20AI%20services"
         target="_blank"
         rel="noopener noreferrer"
         aria-label="Chat on WhatsApp"

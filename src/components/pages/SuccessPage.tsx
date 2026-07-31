@@ -69,7 +69,7 @@ export const SuccessPage: React.FC<SuccessPageProps> = ({ onBack }) => {
             </Button>
             <Button
               onClick={() => {
-                const phoneNumber = '905318299701';
+                const phoneNumber = '447482670606';
                 const message = encodeURIComponent('Merhaba! Otomasyon ödememim tamamlandı. Proje detaylarını konuşmak istiyorum.');
                 window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
               }}

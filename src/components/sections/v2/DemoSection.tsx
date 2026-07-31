@@ -7,7 +7,7 @@ interface Props {
 }
 
 const DEMO_PHONE = '+44 7414 605612';
-const WHATSAPP_LINK = 'https://wa.me/905318299701';
+const WHATSAPP_LINK = 'https://wa.me/447482670606';
 
 export function DemoSection({ onEmailDemo, onPhoneDemo }: Props) {
   const { language } = useLanguage();
@@ -173,7 +173,7 @@ export function DemoSection({ onEmailDemo, onPhoneDemo }: Props) {
                   lineHeight: 1.2,
                 }}
               >
-                {language === 'tr' ? '+90 531 829 97 01' : 'Chat on WhatsApp'}
+                {language === 'tr' ? '+44 7482 670606' : 'Chat on WhatsApp'}
               </div>
               <p style={{ marginTop: 12, color: 'var(--fg-2)', fontSize: 14, lineHeight: 1.55 }}>
                 {language === 'tr'

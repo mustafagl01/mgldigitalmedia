@@ -131,7 +131,7 @@ export const ORGANIZATION_SCHEMA = {
   contactPoint: [
     {
       '@type': 'ContactPoint',
-      telephone: '+90 531 829 97 01',
+      telephone: '+44 7482 670606',
       contactType: 'sales',
       availableLanguage: ['tr', 'en'],
       areaServed: ['TR', 'GB'],

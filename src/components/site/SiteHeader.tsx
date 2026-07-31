@@ -57,7 +57,7 @@ export function SiteHeader({ currentPage, onNavigate, onAnalysisClick }: Props) 
   const contactLabel = language === 'tr' ? 'İletişim' : 'Contact';
 
   const handleWhatsApp = () => {
-    window.open('https://wa.me/905318299701', '_blank', 'noopener,noreferrer');
+    window.open('https://wa.me/447482670606', '_blank', 'noopener,noreferrer');
   };
 
   return (
