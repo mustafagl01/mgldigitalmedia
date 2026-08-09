@@ -245,6 +245,11 @@ export function SiteFooter({ onNavigate }: Props) {
                 </a>
               </li>
               <li>
+                <a href="/ai-musteri-bulma-mail-takip" style={{ color: 'var(--bone-2)' }}>
+                  {language === 'tr' ? 'AI müşteri bulma ve e-posta takibi' : 'AI prospecting and email follow-up'}
+                </a>
+              </li>
+              <li>
                 <a href="/accounting-automation-uk" style={{ color: 'var(--bone-2)' }}>
                   {language === 'tr' ? 'Muhasebe firmaları için otomasyon' : 'Automation for accounting firms'}
                 </a>

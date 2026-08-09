@@ -72,6 +72,7 @@ const ROUTES = [
   { path: '/sesli-ai', lang: 'tr', title: 'Sesli AI Telefon Asistani | MGL Digital Media', description: 'Retell AI ile sesli AI telefon asistani. 7/24.', keywords: 'sesli ai, voice ai, retell ai, telefon asistani' },
   { path: '/n8n-otomasyon', lang: 'tr', title: 'n8n Otomasyon Ajansi | MGL Digital Media', description: 'n8n ile is akislarinizi otomatize edin.', keywords: 'n8n otomasyon, workflow, crm entegrasyon' },
   { path: '/lead-uretimi', lang: 'tr', title: 'AI ile Lead Uretimi | MGL Digital Media', description: 'Google Maps, Apollo tabanli lead uretim pipeline.', keywords: 'lead uretimi, lead generation, apollo, google maps' },
+  { path: '/ai-musteri-bulma-mail-takip', lang: 'tr', title: 'AI Musteri Bulma ve E-posta Takip Sistemi | MGL AI', description: 'Hedef isletmeleri bulan, sitelerini inceleyen, ilgili e-postalar hazirlayan ve cevaplari tek panelde takip eden MGL yonetilen hizmeti.', keywords: 'AI musteri bulma sistemi, otomatik musteri bulma, e-posta takip sistemi, yonetilen cold email' },
   { path: '/accounting-automation-uk', lang: 'en', title: 'AI Automation for Accounting and Tax Firms UK | MGL AI', description: 'Custom AI automation for UK accounting and tax firms: Companies House deadline monitoring, document collection, client reminders, receivables follow-up and CRM reporting.', keywords: 'AI automation for accounting firms UK, accounting deadline reminder system, Companies House deadline automation, accountant document collection automation' },
   { path: '/n8n-vs-zapier', lang: 'tr', title: 'N8N vs Zapier: 2026 | MGL', description: 'N8N ve Zapier karsilastirmasi.', keywords: 'n8n vs zapier, otomasyon karsilastirma, kobi' },
   { path: '/whatsapp-cloud-api-vs-baileys', lang: 'en', title: 'WhatsApp Cloud API vs Baileys/Evolution API | MGL', description: 'Comparison of WhatsApp Cloud API vs Baileys.', keywords: 'whatsapp cloud api, baileys, evolution api' },
@@ -114,6 +115,11 @@ const STATIC_ROUTE_CONTENT = {
     heading: 'İşletmeler için hedef müşteri listesi ve takip sistemi',
     answer: 'MGL AI; hedef sektör ve bölgeye göre kamuya açık işletme kaynaklarından aday listesi oluşturma, tekrarları temizleme, iletişim bilgisini doğrulama ve sonucu CRM ya da tabloya aktarma akışları geliştirir.',
     bullets: ['Sektör ve bölge bazlı arama', 'Tekrar temizleme', 'Kaynak ve iletişim doğrulama', 'CRM veya tablo çıktısı'],
+  },
+  '/ai-musteri-bulma-mail-takip': {
+    heading: 'AI ile hedef işletme bulma, site inceleme ve e-posta takip sistemi',
+    answer: 'MGL AI hedef sektör ve bölgelerdeki işletmeleri araştırır, web sitelerindeki doğrulanabilir sinyalleri inceler, ilgili e-posta taslakları hazırlar ve kontrollü gönderim takvimiyle süreci yönetir. Müşteri gönderimleri, cevapları ve sıcak leadleri güvenli panelden izler; canlı kontroller MGL tarafından yürütülür.',
+    bullets: ['Hedef işletme ve iletişim araştırması', 'Gerçek site sinyaline dayalı mesaj', 'Kontrollü gönderim ve takip', 'Cevap, bounce ve ret takibi', 'Müşteriye özel sonuç paneli'],
   },
   '/solutions': {
     heading: 'Sektöre göre değil, işletmenin gerçek sorununa göre AI otomasyon',
