@@ -38,6 +38,9 @@
   --ember-hover: #9E3210;   /* pressed / hover darker */
   --ember-soft:  #FCE6DC;   /* 10% tint — highlights on paper */
   --ember-ink:   #6A1B06;   /* dark ember — text on ember-soft */
+  /* Koyu zeminde --ember 3.3:1'e düşüyor (AA sınırı 4.5:1). Koyu bloklarda
+     bunun yerine bu açık ton kullanılır — .on-coal içinde otomatik uygulanır. */
+  --ember-on-dark: #F0836A;
 
   /* Supporting swatches — used sparingly, never decoratively */
   --moss:        #3D5A3C;   /* calm green — success, positive stats */
@@ -163,10 +166,13 @@
   --surface-2: var(--coal-3);
   --fg:        var(--bone);
   --fg-2:      var(--bone-2);
-  --fg-3:      var(--bone-3);
-  --fg-4:      #6B6456;
+  /* --bone-3 (#8E8777) koyu zeminde 3.16:1 — AA altında. Bir ton açıldı. */
+  --fg-3:      #A9A190;
+  --fg-4:      #8E8777;
   --border:    #38342C;
   --border-2:  #4E483D;
+  /* Vurgu rengi koyu zeminde açık tona geçer (kontrast 4.5:1 üstü) */
+  --ember:     var(--ember-on-dark);
   background: var(--bg);
   color: var(--fg);
 }

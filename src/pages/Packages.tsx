@@ -96,7 +96,7 @@ const CATEGORY_META: Record<PackageCategoryKey, CategoryMeta> = {
         en: 'Websites that win you customers.',
       },
       lede: {
-        tr: 'Sade kurumsal sitelerden, müşteriye kendi dilinde 7/24 yanıt veren AI web sitelerine kadar — net kapsam, açık fiyat ve sürpriz entegrasyon yok.',
+        tr: 'Sade tanıtım sitesinden, müşterinize kendi dilinde gece gündüz cevap veren siteye kadar — ne yapılacağı yazılı, fiyat baştan belli, sonradan çıkan kalem yok.',
         en: 'From straightforward business sites to AI websites that answer every visitor in their own language, 24/7 — clear scope, transparent pricing and no surprise integrations.',
       },
     },
@@ -114,7 +114,7 @@ const PLAN_CONTENT: Record<PackageTierKey, PlanContent> = {
       tr: [
         'Onaylı işletme bilgilerinizle 7/24 WhatsApp yanıtı',
         'Sık sorulan sorular, lead bilgisi ve talep toplama',
-        'Randevu linki veya takvim, CRM ya da tablo bağlantısı',
+        'Randevu linki; takviminize veya müşteri listenize bağlantı',
         'Gerektiğinde personele aktarma ve kısa görüşme özeti',
         'En fazla 2 n8n otomasyon akışı ve 1 entegrasyon',
         'Aylık Performans Raporu',
@@ -201,7 +201,7 @@ const PLAN_CONTENT: Record<PackageTierKey, PlanContent> = {
         'Randevu alma, değiştirme, hatırlatma ve no-show takibi',
         'Lead qualification, insan devri ve görüşme özetleri',
         'En fazla 5 n8n otomasyon akışı ve 3 entegrasyon',
-        'CRM, takvim, booking sistemi veya Google Sheets bağlantıları',
+        'Takvim, randevu sistemi, müşteri listesi veya Google Sheets bağlantısı',
         'Öncelikli destek ve aylık strateji görüşmesi',
         'Aylık 3 saate kadar içerik veya akış güncellemesi',
       ],
@@ -500,7 +500,7 @@ const PLAN_CONTENT: Record<PackageTierKey, PlanContent> = {
     excluded: {
       tr: [
         'Mevcut üçüncü taraf web sitesi veya CMS içine entegrasyon',
-        'CRM ya da randevu sisteminde doğrudan kayıt oluşturma',
+        'Müşteri listenize veya randevu sisteminize doğrudan kayıt',
         'WhatsApp otomasyonu, sesli asistan ve telefon yanıtlama',
         'Özel yazılım ve üçüncü taraf sistem entegrasyonları',
       ],

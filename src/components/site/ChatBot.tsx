@@ -286,8 +286,11 @@ export function ChatBot() {
         data-over-dark={overDark ? 'true' : 'false'}
         style={{
           position: 'fixed',
-          right: 20,
-          bottom: 20,
+          right: 24,
+          // WhatsApp butonu bottom:24 + 56px yükseklikte. Sohbet butonu onun
+          // üstünde durur, yoksa ikisi kısmen üst üste biniyor ve dokunma
+          // hedefi küçülüyordu (Lighthouse: target-size).
+          bottom: 92,
           zIndex: 90,
           width: 56,
           height: 56,
@@ -346,11 +349,12 @@ export function ChatBot() {
           aria-label="Era"
           style={{
             position: 'fixed',
-            right: 20,
-            bottom: 88,
+            right: 24,
+            // Buton bottom:92 + 56px -> panel onun üstünden başlar
+            bottom: 160,
             zIndex: 90,
-            width: 'min(380px, calc(100vw - 40px))',
-            height: 'min(560px, calc(100vh - 140px))',
+            width: 'min(380px, calc(100vw - 48px))',
+            height: 'min(560px, calc(100vh - 210px))',
             background: 'var(--paper)',
             border: '1px solid var(--border)',
             borderRadius: 14,

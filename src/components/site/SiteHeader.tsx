@@ -84,10 +84,14 @@ export function SiteHeader({ currentPage, onNavigate, onAnalysisClick }: Props) 
           gap: 16,
         }}
       >
+        {/* aria-label YOK: logo iki ayrı <span> ("mgl" + "ai") ve aradaki
+            boşluk CSS gap ile veriliyor, yani görünen metin "mglai".
+            Elle yazılan her etiket bununla uyuşmuyordu
+            (Lighthouse: label-content-name-mismatch). Görünen metin zaten
+            ekran okuyucuda okunuyor, ek etiket gerekmiyor. */}
         <button
           onClick={() => handleNav('home')}
           style={{ background: 'transparent', padding: 0, display: 'inline-flex', alignItems: 'center' }}
-          aria-label="MGL Digital AI"
         >
           <Wordmark />
         </button>

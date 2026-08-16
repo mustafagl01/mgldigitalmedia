@@ -96,7 +96,7 @@ const SERVICES: ServiceSku[] = [
       tr: [
         'Türkçe doğal ses (dudak senkronu gerekmez)',
         'Bağlanan çağrı 9 ₺/dk; ses, telefon ve AI dahil',
-        'Çağrı özeti + tam transkript CRM’e',
+        'Görüşmenin özeti ve tam metni kaydınıza işlenir',
         'Acil durumda insana aktarma',
       ],
       en: [
@@ -292,7 +292,7 @@ const SERVICES: ServiceSku[] = [
     icon: Database,
     name: { tr: 'CRM Kurulumu', en: 'CRM Setup' },
     tagline: {
-      tr: 'HubSpot, Notion veya özel CRM — ekip tek doğruluk kaynağında.',
+      tr: 'Müşteri takip sistemi kurarız — herkes aynı listeye bakar, kimse kimseye sormaz.',
       en: 'HubSpot, Notion or custom CRM — one source of truth.',
     },
     setupTR: '14.999 ₺', monthlyTR: '1.499 ₺ (destek)', setupGB: '£450', monthlyGB: '£45 (support)',
@@ -300,7 +300,7 @@ const SERVICES: ServiceSku[] = [
     features: {
       tr: [
         'Discovery + şema tasarımı + pipeline',
-        'Form / WhatsApp / site → CRM bağlantısı',
+        'Form, WhatsApp ve siteden gelenler tek listede toplanır',
         '500 kayda kadar ilk migration',
         '2 saatlik ekip eğitimi (video kaydı dahil)',
       ],
@@ -535,7 +535,7 @@ export default function Services() {
     : 'Dijital Hizmetler — WhatsApp, Sesli, n8n, Web, SEO & Reklam | MGL Digital Media';
   const seoDescription = isEnglish
     ? '11 à la carte digital services: WhatsApp agents, voice assistants, n8n automation, web design, SEO, Meta & Google Ads, CRM setup. Transparent TRY and GBP pricing, no lock-in.'
-    : '11 bağımsız dijital hizmet: WhatsApp asistanları, sesli asistan, n8n otomasyon, web tasarım, SEO, Meta & Google Ads, CRM kurulumu. Şeffaf TRY ve GBP fiyat, taahhütsüz.';
+    : '11 ayrı hizmet: WhatsApp asistanı, telefonda konuşan asistan, iş akışı otomasyonu, web tasarım, Google&#39;da üst sıralara çıkma, Meta ve Google reklamları, müşteri takip sistemi. Fiyatlar açık, taahhüt yok.';
 
   const servicesJsonLd = SERVICES.map((s) =>
     serviceSchema({

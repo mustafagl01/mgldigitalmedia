@@ -184,7 +184,7 @@ const SECTORS: Sector[] = [
           en: 'A client says "3+1, balcony, near metro"; the agent writes it down and forgets days later; when a match appears, nobody follows up.',
         },
         solution: {
-          tr: 'Müşteri kriteri CRM\'e girilir. İlan platformlarında o kriterlere uyan yeni ilan çıktığında emlakçıya ve müşteriye otomatik "Eşleşme bulundu" bildirimi.',
+          tr: 'Müşterinin aradığı özellikler kaydedilir. İlan sitelerinde ona uyan yeni bir ilan çıktığında hem emlakçıya hem müşteriye "Eşleşme bulundu" bildirimi gider.',
           en: 'Client criteria are stored in CRM. When a matching listing appears on portal feeds, both agent and client get an auto "Match found" alert.',
         },
         value: {
@@ -222,7 +222,7 @@ const SECTORS: Sector[] = [
           en: 'Calls missed during showings go to competitors; agents return calls hours later, when the lead is cold.',
         },
         solution: {
-          tr: 'Sesli AI cevapsız çağrıyı dakikalar içinde geri arıyor; hangi ilanı sorduğunu öğreniyor, emlakçıya CRM\'e hazır bilgi paketiyle düşürüyor.',
+          tr: 'Cevapsız çağrıyı dakikalar içinde geri arar, hangi ilanı sorduğunu öğrenir ve emlakçıya hazır bir bilgi notuyla iletir.',
           en: 'Voice AI calls back missed calls within minutes, identifies which listing they asked about, and pushes a CRM-ready package to the agent.',
         },
         value: {
@@ -369,7 +369,7 @@ const SECTORS: Sector[] = [
           en: 'Clients dormant for 60-90 days are forgotten; chairs sit empty while past clients go uncalled.',
         },
         solution: {
-          tr: 'CRM son ziyaretten 60 gün geçen müşteriyi tarar; kişiselleştirilmiş WhatsApp: "Sizi özledik, bu haftaya özel %20 indiriminiz var."',
+          tr: 'Son gelişinden 60 gün geçen müşterileri bulur ve adıyla mesaj atar: "Sizi özledik, bu haftaya özel %20 indiriminiz var."',
           en: 'CRM scans for 60-day-dormant clients; personalized WhatsApp: "We\'ve missed you — 20% off this week only."',
         },
         value: {
@@ -407,7 +407,7 @@ const SECTORS: Sector[] = [
           en: 'Birthdays and anniversaries slip by; clients feel forgotten.',
         },
         solution: {
-          tr: 'CRM doğum gününü takvim olarak tutar; o sabah otomatik kutlama + özel indirim kodu WhatsApp\'tan gönderilir.',
+          tr: 'Müşterilerin doğum günü kayıtlı tutulur; o sabah kutlama mesajı ve özel indirim kodu WhatsApp\'tan gider.',
           en: 'CRM tracks birthdays; that morning an auto greeting + special code goes via WhatsApp.',
         },
         value: {
@@ -426,7 +426,7 @@ const SECTORS: Sector[] = [
           en: 'New clients call the salon, hit busy lines, and dial a competitor. Without instant response, leads vanish.',
         },
         solution: {
-          tr: 'Sesli AI 5 saniyede karşılıyor, randevu öneriyor, hizmet hakkında bilgi veriyor; randevu CRM\'e yazılıyor.',
+          tr: 'Telefonu 5 saniyede açar, hizmet hakkında bilgi verir, uygun saat önerir; randevu defterinize işlenir.',
           en: 'Voice AI picks up in 5 seconds, proposes appointments, answers service questions; booking flows to CRM.',
         },
         value: {
@@ -490,7 +490,7 @@ const SECTORS: Sector[] = [
           en: 'The QR menu only shows items; it captures no data — there\'s no channel to bring the guest back.',
         },
         solution: {
-          tr: 'QR menüye ek: "bu haftaki kampanya için WhatsApp\'ınızı ekleyin" mini form → CRM kaydı + hoş geldin mesajı.',
+          tr: 'QR menüye küçük bir form eklenir: "bu haftaki kampanya için numaranızı bırakın." Kaydeder ve hoş geldin mesajı gönderir.',
           en: 'QR menu add-on: "add your WhatsApp for this week\'s promo" mini form → CRM entry + welcome message.',
         },
         value: {

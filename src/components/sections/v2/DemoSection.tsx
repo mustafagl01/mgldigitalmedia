@@ -59,9 +59,42 @@ export function DemoSection({ onEmailDemo, onPhoneDemo }: Props) {
           </h2>
           <p className="lede" style={{ marginTop: 16, color: 'var(--fg-2)' }}>
             {language === 'tr'
-              ? 'Aşağıdaki numara bir AI asistanın canlı demosudur. Bir randevu ayarlayın, limitleri bizzat zorlayın. Hiçbir kart, hiçbir kayıt gerekmez.'
-              : 'The number below is a live AI assistant demo. Try booking an appointment, push it to its limits. No card, no signup.'}
+              ? 'Aşağıdaki numara gerçekten çalışan bir asistan. Arayın, soru sorun, zorlayın. Kart yok, kayıt yok.'
+              : 'The number below is a working assistant. Call it, ask it things, push it. No card, no signup.'}
           </p>
+
+          {/* Gerçek bir işten çıkan hikâye. Teknik anlatım yerine çözülen
+              sorun: saç ekimi hastalarının çoğu yurt dışından ve İngilizcesi
+              zayıf — kendi dilinde konuşabilmek gerçek bir engeli kaldırıyor. */}
+          <div
+            style={{
+              marginTop: 28,
+              padding: '20px 22px',
+              background: 'var(--paper)',
+              border: '1px solid var(--border)',
+              borderLeft: '3px solid var(--ember)',
+              borderRadius: 'var(--r-lg)',
+              maxWidth: 680,
+            }}
+          >
+            <div
+              style={{
+                fontFamily: 'var(--font-mono)',
+                fontSize: 11,
+                letterSpacing: '0.14em',
+                textTransform: 'uppercase',
+                color: 'var(--ember)',
+                marginBottom: 10,
+              }}
+            >
+              {language === 'tr' ? 'BİR SAÇ EKİMİ KLİNİĞİNDE' : 'AT A HAIR CLINIC'}
+            </div>
+            <p style={{ margin: 0, fontSize: 16, lineHeight: 1.6, color: 'var(--fg-2)' }}>
+              {language === 'tr'
+                ? 'Hastaların çoğu yurt dışından geliyor ve İngilizcesi yetmiyor. Sitedeki asistan onlarla kendi dillerinde konuşuyor: fotoğrafını gönderiyor, ne yapılabileceğini soruyor, cevabını gece yarısı bile alıyor. Klinik sabah sadece ciddi olanlara bakıyor.'
+                : 'Most patients come from abroad and their English runs out fast. The assistant on the site talks to them in their own language: they send a photo, ask what can be done, and get an answer even at midnight. In the morning the clinic only deals with the serious ones.'}
+            </p>
+          </div>
         </div>
 
         <div
@@ -126,7 +159,7 @@ export function DemoSection({ onEmailDemo, onPhoneDemo }: Props) {
               </div>
               <p style={{ marginTop: 12, color: 'var(--fg-2)', fontSize: 14, lineHeight: 1.55 }}>
                 {language === 'tr'
-                  ? 'Numaranızı girin, AI asistan sizi arasın. Randevu alır, fiyat söyler, geri arama kuyruğuna koyar.'
+                  ? 'Numaranızı girin, asistan sizi arasın. Sorularınızı cevaplar, fiyat söyler, talebinizi bize iletir.'
                   : 'Enter your number and get called back. The agent books, quotes, and schedules callbacks.'}
               </p>
             </div>
@@ -230,7 +263,7 @@ export function DemoSection({ onEmailDemo, onPhoneDemo }: Props) {
               </div>
               <p style={{ marginTop: 12, color: 'var(--fg-2)', fontSize: 14, lineHeight: 1.55 }}>
                 {language === 'tr'
-                  ? 'Bir örnek yazışma görün: AI asistanın dil tonu, randevu akışı, hatırlatma örnekleri.'
+                  ? 'Bir örnek yazışma görün: asistanın dil tonu, soru-cevap akışı, hatırlatma örnekleri.'
                   : 'See a sample thread: AI tone, booking flow, reminder examples.'}
               </p>
             </div>

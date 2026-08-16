@@ -179,6 +179,14 @@ img, svg { display: block; max-width: 100%; }
 .badge-success{ background: var(--moss-soft); color: var(--moss); border-color: transparent; }
 .badge-warn   { background: var(--ochre-soft); color: var(--ochre); border-color: transparent; }
 
+/* Koyu blokta --ember açık tona geçiyor (metin okunabilirliği için). Ama
+   rozet ZEMİN olarak ember kullanıyorsa açık zemin + açık metin çıkıyordu.
+   Zemin olarak kullanıldığında koyu tonu geri al. */
+.on-coal .badge[style*="--ember"] {
+  background: var(--ember-hover) !important;
+  color: #fff !important;
+}
+
 .badge-dot::before {
   content: '';
   width: 6px; height: 6px;

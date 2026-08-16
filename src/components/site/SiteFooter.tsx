@@ -179,19 +179,22 @@ export function SiteFooter({ onNavigate }: Props) {
           {/* Link columns */}
           {columns.map((col, i) => (
             <div key={i}>
-              <h4
+              {/* <h4> değil <p>: sayfada h2/h3 olmadan h4 kullanmak başlık
+                  sırasını bozuyordu (Lighthouse: heading-order). Görünüm aynı. */}
+              <p
                 style={{
                   fontFamily: 'var(--font-mono)',
                   fontSize: 11,
                   letterSpacing: '0.14em',
                   textTransform: 'uppercase',
-                  color: 'var(--bone-3)',
+                  color: 'var(--bone-2)',
                   fontWeight: 500,
                   marginBottom: 16,
+                  marginTop: 0,
                 }}
               >
                 {col.heading}
-              </h4>
+              </p>
               <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 10 }}>
                 {col.links.map((l, j) => (
                   <li key={j}>
@@ -215,19 +218,20 @@ export function SiteFooter({ onNavigate }: Props) {
 
           {/* Contact */}
           <div>
-            <h4
+            <p
               style={{
                 fontFamily: 'var(--font-mono)',
                 fontSize: 11,
                 letterSpacing: '0.14em',
                 textTransform: 'uppercase',
-                color: 'var(--bone-3)',
+                color: 'var(--bone-2)',
                 fontWeight: 500,
                 marginBottom: 16,
+                marginTop: 0,
               }}
             >
               {contactHeading}
-            </h4>
+            </p>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 10, fontSize: 14 }}>
               <li>
                 <a href="mailto:info@mgldigitalmedia.com" style={{ color: 'var(--bone-2)' }}>
@@ -313,10 +317,11 @@ export function SiteFooter({ onNavigate }: Props) {
             marginTop: 12,
             marginBottom: 0,
             fontFamily: 'var(--font-mono)',
-            fontSize: 10,
+            // 10px + opacity:0.7 kontrastı 3.16:1'e düşürüyordu (AA: 4.5:1).
+            // Opaklık kaldırıldı, punto bir tık büyütüldü.
+            fontSize: 11,
             letterSpacing: '0.08em',
-            color: 'var(--bone-3)',
-            opacity: 0.7,
+            color: '#A9A190',
             lineHeight: 1.6,
           }}
         >
