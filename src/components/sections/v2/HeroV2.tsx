@@ -1,6 +1,10 @@
 import { ArrowUpRight, Play } from 'lucide-react';
 import { useLanguage } from '../../../contexts/LanguageContext';
 import { HeroBackdrop } from '../../site/HeroBackdrop';
+// Görsel içerik hash'leri — demo siteler değişince görseli yeniliyoruz ama
+// dosya adı aynı kalıyor. Bu damga olmadan tarayıcı eski görseli göstermeye
+// devam ediyor. scripts/build_portfolio_images.py üretir.
+import manifest from '../../../data/portfolio-manifest.json';
 
 interface Props {
   onAnalysisClick: () => void;
@@ -280,7 +284,7 @@ export function HeroV2({ onAnalysisClick, onDemoClick }: Props) {
                 }}
               >
                 <img
-                  src={w.img}
+                  src={`${w.img}?v=${(manifest as Record<string, string>)[w.slug] ?? ''}`}
                   alt=""
                   loading="lazy"
                   decoding="async"

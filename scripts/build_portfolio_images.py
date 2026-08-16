@@ -98,6 +98,26 @@ def contact_sheet(imgs, labels):
     print(f"\nkontak sayfasi: {p}")
 
 
+def write_manifest():
+    """Her gorselin icerik hash'ini yazar.
+
+    NEDEN: Demo siteler degisince gorseli yeniliyoruz ama dosya adi ayni
+    kaliyor -> tarayici eski surumu gostermeye devam ediyor. HeroV2 bu
+    hash'i ?v= olarak ekleyerek onbellegi kirar.
+    """
+    import hashlib, json
+    man = {}
+    for w in WORKS:
+        p = OUT / f"{w['slug']}.webp"
+        if p.exists():
+            man[w["slug"]] = hashlib.sha1(p.read_bytes()).hexdigest()[:8]
+    dest = ROOT / "src" / "data" / "portfolio-manifest.json"
+    dest.parent.mkdir(parents=True, exist_ok=True)
+    dest.write_text(json.dumps(man, indent=2), encoding="utf-8")
+    print(f"surum damgasi: {dest.name} -> " +
+          ", ".join(f"{k}:{v}" for k, v in man.items()))
+
+
 def main():
     print("portfoy gorselleri markasizlastiriliyor...\n")
     imgs, labels = [], []
@@ -106,6 +126,7 @@ def main():
         if im:
             imgs.append(im); labels.append(w["slug"])
     contact_sheet(imgs, labels)
+    write_manifest()
     print(f"\n{len(imgs)} gorsel -> {OUT}")
 
 
