@@ -25,3 +25,6 @@ dist-ssr
 .env
 .wrangler
 mgldigitalmedia/
+
+# Yerel calisma loglari ve olcum ciktilari (depoya girmez)
+project_logs/

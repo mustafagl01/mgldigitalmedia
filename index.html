@@ -10,16 +10,18 @@
 
     <meta name="facebook-domain-verification" content="kq90h1hjwxme7n6dwctudu7400nf38" />
     <meta name="google-site-verification" content="Ia6tLS2oOo748NMT-KIA72QspplSd3boSbXBRqcEmxk" />
-    <!-- Google Analytics GA4 -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-0GNSN9EE2G"></script>
+    <!-- Google Analytics GA4 — body sonunda, kullanici etkilesimine kadar ertelenir.
+         Head'de senkron yuklendiginde ana is parcacigini 2.113 ms bloke ediyordu
+         (olcum: project_logs/baseline-2026-08-16.md). gtag stub'i burada durur ki
+         erken cagrilar kaybolmasin. -->
     <script>
       window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
+      window.gtag = function(){ dataLayer.push(arguments); };
       gtag('js', new Date());
       gtag('config', 'G-0GNSN9EE2G');
     </script>
-    <title>MGL Digital Media | AI Automation Agency · London</title>
-    <meta name="description" content="London AI automation studio. WhatsApp assistants, voice agents, n8n workflows &amp; conversion sites. Fixed price, no lock-in. Free 15-min audit." />
+    <title>MGL Digital Media · WhatsApp ve Telefon Asistanı, Reklam, Web</title>
+    <meta name="description" content="Müşterileriniz WhatsApp'tan yazsın, telefonda konuşsun — sistem cevaplasın, randevuyu alsın. Londra merkezli. Sabit fiyat, 3 günde kurulum, ücretsiz 15 dk analiz." />
     <meta name="keywords" content="AI otomasyon stüdyosu, WhatsApp AI asistanı, sesli AI asistan, n8n otomasyon, Meta reklam, Google reklam, dönüşüm odaklı web, MGL AI, MGL Digital Media" />
     <meta name="author" content="MGL Digital Media LTD" />
     <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
@@ -41,13 +43,13 @@
     <meta property="og:locale:alternate" content="en_GB" />
     <meta property="og:url" content="https://mgl-ai.com/" />
     <meta property="og:title" content="MGL Digital Media | AI Automation Agency · London" />
-    <meta property="og:description" content="London AI automation studio. WhatsApp assistants, voice agents, n8n workflows &amp; conversion sites. Fixed price, no lock-in. Free 15-min audit." />
+    <meta property="og:description" content="Müşterileriniz WhatsApp'tan yazsın, telefonda konuşsun — sistem cevaplasın, randevuyu alsın. Londra merkezli. Sabit fiyat, 3 günde kurulum, ücretsiz 15 dk analiz." />
     <meta property="og:image" content="https://mgl-ai.com/00bc7320-6f8f-42ae-a0b7-0c24b609e70f.png" />
     <meta property="og:image:alt" content="MGL AI" />
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="MGL Digital Media | AI Automation Agency · London" />
-    <meta name="twitter:description" content="London AI automation studio. WhatsApp assistants, voice agents, n8n workflows &amp; conversion sites. Fixed price, no lock-in. Free 15-min audit." />
+    <meta name="twitter:description" content="Müşterileriniz WhatsApp'tan yazsın, telefonda konuşsun — sistem cevaplasın, randevuyu alsın. Londra merkezli. Sabit fiyat, 3 günde kurulum, ücretsiz 15 dk analiz." />
     <meta name="twitter:image" content="https://mgl-ai.com/00bc7320-6f8f-42ae-a0b7-0c24b609e70f.png" />
 
     <!-- JSON-LD Structured Data -->
@@ -191,20 +193,56 @@
       </div>
     </noscript>
     <script type="module" src="/src/main.tsx"></script>
-    <!-- Meta Pixel — deferred to after main content -->
+    <!-- ================= TAKIP KODLARI — GECIKMELI YUKLEME =================
+         Neden: GA (2.113 ms) + Meta Pixel (826 ms) ana is parcacigini kilitliyordu.
+         Olcum: TBT 4.530 ms — kullanici sayfayi goruyor ama 4,5 saniye
+         hicbir butona basamiyordu. Reklamla gelen ziyaretciyi kaciran sey
+         tam olarak reklami olcen kodlardi.
+
+         Cozum: ilk etkilesime (scroll/tiklama/dokunma/tus) kadar bekle,
+         etkilesim olmazsa 4 sn sonra yine de yukle. Boylece ilk boyama ve
+         etkilesime hazir olma suresi takip kodlarindan etkilenmez.
+         Olcum kaybi yok: PageView yine gonderiliyor, sadece birkac saniye gec.
+    ==================================================================== -->
     <script>
-    !function(f,b,e,v,n,t,s)
-    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
-    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
-    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
-    n.queue=[];t=b.createElement(e);t.async=!0;
-    t.src=v;s=b.getElementsByTagName(e)[0];
-    s.parentNode.insertBefore(t,s)}(window, document,'script',
-    'https://connect.facebook.net/en_US/fbevents.js');
-    fbq('init', '2379329765780243');
-    fbq('track', 'PageView');
+    (function () {
+      var loaded = false;
+      var EVENTS = ['scroll', 'pointerdown', 'touchstart', 'keydown', 'mousemove'];
+
+      function loadTracking() {
+        if (loaded) return;
+        loaded = true;
+        EVENTS.forEach(function (e) {
+          window.removeEventListener(e, loadTracking, { passive: true });
+        });
+
+        // --- Google Analytics GA4 ---
+        var ga = document.createElement('script');
+        ga.async = true;
+        ga.src = 'https://www.googletagmanager.com/gtag/js?id=G-0GNSN9EE2G';
+        document.head.appendChild(ga);
+
+        // --- Meta Pixel ---
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window, document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', '2379329765780243');
+        fbq('track', 'PageView');
+      }
+
+      EVENTS.forEach(function (e) {
+        window.addEventListener(e, loadTracking, { passive: true, once: true });
+      });
+      // Etkilesim gelmezse yine de yukle (bounce eden ziyaretci de sayilsin)
+      setTimeout(loadTracking, 4000);
+    })();
     </script>
     <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=2379329765780243&ev=PageView&noscript=1"/></noscript>
-    <!-- End Meta Pixel -->
+    <!-- ================= TAKIP KODLARI SONU ================= -->
   </body>
 </html>

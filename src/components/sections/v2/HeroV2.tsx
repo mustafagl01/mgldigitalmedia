@@ -7,6 +7,50 @@ interface Props {
   onDemoClick: () => void;
 }
 
+/**
+ * Hero'daki iş duvarı.
+ *
+ * MARKASIZ SUNUM — bilinçli karar: bu siteler demo olarak yapıldı, ilgili
+ * işletmeler müşteri olmadı. Başkasının marka adını/logosunu portföyde
+ * göstermek izinsiz kullanım olur. Bu yüzden sektör + yapılan iş yazılıyor,
+ * görsellerde logo/isim kırpıldı (scripts/build_portfolio_images.py).
+ *
+ * Anlatım kuralı: ne kurulduğu değil, müşterinin ne kazandığı yazılır.
+ * "n8n webhook" değil → "gece de cevap veren asistan".
+ */
+const HERO_WORKS = [
+  {
+    slug: 'sac-ekimi',
+    img: '/portfolio/sac-ekimi.webp',
+    url: 'https://estelondon.vercel.app/',
+    tr: 'Saç ekimi kliniği',
+    trWhat: 'Hasta kendi dilinde konuşuyor, fotoğrafını yolluyor',
+    en: 'Hair transplant clinic',
+    enWhat: 'Patients speak in their own language, send photos',
+  },
+  {
+    slug: 'dis-klinigi',
+    img: '/portfolio/dis-klinigi.webp',
+    url: 'https://denteuropa.vercel.app/',
+    tr: 'Diş kliniği',
+    trWhat: 'Gece gelen soruya da cevap veriyor, randevu alıyor',
+    en: 'Dental clinic',
+    enWhat: 'Answers after hours and books the appointment',
+  },
+  {
+    slug: 'anaokulu',
+    img: '/portfolio/anaokulu.webp',
+    url: 'https://beyaz-zambak-kurttepe.vercel.app/',
+    tr: 'Anaokulu',
+    trWhat: 'Veli sorularını karşılıyor, kayıt formunu dolduruyor',
+    en: 'Nursery school',
+    enWhat: 'Handles parent questions, fills the signup form',
+  },
+  // NOT: Mali müşavir (musavir.vercel.app) bilerek eklenmedi — yeni başlanmış
+  // bir iş. Yarım işi vitrine koymak, iyi işlerin değerini de düşürür.
+  // Bitince buraya eklenir.
+] as const;
+
 export function HeroV2({ onAnalysisClick, onDemoClick }: Props) {
   const { language } = useLanguage();
 
@@ -85,20 +129,25 @@ export function HeroV2({ onAnalysisClick, onDemoClick }: Props) {
               fontVariationSettings: '"opsz" 144, "SOFT" 50',
             }}
           >
+            {/* Başlık kuralı: ne sattığımız ilk cümlede net olsun.
+                Eski hali "Operasyonel yüklerinizi otomatize ederiz" idi —
+                soyut ve mühendis dili. Meslektaş geri bildirimi: "ne sattığın
+                ilk banner'da yok". Yeni hali somut: kim, ne zaman, ne oluyor. */}
             {language === 'tr' ? (
               <>
-                Operasyonel{' '}
-                <span style={{ fontStyle: 'italic', fontWeight: 400, color: 'var(--fg-2)' }}>yüklerinizi</span>{' '}
-                otomatize ederiz.
-                <br />
-                Siz sadece <span style={{ color: 'var(--ember)' }}>büyümeye</span> odaklanırsınız.
+                Müşteriniz gece yazıyor.{' '}
+                <span style={{ fontStyle: 'italic', fontWeight: 400, color: 'var(--fg-2)' }}>
+                  Sabaha
+                </span>{' '}
+                randevusu <span style={{ color: 'var(--ember)' }}>hazır</span>.
               </>
             ) : (
               <>
-                We automate your operational{' '}
-                <span style={{ fontStyle: 'italic', fontWeight: 400, color: 'var(--fg-2)' }}>load</span>.
-                <br />
-                You focus only on <span style={{ color: 'var(--ember)' }}>growth</span>.
+                They message at midnight.{' '}
+                <span style={{ fontStyle: 'italic', fontWeight: 400, color: 'var(--fg-2)' }}>
+                  By morning
+                </span>{' '}
+                it&rsquo;s <span style={{ color: 'var(--ember)' }}>booked</span>.
               </>
             )}
           </h1>
@@ -113,9 +162,13 @@ export function HeroV2({ onAnalysisClick, onDemoClick }: Props) {
               lineHeight: 1.55,
             }}
           >
+            {/* Jargon temizlendi: "n8n otomasyonu", "AI asistan", "SEO",
+                "dijital motorlar" çıkarıldı. Müşterinin ne kazandığı yazıldı.
+                Teknik detay aşağıdaki bölümlerde duruyor — meraklı olan görsün,
+                arayan kişi kaçmasın. */}
             {language === 'tr'
-              ? 'AI asistanlardan Meta/Google reklamlarına, n8n otomasyonundan dönüştüren web ve SEO\'ya — bir işletmenin tüm dijital motorlarını tek ekipten, tek sistemden kuruyoruz. Biz kurarız, sistem çalıştırır.'
-              : 'From AI assistants to Meta/Google ads, n8n automation to conversion-first web and SEO — we build every digital motor your business runs on from one team, one system. We build it. The system runs it.'}
+              ? 'WhatsApp’a gelen mesajı, telefona gelen aramayı ve web sitenizdeki soruyu karşılayan bir sistem kuruyoruz. Cevap verir, randevuyu defterinize yazar, siz sadece onaylarsınız. Reklamınızı da biz yönetiriz — gelen kişi boşa gitmesin.'
+              : 'We set up a system that answers your WhatsApp messages, your phone calls and the questions on your site. It replies, books the appointment into your diary, and you just approve it. We run your ads too — so the people who arrive don’t go to waste.'}
           </p>
 
           {/* CTAs */}
@@ -167,7 +220,13 @@ export function HeroV2({ onAnalysisClick, onDemoClick }: Props) {
         </div>
         </div>
 
-        {/* Right column — Editorial System Artifact (desktop ≥1024px only) */}
+        {/* Right column — Bento work wall (desktop ≥1024px only)
+            ÖNCEKİ HALİ: terminal log kutusu (agent.n8n.webhook → 14:02:08).
+            NEDEN DEĞİŞTİ: Bir web tasarımcısı meslektaşın geri bildirimi —
+            "teknik jargon, bilmeyene bunlar ne ifade eder", "tamirci gibi
+            duruyor". Log ekranı sistemi tamir eden kişinin baktığı şeydir;
+            müşteri sonuç görmek ister. Yerine yapılan işlerin görseli kondu.
+            Markasız: işletmeler müşteri değil, demo — isim/logo kırpıldı. */}
         <aside
           className="hero-artifact animate-fade-up"
           style={{
@@ -175,7 +234,6 @@ export function HeroV2({ onAnalysisClick, onDemoClick }: Props) {
             fontFamily: 'var(--font-sans)',
           }}
         >
-          {/* Eyebrow */}
           <div
             style={{
               fontFamily: 'var(--font-mono)',
@@ -185,89 +243,84 @@ export function HeroV2({ onAnalysisClick, onDemoClick }: Props) {
               color: 'var(--ember)',
               paddingBottom: 10,
               borderBottom: '1px solid rgba(188, 59, 21, 0.22)',
-              marginBottom: 28,
+              marginBottom: 20,
             }}
           >
-            {language === 'tr' ? 'SİSTEM KANITI' : 'SYSTEM PROOF'}
+            {language === 'tr' ? 'KURDUĞUMUZ SİSTEMLER' : 'SYSTEMS WE BUILT'}
           </div>
 
-          {/* WhatsApp-style bubble — brand-native palette, no WhatsApp green */}
           <div
+            className="hero-work-grid"
             style={{
-              background: 'rgba(255, 255, 255, 0.55)',
-              border: '1px solid rgba(14, 14, 12, 0.08)',
-              borderLeft: '3px solid var(--ember)',
-              borderRadius: 14,
-              padding: '18px 20px',
-              marginBottom: 24,
+              display: 'grid',
+              gap: 12,
+              marginBottom: 20,
             }}
           >
-            <div
-              style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: 11,
-                letterSpacing: '0.08em',
-                color: 'var(--fg-3)',
-                textTransform: 'uppercase',
-                marginBottom: 10,
-              }}
-            >
-              14:02 · {language === 'tr' ? 'Asistan' : 'Agent'}
-            </div>
-            <div
-              style={{
-                fontSize: 15,
-                lineHeight: 1.5,
-                color: 'var(--ink)',
-              }}
-            >
-              {language === 'tr'
-                ? 'Merhaba Ayşe Hanım, cuma 15:00 uygun. Onaylıyor musunuz?'
-                : 'Hi Alice, Friday 3 pm works. Shall I confirm?'}
-            </div>
+            {HERO_WORKS.map((w) => (
+              <a
+                key={w.slug}
+                href={w.url}
+                target="_blank"
+                rel="noopener"
+                className="hero-work"
+                style={{
+                  position: 'relative',
+                  display: 'block',
+                  borderRadius: 12,
+                  overflow: 'hidden',
+                  border: '1px solid rgba(14, 14, 12, 0.1)',
+                  background: 'rgba(255,255,255,0.55)',
+                  textDecoration: 'none',
+                  color: 'inherit',
+                }}
+              >
+                <img
+                  src={w.img}
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                  width={900}
+                  height={470}
+                  style={{
+                    width: '100%',
+                    aspectRatio: '2 / 1',
+                    objectFit: 'cover',
+                    objectPosition: 'left top',
+                    display: 'block',
+                  }}
+                />
+                <div style={{ padding: '8px 11px 10px' }}>
+                  <div
+                    style={{
+                      fontSize: 12.5,
+                      fontWeight: 600,
+                      color: 'var(--ink)',
+                      lineHeight: 1.2,
+                    }}
+                  >
+                    {language === 'tr' ? w.tr : w.en}
+                  </div>
+                  <div
+                    style={{
+                      fontSize: 11,
+                      color: 'var(--fg-3)',
+                      marginTop: 2,
+                      lineHeight: 1.3,
+                    }}
+                  >
+                    {language === 'tr' ? w.trWhat : w.enWhat}
+                  </div>
+                </div>
+              </a>
+            ))}
           </div>
 
-          {/* Trace lines */}
-          <div
-            style={{
-              fontFamily: 'var(--font-mono)',
-              fontSize: 12,
-              lineHeight: 1.9,
-              color: 'var(--fg-3)',
-              paddingLeft: 2,
-              marginBottom: 24,
-            }}
-          >
-            <div>
-              <span style={{ color: 'var(--ember)' }}>›</span> agent.n8n.webhook
-              <span style={{ opacity: 0.5 }}> → 14:02:08</span>
-            </div>
-            <div>
-              <span style={{ color: 'var(--ember)' }}>›</span> lead.sentiment
-              <span style={{ opacity: 0.5 }}> → ok</span>
-            </div>
-            <div>
-              <span style={{ color: 'var(--ember)' }}>›</span> message.delivered
-              <span style={{ opacity: 0.5 }}> → seen</span>
-            </div>
-          </div>
-
-          {/* Divider */}
-          <div
-            style={{
-              height: 1,
-              background: 'rgba(14, 14, 12, 0.1)',
-              marginBottom: 18,
-              maxWidth: 120,
-            }}
-          />
-
-          {/* Italic tagline */}
           <p
             style={{
               fontFamily: 'var(--font-serif)',
               fontStyle: 'italic',
-              fontSize: 18,
+              fontSize: 17,
               lineHeight: 1.45,
               color: 'var(--fg-2)',
               margin: 0,
@@ -275,8 +328,8 @@ export function HeroV2({ onAnalysisClick, onDemoClick }: Props) {
             }}
           >
             {language === 'tr'
-              ? 'Bu mesajı bir insan yazmadı. Sistem yazdı, onay sizde kaldı.'
-              : "A human didn't write this. The system did — the approval stayed with you."}
+              ? 'Hepsinde site var; içinde de cevap veren, randevu alan bir sistem var.'
+              : 'Each one is a site — with a system inside that answers and books.'}
           </p>
         </aside>
       </div>
