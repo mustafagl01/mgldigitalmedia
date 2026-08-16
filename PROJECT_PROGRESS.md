@@ -192,3 +192,20 @@ mgldigitalmedia.com/
 **Not:** Portföy görselleri `scripts/build_portfolio_images.py` ile üretiliyor.
 Görsel değişirse script düzeltilir ve yeniden çalıştırılır; kontak sayfasına
 **gözle bakılır** (marka adı sızmasın).
+
+### Demo sitesi değişirse ne yapılır
+
+Demolar canlı; içerikleri değişebiliyor (2026-08-16: saç ekimi kliniği hero
+sözünü *"Kılı kırk yarmak bizim işimiz"* → *"Önemli olan iç güzellik, dışı biz
+güzelleştiririz…"* olarak değiştirdi).
+
+1. Yeni ekran görüntüsünü al → `project_logs/screens/current/raw-{site}.png`
+2. `python scripts/build_portfolio_images.py`
+3. `project_logs/portfolio-contact-sheet.png`'e **gözle bak** — marka adı/logo
+   sızmış mı? Site tasarımı değişince kırpma sınırları da kayabilir.
+4. Build + push
+
+**Önbellek uyarısı:** Dosya adı sabit (`sac-ekimi.webp`), o yüzden script bir
+içerik hash'i üretip `src/data/portfolio-manifest.json`'a yazıyor; hero bunu
+`?v=` olarak ekliyor. Bu olmadan siteyi daha önce ziyaret edenler **eski
+görseli görmeye devam ediyor** — dosya sunucuda yeni olsa bile.
