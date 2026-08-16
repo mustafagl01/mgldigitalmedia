@@ -350,7 +350,6 @@ function AppContent() {
           height: '56px',
           borderRadius: '50%',
           backgroundColor: '#25D366',
-          boxShadow: '0 4px 16px rgba(0,0,0,0.2)',
           transition: 'transform 0.2s',
           textDecoration: 'none',
         }}

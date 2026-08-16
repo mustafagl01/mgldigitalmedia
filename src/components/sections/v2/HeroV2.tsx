@@ -33,18 +33,18 @@ const HERO_WORKS = [
     img: '/portfolio/dis-klinigi.webp',
     url: 'https://denteuropa.vercel.app/',
     tr: 'Diş kliniği',
-    trWhat: 'Gece gelen soruya da cevap veriyor, randevu alıyor',
+    trWhat: 'Tedavi ve fiyat sorularını gece de cevaplıyor',
     en: 'Dental clinic',
-    enWhat: 'Answers after hours and books the appointment',
+    enWhat: 'Answers treatment and fee questions after hours',
   },
   {
     slug: 'anaokulu',
     img: '/portfolio/anaokulu.webp',
     url: 'https://beyaz-zambak-kurttepe.vercel.app/',
     tr: 'Anaokulu',
-    trWhat: 'Veli sorularını karşılıyor, kayıt formunu dolduruyor',
+    trWhat: 'Veli sorularını karşılıyor, iletişime yönlendiriyor',
     en: 'Nursery school',
-    enWhat: 'Handles parent questions, fills the signup form',
+    enWhat: 'Fields parent questions and points them to contact',
   },
   // NOT: Mali müşavir (musavir.vercel.app) bilerek eklenmedi — yeni başlanmış
   // bir iş. Yarım işi vitrine koymak, iyi işlerin değerini de düşürür.
@@ -133,21 +133,25 @@ export function HeroV2({ onAnalysisClick, onDemoClick }: Props) {
                 Eski hali "Operasyonel yüklerinizi otomatize ederiz" idi —
                 soyut ve mühendis dili. Meslektaş geri bildirimi: "ne sattığın
                 ilk banner'da yok". Yeni hali somut: kim, ne zaman, ne oluyor. */}
+            {/* DİKKAT — sadece gerçekten yapılan şey yazılır.
+                Randevu/takvim entegrasyonu HENÜZ YOK: sistem soruyu karşılar,
+                cevaplar ve talebi size iletir. Olmayan özellik vaat edilmez;
+                müşteri gelip sorduğunda karşılığı olmalı. */}
             {language === 'tr' ? (
               <>
                 Müşteriniz gece yazıyor.{' '}
                 <span style={{ fontStyle: 'italic', fontWeight: 400, color: 'var(--fg-2)' }}>
-                  Sabaha
+                  Cevabını
                 </span>{' '}
-                randevusu <span style={{ color: 'var(--ember)' }}>hazır</span>.
+                <span style={{ color: 'var(--ember)' }}>anında</span> alıyor.
               </>
             ) : (
               <>
                 They message at midnight.{' '}
                 <span style={{ fontStyle: 'italic', fontWeight: 400, color: 'var(--fg-2)' }}>
-                  By morning
+                  They get an answer
                 </span>{' '}
-                it&rsquo;s <span style={{ color: 'var(--ember)' }}>booked</span>.
+                <span style={{ color: 'var(--ember)' }}>straight away</span>.
               </>
             )}
           </h1>
@@ -167,8 +171,8 @@ export function HeroV2({ onAnalysisClick, onDemoClick }: Props) {
                 Teknik detay aşağıdaki bölümlerde duruyor — meraklı olan görsün,
                 arayan kişi kaçmasın. */}
             {language === 'tr'
-              ? 'WhatsApp’a gelen mesajı, telefona gelen aramayı ve web sitenizdeki soruyu karşılayan bir sistem kuruyoruz. Cevap verir, randevuyu defterinize yazar, siz sadece onaylarsınız. Reklamınızı da biz yönetiriz — gelen kişi boşa gitmesin.'
-              : 'We set up a system that answers your WhatsApp messages, your phone calls and the questions on your site. It replies, books the appointment into your diary, and you just approve it. We run your ads too — so the people who arrive don’t go to waste.'}
+              ? 'WhatsApp’a gelen mesajı, telefona gelen aramayı ve web sitenizdeki soruyu karşılayan bir sistem kuruyoruz. Siz uğraşmadan cevap verir, ilgilenen kişiyi size iletir. Reklamınızı da biz yönetiriz — gelen kişi boşa gitmesin.'
+              : 'We set up a system that answers your WhatsApp messages, your phone calls and the questions on your site. It replies without you lifting a finger and passes the interested ones straight to you. We run your ads too — so the people who arrive don’t go to waste.'}
           </p>
 
           {/* CTAs */}
@@ -328,8 +332,8 @@ export function HeroV2({ onAnalysisClick, onDemoClick }: Props) {
             }}
           >
             {language === 'tr'
-              ? 'Hepsinde site var; içinde de cevap veren, randevu alan bir sistem var.'
-              : 'Each one is a site — with a system inside that answers and books.'}
+              ? 'Hepsinde site var; içinde de soruları karşılayan, cevap veren bir sistem var.'
+              : 'Each one is a site — with a system inside that fields questions and answers them.'}
           </p>
         </aside>
       </div>

@@ -41,14 +41,17 @@ export function ThreeBuckets({ onAdsClick, onAgentsClick, onWebClick, onServices
           {
             num: '02',
             kind: 'agents',
-            title: 'AI Agent & Otomasyon',
-            body: 'WhatsApp, sesli asistan ve e-posta için 7/24 çalışan AI asistanlar. Randevu alır, satışa hazırlar, ekibinizi rutinden kurtarır.',
+            title: 'Soruları Karşılayan Asistan',
+            body: 'WhatsApp’tan yazana, telefonla arayana ve sitenizden soru sorana gece gündüz cevap veren bir asistan. Sık sorulanları kendi halleder, ciddi olanı size iletir.',
+            // NOT: "randevu/takvim" burada TALEP ÜZERİNE kurulan bir ek olarak
+            // yazılıyor — hero'daki iş kartlarında bu özellik yok, çünkü o
+            // müşteriler istemedi. Yapılabilir ama "her sitede var" denemez.
             lines: [
               'WhatsApp + telefon + e-posta',
-              'CRM ve takvim entegrasyonu',
+              'Takvime randevu yazma (isteğe bağlı)',
               '30+ dilde doğal konuşma',
             ],
-            cta: 'Agent paketleri',
+            cta: 'Asistan paketleri',
             highlight: true,
           },
           {
@@ -76,10 +79,10 @@ export function ThreeBuckets({ onAdsClick, onAgentsClick, onWebClick, onServices
           {
             num: '02',
             kind: 'agents',
-            title: 'AI Agents & Automation',
-            body: 'Always-on AI assistants for WhatsApp, voice and email. They book appointments, qualify leads, and free your team from repetitive work.',
-            lines: ['WhatsApp + phone + email', 'CRM and calendar integration', '30+ languages, native-sounding'],
-            cta: 'See agent packages',
+            title: 'An Assistant That Answers',
+            body: 'Someone to answer your WhatsApp messages, your phone and the questions on your site — day and night. It handles the routine ones itself and passes the serious ones to you.',
+            lines: ['WhatsApp + phone + email', 'Booking into your calendar (optional)', '30+ languages, native-sounding'],
+            cta: 'See assistant packages',
             highlight: true,
           },
           {
