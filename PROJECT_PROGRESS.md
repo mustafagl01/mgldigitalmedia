@@ -1,8 +1,43 @@
 # MGL Digital Media — Proje Durumu
 
 **Son güncelleme:** 2026-08-16
-**Canlı:** https://mgldigitalmedia.com · **Repo:** github.com/mustafagl01/mgldigitalmedia
-**Durum:** 🟡 Değişiklikler yerelde hazır, **yayına alınmadı** (onay bekliyor)
+**Canlı:** https://mgl-ai.com (asıl domain) · mgldigitalmedia.com (eski ad, yönlendirilecek)
+**Repo:** github.com/mustafagl01/mgldigitalmedia
+**Durum:** 🟢 **YAYINDA** — son commit `df74fd1`
+
+## Canlı ölçüm — başlangıç → şimdi
+
+| | Başlangıç | Şimdi |
+|---|---|---|
+| Performans (mobil) | 31 | **54** |
+| **Erişilebilirlik** | 90 | **100** ✅ |
+| En iyi uygulamalar | 77 | 77 |
+| SEO | 100 | 100 |
+| **Donma (TBT)** | **4.530 ms** | **400 ms** |
+| LCP | 9,5 sn | 8,3 sn |
+| Ağırlık | 1.500 KB | 1.247 KB |
+| Hero'da jargon | 12 | **0** |
+
+---
+
+## ⚠️ SENİN YAPMAN GEREKEN TEK ŞEY
+
+**`www.mgldigitalmedia.com` → 522 hatası.**
+
+DNS kaydı **doğru** (CNAME → `mgldigitalmedia.pages.dev`, Proxied). Sorun
+Cloudflare **Pages** tarafında: proje `www` alt alanını tanımıyor.
+
+Çözüm:
+1. Cloudflare → **Compute (Workers & Pages)** → **mgldigitalmedia** projesi
+2. **Custom domains** sekmesi
+3. **Set up a custom domain** → `www.mgldigitalmedia.com` → Activate
+
+**Alternatif (önerim):** `mgldigitalmedia.com` artık eski adın. Tamamını
+`mgl-ai.com`'a yönlendirmek daha temiz — Google iki ayrı site görmez, SEO gücü
+tek adreste toplanır. Cloudflare → `mgldigitalmedia.com` → **Rules** →
+**Redirect Rules** → Hostname contains `mgldigitalmedia.com` →
+`concat("https://mgl-ai.com", http.request.uri.path)` → 301.
+Bu yapılırsa `www` sorunu da kendiliğinden biter.
 
 ---
 
@@ -93,16 +128,47 @@ DNS Cloudflare'de olduğu için ücretsiz ve anında. Karar bekliyor.
 
 ---
 
+## Bu oturumda ayrıca yapılanlar (2. tur)
+
+### Satış sayfalarında dil sadeleştirme
+`Packages.tsx`, `Solutions.tsx`, `Services.tsx` — CRM / workflow / entegrasyon
+gibi terimler müşterinin anlayacağı karşılıklarla değiştirildi.
+
+**Bilerek dokunulmayanlar:** `N8nVsZapier`, `WhatsappCloudApiVsBaileys`,
+`VoiceflowVsRetellAi` gibi **karşılaştırma sayfaları**. Bunları arayan kişi
+zaten terimleri biliyor; sadeleştirmek SEO'yu öldürürdü.
+
+### Saç ekimi hikâyesi eklendi (demo bölümü)
+> *"Hastaların çoğu yurt dışından geliyor ve İngilizcesi yetmiyor. Sitedeki
+> asistan onlarla kendi dillerinde konuşuyor: fotoğrafını gönderiyor, ne
+> yapılabileceğini soruyor, cevabını gece yarısı bile alıyor."*
+
+En güçlü iş bu ve sitede hiç anlatılmıyordu.
+
+### Randevu iddiası kaldırıldı
+Hero ve demo kartları "randevu alır" diyordu — o üç demoda takvim entegrasyonu
+**yok**, müşteriler istememişti. Kanıt gösterilen yerde olmayan özellik
+yazılmaz. Hizmet bölümünde "isteğe bağlı" olarak duruyor (yapılabiliyor).
+
+### Erişilebilirlik 90 → 100
+- Koyu bloklarda vurgu rengi 3.3:1'di → `--ember-on-dark` eklendi
+- Footer metni 10px + %70 opaklık (3.16:1) → opaklık kaldırıldı, punto büyüdü
+- Footer başlıkları `<h4>` iken hiyerarşi bozuktu → `<p>` oldu
+- Sohbet ve WhatsApp butonları üst üste biniyordu → 12px boşlukla ayrıldı
+- Logo butonunun `aria-label`'ı görünen metinle ("mglai") uyuşmuyordu → kaldırıldı
+
+---
+
 ## Sırada
 
-- [ ] Değişiklikleri commit + yayına al
-- [ ] `www` 522 düzeltmesi (Cloudflare paneli — Mustafa)
-- [ ] Alt sayfalardaki jargon taraması (ana sayfa temizlendi, diğerleri değil)
-- [ ] Ayrı portföy sayfası (hero'da 3 var; tam liste ayrı sayfada olabilir)
-- [ ] EsteLondon'daki sesli asistan + chatbot'u anlatan özel bölüm
-      (*"gece 2'de kendi dilinde konuşup fotoğraf gönderiyor"* — güçlü hikâye)
-- [ ] Google Ads incelemesi — **site düzelince** (karar: önce site)
-- [ ] Prerender/SSR kararı
+- [ ] **`www` düzeltmesi** — yukarıdaki kutu (Cloudflare paneli, Mustafa)
+- [ ] Ayrı portföy sayfası (hero'da 3 iş var; tam liste ayrı sayfada olabilir)
+- [ ] Mali müşavir bitince portföye ekle (`build_portfolio_images.py` + `HERO_WORKS`)
+- [ ] **Google Ads incelemesi** — Mustafa "sonra konuşuruz" dedi, dokunulmadı
+- [ ] **Prerender/SSR kararı** — LCP 8,3 sn'nin asıl sebebi `<div id="root">`
+      boş olması. React SSR gerektirir, ayrı ve büyük iş.
+- [ ] `best-practices` 77 — üçüncü taraf çerezleri (GA + Meta Pixel). Bunlar
+      reklam ölçümü için gerekli, skoru yükseltmek için silinmesi mantıklı değil.
 
 ---
 
