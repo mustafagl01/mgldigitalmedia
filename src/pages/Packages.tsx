@@ -4,6 +4,8 @@ import {
   type PackageCategoryKey,
   type PackageTier,
   type PackageTierKey,
+  type PricingRegionCode,
+  type RegionalPricing,
   isPackageCategoryKey,
   tierKeysForCategory,
 } from '../config/pricing';
@@ -502,7 +504,7 @@ const COMMON_FAQ: FaqItem[] = [
     },
   },
   {
-    q: { tr: 'Kullanım ve aşım ücretleri nasıl işler?', en: 'How do usage and overage charges work?' },
+    q: { tr: 'Kullanım nasıl faturalanıyor?', en: 'How is usage billed?' },
     a: {
       tr: 'Aylık ücret sistemin kurulumu, bakımı ve belirtilen metin AI yanıt kotasını kapsar. Kota sonrası ek AI yanıtı 2 TL\'dir. Sesli çağrı kullanımı Retell, telefon hattı, ses ve seçilen model maliyetlerini kapsayan ayrı bir kullanım kalemidir; standart oran bağlı dakika başına 9 TL\'dir ve teklif öncesi netleştirilir. Resmî Meta/BSP, SMS veya benzeri kanal ücretleri yalnızca o kanal kullanılırsa ayrıca yansıtılır. Kota dolduğunda sistem durmaz; uyarı gönderilir ve kullanım devam eder.',
       en: 'The monthly fee covers the system, maintenance and the stated text-AI reply allowance. Additional AI replies cost £0.02 each. Voice is a separate usage line covering Retell, telephony, voice and the selected model; the current standard rate is £0.15 per connected minute and is confirmed before launch. Official Meta/BSP, SMS or similar channel fees are passed through only when that channel is used. The system does not stop at quota; you receive an alert and service continues.',
@@ -1036,7 +1038,7 @@ function PlanCard({ tier, content, region, isEnglish }: PlanCardProps) {
         </div>
       )}
 
-      {/* Usage and overage */}
+      {/* Kullanim — yeni modelde 'asim' diye bir kalem yok */}
       {content.overages.tr.length > 0 && (
         <div style={{ marginTop: 12 }}>
           <p
@@ -1049,7 +1051,7 @@ function PlanCard({ tier, content, region, isEnglish }: PlanCardProps) {
               margin: 0,
             }}
           >
-            {isEnglish ? 'USAGE & OVERAGE' : 'KULLANIM VE AŞIM'}
+            {isEnglish ? 'USAGE' : 'KULLANIM'}
           </p>
           <ul
             style={{
@@ -1243,6 +1245,174 @@ function SectorExample({ icon, title, examples, packageMatch, packageLabel }: Se
         <strong style={{ color: 'var(--ink)' }}>{packageMatch}</strong>
       </div>
     </article>
+  );
+}
+
+/**
+ * Kontör bölümü — asistanların kullanım fiyatları.
+ * Bütün rakamlar pricing.ts'ten okunur; metne gömülmez.
+ */
+function CreditPacks({
+  pricing,
+  region,
+  isEnglish,
+}: {
+  pricing: RegionalPricing;
+  region: PricingRegionCode;
+  isEnglish: boolean;
+}) {
+  const unit = (v: number) =>
+    region === 'TR'
+      ? `${v.toLocaleString('tr-TR', { maximumFractionDigits: 2 })} ₺`
+      : `${(v * 100).toLocaleString('en-GB', { maximumFractionDigits: 2 })}p`;
+
+  const groups = [
+    {
+      key: 'voice' as const,
+      title: isEnglish ? 'Voice assistant' : 'Sesli asistan',
+      unitLabel: isEnglish ? 'per connected minute' : 'bağlanan konuşma dakikası',
+      countLabel: isEnglish ? 'minutes' : 'dakika',
+      standard: pricing.packages.voice.usageRate ?? 0,
+      tiers: pricing.voiceUsageTiers,
+      note: isEnglish
+        ? 'Only connected calls are billed.'
+        : 'Yalnızca bağlanan çağrılar sayılır.',
+    },
+    {
+      key: 'whatsapp' as const,
+      title: isEnglish ? 'WhatsApp assistant' : 'WhatsApp asistanı',
+      unitLabel: isEnglish ? 'per AI reply' : 'AI yanıtı başına',
+      countLabel: isEnglish ? 'replies' : 'yanıt',
+      standard: pricing.packages.whatsapp.usageRate ?? 0,
+      tiers: null,
+      note: isEnglish
+        ? 'An AI reply is a message the assistant sends. Incoming messages and messages your staff writes are not counted.'
+        : 'AI yanıtı, asistanın gönderdiği mesajdır. Gelen mesajlar ve personelinizin yazdıkları sayılmaz.',
+    },
+  ];
+
+  return (
+    <div style={{ marginTop: 40 }}>
+      <h2 className="h3" style={{ color: 'var(--ink)' }}>
+        {isEnglish ? 'Credit — you pay for what you use' : 'Kontör — kullandığınız kadar ödersiniz'}
+      </h2>
+      <p style={{ marginTop: 8, fontSize: 14, lineHeight: 1.6, color: 'var(--fg-2)', maxWidth: 720 }}>
+        {isEnglish
+          ? 'Buying a bundle is optional. Without one you pay the standard rate; with one the unit price drops. Auto top-up is on by default, so the assistant never goes silent — you can switch it off.'
+          : 'Kontör paketi almak zorunlu değil. Almazsanız standart tarifeden işler, alırsanız birim fiyat düşer. Otomatik yükleme varsayılan olarak açıktır — asistan susmaz, isterseniz kapatabilirsiniz.'}
+      </p>
+
+      <div
+        style={{
+          marginTop: 20,
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+          gap: 20,
+        }}
+      >
+        {groups.map((g) => {
+          const packs = pricing.creditPacks.filter((p) => p.product === g.key);
+          return (
+            <div
+              key={g.key}
+              style={{
+                border: '1px solid var(--border)',
+                borderRadius: 'var(--r-lg)',
+                padding: '22px 24px',
+                background: 'var(--paper-2)',
+              }}
+            >
+              <h3 style={{ fontSize: 17, color: 'var(--ink)', margin: 0 }}>{g.title}</h3>
+
+              <p style={{ marginTop: 10, marginBottom: 0, fontSize: 13, color: 'var(--fg-2)' }}>
+                {isEnglish ? 'Standard rate' : 'Standart tarife'}{' '}
+                <strong style={{ fontFamily: 'var(--font-mono)', color: 'var(--ember)' }}>
+                  {unit(g.standard)}
+                </strong>{' '}
+                <span style={{ color: 'var(--fg-3)' }}>{g.unitLabel}</span>
+              </p>
+
+              {g.tiers && (
+                <div style={{ marginTop: 14 }}>
+                  <p style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--fg-3)', margin: 0 }}>
+                    {isEnglish ? 'Without a bundle' : 'Paketsiz kademeli tarife'}
+                  </p>
+                  <ul style={{ listStyle: 'none', padding: 0, margin: '8px 0 0' }}>
+                    {g.tiers.map((t, i) => {
+                      const from = i === 0 ? 0 : g.tiers![i - 1].upTo;
+                      return (
+                        <li
+                          key={t.upTo}
+                          style={{
+                            display: 'flex',
+                            justifyContent: 'space-between',
+                            fontFamily: 'var(--font-mono)',
+                            fontSize: 12,
+                            color: 'var(--fg-2)',
+                            padding: '3px 0',
+                          }}
+                        >
+                          <span>
+                            {from + 1}–{t.upTo} {g.countLabel}
+                          </span>
+                          <span style={{ color: 'var(--ink)' }}>{unit(t.rate)}</span>
+                        </li>
+                      );
+                    })}
+                  </ul>
+                </div>
+              )}
+
+              <div style={{ marginTop: 18, borderTop: '1px solid var(--border)', paddingTop: 14 }}>
+                <p style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--fg-3)', margin: '0 0 10px' }}>
+                  {isEnglish ? 'Bundles' : 'Kontör paketleri'}
+                </p>
+                {packs.map((p) => {
+                  const saving = g.standard * p.units - p.price;
+                  return (
+                    <div
+                      key={p.key}
+                      style={{
+                        display: 'flex',
+                        alignItems: 'baseline',
+                        justifyContent: 'space-between',
+                        gap: 12,
+                        padding: '8px 0',
+                        borderBottom: '1px solid var(--border)',
+                      }}
+                    >
+                      <div>
+                        <strong style={{ fontFamily: 'var(--font-mono)', fontSize: 14, color: 'var(--ink)' }}>
+                          {p.units.toLocaleString(region === 'TR' ? 'tr-TR' : 'en-GB')} {g.countLabel}
+                        </strong>
+                        <span style={{ display: 'block', fontSize: 12, color: 'var(--fg-3)' }}>
+                          {unit(p.unitRate)} {g.unitLabel}
+                          {saving > 0 && (
+                            <>
+                              {' · '}
+                              <span style={{ color: 'var(--ember)' }}>
+                                {formatPrice(saving, region)} {isEnglish ? 'saved' : 'tasarruf'}
+                              </span>
+                            </>
+                          )}
+                        </span>
+                      </div>
+                      <strong style={{ fontFamily: 'var(--font-mono)', fontSize: 16, color: 'var(--ink)', whiteSpace: 'nowrap' }}>
+                        {formatPrice(p.price, region)}
+                      </strong>
+                    </div>
+                  );
+                })}
+              </div>
+
+              <p style={{ marginTop: 12, marginBottom: 0, fontSize: 12, lineHeight: 1.55, color: 'var(--fg-3)' }}>
+                {g.note}
+              </p>
+            </div>
+          );
+        })}
+      </div>
+    </div>
   );
 }
 
@@ -1637,6 +1807,10 @@ export default function Packages() {
               />
             ))}
           </div>
+
+          {activeCategory === 'agents' && (
+            <CreditPacks pricing={pricing} region={region} isEnglish={isEnglish} />
+          )}
 
           {activeCategory === 'agents' && (
             <div
