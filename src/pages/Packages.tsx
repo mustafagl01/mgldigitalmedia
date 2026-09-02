@@ -1427,7 +1427,7 @@ export default function Packages() {
               borderRadius: 999,
             }}
           >
-            {(['ads', 'agents', 'web'] as PackageCategoryKey[]).map((cat) => {
+            {(['agents', 'systems', 'web', 'ads'] as PackageCategoryKey[]).map((cat) => {
               const isActive = activeCategory === cat;
               const { tr, en } = CATEGORY_META[cat].label;
               return (
@@ -1662,16 +1662,16 @@ export default function Packages() {
                 </h3>
                 <p style={{ marginTop: 8, fontSize: 14, lineHeight: 1.6, color: 'var(--fg-2)', maxWidth: 760 }}>
                   {isEnglish
-                    ? 'For deadline reminders, document collection, payment follow-up, spreadsheet/CRM synchronisation or internal reports. Includes up to 3 production workflows, 2 integrations, monitoring, failure alerts and monthly maintenance.'
-                    : 'Deadline hatırlatma, evrak toplama, ödeme takibi, Excel/CRM senkronizasyonu veya iç raporlar için. En fazla 3 üretim akışı, 2 entegrasyon, izleme, hata uyarıları ve aylık bakım dahildir.'}
+                    ? 'For deadline reminders, document collection, payment follow-up, spreadsheet/CRM synchronisation or internal reports. Scope is defined by your processes rather than a workflow count and is written into the proposal; hosting, monitoring, failure alerts and monthly maintenance are included.'
+                    : 'Deadline hatırlatma, evrak toplama, ödeme takibi, Excel/CRM senkronizasyonu veya iç raporlar için. Kapsam akış sayısıyla değil işletmenizin süreçleriyle tanımlanır ve teklifte yazılı olarak yer alır; barındırma, izleme, hata uyarıları ve aylık bakım dahildir.'}
                 </p>
               </div>
               <div style={{ minWidth: 190, textAlign: 'right' }}>
                 <strong style={{ display: 'block', fontFamily: 'var(--font-serif)', fontSize: 25, color: 'var(--ink)' }}>
-                  {formatPrice(region === 'TR' ? 4999 : 149, region)} / {isEnglish ? 'month' : 'ay'}
+                  {formatPrice(pricing.packages.automation.setupFee, region)} {isEnglish ? 'setup' : 'kurulum'}
                 </strong>
                 <span style={{ display: 'block', marginTop: 5, fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--fg-3)' }}>
-                  + {formatPrice(tier.setupFee, region)} {isEnglish ? 'one-off setup' : 'tek seferlik kurulum'}
+                  + {formatPrice(pricing.packages.automation.price, region)} / {isEnglish ? 'month maintenance' : 'ay bakım'}
                 </span>
               </div>
             </div>
