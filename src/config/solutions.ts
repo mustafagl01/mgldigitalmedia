@@ -167,14 +167,6 @@ export const SOLUTIONS: Record<SectorKey, SectorContent> = {
           en: 'Wires CRM, calendar, SMS/WhatsApp reminder flows.',
         },
       },
-      {
-        skuKey: 'crm-setup',
-        label: { tr: 'CRM Kurulumu', en: 'CRM Setup' },
-        blurb: {
-          tr: 'Hasta geçmişi, tedavi notu, iletişim tercihi tek panelde.',
-          en: 'Patient history, treatment notes, contact preferences — one panel.',
-        },
-      },
     ],
     recommendedPackage: 'agents',
     packageCta: {
@@ -383,14 +375,6 @@ export const SOLUTIONS: Record<SectorKey, SectorContent> = {
         blurb: {
           tr: 'Portal ve reklam lead\'lerini 60 saniye içinde karşılar.',
           en: 'Responds to portal and ad leads within 60 seconds.',
-        },
-      },
-      {
-        skuKey: 'crm-setup',
-        label: { tr: 'CRM Kurulumu', en: 'CRM Setup' },
-        blurb: {
-          tr: 'Pipedrive veya HubSpot üzerine emlak portföyü yapılandırma.',
-          en: 'Real-estate portfolio structure on Pipedrive or HubSpot.',
         },
       },
       {
@@ -634,14 +618,6 @@ export const SOLUTIONS: Record<SectorKey, SectorContent> = {
           en: 'Stock + order + return + shipment flows wired to WhatsApp.',
         },
       },
-      {
-        skuKey: 'analytics',
-        label: { tr: 'Analitik Dashboard', en: 'Analytics Dashboard' },
-        blurb: {
-          tr: 'ROAS, sepet kurtarma, LTV — haftalık rapor.',
-          en: 'ROAS, cart recovery, LTV — weekly report.',
-        },
-      },
     ],
     recommendedPackage: 'ads',
     packageCta: {
@@ -847,27 +823,11 @@ export const SOLUTIONS: Record<SectorKey, SectorContent> = {
         },
       },
       {
-        skuKey: 'crm-setup',
-        label: { tr: 'CRM Kurulumu', en: 'CRM Setup' },
-        blurb: {
-          tr: 'Müşteri geçmişi, son ziyaret, tercih notu tek panelde.',
-          en: 'Client history, last visit, preferences — one panel.',
-        },
-      },
-      {
         skuKey: 'n8n-automation',
         label: { tr: 'n8n Otomasyon', en: 'n8n Automation' },
         blurb: {
           tr: 'Randevu sistemi + takvim + WhatsApp + CRM zinciri otomatik çalışır.',
           en: 'Booking system + calendar + WhatsApp + CRM chain runs end-to-end.',
-        },
-      },
-      {
-        skuKey: 'seo',
-        label: { tr: 'Yerel SEO', en: 'Local SEO' },
-        blurb: {
-          tr: 'Google Business profil ve yorum akışı optimizasyonu.',
-          en: 'Google Business profile and review-flow optimization.',
         },
       },
     ],
@@ -1086,27 +1046,11 @@ export const SOLUTIONS: Record<SectorKey, SectorContent> = {
         },
       },
       {
-        skuKey: 'crm-setup',
-        label: { tr: 'CRM Kurulumu', en: 'CRM Setup' },
-        blurb: {
-          tr: 'Misafir geçmişi, tercih notu, alerji bilgisi tek panelde.',
-          en: 'Guest history, preferences, allergy notes — one panel.',
-        },
-      },
-      {
         skuKey: 'landing-page',
         label: { tr: 'QR Form Sayfası', en: 'QR Form Page' },
         blurb: {
           tr: 'QR menü sonrası mini form: isim + tel + doğum ayı.',
           en: 'Post-QR mini form: name + phone + birth month.',
-        },
-      },
-      {
-        skuKey: 'seo',
-        label: { tr: 'Yerel SEO', en: 'Local SEO' },
-        blurb: {
-          tr: 'Google Business profil ve yorum akışı optimizasyonu.',
-          en: 'Google Business profile and review-flow optimization.',
         },
       },
     ],

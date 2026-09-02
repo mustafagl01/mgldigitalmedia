@@ -110,7 +110,6 @@ const SECTORS: Sector[] = [
         },
         linkedSkus: [
           { label: 'WhatsApp AI Bot', anchor: 'whatsapp-bot' },
-          { label: 'SEO', anchor: 'seo' },
         ],
       },
       {
@@ -192,7 +191,6 @@ const SECTORS: Sector[] = [
           en: 'The sales pipeline runs even when the agent sleeps; every request is actively pursued, lead leakage drops toward zero.',
         },
         linkedSkus: [
-          { label: 'CRM Kurulumu', anchor: 'crm-setup' },
           { label: 'n8n Otomasyon', anchor: 'n8n-automation' },
         ],
       },
@@ -295,7 +293,6 @@ const SECTORS: Sector[] = [
         },
         linkedSkus: [
           { label: 'WhatsApp AI Bot', anchor: 'whatsapp-bot' },
-          { label: 'CRM Kurulumu', anchor: 'crm-setup' },
         ],
       },
       {
@@ -377,7 +374,6 @@ const SECTORS: Sector[] = [
           en: 'Dormant clients come back; occupancy rises far cheaper than paid acquisition.',
         },
         linkedSkus: [
-          { label: 'CRM Kurulumu', anchor: 'crm-setup' },
           { label: 'WhatsApp AI Bot', anchor: 'whatsapp-bot' },
         ],
       },
@@ -415,7 +411,6 @@ const SECTORS: Sector[] = [
           en: 'Loyalty and lifetime value rise; the brand feels personal through a single consistent channel.',
         },
         linkedSkus: [
-          { label: 'CRM Kurulumu', anchor: 'crm-setup' },
           { label: 'WhatsApp AI Bot', anchor: 'whatsapp-bot' },
         ],
       },
@@ -499,7 +494,6 @@ const SECTORS: Sector[] = [
         },
         linkedSkus: [
           { label: 'n8n Otomasyon', anchor: 'n8n-automation' },
-          { label: 'CRM Kurulumu', anchor: 'crm-setup' },
           { label: 'Landing Page', anchor: 'landing-page' },
         ],
       },
@@ -599,7 +593,6 @@ const SECTORS: Sector[] = [
           en: 'No client is lost, handoffs preserve knowledge, institutional memory forms.',
         },
         linkedSkus: [
-          { label: 'CRM Kurulumu', anchor: 'crm-setup' },
           { label: 'WhatsApp AI Bot', anchor: 'whatsapp-bot' },
         ],
       },
@@ -618,7 +611,6 @@ const SECTORS: Sector[] = [
           en: 'Local search visibility grows; organic lead flow begins without ad spend.',
         },
         linkedSkus: [
-          { label: 'SEO', anchor: 'seo' },
           { label: 'Web Sitesi', anchor: 'website' },
         ],
       },

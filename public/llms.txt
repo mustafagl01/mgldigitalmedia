@@ -92,10 +92,10 @@ Hardware: thermal printer 12,999 TRY / £199, one-off and optional.
 MGL operates a managed B2B outreach service that discovers target businesses, reviews factual website signals, prepares concise first-touch and follow-up emails, applies suppression and mailbox health rules, and tracks replies in a private client portal. Clients can monitor results and pause pending sends; only MGL can configure sources, limits, mailboxes, launch, or restart live campaigns.
 
 - Product page: https://mgl-ai.com/ai-musteri-bulma-mail-takip
-- MOST pilot: 14,999 TRY including setup and first 30 days
-- Managed sending with client-supplied leads: 6,999 TRY/month
-- Research plus managed sending: 12,999 TRY/month
-- Domain, mailbox and paid data/API costs are separate when used
+- Lead and email system: 12,999 TRY / £200 one-off setup, plus 1,899 TRY / £29 per month maintenance
+- The system runs on the client's own domain and mailbox, so sender reputation and data stay with the client
+- Domain, mailbox and paid data/API costs are the client's and are separate
+- Fully managed campaigns are not sold as a standalone plan; they are scoped through the free business check-up
 
 Sales, replies and inbox placement are not guaranteed. Performance depends on targeting, offer, domain health and market conditions.
 

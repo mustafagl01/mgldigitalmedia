@@ -12,8 +12,8 @@ export function FoundersBet({ onAnalysisClick }: Props) {
     language === 'tr'
       ? [
           {
-            h: 'Kurulum bizden, ilk ay risksiz',
-            p: 'Kurulumu biz yapıyoruz, sistem gerçek trafikle çalışıyor. Sonuç görmezseniz aylık ücret 31. günde başlamaz — ses ve reklam harcaması bizdeyken pass-through maliyet üzerinden fatura edilir.',
+            h: 'Asistanlarda kurulum ücreti yok',
+            p: 'Sesli ve WhatsApp asistanını ücretsiz kurar, gerçek trafikle çalıştırırız. Ödediğiniz tek şey küçük aylık sistem bedeli ve kullandığınız kadar kontör. Konuşma dakikası ve reklam bütçesi baştan itibaren size aittir — bunları biz üstlenmeyiz, üzerine de komisyon almayız.',
           },
           {
             h: 'Sabit fiyat, yazılı kapsam',
@@ -26,8 +26,8 @@ export function FoundersBet({ onAnalysisClick }: Props) {
         ]
       : [
           {
-            h: 'Setup on us, first month risk-free',
-            p: 'We build it, the system runs on real traffic. If you don’t see results, monthly billing doesn’t start — voice and ad spend run at pass-through cost with no agency fee.',
+            h: 'No setup fee on the assistants',
+            p: 'We set up the voice and WhatsApp assistants free and run them on real traffic. All you pay is the small monthly system fee and the credit you actually use. Connected minutes and ad budget are yours from day one — we neither cover them nor take a cut.',
           },
           {
             h: 'Fixed price, written scope',

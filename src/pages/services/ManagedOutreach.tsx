@@ -32,9 +32,8 @@ const COPY = {
     priceTitle: 'Yönetilen hizmet paketleri',
     priceIntro: 'İlk sürüm self-service yazılım lisansı değil, MGL tarafından işletilen bir hizmettir.',
     plans: [
-      ['MOST Pilot', '14.999 TL', 'kurulum + ilk 30 gün', ['Müşteri profili ve kampanya briefi', 'Lead akışı ve örnek mesajlar', 'MGL yönetimli gönderim', 'Dashboard ve cevap takibi']],
-      ['Yönetilen Gönderim', '6.999 TL/ay', 'lead listesini siz sağlarsınız', ['Liste temizleme ve suppression', 'Kişiselleştirilmiş e-posta üretimi', 'Gönderim ve cevap takibi', 'Aylık sonuç görünümü']],
-      ['Araştırma + Gönderim', '12.999 TL/ay', 'lead araştırmasını MGL yürütür', ['Hedef işletme araştırması', 'Site inceleme ve iletişim bulma', 'Kişiselleştirilmiş gönderim', 'Cevap ve sıcak lead takibi']],
+      ['Lead + Mail Sistemi', '12.999 TL', 'tek seferlik kurulum', ['Hedef müşteri profili çıkarımı', 'Lead toplama, zenginleştirme ve e-posta doğrulama', 'Her işletmeye özel yazılan ilk mail ve takip', 'Gönderim kaydı, mükerrer engelleme ve cevap raporu']],
+      ['Aylık Bakım', '1.899 TL/ay', 'barındırma, izleme, arıza müdahalesi', ['Sistem sizin domaininiz ve posta kutunuzda çalışır', 'Teslimat sağlığı ve limit takibi', 'Ayda bir değişiklik hakkı', 'Domain, mailbox ve veri kredisi size aittir']],
     ],
     extra: 'Domain, kampanya mailbox’ı ve ücretli veri/API giderleri kullanıma göre ayrıca yansıtılır. Satış, cevap veya inbox yerleşimi garanti edilmez; sonuç hedef kitleye, teklife, domain sağlığına ve pazar koşullarına bağlıdır.',
     faqTitle: 'Sık sorulan sorular',
@@ -71,9 +70,8 @@ const COPY = {
     safety: 'A separate campaign mailbox owned by you is used. Its app password is encrypted, and sending stays locked until SPF, DKIM and DMARC checks pass. Opt-outs and negative replies are suppressed immediately.',
     priceTitle: 'Managed service plans', priceIntro: 'The first release is an MGL-operated service, not a self-service software licence.',
     plans: [
-      ['MOST Pilot', '14,999 TRY', 'setup + first 30 days', ['Customer profile and campaign brief', 'Lead workflow and sample emails', 'MGL-managed sending', 'Portal and reply tracking']],
-      ['Managed Sending', '6,999 TRY/month', 'you provide the lead list', ['List cleaning and suppression', 'Personalised email generation', 'Sending and reply monitoring', 'Monthly results view']],
-      ['Research + Sending', '12,999 TRY/month', 'MGL researches the leads', ['Target business research', 'Website and contact review', 'Personalised sending', 'Reply and warm lead tracking']],
+      ['Lead + Email System', '£200', 'one-off setup', ['Ideal customer profile definition', 'Lead sourcing, enrichment and email verification', 'A first email and follow-up written for each business', 'Send log, deduplication and reply reporting']],
+      ['Monthly maintenance', '£29/month', 'hosting, monitoring, incident response', ['Runs on your own domain and mailbox', 'Deliverability and sending-limit monitoring', 'One change request per month', 'Domain, mailbox and data credits are yours']],
     ],
     extra: 'Domain, campaign mailbox and paid data/API costs are billed separately when used. Sales, replies and inbox placement cannot be guaranteed; outcomes depend on targeting, offer, domain health and market conditions.',
     faqTitle: 'Frequently asked questions',
