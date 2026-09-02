@@ -168,7 +168,7 @@ const SERVICES: ServiceSku[] = [
       tr: 'Tek odaklı, reklam trafiği için yüksek dönüşüm sayfası.',
       en: 'Single-focus, high-conversion page for ad traffic.',
     },
-    setupTR: '7.999 ₺', monthlyTR: '—', setupGB: '£239', monthlyGB: '—',
+    setupTR: '12.999 ₺', monthlyTR: '6.499 ₺ (yıllık hosting)', setupGB: '£200', monthlyGB: '£100 (yearly hosting)',
     risk: 'project',
     features: {
       tr: [
@@ -240,10 +240,10 @@ const SERVICES: ServiceSku[] = [
     icon: Target,
     name: { tr: 'Meta Reklam Yönetimi', en: 'Meta Ads Management' },
     tagline: {
-      tr: 'Hibrit model: sabit yönetim + spend komisyonu. Bütçe sizin kartınızda.',
-      en: 'Hybrid: fixed management + spend commission. Budget stays on your card.',
+      tr: 'Sabit aylık ücret, bütçe üzerinden yüzde yok. Reklam bütçesi sizin kartınızda kalır.',
+      en: 'Flat monthly fee, no percentage of your spend. The ad budget stays on your card.',
     },
-    setupTR: '2.999 ₺', monthlyTR: '5.000 ₺ + spend × %10', setupGB: '£90', monthlyGB: '£150 + spend × 10%',
+    setupTR: 'Ücretsiz', monthlyTR: '6.499 ₺', setupGB: 'Free', monthlyGB: '£99',
     risk: 'C',
     features: {
       tr: [
@@ -269,7 +269,7 @@ const SERVICES: ServiceSku[] = [
       tr: 'Search + PMax + YouTube. Niyet bazlı trafik yakalama.',
       en: 'Search + PMax + YouTube. Intent-based traffic capture.',
     },
-    setupTR: '2.999 ₺', monthlyTR: '5.000 ₺ + spend × %10', setupGB: '£90', monthlyGB: '£150 + spend × 10%',
+    setupTR: 'Ücretsiz', monthlyTR: '6.499 ₺', setupGB: 'Free', monthlyGB: '£99',
     risk: 'C',
     features: {
       tr: [
@@ -842,8 +842,8 @@ export default function Services() {
                 key: 'C' as const,
                 skus: isEnglish ? 'Meta Ads · Google Ads' : 'Meta Reklam · Google Reklam',
                 desc: {
-                  tr: 'Reklam yönetiminde ilk ay ücret %50. Reklam bütçesi her zaman sizin kartınızdan Meta/Google’a gider — bize uğramaz.',
-                  en: 'Ad management: 50% first-month fee. Ad spend always flows from your card direct to Meta/Google — never through us.',
+                  tr: 'Reklam yönetimi sabit aylık ücrettir; bütçeniz büyüse de değişmez. Reklam bütçesi her zaman sizin kartınızdan Meta/Google’a gider — bize uğramaz.',
+                  en: 'Ad management is a flat monthly fee that does not change as your budget grows. Ad spend always flows from your card direct to Meta/Google — never through us.',
                 },
               },
             ].map((model) => (

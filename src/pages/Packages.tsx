@@ -1306,8 +1306,8 @@ export default function Packages() {
   const seoDescription = useMemo(() => {
     if (activeCategory === 'ads') {
       return isEnglish
-        ? 'Three flat-price ad packages: Single Channel, Dual Channel + SEO, Full Funnel. Transparent 10% management fee, ad budget paid directly to Meta / Google. No ranges.'
-        : 'Üç sabit fiyatlı reklam paketi: Tek Kanal, Çift Kanal + SEO, Full Funnel. %10 şeffaf yönetim payı, reklam bütçesi direkt Meta / Google\'a ödenir. Aralık yok.';
+        ? 'Flat-price ad management: Meta, Google, or both together at a discount. No percentage of your ad spend; the budget is paid directly to Meta / Google. No ranges.'
+        : 'Sabit fiyatlı reklam yönetimi: Meta, Google veya ikisi birden indirimli. Bütçeniz üzerinden yüzde alınmaz; reklam bütçesi direkt Meta / Google\'a ödenir. Aralık yok.';
     }
     if (activeCategory === 'web') {
       return isEnglish
