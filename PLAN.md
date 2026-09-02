@@ -403,13 +403,20 @@ kalmış eski kopya) karışıklık yaratmasın diye işaretlensin veya silinsin
   reklam/asistan SSS'leri ve "aşım tarifesi" cevabı yeni modele göre düzeltildi.
 - `src/pages/Pricing.tsx` — 9 sektörde sabit yazılı eski paket adı ve fiyatı
   güncellendi; `getRecommendedPackage()` kademe önerisi yerine tek modeli anlatıyor.
-- ⚠️ **`src/stripe-config.ts`'e DOKUNULMADI.** İçinde canlı bir Stripe fiyat kimliği
-  var (`price_1S1rU8DsBtMM0UXXyLmDaNfc`, £500 / 20.000 ₺). Koddaki sayıyı değiştirmek
-  Stripe'taki fiyatı değiştirmez — sitede yazan ile tahsil edilen ayrışır. Stripe
-  tarafında yeni fiyat oluşturulmalı (açık konu 4).
-- ℹ️ `src/components/pricing/*` (7 bileşen) ve `src/data/profit-engine-config.json`
-  **ölü kod** — hiçbir yerden çağrılmıyor, tip hataları da onlardan geliyor. İçlerinde
-  eski fiyatlar (16.999 ₺, $399) duruyor ama canlıya çıkmıyor. Silinmesi önerilir.
+- Eski fiyat metinleri temizlendi: `config/solutions.ts` (12 yer), `Services.tsx`,
+  `services/{WhatsappAiAsistan,SesliAi,N8nOtomasyon}.tsx`,
+  `comparisons/UkAiAgenciesComparison.tsx`, 4 blog yazısı ve `public/llms.txt`.
+  Yanlış `£119/ay` iddiası da düzeltildi.
+- ✅ **`src/stripe-config.ts` yeniden yazıldı.** Stripe'ta AloSipariş kalemleri zaten
+  doğru fiyatlarla duruyordu (£9,90 abonelik, £199 yazıcı, 500/1000/2000 dk kontör) —
+  onlar korundu. Eksik **13 fiyat oluşturuldu** (web kurulumları, hosting, otomasyon
+  ve lead kurulumu, sistem bakımı, 3 reklam paketi, 3 WhatsApp kontörü). Katalog artık
+  17 gerçek `priceId` taşıyor; sitede yazan ile tahsil edilen aynı.
+  ⚠️ `priceTry` yalnızca gösterimdir — checkout GBP üzerinden yapılıyor. TL ile
+  tahsilat istenirse Stripe'ta ayrı TRY price nesneleri gerekir (açık konu).
+- ✅ Ölü kod silindi: `src/components/pricing/*` (7 bileşen) ve
+  `src/data/profit-engine-config.json`. Hiçbir yerden çağrılmıyorlardı ve içlerinde
+  eski fiyatlar duruyordu.
 
 **C · Tasarım sistemi — ✅ TAMAM (2026-09-02)**
 - `src/styles/design-tokens.css` — röntgen paleti uygulandı. **Token adları korundu,
@@ -467,21 +474,46 @@ tasarım turu gerektiriyor.
 **2. Otomatik kontör yükleme.**
 Kart saklama + eşik tetikleyici + bildirim gerekiyor. Stripe tarafı ayrı iş.
 
-**3. Stripe fiyatları.**
-`stripe-config.ts` içindeki ürün canlı bir Stripe fiyat kimliğine bağlı (£500 / 20.000 ₺,
-eski 40₺/£ kurundan). Yeni modelde birden fazla fiyat gerekiyor: kurulum kalemleri
-(£200/£400/£500), aylık abonelikler (£9,90 / £29 / £99 / £169) ve kontör paketleri.
-Bunlar Stripe tarafında oluşturulmalı, sonra `priceId`'leri koda yazılmalı. Ücretli
-servis tarafında değişiklik olduğu için Mustafa'nın onayı bekleniyor.
+**3. Worker ve D1 deploy'u — Cloudflare yetkisi bekliyor.**
+Güvenlik düzeltmeleri (parola hash'i, price_id allow-list, URL doğrulama, CORS)
+`worker/src/auth-handler.ts` içinde yazıldı ve commit'lendi, **ama yayına çıkmadı** —
+worker `main`'e push ile deploy olmuyor, `wrangler deploy` gerekiyor. Sıra önemlidir:
+önce `migrations/0002_add_password_hash.sql`, sonra worker. Aksi halde `password_hash`
+sütunu olmadığı için kayıt ve giriş kırılır.
+Engel: wrangler oturumu yok; merkezi env'deki `CLOUDFLARE_API_KEY` çalışmıyor (global
+key ve bearer token olarak denendi, ikisi de reddedildi). `CLOUDFLARE_API_TOKEN` veya
+`npx wrangler login` gerekiyor.
+Not: login/register/checkout uçları şu an canlıda hiç yok (Pages yalnızca
+`functions/api/location.ts`'i sunuyor), bu yüzden bulgular şu an sömürülebilir değil.
 
-**4. Instagram / YouTube.**
+**4. TL ile tahsilat.**
+Stripe kataloğundaki tüm fiyatlar GBP. `priceTry` sadece gösterim; checkout GBP
+üzerinden yapılıyor. Türkiye'de TL çekilecekse Stripe'ta ayrı TRY price nesneleri
+oluşturulmalı ve `stripe-config.ts` bölgeye göre seçim yapmalı.
+
+**5. Instagram / YouTube.**
 Karar: **iki kanal ayrı yürüyecek** (IG kısa teşhis içeriği, YouTube derin teknik).
 Detay site bittikten sonra konuşulacak. Hesap adı netleştirilmeli — `@mgl.ai.uk`
 (sitede) ve `@mgl_digital_media` (llms.txt'te) olarak iki farklı ad geçiyor.
 
 ---
 
-## 9. KARAR GEÇMİŞİ
+## 9. YAYIN GEÇMİŞİ
+
+**2026-09-02 · `40418b8` — yeni fiyat modeli + röntgen paleti canlıya alındı.**
+Cloudflare Pages `main`'e push ile otomatik derledi; 25 route 200 dönüyor,
+`llms.txt` yeni fiyatlarla yayında.
+
+⚠️ **Aynı gün yaşanan hata — tekrarlanmasın.** İş önce `Desktop\[ARŞİV]\mgldigitalmedia`
+kopyasında yapıldı; o kopya "en yeni commit tarihi" ölçütüyle güncel sanılmıştı ama
+`origin/main`'den **15 commit geride, 2 ay eskiydi** (ortak ata 3 Temmuz). Push
+reddedildi, veri kaybı olmadı; iş `origin/main` üzerine yeniden uygulandı ve o sırada
+uzaktaki kontrast düzeltmeleri, çok dilli web paketi ve yönetilen outreach sayfası
+korundu. **Klasör seçerken commit tarihine değil `git fetch` + `git status -sb`
+çıktısına bakılacak.** Fazla klon `mgl-mail-platform/sites/` altında
+`ESKI-...-KULLANMA` adıyla işaretlendi; silinmesi bekliyor.
+
+## 10. KARAR GEÇMİŞİ
 
 Bu plan 2026-09-02 tarihli beyin fırtınası oturumunda madde madde onaylandı.
 Değiştirilen her fiyat ve tasarım kararı yukarıda gerekçesiyle birlikte duruyor;
