@@ -192,8 +192,8 @@ export const SOLUTIONS: Record<SectorKey, SectorContent> = {
       {
         q: { tr: 'Aylık ücret nedir?', en: 'What is the monthly fee?' },
         a: {
-          tr: 'Klinikler için önerilen AI Ön Büro paketi 15.999 TL/ay + 44.999 TL kurulumdur. 5.000 AI yanıtı ve kota içindeki AI model/API kullanımı dahildir; bağlanan sesli çağrılar 9 TL/dakikadır.',
-          en: 'For clinics, the recommended AI Front Desk plan is £449/month + £1,250 setup. It includes 5,000 AI replies and AI model/API usage within that allowance; connected voice calls are £0.15/min.',
+          tr: 'Klinikler için sesli ve WhatsApp asistanı birlikte kurulur. Kurulum ücretsizdir; aylık sistem bedeli 649 TL olur ve ikisini birden alsanız da tek ödenir. Kullanım ayrıca işler: bağlanan konuşma dakikası 16 TL seviyesinden başlar ve hacimle düşer, WhatsApp AI yanıtı 0,45 TL olur.',
+          en: 'For clinics we set up the voice and WhatsApp assistants together. Setup is free; the monthly system fee is £9.90 and is paid once even if you take both. Usage is billed separately: connected minutes start at 25p and fall with volume, WhatsApp AI replies are 0.7p.',
         },
       },
       {
@@ -433,8 +433,8 @@ export const SOLUTIONS: Record<SectorKey, SectorContent> = {
       {
         q: { tr: 'Aylık ücret nedir?', en: 'What is the monthly fee?' },
         a: {
-          tr: 'Emlak ofisleri için önerilen AI Ön Büro paketi 15.999 TL/ay + 44.999 TL kurulumdur. 5.000 AI yanıtı ve kota içindeki AI model/API kullanımı dahildir. Portal lisansı ve reklam bütçesi size aittir.',
-          en: 'For estate agencies, the recommended AI Front Desk plan is £449/month + £1,250 setup. It includes 5,000 AI replies and AI model/API usage within that allowance. Portal licences and ad spend are separate.',
+          tr: 'Emlak ofisleri için sesli ve WhatsApp asistanı birlikte kurulur. Kurulum ücretsizdir; aylık sistem bedeli 649 TL olur. Kullanım ayrıca işler: konuşma dakikası 16 TL seviyesinden başlar, WhatsApp AI yanıtı 0,45 TL olur. Portal lisansı ve reklam bütçesi size aittir.',
+          en: 'For estate agencies we set up the voice and WhatsApp assistants together. Setup is free; the monthly system fee is £9.90. Usage is billed separately: connected minutes start at 25p and WhatsApp AI replies are 0.7p. Portal licences and ad spend are separate.',
         },
       },
       {
@@ -468,8 +468,8 @@ export const SOLUTIONS: Record<SectorKey, SectorContent> = {
       {
         q: { tr: 'Reklam yönetimi dahil mi?', en: 'Is ad management included?' },
         a: {
-          tr: 'Ayrı pakettir. Büyüme Reklamları 24.999 TL/ay (£750/ay); eklendiğinde Meta lead kampanyası ve WhatsApp devri birlikte kurulur. Reklam bütçesi ayrıca doğrudan platforma ödenir.',
-          en: 'This is a separate plan. Growth Ads is £750/month (24,999 TL/month); when added, Meta lead campaigns and WhatsApp hand-off are set up together. Ad spend is paid separately to the platform.',
+          tr: 'Ayrı kalemdir. Meta reklam yönetimi 6.499 TL/ay (£99); Meta ve Google birlikte 10.999 TL/ay (£169). Eklendiğinde Meta lead kampanyası ve WhatsApp devri birlikte kurulur. Reklam bütçesi doğrudan platforma, kendi kartınızdan ödenir.',
+          en: 'This is a separate line. Meta ads management is £99/month; Meta and Google together are £169/month. When added, Meta lead campaigns and WhatsApp hand-off are set up together. Ad spend is paid directly to the platform from your own card.',
         },
       },
     ],
@@ -697,8 +697,8 @@ export const SOLUTIONS: Record<SectorKey, SectorContent> = {
       {
         q: { tr: 'Aylık ücret nedir?', en: 'What is the monthly fee?' },
         a: {
-          tr: 'Büyüme Reklamları 24.999 TL/ay (£750) + AI Ön Büro 15.999 TL/ay (£449). AI Ön Büro kurulum bedeli ayrıca alınır; reklam bütçesi doğrudan platforma ödenir.',
-          en: 'Growth Ads is £750/month plus AI Front Desk at £449/month. AI Front Desk setup is charged separately; ad spend is paid directly to the platform.',
+          tr: 'Meta + Google reklam yönetimi 10.999 TL/ay (£169) ve asistan sistem bedeli 649 TL/ay (£9,90). Asistanda kurulum ücreti yoktur; reklam bütçesi doğrudan platforma ödenir.',
+          en: 'Meta + Google ads management is £169/month plus the £9.90/month assistant system fee. There is no setup fee for the assistant; ad spend is paid directly to the platform.',
         },
       },
       {
@@ -887,8 +887,8 @@ export const SOLUTIONS: Record<SectorKey, SectorContent> = {
       {
         q: { tr: 'Aylık ücret nedir?', en: 'What is the monthly fee?' },
         a: {
-          tr: 'WhatsApp AI Asistan 6.999 TL/ay + 19.999 TL kurulumdur. 2.000 AI yanıtı ve kota içindeki AI model/API kullanımı dahildir; resmî Meta/BSP ücretleri yalnızca kullanılırsa ayrıca yansıtılır.',
-          en: 'WhatsApp AI Assistant is £199/month + £499 setup. It includes 2,000 AI replies and AI model/API usage within that allowance; official Meta/BSP fees are passed through only when used.',
+          tr: 'WhatsApp asistanında kurulum ücreti yoktur. Aylık sistem bedeli 649 TL olur; üstüne yalnızca asistanın gönderdiği AI yanıtları sayılır (0,45 TL/yanıt, kontör paketiyle düşer). Resmî Meta/BSP ücretleri yalnızca o rota seçilirse ayrıca yansıtılır.',
+          en: 'The WhatsApp assistant has no setup fee. The monthly system fee is £9.90; on top of that only the replies the assistant sends are counted (0.7p each, lower with a bundle). Official Meta/BSP fees are passed through only if that route is chosen.',
         },
       },
       {
@@ -1126,8 +1126,8 @@ export const SOLUTIONS: Record<SectorKey, SectorContent> = {
       {
         q: { tr: 'Aylık ücret nedir?', en: 'What is the monthly fee?' },
         a: {
-          tr: 'Telefon ve WhatsApp rezervasyonlarını birlikte yönetmek için AI Ön Büro 15.999 TL/ay + 44.999 TL kurulumdur. 5.000 AI yanıtı dahildir; bağlı sesli çağrılar 9 TL/dakikadır.',
-          en: 'To manage phone and WhatsApp reservations together, AI Front Desk is £449/month + £1,250 setup. It includes 5,000 AI replies; connected voice calls are £0.15/min.',
+          tr: 'Telefon ve WhatsApp rezervasyonlarını birlikte yönetmek için iki asistan da kurulur. Kurulum ücretsizdir, aylık sistem bedeli tek seferde 649 TL olur. Bağlanan konuşma dakikası 16 TL seviyesinden başlar, WhatsApp AI yanıtı 0,45 TL olur.',
+          en: 'To manage phone and WhatsApp reservations together we set up both assistants. Setup is free and the monthly system fee is £9.90, paid once. Connected minutes start at 25p and WhatsApp AI replies are 0.7p.',
         },
       },
       {

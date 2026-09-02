@@ -7,7 +7,7 @@ tags: ["kobi", "ai-otomasyon", "yapay-zeka", "workflow", "dijital-donusum"]
 cover: ""
 faqs:
   - question: "KOBİ'ler için AI otomasyona başlamak için ne kadar bütçe gerekiyor?"
-    answer: "Temel otomasyon paketleri aylık 3.999 TRY/£119'dan başlar. Self-hosted kurulum için sunucu maliyeti aylık €15-30'dur. Başlangıçta en yüksek ROI sağlayan tek bir süreci seçip oradan başlamak en mantıklı yaklaşımdır."
+    answer: "Asistanlarda kurulum ücreti yoktur: aylık 649 TRY/£9,90 sistem bedeli ve kullandığınız kadar kontör. Kurulan otomasyon sistemi ise 25.999 TRY/£400 kurulum ve 1.899 TRY/£29 aylık bakımdır. Self-hosted kurulum için sunucu maliyeti aylık €15-30'dur. Başlangıçta en yüksek ROI sağlayan tek bir süreci seçip oradan başlamak en mantıklı yaklaşımdır."
   - question: "Teknik bilgim olmadan AI otomasyon kurmak mümkün mü?"
     answer: "MGL gibi bir ajansla çalışıyorsanız teknik bilgiye gerek yok; tüm kurulum ve bakım ajans tarafından yapılır. Kendiniz kurmak isterseniz n8n'in görsel arayüzü temel seviye ile başlamak için yeterlidir."
   - question: "Hangi süreçleri otomatikleştirmek en çok değer sağlar?"
@@ -138,14 +138,14 @@ Haftalık satış raporu otomatik hazırlanıp Slack/Telegram'a gönderilebilir.
 - Kaçan aramaların AI ile karşılanması: +20 ek randevu/ay = +10.000 TRY
 
 **Maliyet:**
-- Aylık 9.999 TRY (Çok Kanal Asistan Paketi)
+- Aylık 649 TRY sistem bedeli + kullanım (sesli ve WhatsApp asistanı, kurulum ücretsiz)
 
 **Net fayda:**
 - Personel tasarrufu: 80 saat × ~70 TRY/saat = 5.600 TRY
 - Ek gelir: 10.000 TRY
 - Kaçan randevular: +3.000 TRY (no-show azalması)
 - **Toplam fayda: ~18.600 TRY/ay**
-- **Net ROI: ~8.600 TRY/ay kâr** (maliyet 9.999 TRY, fayda 18.600 TRY)
+- **Net ROI: ~13.150 TRY/ay kâr** (maliyet ~5.450 TRY: 649 TRY sistem + ~300 dk konuşma; fayda 18.600 TRY)
 
 ## Yaygın Hatalar ve Nasıl Önlenir
 

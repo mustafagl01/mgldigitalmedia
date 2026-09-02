@@ -8,7 +8,7 @@ const SITE_URL = 'https://mgl-ai.com';
 const FAQS_EN = [
   { question: 'What should I look for in a UK AI automation agency?', answer: 'Key criteria: technical stack transparency (what tools they actually use), fixed pricing vs retainer, ability to integrate with your existing software, Turkish/bilingual support if needed, and actual case studies rather than vague claims.' },
   { question: 'How much do UK AI automation agencies charge?', answer: 'Typical range: £500-5,000/month depending on scope. Simple WhatsApp automation: £100-250/month. Full AI stack (voice + chat + CRM + automation): £400-1,500/month. Watch out for large setup fees without performance guarantees.' },
-  { question: 'Does MGL serve UK businesses?', answer: 'Yes. MGL Digital Media is registered in England and Wales (Company No. 16007414, Enfield EN1 1LS). We serve UK businesses from £119/month with full technical support.' },
+  { question: 'Does MGL serve UK businesses?', answer: 'Yes. MGL Digital Media is registered in England and Wales (Company No. 16007414, Enfield EN1 1LS). We serve UK businesses with no setup fee: a £9.90/month system fee plus metered usage, with full technical support.' },
   { question: 'What AI automation services do UK agencies typically offer?', answer: 'WhatsApp/SMS chatbots, AI voice agents, CRM integration, workflow automation (n8n/Zapier/Make), Meta/Google ad management, SEO and conversion-focused web development.' },
   { question: 'How long does it take to see results?', answer: 'WhatsApp AI agents: visible within the first week (response time, message volume handled). Voice agents: 1-2 weeks to calibrate. Lead generation campaigns: first qualified leads within 2-4 weeks.' },
 ];
@@ -16,7 +16,7 @@ const FAQS_EN = [
 const FAQS_TR = [
   { question: 'UK AI otomasyon ajansında nelere bakmalıyım?', answer: 'Temel kriterler: teknik stack şeffaflığı (gerçekten hangi araçları kullandıkları), sabit fiyatlandırma vs retainer, mevcut yazılımınızla entegrasyon yeteneği, Türkçe/iki dilli destek ihtiyacı ve belirsiz iddialar yerine gerçek vaka çalışmaları.' },
   { question: 'UK AI otomasyon ajansları ne kadar ücret alıyor?', answer: 'Tipik aralık: kapsama göre £500-5.000/ay. Basit WhatsApp otomasyonu: £100-250/ay. Tam AI stack (sesli + sohbet + CRM + otomasyon): £400-1.500/ay. Performans garantisi olmayan büyük kurulum ücretlerine dikkat edin.' },
-  { question: 'MGL UK işletmelerine hizmet veriyor mu?', answer: 'Evet. MGL Digital Media İngiltere\'de kayıtlıdır (Şirket No: 16007414, Enfield EN1 1LS). UK işletmelerine £119/ay\'dan tam teknik destekle hizmet veriyoruz.' },
+  { question: 'MGL UK işletmelerine hizmet veriyor mu?', answer: 'Evet. MGL Digital Media İngiltere\'de kayıtlıdır (Şirket No: 16007414, Enfield EN1 1LS). UK işletmelerine kurulum ücreti almadan, aylık £9,90 sistem bedeli ve kullandığınız kadar kullanımla tam teknik destek veriyoruz.' },
   { question: 'UK ajansları tipik olarak hangi AI otomasyon hizmetlerini sunuyor?', answer: 'WhatsApp/SMS chatbotlar, AI sesli asistanlar, CRM entegrasyonu, workflow otomasyonu (n8n/Zapier/Make), Meta/Google reklam yönetimi, SEO ve dönüşüm odaklı web geliştirme.' },
   { question: 'Sonuçlar ne zaman görülür?', answer: 'WhatsApp AI asistanlar: ilk haftada görünür (yanıt süresi, işlenen mesaj hacmi). Sesli asistanlar: kalibrasyon için 1-2 hafta. Lead üretim kampanyaları: 2-4 hafta içinde ilk nitelikli leadler.' },
 ];
@@ -123,7 +123,7 @@ export default function UkAiAgenciesComparison() {
             {(isEN
               ? [
                   'Stack: Evolution API + n8n + Retell AI + GPT-4o — fully disclosed',
-                  'Pricing: Fixed retainers from £119/month, all-inclusive',
+                  'Pricing: No setup fee, £9.90/month system fee plus metered usage',
                   'Bilingual: Turkish and English, native TR market expertise',
                   'Ownership: Clients own all workflows, data and integrations',
                   'Registered UK company: No. 16007414, Enfield EN1 1LS',
@@ -131,7 +131,7 @@ export default function UkAiAgenciesComparison() {
                 ]
               : [
                   'Stack: Evolution API + n8n + Retell AI + GPT-4o — tam şeffaflık',
-                  'Fiyatlandırma: £119/ay\'dan sabit retainer, hepsi dahil',
+                  'Fiyatlandırma: Kurulum ücreti yok, aylık £9,90 sistem bedeli + kullandığın kadar',
                   'İki dilli: Türkçe ve İngilizce, yerel TR pazar uzmanlığı',
                   'Sahiplik: Müşteriler tüm workflow\'ları, verileri ve entegrasyonları sahiplenir',
                   'Kayıtlı UK şirketi: No. 16007414, Enfield EN1 1LS',

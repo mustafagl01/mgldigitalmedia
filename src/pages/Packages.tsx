@@ -73,16 +73,31 @@ const CATEGORY_META: Record<PackageCategoryKey, CategoryMeta> = {
   },
   agents: {
     key: 'agents',
-    label: { tr: 'AI Agent', en: 'AI Agents' },
+    label: { tr: 'Asistanlar', en: 'Assistants' },
     hero: {
-      eyebrow: { tr: 'AI AGENT PAKETLERİ', en: 'AI AGENT PACKAGES' },
+      eyebrow: { tr: 'SESLİ VE WHATSAPP ASİSTANI', en: 'VOICE AND WHATSAPP ASSISTANTS' },
       title: {
-        tr: 'İhtiyacınız olan sistemi seçin.',
-        en: 'Choose the system you actually need.',
+        tr: 'Kurulum yok. Kullandığınız kadar ödeyin.',
+        en: 'No setup fee. Pay for what you use.',
       },
       lede: {
-        tr: 'Yalnızca WhatsApp, yalnızca telefon, birleşik ön büro veya çok süreçli operasyon. Her pakette kurulum, kapsam ve kullanım ücretleri açık.',
-        en: 'WhatsApp only, phone only, a joined-up front desk, or multi-process operations. Setup, scope and usage are clear in every plan.',
+        tr: 'Küçük bir aylık sistem bedeli, üstüne konuştuğunuz dakika veya verilen cevap kadar kullanım. İkisini birden alırsanız aylık bedel tek ödenir. Aylık çıkış hakkı, KVKK/GDPR uyumlu.',
+        en: 'A small monthly system fee, then usage — connected minutes or replies sent. Take both and you pay the monthly fee once. Cancel monthly, KVKK/GDPR compliant.',
+      },
+    },
+  },
+  systems: {
+    key: 'systems',
+    label: { tr: 'Kurulan Sistemler', en: 'Built Systems' },
+    hero: {
+      eyebrow: { tr: 'OTOMASYON VE LEAD SİSTEMLERİ', en: 'AUTOMATION AND LEAD SYSTEMS' },
+      title: {
+        tr: 'Bir kere kurulur, çalışmaya devam eder.',
+        en: 'Built once, then it keeps running.',
+      },
+      lede: {
+        tr: 'Tekrar eden işleriniz ve müşteri bulma süreciniz bir sisteme dönüşür. Tek seferlik kurulum, düşük aylık bakım — barındırma, izleme ve arıza müdahalesi dahil.',
+        en: 'Your repetitive work and your lead generation become a system. One-off setup, low monthly maintenance — hosting, monitoring and incident response included.',
       },
     },
   },
@@ -104,463 +119,377 @@ const CATEGORY_META: Record<PackageCategoryKey, CategoryMeta> = {
 };
 
 const PLAN_CONTENT: Record<PackageTierKey, PlanContent> = {
-  // ---------------- AGENTS ----------------
-  starter: {
-    subtitle: {
-      tr: 'WhatsApp mesajlarını 7/24 yanıtlar, bilgi toplar ve müşteriyi doğru sonraki adıma götürür.',
-      en: 'Replies on WhatsApp 24/7, captures the enquiry and moves each customer to the right next step.',
-    },
-    included: {
-      tr: [
-        'Onaylı işletme bilgilerinizle 7/24 WhatsApp yanıtı',
-        'Sık sorulan sorular, lead bilgisi ve talep toplama',
-        'Randevu linki; takviminize veya müşteri listenize bağlantı',
-        'Gerektiğinde personele aktarma ve kısa görüşme özeti',
-        'En fazla 2 n8n otomasyon akışı ve 1 entegrasyon',
-        'Aylık Performans Raporu',
-        'Aylık 1 saate kadar içerik veya akış güncellemesi',
-      ],
-      en: [
-        '24/7 WhatsApp replies using your approved business information',
-        'FAQs, lead details and enquiry capture',
-        'Booking link or one calendar, CRM or spreadsheet connection',
-        'Human hand-off with a concise conversation summary',
-        'Up to 2 n8n automation workflows and 1 integration',
-        'Monthly Performance Report',
-        'Up to 1 hour/month of content or workflow updates',
-      ],
-    },
-    excluded: {
-      tr: ['Telefon aramalarını yanıtlama', 'Çoklu CRM veya özel klinik yazılımı entegrasyonu'],
-      en: ['Phone-call handling', 'Multiple CRM or bespoke clinic-software integrations'],
-    },
-    quotas: {
-      tr: ['Aylık 2.000 AI yanıtı', '1 WhatsApp numarası', '1 bağlı sistem'],
-      en: ['2,000 AI replies per month', '1 WhatsApp number', '1 connected system'],
-    },
-    overages: {
-      tr: ['Ek AI yanıtı: 2 TL', 'Resmî Meta/BSP mesaj ücretleri kullanılırsa ayrıca yansıtılır'],
-      en: ['Additional AI reply: £0.02', 'Official Meta/BSP messaging fees are passed through when used'],
-    },
-    usageNote: {
-      tr: 'AI model/API kullanımı belirtilen kota içinde dahildir. Telefon özelliği bu pakette yoktur.',
-      en: 'AI model/API usage is included within the stated allowance. Phone answering is not included.',
-    },
-  },
+  // ---------------- HAZIR ÜRÜNLER — kurulum yok, kontörle çalışır ----------------
   voice: {
     subtitle: {
-      tr: 'Gelen çağrıları 7/24 yanıtlar, arayanın talebini anlar ve randevu ya da geri arama oluşturur.',
-      en: 'Answers inbound calls 24/7, understands the request and books an appointment or callback.',
+      tr: 'Telefonu açar, soruyu cevaplar, randevuyu veya siparişi alır. Kurulum ücreti yok.',
+      en: 'Answers the phone, handles questions, takes the booking or order. No setup fee.',
     },
     included: {
       tr: [
-        'Doğal sesli AI ile 7/24 gelen çağrı yanıtlama',
-        'Sık sorulan sorular, arayan bilgisi ve talep toplama',
-        'Randevu alma veya geri arama talebi oluşturma',
-        'Canlı personele aktarma ve cevapsız durumda güvenli yönlendirme',
-        'Çağrı metni, özet ve e-posta/Telegram bildirimi',
-        'En fazla 2 n8n otomasyon akışı ve 1 entegrasyon',
-        'Aylık 1 saate kadar içerik veya akış güncellemesi',
+        '7/24 telefon karşılama',
+        'Randevu ve sipariş alma',
+        'Takvim ile canlı senkron',
+        'Mevcut numaranızın yönlendirilmesi',
+        'Türkçe ve İngilizce',
+        'Çağrı kaydı ve yazılı özet',
       ],
       en: [
-        '24/7 inbound call handling with a natural AI voice',
-        'FAQs, caller details and enquiry capture',
-        'Appointment booking or callback-request creation',
-        'Live staff transfer with a safe fallback when unavailable',
-        'Call transcript, summary and email/Telegram notification',
-        'Up to 2 n8n automation workflows and 1 integration',
-        'Up to 1 hour/month of content or workflow updates',
+        '24/7 call answering',
+        'Bookings and orders taken',
+        'Live calendar sync',
+        'Your existing number forwarded',
+        'Turkish and English',
+        'Call recording and written summary',
       ],
     },
     excluded: {
-      tr: ['WhatsApp mesaj yanıtlama', 'Toplu veya yüksek hacimli giden arama kampanyaları'],
-      en: ['WhatsApp message handling', 'Bulk or high-volume outbound call campaigns'],
+      tr: ['Telefon hattı aboneliği', 'Termal yazıcı (takeaway için opsiyonel)'],
+      en: ['Phone line subscription', 'Thermal printer (optional, for takeaways)'],
     },
     quotas: {
-      tr: ['1 telefon numarası veya çağrı yönlendirmesi', '1 takvim, CRM veya tablo entegrasyonu'],
-      en: ['1 phone number or call-forwarding route', '1 calendar, CRM or spreadsheet integration'],
-    },
-    overages: {
-      tr: ['Sesli kullanım: bağlı dakika başına 9 TL (Retell/telefon/ses seçimine göre netleşir)'],
-      en: ['Voice usage: £0.15 per connected minute (confirmed against the selected Retell/telephony/voice stack)'],
-    },
-    usageNote: {
-      tr: 'Ses, telefon ve AI model/API maliyeti dakika ücretine dahildir. Yalnızca bağlanan çağrılar ücretlenir.',
-      en: 'Voice, telephony and AI model/API costs are included in the minute rate. Only connected calls are billed.',
-    },
-  },
-  pro: {
-    subtitle: {
-      tr: 'Telefon, WhatsApp ve web taleplerini tek randevu ve müşteri akışında birleştirir.',
-      en: 'Joins phone, WhatsApp and website enquiries into one booking and customer workflow.',
-    },
-    included: {
       tr: [
-        'Birlikte çalışan Sesli AI + WhatsApp asistanı',
-        'Web formu veya web chat taleplerini aynı akışa alma',
-        'Randevu alma, değiştirme, hatırlatma ve no-show takibi',
-        'Lead qualification, insan devri ve görüşme özetleri',
-        'En fazla 5 n8n otomasyon akışı ve 3 entegrasyon',
-        'Takvim, randevu sistemi, müşteri listesi veya Google Sheets bağlantısı',
-        'Öncelikli destek ve aylık strateji görüşmesi',
-        'Aylık 3 saate kadar içerik veya akış güncellemesi',
+        'Kurulum: ücretsiz',
+        'Aylık sistem bedeli — WhatsApp asistanını da alırsanız tek ödenir',
       ],
       en: [
-        'Voice AI and WhatsApp assistants working together',
-        'Website form or live-chat enquiries routed into the same journey',
-        'Booking, rescheduling, reminders and no-show follow-up',
-        'Lead qualification, human hand-off and conversation summaries',
-        'Up to 5 n8n automation workflows and 3 integrations',
-        'CRM, calendar, booking-system or Google Sheets connections',
-        'Priority support and a monthly strategy call',
-        'Up to 3 hours/month of content or workflow updates',
+        'Setup: free',
+        'Monthly system fee — paid once if you also take the WhatsApp assistant',
       ],
     },
-    excluded: {
-      tr: ['Birden fazla departman için ayrı AI agent ekipleri', 'Özel on-premise veya dedicated sunucu'],
-      en: ['Separate AI-agent teams for multiple departments', 'Bespoke on-premise or dedicated infrastructure'],
-    },
-    quotas: {
-      tr: ['Aylık 5.000 AI yanıtı', 'Telefon + WhatsApp + web', '5 iş akışı ve 3 entegrasyon'],
-      en: ['5,000 AI replies per month', 'Phone + WhatsApp + web', '5 workflows and 3 integrations'],
-    },
     overages: {
-      tr: ['Sesli kullanım: bağlı dakika başına 9 TL', 'Ek AI yanıtı: 2 TL', 'Üçüncü taraf mesaj ücretleri ayrıca'],
-      en: ['Voice usage: £0.15 per connected minute', 'Additional AI reply: £0.02', 'Third-party messaging fees are separate'],
+      tr: [
+        'Konuşma dakikası kullandığınız kadar; hacim arttıkça birim fiyat düşer',
+        'Yalnızca bağlanan çağrılar sayılır',
+      ],
+      en: [
+        'Pay per connected minute; the unit rate drops as volume grows',
+        'Only connected calls are billed',
+      ],
     },
     recommended: true,
     usageNote: {
-      tr: 'Metin AI model/API kullanımı kota içinde dahildir. Sesli kullanım ilk bağlı dakikadan ayrıca ücretlenir.',
-      en: 'Text AI model/API usage is included within the allowance. Voice is billed separately from the first connected minute.',
+      tr: 'Dakika kullanımı aylık sistem bedelinden ayrı faturalanır.',
+      en: 'Minute usage is billed separately from the monthly system fee.',
     },
   },
-  advanced: {
+  whatsapp: {
     subtitle: {
-      tr: 'Müşteri iletişiminin yanında tahsilat, belge, lead ve iç operasyon akışlarını da otomatikleştirir.',
-      en: 'Automates collections, documents, lead follow-up and internal operations alongside customer communication.',
+      tr: 'Müşteriniz WhatsApp’tan yazar, asistan cevaplar. Kurulum ücreti yok.',
+      en: 'Your customer messages on WhatsApp, the assistant replies. No setup fee.',
     },
     included: {
       tr: [
-        'En fazla 3 ayrı AI agent veya iş süreci',
-        'Gelen/giden telefon, WhatsApp, e-posta, SMS ve web akışları',
-        'Tahsilat, eksik belge, lead yeniden aktivasyonu ve randevu takibi',
-        'En fazla 10 üretim n8n akışı ve 6 entegrasyon',
-        'Yönetim dashboard\'u, denetim kaydı ve otomatik raporlama',
-        'Hata uyarıları, güvenli insan devri ve operasyon izleme',
-        'Atanmış hesap yöneticisi ve öncelikli destek',
-        'Aylık 5 saate kadar özel geliştirme veya iyileştirme',
+        '7/24 otomatik yanıt',
+        'Randevu ve sipariş alma',
+        'Sık sorulan soruların cevaplanması',
+        'Lead nitelendirme ve CRM aktarımı',
+        'Türkçe ve İngilizce',
+        'Devralma butonu — istediğiniz an siz devam edersiniz',
       ],
       en: [
-        'Up to 3 separate AI agents or business processes',
-        'Inbound/outbound phone, WhatsApp, email, SMS and web workflows',
-        'Collections, missing documents, lead reactivation and booking follow-up',
-        'Up to 10 production n8n workflows and 6 integrations',
-        'Management dashboard, audit trail and automated reporting',
-        'Failure alerts, safe human hand-off and operational monitoring',
-        'Named account manager and priority support',
-        'Up to 5 hours/month of custom development or optimisation',
+        '24/7 automatic replies',
+        'Bookings and orders taken',
+        'FAQ handling',
+        'Lead qualification and CRM handoff',
+        'Turkish and English',
+        'Takeover button — step in whenever you want',
       ],
     },
     excluded: {
-      tr: ['On-premise, SSO ve kurumsal 7/24 SLA; Enterprise teklifi gerektirir'],
-      en: ['On-premise, SSO and enterprise 24/7 SLA; these require an Enterprise quote'],
+      tr: ['Meta resmi API ücretleri (bu rotayı seçerseniz)', 'İşletme numarası'],
+      en: ['Official Meta API fees (only if that route is chosen)', 'Business phone number'],
     },
     quotas: {
-      tr: ['Aylık 10.000 AI yanıtı', '3 agent/süreç', '10 iş akışı ve 6 entegrasyon'],
-      en: ['10,000 AI replies per month', '3 agents/processes', '10 workflows and 6 integrations'],
+      tr: [
+        'Kurulum: ücretsiz',
+        'Aylık sistem bedeli — sesli asistanı da alırsanız tek ödenir',
+      ],
+      en: [
+        'Setup: free',
+        'Monthly system fee — paid once if you also take the voice assistant',
+      ],
     },
     overages: {
-      tr: ['Sesli kullanım: bağlı dakika başına 9 TL', 'Ek AI yanıtı: 2 TL', 'Ek geliştirme: £80/saat karşılığı'],
-      en: ['Voice usage: £0.15 per connected minute', 'Additional AI reply: £0.02', 'Additional development: £80/hour'],
-    },
-    premium: true,
-    ctaType: 'booking',
-    ctaLabel: { tr: 'Strateji Görüşmesi Planla', en: 'Book a Strategy Call' },
-    footnote: {
-      tr: 'Çok şube, dedicated altyapı, SSO veya on-premise ihtiyaçları Enterprise olarak ayrıca kapsamlandırılır.',
-      en: 'Multi-location, dedicated infrastructure, SSO or on-premise requirements are scoped separately as Enterprise.',
+      tr: [
+        'AI yanıtı başına ödersiniz; kontör paketiyle birim fiyat düşer',
+        'Kontör bitince asistan susmaz — otomatik yükleme açıktır, kapatabilirsiniz',
+      ],
+      en: [
+        'You pay per AI reply; bundles bring the unit rate down',
+        'The assistant never goes silent — auto top-up is on by default and can be switched off',
+      ],
     },
     usageNote: {
-      tr: 'Metin AI model/API kullanımı kota içinde dahildir. Sesli ve üçüncü taraf kanal ücretleri kullanıma göre ayrıca faturalandırılır.',
-      en: 'Text AI model/API usage is included within the allowance. Voice and third-party channel fees are billed separately by usage.',
+      tr: 'AI yanıtı = asistanın gönderdiği mesaj. Gelen mesaj, personelinizin yazdığı mesaj ve sistem bildirimleri sayılmaz.',
+      en: 'An AI reply is a message the assistant sends. Incoming messages, messages your staff writes and system notifications are not counted.',
     },
   },
 
-  // ---------------- ADS ----------------
-  'ads-starter': {
+  // ---------------- KURULAN SİSTEMLER — kurulum + bakım ----------------
+  automation: {
     subtitle: {
-      tr: 'Tek platformda temiz, ölçülebilir bir başlangıç.',
-      en: 'A clean, measurable start on a single platform.',
+      tr: 'İşletmenizin tekrar eden süreçleri, siz uyurken de çalışan bir sisteme dönüşür.',
+      en: 'Your repetitive processes become a system that keeps running while you sleep.',
     },
     included: {
       tr: [
-        'Kampanya kurulumu',
-        'Temel optimizasyon',
-        'Aylık raporlama',
-        '1 platform',
+        'Süreç analizi ve akış tasarımı',
+        'Mevcut sistemlerinizle entegrasyon (CRM, takvim, ödeme, Sheets, Excel)',
+        'Kendi sunucumuzda barındırma — görev limiti yok',
+        'Hata alarmı ve izleme',
+        'Ayda bir değişiklik hakkı',
       ],
       en: [
-        'Campaign setup',
-        'Basic optimisation',
-        'Monthly reporting',
-        '1 platform',
+        'Process analysis and workflow design',
+        'Integration with your existing systems (CRM, calendar, payments, Sheets, Excel)',
+        'Self-hosted — no task limits',
+        'Failure alerts and monitoring',
+        'One change request per month',
       ],
     },
-    excluded: { tr: [], en: [] },
-    quotas: { tr: [], en: [] },
+    excluded: {
+      tr: ['Üçüncü parti servis abonelikleri', 'Kapsam dışı yeni akışlar ayrıca fiyatlandırılır'],
+      en: ['Third-party service subscriptions', 'New workflows outside the agreed scope are quoted separately'],
+    },
+    quotas: {
+      tr: ['Tek seferlik kurulum', 'Aylık bakım: barındırma, izleme, arıza müdahalesi'],
+      en: ['One-off setup', 'Monthly maintenance: hosting, monitoring, incident response'],
+    },
     overages: { tr: [], en: [] },
+    footnote: {
+      tr: 'Kapsam akış sayısıyla değil, işletmenizin süreçleriyle tanımlanır ve teklifte yazılı olarak belirtilir.',
+      en: 'Scope is defined by your processes, not by a workflow count, and is written into the proposal.',
+    },
   },
-  'ads-growth': {
+  leadmail: {
     subtitle: {
-      tr: 'Çoklu kampanya yönetimi ve sürekli iyileştirme.',
-      en: 'Multi-campaign management with ongoing improvement.',
+      tr: 'Hedef işletmeleri bulan, doğrulayan ve kişiselleştirilmiş mail gönderen sistem — sizin adınıza, sizin kutunuzdan.',
+      en: 'A system that finds target businesses, verifies them and sends personalised email — in your name, from your mailbox.',
     },
     included: {
       tr: [
-        'Çoklu kampanya yönetimi',
-        'Haftalık optimizasyon',
-        'Kreatif yönlendirme',
-        'Aylık performans değerlendirmesi',
-        '1–2 platform',
+        'Hedef müşteri profili çıkarımı',
+        'Lead toplama ve zenginleştirme',
+        'E-posta doğrulama (bounce koruması)',
+        'Her işletmeye özel yazılmış ilk mail ve takip',
+        'Gönderim kaydı ve mükerrer engelleme',
+        'Yanıt raporu',
       ],
       en: [
-        'Multi-campaign management',
-        'Weekly optimisation',
-        'Creative guidance',
-        'Monthly performance review',
-        '1–2 platforms',
+        'Ideal customer profile definition',
+        'Lead sourcing and enrichment',
+        'Email verification (bounce protection)',
+        'A first email and follow-up written for each business',
+        'Send log and deduplication',
+        'Reply reporting',
       ],
     },
-    excluded: { tr: [], en: [] },
-    quotas: { tr: [], en: [] },
+    excluded: {
+      tr: ['Domain ve mailbox bedelleri', 'Veri / API kredileri (Apollo, doğrulama vb.)'],
+      en: ['Domain and mailbox costs', 'Data / API credits (Apollo, verification, etc.)'],
+    },
+    quotas: {
+      tr: ['Tek seferlik kurulum', 'Aylık bakım ve izleme'],
+      en: ['One-off setup', 'Monthly maintenance and monitoring'],
+    },
     overages: { tr: [], en: [] },
-    recommended: true,
-  },
-  'ads-scale': {
-    subtitle: {
-      tr: 'Ölçeklenmek için tam strateji ve operasyon ortaklığı.',
-      en: 'Full strategy and operational partnership for scaling.',
+    footnote: {
+      tr: 'Şablon veya spintax kullanılmaz — her mail, o işletme hakkında bulunan gerçek bir gözlemle yazılır.',
+      en: 'No templates, no spintax — every email is written around a real observation about that business.',
     },
-    included: {
-      tr: [
-        'Tam strateji ve yönetim',
-        'Reklam kreatif desteği',
-        'Sürekli optimizasyon',
-        'Raporlama ve analiz',
-        'Çoklu platform desteği',
-      ],
-      en: [
-        'Full strategy and management',
-        'Ad creative support',
-        'Ongoing optimisation',
-        'Reporting and analysis',
-        'Multi-platform support',
-      ],
-    },
-    excluded: { tr: [], en: [] },
-    quotas: { tr: [], en: [] },
-    overages: { tr: [], en: [] },
-    premium: true,
   },
 
   // ---------------- WEB ----------------
   'web-landing': {
     subtitle: {
-      tr: 'Kafeler, yerel dükkanlar ve küçük işletmeler için.',
-      en: 'Best for cafés, local shops, and small businesses.',
+      tr: 'Tek sayfa, tek amaç: arayan kişiyi müşteriye çevirmek.',
+      en: 'One page, one job: turn the visitor into a customer.',
     },
     included: {
       tr: [
-        'Tek sayfa kaydırmalı web sitesi',
-        'Mobil uyumlu tasarım',
-        'İletişim bilgileri, harita, çalışma saatleri',
-        'Temel menü / hizmet bölümü',
-        '1 revizyon turu',
+        'Tek sayfa tasarım ve yazım',
+        'Mobil öncelikli, hızlı yükleme',
+        'İletişim / randevu formu',
+        'Google’da bulunabilirlik temeli (SEO, sitemap, schema)',
+        'Domain bağlantısı ve SSL',
       ],
       en: [
-        'One-page scrolling website',
-        'Mobile responsive design',
-        'Contact details, map, opening hours',
-        'Basic menu / services section',
-        'One revision round',
+        'Single-page design and copy',
+        'Mobile-first, fast loading',
+        'Contact / booking form',
+        'Search foundations (SEO, sitemap, schema)',
+        'Domain connection and SSL',
       ],
     },
-    excluded: { tr: [], en: [] },
-    quotas: { tr: [], en: [] },
+    excluded: {
+      tr: ['Logo tasarımı', 'Profesyonel fotoğraf çekimi'],
+      en: ['Logo design', 'Professional photography'],
+    },
+    quotas: {
+      tr: ['Tek seferlik kurulum', 'Yıllık barındırma ve bakım'],
+      en: ['One-off setup', 'Yearly hosting and maintenance'],
+    },
     overages: { tr: [], en: [] },
   },
   'web-site': {
     subtitle: {
-      tr: 'Online randevu veya rezervasyon talebi alan işletmeler için.',
-      en: 'For businesses that need online booking or appointment requests.',
+      tr: 'Beş sayfalık tam site — işletmenizi anlatan, arandığında bulunan.',
+      en: 'A full five-page site — explains your business and gets found.',
     },
     included: {
       tr: [
-        'Tek sayfa veya küçük çok bölümlü site',
-        'Rezervasyon / talep formu',
-        'Takvim bağlantısı',
-        'Onay mesajı',
-        'Mobil uyumlu tasarım',
-        '2 revizyon turu',
+        'Beş sayfa tasarım ve yazım',
+        'Mobil öncelikli, hızlı yükleme',
+        'İletişim ve randevu formları',
+        'Google İşletme Profili uyumu, yerel SEO',
+        'Schema işaretlemesi ve paylaşım kartı',
+        'Domain bağlantısı ve SSL',
+        'Üç revizyon turu',
       ],
       en: [
-        'One-page or small multi-section website',
-        'Booking / request form',
-        'Calendar connection',
-        'Confirmation message',
-        'Mobile responsive design',
-        'Two revision rounds',
-      ],
-    },
-    excluded: { tr: [], en: [] },
-    quotas: { tr: [], en: [] },
-    overages: { tr: [], en: [] },
-  },
-  'web-platform': {
-    subtitle: {
-      tr: 'Restoranlar, marketler ve paket servis tarzı işletmeler için.',
-      en: 'For restaurants, markets, and takeaway-style businesses.',
-    },
-    included: {
-      tr: [
-        'Sipariş sayfası',
-        'Teslimat tarihi / saati seçimi',
-        'Sipariş onay akışı',
-        'Yönetici bildirimi',
-        'Mobil uyumlu tasarım',
-        '3 revizyon turu',
-      ],
-      en: [
-        'Ordering page',
-        'Delivery date / time selection',
-        'Order confirmation flow',
-        'Admin notification',
-        'Mobile responsive design',
+        'Five pages designed and written',
+        'Mobile-first, fast loading',
+        'Contact and booking forms',
+        'Google Business Profile alignment, local SEO',
+        'Schema markup and social share card',
+        'Domain connection and SSL',
         'Three revision rounds',
       ],
     },
-    excluded: { tr: [], en: [] },
-    quotas: { tr: [], en: [] },
-    overages: { tr: [], en: [] },
-  },
-  'web-custom': {
-    subtitle: {
-      tr: 'Arka planda otomasyonla çalışan bir site isteyen işletmeler için.',
-      en: 'For businesses that want a website with automation behind the scenes.',
-    },
-    included: {
-      tr: [
-        'Özel site yapısı',
-        'Sipariş / rezervasyon / lead akışı',
-        'Bildirim otomasyonu',
-        'CRM veya tablo senkronizasyonu',
-        'Öncelikli kurulum ve destek',
-      ],
-      en: [
-        'Custom website structure',
-        'Order / booking / lead flow',
-        'Notification automation',
-        'CRM or spreadsheet sync',
-        'Priority setup and support',
-      ],
-    },
-    excluded: { tr: [], en: [] },
-    quotas: { tr: [], en: [] },
-    overages: { tr: [], en: [] },
-  },
-  'web-ai': {
-    subtitle: {
-      tr: 'Yeni web sitesi ve işletmenizin onaylı bilgileriyle çalışan 7/24 çok dilli AI asistanı.',
-      en: 'A new website with a 24/7 multilingual AI assistant trained on your approved business information.',
-    },
-    included: {
-      tr: [
-        'MGL tarafından hazırlanan yeni, mobil uyumlu web sitesi (5 ana sayfaya kadar)',
-        'Onaylı işletme bilgilerinizle eğitilmiş web AI asistanı',
-        'Ziyaretçinin kullandığı dilde 7/24 anında yanıt',
-        'Hizmet, fiyat, çalışma saati ve sık sorulan sorular',
-        'Mevcut randevu linki, telefon ve WhatsApp yönlendirmeleri',
-        'İlk yıl web hosting ve SSL kurulum ücretine dahil',
-        'Uptime takibi ve AI model/API kullanımı',
-        '2. yıldan itibaren web hosting ve temel bakım: 3.499 TL/yıl',
-        'Aylık 30 dakikaya kadar bilgi ve içerik güncellemesi',
-      ],
-      en: [
-        'A new mobile-responsive website built by MGL (up to 5 core pages)',
-        'Website AI assistant trained on your approved business information',
-        'Instant 24/7 replies in the visitor\'s own language',
-        'Services, fees, opening hours and frequently asked questions',
-        'Links to your existing booking, phone and WhatsApp channels',
-        'First-year web hosting and SSL included in the setup fee',
-        'Uptime monitoring and AI model/API usage',
-        'Web hosting and core maintenance from year two: £100/year',
-        'Up to 30 minutes/month of knowledge and content updates',
-      ],
-    },
     excluded: {
-      tr: [
-        'Mevcut üçüncü taraf web sitesi veya CMS içine entegrasyon',
-        'Müşteri listenize veya randevu sisteminize doğrudan kayıt',
-        'WhatsApp otomasyonu, sesli asistan ve telefon yanıtlama',
-        'Özel yazılım ve üçüncü taraf sistem entegrasyonları',
-      ],
-      en: [
-        'Integration into an existing third-party website or CMS',
-        'Creating records directly inside a CRM or booking system',
-        'WhatsApp automation, voice assistant or phone answering',
-        'Bespoke software and third-party system integrations',
-      ],
+      tr: ['Logo tasarımı', 'Sıfırdan içerik yazarlığı', 'Ek sayfalar ayrıca fiyatlandırılır'],
+      en: ['Logo design', 'Copywriting from scratch', 'Extra pages quoted separately'],
     },
     quotas: {
-      tr: ['1 yeni MGL web sitesi', 'Aylık 1.000 AI yanıtı', '1 onaylı bilgi bankası'],
-      en: ['1 new MGL-built website', '1,000 AI replies per month', '1 approved knowledge base'],
+      tr: ['Tek seferlik kurulum', 'Yıllık barındırma ve bakım'],
+      en: ['One-off setup', 'Yearly hosting and maintenance'],
     },
-    overages: {
-      tr: ['Kota sonrası ek yanıtlar 100 yanıtlık bloklar hâlinde faturalandırılır'],
-      en: ['Additional replies are billed in blocks of 100 after the allowance'],
-    },
+    overages: { tr: [], en: [] },
     recommended: true,
-    usageNote: {
-      tr: 'AI model/API kullanımı belirtilen kota içinde dahildir. Paket yalnızca MGL tarafından hazırlanan yeni web sitesi üzerinde sunulur.',
-      en: 'AI model/API usage is included within the stated allowance. This package is delivered only on the new website built by MGL.',
-    },
   },
-  'web-pro': {
+  'web-integrated': {
     subtitle: {
-      tr: 'Muhasebeciler, avukatlar, danışmanlar ve klinikler için üst düzey kurumsal varlık.',
-      en: 'For accountants, solicitors, consultants and clinics — a flagship online presence.',
+      tr: 'Sitenin üstüne çalışan bir sistem: online sipariş, ödeme veya AI asistan.',
+      en: 'A working system on top of the site: online ordering, payments or an AI assistant.',
     },
     included: {
       tr: [
-        'Tamamen özel çok sayfalı tasarım — şablon yok (5–8 sayfa)',
-        'Mevcut içeriğin taşınması + metinlerin profesyonelce düzenlenmesi',
-        'Markaya özel üretilmiş görseller — stok fotoğraf yok',
-        'Online randevu / booking entegrasyonu',
-        'SEO altyapısı: schema, sitemap, Search Console + indexleme',
-        'Domain bağlama + SSL',
-        'Gerçek cihazlarda mobil, tablet ve masaüstü testi',
-        '3 revizyon turu',
-        '30 gün yayın sonrası destek',
+        'Kurumsal site paketindeki her şey',
+        'Online sipariş veya randevu altyapısı',
+        'Ödeme altyapısı entegrasyonu (Stripe / iyzico)',
+        'Mutfak yazıcısı veya Telegram / WhatsApp bildirimi',
+        'İsteğe bağlı AI asistan bağlantısı',
+        'Uygulama olarak eklenebilme (PWA)',
       ],
       en: [
-        'Fully bespoke multi-page design — no templates (5–8 pages)',
-        'Existing content migrated + professionally edited copy',
-        'Custom brand-matched imagery — no stock photos',
-        'Online booking / appointment integration',
-        'SEO foundation: schema, sitemap, Search Console + indexing',
-        'Domain connection + SSL',
-        'Tested on real mobile, tablet and desktop devices',
-        'Three revision rounds',
-        '30 days post-launch support',
+        'Everything in the business website package',
+        'Online ordering or booking flow',
+        'Payment integration (Stripe / iyzico)',
+        'Kitchen printer or Telegram / WhatsApp notifications',
+        'Optional AI assistant connection',
+        'Installable as an app (PWA)',
       ],
     },
     excluded: {
-      tr: ['Logo tasarımı', 'Sıfırdan içerik yazarlığı', 'Ek sayfalar ve yeni özellikler ayrıca fiyatlandırılır'],
-      en: ['Logo design', 'Copywriting from scratch', 'Extra pages and new features quoted separately'],
+      tr: ['Ödeme sağlayıcısının işlem komisyonu', 'Termal yazıcı donanımı'],
+      en: ['Payment provider transaction fees', 'Thermal printer hardware'],
     },
-    quotas: { tr: [], en: [] },
+    quotas: {
+      tr: ['Tek seferlik kurulum', 'Yıllık barındırma ve bakım'],
+      en: ['One-off setup', 'Yearly hosting and maintenance'],
+    },
     overages: { tr: [], en: [] },
     premium: true,
+    footnote: {
+      tr: 'Çalışan örnek: elmscoffeeshop.com — online sipariş mutfaktaki yazıcıdan çıkıyor, aynı anda Telegram’a bildirim gidiyor.',
+      en: 'Live example: elmscoffeeshop.com — online orders print in the kitchen and land on Telegram at the same time.',
+    },
+  },
+
+  // ---------------- REKLAM ----------------
+  'ads-meta': {
+    subtitle: {
+      tr: 'Facebook ve Instagram reklamlarınızın kurulumu ve günlük yönetimi.',
+      en: 'Setup and day-to-day management of your Facebook and Instagram ads.',
+    },
+    included: {
+      tr: [
+        'Kampanya kurulumu ve hedefleme',
+        'Kreatif üretimi ve test',
+        'Sürekli optimizasyon',
+        'Aylık rapor',
+      ],
+      en: [
+        'Campaign setup and targeting',
+        'Creative production and testing',
+        'Ongoing optimisation',
+        'Monthly report',
+      ],
+    },
+    excluded: {
+      tr: ['Reklam bütçesi — doğrudan Meta’ya, kendi kartınızdan ödenir'],
+      en: ['Ad spend — paid directly to Meta from your own card'],
+    },
+    quotas: { tr: ['Sabit aylık ücret', 'Kurulum ücreti yok'], en: ['Flat monthly fee', 'No setup fee'] },
+    overages: { tr: [], en: [] },
+    footnote: {
+      tr: 'Bütçe üzerinden yüzde alınmaz. Ne kadar harcarsanız harcayın yönetim ücreti sabittir.',
+      en: 'No percentage of your ad spend. The management fee is flat, whatever you spend.',
+    },
+  },
+  'ads-google': {
+    subtitle: {
+      tr: 'Google Arama ve Performance Max kampanyalarının kurulumu ve yönetimi.',
+      en: 'Setup and management of Google Search and Performance Max campaigns.',
+    },
+    included: {
+      tr: [
+        'Anahtar kelime araştırması',
+        'Kampanya kurulumu ve dönüşüm takibi',
+        'Sürekli optimizasyon',
+        'Aylık rapor',
+      ],
+      en: [
+        'Keyword research',
+        'Campaign setup and conversion tracking',
+        'Ongoing optimisation',
+        'Monthly report',
+      ],
+    },
+    excluded: {
+      tr: ['Reklam bütçesi — doğrudan Google’a, kendi kartınızdan ödenir'],
+      en: ['Ad spend — paid directly to Google from your own card'],
+    },
+    quotas: { tr: ['Sabit aylık ücret', 'Kurulum ücreti yok'], en: ['Flat monthly fee', 'No setup fee'] },
+    overages: { tr: [], en: [] },
+  },
+  'ads-both': {
+    subtitle: {
+      tr: 'Meta ve Google birlikte — tek ekip, tek rapor, indirimli fiyat.',
+      en: 'Meta and Google together — one team, one report, one lower price.',
+    },
+    included: {
+      tr: [
+        'Meta ve Google kampanyalarının tamamı',
+        'Platformlar arası bütçe dağılımı',
+        'Kreatif üretimi ve test',
+        'Tek birleşik aylık rapor',
+      ],
+      en: [
+        'All Meta and Google campaigns',
+        'Budget split across platforms',
+        'Creative production and testing',
+        'One combined monthly report',
+      ],
+    },
+    excluded: {
+      tr: ['Reklam bütçesi — doğrudan platformlara, kendi kartınızdan ödenir'],
+      en: ['Ad spend — paid directly to the platforms from your own card'],
+    },
+    quotas: { tr: ['Sabit aylık ücret', 'Kurulum ücreti yok'], en: ['Flat monthly fee', 'No setup fee'] },
+    overages: { tr: [], en: [] },
+    recommended: true,
   },
 };
 
@@ -600,52 +529,75 @@ const CATEGORY_FAQ: Record<PackageCategoryKey, FaqItem[]> = {
     {
       q: { tr: 'Reklam bütçesi fiyata dahil mi?', en: 'Is ad spend included in the price?' },
       a: {
-        tr: 'Hayır. Reklam bütçesi direkt Meta / Google\'a ödenir — biz tahsil etmez, biz kesmez. Yönetim payı (%10) yalnızca bu bütçe üzerinden hesaplanır ve aylık fee\'den ayrı bir kalemdir.',
-        en: 'No. Ad spend is paid directly to Meta / Google — we do not collect or deduct it. The 10% management fee is calculated only on that budget and is billed separately from the monthly retainer.',
+        tr: 'Hayır. Reklam bütçesi doğrudan Meta / Google\'a, kendi kartınızdan ödenir — biz tahsil etmeyiz, kesmeyiz. Bütçeniz üzerinden yüzde de almayız; yönetim ücreti sabittir.',
+        en: 'No. Ad spend goes directly to Meta / Google from your own card — we neither collect nor deduct it. We also take no percentage of your budget; the management fee is flat.',
       },
     },
     {
-      q: { tr: 'Minimum reklam bütçesi önerir misiniz?', en: 'Is there a minimum ad budget?' },
+      q: { tr: 'Bütçem büyürse ücret artar mı?', en: 'Does the fee go up as my budget grows?' },
       a: {
-        tr: 'Starter için 500 ₺ / gün (≈ 15.000 ₺ / ay). Growth için 1.000 ₺ / gün, Scale için 2.500 ₺ / gün. Altı da çalışır ama veri toplama süresi uzar.',
-        en: 'For Starter we recommend £15 / day (≈ £450 / month). Growth £30 / day, Scale £75 / day. Lower is possible but data collection takes longer.',
+        tr: 'Hayır. Aylık yönetim ücreti sabittir; ister az ister çok harcayın değişmez. Bütçesi büyüyen bir işletme için bu, yüzde alan ajanslara göre belirgin şekilde ucuzdur.',
+        en: 'No. The monthly management fee is flat whether you spend a little or a lot. For a growing budget that is markedly cheaper than a percentage-based agency.',
       },
     },
     {
-      q: { tr: 'Raporlar nasıl paylaşılır?', en: 'How are reports shared?' },
+      q: { tr: 'Meta ve Google\'ı birlikte almak ne kazandırır?', en: 'What do I gain by taking Meta and Google together?' },
       a: {
-        tr: 'Tüm tier\'larda GA4 + platform dashboard\'larına erişiminiz var. Growth\'tan itibaren tek ekranda birleşik ROI dashboard. Scale\'de günlük otomatik PDF özeti e-posta ile gelir.',
-        en: 'Every tier gives you access to GA4 + platform dashboards. Growth adds a unified ROI dashboard. Scale emails a daily PDF summary.',
+        tr: 'İki platformu ayrı ayrı almak yerine tek pakette alırsanız indirim uygulanır, bütçe iki platform arasında sonuçlara göre kaydırılabilir ve raporlama tek ekranda birleşir.',
+        en: 'Taking both in one package is discounted, budget can be shifted between the two platforms according to results, and reporting is combined into one view.',
       },
     },
   ],
   agents: [
     {
-      q: { tr: 'Kurulum ne kadar sürer?', en: 'How long does setup take?' },
+      q: { tr: 'Gerçekten kurulum ücreti yok mu?', en: 'Is setup really free?' },
       a: {
-        tr: 'Gerekli erişim ve içerikler teslim edildikten sonra WhatsApp AI Asistan yaklaşık 5, Sesli AI Resepsiyonist 7, AI Ön Büro 10 ve AI Operasyon Merkezi 15 iş gününde kurulur. Özel veya kısıtlı erişime sahip entegrasyonlarda takvim görüşme sonrası netleşir.',
-        en: 'Once access and approved content are supplied, setup is approximately 5 business days for WhatsApp AI Assistant, 7 for Voice AI Receptionist, 10 for AI Front Desk and 15 for AI Operations Hub. Bespoke or restricted integrations may require a separately agreed timeline.',
+        tr: 'Yok. Asistanı kurar, menünüzü veya sık sorulan sorularınızı sisteme işler, numaranızı yönlendirir ve devreye alırız — bunun için ücret almıyoruz. Kazancımız aylık sistem bedeli ve kullanımdan gelir.',
+        en: 'It is. We set the assistant up, load your menu or FAQs, forward your number and take it live at no charge. We earn from the monthly system fee and usage.',
       },
     },
     {
-      q: { tr: 'Mevcut CRM\'ime entegre olur mu?', en: 'Does it integrate with my existing CRM?' },
+      q: { tr: 'İkisini birden alırsam aylık bedeli iki kez mi öderim?', en: 'If I take both, do I pay the monthly fee twice?' },
       a: {
-        tr: 'Evet. WhatsApp ve Sesli AI paketleri bir CRM, takvim veya tablo bağlantısı içerir. AI Ön Büro 3, AI Operasyon Merkezi 6 entegrasyona kadar destekler. Özel klinik veya şirket yazılımı için kullanılabilir API ve erişim yetkisi kontrol edilir.',
-        en: 'Yes. The WhatsApp and Voice plans include one CRM, calendar or spreadsheet connection. AI Front Desk supports up to 3 integrations and AI Operations Hub up to 6. Bespoke clinic or business software is subject to available API access and permissions.',
+        tr: 'Hayır. Sesli asistan ve WhatsApp asistanını birlikte alırsanız aylık sistem bedeli tek seferdir. Kullanım kalemleri — dakika ve AI yanıtı — kendi tarifelerinden ayrı işler.',
+        en: 'No. Take the voice and WhatsApp assistants together and the monthly system fee is paid once. Usage — minutes and AI replies — is billed on its own tariff.',
       },
     },
     {
-      q: { tr: '“AI model/API kullanımı dahil” ne demek?', en: 'What does “AI model/API usage included” mean?' },
+      q: { tr: 'Kontörüm biterse asistan susar mı?', en: 'Does the assistant stop if my credit runs out?' },
       a: {
-        tr: 'Müşteri mesajlarını anlayıp yanıt üreten üretim tipi yapay zeka servisinin maliyeti, paketinizdeki yanıt kotasına kadar aylık ücrete dahildir. Ayrı bir OpenAI veya benzeri model hesabı açıp fatura ödemeniz gerekmez. Sesli çağrı ve resmî mesaj kanalı ücretleri kartlarda ayrıca gösterilir.',
-        en: 'The production AI service that understands and drafts customer replies is covered up to your plan\'s reply allowance. You do not need to open and pay for a separate OpenAI or similar model account. Voice calls and official messaging-channel charges are shown separately on the plan cards.',
+        tr: 'Susmaz. Bakiyeniz eşiğin altına inince otomatik yükleme devreye girer ve size bildirim gider. Otomatik yüklemeyi kapatabilirsiniz; o durumda önceden uyarı alırsınız.',
+        en: 'It does not. When your balance drops below the threshold, auto top-up kicks in and you are notified. You can switch auto top-up off, in which case you get advance warnings instead.',
       },
     },
     {
-      q: { tr: 'Kota aşımında ne olur, sistem kilitlenir mi?', en: 'What happens when I exceed quota?' },
+      q: { tr: 'WhatsApp\'ta tam olarak ne sayılıyor?', en: 'What exactly is counted on WhatsApp?' },
       a: {
-        tr: 'Asla kilitlenmez. Aşım olduğunda otomatik uyarı gider, trafik kesintisiz devam eder ve ekstra kullanım ilan edilen aşım tarifesiyle faturaya eklenir.',
-        en: 'It never locks. You get an alert, traffic continues uninterrupted, and extra usage is billed at the published overage rate.',
+        tr: 'Sadece asistanın gönderdiği yanıtlar. Müşterinizden gelen mesajlar, personelinizin elle yazdığı mesajlar ve sistem bildirimleri sayılmaz.',
+        en: 'Only the replies the assistant sends. Incoming customer messages, messages typed by your staff and system notifications are not counted.',
+      },
+    },
+  ],
+  systems: [
+    {
+      q: { tr: 'Aylık bakım ücreti neyi kapsıyor?', en: 'What does the monthly maintenance cover?' },
+      a: {
+        tr: 'Sistemin kendi sunucumuzda barındırılmasını, çalışıp çalışmadığının izlenmesini, bir akış bozulduğunda müdahale edilmesini ve ayda bir değişiklik hakkını kapsar. Kapsam dışı yeni işler ayrıca fiyatlandırılır.',
+        en: 'Hosting on our own server, monitoring that everything is running, fixing a workflow when it breaks, and one change request per month. New work outside the agreed scope is quoted separately.',
+      },
+    },
+    {
+      q: { tr: 'Kaç akış kurulacağı belli mi?', en: 'Is the number of workflows fixed?' },
+      a: {
+        tr: 'Fiyat akış sayısına göre değil, işletmenizin süreçlerine göre belirlenir. Hangi süreçlerin kapsamda olduğu teklifte yazılı olarak yer alır — sonradan sayı tartışması çıkmaz.',
+        en: 'The price is set by your processes, not by a workflow count. The proposal lists in writing which processes are in scope, so there is no argument about numbers later.',
+      },
+    },
+    {
+      q: { tr: 'Lead + mail sisteminde mailler benim adresimden mi gidiyor?', en: 'Does the lead and email system send from my own address?' },
+      a: {
+        tr: 'Evet. Sistem sizin domaininiz ve sizin posta kutunuz üzerinden çalışır; domain, mailbox ve veri kredisi bedelleri size aittir. Böylece hem gönderen itibarı hem veri sizde kalır.',
+        en: 'Yes. It runs on your domain and your mailbox; domain, mailbox and data credit costs are yours. That way both the sender reputation and the data stay with you.',
       },
     },
   ],
@@ -706,16 +658,9 @@ function PlanCard({ tier, content, region, isEnglish }: PlanCardProps) {
   const premium = content.premium;
   const hasSetup = tier.setupFee > 0;
   const isAds = tier.category === 'ads';
-  const overageItems = tier.key === 'web-ai'
-    ? [
-        `${isEnglish ? 'Additional 100 AI replies' : 'Ek 100 AI yanıtı'}: ${formatPrice(
-          tier.overageChatPer100,
-          region,
-        )}`,
-      ]
-    : isEnglish
-    ? content.overages.en
-    : content.overages.tr;
+  // Kullanım kalemleri artık kontör modelinden geliyor; ürüne özel istisna yok.
+  // (Eski 'web-ai' kademesi ve overageChatPer100 alanı kaldırıldı — PLAN.md bölüm 2.)
+  const overageItems = isEnglish ? content.overages.en : content.overages.tr;
 
   // Premium variant uses a darker, enterprise treatment
   const cardBg = premium ? 'var(--coal)' : 'var(--paper-2)';
@@ -1355,7 +1300,7 @@ export default function Packages() {
     }
     return isEnglish
       ? 'AI Agent Packages — WhatsApp, Voice Receptionist, Front Desk & Operations | MGL Digital Media'
-      : 'AI Agent Paketleri — WhatsApp, Sesli Resepsiyon, AI Ön Büro ve Operasyon | MGL Digital Media';
+      : 'Fiyatlar — Sesli ve WhatsApp Asistanı, Otomasyon, Web, Reklam | MGL Digital Media';
   }, [activeCategory, isEnglish]);
 
   const seoDescription = useMemo(() => {
@@ -1370,8 +1315,8 @@ export default function Packages() {
         : 'Altı açık web paketi: £200 tek sayfadan çok dilli AI web sitesine ve tamamen özel profesyonel siteye. Kapsam, hosting ve AI kullanımı baştan belirtilir.';
     }
     return isEnglish
-      ? 'Clear UK pricing for a WhatsApp AI assistant, Voice AI receptionist, joined-up AI Front Desk and multi-process AI Operations Hub. AI API allowances, setup and voice usage shown upfront.'
-      : 'WhatsApp AI asistan, Sesli AI resepsiyonist, birleşik AI Ön Büro ve çok süreçli AI Operasyon Merkezi için açık fiyatlar. AI API kotası, kurulum ve ses kullanımı baştan belirtilir.';
+      ? 'Clear UK pricing for the voice and WhatsApp assistants, automation and lead systems, websites and ad management. No setup fee on the assistants; usage rates and bundles shown upfront.'
+      : 'Sesli ve WhatsApp asistanı, otomasyon ve lead sistemleri, web siteleri ve reklam yönetimi için açık fiyatlar. Asistanlarda kurulum ücreti yok; kullanım tarifesi ve kontör paketleri baştan belirtilir.';
   }, [activeCategory, isEnglish]);
 
   const seoKeywords = useMemo(() => {
@@ -1583,7 +1528,7 @@ export default function Packages() {
                     : 'Randevu sırasında veya mesai dışında çağrı kaçırıyorsanız; resepsiyonist telefonu açar, randevu alır, aktarır ve özet gönderir.',
                 },
                 {
-                  title: isEnglish ? 'Choose Front Desk' : 'AI Ön Büro seçin',
+                  title: isEnglish ? 'Take both assistants' : 'İkisini birden alın',
                   text: isEnglish
                     ? 'Calls, WhatsApp and website enquiries must share the same diary, CRM and follow-up rules.'
                     : 'Telefon, WhatsApp ve web taleplerinin aynı takvim, CRM ve takip kurallarıyla çalışmasını istiyorsanız.',
@@ -1665,8 +1610,8 @@ export default function Packages() {
             </div>
             <p style={{ marginTop: 22, fontSize: 13, lineHeight: 1.6, color: 'var(--fg-2)', maxWidth: 900 }}>
               {isEnglish
-                ? 'In plain English: choose WhatsApp when most enquiries arrive as messages; choose Voice when missed calls cost you bookings; choose AI Front Desk when both channels must share the same calendar and CRM. We confirm the exact provider stack and usage estimate before launch.'
-                : 'Kısaca: Talepleriniz çoğunlukla mesajla geliyorsa WhatsApp\'ı, cevapsız çağrılar randevu kaybettiriyorsa Sesli AI\'ı, iki kanal aynı takvim ve CRM ile çalışacaksa AI Ön Büro\'yu seçin. Sağlayıcı altyapısını ve tahmini kullanım bedelini canlıya almadan önce netleştiririz.'}
+                ? 'In plain English: take the WhatsApp assistant when most enquiries arrive as messages, the voice assistant when missed calls cost you bookings, and both when the two channels must share the same calendar and CRM — the monthly system fee is still paid only once. We confirm the exact provider stack and usage estimate before launch.'
+                : 'Kısaca: Talepleriniz çoğunlukla mesajla geliyorsa WhatsApp asistanını, cevapsız çağrılar randevu kaybettiriyorsa sesli asistanı, iki kanal aynı takvim ve CRM ile çalışacaksa ikisini birden alın — aylık sistem bedeli yine tek ödenir. Sağlayıcı altyapısını ve tahmini kullanım bedelini canlıya almadan önce netleştiririz.'}
             </p>
           </div>
         </section>
@@ -1726,7 +1671,7 @@ export default function Packages() {
                   {formatPrice(region === 'TR' ? 4999 : 149, region)} / {isEnglish ? 'month' : 'ay'}
                 </strong>
                 <span style={{ display: 'block', marginTop: 5, fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--fg-3)' }}>
-                  + {formatPrice(region === 'TR' ? 24999 : 750, region)} {isEnglish ? 'one-off setup' : 'tek seferlik kurulum'}
+                  + {formatPrice(tier.setupFee, region)} {isEnglish ? 'one-off setup' : 'tek seferlik kurulum'}
                 </span>
               </div>
             </div>
@@ -1925,7 +1870,7 @@ export default function Packages() {
                         'Gece çağrılarına Sesli AI',
                       ]
                 }
-                packageMatch={isEnglish ? 'AI Front Desk or AI Operations Hub' : 'AI Ön Büro veya AI Operasyon Merkezi'}
+                packageMatch={isEnglish ? 'Voice + WhatsApp Assistant' : 'Sesli + WhatsApp Asistanı'}
                 packageLabel={isEnglish ? 'Best fit' : 'Uygun paket'}
               />
               <SectorExample
@@ -1967,7 +1912,7 @@ export default function Packages() {
                         'İlan eşleşme bildirimleri',
                       ]
                 }
-                packageMatch={isEnglish ? 'AI Front Desk' : 'AI Ön Büro'}
+                packageMatch={isEnglish ? 'Voice + WhatsApp Assistant' : 'Sesli + WhatsApp Asistanı'}
                 packageLabel={isEnglish ? 'Best fit' : 'Uygun paket'}
               />
               <SectorExample
@@ -1986,7 +1931,7 @@ export default function Packages() {
                         'Saat farkı çözümü',
                       ]
                 }
-                packageMatch={isEnglish ? 'AI Front Desk or AI Operations Hub' : 'AI Ön Büro veya AI Operasyon Merkezi'}
+                packageMatch={isEnglish ? 'Voice + WhatsApp Assistant' : 'Sesli + WhatsApp Asistanı'}
                 packageLabel={isEnglish ? 'Best fit' : 'Uygun paket'}
               />
               <SectorExample
@@ -2005,7 +1950,7 @@ export default function Packages() {
                         'Sesli AI 5 sn karşılama',
                       ]
                 }
-                packageMatch={isEnglish ? 'AI Front Desk' : 'AI Ön Büro'}
+                packageMatch={isEnglish ? 'Voice + WhatsApp Assistant' : 'Sesli + WhatsApp Asistanı'}
                 packageLabel={isEnglish ? 'Best fit' : 'Uygun paket'}
               />
               <SectorExample
@@ -2024,7 +1969,7 @@ export default function Packages() {
                         'Görüşme planlama',
                       ]
                 }
-                packageMatch={isEnglish ? 'WhatsApp AI Assistant or AI Front Desk' : 'WhatsApp AI Asistan veya AI Ön Büro'}
+                packageMatch={isEnglish ? 'WhatsApp Assistant' : 'WhatsApp Asistanı'}
                 packageLabel={isEnglish ? 'Best fit' : 'Uygun paket'}
               />
             </div>
@@ -2178,8 +2123,8 @@ export default function Packages() {
               }}
             >
               {isEnglish
-                ? 'For requirements beyond AI Operations Hub, we scope an Enterprise system: on-premise deployment, custom integrations (SAP, Nebim, Logo, ERP), dedicated infrastructure and a named engineer with 24/7 priority support.'
-                : 'AI Operasyon Merkezi kapsamını aşan ihtiyaçlar için Enterprise sistem tasarlarız: on-premise kurulum, özel entegrasyonlar (SAP, Nebim, Logo, ERP), dedicated altyapı ve 7/24 öncelikli destek için atanmış mühendis.'}
+                ? 'For requirements beyond the standard automation system, we scope an Enterprise system: on-premise deployment, custom integrations (SAP, Nebim, Logo, ERP), dedicated infrastructure and a named engineer with 24/7 priority support.'
+                : 'Standart otomasyon sisteminin kapsamını aşan ihtiyaçlar için Enterprise sistem tasarlarız: on-premise kurulum, özel entegrasyonlar (SAP, Nebim, Logo, ERP), dedicated altyapı ve 7/24 öncelikli destek için atanmış mühendis.'}
             </p>
 
             <a

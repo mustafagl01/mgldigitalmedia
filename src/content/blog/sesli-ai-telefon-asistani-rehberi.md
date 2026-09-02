@@ -17,7 +17,7 @@ faqs:
   - question: "Kaçırdığım aramaları karşılayabilir mi?"
     answer: "Evet. Çalışma saatleri dışındaki aramaları sesli AI asistan karşılar; randevu alır, bilgi verir veya acil durum mesajı bırakır. Bu sayede hiçbir müşteri teması kaçırılmaz."
   - question: "Kurulum maliyeti ne kadar?"
-    answer: "Retell AI'ın temel planı $29/ay'dan başlar. MGL ile kurulum dahil paketlerimiz 3.999 TRY/£119'dan başlamaktadır. Detaylar için /sesli-ai sayfasını ziyaret edin."
+    answer: "Retell AI'ın temel planı $29/ay'dan başlar. MGL ile kurulum ücreti yoktur: aylık 649 TRY/£9,90 sistem bedeli ve bağlanan dakika başına 16 TRY/25p kullanım (hacimle düşer). Detaylar için /sesli-ai sayfasını ziyaret edin."
 ---
 
 **TL;DR:** Sesli AI telefon asistanı, işletmenizin gelen (ve giden) aramalarını yapay zeka kullanarak karşılayan, anlayan ve yanıtlayan bir sistemdir. Retell AI + ElevenLabs sesi + n8n kombinasyonuyla kurulur; kaçan aramaları sıfıra indirir, randevu alır ve 7/24 müşteri desteği sağlar.
@@ -121,7 +121,7 @@ Gerçek telefon numarasına yönlendirme yapılır. İlk 1-2 hafta konuşma logl
 |---------|--------------|---------|
 | Tam zamanlı asistan (asgari ücret) | ~11.000 TRY | Mesai saati, 1 hat |
 | Yarı zamanlı asistan | ~5.500 TRY | Sınırlı saatler |
-| Sesli AI (MGL WhatsApp Asistan) | 3.999 TRY | 7/24, sınırsız eşzamanlı hat |
+| Sesli AI (MGL sesli asistan) | 649 TRY sistem bedeli + konuşma dakikası | 7/24, sınırsız eşzamanlı hat |
 
 **ROI hesabı:** Aylık 500 arayan, her aramanın 3 dakika sürdüğünü varsayalım. Bir asistanın aynı anda 1 arama karşılayabildiğini düşünürsek, en yoğun saatlerde %20-30 arama kaçırılır. Ortalama bilet değeri 1.500 TRY olan bir klinikte bu, aylık 15.000-20.000 TRY kayıp anlamına gelir.
 
@@ -138,7 +138,7 @@ Asistan biliyor olduğu şeyleri son derece iyi yapar. Ancak beklenmedik sorular
 
 ## Sonuç
 
-Sesli AI asistan, 2026'da artık laboratuvar projesi değil, gerçek iş çözümüdür. Türkiye'deki KOBİ'ler için aylık 4.000-10.000 TRY bandında 7/24 çalışan, hiç mola vermeyen, aksansız konuşan bir telefon elemanı artık mümkün.
+Sesli AI asistan, 2026'da artık laboratuvar projesi değil, gerçek iş çözümüdür. Türkiye'deki KOBİ'ler için kurulum ücreti olmadan, aylık 649 TRY sistem bedeli ve konuştuğu dakika kadar ödenen bir ücretle 7/24 çalışan, hiç mola vermeyen, aksansız konuşan bir telefon elemanı artık mümkün.
 
 [Sesli AI asistan hizmetleri hakkında detaylı bilgi için → /sesli-ai](/sesli-ai)
 

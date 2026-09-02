@@ -12,7 +12,7 @@ const FAQS_TR = [
   { question: 'Çalışma saatleri dışındaki aramaları karşılayabilir mi?', answer: 'Evet. Mesai dışı aramalar AI asistan tarafından karşılanır, randevu alınır veya ertesi gün için kayıt tutulur.' },
   { question: 'Müşteriler robotla konuştuğunu anlıyor mu?', answer: 'ElevenLabs sesiyle oldukça doğal konuşma üretilir. Yasal ve etik açıdan aramanın başında "AI asistanla konuşuyorsunuz" bilgisi verilmesini öneriyoruz.' },
   { question: 'Mevcut telefon numaram korunur mu?', answer: 'Evet. Mevcut +90 numaranıza yönlendirme yapılır; müşteriler aynı numarayı aramaya devam eder.' },
-  { question: 'Ücretlendirme nasıl?', answer: 'Sesli AI Resepsiyonist 8.999 TRY/ay ve 24.999 TRY tek seferlik kurulumdur. Bağlanan çağrılar ilk dakikadan itibaren 9 TRY/dakikadır; ses, telefon ve üretim tipi AI model/API maliyeti bu dakika ücretine dahildir.' },
+  { question: 'Ücretlendirme nasıl?', answer: 'Sesli asistanda kurulum ücreti yoktur. Aylık sistem bedeli 649 TRY olur. Bağlanan çağrılar 16 TRY/dakikadan başlar ve kontör paketiyle düşer; ses, telefon ve üretim tipi AI model/API maliyeti bu dakika ücretine dahildir.' },
 ];
 
 const FAQS_EN = [
@@ -22,7 +22,7 @@ const FAQS_EN = [
   { question: 'Can it handle after-hours calls?', answer: 'Yes. After-hours calls are handled by the AI agent — appointments booked, information given, or messages logged for follow-up.' },
   { question: 'Will callers know they\'re talking to AI?', answer: 'ElevenLabs produces very natural speech. We recommend (and configure) the agent to identify itself as AI at the start of the call — both ethically and legally.' },
   { question: 'Can I keep my existing phone number?', answer: 'Yes. Call forwarding is set up from your existing number, so customers keep calling the same number they know.' },
-  { question: 'How is it priced?', answer: 'Voice AI Receptionist is £249/month plus a £750 one-time setup. Connected calls are £0.15/min from the first minute; voice, telephony and production AI model/API usage are included in that minute rate.' },
+  { question: 'How is it priced?', answer: 'The voice assistant has no setup fee. The monthly system fee is £9.90. Connected calls start at 25p/min and fall with volume; voice, telephony and production AI model/API usage are included in that minute rate.' },
 ];
 
 const PROCESS_TR = [
@@ -74,8 +74,8 @@ export default function SesliAi() {
         }
         description={
           isEN
-            ? 'Managed Voice AI Receptionist powered by Retell AI. £249/month + £750 setup; connected calls £0.15/min including voice, telephony and AI API usage.'
-            : 'Retell AI destekli yönetilen Sesli AI Resepsiyonist. 8.999 TRY/ay + 24.999 TRY kurulum; bağlı çağrılar ses, telefon ve AI API dahil 9 TRY/dakika.'
+            ? 'Managed voice assistant powered by Retell AI. No setup fee, £9.90/month; connected calls from 25p/min including voice, telephony and AI API usage.'
+            : 'Retell AI destekli yönetilen sesli asistan. Kurulum ücretsiz, aylık 649 TRY; bağlı çağrılar ses, telefon ve AI API dahil 16 TRY/dakikadan başlar.'
         }
         path="/sesli-ai"
         locale={isEN ? 'en_GB' : 'tr_TR'}
@@ -192,7 +192,7 @@ export default function SesliAi() {
                       ['Availability', '24/7/365', 'Working hours only'],
                       ['Response time', '< 1.5 seconds', 'Variable, after rings'],
                       ['Simultaneous calls', 'Unlimited', '1 at a time'],
-                      ['Monthly cost', '£249 + call usage', '£1,500-2,500+'],
+                      ['Monthly cost', '£9.90 + call usage', '£1,500-2,500+'],
                       ['Sick days / holidays', 'None', 'Yes'],
                       ['Consistency', 'Perfect every time', 'Variable'],
                     ]

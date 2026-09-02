@@ -17,7 +17,7 @@ faqs:
   - question: "Mevcut CRM'imle entegre olabilir mi?"
     answer: "n8n; HubSpot, Pipedrive, Zoho, Salesforce ve 400+ uygulamaya resmi entegrasyon sunar. Özel REST API olan herhangi bir yazılıma da HTTP node ile bağlanılabilir."
   - question: "Aylık maliyeti ne kadar?"
-    answer: "Temel kurulum: sunucu maliyeti ~€15-30/ay + n8n cloud veya self-hosted. MGL olarak kurulum dahil aylık 3.999 TRY/£119'dan başlayan paketler sunuyoruz. Detaylar için /whatsapp-ai-asistan sayfasını ziyaret edin."
+    answer: "Temel kurulum: sunucu maliyeti ~€15-30/ay + n8n cloud veya self-hosted. MGL olarak kurulum ücreti almıyoruz: aylık 649 TRY/£9,90 sistem bedeli ve yanıt başına 0,45 TRY/0,7p kullanım. Detaylar için /whatsapp-ai-asistan sayfasını ziyaret edin."
 ---
 
 **TL;DR:** WhatsApp AI asistan, işletmenizin gelen WhatsApp mesajlarını 7/24 otomatik olarak karşılayan, yanıtlayan ve yönlendiren bir yazılım sistemidir. Evolution API + n8n + LLM üçlüsüyle kurulur; aylık sabit maliyetle sınırsız mesaj işler. Randevu alma, SSS yanıtlama, lead kalifikasyonu ve CRM entegrasyonu tek sistemde çalışır.
@@ -125,8 +125,8 @@ Potansiyel alıcı Avrupa'dan "Beşiktaş'ta 2+1 daireniz var mı?" diye sorar. 
 - **Toplam: ~€60-90/ay** + kurulum emeği
 
 ### MGL Digital Media ile
-- WhatsApp Asistan Paketi: 3.999 TRY/ay (£119)
-- Çok Kanal Asistan Paketi: 9.999 TRY/ay (£299)
+- WhatsApp asistanı: kurulum ücretsiz, 649 TRY/ay (£9,90) sistem bedeli + yanıt başına 0,45 TRY (0,7p)
+- WhatsApp asistanı: kurulum ücretsiz, 649 TRY/ay sistem bedeli (£9,90) + yanıt başına 0,45 TRY (0,7p)
 - Kurulum dahil, teknik bakım dahil, destek dahil
 
 [Fiyat detayları için → /whatsapp-ai-asistan](/whatsapp-ai-asistan)

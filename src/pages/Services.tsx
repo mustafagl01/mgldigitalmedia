@@ -63,7 +63,7 @@ const SERVICES: ServiceSku[] = [
       tr: '7/24 lead yakalar, randevu alır, SSS cevaplar.',
       en: 'Captures leads, books appointments, answers FAQs 24/7.',
     },
-    setupTR: '19.999 ₺', monthlyTR: '6.999 ₺', setupGB: '£499', monthlyGB: '£199',
+    setupTR: 'Ücretsiz', monthlyTR: '649 ₺', setupGB: 'Free', monthlyGB: '£9,90',
     risk: 'A',
     features: {
       tr: [
@@ -90,7 +90,7 @@ const SERVICES: ServiceSku[] = [
       tr: 'Telefona doğal sesle cevap verir, randevu oluşturur.',
       en: 'Answers your phone with natural voice, books appointments.',
     },
-    setupTR: '24.999 ₺', monthlyTR: '8.999 ₺', setupGB: '£750', monthlyGB: '£249',
+    setupTR: 'Ücretsiz', monthlyTR: '649 ₺', setupGB: 'Free', monthlyGB: '£9,90',
     risk: 'B',
     features: {
       tr: [
@@ -116,7 +116,7 @@ const SERVICES: ServiceSku[] = [
       tr: 'Tekrar eden iş akışlarını tek otomatik sisteme bağlarız.',
       en: 'Connect repetitive workflows into one automated system.',
     },
-    setupTR: '24.999 ₺', monthlyTR: '4.999 ₺', setupGB: '£750', monthlyGB: '£149',
+    setupTR: '25.999 ₺', monthlyTR: '1.899 ₺', setupGB: '£400', monthlyGB: '£29',
     risk: 'A',
     features: {
       tr: [
@@ -142,7 +142,7 @@ const SERVICES: ServiceSku[] = [
       tr: 'React tabanlı, mobil-öncelikli, SEO-hazır modern site.',
       en: 'React-based, mobile-first, SEO-ready modern website.',
     },
-    setupTR: '24.999 ₺', monthlyTR: '499 ₺ (hosting)', setupGB: '£749', monthlyGB: '£15 (hosting)',
+    setupTR: '25.999 ₺', monthlyTR: '6.499 ₺ (yıllık hosting)', setupGB: '£400', monthlyGB: '£100 (yearly hosting)',
     risk: 'project',
     features: {
       tr: [

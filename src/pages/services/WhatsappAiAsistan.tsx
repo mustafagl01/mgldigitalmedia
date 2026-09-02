@@ -11,7 +11,7 @@ const FAQS_TR = [
   { question: 'Mevcut CRM\'imle entegre olabilir mi?', answer: 'Evet. n8n; HubSpot, Pipedrive, Zoho, Salesforce ve 400+ uygulamaya resmi entegrasyon sunar. Özel REST API olan herhangi bir yazılıma da bağlanılabilir.' },
   { question: 'Ses mesajlarını da anlayabiliyor mu?', answer: 'Evet. Whisper API entegrasyonu ile asistan gelen sesli mesajları metne çevirip yanıtlayabilir.' },
   { question: 'Müşteriler botla konuştuğunu anlıyor mu?', answer: 'İyi tasarlanmış sistemlerde çoğunluk fark etmez. Ancak "insan mısın?" sorusuna dürüst yanıt vermesi için sistemi yapılandırıyoruz.' },
-  { question: 'Aylık ücret ne kadar?', answer: 'WhatsApp AI Asistan 6.999 TRY/ay ve 19.999 TRY tek seferlik kurulumdur. Ayda 2.000 AI yanıtı ile bu kota içindeki üretim tipi AI model/API kullanımı dahildir. Telefon da gerekiyorsa AI Ön Büro paketine geçilebilir.' },
+  { question: 'Aylık ücret ne kadar?', answer: 'WhatsApp asistanında kurulum ücreti yoktur. Aylık sistem bedeli 649 TRY olur; üstüne yalnızca asistanın gönderdiği AI yanıtları sayılır (0,45 TRY/yanıt, kontör paketiyle düşer). Telefon da gerekiyorsa sesli asistanı da ekleyebilirsiniz — aylık sistem bedeli yine tek ödenir.' },
 ];
 
 const FAQS_EN = [
@@ -20,7 +20,7 @@ const FAQS_EN = [
   { question: 'Can it integrate with my existing CRM?', answer: 'Yes. n8n connects to HubSpot, Pipedrive, Zoho, Salesforce and 400+ apps natively. Any custom REST API can also be integrated via the HTTP node.' },
   { question: 'Can it handle voice messages?', answer: 'Yes. With Whisper API integration, the agent transcribes incoming voice messages and responds accordingly.' },
   { question: 'Will customers know they\'re talking to a bot?', answer: 'Most customers won\'t notice with a well-designed agent. We configure the system to respond honestly when directly asked "are you a bot?".' },
-  { question: 'How much does it cost per month?', answer: 'WhatsApp AI Assistant is £199/month plus a £499 one-time setup. It includes 2,000 AI replies per month and production AI model/API usage within that allowance. Choose AI Front Desk if you also need phone handling.' },
+  { question: 'How much does it cost per month?', answer: 'The WhatsApp assistant has no setup fee. The monthly system fee is £9.90; on top of that only the replies the assistant sends are counted (0.7p each, lower with a bundle). Add the voice assistant too if you also need phone handling — the monthly system fee is still paid only once.' },
 ];
 
 const PROCESS_TR = [
@@ -101,8 +101,8 @@ export default function WhatsappAiAsistan() {
         }
         description={
           isEN
-            ? 'Deploy a managed WhatsApp AI assistant in about five business days. Booking, FAQ handling and CRM sync. £199/month + £499 setup, with 2,000 AI replies and AI API usage included.'
-            : 'Yönetilen WhatsApp AI asistanınızı yaklaşık beş iş gününde kurun. Randevu, SSS ve CRM entegrasyonu. 6.999 TRY/ay + 19.999 TRY kurulum; 2.000 AI yanıtı ve AI API kullanımı dahil.'
+            ? 'Deploy a managed WhatsApp AI assistant in about five business days. Booking, FAQ handling and CRM sync. No setup fee, £9.90/month plus 0.7p per AI reply.'
+            : 'Yönetilen WhatsApp asistanınızı yaklaşık beş iş gününde kurun. Randevu, SSS ve CRM entegrasyonu. Kurulum ücretsiz, aylık 649 TRY, yanıt başına 0,45 TRY kullanımı dahil.'
         }
         path="/whatsapp-ai-asistan"
         locale={isEN ? 'en_GB' : 'tr_TR'}

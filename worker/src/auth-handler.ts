@@ -6,15 +6,127 @@ export interface Env {
   STRIPE_SECRET_KEY?: string;
 }
 
+/**
+ * Checkout'ta kabul edilen fiyat kimlikleri.
+ * İstemciden gelen price_id BURAYA karşı doğrulanır — aksi halde kullanıcı
+ * hesaptaki herhangi bir (örn. £10'luk) fiyatı seçip pahalı bir ürünü ucuza
+ * satın almış gibi checkout üretebilir.
+ *
+ * ⚠️ src/stripe-config.ts ile ELDE senkron tutulur. Worker ayrı bir deploy
+ * artefaktı olduğu için oradan import edilemiyor. Yeni fiyat eklerken iki
+ * dosyaya birden yaz.
+ */
+const ALLOWED_PRICE_IDS = new Set<string>([
+  // Asistan aboneliği + sesli kontör + donanım (AloSipariş kalemleri)
+  'price_1UAFHlDsBtMM0UXX0e37yiXd',
+  'price_1UAGAEDsBtMM0UXXgjGKDtYv',
+  'price_1UAGAFDsBtMM0UXXNWVptrwy',
+  'price_1UAGAGDsBtMM0UXX5F9VQFZC',
+  'price_1UAFHmDsBtMM0UXXOmlK0oz2',
+  // WhatsApp kontörü
+  'price_1UBL8IDsBtMM0UXXflQAnGg2',
+  'price_1UBL8JDsBtMM0UXX0iFmTcEh',
+  'price_1UBL8JDsBtMM0UXXObWWOPLH',
+  // Kurulan sistemler
+  'price_1UBL8FDsBtMM0UXXQZuR1X5a',
+  'price_1UBL8GDsBtMM0UXXUiYtstcJ',
+  'price_1UBL8HDsBtMM0UXXkmgXUrd7',
+  // Web
+  'price_1UBL8DDsBtMM0UXXVcMrrJjO',
+  'price_1UBL8DDsBtMM0UXX6yZxjOMf',
+  'price_1UBL8EDsBtMM0UXXj1TLO8SQ',
+  'price_1UBL8FDsBtMM0UXXTITMOu0A',
+  // Reklam
+  'price_1UBL8HDsBtMM0UXXxNpvaedY',
+  'price_1UBL8IDsBtMM0UXX4kflR7j6',
+  'price_1UBL8IDsBtMM0UXXYaIHAzAR',
+]);
+
+/** Checkout dönüş adreslerinin ve CORS'un izin verdiği host'lar. */
+const ALLOWED_HOSTS = new Set<string>([
+  'mgl-ai.com',
+  'www.mgl-ai.com',
+  'localhost',
+  '127.0.0.1',
+]);
+
+/** Origin başlığını host eşitliğiyle doğrular — `includes()` atlatılabilir. */
+function isAllowedOrigin(origin: string | null): boolean {
+  if (!origin) return false;
+  try {
+    return ALLOWED_HOSTS.has(new URL(origin).hostname.toLowerCase());
+  } catch {
+    return false;
+  }
+}
+
+/** Checkout success/cancel adresi kendi alan adımızda mı — açık yönlendirme kapanır. */
+function isAllowedRedirect(target: string | undefined): boolean {
+  if (!target) return false;
+  try {
+    const u = new URL(target);
+    return (u.protocol === 'https:' || u.protocol === 'http:') && ALLOWED_HOSTS.has(u.hostname.toLowerCase());
+  } catch {
+    return false;
+  }
+}
+
+const PBKDF2_ITERATIONS = 100_000;
+
+function toHex(buf: ArrayBuffer): string {
+  return Array.from(new Uint8Array(buf)).map((b) => b.toString(16).padStart(2, '0')).join('');
+}
+
+/** PBKDF2-SHA256, tuz gövdenin içinde: pbkdf2$<iter>$<salt>$<hash> */
+async function hashPassword(password: string): Promise<string> {
+  const salt = crypto.getRandomValues(new Uint8Array(16));
+  const key = await crypto.subtle.importKey('raw', new TextEncoder().encode(password), 'PBKDF2', false, ['deriveBits']);
+  const bits = await crypto.subtle.deriveBits(
+    { name: 'PBKDF2', salt, iterations: PBKDF2_ITERATIONS, hash: 'SHA-256' },
+    key,
+    256
+  );
+  return `pbkdf2$${PBKDF2_ITERATIONS}$${toHex(salt.buffer)}$${toHex(bits)}`;
+}
+
+/** Sabit süreli karşılaştırma — zamanlama sızıntısı olmasın. */
+function timingSafeEqual(a: string, b: string): boolean {
+  if (a.length !== b.length) return false;
+  let diff = 0;
+  for (let i = 0; i < a.length; i++) diff |= a.charCodeAt(i) ^ b.charCodeAt(i);
+  return diff === 0;
+}
+
+async function verifyPassword(password: string, stored: string | null | undefined): Promise<boolean> {
+  if (!stored) return false;
+  const parts = stored.split('$');
+  if (parts.length !== 4 || parts[0] !== 'pbkdf2') return false;
+  const iterations = Number(parts[1]);
+  if (!Number.isFinite(iterations) || iterations < 1000) return false;
+  const saltHex = parts[2];
+  const salt = new Uint8Array((saltHex.match(/.{2}/g) || []).map((h) => parseInt(h, 16)));
+  const key = await crypto.subtle.importKey('raw', new TextEncoder().encode(password), 'PBKDF2', false, ['deriveBits']);
+  const bits = await crypto.subtle.deriveBits(
+    { name: 'PBKDF2', salt, iterations, hash: 'SHA-256' },
+    key,
+    256
+  );
+  return timingSafeEqual(toHex(bits), parts[3]);
+}
+
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
     const url = new URL(request.url);
     const path = url.pathname;
-    const corsHeaders = {
-      'Access-Control-Allow-Origin': '*',
+    const requestOrigin = request.headers.get('Origin');
+    const corsHeaders: Record<string, string> = {
       'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
       'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+      'Vary': 'Origin',
     };
+    if (isAllowedOrigin(requestOrigin)) {
+      corsHeaders['Access-Control-Allow-Origin'] = requestOrigin as string;
+    }
 
     if (request.method === 'OPTIONS') {
       return new Response(null, { headers: corsHeaders });
@@ -72,11 +184,28 @@ export default {
         const successUrl = body.success_url;
         const cancelUrl = body.cancel_url;
         const mode = body.mode;
-        const customerEmail = body.customer_email || activeSession.email;
+        // E-posta yalnızca oturumdan alınır; istemcinin gönderdiği yok sayılır.
+        const customerEmail = activeSession.email;
 
         if (!priceId || !successUrl || !cancelUrl || (mode !== 'payment' && mode !== 'subscription')) {
           return new Response(
             JSON.stringify({ error: 'Missing required parameters' }),
+            { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+          );
+        }
+
+        // Fiyat kataloğun dışındaysa reddet — ucuz fiyatla pahalı ürün alınmasın.
+        if (!ALLOWED_PRICE_IDS.has(priceId)) {
+          return new Response(
+            JSON.stringify({ error: 'Unknown price' }),
+            { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+          );
+        }
+
+        // Dönüş adresleri kendi alan adımızda olmalı — açık yönlendirme kapanır.
+        if (!isAllowedRedirect(successUrl) || !isAllowedRedirect(cancelUrl)) {
+          return new Response(
+            JSON.stringify({ error: 'Invalid redirect URL' }),
             { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
           );
         }
@@ -104,7 +233,7 @@ export default {
 
         if (!stripeResponse.ok) {
           return new Response(
-            JSON.stringify({ error: stripeData?.error?.message || 'Stripe checkout failed' }),
+            JSON.stringify({ error: 'Stripe checkout failed' }),
             { status: stripeResponse.status, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
           );
         }
@@ -115,7 +244,7 @@ export default {
         );
       } catch (e: any) {
         return new Response(
-          JSON.stringify({ error: e.message || String(e) }),
+          JSON.stringify({ error: 'Internal error' }),
           { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
         );
       }
@@ -135,6 +264,26 @@ export default {
           );
         }
 
+        // Sunucu tarafı doğrulama — istemci doğrulaması güvenlik değildir.
+        if (typeof email !== 'string' || email.length > 254 || !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) {
+          return new Response(
+            JSON.stringify({ error: 'Invalid email' }),
+            { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+          );
+        }
+        if (typeof password !== 'string' || password.length < 10 || password.length > 200) {
+          return new Response(
+            JSON.stringify({ error: 'Password must be between 10 and 200 characters' }),
+            { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+          );
+        }
+        if (name != null && (typeof name !== 'string' || name.length > 120)) {
+          return new Response(
+            JSON.stringify({ error: 'Invalid name' }),
+            { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
+          );
+        }
+
         const existingUser = await env.DB.prepare('SELECT id FROM user WHERE email = ?').bind(email).first();
         if (existingUser) {
           return new Response(
@@ -145,10 +294,13 @@ export default {
 
         const userId = crypto.randomUUID();
         const now = Date.now();
+        // Parola artık SAKLANIYOR (PBKDF2-SHA256). Öncesinde hiç yazılmıyordu ve
+        // login yalnızca sabit demo parolasıyla çalışıyordu — 2026-09-02'de düzeltildi.
+        const passwordHash = await hashPassword(password);
 
         await env.DB.prepare(
-          'INSERT INTO user (id, email, email_verified, name, created_at, updated_at) VALUES (?, ?, 0, ?, ?, ?)'
-        ).bind(userId, email, name || null, now, now).run();
+          'INSERT INTO user (id, email, email_verified, name, password_hash, created_at, updated_at) VALUES (?, ?, 0, ?, ?, ?, ?)'
+        ).bind(userId, email, name || null, passwordHash, now, now).run();
 
         const token = Array.from(crypto.getRandomValues(new Uint8Array(32))).map(b => b.toString(16).padStart(2, '0')).join('');
         const expiresAt = now + 604800000;
@@ -165,7 +317,7 @@ export default {
         );
       } catch (e: any) {
         return new Response(
-          JSON.stringify({ error: e.message || String(e) }),
+          JSON.stringify({ error: 'Internal error' }),
           { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
         );
       }
@@ -180,7 +332,7 @@ export default {
           data = JSON.parse(text);
         } catch (parseError) {
           return new Response(
-            JSON.stringify({ error: 'Invalid JSON', received: text }),
+            JSON.stringify({ error: 'Invalid JSON' }),
             { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
           );
         }
@@ -197,8 +349,9 @@ export default {
           );
         }
 
-        const isDemoAccount = email === 'demo@mgldigitalmedia.com';
-        const passwordMatch = isDemoAccount && (password === 'Demo123' || password === 'Demo123!');
+        // Parola, kayıtta saklanan PBKDF2 özetine karşı doğrulanır.
+        // (Sabit demo parolası 2026-09-02'de kaldırıldı — public repoda duruyordu.)
+        const passwordMatch = await verifyPassword(password, user.password_hash);
 
         if (passwordMatch) {
           const token = Array.from(crypto.getRandomValues(new Uint8Array(32))).map(b => b.toString(16).padStart(2, '0')).join('');
@@ -225,7 +378,7 @@ export default {
       } catch (e: any) {
         console.error('Error:', e);
         return new Response(
-          JSON.stringify({ error: e.message || String(e) }),
+          JSON.stringify({ error: 'Internal error' }),
           { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
         );
       }
@@ -309,7 +462,7 @@ export default {
         );
       } catch (e: any) {
         return new Response(
-          JSON.stringify({ error: e.message || String(e) }),
+          JSON.stringify({ error: 'Internal error' }),
           { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
         );
       }

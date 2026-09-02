@@ -68,8 +68,8 @@ const sectorConfigs: SectorConfig[] = [
     breakdownEN: (v) => [`${v.dailyCalls} (Missed calls/day)`, '30 (Days)', '20% (Conversion)', `£${formatMoney(v.patientValue)} (Patient value)`],
     explanationTR: (v) => `Günde ${v.dailyCalls} çağrı kaçırmak, ayda ${v.dailyCalls * 30} potansiyel hasta kaybı demektir. Ortalama %20 dönüşüm oranı ile hesaplanmıştır.`,
     explanationEN: (v) => `Missing ${v.dailyCalls} calls daily means ${v.dailyCalls * 30} potential patients lost per month. Calculated with an average 20% conversion rate.`,
-    packageName: 'Çok Kanal Asistan',
-    packagePrice: 13999,
+    packageName: 'Sesli + WhatsApp Asistanı',
+    packagePrice: 5449,
   },
   {
     id: 'restaurant',
@@ -86,8 +86,8 @@ const sectorConfigs: SectorConfig[] = [
     breakdownEN: (v) => [`${v.dailyOrders} (Orders/day)`, `£${formatMoney(v.basketValue)} (Basket)`, '30 (Days)', `${v.commission}% (Commission)`],
     explanationTR: () => 'Online yemek platformlarına her ay ödediğiniz komisyon tutarıdır.',
     explanationEN: () => 'The commission amount you pay to food delivery platforms every month.',
-    packageName: 'Restoran Paketi',
-    packagePrice: 16999,
+    packageName: 'Sesli + WhatsApp Asistanı',
+    packagePrice: 5449,
   },
   {
     id: 'estate',
@@ -103,8 +103,8 @@ const sectorConfigs: SectorConfig[] = [
     breakdownEN: (v) => [`${v.monthlyLeads} (Missed leads/mo)`, '5% (Conversion)', `${formatMoney(v.estateCommission)} (Commission)`],
     explanationTR: () => 'Yoğunluktan dönemediğiniz müşterilerin %5\'inin satışa döneceği varsayılmıştır.',
     explanationEN: () => 'It is assumed that 5% of customers you couldn\'t respond to due to busyness will convert to sales.',
-    packageName: 'Çok Kanal Asistan',
-    packagePrice: 13999,
+    packageName: 'Sesli + WhatsApp Asistanı',
+    packagePrice: 5449,
   },
   {
     id: 'export',
@@ -120,8 +120,8 @@ const sectorConfigs: SectorConfig[] = [
     breakdownEN: (v) => [`${v.staffCount} (Staff)`, `$${formatMoney(v.staffCost)} (Cost per person)`, '34 (Fixed TRY rate)'],
     explanationTR: () => '7/24 çalışacak bir AI asistan yerine, vardiyalı personel çalıştırmanın aylık maliyetidir.',
     explanationEN: () => 'The monthly cost of employing shift staff instead of an AI Assistant that works 24/7.',
-    packageName: 'Çok Kanal Asistan',
-    packagePrice: 13999,
+    packageName: 'Sesli + WhatsApp Asistanı',
+    packagePrice: 5449,
   },
   {
     id: 'beauty',
@@ -137,8 +137,8 @@ const sectorConfigs: SectorConfig[] = [
     breakdownEN: (v) => [`${v.emptySlots} (Empty slots/day)`, `${formatMoney(v.serviceValue)} (Service)`, '26 (Working days)'],
     explanationTR: () => 'Randevu hatırlatma yapılmadığı için gelmeyen veya boş geçen saatlerin maliyetidir.',
     explanationEN: () => 'The cost of no-shows or empty hours due to lack of appointment reminders.',
-    packageName: 'Çok Kanal Asistan',
-    packagePrice: 13999,
+    packageName: 'Sesli + WhatsApp Asistanı',
+    packagePrice: 5449,
   },
   {
     id: 'ecommerce',
@@ -154,8 +154,8 @@ const sectorConfigs: SectorConfig[] = [
     breakdownEN: (v) => [`${v.tickets} (Requests/day)`, `${formatMoney(v.costPerTicket)} (Per request)`, '30 (Days)'],
     explanationTR: () => 'Müşteri sorularını manuel yanıtlamanın operasyonel maliyetidir.',
     explanationEN: () => 'The operational cost of manually responding to customer inquiries.',
-    packageName: 'Çok Kanal Asistan',
-    packagePrice: 13999,
+    packageName: 'Sesli + WhatsApp Asistanı',
+    packagePrice: 5449,
   },
   {
     id: 'education',
@@ -171,8 +171,8 @@ const sectorConfigs: SectorConfig[] = [
     breakdownEN: (v) => [`${v.missedLeads} (Missed calls/mo)`, '10% (Conversion)', `${formatMoney(v.studentValue)} / 12`],
     explanationTR: () => 'Bilgi alamadığı için kayıttan vazgeçen öğrencilerin aylık ciro etkisi.',
     explanationEN: () => 'The monthly revenue impact of students who give up on registration because they couldn\'t get information.',
-    packageName: 'Çok Kanal Asistan',
-    packagePrice: 13999,
+    packageName: 'Sesli + WhatsApp Asistanı',
+    packagePrice: 5449,
   },
   {
     id: 'law',
@@ -188,8 +188,8 @@ const sectorConfigs: SectorConfig[] = [
     breakdownEN: (v) => [`${v.weeklyHours} hours (Weekly)`, `${formatMoney(v.hourlyRate)} (Hourly)`, '4 (Weeks)'],
     explanationTR: () => 'Bilgi vermek için telefonda harcadığınız vaktin nakit karşılığıdır.',
     explanationEN: () => 'The cash equivalent of the time you spend on the phone providing information.',
-    packageName: 'Çok Kanal Asistan',
-    packagePrice: 13999,
+    packageName: 'Sesli + WhatsApp Asistanı',
+    packagePrice: 5449,
   },
   {
     id: 'other',
@@ -205,8 +205,8 @@ const sectorConfigs: SectorConfig[] = [
     breakdownEN: (v) => [`${formatMoney(v.turnover)} (Monthly revenue)`, `${v.inefficiency}% (Inefficiency)`],
     explanationTR: () => 'Otomatik işlemler eksikliği nedeniyle kaybedilen tahmini ciro payı.',
     explanationEN: () => 'Estimated revenue share lost due to lack of automated processes.',
-    packageName: 'Çok Kanal Asistan',
-    packagePrice: 13999,
+    packageName: 'Sesli + WhatsApp Asistanı',
+    packagePrice: 5449,
   },
 ];
 
@@ -238,25 +238,31 @@ function formatMoney(value: number) {
   return money.format(Math.round(value));
 }
 
+/**
+ * Yeni fiyat modelinde kademe yok — herkes aynı asistanı alır (kurulum ücretsiz,
+ * küçük bir aylık sistem bedeli, üstüne kullanım). Bu yüzden burada "hangi paket"
+ * değil, kaybın büyüklüğüne göre nasıl anlatıldığı değişiyor.
+ */
 function getRecommendedPackage(monthlyLoss: number, region: 'TR' | 'GB') {
-  const starterThreshold = region === 'TR' ? 10000 : 250;
-  const proThreshold = region === 'TR' ? 25000 : 625;
+  const name = region === 'TR' ? 'Sesli + WhatsApp Asistanı' : 'Voice + WhatsApp Assistant';
+  const smallThreshold = region === 'TR' ? 10000 : 250;
 
-  if (monthlyLoss < starterThreshold) {
+  if (monthlyLoss < smallThreshold) {
     return {
-      name: region === 'TR' ? 'WhatsApp AI Asistan' : 'WhatsApp AI Assistant',
-      message: region === 'TR' ? 'Küçük kayıpları önlemek için ideal başlangıç.' : 'Ideal starting point to prevent small losses.',
+      name,
+      message:
+        region === 'TR'
+          ? 'Kurulum ücreti yok — küçük kayıplarda bile sistem kendini çıkarır.'
+          : 'No setup fee — it pays for itself even on small losses.',
     };
   }
-  if (monthlyLoss <= proThreshold) {
-    return {
-      name: region === 'TR' ? 'AI Ön Büro' : 'AI Front Desk',
-      message: region === 'TR' ? 'Bu kaybı önlemek için en popüler çözümümüz.' : 'Our most popular solution to prevent this loss.',
-    };
-  }
+
   return {
-    name: region === 'TR' ? 'AI Operasyon Merkezi' : 'AI Operations Hub',
-    message: region === 'TR' ? 'Büyük operasyonel kayıplar için tam otomasyon.' : 'Full automation for large operational losses.',
+    name,
+    message:
+      region === 'TR'
+        ? 'Bu kaybın yanında aylık sistem bedeli çok küçük kalıyor. Kurulum ücreti de yok.'
+        : 'Next to this loss the monthly system fee is very small. And there is no setup fee.',
   };
 }
 
@@ -266,7 +272,8 @@ export default function Pricing() {
   const isTR = region === 'TR';
 
   const employeeCost = isTR ? 40000 : 2200;
-  const aiAssistantCost = pricing.packages.pro.price;
+  // Yeni modelde kademe yok: karşılaştırma asistanın aylık sistem bedeli üzerinden yapılır.
+  const aiAssistantCost = pricing.packages.voice.price;
   const currencyCode = pricing.currency.code;
   const currencyLocale = pricing.currency.locale;
 
@@ -706,7 +713,7 @@ export default function Pricing() {
               }}
             >
               <p style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--ember)', margin: 0 }}>
-                {isTR ? 'MGL AI · AI Ön Büro' : 'MGL AI · AI Front Desk'}
+                {isTR ? 'MGL AI · Sesli + WhatsApp Asistanı' : 'MGL AI · Voice + WhatsApp Assistant'}
               </p>
               <p
                 style={{

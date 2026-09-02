@@ -242,11 +242,6 @@ export const LoginPage: React.FC<LoginPageProps> = ({ onSwitchToSignup, onBack }
             </div>
           </div>
 
-          <div className="mt-4 p-3 bg-slate-700/50 rounded-lg">
-            <p className="text-xs text-slate-400 text-center">
-              Demo Hesap: demo@mgldigitalmedia.com | Demo123
-            </p>
-          </div>
         </div>
       </motion.div>
     </div>

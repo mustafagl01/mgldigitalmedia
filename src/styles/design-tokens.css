@@ -1,55 +1,69 @@
 /* ═══════════════════════════════════════════════════════════
    MGL Digital AI — Design Tokens
    ═══════════════════════════════════════════════════════════
-   A fresh, editorial visual system for an AI automation agency.
-   Warm paper + deep ink + a single electric accent.
-   No gradients, no glow, no AI-trope purple/cyan.
+   Metafor: RÖNTGEN KUTUSU — karanlık oda, arkadan aydınlatılmış
+   panel, üzerinde okunan ince çizgiler ve sayılar.
+   Derin mürekkep + ışıklı metin + tek sinyal kırmızısı.
+   Gradient yok, glow yok, glassmorphism yok, gölge yok.
+   Sayfanın tek aydınlık bandı fiyatlar (.on-light).
    ═══════════════════════════════════════════════════════════ */
 
 /* Webfonts — served from Google Fonts (self-host TTFs live in /fonts/) */
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800&family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap');
 
 :root {
-  /* ─── CORE PALETTE ────────────────────────────────────────
-     Warm off-white paper, deep ink, one signature accent.
-     Every other UI color derives from these. */
+  /* ─── CORE PALETTE — "Röntgen kutusu" ─────────────────────
+     Karanlık oda, arkadan aydınlatılmış panel, üzerinde okunan
+     ince çizgiler ve sayılar. Gradient YOK — ışık düz ve arkadan gelir.
 
-  /* Paper & Ink (brand base) */
-  --paper:       #F5F1EA;   /* main canvas — warm, not pure white */
-  --paper-2:     #ECE6DA;   /* subtle surface, cards on paper */
-  --paper-3:     #E3DBCB;   /* hairline dividers, quieter chips */
-  --ink:         #0E0E0C;   /* near-black, warm-tinted */
-  --ink-2:       #2A2823;   /* secondary text */
-  --ink-3:       #6B655A;   /* tertiary / captions */
-  --ink-4:       #9E968A;   /* disabled, faint metadata */
+     2026-09-02'de sıcak kâğıt paletinden çevrildi (gerekçe: PLAN.md
+     bölüm 5). Token ADLARI korundu, ROLLERİ takas edildi:
+       --paper*  ana zemin  → artık KOYU
+       --ink*    metin      → artık AÇIK
+       --coal*   ters zemin → artık AÇIK (fiyat bandı)
+       --bone*   ters metin → artık KOYU
+     Böylece bileşenlerdeki 350+ ham token kullanımı tek tek
+     dolaşılmadan doğru kontrastı korur.
 
-  /* Inverse surface (dark blocks, hero, footer) */
-  --coal:        #161410;   /* inverse canvas */
-  --coal-2:      #23201A;   /* inverse surface */
-  --coal-3:      #38342C;   /* inverse dividers */
-  --bone:        #F5F1EA;   /* text on coal = paper */
-  --bone-2:      #CFC7B6;
-  --bone-3:      #8E8777;
+     Renkler logodan piksel örneklemeyle alındı:
+     #0E0E0E (baskın koyu) · #E6E6E6 (baskın açık) · #AD0110 (vurgu) */
 
-  /* Signature Accent — "Ember"
-     A single saturated orange-red. Used for CTAs, focus,
-     hot spots. NEVER gradients — one flat color. */
-  --ember:       #BC3B15;   /* primary accent — AA-compliant on paper (5.0:1) */
-  --ember-hover: #9E3210;   /* pressed / hover darker */
-  --ember-soft:  #FCE6DC;   /* 10% tint — highlights on paper */
-  --ember-ink:   #6A1B06;   /* dark ember — text on ember-soft */
-  /* Koyu zeminde --ember 3.3:1'e düşüyor (AA sınırı 4.5:1). Koyu bloklarda
-     bunun yerine bu açık ton kullanılır — .on-coal içinde otomatik uygulanır. */
-  --ember-on-dark: #F0836A;
+  /* Ana zemin ve okunan metin */
+  --paper:       #0B0D0E;   /* ana zemin — düz derin mürekkep */
+  --paper-2:     #14171A;   /* arkadan aydınlatılmış panel yüzeyi */
+  --paper-3:     #1D2226;   /* daha sessiz panel, çip zemini */
+  --ink:         #E8EDF0;   /* okunan metin — ışıklı (16.5:1) */
+  --ink-2:       #B4BEC5;   /* ikincil metin (9.8:1) */
+  --ink-3:       #8A959C;   /* üçüncül / açıklama (5.6:1) */
+  --ink-4:       #5E686E;   /* pasif, soluk metadata */
 
-  /* Supporting swatches — used sparingly, never decoratively */
-  --moss:        #3D5A3C;   /* calm green — success, positive stats */
-  --moss-soft:   #DEE7DA;
-  --ochre:       #C8941C;   /* warm yellow — warn, highlight */
-  --ochre-soft:  #F5E9C8;
-  --rust:        #A83A16;   /* deep red — destructive */
+  /* Ters yüzey — sayfanın TEK aydınlık bandı (fiyatlar) */
+  --coal:        #FFFDF8;   /* ters zemin — ışık */
+  --coal-2:      #F3F0E9;   /* ters yüzey */
+  --coal-3:      #E2DED4;   /* ters ayraç */
+  --bone:        #0B0D0E;   /* ters zemin üstündeki metin */
+  --bone-2:      #3F474C;
+  --bone-3:      #6E777D;
 
-  /* Semantic aliases (use these in components) */
+  /* İmza vurgu — logo kırmızısı.
+     Bulgu, uyarı ve CTA. Asla gradient — tek düz renk.
+     Kontrast notu: koyu zeminde parlak ton, aydınlık bantta logonun
+     gerçek tonu kullanılır. İkisi de AA üstünde. */
+  --ember:       #E11A22;   /* koyu zeminde sinyal (5.2:1) */
+  --ember-hover: #F2434A;   /* hover — koyuda AÇILIR, koyulaşmaz */
+  --ember-soft:  #2A0F11;   /* koyu zeminde kırmızı tint */
+  --ember-ink:   #FF8A8F;   /* --ember-soft üzerindeki metin */
+  --ember-print: #AD0110;   /* logonun gerçek kırmızısı — aydınlık bant (7.4:1) */
+  --ember-on-dark: var(--ember);   /* geriye dönük takma ad */
+
+  /* Yardımcı renkler — az kullanılır, hiçbir zaman dekoratif değil */
+  --moss:        #4FBF7B;   /* koyuda okunan yeşil — olumlu ölçüm */
+  --moss-soft:   #0F2418;
+  --ochre:       #E5B33C;   /* uyarı, vurgu */
+  --ochre-soft:  #2A2109;
+  --rust:        #FF6B5A;   /* yıkıcı eylem */
+
+  /* Semantik takma adlar (bileşenlerde bunlar kullanılmalı) */
   --bg:          var(--paper);
   --surface:     var(--paper-2);
   --surface-2:   var(--paper-3);
@@ -57,8 +71,8 @@
   --fg-2:        var(--ink-2);
   --fg-3:        var(--ink-3);
   --fg-4:        var(--ink-4);
-  --border:      #D9D1BF;
-  --border-2:    #C8BFA9;
+  --border:      rgba(232,237,240,0.10);   /* saç teli çizgi */
+  --border-2:    rgba(232,237,240,0.18);
   --accent:      var(--ember);
   --accent-hover: var(--ember-hover);
   --accent-soft: var(--ember-soft);
@@ -67,13 +81,18 @@
   --warn:        var(--ochre);
   --danger:      var(--rust);
 
-  /* ─── TYPOGRAPHY ──────────────────────────────────────────
-     Fraunces  — editorial serif display (headlines, hero)
-     Geist     — clean geometric sans (UI, body)
-     Geist Mono — technical labels, numbers, code */
-  --font-serif: 'Fraunces', 'Iowan Old Style', 'Georgia', serif;
+  /* ─── TİPOGRAFİ ───────────────────────────────────────────
+     Tek aile + mono. Üçüncü font yok — bir ölçüm cihazının paneli
+     tek tipografiyle yazılır.
+     Geist      — başlık ve gövde
+     Geist Mono — ölçüm değerleri, sayılar, etiketler (İMZA TAŞIYICI)
+
+     --font-serif KORUNDU ama artık sans'a işaret ediyor: 68 yerde
+     kullanılıyordu, hepsini dolaşmak yerine değişken yeniden bağlandı.
+     Yeni kodda kullanma — --font-sans yaz. */
   --font-sans:  'Geist', 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
   --font-mono:  'Geist Mono', 'JetBrains Mono', 'SF Mono', Menlo, monospace;
+  --font-serif: var(--font-sans);   /* eski kod için geriye dönük takma ad */
 
   /* Type scale — fluid, pinned to 1280–1920 viewports */
   --t-display:  clamp(3.25rem, 1.4rem + 5vw, 6rem);       /* 52 → 96 */
@@ -137,11 +156,14 @@
   /* ─── SHADOWS ────────────────────────────────────────────
      Restrained. One elevation for cards, one for popovers,
      one for focus. No glow. */
-  --shadow-xs:   0 1px 0 rgba(14,14,12,0.04);
-  --shadow-sm:   0 1px 2px rgba(14,14,12,0.06), 0 0 0 1px rgba(14,14,12,0.04);
-  --shadow-md:   0 4px 12px -4px rgba(14,14,12,0.08), 0 2px 4px -2px rgba(14,14,12,0.06);
-  --shadow-lg:   0 24px 48px -12px rgba(14,14,12,0.14), 0 8px 16px -8px rgba(14,14,12,0.06);
-  --shadow-focus: 0 0 0 3px rgba(232,72,28,0.25);
+  /* Gölge ailesi E — GÖLGESİZ.
+     Koyu zeminde siyah gölge görünmez; derinlik saç teli çizgi ve
+     panel zemin farkıyla kurulur. Gölge yerine 1px iç kenarlık. */
+  --shadow-xs:   none;
+  --shadow-sm:   inset 0 0 0 1px rgba(232,237,240,0.07);
+  --shadow-md:   inset 0 0 0 1px rgba(232,237,240,0.10);
+  --shadow-lg:   inset 0 0 0 1px rgba(232,237,240,0.14);
+  --shadow-focus: 0 0 0 3px rgba(225,26,34,0.40);
 
   /* ─── MOTION ─────────────────────────────────────────────
      Snappy, short, mostly opacity + subtle y/x. Never bouncy. */
@@ -157,22 +179,36 @@
   --container-text:  680px;
 }
 
-/* ─── DARK MODE (inverse paper) ─────────────────────────────
-   Used on hero, footer, stats strips — not as a mode toggle.
-   Activate by wrapping a section in .on-coal. */
-.on-coal {
+/* ─── AYDINLIK BANT (ters yüzey) ────────────────────────────
+   Sayfanın tek aydınlık alanı. Fiyat bandı için — fiyat en güçlü
+   argüman, karanlıkta saklanmaz, ışığa çıkar.
+   Bir bölümü .on-light (veya eski adıyla .on-coal) ile sarmalayın.
+
+   Not: palet ters çevrildiği için bu sınıf artık KOYU değil AÇIK bir
+   blok üretiyor; kontrast düzeltmeleri de o yöne göre yeniden hesaplandı. */
+.on-coal,
+.on-light {
   --bg:        var(--coal);
   --surface:   var(--coal-2);
   --surface-2: var(--coal-3);
   --fg:        var(--bone);
   --fg-2:      var(--bone-2);
-  /* --bone-3 (#8E8777) koyu zeminde 3.16:1 — AA altında. Bir ton açıldı. */
-  --fg-3:      #A9A190;
-  --fg-4:      #8E8777;
-  --border:    #38342C;
-  --border-2:  #4E483D;
-  /* Vurgu rengi koyu zeminde açık tona geçer (kontrast 4.5:1 üstü) */
-  --ember:     var(--ember-on-dark);
+  --fg-3:      var(--bone-3);
+  --fg-4:      #98A0A5;
+  --border:    rgba(11,13,14,0.12);
+  --border-2:  rgba(11,13,14,0.22);
+  /* Aydınlık zeminde parlak sinyal kırmızısı parlar; logonun gerçek tonu okunur. */
+  --ember:       var(--ember-print);
+  --ember-hover: #8B010D;
+  --ember-soft:  #FCE3E4;
+  --ember-ink:   #6A0109;
+  --ember-on-dark: var(--ember-print);
+  --ink:       var(--bone);
+  --ink-2:     var(--bone-2);
+  --ink-3:     var(--bone-3);
+  --paper:     var(--coal);
+  --paper-2:   var(--coal-2);
+  --paper-3:   var(--coal-3);
   background: var(--bg);
   color: var(--fg);
 }
@@ -198,11 +234,15 @@ body {
   margin: 0;
 }
 
-/* Headings — Fraunces serif, very tight tracking, very tight leading */
+/* Başlıklar — Geist, sıkı tracking.
+   Serif KALDIRILDI (2026-09-02): Fraunces portföydeki üç sitede
+   kullanılıyordu; ajansın kendi sitesi onlardan ayrışmalı. Karakter
+   fonttan değil, mono sayılardan ve kompozisyondan geliyor. */
 h1, h2, h3, h4, h5, h6,
 .h-display, .h1, .h2, .h3, .h4 {
-  font-family: var(--font-serif);
-  font-weight: var(--fw-semibold);
+  font-family: var(--font-sans);
+  letter-spacing: -0.03em;
+  font-weight: var(--fw-bold);
   color: var(--fg);
   margin: 0;
   text-wrap: balance;
@@ -285,13 +325,13 @@ p, .p {
   border-radius: 1px;
 }
 
-/* Numerals & stats — tabular, Fraunces */
+/* Sayılar ve ölçüm değerleri — mono, tabular.
+   Bu sitenin imza taşıyıcısı: röntgen üzerindeki ölçüm yazıları. */
 .numeral {
-  font-family: var(--font-serif);
+  font-family: var(--font-mono);
   font-variant-numeric: tabular-nums;
-  font-weight: var(--fw-semibold);
-  letter-spacing: var(--ls-tight);
-  font-variation-settings: "opsz" 144;
+  font-weight: var(--fw-medium);
+  letter-spacing: -0.01em;
 }
 
 /* Technical / code labels */

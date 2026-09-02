@@ -187,7 +187,7 @@ Based on typical UK SMB deployments:
 
 Setting this up yourself takes 1-3 days if you're comfortable with servers and APIs. For most business owners, it's worth getting a specialist to handle the setup — so you can focus on your business.
 
-MGL Digital Media sets up WhatsApp AI agents for UK businesses from £119/month (all-inclusive: setup, hosting, maintenance, updates).
+MGL Digital Media sets up WhatsApp AI agents for UK businesses with no setup fee: a £9.90/month system fee (hosting, maintenance and updates included) plus 0.7p per AI reply, lower with a bundle.
 
 Our stack: Evolution API + n8n + GPT-4o, hosted in EU for GDPR compliance.
 
