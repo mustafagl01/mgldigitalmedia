@@ -8,6 +8,7 @@ import {
   type RegionalPricing,
   isPackageCategoryKey,
   tierKeysForCategory,
+  voiceUsageCost,
 } from '../config/pricing';
 import { useLocation } from '../contexts/LocationContext';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -1291,6 +1292,43 @@ function CreditPacks({
     },
   ];
 
+  /**
+   * "Ayda ne öderim?" — ziyaretçi hesap yapmak zorunda kalmasın.
+   * Üç tipik işletme büyüklüğü için aylık toplam, pricing.ts'ten hesaplanır.
+   * Varsayımlar ekranda yazılı: çağrı başına 2 dk, diyalog başına 6 AI yanıtı.
+   */
+  const MINUTES_PER_CALL = 2;
+  const REPLIES_PER_CHAT = 6;
+
+  const sizes = [
+    { tr: 'Sakin', en: 'Quiet', perDay: 5 },
+    { tr: 'Orta yoğunluk', en: 'Steady', perDay: 15 },
+    { tr: 'Yoğun', en: 'Busy', perDay: 35 },
+  ];
+
+  const scenariosFor = (key: 'voice' | 'whatsapp') =>
+    sizes.map((s) => {
+      const monthlyFee = pricing.packages[key].price;
+      if (key === 'voice') {
+        const minutes = s.perDay * 30 * MINUTES_PER_CALL;
+        return {
+          label: isEnglish ? s.en : s.tr,
+          detail: isEnglish
+            ? `~${s.perDay} calls a day · ${minutes.toLocaleString('en-GB')} minutes`
+            : `günde ~${s.perDay} çağrı · ${minutes.toLocaleString('tr-TR')} dakika`,
+          total: monthlyFee + voiceUsageCost(minutes, region),
+        };
+      }
+      const replies = s.perDay * 30 * REPLIES_PER_CHAT;
+      return {
+        label: isEnglish ? s.en : s.tr,
+        detail: isEnglish
+          ? `~${s.perDay} chats a day · ${replies.toLocaleString('en-GB')} replies`
+          : `günde ~${s.perDay} diyalog · ${replies.toLocaleString('tr-TR')} yanıt`,
+        total: monthlyFee + replies * (pricing.packages.whatsapp.usageRate ?? 0),
+      };
+    });
+
   return (
     <div style={{ marginTop: 40 }}>
       <h2 className="h3" style={{ color: 'var(--ink)' }}>
@@ -1324,7 +1362,40 @@ function CreditPacks({
             >
               <h3 style={{ fontSize: 17, color: 'var(--ink)', margin: 0 }}>{g.title}</h3>
 
-              <p style={{ marginTop: 10, marginBottom: 0, fontSize: 13, color: 'var(--fg-2)' }}>
+              {/* Ayda ne oderim — ziyaretci hesap yapmasin diye ilk siraya konur. */}
+              <div style={{ marginTop: 14, marginBottom: 4 }}>
+                <p style={{ fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: 'var(--fg-3)', margin: '0 0 8px' }}>
+                  {isEnglish ? 'What you would pay a month' : 'Ayda ne ödersiniz'}
+                </p>
+                {scenariosFor(g.key).map((sc) => (
+                  <div
+                    key={sc.label}
+                    style={{
+                      display: 'flex',
+                      alignItems: 'baseline',
+                      justifyContent: 'space-between',
+                      gap: 12,
+                      padding: '7px 0',
+                      borderBottom: '1px solid var(--border)',
+                    }}
+                  >
+                    <div>
+                      <strong style={{ fontSize: 13, color: 'var(--ink)' }}>{sc.label}</strong>
+                      <span style={{ display: 'block', fontSize: 12, color: 'var(--fg-3)' }}>{sc.detail}</span>
+                    </div>
+                    <strong style={{ fontFamily: 'var(--font-mono)', fontSize: 16, color: 'var(--ember)', whiteSpace: 'nowrap' }}>
+                      {formatPrice(Math.round(sc.total), region)}
+                    </strong>
+                  </div>
+                ))}
+                <p style={{ margin: '8px 0 0', fontSize: 11, lineHeight: 1.5, color: 'var(--fg-3)' }}>
+                  {isEnglish
+                    ? 'Includes the monthly system fee and usage at the standard rate. Bundles bring it lower.'
+                    : 'Aylık sistem bedeli ve standart tarifeden kullanım dahildir. Kontör paketiyle daha da düşer.'}
+                </p>
+              </div>
+
+              <p style={{ marginTop: 14, marginBottom: 0, fontSize: 13, color: 'var(--fg-2)' }}>
                 {isEnglish ? 'Standard rate' : 'Standart tarife'}{' '}
                 <strong style={{ fontFamily: 'var(--font-mono)', color: 'var(--ember)' }}>
                   {unit(g.standard)}
