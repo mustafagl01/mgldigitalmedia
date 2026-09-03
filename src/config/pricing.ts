@@ -302,23 +302,12 @@ export function creditPacksFor(
  */
 export function voiceUsageCost(minutes: number, region: PricingRegionCode): number {
   const tiers = REGIONAL_PRICING[region].voiceUsageTiers;
-  let remaining = Math.max(0, minutes);
-  let previousCap = 0;
-  let total = 0;
+  const used = Math.max(0, minutes);
 
-  for (const tier of tiers) {
-    if (remaining <= 0) break;
-    const span = tier.upTo - previousCap;
-    const used = Math.min(remaining, span);
-    total += used * tier.rate;
-    remaining -= used;
-    previousCap = tier.upTo;
-  }
-
-  // Son kademenin üstünde kalan dakikalar en düşük fiyattan devam eder.
-  if (remaining > 0) {
-    total += remaining * tiers[tiers.length - 1].rate;
-  }
-
-  return total;
+  // Girilen kademenin oranı TÜM dakikalara uygulanır — kademeler ayrı ayrı
+  // toplanmaz. Örnek: 300 dakika, 201-500 bandındadır, hepsi 23p'den işler.
+  // mglsystems.uk (AloSipariş) canlıda bu yöntemi kullanıyor; iki sitenin aynı
+  // dakika için farklı toplam göstermemesi için burası ona hizalandı.
+  const band = tiers.find((tier) => used <= tier.upTo) ?? tiers[tiers.length - 1];
+  return used * band.rate;
 }
