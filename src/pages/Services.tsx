@@ -17,7 +17,7 @@ import { useLocation } from '../contexts/LocationContext';
 import { useLanguage } from '../contexts/LanguageContext';
 import { Seo, BASE_SCHEMAS, breadcrumbSchema, serviceSchema } from '../components/seo/Seo';
 import type { PackageTierKey } from '../config/pricing';
-import { formatPrice } from '../utils/formatPrice';
+import { formatPrice, formatUnitRate } from '../utils/formatPrice';
 
 type CategoryKey = 'assistants' | 'systems' | 'web' | 'growth';
 
@@ -185,7 +185,7 @@ export default function Services() {
                   <div className="service-card__price">
                     <div><small>{isTR ? 'Kurulum' : 'Setup'}</small><strong>{tier.setupFee === 0 ? (isTR ? 'Ücretsiz' : 'Free') : formatPrice(tier.setupFee, region)}</strong></div>
                     <div><small>{tier.priceUnit === 'year' ? (isTR ? 'Yıllık' : 'Yearly') : (isTR ? 'Aylık' : 'Monthly')}</small><strong>{formatPrice(tier.price, region)}</strong></div>
-                    {tier.usageRate != null && <div><small>{isTR ? 'Kullanım' : 'Usage'}</small><strong>{formatPrice(tier.usageRate, region)} / {tier.usageUnit === 'minute' ? (isTR ? 'dk' : 'min') : (isTR ? 'AI yanıtı' : 'AI reply')}</strong></div>}
+                    {tier.usageRate != null && <div><small>{isTR ? 'Kullanım' : 'Usage'}</small><strong>{formatUnitRate(tier.usageRate, region)} / {tier.usageUnit === 'minute' ? (isTR ? 'dk' : 'min') : (isTR ? 'AI yanıtı' : 'AI reply')}</strong></div>}
                   </div>
                 ) : (
                   <div className="service-card__note">{isTR ? service.noteTR : service.noteEN}</div>

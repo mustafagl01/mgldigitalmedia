@@ -217,7 +217,12 @@ h1, h2, h3, h4, h5, h6,
   font-family: var(--font-sans);
   letter-spacing: -0.025em;
   font-weight: var(--fw-semibold);
-  color: var(--fg);
+  /* inherit — var(--fg) DEGIL. html zaten color: var(--fg) veriyor, yani normal
+     sayfada sonuc ayni. Fark: koyu zemini inline veren kutular (37 yerde
+     background: var(--ink)/var(--coal) + color: var(--paper)) icinde baslik artik
+     kutunun acik rengini miras aliyor. Onceden var(--fg) bunu ezip basligi
+     koyu birakiyordu; koyu uzerine koyu = gorunmez baslik. */
+  color: inherit;
   margin: 0;
   text-wrap: balance;
   font-variation-settings: "opsz" 144, "SOFT" 50;
