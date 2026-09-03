@@ -37,7 +37,7 @@ type PlanContent = {
   usageNote?: { tr: string; en: string };
 };
 
-const STRATEGY_CALL_URL = 'https://calendar.app.google/jgu53NFAy7BnYVui8';
+const STRATEGY_CALL_URL = 'https://calendar.app.google/FZnTjsWGfCy33WF36';
 
 type FaqItem = {
   q: { tr: string; en: string };
@@ -83,8 +83,8 @@ const CATEGORY_META: Record<PackageCategoryKey, CategoryMeta> = {
         en: 'No setup fee. Pay for what you use.',
       },
       lede: {
-        tr: 'Küçük bir aylık sistem bedeli, üstüne konuştuğunuz dakika veya verilen cevap kadar kullanım. İkisini birden alırsanız aylık bedel tek ödenir. Aylık çıkış hakkı, KVKK/GDPR uyumlu.',
-        en: 'A small monthly system fee, then usage — connected minutes or replies sent. Take both and you pay the monthly fee once. Cancel monthly, KVKK/GDPR compliant.',
+        tr: 'Küçük bir aylık sistem bedeli, üstüne konuştuğunuz dakika veya verilen AI yanıtı kadar kullanım. İkisini birden alırsanız aylık bedel tek ödenir. Gizlilik, saklama ve insan devri kuralları projede yazılı belirlenir.',
+        en: 'A small monthly system fee, then usage — connected minutes or AI replies sent. Take both and you pay the monthly fee once. Privacy, retention and human-handoff rules are documented for the project.',
       },
     },
   },
@@ -506,7 +506,7 @@ const COMMON_FAQ: FaqItem[] = [
   {
     q: { tr: 'Kullanım nasıl faturalanıyor?', en: 'How is usage billed?' },
     a: {
-      tr: 'Aylık ücret sistemin kurulumu, bakımı ve belirtilen metin AI yanıt kotasını kapsar. Kota sonrası ek AI yanıtı 2 TL\'dir. Sesli çağrı kullanımı Retell, telefon hattı, ses ve seçilen model maliyetlerini kapsayan ayrı bir kullanım kalemidir; standart oran bağlı dakika başına 9 TL\'dir ve teklif öncesi netleştirilir. Resmî Meta/BSP, SMS veya benzeri kanal ücretleri yalnızca o kanal kullanılırsa ayrıca yansıtılır. Kota dolduğunda sistem durmaz; uyarı gönderilir ve kullanım devam eder.',
+      tr: 'Asistanlarda aylık sistem bedeli bakım ve izlemeyi kapsar; kullanım ayrıca ölçülür. WhatsApp AI yanıtı 0,45 TL, bağlı sesli çağrı 16 TL/dakikadan başlar ve kontör paketiyle düşer. Resmî Meta/BSP, SMS veya benzeri kanal ücretleri yalnızca o kanal kullanılırsa ayrıca yansıtılır. Güncel tarife teklif ve fiyat sayfasında açıkça gösterilir.',
       en: 'The monthly fee covers the system, maintenance and the stated text-AI reply allowance. Additional AI replies cost £0.02 each. Voice is a separate usage line covering Retell, telephony, voice and the selected model; the current standard rate is £0.15 per connected minute and is confirmed before launch. Official Meta/BSP, SMS or similar channel fees are passed through only when that channel is used. The system does not stop at quota; you receive an alert and service continues.',
     },
   },
@@ -624,7 +624,7 @@ const CATEGORY_FAQ: Record<PackageCategoryKey, FaqItem[]> = {
     {
       q: { tr: 'Hosting ve bakım aylık ücrete dahil mi?', en: 'Are hosting and maintenance included in the monthly fee?' },
       a: {
-        tr: 'Çok Dilli AI Web Sitesi paketinde ilk yıl web hosting ve SSL, kurulum ücretine dahildir. İkinci yıldan itibaren web hosting ve temel bakım 3.499 TL/yıl olarak yenilenir. Aylık abonelik; AI model/API kullanımını, uptime takibini, güvenlik güncellemelerini ve belirtilen AI yanıt kotasını kapsar.',
+        tr: 'Web sitesi paketlerinde ilk yıl hosting ve SSL kurulum ücretine dahildir. İkinci yıldan itibaren hosting ve temel teknik bakım 6.499 TL/yıl olarak yenilenir. Ücretli AI model/API veya üçüncü taraf servis kullanımı gerekiyorsa teklif üzerinde ayrıca gösterilir.',
         en: 'For the Multilingual AI Website, first-year web hosting and SSL are included in the setup fee. From year two, web hosting and core maintenance renew at £100/year. The monthly subscription covers AI model/API usage, uptime monitoring, security updates and the stated AI reply allowance.',
       },
     },
@@ -1558,7 +1558,7 @@ export default function Packages() {
               { icon: <ShieldCheck size={14} />, tr: 'Sabit fiyat · aralık yok', en: 'Flat price · no ranges' },
               { tr: 'Aylık çıkış hakkı', en: 'Monthly cancellation' },
               { tr: 'Şeffaf kota + aşım', en: 'Transparent quota + overage' },
-              { tr: 'Veriler AB sunucularında', en: 'EU-region data hosting' },
+              { tr: 'Veri konumu teklifte net', en: 'Data region agreed in scope' },
             ].map((chip, i) => (
               <span
                 key={i}
@@ -1629,7 +1629,7 @@ export default function Packages() {
           <style>{`
             .category-tabs {
               display: grid;
-              grid-template-columns: repeat(3, 1fr);
+              grid-template-columns: repeat(2, 1fr);
               width: 100%;
               max-width: 440px;
             }
@@ -1968,7 +1968,7 @@ export default function Packages() {
               <li>
                 {isEnglish
                   ? '* Multilingual AI Website: first-year hosting is included in setup; £100/year from year two.'
-                  : '* Çok Dilli AI Web Sitesi: ilk yıl hosting kuruluma dahil; 2. yıldan itibaren 3.499 TL/yıl.'}
+                  : '* Web sitesi paketleri: ilk yıl hosting kuruluma dahil; 2. yıldan itibaren 6.499 TL/yıl.'}
               </li>
               <li>
                 {isEnglish

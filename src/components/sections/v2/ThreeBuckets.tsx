@@ -32,7 +32,7 @@ export function ThreeBuckets({ onAdsClick, onAgentsClick, onWebClick, onServices
             title: 'AI Reklam',
             body: 'Meta ve Google reklamlarınızı AI karar katmanıyla yönetiyoruz. Günlük optimizasyon, düzenli kreatif rotasyonu, şeffaf rapor.',
             lines: [
-              'Hibrit model: yönetim + performans payı',
+              'Sabit yönetim ücreti, bütçeden pay yok',
               'Kreatif üretim dahil',
               'Haftalık canlı rapor',
             ],
@@ -49,7 +49,7 @@ export function ThreeBuckets({ onAdsClick, onAgentsClick, onWebClick, onServices
             lines: [
               'WhatsApp + telefon + e-posta',
               'Takvime randevu yazma (isteğe bağlı)',
-              '30+ dilde doğal konuşma',
+              'Türkçe ve İngilizce standart; diğer diller isteğe bağlı',
             ],
             cta: 'Asistan paketleri',
             highlight: true,
@@ -73,7 +73,7 @@ export function ThreeBuckets({ onAdsClick, onAgentsClick, onWebClick, onServices
             kind: 'ads',
             title: 'AI Advertising',
             body: 'We run your Meta and Google ads with an AI decision layer. Daily optimisation, regular creative rotation, transparent reporting.',
-            lines: ['Hybrid management + performance model', 'Creative production included', 'Weekly live reporting'],
+            lines: ['Fixed management fee, no share of ad spend', 'Creative production included', 'Weekly live reporting'],
             cta: 'See ad packages',
           },
           {
@@ -81,7 +81,7 @@ export function ThreeBuckets({ onAdsClick, onAgentsClick, onWebClick, onServices
             kind: 'agents',
             title: 'An Assistant That Answers',
             body: 'Someone to answer your WhatsApp messages, your phone and the questions on your site — day and night. It handles the routine ones itself and passes the serious ones to you.',
-            lines: ['WhatsApp + phone + email', 'Booking into your calendar (optional)', '30+ languages, native-sounding'],
+            lines: ['WhatsApp + phone + email', 'Calendar booking when included in scope', 'Turkish and English standard; more on request'],
             cta: 'See assistant packages',
             highlight: true,
           },
@@ -132,8 +132,8 @@ export function ThreeBuckets({ onAdsClick, onAgentsClick, onWebClick, onServices
             style={{ marginTop: 16, color: 'var(--fg-2)' }}
           >
             {language === 'tr'
-              ? '11 ayrı servisi üç anlaşılır akışa indirdik. İhtiyacınız olan yerden başlayın; gerisini zamanla birleştirelim.'
-              : 'We compressed 11 separate services into three clear tracks. Start wherever you need; we can connect the rest over time.'}
+              ? 'Hizmetleri üç anlaşılır akışta topladık. İhtiyacınız olan yerden başlayın; gerisini gerektiğinde birleştirelim.'
+              : 'We grouped our services into three clear tracks. Start where you need; connect the rest when it makes sense.'}
           </p>
         </div>
 
@@ -287,7 +287,7 @@ export function ThreeBuckets({ onAdsClick, onAgentsClick, onWebClick, onServices
           }}
         >
           <button onClick={onServicesClick} className="btn-link">
-            {language === 'tr' ? '11 servisin tamamını gör' : 'See all 11 services'}
+            {language === 'tr' ? 'Tüm hizmetleri görün' : 'See all services'}
             <span className="arrow">→</span>
           </button>
         </div>

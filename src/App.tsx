@@ -49,6 +49,7 @@ import { SiteHeader } from './components/site/SiteHeader';
 import { SiteFooter } from './components/site/SiteFooter';
 import { ScrollProgress } from './components/site/ScrollProgress';
 import { ChatBot } from './components/site/ChatBot';
+import { CookieConsent } from './components/site/CookieConsent';
 
 // SEO
 import { Seo, BASE_SCHEMAS, breadcrumbSchema } from './components/seo/Seo';
@@ -133,7 +134,8 @@ const KNOWN_PATHS = new Set([
 ]);
 
 function pathToPage(path: string): AppPage {
-  const clean = path.replace(/\/$/, '') || '/';
+  const withoutLanguage = path.replace(/^\/en(?=\/|$)/, '') || '/';
+  const clean = withoutLanguage.replace(/\/$/, '') || '/';
   if (clean === '/' || clean === '') return 'home';
   if (clean === '/products') return 'products';
   if (clean === '/success') return 'success';
@@ -174,7 +176,7 @@ function AppContent() {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   // Blog slug — extracted from URL for blog-post pages
   const [blogSlug, setBlogSlug] = useState<string>(() => {
-    const parts = window.location.pathname.split('/');
+    const parts = window.location.pathname.replace(/^\/en(?=\/|$)/, '').split('/');
     return parts.length >= 3 && parts[1] === 'blog' ? parts[2] : '';
   });
   const { language } = useLanguage();
@@ -182,7 +184,11 @@ function AppContent() {
   useAuth(); // keeps session hydrated
 
   React.useEffect(() => {
-    const handlePopState = () => setCurrentPage(pathToPage(window.location.pathname));
+    const handlePopState = () => {
+      setCurrentPage(pathToPage(window.location.pathname));
+      const parts = window.location.pathname.replace(/^\/en(?=\/|$)/, '').split('/');
+      setBlogSlug(parts.length >= 3 && parts[1] === 'blog' ? parts[2] : '');
+    };
     window.addEventListener('popstate', handlePopState);
     return () => window.removeEventListener('popstate', handlePopState);
   }, []);
@@ -190,7 +196,8 @@ function AppContent() {
   const navigateTo = (page: AppPage, hash?: string) => {
     setCurrentPage(page);
     const basePath = page === 'home' ? '/' : (NESTED_PATHS[page] ?? `/${page}`);
-    const path = hash ? `${basePath}#${hash}` : basePath;
+    const localizedBase = language === 'en' ? `/en${basePath === '/' ? '/' : basePath}` : basePath;
+    const path = hash ? `${localizedBase}#${hash}` : localizedBase;
     window.history.pushState({}, '', path);
     // Notify hash-aware listeners (pushState doesn't fire hashchange/popstate natively)
     window.dispatchEvent(new PopStateEvent('popstate'));
@@ -200,7 +207,7 @@ function AppContent() {
   const navigateToBlogPost = (slug: string) => {
     setBlogSlug(slug);
     setCurrentPage('blog-post');
-    window.history.pushState({}, '', `/blog/${slug}`);
+    window.history.pushState({}, '', `${language === 'en' ? '/en' : ''}/blog/${slug}`);
     window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
   };
 
@@ -219,7 +226,9 @@ function AppContent() {
   // Content pages — wrap in site shell (header/footer)
   const headerPage: SitePage = currentPage.startsWith('solution')
     ? 'solutions'
-    : ((currentPage as SitePage) ?? 'home');
+    : currentPage === 'services' || currentPage === 'packages' || currentPage === 'pricing' || currentPage === 'legal'
+      ? currentPage
+      : 'home';
 
   const wrapPage = (node: React.ReactNode) => (
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', background: 'var(--paper)' }}>
@@ -332,35 +341,6 @@ function AppContent() {
 
       <ChatBot />
 
-      {/* Floating WhatsApp */}
-      <a
-        href="https://wa.me/447482670606?text=Hi%2C%20I%27d%20like%20to%20learn%20more%20about%20MGL%20AI%20services"
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Chat on WhatsApp"
-        style={{
-          position: 'fixed',
-          bottom: '24px',
-          right: '24px',
-          zIndex: 9999,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          width: '56px',
-          height: '56px',
-          borderRadius: '50%',
-          backgroundColor: '#25D366',
-          transition: 'transform 0.2s',
-          textDecoration: 'none',
-        }}
-        onMouseEnter={e => (e.currentTarget.style.transform = 'scale(1.1)')}
-        onMouseLeave={e => (e.currentTarget.style.transform = 'scale(1)')}
-      >
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" style={{width:'28px',height:'28px'}}>
-          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
-        </svg>
-      </a>
-
       <EmailDemoModal isOpen={activeDemo === 'email'} onClose={() => setActiveDemo(null)} />
       <PhoneDemoModal isOpen={activeDemo === 'phone'} onClose={() => setActiveDemo(null)} />
       <AuthModal
@@ -369,7 +349,6 @@ function AppContent() {
         initialMode="signup"
       />
 
-      <Toaster />
     </>
   );
 }
@@ -381,6 +360,8 @@ function App() {
         <LocationProvider>
           <HelmetProvider>
             <AppContent />
+            <Toaster />
+            <CookieConsent />
           </HelmetProvider>
         </LocationProvider>
       </AuthProvider>

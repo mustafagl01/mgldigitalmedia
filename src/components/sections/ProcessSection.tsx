@@ -27,8 +27,8 @@ export const ProcessSection: React.FC = () => {
             icon: Rocket,
             title: language === 'tr' ? '3. Ölçeklenebilir Büyüme' : '3. Scallable Growth',
             desc: language === 'tr'
-                ? 'Sistemler canlıya alınır; siz kahvenizi yudumlarken AI işinizi %100 doğrulukla büyütür.'
-                : 'Systems go live; while you sip your coffee, AI grows your business with 100% accuracy.',
+                ? 'Sistemler kontrollü biçimde canlıya alınır; sonuçlar izlenir ve süreç gerçek kullanıma göre iyileştirilir.'
+                : 'Systems go live in a controlled rollout; outcomes are monitored and the workflow improves with real usage.',
             color: 'from-cyan-500 to-emerald-400'
         }
     ];

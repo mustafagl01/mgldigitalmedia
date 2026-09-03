@@ -24,7 +24,10 @@ export function Seo({
   jsonLd,
   noindex,
 }: SeoProps) {
-  const url = `${SITE_URL}${path}`;
+  const normalizedPath = path === '/' ? '/' : `/${path.replace(/^\/+|\/+$/g, '')}/`;
+  const trPath = normalizedPath;
+  const enPath = normalizedPath === '/' ? '/en/' : `/en${normalizedPath}`;
+  const url = `${SITE_URL}${locale === 'en_GB' ? enPath : trPath}`;
   const ogImageUrl = ogImage.startsWith('http') ? ogImage : `${SITE_URL}${ogImage}`;
   const jsonLdArray = Array.isArray(jsonLd) ? jsonLd : jsonLd ? [jsonLd] : [];
 
@@ -37,6 +40,9 @@ export function Seo({
         <meta name="keywords" content={keywords.join(', ')} />
       )}
       <link rel="canonical" href={url} />
+      <link rel="alternate" hrefLang="tr" href={`${SITE_URL}${trPath}`} />
+      <link rel="alternate" hrefLang="en-GB" href={`${SITE_URL}${enPath}`} />
+      <link rel="alternate" hrefLang="x-default" href={`${SITE_URL}${trPath}`} />
       {noindex && <meta name="robots" content="noindex, nofollow" />}
       {!noindex && (
         <meta
@@ -60,7 +66,7 @@ export function Seo({
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={ogImageUrl} />
 
-      <meta name="theme-color" content="#030712" />
+      <meta name="theme-color" content="#F7F4EE" />
       <meta name="author" content="MGL Digital Media LTD" />
       <meta name="geo.region" content="GB-ENG" />
       <meta name="geo.placename" content="London" />
@@ -96,7 +102,7 @@ export const PERSON_SCHEMA = {
     'Generative Engine Optimization',
   ],
   sameAs: [
-    'https://www.instagram.com/mgl_digital_media/',
+    'https://www.instagram.com/mgl.ai.uk/',
   ],
 };
 
@@ -111,7 +117,7 @@ export const ORGANIZATION_SCHEMA = {
   logo: `${SITE_URL}${DEFAULT_OG}`,
   image: `${SITE_URL}${DEFAULT_OG}`,
   description:
-    'London-headquartered AI & automation studio for businesses and brands. MGL Digital Media builds production-grade WhatsApp AI assistants, voice agents, n8n automation workflows, conversion-first websites, and performance advertising operations — serving clients remotely across Turkey and the United Kingdom. Transparent fixed pricing per tier, no price ranges.',
+    'London-based AI and automation studio serving businesses in the United Kingdom and Turkey. MGL Digital Media builds managed WhatsApp and voice assistants, workflow automation, conversion-focused websites and measured advertising systems with setup, recurring, usage and third-party costs shown separately.',
   foundingDate: '2024',
   founder: { '@id': `${SITE_URL}/#founder` },
   founders: [{ '@id': `${SITE_URL}/#founder` }],
@@ -167,9 +173,8 @@ export const ORGANIZATION_SCHEMA = {
   ],
   slogan: 'Biz ajans değil, otopilot sistem kurarız.',
   sameAs: [
-    'https://www.instagram.com/mgl_digital_media/',
+    'https://www.instagram.com/mgl.ai.uk/',
     'https://www.linkedin.com/in/mustafa-gul-311090287/',
-    'https://mglautomation.uk/',
     'https://find-and-update.company-information.service.gov.uk/company/16007414',
   ],
 };

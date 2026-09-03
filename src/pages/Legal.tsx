@@ -51,8 +51,8 @@ export default function Legal() {
           </h1>
           <p className="lede" style={{ marginTop: 20, color: 'var(--fg-2)', maxWidth: 680 }}>
             {isEN
-              ? 'This page summarises how MGL Digital Media LTD handles personal data under UK GDPR, EU GDPR, and Turkey\'s KVKK (Law No. 6698). Full legal text is being finalised with counsel; reach out for the current version.'
-              : 'Bu sayfa MGL Digital Media LTD\'in kişisel verileri UK GDPR, AB GDPR ve Türkiye KVKK (6698 sayılı Kanun) kapsamında nasıl işlediğini özetler. Tam hukuki metin avukat incelemesindedir; güncel sürüm için iletişime geçin.'}
+              ? 'This notice explains what information MGL Digital Media LTD collects through this website, why it is used, which providers may process it and how you can exercise your rights.'
+              : 'Bu bildirim, MGL Digital Media LTD’in bu web sitesi üzerinden hangi bilgileri topladığını, neden kullandığını, hangi sağlayıcıların işleyebileceğini ve haklarınızı nasıl kullanacağınızı açıklar.'}
           </p>
           <p
             style={{
@@ -68,7 +68,7 @@ export default function Legal() {
               letterSpacing: '0.04em',
             }}
           >
-            {isEN ? 'Last updated · 2026-04' : 'Son güncelleme · 2026-04'}
+            {isEN ? 'Last updated · 3 September 2026' : 'Son güncelleme · 3 Eylül 2026'}
           </p>
         </div>
       </section>
@@ -88,8 +88,9 @@ export default function Legal() {
             <h2 style={sectionH2}>{isEN ? '2 · What data we collect' : '2 · Hangi verileri topluyoruz'}</h2>
             <ul style={bodyUl}>
               <li>{isEN ? 'Contact form submissions: name, phone, email, business sector.' : 'İletişim formu: isim, telefon, e-posta, sektör.'}</li>
-              <li>{isEN ? 'Analytics (page views, device, referrer) in anonymised form.' : 'Analitik (sayfa görüntüleme, cihaz, referans) anonim olarak.'}</li>
-              <li>{isEN ? 'Demo logs (voice/email demos) for quality review — deleted within 30 days.' : 'Demo kayıtları (sesli/e-posta) kalite incelemesi için — 30 gün içinde silinir.'}</li>
+              <li>{isEN ? 'Chat and demo content: the messages you send, call or email request details, page and preferred language.' : 'Sohbet ve demo içeriği: gönderdiğiniz mesajlar, arama veya e-posta talebi bilgileri, sayfa ve dil tercihi.'}</li>
+              <li>{isEN ? 'If you consent: page views, device information, referrer and advertising interaction data.' : 'Onay verirseniz: sayfa görüntüleme, cihaz bilgisi, yönlendiren sayfa ve reklam etkileşim verileri.'}</li>
+              <li>{isEN ? 'Account and payment data: email, account session and Stripe transaction references. We do not receive your full card number.' : 'Hesap ve ödeme verisi: e-posta, hesap oturumu ve Stripe işlem referansları. Kart numaranızın tamamını görmeyiz.'}</li>
             </ul>
           </div>
 
@@ -97,8 +98,8 @@ export default function Legal() {
             <h2 style={sectionH2}>{isEN ? '3 · Legal basis' : '3 · Hukuki dayanak'}</h2>
             <p style={bodyP}>
               {isEN
-                ? 'We process data under: (a) consent for demo requests and marketing; (b) legitimate interest for sales outreach to businesses; (c) contractual necessity for active clients.'
-                : 'Verileri şu temellerde işleriz: (a) demo talepleri ve pazarlama için rıza; (b) işletmelere yönelik satış iletişimi için meşru menfaat; (c) aktif müşteriler için sözleşme gerekliliği.'}
+                ? 'We rely on consent for optional analytics, advertising measurement and requested marketing; steps requested before entering a contract and contractual necessity for orders and active clients; legal obligations for accounting; and legitimate interests for security, fraud prevention and responding to business enquiries. You may withdraw consent at any time.'
+                : 'İsteğe bağlı analitik, reklam ölçümü ve talep edilen pazarlama için rızaya; sipariş ve aktif müşteriler için sözleşme öncesi adımlar ile sözleşmenin gerekliliğine; muhasebe için yasal yükümlülüklere; güvenlik, dolandırıcılığı önleme ve işletme taleplerini yanıtlama için meşru menfaate dayanırız. Rızanızı istediğiniz zaman geri çekebilirsiniz.'}
             </p>
           </div>
 
@@ -106,8 +107,8 @@ export default function Legal() {
             <h2 style={sectionH2}>{isEN ? '4 · Where data is stored' : '4 · Veriler nerede saklanıyor'}</h2>
             <p style={bodyP}>
               {isEN
-                ? 'Primary storage is on EU-based servers (Supabase · EU West). CRM and email tools may process data in UK/EU regions. No transfer outside UK/EEA without standard contractual clauses.'
-                : 'Birincil depolama AB sunucularındadır (Supabase · EU West). CRM ve e-posta araçları UK/AB bölgesinde işler. Standart sözleşme hükümleri olmadan UK/AEA dışına aktarım yapılmaz.'}
+                ? 'We use service providers for hosting and security (Cloudflare), workflow processing, business email, payments (Stripe), and—only after consent—analytics and advertising measurement (Google and Meta). These providers may process data in the UK, EEA or other countries under their contractual transfer safeguards. We share only what is needed for the stated purpose and do not sell personal data.'
+                : 'Barındırma ve güvenlik (Cloudflare), iş akışı işleme, kurumsal e-posta, ödeme (Stripe) ve yalnızca onaydan sonra analitik/reklam ölçümü (Google ve Meta) için hizmet sağlayıcıları kullanırız. Bu sağlayıcılar, sözleşmelerindeki aktarım güvenceleri kapsamında veriyi UK, AEA veya başka ülkelerde işleyebilir. Yalnızca belirtilen amaç için gereken veriyi paylaşır, kişisel verileri satmayız.'}
             </p>
           </div>
 
@@ -115,8 +116,8 @@ export default function Legal() {
             <h2 style={sectionH2}>{isEN ? '5 · Your rights' : '5 · Haklarınız'}</h2>
             <p style={bodyP}>
               {isEN
-                ? 'Under GDPR/KVKK you can: access your data, correct it, request deletion, object to processing, and withdraw consent. Email info@mgldigitalmedia.com — we respond within 30 days.'
-                : 'GDPR/KVKK kapsamında: verinize erişme, düzeltme, silinmesini isteme, işlemeye itiraz etme ve rızayı geri çekme hakkınız vardır. info@mgldigitalmedia.com — 30 gün içinde yanıtlıyoruz.'}
+                ? 'Depending on the law that applies, you may ask to access, correct, delete, restrict or receive your data, object to certain processing and withdraw consent. Email info@mgldigitalmedia.com. We normally respond within one month; identity verification may be required.'
+                : 'Uygulanan mevzuata göre verinize erişme, düzeltme, silme, işlemeyi kısıtlama veya veriyi alma; belirli işlemlere itiraz etme ve rızayı geri çekme haklarınız olabilir. info@mgldigitalmedia.com adresine yazabilirsiniz. Normalde bir ay içinde yanıt veririz; kimlik doğrulaması isteyebiliriz.'}
             </p>
           </div>
 
@@ -124,13 +125,33 @@ export default function Legal() {
             <h2 style={sectionH2}>{isEN ? '6 · Cookies' : '6 · Çerezler'}</h2>
             <p style={bodyP}>
               {isEN
-                ? 'We use essential cookies for language/region preferences and an anonymous analytics cookie. No advertising cookies. Cookie banner is in preparation.'
-                : 'Dil/bölge tercihleri için zorunlu çerezler ve anonim bir analitik çerezi kullanıyoruz. Reklam çerezi yok. Çerez bildirim bandı hazırlanıyor.'}
+                ? 'Essential local storage remembers language, region, session and your consent choice. Google Analytics and Meta advertising measurement are not loaded unless you select “Accept”. Selecting “Reject” leaves those tools disabled. You can reset your choice below.'
+                : 'Zorunlu yerel depolama; dil, bölge, oturum ve onay tercihinizi hatırlar. Google Analytics ve Meta reklam ölçümü yalnızca “Kabul et” seçeneğine basarsanız yüklenir. “Reddet” seçeneği bu araçları kapalı tutar. Tercihinizi aşağıdan sıfırlayabilirsiniz.'}
+            </p>
+            <button
+              type="button"
+              className="btn btn-ghost btn-sm"
+              style={{ marginTop: 16 }}
+              onClick={() => {
+                window.localStorage.removeItem('mgl-cookie-consent-v1');
+                window.location.reload();
+              }}
+            >
+              {isEN ? 'Reset cookie choice' : 'Çerez tercihini sıfırla'}
+            </button>
+          </div>
+
+          <div>
+            <h2 style={sectionH2}>{isEN ? '7 · Retention and security' : '7 · Saklama ve güvenlik'}</h2>
+            <p style={bodyP}>
+              {isEN
+                ? 'Enquiry and demo data is normally kept for up to 30 days unless you become a client or ask us to continue the conversation. Contract, invoice and transaction records are retained for the period required by law. We use access controls, encrypted transport and provider security controls, but no internet service can promise absolute security.'
+                : 'Talep ve demo verileri, müşteri olmadığınız veya görüşmenin sürmesini istemediğiniz durumda normalde en fazla 30 gün tutulur. Sözleşme, fatura ve işlem kayıtları yasal süre boyunca saklanır. Erişim kontrolü, şifreli aktarım ve sağlayıcı güvenlik önlemleri kullanırız; ancak hiçbir internet hizmeti mutlak güvenlik vaat edemez.'}
             </p>
           </div>
 
           <div>
-            <h2 style={sectionH2}>{isEN ? '7 · Complaints' : '7 · Şikayet'}</h2>
+            <h2 style={sectionH2}>{isEN ? '8 · Complaints' : '8 · Şikayet'}</h2>
             <p style={bodyP}>
               {isEN
                 ? 'You may complain to the UK ICO (ico.org.uk) or Turkey\'s KVKK (kvkk.gov.tr). We will cooperate with any regulator inquiry.'
@@ -139,9 +160,7 @@ export default function Legal() {
           </div>
 
           <p style={{ ...bodyP, color: 'var(--fg-3)', fontStyle: 'italic', marginTop: 24 }}>
-            {isEN
-              ? 'This page is a plain-language summary. It does not replace the full privacy notice, which is being finalised with legal counsel.'
-              : 'Bu sayfa sade dilli bir özettir. Hukuki danışman incelemesinde olan tam gizlilik bildirimi yerine geçmez.'}
+            {isEN ? 'If a client project uses additional providers or categories of personal data, the contract and project-specific notice take precedence for that processing.' : 'Bir müşteri projesi ek sağlayıcılar veya özel veri kategorileri kullanıyorsa, o işlem için sözleşme ve projeye özel bildirim önceliklidir.'}
           </p>
         </div>
       </section>

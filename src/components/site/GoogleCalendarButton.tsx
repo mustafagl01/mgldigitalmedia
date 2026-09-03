@@ -1,7 +1,7 @@
 import { useEffect, useRef } from 'react';
 
 const CALENDAR_URL =
-  'https://calendar.google.com/calendar/appointments/AcZssZ0OIMa_rZdTDFNj1mCltTUMhjHMJLi6HrNhJgg=?gv=true';
+  'https://calendar.app.google/FZnTjsWGfCy33WF36';
 const CSS_URL =
   'https://calendar.google.com/calendar/scheduling-button-script.css';
 const JS_URL =

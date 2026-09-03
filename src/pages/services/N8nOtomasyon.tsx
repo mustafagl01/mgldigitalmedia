@@ -1,24 +1,27 @@
 import React from 'react';
 import { Seo, serviceSchema, faqSchema, breadcrumbSchema } from '../../components/seo/Seo';
 import { useLanguage } from '../../contexts/LanguageContext';
+import { REGIONAL_PRICING } from '../../config/pricing';
 
 const CALENDAR_URL = 'https://calendar.app.google/FZnTjsWGfCy33WF36';
+const AUTOMATION_TR = REGIONAL_PRICING.TR.packages.automation;
+const AUTOMATION_GB = REGIONAL_PRICING.GB.packages.automation;
 
 const FAQS_TR = [
   { question: 'N8N nedir?', answer: 'N8N, görsel arayüzü ile iş akışlarını otomatize etmenizi sağlayan açık kaynaklı bir otomasyon motorudur. 400+ uygulama entegrasyonu, kod blokları ve koşullu mantık ile karmaşık süreçleri otomatize eder.' },
-  { question: 'Zapier veya Make ile farkı nedir?', answer: 'N8N self-hosted kurulumda görev limiti yoktur; Zapier\'ın $99/ay Business planından çok daha az maliyetle sınırsız otomasyon çalışır. Ayrıca KVKK için verileriniz kendi sunucunuzda kalır.' },
+  { question: 'Zapier veya Make ile farkı nedir?', answer: 'Self-hosted n8n, çalışma kapasitesini kullandığınız sunucu ve akış tasarımına göre yönetmenizi sağlar. Bu model yüksek hacimde ekonomik olabilir; hangi aracın daha uygun olduğunu süreç, ekip ve bakım ihtiyacına göre belirliyoruz.' },
   { question: 'Hangi uygulamalarla entegre olabilir?', answer: 'Gmail, WhatsApp (Evolution API), HubSpot, Pipedrive, Zoho, Stripe, iyzico, Google Sheets, Airtable, Slack, Telegram ve 400+ uygulama. Özel REST API olan herhangi bir yazılıma da bağlanılabilir.' },
   { question: 'Teknik bilgim olmadan kullanabilir miyim?', answer: 'MGL olarak tüm tasarım, kurulum ve bakımı yapıyoruz; sizin teknik bilgiye ihtiyacınız yok. Sistemin çalışıp çalışmadığını görmek için basit bir dashboard sunuyoruz.' },
-  { question: 'Bir sorun olduğunda ne yapıyorsunuz?', answer: 'Otomatik hata bildirimleri kurulu; bir workflow hata alırsa Telegram/e-posta ile anında bilgi veriyoruz. Bakım sözleşmesi kapsamında 24 saat içinde müdahale garantisi.' },
+  { question: 'Bir sorun olduğunda ne yapıyorsunuz?', answer: 'Otomatik hata bildirimleri kuruyor, akış kayıtlarını inceliyor ve bakım kapsamındaki sorunları teklifinizde yazan yanıt süresine göre ele alıyoruz.' },
   { question: 'Aylık ücret ne kadar?', answer: 'Otomasyon sistemi 25.999 TRY tek seferlik kurulum ve 1.899 TRY/ay bakımdır. Kapsam akış sayısıyla değil işletmenizin süreçleriyle tanımlanır ve teklifte yazılı olarak yer alır; barındırma, izleme, hata uyarıları ve bakım dahildir. Sesli ve WhatsApp asistanlarının arkasında da aynı n8n akışları çalışır.' },
 ];
 
 const FAQS_EN = [
   { question: 'What is n8n?', answer: 'n8n is an open-source workflow automation tool with a visual interface. 400+ app integrations, code blocks and conditional logic automate complex processes.' },
-  { question: 'How is it different from Zapier or Make?', answer: 'Self-hosted n8n has no task limits — far more cost-effective than Zapier\'s $99/month Business plan. Your data also stays on your own server, important for GDPR.' },
+  { question: 'How is it different from Zapier or Make?', answer: 'Self-hosted n8n lets you manage processing capacity through your own server and workflow design. It can be economical at higher volume; we choose the platform around your process, team and maintenance needs.' },
   { question: 'What apps can it integrate with?', answer: 'Gmail, WhatsApp (Evolution API), HubSpot, Pipedrive, Zoho, Stripe, Google Sheets, Airtable, Slack, Telegram and 400+ more. Any custom REST API can also be integrated.' },
   { question: 'Do I need technical knowledge?', answer: 'No. MGL handles all design, setup and maintenance. We provide a simple monitoring dashboard so you can see your automations are running.' },
-  { question: 'What happens if something breaks?', answer: 'Automated error notifications are built in — if a workflow fails you\'re notified via Telegram/email immediately. Maintenance contracts include a 24-hour response SLA.' },
+  { question: 'What happens if something breaks?', answer: 'We configure automated failure alerts, inspect execution logs and handle covered issues within the response window written into your proposal.' },
   { question: 'How much does it cost?', answer: 'The automation system is a £400 one-off setup plus £29/month maintenance. Scope is defined by your processes rather than a workflow count and is written into the proposal. Hosting, monitoring, failure alerts and maintenance are included. The same n8n workflows also run behind the voice and WhatsApp assistants.' },
 ];
 
@@ -26,7 +29,7 @@ const PROCESS_TR = [
   { step: 1, title: 'Süreç Haritası', desc: 'Mevcut manuel süreçler belgelenir, otomasyon fırsatları ve entegrasyon noktaları belirlenir.' },
   { step: 2, title: 'Workflow Tasarımı', desc: 'N8N\'de her süreç için ayrı workflow kurulur; tetikleyiciler, koşullar ve eylemler yapılandırılır.' },
   { step: 3, title: 'Entegrasyon', desc: 'Tüm uygulamalar bağlanır (CRM, takvim, ödeme, mesajlaşma); veri akışı test edilir.' },
-  { step: 4, title: 'İzleme & Bakım', desc: 'Hata bildirimleri, performans izleme ve düzenli bakım garantisi ile sistem sağlıklı çalışır.' },
+  { step: 4, title: 'İzleme & Bakım', desc: 'Hata bildirimleri, performans izleme ve teklif kapsamındaki düzenli bakım ile sistem takip edilir.' },
 ];
 
 const PROCESS_EN = [
@@ -38,7 +41,7 @@ const PROCESS_EN = [
 
 const USE_CASES_TR = [
   { title: 'WhatsApp + CRM', desc: 'Gelen WhatsApp mesajı → Lead kaydı otomatik HubSpot\'a eklenir → Takip dizisi başlar.', icon: '💬' },
-  { title: 'Randevu Hatırlatıcı', desc: 'Takvim → 24 saat önce WhatsApp + SMS hatırlatıcı → No-show %60 azalır.', icon: '📅' },
+  { title: 'Randevu Hatırlatıcı', desc: 'Takvim → belirlenen saatte WhatsApp veya SMS hatırlatıcı → yanıt ve katılım kaydı.', icon: '📅' },
   { title: 'Ödeme Bildirimi', desc: 'Stripe/iyzico ödeme → Müşteriye otomatik teşekkür + fatura → CRM güncelleme.', icon: '💳' },
   { title: 'Lead Takip Dizisi', desc: 'Form doldurma → Anında kişiselleştirilmiş mail → 3 gün sonra takip → CRM puanlama.', icon: '🎯' },
   { title: 'Haftalık Rapor', desc: 'Tüm veriler otomatik derlenir → Özelleştirilmiş rapor → Telegram/e-posta ile gönderilir.', icon: '📊' },
@@ -47,7 +50,7 @@ const USE_CASES_TR = [
 
 const USE_CASES_EN = [
   { title: 'WhatsApp + CRM', desc: 'Incoming WhatsApp message → Lead auto-created in HubSpot → Follow-up sequence starts.', icon: '💬' },
-  { title: 'Appointment Reminders', desc: 'Calendar → 24h WhatsApp + SMS reminder → No-shows down 60%.', icon: '📅' },
+  { title: 'Appointment Reminders', desc: 'Calendar → WhatsApp or SMS reminder at the agreed time → response and attendance tracking.', icon: '📅' },
   { title: 'Payment Notifications', desc: 'Stripe payment → Auto thank-you + invoice → CRM updated.', icon: '💳' },
   { title: 'Lead Nurture Sequence', desc: 'Form submitted → Instant personalised email → 3-day follow-up → CRM scoring.', icon: '🎯' },
   { title: 'Weekly Reports', desc: 'All data automatically compiled → Custom report → Delivered via Telegram/email.', icon: '📊' },
@@ -75,8 +78,8 @@ export default function N8nOtomasyon() {
     path: '/n8n-otomasyon',
     category: 'Workflow Automation',
     offers: [
-      { name: 'Özel n8n Otomasyonu', price: 4999, priceCurrency: 'TRY' },
-      { name: 'Custom n8n Automation', price: 149, priceCurrency: 'GBP' },
+      { name: 'Özel n8n Otomasyonu Kurulumu', price: AUTOMATION_TR.setupFee, priceCurrency: 'TRY' },
+      { name: 'Custom n8n Automation Setup', price: AUTOMATION_GB.setupFee, priceCurrency: 'GBP' },
     ],
   });
 
@@ -112,8 +115,8 @@ export default function N8nOtomasyon() {
           </h1>
           <p style={{ fontSize: '1.1rem', opacity: 0.8, lineHeight: 1.65, marginBottom: '2rem', maxWidth: 560, margin: '0 auto 2rem' }}>
             {isEN
-              ? 'Connect all your business tools — CRM, WhatsApp, calendar, payments — in a single automated system. Self-hosted n8n: unlimited tasks, GDPR-compliant, full control.'
-              : 'Tüm iş araçlarınızı — CRM, WhatsApp, takvim, ödeme — tek bir otomatik sistemde birleştirin. Self-hosted n8n: görev limiti yok, KVKK uyumlu, tam kontrol.'}
+              ? 'Connect your CRM, messaging, calendar and payments in one monitored system. Self-hosted where appropriate, with capacity and data handling agreed for your project.'
+              : 'CRM, mesajlaşma, takvim ve ödeme araçlarınızı izlenen tek sistemde bağlayın. Uygun projelerde self-hosted kurulum; kapasite ve veri işleme koşulları teklifte netleşir.'}
           </p>
           <a href={CALENDAR_URL} target="_blank" rel="noopener noreferrer"
             style={{ display: 'inline-block', padding: '0.85rem 2.25rem', background: 'var(--paper)', color: 'var(--ink)', borderRadius: 8, textDecoration: 'none', fontWeight: 700, fontSize: '1rem' }}>
@@ -153,16 +156,16 @@ export default function N8nOtomasyon() {
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))', gap: '1rem' }}>
             {(isEN
               ? [
-                  { t: 'No task limits', d: 'Self-hosted n8n runs unlimited tasks. Zapier charges per task — costs spiral fast.' },
+                  { t: 'Capacity you control', d: 'Self-hosted n8n capacity is governed by your infrastructure rather than a SaaS task allowance.' },
                   { t: 'GDPR-compliant', d: 'Your data stays on your server. No data leaving to US-based cloud services.' },
                   { t: 'Full customisation', d: 'JavaScript/Python code blocks let you handle anything. Not possible in Zapier.' },
-                  { t: '5-10x cheaper', d: 'Typical SMB saves £600-1,200/year switching from Zapier to self-hosted n8n.' },
+                  { t: 'Cost matched to volume', d: 'We compare hosting, maintenance and execution volume before recommending a platform.' },
                 ]
               : [
-                  { t: 'Görev limiti yok', d: 'Self-hosted n8n sınırsız görev çalıştırır. Zapier\'da her görev ücret demek.' },
+                  { t: 'Kontrol sizde', d: 'Self-hosted n8n kapasitesi sabit bir SaaS görev kotası yerine altyapınıza göre yönetilir.' },
                   { t: 'KVKK uyumlu', d: 'Verileriniz kendi sunucunuzda kalır. ABD merkezli bulut servislerine veri gitmiyor.' },
                   { t: 'Tam özelleştirme', d: 'JavaScript/Python kod blokları ile her şeyi halledebilirsiniz. Zapier\'da mümkün değil.' },
-                  { t: '5-10x daha ucuz', d: 'Ortalama KOBİ Zapier\'dan n8n\'e geçişte yıllık 5.000-12.000 TRY tasarruf sağlıyor.' },
+                  { t: 'Hacme uygun maliyet', d: 'Platform önerisinden önce barındırma, bakım ve çalışma hacmini birlikte hesaplarız.' },
                 ]
             ).map((item) => (
               <div key={item.t} style={{ padding: '1.25rem', background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: 10 }}>

@@ -63,7 +63,7 @@ export const Header: React.FC<HeaderProps> = ({ onAnalysisClick, onAuthClick }) 
           ) : (
             <div className="flex items-center gap-2">
               <Button
-                onClick={() => window.open('https://calendar.app.google/jgu53NFAy7BnYVui8', '_blank')}
+                onClick={() => window.open('https://calendar.app.google/FZnTjsWGfCy33WF36', '_blank')}
                 className="bg-gradient-to-r from-purple-600 to-cyan-600 text-white border-none shadow-[0_0_20px_-5px_rgba(147,51,234,0.5)] hidden md:flex"
                 size="sm"
               >

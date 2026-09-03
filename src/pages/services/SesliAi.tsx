@@ -1,9 +1,11 @@
 import React from 'react';
 import { Seo, serviceSchema, faqSchema, breadcrumbSchema } from '../../components/seo/Seo';
 import { useLanguage } from '../../contexts/LanguageContext';
+import { REGIONAL_PRICING } from '../../config/pricing';
 
 const CALENDAR_URL = 'https://calendar.app.google/FZnTjsWGfCy33WF36';
-const SITE_URL = 'https://mgl-ai.com';
+const VOICE_TR = REGIONAL_PRICING.TR.packages.voice;
+const VOICE_GB = REGIONAL_PRICING.GB.packages.voice;
 
 const FAQS_TR = [
   { question: 'Sesli AI Türkçe konuşabiliyor mu?', answer: 'Evet. Retell AI, Türkçe konuşma tanıma (ASR) ve ElevenLabs ses sentezi (TTS) ile doğal Türkçe konuşma sağlar.' },
@@ -59,8 +61,8 @@ export default function SesliAi() {
     path: '/sesli-ai',
     category: 'AI Voice Agent',
     offers: [
-      { name: 'Sesli AI Resepsiyonist', price: 8999, priceCurrency: 'TRY' },
-      { name: 'Voice AI Receptionist', price: 249, priceCurrency: 'GBP' },
+      { name: 'Sesli AI Aylık Sistem Bedeli', price: VOICE_TR.price, priceCurrency: 'TRY' },
+      { name: 'Voice AI Monthly System Fee', price: VOICE_GB.price, priceCurrency: 'GBP' },
     ],
   });
 
@@ -96,8 +98,8 @@ export default function SesliAi() {
           </h1>
           <p style={{ fontSize: '1.1rem', opacity: 0.8, lineHeight: 1.65, marginBottom: '2rem', maxWidth: 560, margin: '0 auto 2rem' }}>
             {isEN
-              ? 'Every inbound call answered in under 1.5 seconds. Books appointments, answers questions, never takes a break. Powered by Retell AI + ElevenLabs.'
-              : 'Her arama 1.5 saniyede karşılanır. Randevu alır, soruları yanıtlar, hiç mola vermez. Retell AI + ElevenLabs altyapısı.'}
+              ? 'Handle inbound calls around the clock. Answer common questions, capture requests and book available slots with a route to a person when needed.'
+              : 'Gelen aramaları günün her saati karşılayın. Sık sorulan soruları yanıtlayın, talepleri kaydedin ve gerektiğinde bir kişiye aktarın.'}
           </p>
           <a
             href={CALENDAR_URL}
@@ -122,7 +124,7 @@ export default function SesliAi() {
       {/* Stats */}
       <section style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', borderBottom: '1px solid var(--border)' }}>
         {[
-          { v: '< 1.5s', l: isEN ? 'Answer time' : 'Yanıt süresi' },
+          { v: isEN ? 'Low latency' : 'Düşük gecikme', l: isEN ? 'Configured and tested per project' : 'Projeye göre test edilir' },
           { v: '7/24', l: isEN ? 'Always on' : 'Kesintisiz' },
           { v: isEN ? 'TR + EN' : 'TR + EN', l: isEN ? 'Languages' : 'Diller' },
           { v: '3-7 ' + (isEN ? 'days' : 'gün'), l: isEN ? 'Deployment' : 'Kurulum' },
@@ -191,18 +193,18 @@ export default function SesliAi() {
                   ? [
                       ['Availability', '24/7/365', 'Working hours only'],
                       ['Response time', '< 1.5 seconds', 'Variable, after rings'],
-                      ['Simultaneous calls', 'Unlimited', '1 at a time'],
+                      ['Simultaneous calls', 'Scales with plan capacity', 'Usually 1 per person'],
                       ['Monthly cost', '£9.90 + call usage', '£1,500-2,500+'],
                       ['Sick days / holidays', 'None', 'Yes'],
-                      ['Consistency', 'Perfect every time', 'Variable'],
+                      ['Consistency', 'Follows the approved call flow', 'Varies by person and workload'],
                     ]
                   : [
                       ['Müsaitlik', '7/24/365', 'Sadece mesai saatleri'],
                       ['Yanıt süresi', '< 1.5 saniye', 'Değişken, zil sonrası'],
-                      ['Eş zamanlı arama', 'Sınırsız', 'Bir seferde 1'],
-                      ['Aylık maliyet', '8.999 TRY + çağrı kullanımı', '11.000 TRY+'],
+                      ['Eş zamanlı arama', 'Paket kapasitesiyle ölçeklenir', 'Genellikle kişi başına 1'],
+                      ['Aylık maliyet', '649 TRY + çağrı kullanımı', 'Ücret ve çalışma modeline göre değişir'],
                       ['Hastalık/izin', 'Yok', 'Var'],
-                      ['Tutarlılık', 'Her seferinde mükemmel', 'Değişken'],
+                      ['Tutarlılık', 'Onaylı görüşme akışını izler', 'Kişiye ve yoğunluğa göre değişir'],
                     ]
                 ).map(([feat, ai, human]) => (
                   <tr key={feat}>

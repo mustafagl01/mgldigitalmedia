@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { Menu, X } from 'lucide-react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { Wordmark } from './Wordmark';
-import { GoogleCalendarButton } from './GoogleCalendarButton';
 
 type Page = 'home' | 'services' | 'solutions' | 'packages' | 'pricing';
 
@@ -51,7 +50,10 @@ export function SiteHeader({ currentPage, onNavigate, onAnalysisClick }: Props) 
     const el = document.getElementById('contact');
     if (el) {
       el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      return;
     }
+    onNavigate('home');
+    window.setTimeout(() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 0);
   };
 
   const contactLabel = language === 'tr' ? 'İletişim' : 'Contact';
@@ -159,10 +161,9 @@ export function SiteHeader({ currentPage, onNavigate, onAnalysisClick }: Props) 
             WhatsApp
           </button>
 
-          <GoogleCalendarButton
-            label={language === 'tr' ? 'Randevu al' : 'Book a call'}
-            color="#C0392B"
-          />
+          <button onClick={onAnalysisClick} className="btn btn-primary btn-sm">
+            {language === 'tr' ? 'Randevu al' : 'Book a call'}
+          </button>
 
           <button
             className="nav-mobile-toggle"
@@ -251,10 +252,9 @@ export function SiteHeader({ currentPage, onNavigate, onAnalysisClick }: Props) 
             <button onClick={handleWhatsApp} className="btn btn-ghost btn-md">
               WhatsApp
             </button>
-            <GoogleCalendarButton
-              label={language === 'tr' ? 'Randevu al' : 'Book a call'}
-              color="#C0392B"
-            />
+            <button onClick={onAnalysisClick} className="btn btn-primary btn-md">
+              {language === 'tr' ? 'Randevu al' : 'Book a call'}
+            </button>
           </div>
         </div>
       )}

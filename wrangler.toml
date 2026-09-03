@@ -31,8 +31,6 @@ database_id = "your-dev-database-id-here"
 # Build configuration - TypeScript files will be handled by wrangler
 # No build step needed for Workers with TypeScript support
 
-# Routes configuration (when deploying)
-routes = [
-  { pattern = "https://mgldigitalmedia.com/api/*", zone_name = "mgldigitalmedia.com" },
-  { pattern = "https://www.mgldigitalmedia.com/api/*", zone_name = "mgldigitalmedia.com" }
-]
+# The website calls the stable workers.dev endpoint directly. Custom routes for
+# the retired mgldigitalmedia.com host were removed to prevent deploy failures.
+workers_dev = true

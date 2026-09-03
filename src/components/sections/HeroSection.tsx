@@ -95,7 +95,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onContactClick }) => {
             className="flex flex-col sm:flex-row gap-5 justify-center items-center"
           >
             <Button
-              onClick={() => window.open('https://calendar.app.google/jgu53NFAy7BnYVui8', '_blank')}
+              onClick={() => window.open('https://calendar.app.google/FZnTjsWGfCy33WF36', '_blank')}
               className="relative bg-white text-black hover:bg-slate-100 px-10 py-7 text-lg font-bold rounded-full shadow-[0_0_60px_-15px_rgba(255,255,255,0.25)] transform hover:scale-[1.03] transition-all duration-500 flex items-center group w-full sm:w-auto justify-center overflow-hidden"
             >
               <div className="absolute inset-0 animate-shimmer pointer-events-none" />

@@ -72,19 +72,19 @@ export function FoundersBet({ onAnalysisClick }: Props) {
             >
               {language === 'tr' ? (
                 <>
-                  Risk bizde.{' '}
-                  <span style={{ color: 'var(--ember)' }}>Kazanç sizde.</span>
+                  Kurulum net.{' '}
+                  <span style={{ color: 'var(--ember)' }}>Kullanım şeffaf.</span>
                 </>
               ) : (
                 <>
-                  We take the risk. <span style={{ color: 'var(--ember)' }}>You keep the upside.</span>
+                  Clear setup. <span style={{ color: 'var(--ember)' }}>Transparent usage.</span>
                 </>
               )}
             </h2>
             <p style={{ marginTop: 20, color: 'var(--fg-2)', maxWidth: 520, lineHeight: 1.6 }}>
               {language === 'tr'
-                ? 'Yeni bir şirketiz; küçük ama net kurallarla çalışıyoruz. Çünkü danışanlarımızdan güven ile birlikte gerçek sonuç da bekliyoruz.'
-                : 'We’re a new firm, and we work by small but clear rules. Because we expect real outcomes — not just trust — from every engagement.'}
+                ? 'Küçük bir ekibiz; bu yüzden işi devretmeyiz. Kapsamı yazılı belirler, canlıya almadan sizinle test eder ve çalışmayan akışı yayına koymayız.'
+                : 'We are a small, founder-led team. We define scope in writing, test with you before launch and never ship a workflow that has not been checked.'}
             </p>
 
             <div style={{ marginTop: 32 }}>

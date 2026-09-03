@@ -6,19 +6,19 @@ const CALENDAR_URL = 'https://calendar.app.google/FZnTjsWGfCy33WF36';
 const SITE_URL = 'https://mgl-ai.com';
 
 const FAQS_TR = [
-  { question: 'WhatsApp Cloud API ve Evolution API arasındaki temel fark nedir?', answer: 'WhatsApp Cloud API, Meta\'nın resmi bulut çözümüdür; mesaj başına ~$0.05-0.15 ücret alır. Evolution API, Baileys kütüphanesi üzerine kurulmuş açık kaynak bir alternatiftir; sabit sunucu maliyetiyle sınırsız mesaj işler.' },
+  { question: 'WhatsApp Cloud API ve Evolution API arasındaki temel fark nedir?', answer: 'WhatsApp Cloud API Meta\'nın resmî çözümüdür. Evolution API, Baileys tabanlı self-hosted ve resmî olmayan bir bağlantıdır. Fiyat, kapasite ve uygunluk mesaj türüne, ülkeye, sunucuya ve işletme gereksinimine göre değişir.' },
   { question: 'Evolution API (Baileys) güvenli mi?', answer: 'Evolution API aktif olarak geliştirilen ve Türkiye başta olmak üzere KOBİ ekosisteminde yaygın kullanılan bir çözümdür. Self-hosted olması veri güvenliği açısından avantaj sağlar. Ancak Meta\'nın resmi onayı yoktur; bu kısıtlamayı bilerek kullanılmalıdır.' },
   { question: 'Kurumsal şirketler hangisini kullanmalı?', answer: 'Çok yüksek mesaj hacmi, resmi API desteği ve SLA garantisi gerektiren kurumsal şirketler için WhatsApp Cloud API daha uygundur. KOBİ\'ler ve ajanslar için Evolution API daha avantajlıdır.' },
   { question: 'Evolution API ile gönderilen mesajlar engellenir mi?', answer: 'Spam davranışı (toplu mesaj gönderme, kısa sürede çok fazla kişiye ulaşma) hesap yasağına yol açabilir. İyi tasarlanmış sistemlerde, gerçek müşteri iletişiminde bu risk minimumdur.' },
-  { question: 'MGL hangi stack\'i kullanıyor?', answer: 'MGL Digital Media olarak Evolution API + n8n kombinasyonunu kullanıyoruz. Bu stack, Türkiye ve UK KOBİ\'lerinin büyük çoğunluğu için maliyet ve özellik açısından optimaldır.' },
+  { question: 'MGL hangi stack\'i kullanıyor?', answer: 'Her iki rotayı da değerlendiriyoruz. Resmî şablonlar ve kurumsal kontrol gereken projelerde Meta Cloud API/BSP; uygun, kontrollü senaryolarda self-hosted bağlantı kullanılabilir.' },
 ];
 
 const FAQS_EN = [
-  { question: 'What is the core difference between WhatsApp Cloud API and Evolution API?', answer: 'WhatsApp Cloud API is Meta\'s official cloud solution charging ~$0.05-0.15 per conversation. Evolution API is an open-source alternative built on Baileys; it processes unlimited messages at a fixed server cost.' },
+  { question: 'What is the core difference between WhatsApp Cloud API and Evolution API?', answer: 'WhatsApp Cloud API is Meta\'s official solution. Evolution API is a self-hosted, unofficial connection built on Baileys. Price, capacity and suitability vary by message type, country, infrastructure and operating requirements.' },
   { question: 'Is Evolution API (Baileys) safe?', answer: 'Evolution API is actively developed and widely used in the SMB ecosystem, particularly in Turkey. Self-hosted means better data security. However, it\'s not Meta-officially approved — this should be understood before use.' },
   { question: 'Which should enterprise companies use?', answer: 'Enterprise companies requiring very high message volumes, official API support and SLA guarantees are better served by WhatsApp Cloud API. SMBs and agencies benefit more from Evolution API.' },
   { question: 'Can Evolution API messages get blocked?', answer: 'Spam behaviour (bulk messaging, reaching many new contacts rapidly) can trigger account bans. In well-designed systems handling genuine customer communication, this risk is minimal.' },
-  { question: 'Which stack does MGL use?', answer: 'MGL Digital Media uses Evolution API + n8n. This stack is optimal for the vast majority of UK and Turkish SMBs in terms of cost and features.' },
+  { question: 'Which stack does MGL use?', answer: 'We assess both routes. Meta Cloud API/BSP suits official templates and enterprise controls; a self-hosted connection may suit carefully controlled use cases.' },
 ];
 
 export default function WhatsappCloudApiVsBaileys() {
@@ -44,27 +44,27 @@ export default function WhatsappCloudApiVsBaileys() {
   const rows = isEN
     ? [
         ['Provider', 'Meta (official)', 'Open-source / Self-hosted'],
-        ['Pricing', '~$0.05-0.15 per conversation', 'Fixed server cost (~€15-30/mo)'],
-        ['Message limits', 'Tiered (1K free/mo, paid after)', 'Unlimited'],
-        ['Approval required', '✅ Yes (2-4 weeks)', '❌ No'],
-        ['Setup time', '2-4 weeks', '1-3 days'],
+        ['Pricing', 'Meta pricing varies by market and message category', 'Server, maintenance and provider usage'],
+        ['Capacity', 'Account, quality and platform rules apply', 'Depends on server and connection stability'],
+        ['Business verification', 'May be required for production features', 'No Meta approval, but remains unofficial'],
+        ['Setup time', 'Depends on verification and scope', 'Depends on hosting, testing and scope'],
         ['Data residency', '❌ Meta cloud', '✅ Your server'],
         ['API stability', '✅ Official SLA', '⚠️ Community-maintained'],
         ['Webhook support', '✅ Full', '✅ Full'],
         ['Broadcast messages', '✅ Template-based', '⚠️ Spam risk if misused'],
-        ['Best for', 'Large enterprise, regulated sectors', 'SMBs, agencies, high-volume chatbots'],
+        ['Best for', 'Official support, templates, enterprise controls', 'Controlled use cases that accept unofficial-connection risk'],
       ]
     : [
         ['Sağlayıcı', 'Meta (resmi)', 'Açık kaynak / Self-hosted'],
-        ['Fiyatlandırma', 'Konuşma başına ~$0.05-0.15', 'Sabit sunucu maliyeti (~€15-30/ay)'],
-        ['Mesaj limiti', 'Kademeli (aylık 1K ücretsiz, sonrası ücretli)', 'Sınırsız'],
-        ['Onay gereksinimi', '✅ Evet (2-4 hafta)', '❌ Hayır'],
-        ['Kurulum süresi', '2-4 hafta', '1-3 gün'],
+        ['Fiyatlandırma', 'Pazara ve mesaj kategorisine göre değişir', 'Sunucu, bakım ve sağlayıcı kullanımı'],
+        ['Kapasite', 'Hesap, kalite ve platform kuralları geçerli', 'Sunucu ve bağlantı kararlılığına bağlı'],
+        ['İşletme doğrulama', 'Üretim özellikleri için gerekebilir', 'Meta onayı yoktur; bağlantı resmî değildir'],
+        ['Kurulum süresi', 'Doğrulama ve kapsama bağlı', 'Barındırma, test ve kapsama bağlı'],
         ['Veri konumu', '❌ Meta bulutu', '✅ Kendi sunucunuz'],
         ['API stabilitesi', '✅ Resmi SLA', '⚠️ Community tarafından geliştirilir'],
         ['Webhook desteği', '✅ Tam', '✅ Tam'],
         ['Toplu mesaj', '✅ Şablon tabanlı', '⚠️ Kötüye kullanımda spam riski'],
-        ['En iyi kim için', 'Büyük kurumsal, düzenlenmiş sektörler', 'KOBİ\'ler, ajanslar, yüksek hacimli chatbotlar'],
+        ['En iyi kim için', 'Resmî destek, şablonlar, kurumsal kontrol', 'Resmî olmayan bağlantı riskini kabul eden kontrollü senaryolar'],
       ];
 
   return (
@@ -102,8 +102,8 @@ export default function WhatsappCloudApiVsBaileys() {
           </p>
           <p style={{ marginTop: '1rem', fontWeight: 700, color: 'var(--ink)' }}>
             {isEN
-              ? '⚡ Quick verdict: For UK/Turkish SMBs, Evolution API + n8n is 5-10x more cost-effective. We use it for all our clients.'
-              : '⚡ Hızlı sonuç: UK/Türkiye KOBİ\'leri için Evolution API + n8n 5-10x daha maliyet-etkin. Tüm müşterilerimizde bunu kullanıyoruz.'}
+              ? 'Quick verdict: choose the official route when account continuity, templates and support are critical. Consider self-hosted only after accepting and controlling its connection risk.'
+              : 'Hızlı sonuç: hesap sürekliliği, şablonlar ve destek kritikse resmî rotayı seçin. Self-hosted bağlantıyı ancak riskini kabul edip kontrol edebiliyorsanız değerlendirin.'}
           </p>
         </header>
 

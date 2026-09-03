@@ -33,14 +33,18 @@ function loadSession(): Session {
       const parsed = JSON.parse(raw) as Session;
       if (parsed?.id && Array.isArray(parsed.messages)) return parsed;
     }
-  } catch {}
+  } catch {
+    return { id: newSessionId(), messages: [] };
+  }
   return { id: newSessionId(), messages: [] };
 }
 
 function saveSession(s: Session) {
   try {
     window.sessionStorage.setItem(STORAGE_KEY, JSON.stringify(s));
-  } catch {}
+  } catch {
+    // Private browsing or a full storage quota must not break the chat UI.
+  }
 }
 
 function extractReply(data: unknown): string | null {
@@ -87,8 +91,8 @@ export function ChatBot() {
   const greeting: Message = {
     role: 'assistant',
     text: isTR
-      ? 'Merhaba — ben Era, MGL Digital\'de ilk temas yöneticisi. Kısa tutalım: hangi sektördesiniz, şu an hangi kanalda randevu ya da talep kaçırıyorsunuz?'
-      : "Hi — I'm Era, first-contact executive at MGL Digital. Quickly: what sector are you in, and which channel is dropping appointments or leads right now?",
+      ? 'Merhaba — ben Era, MGL’nin yapay zekâ destekli karşılama asistanıyım. Hangi sektördesiniz ve şu an en çok hangi kanalda talep kaçırıyorsunuz?'
+      : "Hi — I'm Era, MGL's AI-powered welcome assistant. What sector are you in, and which channel is losing the most enquiries right now?",
     ts: Date.now(),
   };
 
@@ -179,6 +183,9 @@ export function ChatBot() {
           page: typeof window !== 'undefined' ? window.location.pathname : '/',
         }),
       });
+      if (!res.ok) {
+        throw new Error(`Chat workflow returned ${res.status}`);
+      }
       let replyText: string | null = null;
       const raw = await res.text();
       try {
@@ -199,8 +206,8 @@ export function ChatBot() {
       pushMessage({
         role: 'assistant',
         text: isTR
-          ? 'Bağlantı kesildi. 10 dakikalık bir görüşme ile devam edelim mi? ' + CALENDAR_URL
-          : 'Connection lost. Shall we continue on a 10-min call? ' + CALENDAR_URL,
+          ? 'Şu an yanıt veremiyorum. 15 dakikalık ücretsiz bir ön görüşmeyle devam edebiliriz: ' + CALENDAR_URL
+          : 'I cannot respond right now. You can continue with a free 15-minute discovery call: ' + CALENDAR_URL,
         ts: Date.now(),
       });
     } finally {
@@ -287,10 +294,7 @@ export function ChatBot() {
         style={{
           position: 'fixed',
           right: 24,
-          // WhatsApp butonu bottom:24 + 56px yükseklikte. Sohbet butonu onun
-          // üstünde durur, yoksa ikisi kısmen üst üste biniyor ve dokunma
-          // hedefi küçülüyordu (Lighthouse: target-size).
-          bottom: 92,
+          bottom: 24,
           zIndex: 90,
           width: 56,
           height: 56,
@@ -350,11 +354,10 @@ export function ChatBot() {
           style={{
             position: 'fixed',
             right: 24,
-            // Buton bottom:92 + 56px -> panel onun üstünden başlar
-            bottom: 160,
+            bottom: 92,
             zIndex: 90,
             width: 'min(380px, calc(100vw - 48px))',
-            height: 'min(560px, calc(100vh - 210px))',
+            height: 'min(560px, calc(100vh - 132px))',
             background: 'var(--paper)',
             border: '1px solid var(--border)',
             borderRadius: 14,
@@ -409,7 +412,7 @@ export function ChatBot() {
                 <div
                   style={{
                     fontSize: 11,
-                    color: 'var(--fg-muted)',
+                    color: 'var(--fg-3)',
                     fontFamily: 'var(--font-mono)',
                     letterSpacing: '0.08em',
                     textTransform: 'uppercase',
@@ -424,7 +427,7 @@ export function ChatBot() {
               title={isTR ? 'Sohbeti sıfırla' : 'Reset conversation'}
               style={{
                 fontSize: 11,
-                color: 'var(--fg-muted)',
+                color: 'var(--fg-3)',
                 background: 'transparent',
                 border: 'none',
                 cursor: 'pointer',
@@ -480,7 +483,7 @@ export function ChatBot() {
                   borderRadius: 12,
                   background: 'var(--paper-2)',
                   border: '1px solid var(--border)',
-                  color: 'var(--fg-muted)',
+                  color: 'var(--fg-3)',
                   fontSize: 13,
                   display: 'flex',
                   gap: 4,
@@ -513,7 +516,7 @@ export function ChatBot() {
                 <span
                   style={{
                     fontSize: 11,
-                    color: 'var(--fg-muted)',
+                    color: 'var(--fg-3)',
                     fontFamily: 'var(--font-mono)',
                     letterSpacing: '0.06em',
                     textTransform: 'uppercase',
@@ -567,7 +570,7 @@ export function ChatBot() {
                   <span
                     style={{
                       fontSize: 11,
-                      color: 'var(--fg-muted)',
+                      color: 'var(--fg-3)',
                       fontFamily: 'var(--font-mono)',
                       letterSpacing: '0.06em',
                       textTransform: 'uppercase',
@@ -583,7 +586,7 @@ export function ChatBot() {
                     style={{
                       background: 'transparent',
                       border: 'none',
-                      color: 'var(--fg-muted)',
+                      color: 'var(--fg-3)',
                       cursor: 'pointer',
                       fontSize: 14,
                       lineHeight: 1,
@@ -595,6 +598,7 @@ export function ChatBot() {
                 </div>
                 <input
                   value={callbackName}
+                  aria-label={isTR ? 'İsim (isteğe bağlı)' : 'Name (optional)'}
                   onChange={(e) => setCallbackName(e.target.value)}
                   placeholder={isTR ? 'İsim (opsiyonel)' : 'Name (optional)'}
                   style={{
@@ -613,6 +617,7 @@ export function ChatBot() {
                 <div style={{ display: 'flex', gap: 6 }}>
                   <input
                     ref={phoneRef}
+                    aria-label={isTR ? 'Telefon numarası' : 'Phone number'}
                     value={phone}
                     onChange={(e) => setPhone(e.target.value)}
                     onKeyDown={(e) => {
@@ -682,7 +687,7 @@ export function ChatBot() {
                     alignItems: 'center',
                     gap: 6,
                     fontSize: 10,
-                    color: 'var(--fg-muted)',
+                    color: 'var(--fg-3)',
                     fontFamily: 'var(--font-mono)',
                     letterSpacing: '0.04em',
                   }}
@@ -693,6 +698,10 @@ export function ChatBot() {
                     color="#C0392B"
                   />
                 </div>
+                <p style={{ margin: '8px 0 0', fontSize: 10, color: 'var(--fg-3)', lineHeight: 1.45 }}>
+                  {isTR ? 'Göndererek demo aramasını ve gizlilik bildirimimizi kabul edersiniz.' : 'By sending, you request a demo call and acknowledge our privacy notice.'}{' '}
+                  <a href={isTR ? '/legal' : '/en/legal'} style={{ color: 'var(--ember)' }}>{isTR ? 'Gizlilik' : 'Privacy'}</a>
+                </p>
               </div>
             )}
 
@@ -744,6 +753,7 @@ export function ChatBot() {
           >
             <input
               ref={inputRef}
+              aria-label={isTR ? 'Era’ya mesajınız' : 'Your message to Era'}
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={onKeyDown}
@@ -803,7 +813,7 @@ function Dot({ delay }: { delay: number }) {
         width: 6,
         height: 6,
         borderRadius: '50%',
-        background: 'var(--fg-muted)',
+        background: 'var(--fg-3)',
         display: 'inline-block',
         animation: `mgl-bot-dot 1.2s ${delay}ms infinite`,
       }}

@@ -254,7 +254,7 @@ export function HeroV2({ onAnalysisClick, onDemoClick }: Props) {
               marginBottom: 20,
             }}
           >
-            {language === 'tr' ? 'KURDUĞUMUZ SİSTEMLER' : 'SYSTEMS WE BUILT'}
+            {language === 'tr' ? 'KONSEPT DEMOLAR · CANLI İNCELEYİN' : 'CONCEPT DEMOS · EXPLORE LIVE'}
           </div>
 
           <div
@@ -285,7 +285,7 @@ export function HeroV2({ onAnalysisClick, onDemoClick }: Props) {
               >
                 <img
                   src={`${w.img}?v=${(manifest as Record<string, string>)[w.slug] ?? ''}`}
-                  alt=""
+                  alt={language === 'tr' ? `${w.tr} için hazırlanmış örnek web ve asistan arayüzü` : `Sample website and assistant interface for a ${w.en.toLowerCase()}`}
                   loading="lazy"
                   decoding="async"
                   width={900}
@@ -336,8 +336,8 @@ export function HeroV2({ onAnalysisClick, onDemoClick }: Props) {
             }}
           >
             {language === 'tr'
-              ? 'Hepsinde site var; içinde de soruları karşılayan, cevap veren bir sistem var.'
-              : 'Each one is a site — with a system inside that fields questions and answers them.'}
+              ? 'Bunlar yaklaşımımızı göstermek için hazırladığımız konsept çalışmalardır; gerçek müşteri sonucu iddiası taşımaz.'
+              : 'These are concept builds made to demonstrate our approach; they are not presented as client results.'}
           </p>
         </aside>
       </div>

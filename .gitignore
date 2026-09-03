@@ -28,3 +28,11 @@ mgldigitalmedia/
 
 # Yerel calisma loglari ve olcum ciktilari (depoya girmez)
 project_logs/
+
+# Denetim ve gecici cikti dosyalari
+visual-audit-report.json
+visual-audit-shots/
+scripts/tmp-*.mjs
+
+# Kullanilmayan scroll deneme gorselleri (git gecmisinde duruyor)
+public/chaos-scroll/

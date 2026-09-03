@@ -7,8 +7,8 @@ const CALENDAR_URL = 'https://calendar.app.google/FZnTjsWGfCy33WF36';
 const FAQS_TR = [
   { question: 'Lead üretimi nasıl yapılıyor?', answer: 'Apollo.io veya Google Maps\'ten hedef sektör ve bölge bazlı lead listesi çekilir. Özel enrichment scripti ile website, iletişim bilgileri ve karar verici verisi tamamlanır. Dedupe işlemi sonrası temiz lead listesi elde edilir.' },
   { question: 'Hedef kitlemi nasıl belirleyebilirim?', answer: 'Sektör, konum, şirket büyüklüğü, çalışan sayısı, kullandığı teknolojiler gibi filtrelerle hedef kitle oluşturuyoruz. İlk görüşmede ideal müşteri profilinizi birlikte belirleriz.' },
-  { question: 'Leadler gerçekten doğrulanıyor mu?', answer: 'Evet. E-posta doğrulama, web sitesi varlık kontrolü, MX kayıt doğrulama ve çift dedupe (telefon + domain + e-posta) uygulanır. Ortalama deliverability %92+.' },
-  { question: 'Kaç lead teslim ediyorsunuz?', answer: 'Sektör ve bölgeye göre değişir. Tipik kampanyada aylık 100-500 nitelikli, dedupe\'lanmış lead teslim edilir. Minimum lead garantisi paket kapsamında belirtilir.' },
+  { question: 'Leadler gerçekten doğrulanıyor mu?', answer: 'E-posta biçimi ve MX kaydı kontrol edilir; telefon, domain ve e-posta üzerinden tekrarlar ayıklanır. Hiçbir doğrulama aracı teslim veya cevap garantisi vermez; riskli kayıtları ayrıca işaretleriz.' },
+  { question: 'Kaç lead teslim ediyorsunuz?', answer: 'Sayı; hedef sektörün, bölgenin ve karar verici filtresinin genişliğine göre değişir. Teslim kapsamını veri taramasından sonra teklifte netleştiririz.' },
   { question: 'Lead üretimi cold outreach ile birlikte mi kullanılıyor?', answer: 'Evet, entegre hizmet sunuyoruz. Lead üretimi → enrichment → cold mail/WhatsApp outreach → cevap takibi şeklinde tam pipeline kurulabilir.' },
   { question: 'Fiyat nasıl belirleniyor?', answer: 'Paket fiyatına ek olarak kullanılan API maliyeti (Apollo, Google Maps) ayrıca hesaplanır. Detay için ücretsiz görüşme alın.' },
 ];
@@ -16,8 +16,8 @@ const FAQS_TR = [
 const FAQS_EN = [
   { question: 'How is lead generation done?', answer: 'We pull targeted lead lists from Apollo.io or Google Maps by sector and region. A custom enrichment script fills in website, contact info and decision-maker data. After deduplication you get a clean, qualified list.' },
   { question: 'How do you define my target audience?', answer: 'We build your ICP (Ideal Customer Profile) using filters: sector, location, company size, employee count, tech stack. We define this together in the first call.' },
-  { question: 'Are leads verified?', answer: 'Yes. Email validation, website existence check, MX record verification and double dedup (phone + domain + email) applied. Average deliverability 92%+.' },
-  { question: 'How many leads do you deliver?', answer: 'Depends on sector and region. Typically 100-500 qualified, deduped leads per month. Minimum lead guarantee specified in each package.' },
+  { question: 'Are leads verified?', answer: 'We check email format and MX records, then deduplicate by phone, domain and email. No validation provider can guarantee delivery or replies, so risky records are flagged separately.' },
+  { question: 'How many leads do you deliver?', answer: 'Volume depends on the size of the target sector, geography and decision-maker filters. We confirm the delivery scope after an initial data scan.' },
   { question: 'Is lead generation combined with cold outreach?', answer: 'Yes, we offer an integrated service. Lead generation → enrichment → cold email/WhatsApp outreach → reply tracking as a full pipeline.' },
   { question: 'How is pricing structured?', answer: 'Package fee plus API costs (Apollo, Google Maps) billed separately at cost. Book a free call for a tailored quote.' },
 ];
@@ -67,8 +67,8 @@ export default function LeadUretimi() {
         }
         description={
           isEN
-            ? 'Targeted B2B lead generation: Apollo.io + Google Maps + custom enrichment + email validation. 100-500 qualified leads/month. GDPR-compliant.'
-            : 'Hedefli B2B lead üretimi: Apollo.io + Google Maps + enrichment + e-posta doğrulama. Aylık 100-500 nitelikli lead. KVKK uyumlu.'
+            ? 'Targeted B2B research using licensed data sources, custom enrichment, deduplication and email validation. Scope and lawful basis agreed before work starts.'
+            : 'Lisanslı veri kaynakları, enrichment, dedupe ve e-posta doğrulama ile hedefli B2B araştırma. Kapsam ve hukuki dayanak işe başlamadan netleştirilir.'
         }
         path="/lead-uretimi"
         locale={isEN ? 'en_GB' : 'tr_TR'}
@@ -102,8 +102,8 @@ export default function LeadUretimi() {
       {/* Stats */}
       <section style={{ display: 'flex', justifyContent: 'center', flexWrap: 'wrap', borderBottom: '1px solid var(--border)' }}>
         {[
-          { v: '92%+', l: isEN ? 'Deliverability' : 'Deliverability' },
-          { v: '100-500', l: isEN ? 'Leads/month' : 'Lead/ay' },
+          { v: isEN ? 'Validated' : 'Doğrulanmış', l: isEN ? 'Email and domain checks' : 'E-posta ve domain kontrolü' },
+          { v: isEN ? 'Scoped' : 'Net kapsam', l: isEN ? 'Volume agreed in proposal' : 'Adet teklifte belirlenir' },
           { v: isEN ? 'Deduped' : 'Dedupe\'lı', l: isEN ? 'No duplicates' : 'Tekrar yok' },
           { v: isEN ? 'GDPR' : 'KVKK', l: isEN ? 'Compliant' : 'Uyumlu' },
         ].map((s) => (
@@ -131,7 +131,7 @@ export default function LeadUretimi() {
               { name: 'Apollo.io', desc: isEN ? '250M+ B2B contacts. Best for professional services, SaaS, enterprise targets.' : '250M+ B2B iletişim. Profesyonel hizmetler, SaaS, kurumsal hedefler için ideal.' },
               { name: 'Google Maps', desc: isEN ? 'Local business discovery. Best for SMB sectors: dental, beauty, restaurant, legal.' : 'Yerel işletme keşfi. KOBİ sektörleri için ideal: dental, güzellik, restoran, hukuk.' },
               { name: isEN ? 'Custom Enrichment' : 'Özel Enrichment', desc: isEN ? 'Website crawl for contact info, decision-maker identification, social profiles.' : 'İletişim bilgisi için website taraması, karar verici tespiti, sosyal profiller.' },
-              { name: isEN ? 'Email Validation' : 'E-posta Doğrulama', desc: isEN ? 'MX record check, SMTP ping, catch-all detection. 92%+ deliverability guaranteed.' : 'MX kayıt kontrolü, SMTP ping, catch-all tespiti. %92+ deliverability garantisi.' },
+              { name: isEN ? 'Email Validation' : 'E-posta Doğrulama', desc: isEN ? 'Format, MX and catch-all checks, with risky records flagged. Delivery is never guaranteed.' : 'Biçim, MX ve catch-all kontrolleri; riskli kayıtlar ayrıca işaretlenir. Teslim garantisi verilmez.' },
             ].map((item) => (
               <div key={item.name} style={{ padding: '1.25rem', background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: 10 }}>
                 <div style={{ fontWeight: 700, color: 'var(--ink)', marginBottom: '0.35rem' }}>{item.name}</div>

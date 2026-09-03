@@ -67,7 +67,7 @@ function loadBlogContent() {
   return map;
 }
 
-const ROUTES = [
+const ROUTE_SEEDS = [
   { path: '/whatsapp-ai-asistan', lang: 'tr', title: 'WhatsApp AI Asistan | MGL Digital Media', description: 'WhatsApp AI asistan ile musteri sorularini 7/24 yanitlayin.', keywords: 'whatsapp ai asistan, whatsapp bot, evolution api, n8n' },
   { path: '/sesli-ai', lang: 'tr', title: 'Sesli AI Telefon Asistani | MGL Digital Media', description: 'Retell AI ile sesli AI telefon asistani. 7/24.', keywords: 'sesli ai, voice ai, retell ai, telefon asistani' },
   { path: '/n8n-otomasyon', lang: 'tr', title: 'n8n Otomasyon Ajansi | MGL Digital Media', description: 'n8n ile is akislarinizi otomatize edin.', keywords: 'n8n otomasyon, workflow, crm entegrasyon' },
@@ -87,13 +87,71 @@ const ROUTES = [
   { path: '/solutions/eticaret', lang: 'tr', title: 'E-ticaret Musteri Hizmetleri ve Sepet Otomasyonu | MGL AI', description: 'E-ticaret firmalari icin WhatsApp destek, siparis sorulari, sepet kurtarma ve CRM otomasyonu.', keywords: 'eticaret otomasyonu, sepet terk otomasyonu, WhatsApp musteri hizmetleri, siparis takip botu' },
   { path: '/solutions/guzellik', lang: 'tr', title: 'Guzellik Salonu Randevu ve Hatirlatma Otomasyonu | MGL AI', description: 'Guzellik salonlari icin 7/24 randevu, WhatsApp yaniti, hatirlatma, yorum ve musteri takip otomasyonu.', keywords: 'guzellik salonu otomasyonu, randevu asistani, WhatsApp randevu botu' },
   { path: '/solutions/restoran', lang: 'tr', title: 'Restoran WhatsApp Rezervasyon Otomasyonu | MGL AI', description: 'Restoran ve kafeler icin rezervasyon, telefon ve WhatsApp yaniti, hatirlatma ve yorum otomasyonu.', keywords: 'restoran rezervasyon otomasyonu, WhatsApp rezervasyon, restoran AI asistani' },
+  { path: '/legal', lang: 'tr', title: 'Gizlilik, Çerezler ve Veri Koruma | MGL', description: 'MGL Digital Media LTD\'nin talepleri, demo verilerini, hesapları, ödemeleri ve çerez tercihlerini nasıl işlediği.', keywords: 'MGL gizlilik, çerez politikası, veri koruma' },
   { path: '/blog', lang: 'tr', title: 'Blog - AI Otomasyon | MGL Digital Media', description: 'AI otomasyon ve dijital pazarlama rehberleri.', keywords: 'ai blog, otomasyon blog, n8n rehber' },
   { path: '/blog/whatsapp-ai-asistan-isletme-otomasyonu-2026', lang: 'tr', title: 'WhatsApp AI Asistan ile Isletme Otomasyonu: 2026 | MGL', description: 'WhatsApp AI asistan nedir, nasil kurulur?', keywords: 'whatsapp ai asistan, evolution api, n8n', ogType: 'article', blogSlug: 'whatsapp-ai-asistan-isletme-otomasyonu-2026' },
   { path: '/blog/n8n-vs-zapier-turkce-rehber', lang: 'tr', title: 'N8N vs Zapier: 2026 Turkce Rehber | MGL', description: 'N8N ve Zapier Turkce karsilastirmasi.', keywords: 'n8n vs zapier, n8n turkce', ogType: 'article', blogSlug: 'n8n-vs-zapier-turkce-rehber' },
   { path: '/blog/sesli-ai-telefon-asistani-rehberi', lang: 'tr', title: 'Sesli AI Telefon Asistani: Tam Rehber (2026) | MGL', description: 'Sesli AI asistan nedir?', keywords: 'sesli ai asistan, retell ai, voice ai', ogType: 'article', blogSlug: 'sesli-ai-telefon-asistani-rehberi' },
   { path: '/blog/kobi-icin-ai-otomasyon-2026', lang: 'tr', title: 'KOBIler icin AI Otomasyon: 2026 Yol Haritasi | MGL', description: 'KOBIler icin AI otomasyona nasil baslanir?', keywords: 'kobi ai otomasyon, yapay zeka kobi', ogType: 'article', blogSlug: 'kobi-icin-ai-otomasyon-2026' },
-  { path: '/blog/how-to-set-up-whatsapp-ai-agent-uk', lang: 'en', title: 'How to Set Up a WhatsApp AI Agent for UK Business | MGL', description: 'WhatsApp AI chatbot for UK SMBs using Evolution API and n8n.', keywords: 'whatsapp ai agent uk, evolution api, n8n uk', ogType: 'article', blogSlug: 'how-to-set-up-whatsapp-ai-agent-uk' },
+  { path: '/blog/how-to-set-up-whatsapp-ai-agent-uk', lang: 'en', title: 'How to Plan a WhatsApp AI Agent for a UK Business | MGL', description: 'A practical guide to connection options, workflows, privacy, testing and measurement for a UK WhatsApp AI assistant.', keywords: 'whatsapp ai agent uk, whatsapp automation planning, n8n uk', ogType: 'article', blogSlug: 'how-to-set-up-whatsapp-ai-agent-uk' },
 ];
+
+const ENGLISH_META = {
+  '/whatsapp-ai-asistan': ['WhatsApp AI Assistant for Business | MGL', 'An AI assistant that answers WhatsApp enquiries, captures customer details and hands suitable conversations to your team.'],
+  '/sesli-ai': ['Voice AI Phone Assistant | MGL', 'A voice AI assistant that answers calls, handles common questions and sends structured call summaries to your team.'],
+  '/n8n-otomasyon': ['n8n Automation Agency | MGL', 'Monitored n8n workflows for documents, reporting, follow-up and data transfer across your business tools.'],
+  '/lead-uretimi': ['B2B Lead Research and Data Workflow | MGL', 'Build verified, deduplicated business prospect lists from relevant public and licensed data sources.'],
+  '/ai-musteri-bulma-mail-takip': ['Managed Lead Research and Email Follow-up | MGL', 'A managed system for prospect research, verified data, relevant email drafts and controlled follow-up.'],
+  '/services': ['AI, Automation, Web and Advertising Services | MGL', 'Clear pricing and scope for AI assistants, n8n automation, websites, SEO and fixed-fee advertising management.'],
+  '/pricing': ['Opportunity Calculator | MGL Digital Media', 'Use your own business figures to estimate the potential monthly value of missed enquiries.'],
+  '/packages': ['Transparent AI, Web and Advertising Pricing | MGL', 'Transparent setup, monthly and usage pricing for AI assistants, automation systems, websites and advertising management.'],
+  '/solutions': ['AI Automation by Business Need | MGL', 'Practical AI and automation systems for clinics, property, e-commerce, beauty and hospitality businesses.'],
+  '/solutions/klinik': ['AI Reception and Enquiry Automation for Clinics | MGL', 'Handle out-of-hours calls and messages, capture appointment requests and pass clinical questions to a human.'],
+  '/solutions/emlak': ['AI Enquiry and Follow-up Automation for Estate Agents | MGL', 'Capture property criteria, viewing requests and call summaries, then pass structured information to the agent.'],
+  '/solutions/eticaret': ['AI Customer Service Automation for E-commerce | MGL', 'Answer product and order questions, route returns and support consent-based basket follow-up.'],
+  '/solutions/guzellik': ['AI Booking and Reminder Automation for Salons | MGL', 'Capture appointment requests, send reminders and notify the team about changes or cancellations.'],
+  '/solutions/restoran': ['AI Reservation Assistant for Restaurants | MGL', 'Handle phone and WhatsApp reservation requests, confirmations, reminders and special notes.'],
+  '/legal': ['Privacy, Cookies and Data Protection | MGL', 'How MGL Digital Media LTD handles enquiries, demos, account data, payments, cookies and your privacy rights.'],
+  '/blog': ['AI and Automation Guides | MGL', 'Practical guides on AI assistants, n8n workflows, WhatsApp automation and digital operations.'],
+  '/n8n-vs-zapier': ['n8n vs Zapier: Practical Comparison | MGL', 'Compare n8n and Zapier by hosting, control, pricing model, maintenance and suitable use cases.'],
+  '/whatsapp-cloud-api-vs-baileys': ['WhatsApp Cloud API vs Baileys and Evolution API | MGL', 'A practical comparison of official WhatsApp Cloud API and device-linked alternatives for business automation.'],
+  '/voiceflow-vs-retell-ai': ['Voiceflow vs Retell AI: Voice Agent Comparison | MGL', 'Compare Voiceflow and Retell AI for phone agents, orchestration, latency, control and business fit.'],
+  '/uk-ai-agencies-comparison': ['How to Compare UK AI Automation Agencies | MGL', 'A transparent framework for comparing UK AI agencies by scope, proof, ownership, support and total cost.'],
+};
+
+const TURKISH_META = {
+  '/pricing': ['Fırsat Hesaplayıcı | MGL Digital Media', 'Kendi işletme verilerinizle kaçırılan taleplerin potansiyel aylık değerini hesaplayın.'],
+  '/packages': ['Şeffaf AI, Web ve Reklam Fiyatları | MGL', 'AI asistan, otomasyon sistemi, web sitesi ve reklam yönetimi için kurulum, aylık ve kullanım fiyatları.'],
+  '/whatsapp-cloud-api-vs-baileys': ['WhatsApp Cloud API ve Baileys Karşılaştırması | MGL', 'İşletme otomasyonu için resmî WhatsApp Cloud API ile cihaz bağlantılı alternatifleri karşılaştırın.'],
+  '/voiceflow-vs-retell-ai': ['Voiceflow ve Retell AI Karşılaştırması | MGL', 'Telefon asistanı projeleri için Voiceflow ve Retell AI platformlarını karşılaştırın.'],
+  '/uk-ai-agencies-comparison': ['UK AI Ajanslarını Karşılaştırma Rehberi | MGL', 'AI ajanslarını kapsam, kanıt, sahiplik, destek ve toplam maliyete göre değerlendirin.'],
+};
+
+const ROUTES = ROUTE_SEEDS.flatMap((seed) => {
+  const isTurkishBlogPost = seed.blogSlug && seed.lang === 'tr';
+  const isEnglishOnly = seed.path === '/accounting-automation-uk' || (seed.blogSlug && seed.lang === 'en');
+  if (isTurkishBlogPost) return [{ ...seed, path: `${seed.path}/`, lang: 'tr' }];
+  if (isEnglishOnly) return [{ ...seed, path: `/en${seed.path}/`, lang: 'en' }];
+
+  const english = ENGLISH_META[seed.path] || [seed.title, seed.description];
+  const turkish = TURKISH_META[seed.path] || [seed.title, seed.description];
+  return [
+    { ...seed, path: `${seed.path}/`, lang: 'tr', title: turkish[0], description: turkish[1], basePath: `${seed.path}/` },
+    { ...seed, path: `/en${seed.path}/`, lang: 'en', title: english[0], description: english[1], basePath: `${seed.path}/` },
+  ];
+});
+
+ROUTES.push({ path: '/en/', basePath: '/', lang: 'en', title: 'MGL Digital Media · AI Assistants, Automation, Web and Ads', description: 'London-based, founder-led AI automation studio for WhatsApp and voice assistants, n8n systems, websites, SEO and advertising.' });
+for (const page of [
+  { path: '/products/', titleTR: 'Güvenli Ödeme | MGL', titleEN: 'Secure Checkout | MGL' },
+  { path: '/success/', titleTR: 'Ödeme Tamamlandı | MGL', titleEN: 'Payment Complete | MGL' },
+  { path: '/cancel/', titleTR: 'Ödeme Tamamlanmadı | MGL', titleEN: 'Payment Not Completed | MGL' },
+]) {
+  ROUTES.push(
+    { path: page.path, basePath: page.path, lang: 'tr', title: page.titleTR, description: 'MGL Digital Media güvenli ödeme işlemi.', noindex: true },
+    { path: `/en${page.path}`, basePath: page.path, lang: 'en', title: page.titleEN, description: 'MGL Digital Media secure checkout.', noindex: true },
+  );
+}
 
 const STATIC_ROUTE_CONTENT = {
   '/whatsapp-ai-asistan': {
@@ -168,16 +226,17 @@ function injectMeta(html, route) {
   const { path, lang = 'tr', title, description, keywords = '', ogType = 'website' } = route;
   const locale = lang === 'en' ? 'en_GB' : 'tr_TR';
   const canonicalUrl = `${SITE_URL}${path}`;
+  const basePath = route.basePath || (lang === 'en' ? path.replace(/^\/en/, '') : path);
+  const trUrl = `${SITE_URL}${basePath}`;
+  const enUrl = `${SITE_URL}${basePath === '/' ? '/en/' : `/en${basePath}`}`;
   let out = html;
   out = out.replace(/<html([^>]*)lang="[^"]*"/, `<html$1lang="${lang}"`);
   out = out.replace(/<title>[^<]*<\/title>/, `<title>${escHtml(title)}</title>`);
   out = replaceMetaContent(out, 'name', 'description', description);
   if (keywords) out = replaceMetaContent(out, 'name', 'keywords', keywords);
   out = out.replace(/<link rel="canonical"[^>]*>/, `<link rel="canonical" href="${canonicalUrl}" />`);
-  out = out.replace(/<link rel="alternate" hreflang="[^"]*" href="[^"]*"[^>]*>/g, m => {
-    if (m.includes('x-default')) return `<link rel="alternate" hreflang="x-default" href="${SITE_URL}/" />`;
-    return `<link rel="alternate" hreflang="${lang === 'en' ? 'en' : 'tr'}" href="${canonicalUrl}" />`;
-  });
+  out = out.replace(/\s*<link rel="alternate" hreflang="[^"]*" href="[^"]*"[^>]*>/g, '');
+  out = out.replace('</head>', `<link rel="alternate" hreflang="tr" href="${trUrl}" />\n<link rel="alternate" hreflang="en-gb" href="${enUrl}" />\n<link rel="alternate" hreflang="x-default" href="${trUrl}" />\n</head>`);
   out = replaceMetaContent(out, 'property', 'og:type', ogType);
   out = replaceMetaContent(out, 'property', 'og:locale', locale);
   out = replaceMetaContent(out, 'property', 'og:locale:alternate', lang === 'en' ? 'tr_TR' : 'en_GB');
@@ -189,6 +248,7 @@ function injectMeta(html, route) {
   out = replaceMetaContent(out, 'name', 'twitter:title', title);
   out = replaceMetaContent(out, 'name', 'twitter:description', description);
   out = replaceMetaContent(out, 'name', 'twitter:image', DEFAULT_OG);
+  if (route.noindex) out = replaceMetaContent(out, 'name', 'robots', 'noindex, nofollow');
   return out;
 }
 
@@ -227,9 +287,10 @@ function accountingStaticContent() {
 }
 
 function injectStaticRouteContent(html, route) {
-  const content = route.path === '/accounting-automation-uk'
+  const normalizedPath = (route.basePath || route.path.replace(/^\/en/, '')).replace(/\/$/, '') || '/';
+  const content = normalizedPath === '/accounting-automation-uk'
     ? accountingStaticContent()
-    : STATIC_ROUTE_CONTENT[route.path];
+    : (route.lang === 'tr' ? STATIC_ROUTE_CONTENT[normalizedPath] : null);
   if (!content) return html;
 
   const bullets = (content.bullets || []).map((item) => `<li>${escHtml(item)}</li>`).join('');
@@ -249,7 +310,7 @@ function injectStaticRouteContent(html, route) {
   let out = html.replace(/\s*<noscript id="ssr-home-content">[\s\S]*?<\/noscript>/, '');
   out = out.replace(/(<body[^>]*>)/, `$1\n${noscriptBlock}`);
 
-  if (route.path === '/accounting-automation-uk') {
+  if (normalizedPath === '/accounting-automation-uk') {
     const data = JSON.parse(readFileSync(ACCOUNTING_CONTENT_FILE, 'utf-8'));
     const schema = {
       '@context': 'https://schema.org',
@@ -301,5 +362,28 @@ for (const route of ROUTES) {
     fail++;
   }
 }
+
+const sitemapEntries = [{ path: '/', basePath: '/', lang: 'tr' }, ...ROUTES.filter((route) => !route.noindex)];
+const sitemapGroups = new Map();
+for (const route of sitemapEntries) {
+  const basePath = route.basePath || (route.lang === 'en' ? route.path.replace(/^\/en/, '') : route.path);
+  const key = basePath === '/' ? '/' : `/${basePath.replace(/^\/+|\/+$/g, '')}/`;
+  const group = sitemapGroups.get(key) || {};
+  group[route.lang] = route.path;
+  sitemapGroups.set(key, group);
+}
+const sitemapXml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml">
+${[...sitemapGroups.entries()].flatMap(([basePath, langs]) => {
+  const alternatives = [
+    langs.tr ? `<xhtml:link rel="alternate" hreflang="tr" href="${SITE_URL}${langs.tr}" />` : '',
+    langs.en ? `<xhtml:link rel="alternate" hreflang="en-gb" href="${SITE_URL}${langs.en}" />` : '',
+    `<xhtml:link rel="alternate" hreflang="x-default" href="${SITE_URL}${langs.tr || langs.en}" />`,
+  ].filter(Boolean).join('');
+  return Object.values(langs).map((path) => `<url><loc>${SITE_URL}${path}</loc><lastmod>2026-09-03</lastmod><changefreq>${basePath === '/' ? 'weekly' : 'monthly'}</changefreq>${alternatives}</url>`);
+}).join('\n')}
+</urlset>\n`;
+writeFileSync(join(DIST, 'sitemap.xml'), sitemapXml, 'utf-8');
+console.log(`Sitemap: ${sitemapEntries.length} localized URLs`);
 console.log(`\nDone: ${ok} OK, ${fail} FAIL\n`);
 if (fail > 0) process.exit(1);

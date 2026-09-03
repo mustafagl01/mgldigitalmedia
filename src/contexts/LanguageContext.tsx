@@ -18,7 +18,7 @@ export const useLanguage = () => {
   return context;
 };
 
-const translations = {
+const translations: Record<Language, Record<string, string>> = {
   tr: {
     // Header
     'header.title': 'MGL Digital AI',
@@ -49,14 +49,14 @@ const translations = {
     'benefits.time.title': 'Zaman Tasarrufu',
     'benefits.time.desc': 'Günde 3-4 saat manuel işten kurtulun',
     'benefits.sales.title': 'Satış Artışı',
-    'benefits.sales.desc': 'Otomatik takip ile %40 daha fazla satış yakalayın',
+    'benefits.sales.desc': 'Zamanında ve düzenli takip fırsat kaybını azaltır',
     'benefits.error.title': 'Hata Azaltma',
-    'benefits.error.desc': 'İnsan hatası sıfıra iner, her şey kusursuz çalışır',
+    'benefits.error.desc': 'Tekrarlı adımlar standartlaşır; istisnalar ekibe aktarılır',
     'benefits.satisfaction.title': 'Müşteri Memnuniyeti',
     'benefits.satisfaction.desc': '7/24 anında yanıt ile mutlu müşteriler yaratın',
 
     // Services Section
-    'services.title': 'Tek Bir Merkez, Sınırsız Yetenek',
+    'services.title': 'Tek Merkez, Net İş Akışları',
     'services.subtitle': 'Stratejiden tasarıma, reklamdan otomasyona, tüm dijital ihtiyaçlarınız için buradayız.',
     'services.ads.title': 'AI Destekli Reklam Yönetimi',
     'services.ads.desc': 'Meta & Google reklam kampanyalarınızı, sürekli öğrenen yapay zeka algoritmalarıyla yöneterek bütçenizi en verimli şekilde kullanıyoruz.',
@@ -149,16 +149,50 @@ const translations = {
     'footer.address': '112 Bertram Road, Enfield, England, EN1 1LS',
     'footer.rights': '© 2024 MGL Digital Media LTD • Tüm Hakları Saklıdır',
 
+    // Store and checkout
+    'products.back': 'Siteye dön',
+    'products.title': 'AI ürünleri ve sistemleri',
+    'products.subtitle': 'İhtiyacınıza uygun ürünü seçin. Ödeme öncesinde kapsamı ve kullanım maliyetini açıkça görürsünüz.',
+    'products.feature.custom': 'İşletmenize göre yapılandırma',
+    'products.feature.setup': 'Kurulum ve canlıya alma desteği',
+    'products.feature.support': 'Teknik destek ve kullanım rehberi',
+    'products.subscribe': 'Aboneliği başlat',
+    'products.buy': 'Satın al',
+    'toast.checkout.error': 'Ödeme başlatılamadı',
+    'toast.checkout.error.desc': 'Ödeme bağlantısı şu an oluşturulamadı. Lütfen tekrar deneyin veya WhatsApp üzerinden bize ulaşın.',
+    'subscription.active': 'Aktif abonelik',
+    'subscription.products': 'Ürünler',
+    'subscription.active.desc': 'Aboneliğiniz aktif ve kullanıma hazır.',
+    'subscription.products.desc': 'Diğer ürün ve kullanım paketlerini inceleyin.',
+    'toast.connection.error': 'Bağlantı kurulamadı',
+    'toast.connection.error.desc': 'Şu an sunucuya ulaşılamıyor. Lütfen kısa süre sonra tekrar deneyin.',
+    'success.title': 'Ödemeniz tamamlandı',
+    'success.subtitle': 'Siparişinizi aldık. Kurulum adımlarını birlikte başlatacağız.',
+    'success.next.title': 'Şimdi ne olacak?',
+    'success.next.contact': '1. Ekibimiz bir iş günü içinde sizinle iletişime geçer.',
+    'success.next.details': '2. İşletme bilgilerinizi ve kullanım senaryonuzu netleştiririz.',
+    'success.next.setup': '3. Sistemi kurup sizinle birlikte test ederiz.',
+    'success.next.training': '4. Kullanım ve kontör yönetimini gösteririz.',
+    'success.back': 'Ana sayfaya dön',
+    'success.whatsapp': 'WhatsApp’tan iletişime geç',
+    'cancel.title': 'Ödeme tamamlanmadı',
+    'cancel.subtitle': 'Kartınızdan ücret alınmadı. Hazır olduğunuzda yeniden deneyebilirsiniz.',
+    'cancel.help.title': 'Yardıma mı ihtiyacınız var?',
+    'cancel.help.desc': 'Ürün, fiyat veya ödeme hakkında sorunuz varsa ekibimiz yardımcı olur.',
+    'cancel.back': 'Ana sayfaya dön',
+    'cancel.retry': 'Tekrar dene',
+    'cancel.support': 'WhatsApp’tan destek al',
+
     // Common
     'common.close': 'Kapat',
     'common.loading': 'Yükleniyor...',
 
     // Sector Insights
     'insights.restaurant.title': 'Restoran & Kafe',
-    'insights.restaurant.stat': '%40 Personel Tasarrufu',
+    'insights.restaurant.stat': 'Daha Az Manuel İş',
     'insights.restaurant.desc': 'Sipariş ve rezervasyon otomasyonu ile garsonlar sadece servise odaklanır.',
     'insights.health.title': 'Klinik & Sağlık',
-    'insights.health.stat': '%100 Randevu Doluluğu',
+    'insights.health.stat': 'Daha Az Kaçan Randevu',
     'insights.health.desc': 'Gelmeyen hastaları (No-show) önleyen hatırlatma sistemi ile ciro kaybı biter.',
     'insights.export.title': 'İhracat & Satış',
     'insights.export.stat': '7/24 Anlık Yanıt',
@@ -198,14 +232,14 @@ const translations = {
     'benefits.time.title': 'Time Savings',
     'benefits.time.desc': 'Get rid of 3-4 hours of manual work per day',
     'benefits.sales.title': 'Sales Increase',
-    'benefits.sales.desc': 'Capture 40% more sales with automatic follow-up',
+    'benefits.sales.desc': 'Timely, consistent follow-up reduces missed opportunities',
     'benefits.error.title': 'Error Reduction',
-    'benefits.error.desc': 'Human error drops to zero, everything works perfectly',
+    'benefits.error.desc': 'Repeatable steps are standardised and exceptions reach your team',
     'benefits.satisfaction.title': 'Customer Satisfaction',
     'benefits.satisfaction.desc': 'Create happy customers with 24/7 instant response',
 
     // Services Section
-    'services.title': 'One Center, Unlimited Capability',
+    'services.title': 'One Partner, Clear Workflows',
     'services.subtitle': 'From strategy to design, from advertising to automation, we are here for all your digital needs.',
     'services.ads.title': 'AI-Powered Advertising Management',
     'services.ads.desc': 'We manage your Meta & Google ad campaigns with continuously learning artificial intelligence algorithms, using your budget most efficiently.',
@@ -298,6 +332,40 @@ const translations = {
     'footer.address': '112 Bertram Road, Enfield, England, EN1 1LS',
     'footer.rights': '© 2024 MGL Digital Media LTD • All Rights Reserved',
 
+    // Store and checkout
+    'products.back': 'Back to site',
+    'products.title': 'AI products and systems',
+    'products.subtitle': 'Choose the right product for your business. Scope and usage costs are shown clearly before payment.',
+    'products.feature.custom': 'Configured for your business',
+    'products.feature.setup': 'Setup and go-live support',
+    'products.feature.support': 'Technical support and usage guidance',
+    'products.subscribe': 'Start subscription',
+    'products.buy': 'Buy now',
+    'toast.checkout.error': 'Checkout could not start',
+    'toast.checkout.error.desc': 'We could not create a payment link. Please try again or contact us on WhatsApp.',
+    'subscription.active': 'Active subscription',
+    'subscription.products': 'Products',
+    'subscription.active.desc': 'Your subscription is active and ready to use.',
+    'subscription.products.desc': 'View other products and usage packages.',
+    'toast.connection.error': 'Connection failed',
+    'toast.connection.error.desc': 'The server is unavailable right now. Please try again shortly.',
+    'success.title': 'Payment complete',
+    'success.subtitle': 'We have received your order and will start the setup with you.',
+    'success.next.title': 'What happens next?',
+    'success.next.contact': '1. Our team contacts you within one business day.',
+    'success.next.details': '2. We confirm your business details and use case.',
+    'success.next.setup': '3. We configure the system and test it with you.',
+    'success.next.training': '4. We show you how to use the system and manage credits.',
+    'success.back': 'Back to home',
+    'success.whatsapp': 'Contact us on WhatsApp',
+    'cancel.title': 'Payment not completed',
+    'cancel.subtitle': 'You have not been charged. You can try again whenever you are ready.',
+    'cancel.help.title': 'Need help?',
+    'cancel.help.desc': 'Our team can answer questions about the product, pricing or payment.',
+    'cancel.back': 'Back to home',
+    'cancel.retry': 'Try again',
+    'cancel.support': 'Get help on WhatsApp',
+
     // Common
     'common.close': 'Close',
     'common.loading': 'Loading...',
@@ -323,6 +391,7 @@ const LANG_STORAGE_KEY = 'mgl-language';
 
 export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [language, setLanguageState] = useState<Language>(() => {
+    if (typeof window !== 'undefined' && (window.location.pathname === '/en' || window.location.pathname.startsWith('/en/'))) return 'en';
     const stored = typeof window !== 'undefined' ? window.localStorage.getItem(LANG_STORAGE_KEY) : null;
     if (stored === 'tr' || stored === 'en') return stored;
 
@@ -341,7 +410,59 @@ export const LanguageProvider: React.FC<{ children: React.ReactNode }> = ({ chil
     } catch {
       /* ignore storage errors */
     }
+    const current = window.location.pathname;
+    const withoutEnglishPrefix = current.replace(/^\/en(?=\/|$)/, '') || '/';
+    const nextPath = lang === 'en'
+      ? `/en${withoutEnglishPrefix === '/' ? '/' : withoutEnglishPrefix}`
+      : withoutEnglishPrefix;
+    const nextUrl = `${nextPath}${window.location.search}${window.location.hash}`;
+    if (`${window.location.pathname}${window.location.search}${window.location.hash}` !== nextUrl) {
+      window.history.pushState({}, '', nextUrl);
+      window.dispatchEvent(new PopStateEvent('popstate'));
+    }
   };
+
+  React.useEffect(() => {
+    const languageFromPath = () => (window.location.pathname === '/en' || window.location.pathname.startsWith('/en/')) ? 'en' : 'tr';
+    const onPopState = () => {
+      const next = languageFromPath();
+      setLanguageState(next);
+      try { window.localStorage.setItem(LANG_STORAGE_KEY, next); } catch { /* ignore storage errors */ }
+    };
+
+    // A saved English preference should also have an indexable English URL.
+    if (language === 'en' && languageFromPath() !== 'en') {
+      const next = `/en${window.location.pathname === '/' ? '/' : window.location.pathname}${window.location.search}${window.location.hash}`;
+      window.history.replaceState({}, '', next);
+      window.dispatchEvent(new PopStateEvent('popstate'));
+    }
+
+    window.addEventListener('popstate', onPopState);
+    return () => window.removeEventListener('popstate', onPopState);
+    // This runs once to install URL-driven language behaviour.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  React.useEffect(() => {
+    const onClick = (event: MouseEvent) => {
+      if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+      const target = event.target as Element | null;
+      const anchor = target?.closest('a[href]') as HTMLAnchorElement | null;
+      if (!anchor || anchor.target || anchor.hasAttribute('download')) return;
+      const url = new URL(anchor.href, window.location.href);
+      if (url.origin !== window.location.origin) return;
+
+      const plainPath = url.pathname.replace(/^\/en(?=\/|$)/, '') || '/';
+      url.pathname = language === 'en' ? `/en${plainPath === '/' ? '/' : plainPath}` : plainPath;
+      event.preventDefault();
+      window.history.pushState({}, '', `${url.pathname}${url.search}${url.hash}`);
+      window.dispatchEvent(new PopStateEvent('popstate'));
+      if (url.hash) requestAnimationFrame(() => document.querySelector(url.hash)?.scrollIntoView());
+      else window.scrollTo({ top: 0, behavior: 'instant' as ScrollBehavior });
+    };
+    document.addEventListener('click', onClick);
+    return () => document.removeEventListener('click', onClick);
+  }, [language]);
 
   const t = (key: string): string => {
     return translations[language][key] || key;

@@ -84,7 +84,7 @@ Haftalık satış raporu otomatik hazırlanıp Slack/Telegram'a gönderilebilir.
 - **Make (eski Integromat):** Görsel olarak daha sezgisel, orta bütçe
 
 ### WhatsApp
-- **Evolution API:** Self-hosted, sınırsız mesaj, Türkiye'deki standart
+- **Evolution API:** Uygun projelerde kullanılabilen self-hosted, resmî olmayan bağlantı seçeneği
 - **WaAPI:** Cloud tabanlı, kurulumu daha kolay, biraz daha pahalı
 - **Meta Business API:** Büyük hacimler ve kurumsal gereksinimler için
 

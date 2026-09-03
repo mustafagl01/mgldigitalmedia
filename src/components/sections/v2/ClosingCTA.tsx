@@ -1,5 +1,4 @@
 import { useLanguage } from '../../../contexts/LanguageContext';
-import { GoogleCalendarButton } from '../../site/GoogleCalendarButton';
 
 interface Props {
   onAnalysisClick: () => void;
@@ -47,36 +46,32 @@ export function ClosingCTA({ onAnalysisClick }: Props) {
         >
           {language === 'tr' ? (
             <>
-              Bir telefon araması.{' '}
+              15 dakikada{' '}
               <span style={{ fontStyle: 'italic', color: 'var(--fg-2)', fontWeight: 500 }}>
-                On beş dakika.
-              </span>
-              <br />
-              İşleyişiniz bir daha asla aynı olmayabilir.
+                nerede talep kaçırdığınızı
+              </span>{' '}
+              birlikte çıkaralım.
             </>
           ) : (
             <>
-              One phone call.{' '}
+              In 15 minutes, let’s map{' '}
               <span style={{ fontStyle: 'italic', color: 'var(--fg-2)', fontWeight: 500 }}>
-                Fifteen minutes.
+                where enquiries are being lost.
               </span>
-              <br />
-              Your operations may never feel the same.
             </>
           )}
         </h2>
 
         <p style={{ color: 'var(--fg-2)', fontSize: '1.125rem', lineHeight: 1.55, maxWidth: 620 }}>
           {language === 'tr'
-            ? 'Hiçbir kart, hiçbir taahhüt. 15 dakikada; nerede zaman kaybettiğinizi, gelir sızdıran noktalarınızı ve birkaç asistanın neyi değiştireceğini konuşuruz.'
-            : 'No card, no commitment. In 15 minutes we map where time is lost, where revenue leaks, and what a couple of assistants would change.'}
+            ? 'Kart bilgisi ve taahhüt istemiyoruz. Mevcut akışınızı dinler, otomasyonun gerçekten yararlı olacağı bir sonraki adımı söyleriz.'
+            : 'No card and no commitment. We listen to your current process and identify the next step where automation would genuinely help.'}
         </p>
 
         <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 16, marginTop: 8 }}>
-          <GoogleCalendarButton
-            label={language === 'tr' ? 'Ücretsiz analiz al' : 'Book the free audit'}
-            color="#C0392B"
-          />
+          <button type="button" onClick={onAnalysisClick} className="btn btn-primary btn-lg">
+            {language === 'tr' ? 'Ücretsiz analiz alın' : 'Book the free audit'}
+          </button>
           <button onClick={handleWhatsApp} className="btn btn-ghost btn-lg">
             WhatsApp
           </button>

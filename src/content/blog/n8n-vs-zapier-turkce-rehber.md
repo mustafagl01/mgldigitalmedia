@@ -20,7 +20,7 @@ faqs:
     answer: "5'ten az entegrasyona ihtiyacı olan, teknik destek kaynaklarına sahip olmayan küçük işletmeler için Zapier'ın başlangıç kolaylığı avantajlıdır. Ancak büyüyüp 10+ entegrasyon ve yüksek hacimli işlem yapılacaksa n8n self-hosted çok daha maliyet-etkin olur."
 ---
 
-**TL;DR:** N8N self-hosted, aylık $0 + sunucu maliyeti (€15-30) ile sınırsız workflow ve görev sunar. Zapier ise daha kolay başlangıç sağlar ama yüksek hacimde maliyeti hızla artar. Türkiye'deki KOBİ'ler için teknik ekibi olan şirketlere n8n, hız arayan startup'lara Zapier daha uygun — ancak orta vadede n8n neredeyse her zaman kazanır.
+**TL;DR:** Self-hosted n8n lisans ve çalışma modelini kendi altyapınızda yönetmenizi sağlar; sunucu, bakım ve operasyon maliyeti size aittir. Zapier daha hızlı bir başlangıç sunabilir ve kullanımı plana bağlı görev kotalarıyla fiyatlandırır. Doğru seçim yalnızca etiket fiyatına değil hacim, ekip yetkinliği, bakım ve veri gereksinimine bağlıdır.
 
 ---
 
@@ -39,13 +39,13 @@ Zapier, 2011'de San Francisco'da kurulan pazar lideri bir SaaS otomasyon aracıd
 | Özellik | N8N (Self-Hosted) | N8N Cloud | Zapier Free | Zapier Starter |
 |---------|-------------------|-----------|-------------|----------------|
 | Aylık maliyet | €15-30 (sunucu) | $24 | $0 | $29.99 |
-| Görev/çalıştırma limiti | Sınırsız | 2.500/ay | 100/ay | 750/ay |
+| Görev/çalıştırma kapasitesi | Sunucu ve akış tasarımına bağlı | Seçilen plana bağlı | Seçilen plana bağlı | Seçilen plana bağlı |
 | Entegrasyon sayısı | 400+ | 400+ | 7.000+ | 7.000+ |
 | Webhook desteği | ✅ Tam | ✅ Tam | ✅ Kısıtlı | ✅ |
 | Kod blokları | ✅ JS/Python | ✅ JS/Python | ❌ | ❌ |
 | Koşullu mantık | ✅ Gelişmiş | ✅ Gelişmiş | Temel | Temel |
 | Veri saklama (KVKK) | ✅ Kendi sunucunuzda | ❌ Cloud | ❌ ABD | ❌ ABD |
-| Multi-step flow | ✅ Sınırsız | ✅ Sınırsız | ❌ (2 adım) | ✅ |
+| Multi-step flow | ✅ Destekler | ✅ Destekler | Plana bağlı | Plana bağlı |
 | Türkçe arayüz | ❌ | ❌ | ❌ | ❌ |
 
 ## Maliyet Karşılaştırması (Aylık, Gerçekçi KOBİ Senaryosu)

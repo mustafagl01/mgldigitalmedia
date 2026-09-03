@@ -159,8 +159,8 @@ export function DemoSection({ onEmailDemo, onPhoneDemo }: Props) {
               </div>
               <p style={{ marginTop: 12, color: 'var(--fg-2)', fontSize: 14, lineHeight: 1.55 }}>
                 {language === 'tr'
-                  ? 'Numaranızı girin, asistan sizi arasın. Sorularınızı cevaplar, fiyat söyler, talebinizi bize iletir.'
-                  : 'Enter your number and get called back. The agent books, quotes, and schedules callbacks.'}
+                  ? 'Numaranızı girin, asistan sizi arasın. Sorularınızı yanıtlar ve talebinizi ekibimize iletir.'
+                  : 'Enter your number and get called back. The agent answers questions and passes your request to our team.'}
               </p>
             </div>
           </button>

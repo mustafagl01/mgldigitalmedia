@@ -32,8 +32,8 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
-// API base URL - change this to your Cloudflare Worker URL
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://your-worker.your-subdomain.workers.dev'
+// Auth and checkout live in the separately deployed Cloudflare Worker.
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://mgl-digital-media-auth.mustafagl01.workers.dev'
 
 export const useAuth = () => {
   const context = useContext(AuthContext)

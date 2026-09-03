@@ -261,16 +261,16 @@ const SECTORS: Sector[] = [
       {
         id: 'ec-cart',
         problem: {
-          tr: 'Sepete ürün eklenir ama %70+ oranında ödeme yapılmadan çıkılır; kurtarma mesajı atılmaz.',
-          en: '70%+ of shoppers add to cart but leave before checkout; no recovery message goes out.',
+          tr: 'Sepete ürün eklenir ancak ödeme tamamlanmaz; izinli takip akışı ve sonuç ölçümü kurulmamıştır.',
+          en: 'A product is added but payment is not completed; there is no consented follow-up flow or outcome tracking.',
         },
         solution: {
           tr: 'WhatsApp sepet kurtarma zinciri: 30 dk sonra hatırlatma, 24 sa sonra kişisel indirim kodu, 72 sa sonra son fırsat mesajı.',
           en: 'WhatsApp cart-recovery chain: 30-min reminder, 24-hour personal discount, 72-hour final-chance message.',
         },
         value: {
-          tr: 'Terkedilen sepetlerin bir kısmı ciroya döner; ortalama sepet değerine göre aylık 6-7 haneli kurtarma potansiyeli açılır.',
-          en: 'A share of abandoned carts returns to revenue; depending on basket size, monthly recovery opens into 6-7 figures.',
+          tr: 'Takip sonucu ölçülür; geri kazanılan siparişler ve mesajdan vazgeçme oranı birlikte raporlanır.',
+          en: 'Follow-up outcomes are measured, reporting recovered orders alongside opt-outs and unresolved conversations.',
         },
         linkedSkus: [
           { label: 'WhatsApp AI Bot', anchor: 'whatsapp-bot' },
@@ -504,12 +504,12 @@ const SECTORS: Sector[] = [
           en: 'New customers search Google and pick a competitor because review count is low.',
         },
         solution: {
-          tr: 'Hesap kapatıldıktan sonra masa QR\'ından otomatik "5 yıldız" mesajı; tek tık Google yorum sayfasına yönlendirir.',
-          en: 'After the bill, a table-QR sends an auto "rate us" prompt; one tap opens the Google review page.',
+          tr: 'İzin veren misafire hesap sonrası tarafsız yorum isteği gider; tek tıkla Google yorum sayfası açılır.',
+          en: 'Guests who opt in receive a neutral review request after payment; one tap opens the Google review page.',
         },
         value: {
-          tr: 'Yıldız ortalaması ve yorum hacmi artar; "yakındaki restoran" aramasında öne çıkar.',
-          en: 'Average star rating and review count grow; visibility on "restaurants near me" rises.',
+          tr: 'Yorum isteme süreci düzenli çalışır; sonuçlar Google Business Profile üzerinden ölçülür.',
+          en: 'Review requests run consistently and outcomes are measured in Google Business Profile.',
         },
         linkedSkus: [
           { label: 'n8n Otomasyon', anchor: 'n8n-automation' },
@@ -674,12 +674,12 @@ const FAQS: Array<{ q: { tr: string; en: string }; a: { tr: string; en: string }
   },
   {
     q: {
-      tr: 'İlk ay risk modeli her akış için aynı mı?',
-      en: 'Is the first-month risk model the same for every workflow?',
+      tr: 'Fiyat ve kapsam nasıl netleşiyor?',
+      en: 'How are price and scope confirmed?',
     },
     a: {
-      tr: 'Değişken maliyet düşük hizmetlerde (WhatsApp asistanı, n8n, SEO, analitik) ilk ay ajans ücreti yok — kurulum + 30 gün gerçek trafik bizden. Sesli asistan ve içerik üretimi gibi değişken maliyetli hizmetlerde ilk ay %50 pilot fiyat; reklam yönetiminde ilk ay yönetim ücreti %50 ve reklam harcaması pass-through.',
-      en: 'Low-variable-cost services (WhatsApp agent, n8n, SEO, analytics) have zero agency fee in month one — setup + 30 days of real traffic on us. Variable-cost services (voice, content) run at 50% pilot pricing in the first month; ad management at 50% first-month fee with ad spend pass-through.',
+      tr: 'İhtiyaçları keşif görüşmesinde netleştirir; kurulum, aylık bakım, kullanım ve harici sağlayıcı giderlerini teklif üzerinde ayrı ayrı gösteririz. Reklam bütçesi doğrudan platforma ödenir. Yazılı teklif onaylanmadan ücretli çalışma başlamaz.',
+      en: 'We confirm requirements during discovery and show setup, monthly maintenance, usage and third-party costs separately in the proposal. Ad spend is paid directly to the platform. Paid work starts only after written approval.',
     },
   },
   {
@@ -698,8 +698,8 @@ const FAQS: Array<{ q: { tr: string; en: string }; a: { tr: string; en: string }
       en: 'Which languages do you support?',
     },
     a: {
-      tr: 'WhatsApp ve e-posta asistanları GPT-4o üzerinde 30+ dilde doğal yanıt üretir — Türkçe, İngilizce, Almanca, Fransızca, İspanyolca, Arapça, Rusça dahil. Sesli asistan Türkçe doğal ses + çok dilli aksansız seçeneklerle gelir. Müşteri hangi dilde yazarsa sistem o dilde yanıtlar.',
-      en: 'WhatsApp and email assistants run on GPT-4o and reply naturally in 30+ languages — Turkish, English, German, French, Spanish, Arabic, Russian, and more. The voice agent ships with natural Turkish plus neutral-accent options across major languages. Customers get answered in whatever language they write in.',
+      tr: 'Standart teslimatımız Türkçe ve İngilizcedir. Başka bir dil gerekiyorsa model, ses, bilgi tabanı ve kalite testi ihtiyacını proje kapsamında ayrıca doğrularız.',
+      en: 'Our standard delivery supports Turkish and English. For any additional language, we validate model, voice, knowledge-base and quality-testing requirements within the project scope.',
     },
   },
   {

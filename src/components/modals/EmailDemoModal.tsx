@@ -78,11 +78,14 @@ export const EmailDemoModal: React.FC<EmailDemoModalProps> = ({ isOpen, onClose 
     const webhookUrl = 'https://nt3ys1ml.rpcd.host/webhook/b258d591-af79-4580-9e8c-3c661256359b';
 
     try {
-      await fetch(webhookUrl, {
+      const response = await fetch(webhookUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
       });
+      if (!response.ok) {
+        throw new Error(`Email demo workflow returned ${response.status}`);
+      }
       setIsSubmitted(true);
       toast({
         title: isEN ? 'Request sent.' : 'İstek gönderildi.',
@@ -303,8 +306,9 @@ export const EmailDemoModal: React.FC<EmailDemoModalProps> = ({ isOpen, onClose 
                   }}
                 >
                   {isEN
-                    ? 'We only use your address for this demo · Unsubscribe in one click.'
-                    : 'Adresiniz yalnızca bu demo için kullanılır · Tek tık ile çıkabilirsiniz.'}
+                    ? 'We only use your address for this requested demo · Unsubscribe in one click.'
+                    : 'Adresiniz yalnızca talep ettiğiniz bu demo için kullanılır · Tek tık ile çıkabilirsiniz.'}{' '}
+                  <a href={isEN ? '/en/legal' : '/legal'} style={{ color: 'var(--ember)' }}>{isEN ? 'Privacy' : 'Gizlilik'}</a>
                 </p>
               </form>
             ) : (

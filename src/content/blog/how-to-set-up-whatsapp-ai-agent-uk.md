@@ -1,5 +1,5 @@
 ---
-title: "How to Set Up a WhatsApp AI Agent for Your UK Business in 30 Minutes"
+title: "How to Plan a WhatsApp AI Agent for Your UK Business"
 description: "Step-by-step guide to deploying a WhatsApp AI chatbot for UK SMBs using Evolution API and n8n. No coding required."
 date: "2026-04-28"
 language: "en"
@@ -9,9 +9,9 @@ faqs:
   - question: "Is WhatsApp AI automation legal in the UK?"
     answer: "Yes, with proper GDPR compliance. You must inform users they are communicating with an automated system, obtain consent for data processing, and provide a way to opt out. The ICO (Information Commissioner's Office) guidance on AI and automated processing should be followed."
   - question: "What is Evolution API and why use it instead of WhatsApp Business API?"
-    answer: "Evolution API is an open-source, self-hosted WhatsApp layer built on Baileys. Unlike Meta's official WhatsApp Business API, it has no per-message fees, no approval process, and can be deployed in hours. For UK SMBs processing hundreds of messages monthly, it's typically 5-10x more cost-effective."
+    answer: "Evolution API is an open-source, self-hosted and unofficial WhatsApp connection built on Baileys. Meta Cloud API is the official route and supports approved templates and enterprise controls. The choice depends on account risk, support, messaging type and operating requirements."
   - question: "How many messages can a WhatsApp AI agent handle simultaneously?"
-    answer: "A properly configured Evolution API + n8n setup handles virtually unlimited concurrent conversations. The practical limit is your LLM API rate limit (GPT-4o: 10,000 requests/min on Tier 3), which far exceeds any SMB's messaging volume."
+    answer: "Capacity depends on the connection, server resources, workflow design and model-provider limits. Load-test the complete system against your expected peak before launch and keep a human fallback."
   - question: "Can the AI agent book appointments into my calendar?"
     answer: "Yes. n8n integrates with Google Calendar, Calendly, Acuity Scheduling, and most UK booking platforms. When a customer requests an appointment, the agent checks availability in real-time and creates the booking directly."
   - question: "What happens if the AI doesn't know the answer?"
@@ -20,7 +20,7 @@ faqs:
     answer: "Book a free 15-minute audit at mgl-ai.com/whatsapp-ai-asistan. We'll assess your current setup, identify the highest-impact automation opportunities, and walk you through what a WhatsApp AI agent would look like for your specific business."
 ---
 
-**TL;DR:** A WhatsApp AI agent answers your business messages 24/7, books appointments, handles FAQs, and qualifies leads — all without human involvement. Using Evolution API + n8n, a functional agent can be live within 30 minutes for testing (full production setup takes 2-5 days). No coding required if you use a visual workflow builder.
+**TL;DR:** A WhatsApp AI agent can answer common questions, capture booking requests and qualify enquiries around the clock, then hand uncertain cases to a person. A prototype may be quick, but a production launch needs connection setup, privacy controls, testing and monitoring; a managed basic build typically takes 3–7 business days.
 
 ---
 
@@ -31,9 +31,9 @@ WhatsApp has 2+ billion users globally and over 30 million active UK users. For 
 The problem: most SMBs respond to WhatsApp messages like they responded to emails in 2005 — manually, during office hours, with inconsistent quality. A WhatsApp AI agent solves this.
 
 **What changes with an AI agent:**
-- Messages answered in under 3 seconds, 24/7
-- Consistent, accurate responses every time
-- Appointment booked without involving staff
+- Fast first responses, including outside office hours
+- Responses grounded in an approved knowledge base
+- Appointment requests captured or booked when calendar rules allow
 - Lead details captured and synced to CRM automatically
 - Staff freed from repetitive triage work
 
@@ -171,17 +171,17 @@ Before going live, ensure you have:
 
 **4. Right to opt out:** Include in your welcome message or FAQ: "To stop receiving messages from our AI assistant, reply STOP."
 
-## What Results to Expect
+## What to Measure
 
-Based on typical UK SMB deployments:
+Results vary by business, traffic, knowledge-base quality and handoff design. Establish a baseline before launch, then measure:
 
-| Metric | Before AI Agent | After AI Agent |
-|--------|----------------|----------------|
-| Response time | 4-8 hours average | Under 3 seconds |
-| Messages handled without staff | 0% | 65-80% |
-| After-hours enquiries converted | 10-15% | 50-60% |
-| Staff time on WhatsApp/week | 8-12 hours | 2-3 hours |
-| Appointment no-shows (with reminders) | 20-25% | 8-12% |
+| Measure | Before launch | After launch |
+|--------|---------------|--------------|
+| First-response time | Record your actual median | Compare the actual median |
+| Enquiries resolved without staff | Record the current share | Track containment and false-resolution rate |
+| After-hours enquiries progressed | Record the current share | Track qualified handoffs or bookings |
+| Staff time on WhatsApp | Record weekly time | Compare like-for-like weeks |
+| Appointment attendance | Record the baseline | Compare after reminder automation |
 
 ## Getting Professional Help
 
@@ -189,7 +189,7 @@ Setting this up yourself takes 1-3 days if you're comfortable with servers and A
 
 MGL Digital Media sets up WhatsApp AI agents for UK businesses with no setup fee: a £9.90/month system fee (hosting, maintenance and updates included) plus 0.7p per AI reply, lower with a bundle.
 
-Our stack: Evolution API + n8n + GPT-4o, hosted in EU for GDPR compliance.
+The connection method, workflow engine, model provider and hosting region should be selected and documented for each project's security, privacy and operational requirements.
 
 [Book a free 15-minute strategy call → /whatsapp-ai-asistan](/whatsapp-ai-asistan)
 

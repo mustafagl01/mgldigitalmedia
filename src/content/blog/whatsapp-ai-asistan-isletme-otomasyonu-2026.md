@@ -9,7 +9,7 @@ faqs:
   - question: "WhatsApp AI asistan kurmak ne kadar sürer?"
     answer: "Evolution API + n8n altyapısıyla temel bir WhatsApp AI asistan 3-7 iş günü içinde devreye alınabilir. Sektöre özel bilgi tabanı ve CRM entegrasyonu eklenirse süre 2-3 haftaya uzayabilir."
   - question: "WhatsApp Business API ile Evolution API arasındaki fark nedir?"
-    answer: "WhatsApp Business API, Meta'nın resmi bulut çözümüdür; mesaj başına ücret alır ve onay süreci gerektirir. Evolution API ise açık kaynaklı, self-hosted bir Baileys uygulamasıdır; sabit maliyetle sınırsız mesaj gönderir ve kurulum süreciniz daha hızlıdır."
+    answer: "WhatsApp Cloud API, Meta'nın resmî çözümüdür ve resmî şablonlar ile kurumsal kontroller sunar. Evolution API ise Baileys tabanlı, self-hosted ve resmî olmayan bir bağlantı seçeneğidir. Uygun seçim; risk, destek, mesaj türü ve operasyon ihtiyacına göre yapılmalıdır."
   - question: "AI asistan gerçekten doğal konuşma yapabiliyor mu?"
     answer: "Evet. n8n workflow'ları ile GPT-4o veya benzeri LLM'lere bağlanıldığında asistan; soru anlama, bağlam tutma, çok adımlı konuşma ve Türkçe/İngilizce geçişleri yapabilir. Belirli sorular için önceden hazırlanmış yanıtlar da eklenebilir."
   - question: "Müşteriler bot olduğunu anlıyor mu?"
@@ -20,7 +20,7 @@ faqs:
     answer: "Temel kurulum: sunucu maliyeti ~€15-30/ay + n8n cloud veya self-hosted. MGL olarak kurulum ücreti almıyoruz: aylık 649 TRY/£9,90 sistem bedeli ve yanıt başına 0,45 TRY/0,7p kullanım. Detaylar için /whatsapp-ai-asistan sayfasını ziyaret edin."
 ---
 
-**TL;DR:** WhatsApp AI asistan, işletmenizin gelen WhatsApp mesajlarını 7/24 otomatik olarak karşılayan, yanıtlayan ve yönlendiren bir yazılım sistemidir. Evolution API + n8n + LLM üçlüsüyle kurulur; aylık sabit maliyetle sınırsız mesaj işler. Randevu alma, SSS yanıtlama, lead kalifikasyonu ve CRM entegrasyonu tek sistemde çalışır.
+**TL;DR:** WhatsApp AI asistan, işletmenizin gelen mesajlarını karşılayan, sık sorulan soruları yanıtlayan ve gerektiğinde ekibe yönlendiren bir yazılım sistemidir. Bağlantı katmanı, n8n ve bir dil modeliyle kurulur; kapasite ve kullanım maliyeti seçilen kanala ve altyapıya göre değişir. Randevu talebi, lead kalifikasyonu ve CRM entegrasyonu aynı akışta birleştirilebilir.
 
 ---
 
@@ -62,7 +62,7 @@ Bu iki çözüm arasındaki farkı anlamak önemlidir çünkü maliyet ve özell
 | Onay süreci | Gerekmez | Meta onayı gerekir (2-4 hafta) |
 | Kurulum süresi | 1-3 gün | 2-4 hafta |
 | Özelleştirme | Tam kontrol | Meta sınırlamaları |
-| Ölçekleme | Sınırsız | Ücret artışı ile ölçeklenir |
+| Ölçekleme | Sunucu ve bağlantı kapasitesine bağlı | Meta hesap ve mesajlaşma kurallarına bağlı |
 | Uygun kime | KOBİ'ler, ajanslar | Büyük kurumsal şirketler |
 
 MGL Digital Media olarak biz **Evolution API + n8n** kombinasyonunu tercih ediyoruz. Bu yaklaşım KOBİ bütçelerine uygun, özelleştirmeye açık ve kurulumu hızlıdır.
@@ -145,7 +145,7 @@ Potansiyel alıcı Avrupa'dan "Beşiktaş'ta 2+1 daireniz var mı?" diye sorar. 
 
 WhatsApp AI asistan, 2026'da Türkiye ve UK'deki KOBİ'ler için en yüksek ROI sağlayan dijital yatırım kategorisindedir. Sabit altyapı maliyetiyle 7/24 çalışan bir sisteme sahip olmak; hem müşteri memnuniyetini artırır hem personel yükünü azaltır hem de kaçan fırsatları sıfıra indirir.
 
-Evolution API + n8n kombinasyonu, Meta'nın Business API'sinden 5-10x daha uygun maliyetle aynı işlevselliği sunar ve KOBİ'ler için tercih edilen standart haline gelmiştir.
+Evolution API + n8n kombinasyonu bazı düşük riskli ve kontrollü senaryolarda daha ekonomik olabilir. Ancak resmî destek, şablon mesajlar, hesap güvenliği ve ölçek gerektiren kullanımlarda Meta Cloud API/BSP daha doğru seçim olabilir; iki rota aynı risk profiline sahip değildir.
 
 Kendi işletmeniz için ne tür bir asistan kurabileceğinizi öğrenmek isterseniz: [ücretsiz 15 dakikalık analiz randevusu alın](/whatsapp-ai-asistan).
 

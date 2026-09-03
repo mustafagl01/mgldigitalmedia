@@ -51,13 +51,13 @@ export const SOLUTIONS: Record<SectorKey, SectorContent> = {
       en: 'Is your clinic missing calls every day?',
     },
     heroAnswer: {
-      tr: 'Klinikler ortalama %35 çağrı kaçırır; kaçan her çağrı yaklaşık 2.500 TL değerinde bir randevu kaybıdır. MGL AI kurduğu sistem 7/24 çağrıyı ve WhatsApp mesajını karşılar, randevuyu takvime yazar, hastaya hatırlatma gönderir.',
-      en: 'Clinics miss around 35% of inbound calls on average; each missed call is roughly a 2,500 TL appointment lost. MGL AI builds a system that answers calls and WhatsApp messages 24/7, writes bookings to your calendar and sends reminders automatically.',
+      tr: 'Cevapsız çağrılar ve geç yanıtlanan mesajlar randevu fırsatını kaçırabilir. MGL AI; telefon ve WhatsApp taleplerini karşılayan, uygun randevuyu takvime yazan ve hatırlatma gönderen bir akış kurar.',
+      en: 'Unanswered calls and slow replies can lose appointment opportunities. MGL AI builds a flow that handles phone and WhatsApp enquiries, adds suitable bookings to the calendar and sends reminders.',
     },
     heroStats: [
       {
-        label: { tr: 'Çağrı kaçış ortalaması', en: 'Average missed-call rate' },
-        value: { tr: '%35', en: '35%' },
+        label: { tr: 'Kaçan çağrı takibi', en: 'Missed-call tracking' },
+        value: { tr: 'ölçülür', en: 'measured' },
       },
       {
         label: { tr: 'AI resepsiyonist', en: 'AI receptionist' },
@@ -74,21 +74,21 @@ export const SOLUTIONS: Record<SectorKey, SectorContent> = {
           tr: 'Mesai dışı gelen 10+ randevu isteği ertesi sabaha unutulur.',
           en: '10+ after-hours booking requests are forgotten by morning.',
         },
-        cost: { tr: '~45.000 TL/ay tahmini kayıp', en: '~45,000 TL/month est. loss' },
+        cost: { tr: 'ölçülmeyen randevu fırsatı', en: 'unmeasured booking opportunity' },
       },
       {
         pain: {
           tr: 'Sekreter öğle arasında veya tuvalet molasında 3-4 çağrıyı açamaz.',
           en: 'The receptionist misses 3-4 calls during lunch or breaks.',
         },
-        cost: { tr: '~25.000 TL/ay tahmini kayıp', en: '~25,000 TL/month est. loss' },
+        cost: { tr: 'cevapsız çağrı ve geciken dönüş', en: 'unanswered calls and delayed follow-up' },
       },
       {
         pain: {
-          tr: 'No-show (gelmeyen hasta) oranı %20 seyreder; boş koltuk saati ciroyu yer.',
-          en: 'No-show rate hovers at 20%; empty-chair hours eat revenue.',
+          tr: 'Hatırlatılmayan randevularda katılım riski görünmez kalır; boş saat son anda doldurulamaz.',
+          en: 'Without reminders, attendance risk stays hidden and an empty slot cannot be refilled in time.',
         },
-        cost: { tr: '~60.000 TL/ay tahmini kayıp', en: '~60,000 TL/month est. loss' },
+        cost: { tr: 'boş saat ve kapasite kaybı', en: 'empty slots and lost capacity' },
       },
       {
         pain: {
@@ -235,8 +235,8 @@ export const SOLUTIONS: Record<SectorKey, SectorContent> = {
       {
         q: { tr: 'Pilot imkanı var mı?', en: 'Is a pilot available?' },
         a: {
-          tr: 'İlk ay %50 pilot fiyat; 30 gün sonunda doğrulanmış metrikle devam kararı verirsiniz.',
-          en: '50% pilot pricing in month one; after 30 days you decide to continue based on validated metrics.',
+          tr: 'İsterseniz önce kapsamı dar bir pilotla doğrular, başarı ölçütlerini ve pilot ücretini yazılı teklifte netleştiririz.',
+          en: 'If useful, we can validate the workflow with a tightly scoped pilot; its success criteria and fee are confirmed in the written proposal.',
         },
       },
     ],
@@ -263,8 +263,8 @@ export const SOLUTIONS: Record<SectorKey, SectorContent> = {
       en: 'Clinic Call Automation & AI Receptionist | MGL AI',
     },
     metaDescription: {
-      tr: 'Klinikler ortalama %35 çağrı kaçırır. MGL AI\'ın sesli ve WhatsApp AI asistanı 7/24 çağrıyı karşılar, CRM\'e randevu yazar, hatırlatma gönderir. 7 günde kurulum, şeffaf aylık ücret.',
-      en: 'Clinics miss ~35% of inbound calls. MGL AI voice + WhatsApp assistants answer 24/7, book appointments into your CRM, and send reminders. 7-day setup, transparent monthly pricing.',
+      tr: 'Klinikler için sesli ve WhatsApp AI asistanı: talepleri karşılar, CRM veya takvime randevu kaydı açar ve hatırlatma gönderir. Kapsam ve ücret şeffaf biçimde belirlenir.',
+      en: 'Voice and WhatsApp AI assistants for clinics: handle enquiries, create booking records in your CRM or calendar and send reminders. Scope and pricing are set transparently.',
     },
   },
 
@@ -277,8 +277,8 @@ export const SOLUTIONS: Record<SectorKey, SectorContent> = {
       en: 'Are your leads going to competitors?',
     },
     heroAnswer: {
-      tr: 'Emlak sektöründe ilk 60 saniyede dönülmeyen lead\'in yaklaşık %78\'i başka emlakçıya gider. MGL AI portal ve reklam lead\'lerini WhatsApp üzerinden anında karşılar, kriterleri toplar, emlakçıya hazır brief ile teslim eder.',
-      en: 'In real estate, leads not contacted in the first 60 seconds go to competitors roughly 78% of the time. MGL AI answers portal and ad leads instantly on WhatsApp, collects criteria, and hands the agent a ready brief.',
+      tr: 'Emlak taleplerinde hızlı ve düzenli ilk dönüş önemlidir. MGL AI portal ve reklam lead\'lerini WhatsApp üzerinden karşılar, bütçe ve bölge kriterlerini toplar, emlakçıya hazır bir özet iletir.',
+      en: 'Fast, consistent first response matters for property enquiries. MGL AI handles portal and ad leads on WhatsApp, collects budget and location criteria, then sends the agent a structured brief.',
     },
     heroStats: [
       {
@@ -300,7 +300,7 @@ export const SOLUTIONS: Record<SectorKey, SectorContent> = {
           tr: 'Sahibinden/Zingat\'tan gelen lead 1 saat sonra görülür, rakibe gider.',
           en: 'Portal leads (Sahibinden, Zingat) are seen 1 hour late and go to rivals.',
         },
-        cost: { tr: '~120.000 TL/ay tahmini komisyon kaybı', en: '~120,000 TL/month est. commission loss' },
+        cost: { tr: 'geciken dönüş ve kaçan fırsat', en: 'delayed response and missed opportunity' },
       },
       {
         pain: {
@@ -314,7 +314,7 @@ export const SOLUTIONS: Record<SectorKey, SectorContent> = {
           tr: 'Daire sunumundayken kaçan çağrılar geri aranmaz.',
           en: 'Calls missed during a showing are never returned.',
         },
-        cost: { tr: '%40+ lead soğur', en: '40%+ lead cool-down' },
+        cost: { tr: 'takipsiz lead soğur', en: 'unfollowed leads go cold' },
       },
       {
         pain: {
@@ -480,8 +480,8 @@ export const SOLUTIONS: Record<SectorKey, SectorContent> = {
       en: 'Real Estate Lead Automation & WhatsApp Assistant | MGL AI',
     },
     metaDescription: {
-      tr: 'Emlak sektöründe ilk 60 saniyede dönülmeyen lead\'in %78\'i rakibe gider. MGL AI portal ve reklam lead\'lerini WhatsApp\'tan anında karşılar, emlakçıya hazır brief teslim eder. 14 günde kurulum.',
-      en: 'In real estate, 78% of leads not contacted in 60 seconds go to competitors. MGL AI instantly answers portal and ad leads via WhatsApp and hands agents a ready brief. 14-day setup.',
+      tr: 'Emlak portalı ve reklam lead\'lerini WhatsApp\'tan karşılayan, kriterleri toplayan ve emlakçıya hazır brief ileten otomasyon. Kapsam netleşince teslim tarihi yazılı belirlenir.',
+      en: 'Automation that handles property portal and ad leads on WhatsApp, collects criteria and sends agents a structured brief. Delivery timing is confirmed after scope.',
     },
   },
 
@@ -490,17 +490,17 @@ export const SOLUTIONS: Record<SectorKey, SectorContent> = {
     emberBadge: { tr: 'E-TİCARET OTOMASYONU', en: 'E-COMMERCE AUTOMATION' },
     displayName: { tr: 'E-ticaret', en: 'E-commerce' },
     heroTitle: {
-      tr: 'Sepet terk oranınız %70\'in üstünde mi?',
-      en: 'Is your cart abandonment above 70%?',
+      tr: 'Sepeti terk eden müşteriyi takip ediyor musunuz?',
+      en: 'Do you follow up with customers who abandon checkout?',
     },
     heroAnswer: {
-      tr: 'Türkiye e-ticaret sektöründe ortalama sepet terk oranı %77 civarında; terkedilen her sepet yaklaşık 650 TL kayıp potansiyeli taşır. MGL AI WhatsApp sepet kurtarma akışı, AI destek botu ve Meta/Google ROAS yönetimi bu kaybı ciroya çevirir.',
-      en: 'Average cart abandonment in e-commerce sits near 77%; every abandoned cart carries roughly 650 TL of lost potential. MGL AI runs a WhatsApp cart-recovery flow, an AI support bot, and Meta/Google ROAS management to turn that loss into revenue.',
+      tr: 'Ödeme tamamlanmadan ayrılan ziyaretçiler izlenmediğinde geri kazanım fırsatı görünmez kalır. MGL AI; izinli WhatsApp takibi, destek asistanı ve reklam ölçümünü tek akışta birleştirir.',
+      en: 'When visitors leave before paying and no follow-up is measured, recovery opportunities remain invisible. MGL AI combines consented WhatsApp follow-up, support automation and ad measurement in one flow.',
     },
     heroStats: [
       {
-        label: { tr: 'Sektör ortalama sepet terk', en: 'Industry avg. abandonment' },
-        value: { tr: '%77', en: '77%' },
+        label: { tr: 'Sepet terk takibi', en: 'Abandonment tracking' },
+        value: { tr: 'ölçülür', en: 'measured' },
       },
       {
         label: { tr: 'Asistan + reklam', en: 'Agents + ads' },
@@ -514,24 +514,24 @@ export const SOLUTIONS: Record<SectorKey, SectorContent> = {
     painPoints: [
       {
         pain: {
-          tr: 'Sepete ürün eklenir ama %70+ ödeme yapılmadan çıkılır.',
-          en: '70%+ of shoppers add to cart but leave before checkout.',
+          tr: 'Sepete ürün eklenir ancak ödeme tamamlanmaz; sebep ve takip sonucu ölçülmez.',
+          en: 'A product is added but payment is not completed; neither the cause nor follow-up outcome is measured.',
         },
-        cost: { tr: '~150.000 TL/ay kurtarılabilir gelir', en: '~150,000 TL/month recoverable revenue' },
+        cost: { tr: 'ölçülmeyen geri kazanım fırsatı', en: 'unmeasured recovery opportunity' },
       },
       {
         pain: {
           tr: 'Müşteri destek 6 saatten önce cevap veremez; müşteri rakipten alır.',
           en: 'Support takes 6+ hours to reply; the customer buys elsewhere.',
         },
-        cost: { tr: '~40.000 TL/ay tahmini kayıp', en: '~40,000 TL/month est. loss' },
+        cost: { tr: 'geciken destek ve kayıp güven', en: 'delayed support and lost trust' },
       },
       {
         pain: {
           tr: 'Meta reklam ROAS 2.0 altında, bütçe verimsiz yanıyor.',
           en: 'Meta ads ROAS below 2.0; budget burns inefficiently.',
         },
-        cost: { tr: '~80.000 TL/ay verimsiz reklam', en: '~80,000 TL/month wasted ad spend' },
+        cost: { tr: 'ölçülmeyen reklam verimsizliği', en: 'unmeasured ad inefficiency' },
       },
       {
         pain: {
@@ -642,8 +642,8 @@ export const SOLUTIONS: Record<SectorKey, SectorContent> = {
       {
         q: { tr: 'Reklam bütçesi nasıl yönetilir?', en: 'How is ad budget handled?' },
         a: {
-          tr: 'Reklam harcaması Meta ve Google\'a direkt sizden gider — biz erişim sahibiyiz, değil ödeyen. Yönetim ücreti %10 spend + sabit ajans ücreti ayrı faturalanır.',
-          en: 'Ad spend goes from you directly to Meta and Google — we have access, not payment responsibility. Management fee is 10% of spend + fixed agency fee, billed separately.',
+          tr: 'Reklam harcaması Meta ve Google\'a doğrudan sizin kartınızdan gider. Yönetim ücretimiz bütçe yüzdesine bağlı değildir; seçilen kanal için sabit aylık bedel ayrıca faturalanır.',
+          en: 'Ad spend is charged by Meta and Google directly to your payment method. Our management fee is not a percentage of spend; the selected channel has a fixed monthly fee billed separately.',
         },
       },
       {
@@ -680,8 +680,8 @@ export const SOLUTIONS: Record<SectorKey, SectorContent> = {
       {
         q: { tr: 'Pilot imkanı var mı?', en: 'Is a pilot available?' },
         a: {
-          tr: 'Evet. İlk ay %50 pilot fiyat; 30 gün sonunda ROAS + sepet kurtarma metriklerine bakıp devam kararı verilir.',
-          en: 'Yes. 50% pilot pricing in month one; after 30 days you decide based on ROAS + cart-recovery metrics.',
+          tr: 'Evet. Dar kapsamlı pilotun süresi, ücreti ve ROAS/sepet kurtarma başarı ölçütleri başlamadan önce yazılı olarak belirlenir.',
+          en: 'Yes. The duration, fee and ROAS/cart-recovery success criteria for a tightly scoped pilot are agreed in writing before it starts.',
         },
       },
     ],
@@ -708,8 +708,8 @@ export const SOLUTIONS: Record<SectorKey, SectorContent> = {
       en: 'E-commerce Cart Recovery & Meta ROAS Automation | MGL AI',
     },
     metaDescription: {
-      tr: 'E-ticaret ortalama sepet terk oranı %77. MGL AI WhatsApp sepet kurtarma akışı, AI destek botu ve Meta/Google ROAS yönetimini tek sistemde kurar. 10 günde canlı, şeffaf ücret.',
-      en: 'E-commerce cart abandonment averages 77%. MGL AI ships a WhatsApp recovery flow, AI support bot, and Meta/Google ROAS management in one system. Live in 10 days, transparent pricing.',
+      tr: 'WhatsApp sepet takibi, AI destek asistanı ve Meta/Google reklam ölçümünü tek sistemde birleştiren e-ticaret otomasyonu. Kapsam, ölçüler ve ücret başlamadan belirlenir.',
+      en: 'E-commerce automation combining WhatsApp cart follow-up, AI support and Meta/Google ad measurement. Scope, measures and fees are agreed before work starts.',
     },
   },
 
@@ -728,7 +728,7 @@ export const SOLUTIONS: Record<SectorKey, SectorContent> = {
     heroStats: [
       {
         label: { tr: 'Ortalama no-show', en: 'Average no-show rate' },
-        value: { tr: '%30', en: '30%' },
+        value: { tr: 'ölçülür', en: 'measured' },
       },
       {
         label: { tr: 'Dormant eşiği', en: 'Dormant threshold' },
@@ -745,14 +745,14 @@ export const SOLUTIONS: Record<SectorKey, SectorContent> = {
           tr: '60-90 gün gelmeyen müşteri sessizce unutulur; salon boş saatte çalışırken kayıp ciroda kalır.',
           en: 'Clients who skip 60-90 days get quietly forgotten; revenue leaks while the salon runs half-empty.',
         },
-        cost: { tr: '~35.000 TL/ay tahmini kayıp', en: '~35,000 TL/month est. loss' },
+        cost: { tr: 'geri dönüş fırsatı kaybolur', en: 'return opportunity is lost' },
       },
       {
         pain: {
           tr: 'Randevu hatırlatma elle atılamaz; son dakika iptal ve no-show takvimi deler.',
           en: 'Manual reminders don\'t scale; last-minute cancellations and no-shows puncture the calendar.',
         },
-        cost: { tr: '~40.000 TL/ay tahmini kayıp', en: '~40,000 TL/month est. loss' },
+        cost: { tr: 'boş saat son anda doldurulamaz', en: 'empty slots cannot be refilled' },
       },
       {
         pain: {
@@ -895,8 +895,8 @@ export const SOLUTIONS: Record<SectorKey, SectorContent> = {
       {
         q: { tr: 'Pilot imkanı var mı?', en: 'Is a pilot available?' },
         a: {
-          tr: 'İlk ay %50 pilot fiyat; 30 gün sonunda dormant geri dönüş ve no-show metriğine bakıp devam kararı verirsiniz.',
-          en: '50% pilot pricing in month one; after 30 days you decide to continue based on dormant reactivation and no-show metrics.',
+          tr: 'Dar kapsamlı bir pilot yapılabilir; geri dönüş ve katılım ölçütleri ile ücret başlamadan önce yazılı olarak belirlenir.',
+          en: 'A tightly scoped pilot is available; reactivation and attendance measures, together with the fee, are agreed in writing before launch.',
         },
       },
     ],
@@ -943,7 +943,7 @@ export const SOLUTIONS: Record<SectorKey, SectorContent> = {
     heroStats: [
       {
         label: { tr: 'Servis saatinde kaçan çağrı', en: 'Calls missed during service' },
-        value: { tr: '%40+', en: '40%+' },
+        value: { tr: 'ölçülür', en: 'measured' },
       },
       {
         label: { tr: 'QR → CRM', en: 'QR → CRM' },
@@ -960,14 +960,14 @@ export const SOLUTIONS: Record<SectorKey, SectorContent> = {
           tr: 'Servis yoğunluğunda rezervasyon telefonu açılmaz; misafir başka yere gider.',
           en: 'During peak service, the reservation line goes unanswered; guests book elsewhere.',
         },
-        cost: { tr: '~60.000 TL/ay tahmini kayıp', en: '~60,000 TL/month est. loss' },
+        cost: { tr: 'kaçan rezervasyon fırsatı', en: 'missed reservation opportunity' },
       },
       {
         pain: {
           tr: 'Instagram DM akşam servisinde kaybolur; planlı rezervasyon kaçar.',
           en: 'Instagram DMs get lost during evening service; planned reservations slip away.',
         },
-        cost: { tr: '~25.000 TL/ay tahmini kayıp', en: '~25,000 TL/month est. loss' },
+        cost: { tr: 'takipsiz tekrar ziyaret', en: 'untracked repeat visits' },
       },
       {
         pain: {
@@ -1115,8 +1115,8 @@ export const SOLUTIONS: Record<SectorKey, SectorContent> = {
       {
         q: { tr: 'Pilot imkanı var mı?', en: 'Is a pilot available?' },
         a: {
-          tr: 'İlk ay %50 pilot fiyat; 30 gün sonunda rezervasyon dönüşümü ve yorum artışı metriğine bakıp devam kararı verirsiniz.',
-          en: '50% pilot pricing in month one; after 30 days you decide to continue based on reservation conversion and review growth.',
+          tr: 'Dar kapsamlı bir pilot yapılabilir; rezervasyon ve yorum ölçütleri ile ücret başlamadan önce yazılı olarak belirlenir.',
+          en: 'A tightly scoped pilot is available; booking and review measures, together with the fee, are agreed in writing before launch.',
         },
       },
     ],

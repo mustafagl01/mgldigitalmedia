@@ -1,86 +1,39 @@
-import React, { useState } from 'react';
-import { motion } from 'framer-motion';
-import { ArrowLeft, Package, LogOut } from 'lucide-react';
-import { Button } from '../ui/Button';
+import { useState } from 'react';
+import { ArrowLeft, LogOut } from 'lucide-react';
 import { ProductCard } from '../ProductCard';
 import { AuthModal } from '../auth/AuthModal';
 import { stripeProducts } from '../../stripe-config';
 import { useAuth } from '../../contexts/AuthContext';
 import { useLanguage } from '../../contexts/LanguageContext';
 
-interface ProductsPageProps {
-  onBack: () => void;
-}
+interface ProductsPageProps { onBack: () => void; }
 
-export const ProductsPage: React.FC<ProductsPageProps> = ({ onBack }) => {
+export function ProductsPage({ onBack }: ProductsPageProps) {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const { user, signOut } = useAuth();
-  const { t } = useLanguage();
+  const { t, language } = useLanguage();
 
-  const handleSignOut = async () => {
-    await signOut();
-    onBack(); // Ana sayfaya dön
-  };
+  const handleSignOut = async () => { await signOut(); onBack(); };
 
   return (
-    <div className="min-h-screen bg-slate-900">
-      <div className="container mx-auto px-4 py-8">
-        <div className="flex items-center justify-between mb-8">
-          <Button 
-            variant="ghost" 
-            onClick={onBack} 
-            className="flex items-center gap-2 text-slate-300 hover:text-white"
-          >
-            <ArrowLeft className="w-5 h-5" />
-            {t('products.back')}
-          </Button>
-          {user && (
-            <div className="flex items-center gap-4">
-              <span className="text-slate-300 hidden sm:block">
-                {t('header.welcome')}, {user.email}
-              </span>
-              <Button 
-                onClick={handleSignOut}
-                variant="ghost" 
-                className="text-red-400 hover:text-red-300 hover:bg-red-400/10 flex items-center gap-2"
-              >
-                <LogOut className="w-4 h-4" />
-                {t('header.logout')}
-              </Button>
-            </div>
-          )}
-        </div>
+    <main className="store-page">
+      <header className="store-header container">
+        <button type="button" className="btn btn-ghost btn-md" onClick={onBack}><ArrowLeft size={17} />{t('products.back')}</button>
+        {user && <div className="store-user"><span>{user.email}</span><button type="button" onClick={handleSignOut}><LogOut size={16} />{t('header.logout')}</button></div>}
+      </header>
 
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center mb-16"
-        >
-          <div className="flex items-center justify-center gap-3 mb-6">
-            <Package className="w-12 h-12 text-purple-400" />
-            <h1 className="text-4xl md:text-5xl font-bold text-white">{t('products.title')}</h1>
-          </div>
-          <p className="text-xl text-gray-300 max-w-3xl mx-auto">
-            {t('products.subtitle')}
-          </p>
-        </motion.div>
+      <section className="store-intro container">
+        <span className="eyebrow">MGL DIGITAL MEDIA · {language === 'tr' ? 'GÜVENLİ ÖDEME' : 'SECURE CHECKOUT'}</span>
+        <h1 className="h-display">{t('products.title')}</h1>
+        <p className="lede">{t('products.subtitle')}</p>
+        <div className="store-notice">{language === 'tr' ? 'Türkiye fiyatları bilgilendirme amaçlı TL karşılığıdır; ödeme ekranında tahsilat para birimini kontrol edin.' : 'Review the billing frequency, currency and included scope on the Stripe checkout page before confirming.'}</div>
+      </section>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-6xl mx-auto">
-          {stripeProducts.map((product) => (
-            <ProductCard
-              key={product.id}
-              product={product}
-              onAuthRequired={() => setIsAuthModalOpen(true)}
-            />
-          ))}
-        </div>
+      <section className="container store-grid">
+        {stripeProducts.map((product) => <ProductCard key={product.id} product={product} onAuthRequired={() => setIsAuthModalOpen(true)} />)}
+      </section>
 
-        <AuthModal
-          isOpen={isAuthModalOpen}
-          onClose={() => setIsAuthModalOpen(false)}
-          initialMode="signup"
-        />
-      </div>
-    </div>
+      <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} initialMode="signup" />
+    </main>
   );
-};
+}

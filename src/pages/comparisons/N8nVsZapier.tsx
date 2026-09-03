@@ -6,19 +6,19 @@ const CALENDAR_URL = 'https://calendar.app.google/FZnTjsWGfCy33WF36';
 const SITE_URL = 'https://mgl-ai.com';
 
 const FAQS_TR = [
-  { question: 'N8N ve Zapier arasındaki en önemli fark nedir?', answer: 'En kritik fark maliyettir. N8N self-hosted\'da görev/ay limiti yokken Zapier\'ın Business planı (10.000 görev) $99/ay tutar. Orta ölçekli KOBİ için n8n yıllık $1.000+ tasarruf sağlar.' },
+  { question: 'N8N ve Zapier arasındaki en önemli fark nedir?', answer: 'Temel fark fiyatlandırma ve işletim modelidir. n8n Cloud tamamlanan workflow çalıştırmalarını, Zapier ise başarılı aksiyon görevlerini sayar. Self-hosted n8n daha fazla altyapı ve bakım sorumluluğu getirir.' },
   { question: 'N8N self-hosted kurmak zor mu?', answer: 'Docker ile VPS\'e kurulum yaklaşık 30-60 dakika sürer ve teknik bilgi gerektirir. MGL gibi bir ajansla çalışıyorsanız tüm kurulum ve bakım ajans tarafından yapılır.' },
   { question: 'Zapier\'dan n8n\'e geçmek mümkün mü?', answer: 'Evet. Mevcut Zapier workflow\'larınızı n8n\'e aktarmak mümkündür. İki platform arasında 1-1 eşleşme olmasa da mantık genellikle aktarılabilir.' },
-  { question: 'KVKK için hangisi daha uygun?', answer: 'N8N self-hosted. Verileriniz kendi sunucunuzda kalır, ABD merkezli buluta gitmez. Zapier\'ın cloud altyapısı KVKK açısından ek düzenleme gerektirebilir.' },
-  { question: 'İkisinin de ücretsiz sürümü var mı?', answer: 'N8N community edition tamamen ücretsiz (sunucu maliyeti hariç). Zapier\'ın ücretsiz planı 100 görev/ay ile sınırlıdır — çoğu KOBİ için yetersizdir.' },
+  { question: 'KVKK için hangisi daha uygun?', answer: 'Tek başına araç seçimi uyumluluk sağlamaz. Self-hosted n8n veri konumunda daha fazla kontrol verebilir; her iki seçenekte de hukuki dayanak, veri işleyen sözleşmeleri, erişim ve saklama politikası değerlendirilmelidir.' },
+  { question: 'İkisinin de ücretsiz sürümü var mı?', answer: 'n8n Community Edition kendi altyapınızda kullanılabilir; sunucu ve bakım size aittir. Zapier ücretsiz bir başlangıç planı sunar. Güncel limitleri satın almadan önce resmî fiyat sayfalarında kontrol edin.' },
 ];
 
 const FAQS_EN = [
-  { question: 'What is the most important difference between n8n and Zapier?', answer: 'The most critical difference is cost. Self-hosted n8n has no task/month limit, while Zapier\'s Business plan (10,000 tasks) costs $99/month. A typical SMB saves $1,000+ per year with n8n.' },
+  { question: 'What is the most important difference between n8n and Zapier?', answer: 'Their billing and operating models differ. n8n Cloud counts completed workflow executions, while Zapier counts successful action tasks. Self-hosted n8n also brings infrastructure and maintenance responsibility.' },
   { question: 'Is self-hosted n8n difficult to set up?', answer: 'Docker installation on a VPS takes 30-60 minutes and requires some technical knowledge. If you work with an agency like MGL, all setup and maintenance is handled for you.' },
   { question: 'Can I migrate from Zapier to n8n?', answer: 'Yes. Migrating existing Zapier workflows to n8n is feasible. There\'s no 1-to-1 mapping but the logic is generally transferable.' },
-  { question: 'Which is better for GDPR compliance?', answer: 'Self-hosted n8n. Your data stays on your own server — it doesn\'t go to US-based cloud infrastructure. Zapier\'s cloud setup may require additional GDPR arrangements.' },
-  { question: 'Do both have free versions?', answer: 'n8n community edition is completely free (excluding server costs). Zapier\'s free plan is limited to 100 tasks/month — insufficient for most SMBs.' },
+  { question: 'Which is better for GDPR compliance?', answer: 'Tool choice alone does not create compliance. Self-hosted n8n can offer more control over data location; with either option assess lawful basis, processor terms, access controls and retention.' },
+  { question: 'Do both have free versions?', answer: 'n8n Community Edition can run on your own infrastructure, which you must operate and maintain. Zapier offers a free entry plan. Check current limits on each vendor\'s official pricing page before buying.' },
 ];
 
 export default function N8nVsZapier() {
@@ -46,28 +46,24 @@ export default function N8nVsZapier() {
 
   const rows = isEN
     ? [
-        ['Price (basic paid)', 'n8n Cloud: $24/mo', 'Zapier Starter: $29.99/mo'],
-        ['Task limits', 'Self-hosted: Unlimited | Cloud: 2,500/mo', '100 (free) → 750 (Starter)'],
-        ['Integrations', '400+', '7,000+'],
-        ['Code blocks (JS/Python)', '✅ Yes', '❌ No'],
-        ['Webhook support', '✅ Full', '✅ Yes (limited free tier)'],
-        ['Multi-step flows', '✅ Unlimited steps', '✅ Yes (free: 2 steps only)'],
-        ['Data residency (GDPR)', '✅ Self-hosted = your server', '❌ US cloud'],
-        ['Conditional logic', '✅ Advanced', '⚠️ Basic'],
-        ['Custom code execution', '✅ Yes', '❌ No'],
+        ['Billing unit', 'Completed workflow execution', 'Successful action task'],
+        ['Hosted allowance', 'Varies by execution tier', 'Varies by task tier'],
+        ['Integrations', 'Broad node library + HTTP/API', 'Broad app library + webhooks'],
+        ['Code', 'JS/Python and self-hosted options', 'Code and SDK available; plan rules apply'],
+        ['Multi-step flows', 'Supported on paid cloud plans', 'Supported on Professional and above'],
+        ['Data residency', 'n8n Cloud in EU; self-hosted location is your choice', 'Review Zapier\'s current data and transfer terms'],
+        ['Conditional logic', 'Advanced workflow controls', 'Paths, filters and formatting available'],
         ['UI complexity', '⚠️ Steeper learning curve', '✅ Very beginner-friendly'],
         ['Best for', 'High-volume, GDPR-sensitive, custom logic', 'Quick setup, small workflows, non-technical users'],
       ]
     : [
-        ['Fiyat (temel ücretli)', 'n8n Cloud: $24/ay', 'Zapier Starter: $29.99/ay'],
-        ['Görev limiti', 'Self-hosted: Sınırsız | Cloud: 2.500/ay', '100 (ücretsiz) → 750 (Starter)'],
-        ['Entegrasyon sayısı', '400+', '7.000+'],
-        ['Kod blokları (JS/Python)', '✅ Evet', '❌ Yok'],
-        ['Webhook desteği', '✅ Tam', '✅ Evet (ücretsiz kısıtlı)'],
-        ['Çok adımlı akış', '✅ Sınırsız adım', '✅ Evet (ücretsiz: 2 adım)'],
-        ['Veri konumu (KVKK)', '✅ Self-hosted = kendi sunucunuz', '❌ ABD bulutu'],
-        ['Koşullu mantık', '✅ Gelişmiş', '⚠️ Temel'],
-        ['Özel kod çalıştırma', '✅ Evet', '❌ Yok'],
+        ['Faturalama birimi', 'Tamamlanan workflow çalıştırması', 'Başarılı aksiyon görevi'],
+        ['Hosted kullanım', 'Çalıştırma kademesine göre', 'Görev kademesine göre'],
+        ['Entegrasyonlar', 'Geniş node kütüphanesi + HTTP/API', 'Geniş uygulama kütüphanesi + webhook'],
+        ['Kod', 'JS/Python ve self-hosted seçenekleri', 'Kod ve SDK var; plan kuralları geçerli'],
+        ['Çok adımlı akış', 'Ücretli cloud planlarında desteklenir', 'Professional ve üzerinde desteklenir'],
+        ['Veri konumu', 'n8n Cloud AB\'de; self-hosted konumu siz seçersiniz', 'Güncel veri ve transfer şartları incelenmeli'],
+        ['Koşullu mantık', 'Gelişmiş workflow kontrolleri', 'Paths, filtre ve biçimlendirme mevcut'],
         ['Arayüz zorluğu', '⚠️ Daha dik öğrenme eğrisi', '✅ Çok yeni başlayan dostu'],
         ['En iyi kim için', 'Yüksek hacim, KVKK hassas, özel mantık', 'Hızlı kurulum, küçük workflow, teknik olmayan kullanıcı'],
       ];
@@ -103,13 +99,13 @@ export default function N8nVsZapier() {
           </h1>
           <p style={{ color: 'var(--muted)', fontSize: '1.05rem', lineHeight: 1.65, maxWidth: 680 }}>
             {isEN
-              ? 'Zapier has 7,000+ integrations and beginner-friendly UX. n8n has no task limits and keeps your data on your server. Which should your business choose in 2026? We compare them on every dimension that matters.'
-              : 'Zapier 7.000+ entegrasyona ve yeni başlayan dostu arayüze sahip. n8n görev limiti yok ve verilerinizi kendi sunucunuzda tutuyor. 2026\'da işletmeniz hangisini seçmeli? Her önemli boyutta karşılaştırıyoruz.'}
+              ? 'Zapier prioritises a managed, beginner-friendly experience. n8n offers cloud and self-hosted operating models with execution-based pricing. Compare them on cost, ownership, governance and maintenance.'
+              : 'Zapier yönetilen ve başlangıcı kolay bir deneyime odaklanır. n8n, çalıştırma bazlı fiyatla cloud ve self-hosted modeller sunar. Maliyet, sahiplik, yönetişim ve bakım açısından karşılaştırıyoruz.'}
           </p>
           <p style={{ marginTop: '1rem', fontWeight: 700, color: 'var(--ink)', fontSize: '1rem' }}>
             {isEN
-              ? '⚡ Quick verdict: For most Turkish and UK SMBs processing 1,000+ tasks/month, self-hosted n8n wins on cost and control.'
-              : '⚡ Hızlı sonuç: Aylık 1.000+ görev işleyen Türkiye ve UK KOBİ\'leri için self-hosted n8n maliyet ve kontrol açısından kazanır.'}
+              ? 'Quick verdict: choose n8n when control and custom logic justify operating complexity; choose Zapier when speed, simplicity and a managed platform matter more.'
+              : 'Hızlı sonuç: kontrol ve özel mantık işletim yüküne değiyorsa n8n; hız, kolaylık ve yönetilen platform daha önemliyse Zapier seçin.'}
           </p>
         </header>
 
@@ -145,13 +141,13 @@ export default function N8nVsZapier() {
         {/* Cost Analysis */}
         <section style={{ marginBottom: '3rem' }}>
           <h2 style={{ fontSize: '1.4rem', fontWeight: 700, color: 'var(--ink)', marginBottom: '1rem' }}>
-            {isEN ? 'Cost analysis (10,000 tasks/month)' : 'Maliyet analizi (10.000 görev/ay)'}
+            {isEN ? 'How to compare cost' : 'Maliyet nasıl karşılaştırılır'}
           </h2>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(220px,1fr))', gap: '1rem' }}>
             {[
-              { name: 'n8n Self-Hosted', cost: isEN ? '~€5-10/mo' : '~€5-10/ay', detail: isEN ? 'VPS only. Unlimited tasks.' : 'Yalnızca VPS. Sınırsız görev.' },
-              { name: 'n8n Cloud (Pro)', cost: '$50/mo', detail: isEN ? '50,000 tasks included.' : '50.000 görev dahil.' },
-              { name: 'Zapier Business', cost: '$99/mo', detail: isEN ? '10,000 tasks — costs rise fast.' : '10.000 görev — hızla artar.' },
+              { name: 'n8n Self-Hosted', cost: isEN ? 'Infrastructure + operations' : 'Altyapı + operasyon', detail: isEN ? 'Include hosting, backups, upgrades, monitoring and engineering time.' : 'Sunucu, yedek, güncelleme, izleme ve teknik emeği dahil edin.' },
+              { name: 'n8n Cloud', cost: isEN ? 'Per execution tier' : 'Çalıştırma kademesi', detail: isEN ? 'One complete workflow run counts as an execution.' : 'Bir workflow\'un baştan sona çalışması bir execution sayılır.' },
+              { name: 'Zapier', cost: isEN ? 'Per task tier' : 'Görev kademesi', detail: isEN ? 'Successful actions consume tasks; model the steps in each workflow.' : 'Başarılı aksiyonlar görev tüketir; her akıştaki adımları hesaplayın.' },
             ].map((item) => (
               <div key={item.name} style={{ padding: '1.5rem', background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: 10 }}>
                 <div style={{ fontWeight: 700, color: 'var(--ink)', marginBottom: '0.25rem' }}>{item.name}</div>
@@ -160,6 +156,12 @@ export default function N8nVsZapier() {
               </div>
             ))}
           </div>
+          <p style={{ marginTop: '1rem', color: 'var(--muted)', fontSize: '0.82rem', lineHeight: 1.6 }}>
+            {isEN ? 'Pricing changes over time. Checked 3 September 2026: ' : 'Fiyatlar zamanla değişir. 3 Eylül 2026 kontrolü: '}
+            <a href="https://n8n.io/pricing/" target="_blank" rel="noopener noreferrer">n8n</a>
+            {' · '}
+            <a href="https://zapier.com/pricing" target="_blank" rel="noopener noreferrer">Zapier</a>
+          </p>
         </section>
 
         {/* Verdict */}

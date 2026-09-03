@@ -1,9 +1,11 @@
 import React from 'react';
 import { Seo, serviceSchema, faqSchema, breadcrumbSchema } from '../../components/seo/Seo';
 import { useLanguage } from '../../contexts/LanguageContext';
+import { REGIONAL_PRICING } from '../../config/pricing';
 
-const SITE_URL = 'https://mgl-ai.com';
 const CALENDAR_URL = 'https://calendar.app.google/FZnTjsWGfCy33WF36';
+const WA_TR = REGIONAL_PRICING.TR.packages.whatsapp;
+const WA_GB = REGIONAL_PRICING.GB.packages.whatsapp;
 
 const FAQS_TR = [
   { question: 'WhatsApp AI asistan kurmak ne kadar sürer?', answer: 'Evolution API + n8n altyapısıyla temel bir WhatsApp AI asistan 3-7 iş günü içinde devreye alınabilir. CRM entegrasyonu ve sektöre özel bilgi tabanı eklenirse 2-3 haftaya uzayabilir.' },
@@ -38,15 +40,15 @@ const PROCESS_EN = [
 ];
 
 const CASES_TR = [
-  { sector: 'Diş Kliniği', result: 'Hafta sonu gelen 120 mesajın %85\'i AI tarafından yanıtlandı; 28 ek randevu alındı.', icon: '🦷' },
-  { sector: 'Emlak Ofisi', result: 'Çalışma saatleri dışı gelen leadlerin %60\'ı ertesi güne AI ile hazır bilgiyle girdi.', icon: '🏠' },
-  { sector: 'Güzellik Salonu', result: 'Randevu asistanı sayesinde personel WhatsApp\'ta harcadığı 30 saati/ay sıfıra indirdi.', icon: '💇' },
+  { sector: 'Diş Kliniği', result: 'Mesai dışı soruları karşılar; uygun talepleri takvime veya ekibe aktarır.', icon: '🦷' },
+  { sector: 'Emlak Ofisi', result: 'Bütçe, bölge ve taşınma tarihi gibi bilgileri ekip aramadan önce toplar.', icon: '🏠' },
+  { sector: 'Güzellik Salonu', result: 'Uygun saatleri paylaşır, randevu talebi alır ve gerektiğinde insana devreder.', icon: '💇' },
 ];
 
 const CASES_EN = [
-  { sector: 'Dental Clinic', result: '85% of 120 weekend messages answered by AI; 28 additional bookings captured.', icon: '🦷' },
-  { sector: 'Estate Agency', result: '60% of after-hours leads pre-qualified by morning with full context.', icon: '🏠' },
-  { sector: 'Beauty Salon', result: 'Staff WhatsApp time reduced from 30 hours/month to near zero.', icon: '💇' },
+  { sector: 'Dental Clinic', result: 'Handles out-of-hours questions and routes suitable enquiries to the diary or team.', icon: '🦷' },
+  { sector: 'Estate Agency', result: 'Collects budget, area and moving timeframe before an agent calls back.', icon: '🏠' },
+  { sector: 'Beauty Salon', result: 'Shares available slots, captures booking requests and hands off when needed.', icon: '💇' },
 ];
 
 export default function WhatsappAiAsistan() {
@@ -70,8 +72,8 @@ export default function WhatsappAiAsistan() {
     path: '/whatsapp-ai-asistan',
     category: 'AI Automation',
     offers: [
-      { name: 'WhatsApp AI Asistan', price: 6999, priceCurrency: 'TRY' },
-      { name: 'WhatsApp AI Assistant', price: 199, priceCurrency: 'GBP' },
+      { name: 'WhatsApp AI Asistan Aylık Sistem Bedeli', price: WA_TR.price, priceCurrency: 'TRY' },
+      { name: 'WhatsApp AI Assistant Monthly System Fee', price: WA_GB.price, priceCurrency: 'GBP' },
     ],
   });
 
@@ -139,8 +141,8 @@ export default function WhatsappAiAsistan() {
           </h1>
           <p style={{ fontSize: '1.1rem', opacity: 0.8, lineHeight: 1.65, marginBottom: '2rem', maxWidth: 580, margin: '0 auto 2rem' }}>
             {isEN
-              ? 'Answer every WhatsApp message in under 3 seconds, 24/7. Book appointments, handle FAQs, qualify leads — all automatically. Evolution API + n8n, no per-message fees.'
-              : 'Her WhatsApp mesajını 3 saniyede, 7/24 yanıtlayın. Randevu alın, SSS\'leri cevaplayın, lead kalifikasyonu yapın — tamamen otomatik. Evolution API + n8n, mesaj başına ücret yok.'}
+              ? 'Give customers an immediate first response, 24/7. Handle FAQs, capture booking requests and qualify enquiries — with a clear route to your team when needed.'
+              : 'Müşterilere 7/24 hızlı ilk yanıt verin. SSS\'leri karşılayın, randevu talebi alın ve talepleri nitelendirin; gerektiğinde ekibinize aktarın.'}
           </p>
           <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', flexWrap: 'wrap' }}>
             <a
@@ -193,7 +195,7 @@ export default function WhatsappAiAsistan() {
         {[
           { v: '<3s', l: isEN ? 'Response time' : 'Yanıt süresi' },
           { v: '7/24', l: isEN ? 'Always on' : 'Kesintisiz' },
-          { v: '80%', l: isEN ? 'Messages resolved automatically' : 'Mesaj otomatik çözüm' },
+          { v: isEN ? 'Human handoff' : 'İnsana devir', l: isEN ? 'When the agent is unsure' : 'Asistan emin olmadığında' },
           { v: '3-7 ' + (isEN ? 'days' : 'gün'), l: isEN ? 'Time to go live' : 'Kurulum süresi' },
         ].map((s) => (
           <div
@@ -225,12 +227,12 @@ export default function WhatsappAiAsistan() {
           </h2>
           <p style={{ color: 'var(--muted)', lineHeight: 1.7, maxWidth: 680, marginBottom: '2rem' }}>
             {isEN
-              ? 'We select the connection method for the business: a self-hosted QR connection for suitable deployments, or Meta Cloud API/BSP where official templates and enterprise controls are required. n8n runs the workflow and a production LLM API handles language. AI API usage is included within the plan allowance.'
-              : 'İşletmeye uygun bağlantı yöntemini seçiyoruz: uygun projelerde self-hosted QR bağlantısı, resmî şablon ve kurumsal kontrol gereken projelerde Meta Cloud API/BSP. İş akışını n8n, dili ise üretim tipi bir LLM API yönetir. AI API kullanımı paket kotasına dahildir.'}
+              ? 'We select the connection method for the business: a self-hosted QR connection for suitable deployments, or Meta Cloud API/BSP where official templates and enterprise controls are required. n8n runs the workflow and a production LLM API handles language. Usage is metered transparently.'
+              : 'İşletmeye uygun bağlantı yöntemini seçiyoruz: uygun projelerde self-hosted QR bağlantısı, resmî şablon ve kurumsal kontrol gereken projelerde Meta Cloud API/BSP. İş akışını n8n, dili ise üretim tipi bir LLM API yönetir. Kullanım şeffaf biçimde ölçülür.'}
           </p>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px,1fr))', gap: '1rem' }}>
             {[
-              { name: 'Evolution API', desc: isEN ? 'Open-source WhatsApp layer. No per-message fees.' : 'Açık kaynak WhatsApp katmanı. Mesaj başına ücret yok.' },
+              { name: 'Evolution API', desc: isEN ? 'Self-hosted connection option for suitable deployments.' : 'Uygun projeler için self-hosted bağlantı seçeneği.' },
               { name: 'n8n', desc: isEN ? 'Visual workflow engine. 400+ integrations.' : 'Görsel workflow motoru. 400+ entegrasyon.' },
               { name: 'Production LLM API', desc: isEN ? 'Natural-language understanding and replies, included within quota.' : 'Doğal dil anlama ve yanıt üretimi; kota içinde dahil.' },
               { name: isEN ? 'Your CRM' : 'CRM\'iniz', desc: isEN ? 'HubSpot, Pipedrive, Zoho or custom — all connected.' : 'HubSpot, Pipedrive, Zoho veya özel — hepsi bağlı.' },

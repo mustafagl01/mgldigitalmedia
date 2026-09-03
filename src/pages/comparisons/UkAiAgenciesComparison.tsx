@@ -7,18 +7,18 @@ const SITE_URL = 'https://mgl-ai.com';
 
 const FAQS_EN = [
   { question: 'What should I look for in a UK AI automation agency?', answer: 'Key criteria: technical stack transparency (what tools they actually use), fixed pricing vs retainer, ability to integrate with your existing software, Turkish/bilingual support if needed, and actual case studies rather than vague claims.' },
-  { question: 'How much do UK AI automation agencies charge?', answer: 'Typical range: £500-5,000/month depending on scope. Simple WhatsApp automation: £100-250/month. Full AI stack (voice + chat + CRM + automation): £400-1,500/month. Watch out for large setup fees without performance guarantees.' },
+  { question: 'How much do UK AI automation agencies charge?', answer: 'Fees vary materially with discovery, integrations, security, support and usage. Compare written scope, setup, recurring, usage and third-party costs rather than a headline monthly number.' },
   { question: 'Does MGL serve UK businesses?', answer: 'Yes. MGL Digital Media is registered in England and Wales (Company No. 16007414, Enfield EN1 1LS). We serve UK businesses with no setup fee: a £9.90/month system fee plus metered usage, with full technical support.' },
   { question: 'What AI automation services do UK agencies typically offer?', answer: 'WhatsApp/SMS chatbots, AI voice agents, CRM integration, workflow automation (n8n/Zapier/Make), Meta/Google ad management, SEO and conversion-focused web development.' },
-  { question: 'How long does it take to see results?', answer: 'WhatsApp AI agents: visible within the first week (response time, message volume handled). Voice agents: 1-2 weeks to calibrate. Lead generation campaigns: first qualified leads within 2-4 weeks.' },
+  { question: 'How long does it take to see results?', answer: 'Technical measures such as response time can be observed after launch; commercial outcomes need a suitable baseline and enough real traffic. Ask the agency to define measures and review dates before work begins.' },
 ];
 
 const FAQS_TR = [
   { question: 'UK AI otomasyon ajansında nelere bakmalıyım?', answer: 'Temel kriterler: teknik stack şeffaflığı (gerçekten hangi araçları kullandıkları), sabit fiyatlandırma vs retainer, mevcut yazılımınızla entegrasyon yeteneği, Türkçe/iki dilli destek ihtiyacı ve belirsiz iddialar yerine gerçek vaka çalışmaları.' },
-  { question: 'UK AI otomasyon ajansları ne kadar ücret alıyor?', answer: 'Tipik aralık: kapsama göre £500-5.000/ay. Basit WhatsApp otomasyonu: £100-250/ay. Tam AI stack (sesli + sohbet + CRM + otomasyon): £400-1.500/ay. Performans garantisi olmayan büyük kurulum ücretlerine dikkat edin.' },
+  { question: 'UK AI otomasyon ajansları ne kadar ücret alıyor?', answer: 'Ücret; keşif, entegrasyon, güvenlik, destek ve kullanıma göre ciddi biçimde değişir. Yalnızca aylık etiketi değil; yazılı kapsamı, kurulumu, tekrarlayan bedeli, kullanımı ve üçüncü taraf giderlerini karşılaştırın.' },
   { question: 'MGL UK işletmelerine hizmet veriyor mu?', answer: 'Evet. MGL Digital Media İngiltere\'de kayıtlıdır (Şirket No: 16007414, Enfield EN1 1LS). UK işletmelerine kurulum ücreti almadan, aylık £9,90 sistem bedeli ve kullandığınız kadar kullanımla tam teknik destek veriyoruz.' },
   { question: 'UK ajansları tipik olarak hangi AI otomasyon hizmetlerini sunuyor?', answer: 'WhatsApp/SMS chatbotlar, AI sesli asistanlar, CRM entegrasyonu, workflow otomasyonu (n8n/Zapier/Make), Meta/Google reklam yönetimi, SEO ve dönüşüm odaklı web geliştirme.' },
-  { question: 'Sonuçlar ne zaman görülür?', answer: 'WhatsApp AI asistanlar: ilk haftada görünür (yanıt süresi, işlenen mesaj hacmi). Sesli asistanlar: kalibrasyon için 1-2 hafta. Lead üretim kampanyaları: 2-4 hafta içinde ilk nitelikli leadler.' },
+  { question: 'Sonuçlar ne zaman görülür?', answer: 'Yanıt süresi gibi teknik ölçüler canlıya alındıktan sonra görülebilir; ticari sonuç için sağlıklı bir başlangıç verisi ve yeterli gerçek trafik gerekir. Başlamadan önce ölçüleri ve değerlendirme tarihini yazılı belirleyin.' },
 ];
 
 export default function UkAiAgenciesComparison() {
@@ -47,7 +47,7 @@ export default function UkAiAgenciesComparison() {
     ? [
         { name: 'Stack Transparency', good: 'Names the specific tools: Evolution API, Retell AI, n8n, GPT-4o', bad: 'Vague "proprietary AI platform" language' },
         { name: 'Pricing Model', good: 'Fixed monthly retainer with clear scope', bad: 'Hourly billing or undefined "custom" pricing' },
-        { name: 'Case Studies', good: 'Specific results: "Clinic X reduced no-shows by 40%"', bad: '"We helped many businesses improve efficiency"' },
+        { name: 'Evidence', good: 'Named scope, baseline, period and measured outcome', bad: 'Percentages without source, baseline or timeframe' },
         { name: 'Integration Depth', good: 'Can connect to your specific CRM/booking system', bad: 'Only works with their in-house tools' },
         { name: 'Bilingual Support', good: 'Turkish/English support if you serve TR market', bad: 'English only, no localisation capability' },
         { name: 'Ownership', good: 'You own the workflows, data and integrations', bad: 'Lock-in: workflows only work within their platform' },
@@ -55,7 +55,7 @@ export default function UkAiAgenciesComparison() {
     : [
         { name: 'Stack Şeffaflığı', good: 'Spesifik araçları adlandırır: Evolution API, Retell AI, n8n', bad: '"Özel AI platformumuz" gibi belirsiz dil' },
         { name: 'Fiyatlandırma Modeli', good: 'Net kapsama sahip sabit aylık retainer', bad: 'Saatlik faturalandırma veya tanımsız "özel" fiyatlandırma' },
-        { name: 'Vaka Çalışmaları', good: 'Spesifik sonuçlar: "X Kliniği no-show\'larını %40 azalttı"', bad: '"Pek çok işletmenin verimliliğini artırdık"' },
+        { name: 'Kanıt', good: 'Açık kapsam, başlangıç verisi, dönem ve ölçülen sonuç', bad: 'Kaynağı, başlangıcı veya dönemi olmayan yüzdeler' },
         { name: 'Entegrasyon Derinliği', good: 'Spesifik CRM/rezervasyon sisteminize bağlanabilir', bad: 'Yalnızca kendi iç araçlarıyla çalışır' },
         { name: 'İki Dilli Destek', good: 'TR pazarına hizmet veriyorsanız Türkçe/İngilizce destek', bad: 'Yalnızca İngilizce, yerelleştirme yeteneği yok' },
         { name: 'Sahiplik', good: 'Workflow\'lar, veriler ve entegrasyonlar size ait', bad: 'Bağımlılık: workflow\'lar yalnızca kendi platformunda çalışır' },
@@ -105,7 +105,7 @@ export default function UkAiAgenciesComparison() {
           </h2>
           <div style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
             {criteria.map((c) => (
-              <div key={c.name} style={{ display: 'grid', gridTemplateColumns: '180px 1fr 1fr', gap: '1rem', padding: '1.25rem', background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: 10, fontSize: '0.875rem' }}>
+              <div key={c.name} className="comparison-criteria-row" style={{ display: 'grid', gap: '1rem', padding: '1.25rem', background: 'var(--surface)', border: '1px solid var(--border)', borderRadius: 10, fontSize: '0.875rem' }}>
                 <div style={{ fontWeight: 700, color: 'var(--ink)', display: 'flex', alignItems: 'flex-start' }}>{c.name}</div>
                 <div style={{ color: 'var(--body)', lineHeight: 1.55 }}><span style={{ color: 'green', fontWeight: 700 }}>✅ </span>{c.good}</div>
                 <div style={{ color: 'var(--muted)', lineHeight: 1.55 }}><span style={{ color: 'red', fontWeight: 700 }}>🚩 </span>{c.bad}</div>
@@ -122,16 +122,16 @@ export default function UkAiAgenciesComparison() {
           <ul style={{ paddingLeft: '1.5rem', lineHeight: 1.8, color: 'var(--body)', fontSize: '0.925rem' }}>
             {(isEN
               ? [
-                  'Stack: Evolution API + n8n + Retell AI + GPT-4o — fully disclosed',
-                  'Pricing: No setup fee, £9.90/month system fee plus metered usage',
+                  'Stack: connection, workflow, voice and model providers disclosed per project',
+                  'Pricing: setup, recurring, usage and third-party fees shown separately',
                   'Bilingual: Turkish and English, native TR market expertise',
                   'Ownership: Clients own all workflows, data and integrations',
                   'Registered UK company: No. 16007414, Enfield EN1 1LS',
                   'Remote delivery: UK and Turkey served equally',
                 ]
               : [
-                  'Stack: Evolution API + n8n + Retell AI + GPT-4o — tam şeffaflık',
-                  'Fiyatlandırma: Kurulum ücreti yok, aylık £9,90 sistem bedeli + kullandığın kadar',
+                  'Stack: bağlantı, iş akışı, ses ve model sağlayıcıları projeye göre açıklanır',
+                  'Fiyatlandırma: kurulum, aylık, kullanım ve üçüncü taraf giderleri ayrı gösterilir',
                   'İki dilli: Türkçe ve İngilizce, yerel TR pazar uzmanlığı',
                   'Sahiplik: Müşteriler tüm workflow\'ları, verileri ve entegrasyonları sahiplenir',
                   'Kayıtlı UK şirketi: No. 16007414, Enfield EN1 1LS',

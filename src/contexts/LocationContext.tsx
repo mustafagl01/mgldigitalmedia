@@ -14,6 +14,7 @@ type LocationContextValue = {
 
 const DEFAULT_REGION: PricingRegionCode = 'GB';
 const COUNTRY_STORAGE_KEY = 'mgl-country-code';
+const LOCATION_API_URL = `${import.meta.env.VITE_API_URL || 'https://mgl-digital-media-auth.mustafagl01.workers.dev'}/api/location`;
 
 function detectCountryFromClient(): string | null {
   if (typeof window === 'undefined') return null;
@@ -22,25 +23,20 @@ function detectCountryFromClient(): string | null {
   const language = navigator.language?.toUpperCase() ?? '';
   const timezoneUpper = timezone.toUpperCase();
 
-  console.log('[Location] Client detection:', { timezone, language, timezoneUpper });
-
   // PRIORITY: Timezone over language (location matters more than browser language)
 
   // Turkey timezone detection - HIGHEST PRIORITY for TR
   if (timezoneUpper.includes('ISTANBUL') || timezoneUpper.includes('TURKEY')) {
-    console.log('[Location] Detected Turkey (timezone)');
     return 'TR';
   }
 
   // UK timezone detection - HIGHEST PRIORITY for GB
   if (timezoneUpper.includes('LONDON') || timezoneUpper.includes('EUROPE/LONDON')) {
-    console.log('[Location] Detected UK (timezone)');
     return 'GB';
   }
 
   // Check other UK/Ireland timezones
   if (timezone.startsWith('Europe/') && ['London', 'Belfast', 'Dublin', 'Guernsey', 'Isle_of_Man', 'Jersey'].some(tz => timezoneUpper.includes(tz.toUpperCase()))) {
-    console.log('[Location] Detected UK/Europe timezone');
     return 'GB';
   }
 
@@ -48,20 +44,15 @@ function detectCountryFromClient(): string | null {
   const isTurkishLanguage = language === 'TR' || language.startsWith('TR-');
   const isEnglishUK = language === 'EN-GB';
 
-  console.log('[Location] Language fallback:', { isTurkishLanguage, isEnglishUK });
-
   if (isTurkishLanguage) {
-    console.log('[Location] Detected Turkey (language fallback)');
     return 'TR';
   }
 
   if (isEnglishUK) {
-    console.log('[Location] Detected UK (language fallback)');
     return 'GB';
   }
 
   // Default to GB for international (non-TR) users
-  console.log('[Location] Defaulting to GB');
   return 'GB';
 }
 
@@ -77,7 +68,7 @@ export function LocationProvider({ children }: { children: ReactNode }) {
       const cachedCountry = window.localStorage.getItem(COUNTRY_STORAGE_KEY);
 
       try {
-        const response = await fetch('/api/location', {
+        const response = await fetch(LOCATION_API_URL, {
           headers: {
             Accept: 'application/json',
           },
@@ -90,8 +81,6 @@ export function LocationProvider({ children }: { children: ReactNode }) {
         const data = (await response.json()) as LocationApiResponse;
         const normalizedCountry = data.country?.toUpperCase() ?? null;
 
-        console.log('[Location] API detected country:', normalizedCountry);
-
         setCountryCode(normalizedCountry);
         setRegion(resolveRegionByCountry(normalizedCountry));
 
@@ -99,10 +88,8 @@ export function LocationProvider({ children }: { children: ReactNode }) {
           window.localStorage.setItem(COUNTRY_STORAGE_KEY, normalizedCountry);
         }
       } catch (error) {
-        console.log('[Location] API failed, using fallback:', { cachedCountry, error });
+        console.info('[Location] Using cached or browser-derived region.', error);
         const fallbackCountry = cachedCountry || detectCountryFromClient();
-
-        console.log('[Location] Fallback country:', fallbackCountry, 'Region:', resolveRegionByCountry(fallbackCountry));
 
         setCountryCode(fallbackCountry);
         setRegion(resolveRegionByCountry(fallbackCountry));

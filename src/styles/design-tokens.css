@@ -1,67 +1,44 @@
-/* ═══════════════════════════════════════════════════════════
-   MGL Digital AI — Design Tokens
-   ═══════════════════════════════════════════════════════════
-   Metafor: RÖNTGEN KUTUSU — karanlık oda, arkadan aydınlatılmış
-   panel, üzerinde okunan ince çizgiler ve sayılar.
-   Derin mürekkep + ışıklı metin + tek sinyal kırmızısı.
-   Gradient yok, glow yok, glassmorphism yok, gölge yok.
-   Sayfanın tek aydınlık bandı fiyatlar (.on-light).
-   ═══════════════════════════════════════════════════════════ */
+/* MGL visual system: warm editorial paper, confident ink and a controlled
+   crimson signal colour. Dark surfaces are reserved for decisive moments. */
 
-/* Webfonts — served from Google Fonts (self-host TTFs live in /fonts/) */
-@import url('https://fonts.googleapis.com/css2?family=Geist:wght@300;400;500;600;700&family=Geist+Mono:wght@400;500&display=swap');
+/* Editorial display + quiet, highly legible interface typography. */
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&display=swap');
 
 :root {
-  /* ─── CORE PALETTE — "Röntgen kutusu" ─────────────────────
-     Karanlık oda, arkadan aydınlatılmış panel, üzerinde okunan
-     ince çizgiler ve sayılar. Gradient YOK — ışık düz ve arkadan gelir.
+  /* Warm editorial canvas — calm enough for trust, not sterile white. */
+  --paper:       #F7F4EE;
+  --paper-2:     #EFE9DF;
+  --paper-3:     #E3DBCE;
+  --ink:         #171713;
+  --ink-2:       #393832;
+  --ink-3:       #67635A;
+  --ink-4:       #8B857A;
 
-     2026-09-02'de sıcak kâğıt paletinden çevrildi (gerekçe: PLAN.md
-     bölüm 5). Token ADLARI korundu, ROLLERİ takas edildi:
-       --paper*  ana zemin  → artık KOYU
-       --ink*    metin      → artık AÇIK
-       --coal*   ters zemin → artık AÇIK (fiyat bandı)
-       --bone*   ters metin → artık KOYU
-     Böylece bileşenlerdeki 350+ ham token kullanımı tek tek
-     dolaşılmadan doğru kontrastı korur.
-
-     Renkler logodan piksel örneklemeyle alındı:
-     #0E0E0E (baskın koyu) · #E6E6E6 (baskın açık) · #AD0110 (vurgu) */
-
-  /* Ana zemin ve okunan metin */
-  --paper:       #0B0D0E;   /* ana zemin — düz derin mürekkep */
-  --paper-2:     #14171A;   /* arkadan aydınlatılmış panel yüzeyi */
-  --paper-3:     #1D2226;   /* daha sessiz panel, çip zemini */
-  --ink:         #E8EDF0;   /* okunan metin — ışıklı (16.5:1) */
-  --ink-2:       #B4BEC5;   /* ikincil metin (9.8:1) */
-  --ink-3:       #8A959C;   /* üçüncül / açıklama (5.6:1) */
-  --ink-4:       #5E686E;   /* pasif, soluk metadata */
-
-  /* Ters yüzey — sayfanın TEK aydınlık bandı (fiyatlar) */
-  --coal:        #FFFDF8;   /* ters zemin — ışık */
-  --coal-2:      #F3F0E9;   /* ters yüzey */
-  --coal-3:      #E2DED4;   /* ters ayraç */
-  --bone:        #0B0D0E;   /* ters zemin üstündeki metin */
-  --bone-2:      #3F474C;
-  --bone-3:      #6E777D;
+  /* Inverse surface — reserved for a few high-contrast moments. */
+  --coal:        #171713;
+  --coal-2:      #24231F;
+  --coal-3:      #3C3932;
+  --bone:        #F7F4EE;
+  --bone-2:      #D8D1C5;
+  --bone-3:      #AAA397;
 
   /* İmza vurgu — logo kırmızısı.
      Bulgu, uyarı ve CTA. Asla gradient — tek düz renk.
      Kontrast notu: koyu zeminde parlak ton, aydınlık bantta logonun
      gerçek tonu kullanılır. İkisi de AA üstünde. */
-  --ember:       #E11A22;   /* koyu zeminde sinyal (5.2:1) */
-  --ember-hover: #F2434A;   /* hover — koyuda AÇILIR, koyulaşmaz */
-  --ember-soft:  #2A0F11;   /* koyu zeminde kırmızı tint */
-  --ember-ink:   #FF8A8F;   /* --ember-soft üzerindeki metin */
-  --ember-print: #AD0110;   /* logonun gerçek kırmızısı — aydınlık bant (7.4:1) */
-  --ember-on-dark: var(--ember);   /* geriye dönük takma ad */
+  --ember:       #A91D2D;
+  --ember-hover: #861422;
+  --ember-soft:  #F5DDE0;
+  --ember-ink:   #72101C;
+  --ember-print: #A91D2D;
+  --ember-on-dark: #FF8792;
 
   /* Yardımcı renkler — az kullanılır, hiçbir zaman dekoratif değil */
-  --moss:        #4FBF7B;   /* koyuda okunan yeşil — olumlu ölçüm */
-  --moss-soft:   #0F2418;
-  --ochre:       #E5B33C;   /* uyarı, vurgu */
-  --ochre-soft:  #2A2109;
-  --rust:        #FF6B5A;   /* yıkıcı eylem */
+  --moss:        #315F47;
+  --moss-soft:   #DCE9E1;
+  --ochre:       #8C681B;
+  --ochre-soft:  #F3E9CA;
+  --rust:        #9E2E22;
 
   /* Semantik takma adlar (bileşenlerde bunlar kullanılmalı) */
   --bg:          var(--paper);
@@ -71,8 +48,8 @@
   --fg-2:        var(--ink-2);
   --fg-3:        var(--ink-3);
   --fg-4:        var(--ink-4);
-  --border:      rgba(232,237,240,0.10);   /* saç teli çizgi */
-  --border-2:    rgba(232,237,240,0.18);
+  --border:      #DCD4C7;
+  --border-2:    #C7BDAD;
   --accent:      var(--ember);
   --accent-hover: var(--ember-hover);
   --accent-soft: var(--ember-soft);
@@ -81,18 +58,11 @@
   --warn:        var(--ochre);
   --danger:      var(--rust);
 
-  /* ─── TİPOGRAFİ ───────────────────────────────────────────
-     Tek aile + mono. Üçüncü font yok — bir ölçüm cihazının paneli
-     tek tipografiyle yazılır.
-     Geist      — başlık ve gövde
-     Geist Mono — ölçüm değerleri, sayılar, etiketler (İMZA TAŞIYICI)
-
-     --font-serif KORUNDU ama artık sans'a işaret ediyor: 68 yerde
-     kullanılıyordu, hepsini dolaşmak yerine değişken yeniden bağlandı.
-     Yeni kodda kullanma — --font-sans yaz. */
-  --font-sans:  'Geist', 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-mono:  'Geist Mono', 'JetBrains Mono', 'SF Mono', Menlo, monospace;
-  --font-serif: var(--font-sans);   /* eski kod için geriye dönük takma ad */
+  /* Typography: readable sans for interface and body; an editorial serif
+     for headlines; Manrope for compact labels and measured values. */
+  --font-sans:  'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono:  'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-serif: 'Source Serif 4', Georgia, serif;
 
   /* Type scale — fluid, pinned to 1280–1920 viewports */
   --t-display:  clamp(3.25rem, 1.4rem + 5vw, 6rem);       /* 52 → 96 */
@@ -148,9 +118,9 @@
   --r-0:    0;
   --r-xs:   2px;
   --r-sm:   4px;
-  --r-md:   6px;
-  --r-lg:   10px;
-  --r-xl:   14px;
+  --r-md:   8px;
+  --r-lg:   14px;
+  --r-xl:   22px;
   --r-full: 999px;   /* reserved: status dots, pips only */
 
   /* ─── SHADOWS ────────────────────────────────────────────
@@ -159,11 +129,11 @@
   /* Gölge ailesi E — GÖLGESİZ.
      Koyu zeminde siyah gölge görünmez; derinlik saç teli çizgi ve
      panel zemin farkıyla kurulur. Gölge yerine 1px iç kenarlık. */
-  --shadow-xs:   none;
-  --shadow-sm:   inset 0 0 0 1px rgba(232,237,240,0.07);
-  --shadow-md:   inset 0 0 0 1px rgba(232,237,240,0.10);
-  --shadow-lg:   inset 0 0 0 1px rgba(232,237,240,0.14);
-  --shadow-focus: 0 0 0 3px rgba(225,26,34,0.40);
+  --shadow-xs:   0 1px 0 rgba(23,23,19,0.04);
+  --shadow-sm:   0 2px 8px rgba(23,23,19,0.06), 0 0 0 1px rgba(23,23,19,0.03);
+  --shadow-md:   0 14px 34px -20px rgba(23,23,19,0.30), 0 2px 8px rgba(23,23,19,0.05);
+  --shadow-lg:   0 30px 70px -30px rgba(23,23,19,0.42);
+  --shadow-focus: 0 0 0 3px rgba(169,29,45,0.24);
 
   /* ─── MOTION ─────────────────────────────────────────────
      Snappy, short, mostly opacity + subtle y/x. Never bouncy. */
@@ -186,31 +156,38 @@
 
    Not: palet ters çevrildiği için bu sınıf artık KOYU değil AÇIK bir
    blok üretiyor; kontrast düzeltmeleri de o yöne göre yeniden hesaplandı. */
-.on-coal,
-.on-light {
+.on-coal {
   --bg:        var(--coal);
   --surface:   var(--coal-2);
   --surface-2: var(--coal-3);
   --fg:        var(--bone);
   --fg-2:      var(--bone-2);
   --fg-3:      var(--bone-3);
-  --fg-4:      #98A0A5;
-  --border:    rgba(11,13,14,0.12);
-  --border-2:  rgba(11,13,14,0.22);
-  /* Aydınlık zeminde parlak sinyal kırmızısı parlar; logonun gerçek tonu okunur. */
-  --ember:       var(--ember-print);
-  --ember-hover: #8B010D;
-  --ember-soft:  #FCE3E4;
-  --ember-ink:   #6A0109;
-  --ember-on-dark: var(--ember-print);
-  --ink:       var(--bone);
-  --ink-2:     var(--bone-2);
-  --ink-3:     var(--bone-3);
-  --paper:     var(--coal);
-  --paper-2:   var(--coal-2);
-  --paper-3:   var(--coal-3);
+  --fg-4:      #858075;
+  --border:    #3C3932;
+  --border-2:  #575248;
+  --ember:       var(--ember-on-dark);
+  --ember-hover: #FFA2AA;
+  --ember-soft:  #3A171C;
+  --ember-ink:   #FFD0D4;
   background: var(--bg);
   color: var(--fg);
+}
+
+/* Explicit light island. Unlike the old token swap this never changes the
+   meaning of paper/ink globally, so legacy sections keep readable contrast. */
+.on-light {
+  --bg: var(--paper);
+  --surface: var(--paper-2);
+  --surface-2: var(--paper-3);
+  --fg: var(--ink);
+  --fg-2: var(--ink-2);
+  --fg-3: var(--ink-3);
+  --fg-4: var(--ink-4);
+  --border: #DCD4C7;
+  --border-2: #C7BDAD;
+  background: var(--paper);
+  color: var(--ink);
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -234,15 +211,12 @@ body {
   margin: 0;
 }
 
-/* Başlıklar — Geist, sıkı tracking.
-   Serif KALDIRILDI (2026-09-02): Fraunces portföydeki üç sitede
-   kullanılıyordu; ajansın kendi sitesi onlardan ayrışmalı. Karakter
-   fonttan değil, mono sayılardan ve kompozisyondan geliyor. */
+/* Editorial headlines create a human, consultancy-led voice. */
 h1, h2, h3, h4, h5, h6,
 .h-display, .h1, .h2, .h3, .h4 {
   font-family: var(--font-sans);
-  letter-spacing: -0.03em;
-  font-weight: var(--fw-bold);
+  letter-spacing: -0.025em;
+  font-weight: var(--fw-semibold);
   color: var(--fg);
   margin: 0;
   text-wrap: balance;

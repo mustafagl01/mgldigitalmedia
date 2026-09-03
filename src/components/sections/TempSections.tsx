@@ -40,7 +40,7 @@ export const ServicesSection: React.FC = () => (
         viewport={{ once: true }}
         className="text-center mb-16"
       >
-        <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">Tek Bir Merkez, Sınırsız Yetenek</h2>
+        <h2 className="text-4xl md:text-5xl font-bold mb-6 text-white">Tek Merkez, Net İş Akışları</h2>
         <p className="text-xl text-gray-300 max-w-3xl mx-auto">Stratejiden tasarıma, reklamdan otomasyona, tüm dijital ihtiyaçlarınız için buradayız.</p>
       </motion.div>
       <div className="grid md:grid-cols-1 lg:grid-cols-3 gap-8">

@@ -73,11 +73,14 @@ export const PhoneDemoModal: React.FC<PhoneDemoModalProps> = ({ isOpen, onClose 
     const webhookUrl = 'https://nt3ys1ml.rpcd.host/webhook/a1efbd5d-e366-4aeb-affb-8c75dbcfe5f8';
 
     try {
-      await fetch(webhookUrl, {
+      const response = await fetch(webhookUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ event: 'call_request', phoneNumber: fullPhoneNumber }),
       });
+      if (!response.ok) {
+        throw new Error(`Phone demo workflow returned ${response.status}`);
+      }
       toast({
         title: isEN ? 'Done.' : 'Harika!',
         description: isEN
@@ -225,6 +228,7 @@ export const PhoneDemoModal: React.FC<PhoneDemoModalProps> = ({ isOpen, onClose 
                   <form onSubmit={handleSubmit} style={{ marginTop: 20, display: 'flex', flexDirection: 'column', gap: 12 }}>
                     <div style={{ display: 'flex', gap: 8 }}>
                       <select
+                        aria-label={isEN ? 'Country calling code' : 'Ülke telefon kodu'}
                         value={countryCode}
                         onChange={(e) => setCountryCode(e.target.value)}
                         disabled={isLoading}
@@ -245,6 +249,7 @@ export const PhoneDemoModal: React.FC<PhoneDemoModalProps> = ({ isOpen, onClose 
                       </select>
                       <input
                         id="phoneNumber"
+                        aria-label={isEN ? 'Phone number' : 'Telefon numarası'}
                         type="tel"
                         placeholder="555 123 4567"
                         value={phoneNumber}
@@ -343,7 +348,8 @@ export const PhoneDemoModal: React.FC<PhoneDemoModalProps> = ({ isOpen, onClose 
                   >
                     {isEN
                       ? 'Call comes from +44 7414 605612 · Your number is used for this demo only.'
-                      : 'Arama +44 7414 605612 numarasından gelir · Numaranız yalnızca bu demo için kullanılır.'}
+                      : 'Arama +44 7414 605612 numarasından gelir · Numaranız yalnızca bu demo için kullanılır.'}{' '}
+                    <a href={isEN ? '/en/legal' : '/legal'} style={{ color: 'var(--ember)' }}>{isEN ? 'Privacy' : 'Gizlilik'}</a>
                   </p>
                 </motion.div>
               ) : (

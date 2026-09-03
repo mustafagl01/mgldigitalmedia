@@ -51,7 +51,7 @@ export const BookingSection: React.FC = () => {
                         </div>
 
                         <Button
-                            onClick={() => window.open('https://calendar.app.google/jgu53NFAy7BnYVui8', '_blank')}
+                            onClick={() => window.open('https://calendar.app.google/FZnTjsWGfCy33WF36', '_blank')}
                             className="w-full sm:w-auto bg-gradient-to-r from-purple-600 to-cyan-600 hover:from-purple-500 hover:to-cyan-500 text-white px-12 py-8 text-xl font-black rounded-3xl shadow-[0_20px_50px_-15px_rgba(147,51,234,0.5)] transform hover:scale-105 transition-all duration-500 flex items-center justify-center group"
                         >
                             <Calendar className="w-6 h-6 mr-4 group-hover:rotate-12 transition-transform" />

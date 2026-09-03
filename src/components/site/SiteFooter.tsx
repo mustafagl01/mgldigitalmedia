@@ -33,7 +33,7 @@ export function SiteFooter({ onNavigate }: Props) {
             heading: 'Firma',
             links: [
               { label: 'ROI Simülasyonu', go: 'pricing' as Page },
-              { label: '11 Servisin Tamamı', go: 'services' as Page },
+              { label: 'Tüm Hizmetler', go: 'services' as Page },
               { label: 'Paketler', go: 'packages' as Page },
             ],
           },
@@ -52,7 +52,7 @@ export function SiteFooter({ onNavigate }: Props) {
             heading: 'Company',
             links: [
               { label: 'ROI Simulator', go: 'pricing' as Page },
-              { label: 'All 11 Services', go: 'services' as Page },
+              { label: 'All Services', go: 'services' as Page },
               { label: 'Packages', go: 'packages' as Page },
             ],
           },
@@ -256,11 +256,6 @@ export function SiteFooter({ onNavigate }: Props) {
               <li>
                 <a href="/accounting-automation-uk" style={{ color: 'var(--bone-2)' }}>
                   {language === 'tr' ? 'Muhasebe firmaları için otomasyon' : 'Automation for accounting firms'}
-                </a>
-              </li>
-              <li>
-                <a href="https://mglautomation.uk/" style={{ color: 'var(--bone-2)' }}>
-                  {language === 'tr' ? 'MGL AI Türkiye çözümleri' : 'MGL AI Turkey solutions'}
                 </a>
               </li>
             </ul>
