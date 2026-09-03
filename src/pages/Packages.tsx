@@ -1278,6 +1278,9 @@ function CreditPacks({
       note: isEnglish
         ? 'Only connected calls are billed.'
         : 'Yalnızca bağlanan çağrılar sayılır.',
+      assumption: isEnglish
+        ? 'Calculated as 2 minutes per call, 30 days a month. Shorter calls cost less — you only pay for the minutes actually spoken.'
+        : 'Çağrı başına 2 dakika ve ayda 30 gün varsayılarak hesaplandı. Görüşmeleriniz daha kısaysa daha az ödersiniz — yalnızca gerçekten konuşulan dakika sayılır.',
     },
     {
       key: 'whatsapp' as const,
@@ -1289,6 +1292,9 @@ function CreditPacks({
       note: isEnglish
         ? 'An AI reply is a message the assistant sends. Incoming messages and messages your staff writes are not counted.'
         : 'AI yanıtı, asistanın gönderdiği mesajdır. Gelen mesajlar ve personelinizin yazdıkları sayılmaz.',
+      assumption: isEnglish
+        ? 'Calculated as 6 AI replies per conversation, 30 days a month. Shorter conversations cost less.'
+        : 'Diyalog başına 6 AI yanıtı ve ayda 30 gün varsayılarak hesaplandı. Daha kısa yazışmalarda daha az ödersiniz.',
     },
   ];
 
@@ -1389,9 +1395,10 @@ function CreditPacks({
                   </div>
                 ))}
                 <p style={{ margin: '8px 0 0', fontSize: 11, lineHeight: 1.5, color: 'var(--fg-3)' }}>
+                  {g.assumption}{' '}
                   {isEnglish
-                    ? 'Includes the monthly system fee and usage at the standard rate. Bundles bring it lower.'
-                    : 'Aylık sistem bedeli ve standart tarifeden kullanım dahildir. Kontör paketiyle daha da düşer.'}
+                    ? 'Totals include the monthly system fee and usage at the standard rate; bundles bring them lower.'
+                    : 'Toplamlara aylık sistem bedeli ve standart tarifeden kullanım dahildir; kontör paketiyle daha da düşer.'}
                 </p>
               </div>
 
