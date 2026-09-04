@@ -498,6 +498,30 @@ Detay site bittikten sonra konuşulacak. Hesap adı netleştirilmeli — `@mgl.a
 
 ---
 
+## 8b. FAZ 2 — GEO/SEO İÇERİK MİMARİSİ (henüz başlanmadı)
+
+2026-09-04'te ChatGPT'den gelen öneri, ana sayfa işi bitince ayrı faz olarak
+ele alınmak üzere kaydedildi. Özet:
+
+**4 katmanlı içerik mimarisi:**
+1. Para sayfaları — `/whatsapp-ai/`, `/sesli-ai/` vb. (problem→çözüm→sistem→proof→fiyat→CTA)
+2. Problem sayfaları — `/whatsapp-mesajlarina-yetisemiyorum/` gibi, uzun kuyruklu arama ve AI sorguları için
+3. Sektör sayfaları — mevcut `/solutions/*`'ün genişletilmiş hâli
+4. Bilgi merkezi — "satın almadan önce sorulan sorular", jenerik blog değil
+
+**Teknik iş listesi:** Organization/LocalBusiness/Service/BreadcrumbList schema,
+robots.txt'te OAI-SearchBot kontrolü, IndexNow, GSC'de sitemap yeniden gönderimi
+ve kritik sayfalarda URL Inspection → Request indexing.
+
+**Sıra (kullanıcı onayladı):** önce tüm URL ağacını çıkar → ilk 30 problem/satın
+alma sorgusunu belirle → sonra içerik üret. 100 işe yaramaz blog yazısı yerine
+20 hedefli sayfa hedefleniyor.
+
+**Başlamadan önce:** bu faza girişte yeniden brainstorming yapılmalı — URL
+ağacı `/sorunlar/*` ve `/cozumler/*` için PLAN.md bölüm 4'te zaten bir taslak var
+(mglautomation.uk'ten taşınacak 5 problem sayfası + 9 sektör sayfası), yeni öneri
+onunla birleştirilmeli, çakışan yapı iki kez kurulmasın.
+
 ## 9. YAYIN GEÇMİŞİ
 
 **2026-09-02 · `40418b8` — yeni fiyat modeli + röntgen paleti canlıya alındı.**
