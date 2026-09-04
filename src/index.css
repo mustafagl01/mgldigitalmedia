@@ -105,7 +105,10 @@
   display: grid;
   grid-template-columns: minmax(0, 1fr);
   gap: clamp(48px, 5vw, 96px);
-  align-items: center;
+  /* start — center DEGIL. Sag kolondaki is duvari sol kolondan uzun; ortalama
+     yapinca sol kolon asagi itiliyor ve basligin ustunde kocaman bir boşluk
+     kaliyordu. Iki kolon da yukaridan baslar. */
+  align-items: start;
 }
 /* İş duvarı mobilde de görünür — portföy en çok orada gerekli.
    (Eskiden burada terminal log kutusu vardı ve mobilde gizleniyordu.) */

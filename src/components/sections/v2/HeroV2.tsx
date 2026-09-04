@@ -63,7 +63,7 @@ export function HeroV2({ onAnalysisClick, onDemoClick }: Props) {
       id="home"
       style={{
         position: 'relative',
-        padding: 'clamp(64px, 6vw + 24px, 128px) 0 clamp(48px, 4vw + 24px, 96px)',
+        padding: 'clamp(36px, 3vw + 16px, 72px) 0 clamp(48px, 4vw + 24px, 96px)',
         background: 'var(--paper)',
         overflow: 'hidden',
       }}
@@ -93,7 +93,7 @@ export function HeroV2({ onAnalysisClick, onDemoClick }: Props) {
             alignItems: 'center',
             justifyContent: 'space-between',
             gap: 24,
-            marginBottom: 48,
+            marginBottom: 28,
             flexWrap: 'wrap',
           }}
           className="animate-fade-in"
