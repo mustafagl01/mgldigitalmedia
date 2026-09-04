@@ -67,8 +67,8 @@ const SECTORS: Sector[] = [
           en: 'A WhatsApp AI assistant responds within seconds, answers FAQs, proposes an available slot and completes the lead form.',
         },
         value: {
-          tr: 'Gece gelen talepler sabah sekreterin takvimine sıcak randevu olarak düşüyor. Tipik olarak diş kliniklerinde mesai dışı hastaya dönüş oranı sıfırken bu akışla yüksek çift haneli seviyeye çıkıyor.',
-          en: 'Overnight requests land on the morning calendar as warm bookings. After-hours response goes from zero to double-digit conversion in this sector.',
+          tr: 'Gece gelen talepler kayıt altına alınır; sabah ekibi hangi taleplerin yanıtlandığını, hangilerinin takip beklediğini görür.',
+          en: 'Overnight enquiries are recorded; the morning team can see which were answered and which still need follow-up.',
         },
         linkedSkus: [
           { label: 'WhatsApp AI Bot', anchor: 'whatsapp-bot' },
@@ -86,8 +86,8 @@ const SECTORS: Sector[] = [
           en: 'Reminders via WhatsApp at 24h and 1h before appointment; location + prep note + one-tap reschedule/confirm buttons.',
         },
         value: {
-          tr: 'Hatırlatma akışı çalışan kliniklerde no-show oranında belirgin düşüş gözlemleniyor; takvim doluluğu korunur, ciro erimez.',
-          en: 'Clinics running reminders see a measurable drop in no-shows; calendar stays full, revenue is protected.',
+          tr: 'Onay, erteleme ve katılım verisi aynı yerde ölçülür; hatırlatma akışının etkisi kliniğin kendi başlangıç verisiyle karşılaştırılır.',
+          en: 'Confirmation, rescheduling and attendance are measured together, so the reminder flow can be compared with the clinic\'s own baseline.',
         },
         linkedSkus: [
           { label: 'WhatsApp AI Bot', anchor: 'whatsapp-bot' },
@@ -101,8 +101,8 @@ const SECTORS: Sector[] = [
           en: 'Your Google Profile has fewer reviews than competitors; new patients click their link first in search.',
         },
         solution: {
-          tr: 'Hizmet bittikten 1 saat sonra hastaya "memnun kaldıysanız yıldız verin" WhatsApp mesajı; tek tıkla Google yorum sayfasına gönderir.',
-          en: 'One hour after treatment, WhatsApp sends a "if you were happy, leave a star" message linking directly to your Google review page.',
+          tr: 'İzin veren her hastaya hizmet sonrası tarafsız yorum isteği gider; tek tıkla Google yorum sayfası açılır.',
+          en: 'Every patient who opts in receives the same neutral post-visit review request with a direct Google review link.',
         },
         value: {
           tr: 'Organik yorum hacmi artar, yerel SEO güçlenir, "yakınımdaki diş kliniği" aramalarında görünürlük yükselir.',
@@ -187,8 +187,8 @@ const SECTORS: Sector[] = [
           en: 'Client criteria are stored in CRM. When a matching listing appears on portal feeds, both agent and client get an auto "Match found" alert.',
         },
         value: {
-          tr: 'Emlakçı uyurken bile satış akışı çalışır; her müşterinin talebi aktif olarak kovalanır, kayıp lead sıfıra yaklaşır.',
-          en: 'The sales pipeline runs even when the agent sleeps; every request is actively pursued, lead leakage drops toward zero.',
+          tr: 'Eşleşme bulunduğunda danışmana görev açılır; gönderilen bildirim ve takip sonucu CRM\'de görünür kalır.',
+          en: 'When a match appears, the agent receives a task and the notification and follow-up outcome stay visible in the CRM.',
         },
         linkedSkus: [
           { label: 'n8n Otomasyon', anchor: 'n8n-automation' },
@@ -388,8 +388,8 @@ const SECTORS: Sector[] = [
           en: 'WhatsApp reminders at 24h and 1h before (with confirm / reschedule buttons).',
         },
         value: {
-          tr: 'Doluluk oranında belirgin yükseliş, aynı personelle daha fazla müşteri.',
-          en: 'Measurable occupancy uplift, more clients served with the same staff.',
+          tr: 'Onay, iptal ve katılım verisi ölçülür; salon hatırlatmanın etkisini kendi başlangıç oranıyla karşılaştırır.',
+          en: 'Confirmations, cancellations and attendance are measured so the salon can compare the reminder flow with its own baseline.',
         },
         linkedSkus: [
           { label: 'WhatsApp AI Bot', anchor: 'whatsapp-bot' },

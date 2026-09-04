@@ -216,11 +216,11 @@ const PLAN_CONTENT: Record<PackageTierKey, PlanContent> = {
     overages: {
       tr: [
         'AI yanıtı başına ödersiniz; kontör paketiyle birim fiyat düşer',
-        'Kontör bitince asistan susmaz — otomatik yükleme açıktır, kapatabilirsiniz',
+        'Otomatik yükleme varsayılan olarak kapalıdır; isterseniz harcama limitiyle açabilirsiniz',
       ],
       en: [
         'You pay per AI reply; bundles bring the unit rate down',
-        'The assistant never goes silent — auto top-up is on by default and can be switched off',
+        'Auto top-up is off by default; you can enable it with a spending limit',
       ],
     },
     usageNote: {
@@ -1342,8 +1342,8 @@ function CreditPacks({
       </h2>
       <p style={{ marginTop: 8, fontSize: 14, lineHeight: 1.6, color: 'var(--fg-2)', maxWidth: 720 }}>
         {isEnglish
-          ? 'Buying a bundle is optional. Without one you pay the standard rate; with one the unit price drops. Auto top-up is on by default, so the assistant never goes silent — you can switch it off.'
-          : 'Kontör paketi almak zorunlu değil. Almazsanız standart tarifeden işler, alırsanız birim fiyat düşer. Otomatik yükleme varsayılan olarak açıktır — asistan susmaz, isterseniz kapatabilirsiniz.'}
+          ? 'Buying a bundle is optional. Without one you pay the standard rate; with one the unit price drops. Auto top-up is off by default and can be enabled only with your chosen spending limit.'
+          : 'Kontör paketi almak zorunlu değil. Almazsanız standart tarifeden işler, alırsanız birim fiyat düşer. Otomatik yükleme varsayılan olarak kapalıdır; yalnızca seçtiğiniz harcama limitiyle açılır.'}
       </p>
 
       <div

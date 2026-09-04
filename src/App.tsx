@@ -57,8 +57,9 @@ import { Seo, BASE_SCHEMAS, breadcrumbSchema } from './components/seo/Seo';
 // New homepage sections
 import { HeroV2 } from './components/sections/v2/HeroV2';
 import { CredentialsStrip } from './components/sections/v2/CredentialsStrip';
-import { ThreeBuckets } from './components/sections/v2/ThreeBuckets';
-import { ProcessTimeline } from './components/sections/v2/ProcessTimeline';
+import { HomeCapabilities, HomeWhoWeWorkWith } from './components/sections/v2/HomeCapabilities';
+import { HomeProblems, HomeJourney } from './components/sections/v2/HomeProblems';
+import { HomeConnectedSystems, HomeHowWeWork, HomeWhyMgl } from './components/sections/v2/HomeApproach';
 import { DemoSection } from './components/sections/v2/DemoSection';
 import { FoundersBet } from './components/sections/v2/FoundersBet';
 import { ClosingCTA } from './components/sections/v2/ClosingCTA';
@@ -321,13 +322,16 @@ function AppContent() {
             }
           />
           <CredentialsStrip />
-          <ThreeBuckets
-            onAdsClick={() => navigateTo('packages', 'ads')}
-            onAgentsClick={() => navigateTo('packages', 'agents')}
-            onWebClick={() => navigateTo('packages', 'web')}
-            onServicesClick={() => navigateTo('services')}
-          />
-          <ProcessTimeline />
+          {/* Ana sayfa akışı mgl.md brief'ine göre kuruldu:
+              ne yapıyoruz → hangi derdi çözüyoruz → yolculuk → sistemler
+              birbirine bağlı → kimlerle → nasıl → neden biz → dene → kapanış */}
+          <HomeCapabilities />
+          <HomeProblems />
+          <HomeJourney />
+          <HomeConnectedSystems />
+          <HomeWhoWeWorkWith />
+          <HomeHowWeWork />
+          <HomeWhyMgl />
           <DemoSection
             onEmailDemo={() => setActiveDemo('email')}
             onPhoneDemo={() => setActiveDemo('phone')}

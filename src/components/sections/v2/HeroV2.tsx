@@ -143,19 +143,19 @@ export function HeroV2({ onAnalysisClick, onDemoClick }: Props) {
                 müşteri gelip sorduğunda karşılığı olmalı. */}
             {language === 'tr' ? (
               <>
-                Müşteriniz gece yazıyor.{' '}
+                İşletmenizin{' '}
                 <span style={{ fontStyle: 'italic', fontWeight: 400, color: 'var(--fg-2)' }}>
-                  Cevabını
+                  dijital tarafını
                 </span>{' '}
-                <span style={{ color: 'var(--ember)' }}>anında</span> alıyor.
+                <span style={{ color: 'var(--ember)' }}>baştan sona</span> kuruyoruz.
               </>
             ) : (
               <>
-                They message at midnight.{' '}
+                We build your{' '}
                 <span style={{ fontStyle: 'italic', fontWeight: 400, color: 'var(--fg-2)' }}>
-                  They get an answer
+                  entire digital side
                 </span>{' '}
-                <span style={{ color: 'var(--ember)' }}>straight away</span>.
+                <span style={{ color: 'var(--ember)' }}>end to end</span>.
               </>
             )}
           </h1>
@@ -175,8 +175,8 @@ export function HeroV2({ onAnalysisClick, onDemoClick }: Props) {
                 Teknik detay aşağıdaki bölümlerde duruyor — meraklı olan görsün,
                 arayan kişi kaçmasın. */}
             {language === 'tr'
-              ? 'WhatsApp’a gelen mesajı, telefona gelen aramayı ve web sitenizdeki soruyu karşılayan bir sistem kuruyoruz. Siz uğraşmadan cevap verir, ilgilenen kişiyi size iletir. Reklamınızı da biz yönetiriz — gelen kişi boşa gitmesin.'
-              : 'We set up a system that answers your WhatsApp messages, your phone calls and the questions on your site. It replies without you lifting a finger and passes the interested ones straight to you. We run your ads too — so the people who arrive don’t go to waste.'}
+              ? 'Web sitenizden Google görünürlüğünüze, reklamlardan yapay zekâ asistanlarına, otomasyondan müşteri takibine kadar işletmenizin ihtiyaç duyduğu dijital sistemleri kuruyor ve yönetiyoruz.'
+              : 'From your website and Google visibility to advertising, AI assistants, automation and customer follow-up — we build and run the digital systems your business needs.'}
           </p>
 
           {/* CTAs */}
