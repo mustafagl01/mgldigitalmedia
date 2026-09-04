@@ -99,7 +99,7 @@ export function HeroV2({ onAnalysisClick, onDemoClick }: Props) {
           className="animate-fade-in"
         >
           <span className="eyebrow">
-            {language === 'tr' ? 'LONDRA MERKEZLİ · AI & OTOMASYON AJANSI' : 'LONDON-BASED · AI & AUTOMATION AGENCY'}
+            {language === 'tr' ? 'LONDRA MERKEZLİ · DİJİTAL SİSTEMLER' : 'LONDON-BASED · DIGITAL SYSTEMS'}
           </span>
           <span
             style={{
@@ -143,19 +143,19 @@ export function HeroV2({ onAnalysisClick, onDemoClick }: Props) {
                 müşteri gelip sorduğunda karşılığı olmalı. */}
             {language === 'tr' ? (
               <>
-                İşletmenizin{' '}
+                İşletmenizi bulduruyor,{' '}
                 <span style={{ fontStyle: 'italic', fontWeight: 400, color: 'var(--fg-2)' }}>
-                  dijital tarafını
+                  müşteriyi yakalıyor
                 </span>{' '}
-                <span style={{ color: 'var(--ember)' }}>baştan sona</span> kuruyoruz.
+                ve süreci <span style={{ color: 'var(--ember)' }}>otomatikleştiriyoruz</span>.
               </>
             ) : (
               <>
-                We build your{' '}
+                We get you found,{' '}
                 <span style={{ fontStyle: 'italic', fontWeight: 400, color: 'var(--fg-2)' }}>
-                  entire digital side
+                  capture the customer
                 </span>{' '}
-                <span style={{ color: 'var(--ember)' }}>end to end</span>.
+                and <span style={{ color: 'var(--ember)' }}>automate the process</span>.
               </>
             )}
           </h1>
@@ -175,8 +175,8 @@ export function HeroV2({ onAnalysisClick, onDemoClick }: Props) {
                 Teknik detay aşağıdaki bölümlerde duruyor — meraklı olan görsün,
                 arayan kişi kaçmasın. */}
             {language === 'tr'
-              ? 'Web sitenizden Google görünürlüğünüze, reklamlardan yapay zekâ asistanlarına, otomasyondan müşteri takibine kadar işletmenizin ihtiyaç duyduğu dijital sistemleri kuruyor ve yönetiyoruz.'
-              : 'From your website and Google visibility to advertising, AI assistants, automation and customer follow-up — we build and run the digital systems your business needs.'}
+              ? 'Web sitesi, Google, reklam, SEO, yapay zekâ ve otomasyon. Birbirinden kopuk hizmetler değil — birlikte çalışan bir müşteri sistemi.'
+              : 'Website, Google, advertising, SEO, AI and automation. Not disconnected services — one customer system that works together.'}
           </p>
 
           {/* CTAs */}
@@ -190,7 +190,7 @@ export function HeroV2({ onAnalysisClick, onDemoClick }: Props) {
             }}
           >
             <button onClick={onAnalysisClick} className="btn btn-primary btn-lg">
-              {language === 'tr' ? 'Ücretsiz 15 dk analiz' : 'Free 15-min audit'}
+              {language === 'tr' ? 'İşletmemi Analiz Et' : 'Analyse my business'}
               <ArrowUpRight size={18} />
             </button>
             <button onClick={onDemoClick} className="btn btn-ghost btn-lg">
@@ -255,18 +255,18 @@ export function HeroV2({ onAnalysisClick, onDemoClick }: Props) {
             <ol style={{ listStyle: 'none', padding: 0, margin: 0 }}>
               {(language === 'tr'
                 ? [
-                    ['Bulunun', ['Google', 'SEO', 'Reklam']],
-                    ['İlgi çekin', ['Web sitesi', 'Landing page']],
-                    ['Yanıtlayın', ['WhatsApp', 'Sesli AI', 'Chatbot']],
-                    ['Kazanın', ['CRM', 'Rezervasyon', 'Sipariş']],
-                    ['Koruyun', ['Otomatik takip', 'Sadakat']],
+                    ['01 — Bul', ['Google', 'Maps', 'SEO', 'GEO', 'Reklam']],
+                    ['02 — İkna Et', ['Web sitesi', 'Landing page', 'Marka', 'İçerik']],
+                    ['03 — Dönüştür', ['WhatsApp', 'Telefon', 'Form', 'Rezervasyon', 'Sipariş']],
+                    ['04 — Otomatikleştir', ['AI', 'CRM', 'Workflow', 'Takip']],
+                    ['05 — Geri Getir', ['Hatırlatma', 'Sadakat', 'Remarketing']],
                   ]
                 : [
-                    ['Get found', ['Google', 'SEO', 'Ads']],
-                    ['Earn attention', ['Website', 'Landing page']],
-                    ['Answer', ['WhatsApp', 'Voice AI', 'Chatbot']],
-                    ['Win', ['CRM', 'Booking', 'Ordering']],
-                    ['Keep', ['Follow-up', 'Loyalty']],
+                    ['01 — Get Found', ['Google', 'Maps', 'SEO', 'GEO', 'Ads']],
+                    ['02 — Persuade', ['Website', 'Landing page', 'Brand', 'Content']],
+                    ['03 — Convert', ['WhatsApp', 'Phone', 'Form', 'Booking', 'Ordering']],
+                    ['04 — Automate', ['AI', 'CRM', 'Workflow', 'Tracking']],
+                    ['05 — Bring Back', ['Reminders', 'Loyalty', 'Remarketing']],
                   ]
               ).map(([label, chips], i, arr) => (
                 <li key={label as string} style={{ position: 'relative', paddingBottom: i < arr.length - 1 ? 14 : 0 }}>
@@ -278,7 +278,7 @@ export function HeroV2({ onAnalysisClick, onDemoClick }: Props) {
                         letterSpacing: '0.1em',
                         textTransform: 'uppercase',
                         color: 'var(--ember)',
-                        minWidth: 92,
+                        minWidth: 118,
                       }}
                     >
                       {label as string}

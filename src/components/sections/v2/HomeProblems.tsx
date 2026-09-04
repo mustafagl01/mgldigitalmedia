@@ -19,8 +19,8 @@ type Problem = {
 
 const PROBLEMS: Problem[] = [
   {
-    titleTR: 'Daha fazla müşteriye ulaşmak istiyorum.',
-    titleEN: 'I want to reach more customers.',
+    titleTR: 'Müşteriler beni Google\'da bulamıyor.',
+    titleEN: 'Customers cannot find me on Google.',
     bodyTR: 'Google, SEO, Google Maps, Meta Ads ve Google Ads ile işletmenizin daha fazla kişiye ulaşmasını sağlıyoruz.',
     bodyEN: 'We use Google, SEO, Maps, Meta Ads and Google Ads to put your business in front of more people.',
     ctaTR: 'Çözümleri gör',
@@ -28,8 +28,8 @@ const PROBLEMS: Problem[] = [
     href: '/packages#ads',
   },
   {
-    titleTR: 'WhatsApp ve aramalara yetişemiyorum.',
-    titleEN: 'I cannot keep up with WhatsApp and calls.',
+    titleTR: 'Mesajlara ve aramalara yetişemiyorum.',
+    titleEN: 'I cannot keep up with messages and calls.',
     bodyTR: 'Müşterilerinize 7/24 cevap verebilen WhatsApp, web ve sesli yapay zekâ asistanları kuruyoruz.',
     bodyEN: 'We set up WhatsApp, web and voice AI assistants that answer your customers around the clock.',
     ctaTR: 'AI çözümlerini gör',
@@ -37,8 +37,8 @@ const PROBLEMS: Problem[] = [
     href: '/packages#agents',
   },
   {
-    titleTR: 'Çok fazla işi manuel yapıyorum.',
-    titleEN: 'Too much of my work is manual.',
+    titleTR: 'Müşteri ve işler dağınık ilerliyor.',
+    titleEN: 'Customers and jobs are tracked all over the place.',
     bodyTR: 'Müşteri takibi, mesajlar, formlar, rezervasyonlar ve takip süreçlerini otomatikleştiriyoruz.',
     bodyEN: 'We automate customer follow-up, messages, forms, bookings and reminders.',
     ctaTR: 'Otomasyonları gör',
@@ -46,8 +46,8 @@ const PROBLEMS: Problem[] = [
     href: '/n8n-otomasyon',
   },
   {
-    titleTR: 'İşletmem internette profesyonel görünmüyor.',
-    titleEN: 'My business does not look professional online.',
+    titleTR: 'Trafik geliyor ama müşteriye dönüşmüyor.',
+    titleEN: 'Traffic arrives but does not turn into customers.',
     bodyTR: 'Web sitesi, Google Business, kurumsal e-posta ve marka altyapınızı birlikte kuruyoruz.',
     bodyEN: 'We build the website, Google Business profile, business email and brand basics together.',
     ctaTR: 'Dijital varlığımı güçlendir',
