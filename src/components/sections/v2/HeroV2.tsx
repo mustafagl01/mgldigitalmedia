@@ -292,7 +292,7 @@ export function HeroV2({ onAnalysisClick, onDemoClick }: Props) {
                   height={470}
                   style={{
                     width: '100%',
-                    aspectRatio: '2 / 1',
+                    aspectRatio: '5 / 2',
                     objectFit: 'cover',
                     objectPosition: 'left top',
                     display: 'block',
