@@ -60,6 +60,7 @@ import { CredentialsStrip } from './components/sections/v2/CredentialsStrip';
 import { HomeCapabilities, HomeWhoWeWorkWith } from './components/sections/v2/HomeCapabilities';
 import { HomeProblems, HomeJourney } from './components/sections/v2/HomeProblems';
 import { HomeConnectedSystems, HomeHowWeWork, HomeWhyMgl } from './components/sections/v2/HomeApproach';
+import { HomePricing } from './components/sections/v2/HomePricing';
 import { DemoSection } from './components/sections/v2/DemoSection';
 import { FoundersBet } from './components/sections/v2/FoundersBet';
 import { ClosingCTA } from './components/sections/v2/ClosingCTA';
@@ -332,6 +333,7 @@ function AppContent() {
           <HomeWhoWeWorkWith />
           <HomeHowWeWork />
           <HomeWhyMgl />
+          <HomePricing />
           <DemoSection
             onEmailDemo={() => setActiveDemo('email')}
             onPhoneDemo={() => setActiveDemo('phone')}
