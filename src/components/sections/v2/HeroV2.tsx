@@ -225,6 +225,106 @@ export function HeroV2({ onAnalysisClick, onDemoClick }: Props) {
               {language === 'tr' ? 'UK Ltd. sözleşmesi' : 'UK Ltd. contract'}
             </span>
           </div>
+
+          {/* Sistem haritası.
+              Bu alan daha önce boştu: sağdaki iş duvarı sol kolondan uzun
+              olduğu için altta 259px boşluk kalıyordu. Oraya rastgele bir kart
+              koymak yerine ziyaretçinin "MGL aslında ne kuruyor?" sorusunu
+              tek bakışta cevaplayan katman şeması kondu.
+              NOT: Aşağıdaki "Sadece web sitesi yapmıyoruz" akış bölümü bunun
+              tekrarı olduğu için ana sayfadan çıkarıldı. */}
+          <div style={{ marginTop: 40 }}>
+            <p className="eyebrow" style={{ marginBottom: 10 }}>
+              {language === 'tr' ? 'İŞLETMENİZİN DİJİTAL SİSTEMİ' : 'YOUR BUSINESS AS ONE SYSTEM'}
+            </p>
+            <p
+              style={{
+                fontFamily: 'var(--font-serif)',
+                fontSize: 'clamp(1.15rem, 0.9rem + 0.6vw, 1.5rem)',
+                lineHeight: 1.3,
+                color: 'var(--ink)',
+                margin: '0 0 18px',
+                maxWidth: 460,
+              }}
+            >
+              {language === 'tr'
+                ? 'Birbirinden kopuk hizmetler değil. Birlikte çalışan bir sistem kuruyoruz.'
+                : 'Not disconnected services. One system that works together.'}
+            </p>
+
+            <ol style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+              {(language === 'tr'
+                ? [
+                    ['Bulunun', ['Google', 'SEO', 'Reklam']],
+                    ['İlgi çekin', ['Web sitesi', 'Landing page']],
+                    ['Yanıtlayın', ['WhatsApp', 'Sesli AI', 'Chatbot']],
+                    ['Kazanın', ['CRM', 'Rezervasyon', 'Sipariş']],
+                    ['Koruyun', ['Otomatik takip', 'Sadakat']],
+                  ]
+                : [
+                    ['Get found', ['Google', 'SEO', 'Ads']],
+                    ['Earn attention', ['Website', 'Landing page']],
+                    ['Answer', ['WhatsApp', 'Voice AI', 'Chatbot']],
+                    ['Win', ['CRM', 'Booking', 'Ordering']],
+                    ['Keep', ['Follow-up', 'Loyalty']],
+                  ]
+              ).map(([label, chips], i, arr) => (
+                <li key={label as string} style={{ position: 'relative', paddingBottom: i < arr.length - 1 ? 14 : 0 }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: 12, flexWrap: 'wrap' }}>
+                    <span
+                      style={{
+                        fontFamily: 'var(--font-mono)',
+                        fontSize: 11,
+                        letterSpacing: '0.1em',
+                        textTransform: 'uppercase',
+                        color: 'var(--ember)',
+                        minWidth: 92,
+                      }}
+                    >
+                      {label as string}
+                    </span>
+                    <span style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
+                      {(chips as string[]).map((c) => (
+                        <span
+                          key={c}
+                          style={{
+                            fontSize: 12.5,
+                            color: 'var(--fg-2)',
+                            border: '1px solid var(--border)',
+                            borderRadius: 'var(--r-sm)',
+                            padding: '3px 9px',
+                            background: 'var(--paper-2)',
+                            whiteSpace: 'nowrap',
+                          }}
+                        >
+                          {c}
+                        </span>
+                      ))}
+                    </span>
+                  </div>
+                  {i < arr.length - 1 && (
+                    <span
+                      aria-hidden="true"
+                      style={{
+                        position: 'absolute',
+                        left: 40,
+                        bottom: 1,
+                        width: 1,
+                        height: 11,
+                        background: 'var(--border-2)',
+                      }}
+                    />
+                  )}
+                </li>
+              ))}
+            </ol>
+
+            <p style={{ marginTop: 16, fontSize: 13.5, lineHeight: 1.55, color: 'var(--fg-3)', maxWidth: 440 }}>
+              {language === 'tr'
+                ? 'Müşteri sizi bulduğu andan tekrar satın aldığı ana kadar süreci birbirine bağlıyoruz.'
+                : 'We connect the journey from the moment someone finds you to the moment they buy again.'}
+            </p>
+          </div>
         </div>
         </div>
 
@@ -324,13 +424,14 @@ export function HeroV2({ onAnalysisClick, onDemoClick }: Props) {
             ))}
           </div>
 
+          {/* Yasal/etik açıklama — durması şart ama görsel hiyerarşide ana
+              mesajla yarışmamalı. Eskiden 17px serif italikti ve göz oraya
+              gidiyordu; küçültülüp griye alındı. */}
           <p
             style={{
-              fontFamily: 'var(--font-serif)',
-              fontStyle: 'italic',
-              fontSize: 17,
-              lineHeight: 1.45,
-              color: 'var(--fg-2)',
+              fontSize: 13,
+              lineHeight: 1.5,
+              color: 'var(--fg-3)',
               margin: 0,
               fontWeight: 400,
             }}

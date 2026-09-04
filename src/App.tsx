@@ -59,7 +59,9 @@ import { HeroV2 } from './components/sections/v2/HeroV2';
 import { CredentialsStrip } from './components/sections/v2/CredentialsStrip';
 import { HomeCapabilities, HomeWhoWeWorkWith } from './components/sections/v2/HomeCapabilities';
 import { HomeProblems, HomeJourney } from './components/sections/v2/HomeProblems';
-import { HomeConnectedSystems, HomeHowWeWork, HomeWhyMgl } from './components/sections/v2/HomeApproach';
+// HomeConnectedSystems ana sayfadan cikarildi: ayni akis artik hero'daki
+// sistem haritasinda duruyor, iki yerde tekrar olmasin.
+import { HomeHowWeWork, HomeWhyMgl } from './components/sections/v2/HomeApproach';
 import { HomePricing } from './components/sections/v2/HomePricing';
 import { DemoSection } from './components/sections/v2/DemoSection';
 import { FoundersBet } from './components/sections/v2/FoundersBet';
@@ -329,7 +331,6 @@ function AppContent() {
           <HomeCapabilities />
           <HomeProblems />
           <HomeJourney />
-          <HomeConnectedSystems />
           <HomeWhoWeWorkWith />
           <HomeHowWeWork />
           <HomeWhyMgl />
