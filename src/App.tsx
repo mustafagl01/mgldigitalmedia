@@ -23,6 +23,7 @@ const Packages = lazy(() => import('./pages/Packages'));
 const Services = lazy(() => import('./pages/Services'));
 const Solutions = lazy(() => import('./pages/Solutions'));
 const SolutionDetail = lazy(() => import('./pages/SolutionDetail'));
+const ProblemDetail = lazy(() => import('./pages/ProblemDetail'));
 const Legal = lazy(() => import('./pages/Legal'));
 const NotFound = lazy(() => import('./pages/NotFound'));
 
@@ -81,6 +82,11 @@ type AppPage =
   | 'solution-eticaret'
   | 'solution-guzellik'
   | 'solution-restoran'
+  | 'sorun-mesai-disi-arama-cevaplama'
+  | 'sorun-randevu-hatirlatma-sistemi'
+  | 'sorun-tahsilat-otomasyonu'
+  | 'sorun-evrak-toplama-ve-takip'
+  | 'sorun-excelden-otomatik-mail-whatsapp'
   | 'legal'
   | 'notfound'
   // Service pages (E)
@@ -107,6 +113,11 @@ const NESTED_PATHS: Partial<Record<AppPage, string>> = {
   'solution-eticaret': '/solutions/eticaret',
   'solution-guzellik': '/solutions/guzellik',
   'solution-restoran': '/solutions/restoran',
+  'sorun-mesai-disi-arama-cevaplama': '/sorunlar/mesai-disi-arama-cevaplama',
+  'sorun-randevu-hatirlatma-sistemi': '/sorunlar/randevu-hatirlatma-sistemi',
+  'sorun-tahsilat-otomasyonu': '/sorunlar/tahsilat-otomasyonu',
+  'sorun-evrak-toplama-ve-takip': '/sorunlar/evrak-toplama-ve-takip',
+  'sorun-excelden-otomatik-mail-whatsapp': '/sorunlar/excelden-otomatik-mail-whatsapp',
 };
 
 const KNOWN_PATHS = new Set([
@@ -123,6 +134,11 @@ const KNOWN_PATHS = new Set([
   '/solutions/eticaret',
   '/solutions/guzellik',
   '/solutions/restoran',
+  '/sorunlar/mesai-disi-arama-cevaplama',
+  '/sorunlar/randevu-hatirlatma-sistemi',
+  '/sorunlar/tahsilat-otomasyonu',
+  '/sorunlar/evrak-toplama-ve-takip',
+  '/sorunlar/excelden-otomatik-mail-whatsapp',
   '/legal',
   '/whatsapp-ai-asistan',
   '/sesli-ai',
@@ -153,6 +169,11 @@ function pathToPage(path: string): AppPage {
   if (clean === '/solutions/eticaret') return 'solution-eticaret';
   if (clean === '/solutions/guzellik') return 'solution-guzellik';
   if (clean === '/solutions/restoran') return 'solution-restoran';
+  if (clean === '/sorunlar/mesai-disi-arama-cevaplama') return 'sorun-mesai-disi-arama-cevaplama';
+  if (clean === '/sorunlar/randevu-hatirlatma-sistemi') return 'sorun-randevu-hatirlatma-sistemi';
+  if (clean === '/sorunlar/tahsilat-otomasyonu') return 'sorun-tahsilat-otomasyonu';
+  if (clean === '/sorunlar/evrak-toplama-ve-takip') return 'sorun-evrak-toplama-ve-takip';
+  if (clean === '/sorunlar/excelden-otomatik-mail-whatsapp') return 'sorun-excelden-otomatik-mail-whatsapp';
   if (clean === '/legal') return 'legal';
   // Service pages
   if (clean === '/whatsapp-ai-asistan') return 'whatsapp-ai-asistan';
@@ -230,9 +251,11 @@ function AppContent() {
   // Content pages — wrap in site shell (header/footer)
   const headerPage: SitePage = currentPage.startsWith('solution')
     ? 'solutions'
-    : currentPage === 'services' || currentPage === 'packages' || currentPage === 'pricing' || currentPage === 'legal'
-      ? currentPage
-      : 'home';
+    : currentPage.startsWith('sorun-')
+      ? 'services'
+      : currentPage === 'services' || currentPage === 'packages' || currentPage === 'pricing' || currentPage === 'legal'
+        ? currentPage
+        : 'home';
 
   const wrapPage = (node: React.ReactNode) => (
     <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', background: 'var(--paper)' }}>
@@ -258,6 +281,11 @@ function AppContent() {
   if (currentPage === 'solution-eticaret') return wrapPage(<Suspense fallback={<div />}><SolutionDetail sectorKey="eticaret" /></Suspense>);
   if (currentPage === 'solution-guzellik') return wrapPage(<Suspense fallback={<div />}><SolutionDetail sectorKey="guzellik" /></Suspense>);
   if (currentPage === 'solution-restoran') return wrapPage(<Suspense fallback={<div />}><SolutionDetail sectorKey="restoran" /></Suspense>);
+  if (currentPage === 'sorun-mesai-disi-arama-cevaplama') return wrapPage(<Suspense fallback={<div />}><ProblemDetail slug="mesai-disi-arama-cevaplama" /></Suspense>);
+  if (currentPage === 'sorun-randevu-hatirlatma-sistemi') return wrapPage(<Suspense fallback={<div />}><ProblemDetail slug="randevu-hatirlatma-sistemi" /></Suspense>);
+  if (currentPage === 'sorun-tahsilat-otomasyonu') return wrapPage(<Suspense fallback={<div />}><ProblemDetail slug="tahsilat-otomasyonu" /></Suspense>);
+  if (currentPage === 'sorun-evrak-toplama-ve-takip') return wrapPage(<Suspense fallback={<div />}><ProblemDetail slug="evrak-toplama-ve-takip" /></Suspense>);
+  if (currentPage === 'sorun-excelden-otomatik-mail-whatsapp') return wrapPage(<Suspense fallback={<div />}><ProblemDetail slug="excelden-otomatik-mail-whatsapp" /></Suspense>);
   if (currentPage === 'legal') return wrapPage(<Suspense fallback={<div />}><Legal /></Suspense>);
   if (currentPage === 'notfound') return wrapPage(<Suspense fallback={<div />}><NotFound onHome={() => navigateTo('home')} /></Suspense>);
 
