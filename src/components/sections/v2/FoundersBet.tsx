@@ -13,7 +13,7 @@ export function FoundersBet({ onAnalysisClick }: Props) {
       ? [
           {
             h: 'Asistanlarda kurulum ücreti yok',
-            p: 'Sesli ve WhatsApp asistanını ücretsiz kurar, gerçek trafikle çalıştırırız. Ödediğiniz tek şey küçük aylık sistem bedeli ve kullandığınız kadar kontör. Konuşma dakikası ve reklam bütçesi baştan itibaren size aittir — bunları biz üstlenmeyiz, üzerine de komisyon almayız.',
+            p: 'Sesli ve WhatsApp asistanını ücretsiz kurar, gerçek trafikle çalıştırırız. Ödediğiniz tek şey küçük bir aylık sistem bedeli ve kullandığınız kadar kontördür — sesli kullanım dakika, WhatsApp kullanımı AI yanıtı üzerinden, şeffaf birim fiyatla ücretlenir. Reklam bütçeniz ise doğrudan platforma ödenir; üzerinden komisyon almayız.',
           },
           {
             h: 'Sabit fiyat, yazılı kapsam',
@@ -27,7 +27,7 @@ export function FoundersBet({ onAnalysisClick }: Props) {
       : [
           {
             h: 'No setup fee on the assistants',
-            p: 'We set up the voice and WhatsApp assistants free and run them on real traffic. All you pay is the small monthly system fee and the credit you actually use. Connected minutes and ad budget are yours from day one — we neither cover them nor take a cut.',
+            p: 'We set up the voice and WhatsApp assistants free and run them on real traffic. All you pay is a small monthly system fee and the credit you actually use — voice usage is billed per minute, WhatsApp usage per AI reply, both at a transparent unit rate. Ad budget is paid directly to the platform; we take no cut of it.',
           },
           {
             h: 'Fixed price, written scope',

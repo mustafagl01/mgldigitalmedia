@@ -2032,16 +2032,13 @@ export default function Packages() {
 
           {activeCategory === 'agents' && (
             <div
+              className="automation-callout"
               style={{
                 marginTop: 32,
-                padding: '24px 28px',
                 border: '1px solid var(--border)',
                 borderLeft: '3px solid var(--ember)',
                 borderRadius: 'var(--r-md)',
                 background: 'var(--paper-2)',
-                display: 'grid',
-                gridTemplateColumns: 'minmax(0, 1fr) auto',
-                gap: 24,
                 alignItems: 'center',
               }}
             >
@@ -2058,7 +2055,7 @@ export default function Packages() {
                     : 'Deadline hatırlatma, evrak toplama, ödeme takibi, Excel/CRM senkronizasyonu veya iç raporlar için. Kapsam akış sayısıyla değil işletmenizin süreçleriyle tanımlanır ve teklifte yazılı olarak yer alır; barındırma, izleme, hata uyarıları ve aylık bakım dahildir.'}
                 </p>
               </div>
-              <div style={{ minWidth: 190, textAlign: 'right' }}>
+              <div className="automation-callout__price">
                 <strong style={{ display: 'block', fontFamily: 'var(--font-serif)', fontSize: 25, color: 'var(--ink)' }}>
                   {formatPrice(pricing.packages.automation.setupFee, region)} {isEnglish ? 'setup' : 'kurulum'}
                 </strong>

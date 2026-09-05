@@ -65,10 +65,15 @@ export function HeroV2({ onAnalysisClick, onDemoClick }: Props) {
       {/* Animated sine-wave backdrop — ember, breathing, mouse-parallax */}
       <HeroBackdrop />
 
-      {/* Metin bloğu — 1050px'e sabitlendi, görsel büyüdükçe başlık ekranın
-          tamamını kaplamasın diye (kullanıcı geri bildirimi). */}
+      {/* Metin bloğu — başlık artık dar bir kolona sıkıştırılmıyor.
+          Önceki hali (maxWidth: 1050 tüm blokta) başlığı 4-5 satıra
+          düşürüyor, sağda ölü boşluk bırakıyor ve görseli aşağı itiyordu
+          (kullanıcı geri bildirimi, 2026-09-05). Başlık artık container'a
+          yakın genişlikte (1200px), sola hizalı — justify YOK, MGL'nin
+          editorial kimliği ortalanmış "SaaS landing page" hissinden
+          bilinçli olarak uzak duruyor. Açıklama hâlâ dar (640px, aşağıda). */}
       <div className="container" style={{ position: 'relative' }}>
-        <div className="animate-fade-in" style={{ marginBottom: 28 }}>
+        <div className="animate-fade-in" style={{ marginBottom: 22 }}>
           {/* Eskiden "yeni proje alıyoruz" rozeti sağda ayrı, havada duran bir
               öge olarak sıra bozuyordu. Tek satırlık eyebrow'a birleştirildi. */}
           <span className="eyebrow" style={{ flexWrap: 'wrap', rowGap: 6 }}>
@@ -81,38 +86,51 @@ export function HeroV2({ onAnalysisClick, onDemoClick }: Props) {
           </span>
         </div>
 
-        <div className="animate-fade-up" style={{ maxWidth: 1050 }}>
+        <div className="animate-fade-up" style={{ maxWidth: 1200 }}>
           <h1
             style={{
               fontFamily: 'var(--font-serif)',
-              fontSize: 'clamp(2.4rem, 1.3rem + 4vw, 4.5rem)',
-              lineHeight: 1.02,
+              fontSize: 'clamp(2.3rem, 1.2rem + 3.6vw, 4.2rem)',
+              lineHeight: 1.08,
               letterSpacing: '-0.03em',
               fontWeight: 500,
               color: 'var(--ink)',
               margin: 0,
               textWrap: 'balance',
+              textAlign: 'left',
               fontVariationSettings: '"opsz" 144, "SOFT" 50',
             }}
           >
             {/* Başlık kuralı: ne sattığımız ilk cümlede net olsun. Somut:
                 kim, ne zaman, ne oluyor. DİKKAT — sadece gerçekten yapılan
-                şey yazılır; olmayan özellik vaat edilmez. */}
+                şey yazılır; olmayan özellik vaat edilmez.
+                .hero-line: masaüstünde (≥900px) block olup satırı zorluyor —
+                "İşletmenizi bulduruyor, müşteriyi yakalıyor" / "ve süreci
+                otomatikleştiriyoruz." iki satıra sabitlenir. Mobilde inline
+                kalır, tarayıcı doğal sarar (2-3-4 satır olabilir, zorlanmaz). */}
             {isTR ? (
               <>
-                İşletmenizi bulduruyor,{' '}
-                <span style={{ fontStyle: 'italic', fontWeight: 400, color: 'var(--fg-2)' }}>
-                  müşteriyi yakalıyor
+                <span className="hero-line">
+                  İşletmenizi bulduruyor,{' '}
+                  <span style={{ fontStyle: 'italic', fontWeight: 400, color: 'var(--fg-2)' }}>
+                    müşteriyi yakalıyor
+                  </span>
                 </span>{' '}
-                ve süreci <span style={{ color: 'var(--ember)' }}>otomatikleştiriyoruz</span>.
+                <span className="hero-line">
+                  ve süreci <span style={{ color: 'var(--ember)' }}>otomatikleştiriyoruz</span>.
+                </span>
               </>
             ) : (
               <>
-                We get you found,{' '}
-                <span style={{ fontStyle: 'italic', fontWeight: 400, color: 'var(--fg-2)' }}>
-                  capture the customer
+                <span className="hero-line">
+                  We get you found,{' '}
+                  <span style={{ fontStyle: 'italic', fontWeight: 400, color: 'var(--fg-2)' }}>
+                    capture the customer
+                  </span>
                 </span>{' '}
-                and <span style={{ color: 'var(--ember)' }}>automate the process</span>.
+                <span className="hero-line">
+                  and <span style={{ color: 'var(--ember)' }}>automate the process</span>.
+                </span>
               </>
             )}
           </h1>
@@ -120,7 +138,7 @@ export function HeroV2({ onAnalysisClick, onDemoClick }: Props) {
           <p
             className="lede"
             style={{
-              marginTop: 26,
+              marginTop: 20,
               color: 'var(--fg-2)',
               fontSize: 'clamp(1.05rem, 0.9rem + 0.5vw, 1.25rem)',
               maxWidth: 640,
@@ -137,7 +155,7 @@ export function HeroV2({ onAnalysisClick, onDemoClick }: Props) {
             style={{
               display: 'flex',
               gap: 12,
-              marginTop: 36,
+              marginTop: 28,
               flexWrap: 'wrap',
               alignItems: 'center',
             }}
@@ -155,7 +173,7 @@ export function HeroV2({ onAnalysisClick, onDemoClick }: Props) {
           {/* Transparency strip — honest pledge, no fake metrics */}
           <div
             style={{
-              marginTop: 26,
+              marginTop: 20,
               fontFamily: 'var(--font-mono)',
               fontSize: 12,
               color: 'var(--fg-3)',
@@ -175,13 +193,14 @@ export function HeroV2({ onAnalysisClick, onDemoClick }: Props) {
         </div>
       </div>
 
-      {/* Ürün görseli — hero'nun ana görsel öznesi. Metin sütunundan (1050px)
-          bilinçli olarak daha geniş bir container kullanır ve viewport'un
-          büyük kısmını kaplar; "yardımcı dekorasyon" değil "showcase". */}
+      {/* Ürün görseli — hero'nun ana görsel öznesi. Metin sütunundan daha
+          geniş bir container kullanır ve viewport'un büyük kısmını kaplar;
+          "yardımcı dekorasyon" değil "showcase". Üstteki boşluk sıkılaştırıldı
+          (72px→56px tepe) ki görsel ilk ekranın içine daha yukarı girsin. */}
       <div
         className="container animate-fade-up hero-visual hero-visual--portrait-mobile"
         style={{
-          marginTop: 'clamp(44px, 6vw, 72px)',
+          marginTop: 'clamp(32px, 4vw, 56px)',
           maxWidth: 1400,
           ['--hero-mobile-ratio' as string]: HERO_IMAGE[language].mobile.ratio,
         }}
