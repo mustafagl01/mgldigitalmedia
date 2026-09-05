@@ -8,16 +8,12 @@ import { LocationProvider, useLocation } from './contexts/LocationContext';
 import { Toaster } from './components/ui/Toast';
 
 // Modals (kept from previous build)
-import { AuthModal } from './components/auth/AuthModal';
 import { EmailDemoModal } from './components/modals/EmailDemoModal';
 import { PhoneDemoModal } from './components/modals/PhoneDemoModal';
 
 const CALENDAR_URL = 'https://calendar.app.google/FZnTjsWGfCy33WF36';
 
 // Pages — lazy loaded to reduce initial bundle
-const ProductsPage = lazy(() => import('./components/pages/ProductsPage').then(m => ({ default: m.ProductsPage })));
-const SuccessPage = lazy(() => import('./components/pages/SuccessPage').then(m => ({ default: m.SuccessPage })));
-const CancelPage = lazy(() => import('./components/pages/CancelPage').then(m => ({ default: m.CancelPage })));
 const Pricing = lazy(() => import('./pages/Pricing'));
 const Packages = lazy(() => import('./pages/Packages'));
 const Services = lazy(() => import('./pages/Services'));
@@ -70,9 +66,6 @@ import { ClosingCTA } from './components/sections/v2/ClosingCTA';
 
 type AppPage =
   | 'home'
-  | 'products'
-  | 'success'
-  | 'cancel'
   | 'pricing'
   | 'packages'
   | 'services'
@@ -122,9 +115,6 @@ const NESTED_PATHS: Partial<Record<AppPage, string>> = {
 
 const KNOWN_PATHS = new Set([
   '/',
-  '/products',
-  '/success',
-  '/cancel',
   '/pricing',
   '/packages',
   '/services',
@@ -157,9 +147,6 @@ function pathToPage(path: string): AppPage {
   const withoutLanguage = path.replace(/^\/en(?=\/|$)/, '') || '/';
   const clean = withoutLanguage.replace(/\/$/, '') || '/';
   if (clean === '/' || clean === '') return 'home';
-  if (clean === '/products') return 'products';
-  if (clean === '/success') return 'success';
-  if (clean === '/cancel') return 'cancel';
   if (clean === '/pricing') return 'pricing';
   if (clean === '/packages') return 'packages';
   if (clean === '/services') return 'services';
@@ -198,7 +185,6 @@ function AppContent() {
     pathToPage(window.location.pathname),
   );
   const [activeDemo, setActiveDemo] = useState<string | null>(null);
-  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   // Blog slug — extracted from URL for blog-post pages
   const [blogSlug, setBlogSlug] = useState<string>(() => {
     const parts = window.location.pathname.replace(/^\/en(?=\/|$)/, '').split('/');
@@ -241,12 +227,6 @@ function AppContent() {
   const openAnalysis = () => {
     window.open(CALENDAR_URL, '_blank', 'noopener,noreferrer');
   };
-
-  // Dedicated pages render without the site shell
-  if (currentPage === 'products') return <Suspense fallback={<div />}><ProductsPage onBack={() => navigateTo('home')} /></Suspense>;
-  if (currentPage === 'success') return <Suspense fallback={<div />}><SuccessPage onBack={() => navigateTo('home')} /></Suspense>;
-  if (currentPage === 'cancel')
-    return <Suspense fallback={<div />}><CancelPage onBack={() => navigateTo('home')} onRetry={() => navigateTo('products')} /></Suspense>;
 
   // Content pages — wrap in site shell (header/footer)
   const headerPage: SitePage = currentPage.startsWith('solution')
@@ -378,12 +358,6 @@ function AppContent() {
 
       <EmailDemoModal isOpen={activeDemo === 'email'} onClose={() => setActiveDemo(null)} />
       <PhoneDemoModal isOpen={activeDemo === 'phone'} onClose={() => setActiveDemo(null)} />
-      <AuthModal
-        isOpen={isAuthModalOpen}
-        onClose={() => setIsAuthModalOpen(false)}
-        initialMode="signup"
-      />
-
     </>
   );
 }

@@ -90,7 +90,7 @@ export default function Legal() {
               <li>{isEN ? 'Contact form submissions: name, phone, email, business sector.' : 'İletişim formu: isim, telefon, e-posta, sektör.'}</li>
               <li>{isEN ? 'Chat and demo content: the messages you send, call or email request details, page and preferred language.' : 'Sohbet ve demo içeriği: gönderdiğiniz mesajlar, arama veya e-posta talebi bilgileri, sayfa ve dil tercihi.'}</li>
               <li>{isEN ? 'If you consent: page views, device information, referrer and advertising interaction data.' : 'Onay verirseniz: sayfa görüntüleme, cihaz bilgisi, yönlendiren sayfa ve reklam etkileşim verileri.'}</li>
-              <li>{isEN ? 'Account and payment data: email, account session and Stripe transaction references. We do not receive your full card number.' : 'Hesap ve ödeme verisi: e-posta, hesap oturumu ve Stripe işlem referansları. Kart numaranızın tamamını görmeyiz.'}</li>
+              <li>{isEN ? 'Account data: email and account session, where an account exists. There is no online checkout on this site; orders are agreed directly with our team and invoiced separately.' : 'Hesap verisi: e-posta ve hesap oturumu (hesap varsa). Bu sitede online ödeme/checkout bulunmuyor; siparişler doğrudan ekibimizle görüşülüp ayrıca faturalandırılır.'}</li>
             </ul>
           </div>
 
@@ -107,8 +107,8 @@ export default function Legal() {
             <h2 style={sectionH2}>{isEN ? '4 · Where data is stored' : '4 · Veriler nerede saklanıyor'}</h2>
             <p style={bodyP}>
               {isEN
-                ? 'We use service providers for hosting and security (Cloudflare), workflow processing, business email, payments (Stripe), and—only after consent—analytics and advertising measurement (Google and Meta). These providers may process data in the UK, EEA or other countries under their contractual transfer safeguards. We share only what is needed for the stated purpose and do not sell personal data.'
-                : 'Barındırma ve güvenlik (Cloudflare), iş akışı işleme, kurumsal e-posta, ödeme (Stripe) ve yalnızca onaydan sonra analitik/reklam ölçümü (Google ve Meta) için hizmet sağlayıcıları kullanırız. Bu sağlayıcılar, sözleşmelerindeki aktarım güvenceleri kapsamında veriyi UK, AEA veya başka ülkelerde işleyebilir. Yalnızca belirtilen amaç için gereken veriyi paylaşır, kişisel verileri satmayız.'}
+                ? 'We use service providers for hosting and security (Cloudflare), workflow processing, business email, and—only after consent—analytics and advertising measurement (Google and Meta). These providers may process data in the UK, EEA or other countries under their contractual transfer safeguards. We share only what is needed for the stated purpose and do not sell personal data.'
+                : 'Barındırma ve güvenlik (Cloudflare), iş akışı işleme, kurumsal e-posta ve yalnızca onaydan sonra analitik/reklam ölçümü (Google ve Meta) için hizmet sağlayıcıları kullanırız. Bu sağlayıcılar, sözleşmelerindeki aktarım güvenceleri kapsamında veriyi UK, AEA veya başka ülkelerde işleyebilir. Yalnızca belirtilen amaç için gereken veriyi paylaşır, kişisel verileri satmayız.'}
             </p>
           </div>
 

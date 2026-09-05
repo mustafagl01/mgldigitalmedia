@@ -33,11 +33,11 @@ export function HomePricing() {
     {
       titleTR: 'Kurulan sistemler',
       titleEN: 'Built systems',
-      headTR: 'Tek seferlik kurulum',
-      headEN: 'One-off setup',
-      priceLabel: `${formatPrice(p.leadmail.setupFee, region)} – ${formatPrice(p.automation.setupFee, region)}`,
-      subTR: `Otomasyon sistemi ve lead + mail sistemi. Aylık bakım ${formatPrice(p.automation.price, region)}; barındırma, izleme ve arıza müdahalesi dahil.`,
-      subEN: `Automation and lead + email systems. Monthly maintenance ${formatPrice(p.automation.price, region)}, including hosting, monitoring and incident response.`,
+      headTR: 'Tek seferlik kurulumdan başlar',
+      headEN: 'From a one-off setup',
+      priceLabel: `${formatPrice(p.automation.setupFee, region)}`,
+      subTR: `Otomasyon sistemi tek seferlik kurulur, aylık bakım ${formatPrice(p.automation.price, region)}; barındırma, izleme ve arıza müdahalesi dahil. Lead + mail sisteminde kurulum yok — ayda ${formatPrice(p.leadmail.price, region)} + kullandığınız kredi.`,
+      subEN: `The automation system is a one-off setup, ${formatPrice(p.automation.price, region)}/month maintenance including hosting, monitoring and incident response. The lead + email system has no setup fee — ${formatPrice(p.leadmail.price, region)}/month plus the credits you use.`,
       href: '/packages#systems',
     },
     {

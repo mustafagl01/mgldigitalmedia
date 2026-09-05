@@ -1,6 +1,9 @@
 import { BarChart3, Check, Globe2, Mail, Pause, Search, ShieldCheck, Sparkles } from 'lucide-react';
 import { Seo, breadcrumbSchema, faqSchema, serviceSchema } from '../../components/seo/Seo';
 import { useLanguage } from '../../contexts/LanguageContext';
+import { useLocation } from '../../contexts/LocationContext';
+import { LEAD_CREDIT_CATEGORIES } from '../../config/pricing';
+import { formatPrice } from '../../utils/formatPrice';
 
 const CALENDAR_URL = 'https://calendar.app.google/FZnTjsWGfCy33WF36';
 
@@ -30,11 +33,7 @@ const COPY = {
     safetyTitle: 'Ana e-posta şifrenizi istemeyiz',
     safety: 'Kampanya için size ait ayrı bir mailbox kullanılır. Uygulama şifresi şifrelenerek saklanır; SPF, DKIM ve DMARC kontrolleri tamamlanmadan canlı gönderim açılmaz. Ret veya abonelikten çıkma talebi alan adresler yeniden gönderimden çıkarılır.',
     priceTitle: 'Yönetilen hizmet paketleri',
-    priceIntro: 'İlk sürüm self-service yazılım lisansı değil, MGL tarafından işletilen bir hizmettir.',
-    plans: [
-      ['Lead + Mail Sistemi', '12.999 TL', 'tek seferlik kurulum', ['Hedef müşteri profili çıkarımı', 'Lead toplama, zenginleştirme ve e-posta doğrulama', 'Her işletmeye özel yazılan ilk mail ve takip', 'Gönderim kaydı, mükerrer engelleme ve cevap raporu']],
-      ['Aylık Bakım', '1.899 TL/ay', 'barındırma, izleme, arıza müdahalesi', ['Sistem sizin domaininiz ve posta kutunuzda çalışır', 'Teslimat sağlığı ve limit takibi', 'Ayda bir değişiklik hakkı', 'Domain, mailbox ve veri kredisi size aittir']],
-    ],
+    priceIntro: 'İlk sürüm self-service yazılım lisansı değil, MGL tarafından işletilen bir hizmettir. Kurulum ücreti yoktur.',
     extra: 'Domain, kampanya mailbox’ı ve ücretli veri/API giderleri kullanıma göre ayrıca yansıtılır. Satış, cevap veya inbox yerleşimi garanti edilmez; sonuç hedef kitleye, teklife, domain sağlığına ve pazar koşullarına bağlıdır.',
     faqTitle: 'Sık sorulan sorular',
     faqs: [
@@ -68,11 +67,7 @@ const COPY = {
     managedTitle: 'What does MGL manage?', managed: ['Search queries and sources', 'Website review and quality rules', 'Email samples and follow-up sequence', 'Daily limits and schedules', 'SPF, DKIM, DMARC and mailbox checks', 'Launch, restart and error handling'],
     safetyTitle: 'We do not ask for your primary mailbox password',
     safety: 'A separate campaign mailbox owned by you is used. Its app password is encrypted, and sending stays locked until SPF, DKIM and DMARC checks pass. Opt-outs and negative replies are suppressed immediately.',
-    priceTitle: 'Managed service plans', priceIntro: 'The first release is an MGL-operated service, not a self-service software licence.',
-    plans: [
-      ['Lead + Email System', '£200', 'one-off setup', ['Ideal customer profile definition', 'Lead sourcing, enrichment and email verification', 'A first email and follow-up written for each business', 'Send log, deduplication and reply reporting']],
-      ['Monthly maintenance', '£29/month', 'hosting, monitoring, incident response', ['Runs on your own domain and mailbox', 'Deliverability and sending-limit monitoring', 'One change request per month', 'Domain, mailbox and data credits are yours']],
-    ],
+    priceTitle: 'Managed service plans', priceIntro: 'The first release is an MGL-operated service, not a self-service software licence. There is no setup fee.',
     extra: 'Domain, campaign mailbox and paid data/API costs are billed separately when used. Sales, replies and inbox placement cannot be guaranteed; outcomes depend on targeting, offer, domain health and market conditions.',
     faqTitle: 'Frequently asked questions',
     faqs: [
@@ -91,8 +86,24 @@ const icons = [Search, Globe2, Sparkles, Mail, ShieldCheck, BarChart3];
 
 export default function ManagedOutreach() {
   const { language } = useLanguage();
+  const { pricing, region } = useLocation();
   const isEN = language === 'en';
   const c = COPY[language];
+  const leadmail = pricing.packages.leadmail;
+  const creditCategories = LEAD_CREDIT_CATEGORIES.map((cat) => (isEN ? cat.en : cat.tr));
+  const plans: [string, string, string, string[]][] = [
+    [
+      isEN ? 'Lead + Email System' : 'Lead + Mail Sistemi',
+      `${formatPrice(leadmail.price, region)}${isEN ? '/month' : '/ay'}`,
+      isEN ? 'no setup fee — usage credits on top' : 'kurulum ücreti yok — üstüne kullanım kredisi',
+      [
+        isEN ? 'Ideal customer profile definition' : 'Hedef müşteri profili çıkarımı',
+        isEN ? `Credits cover: ${creditCategories.join(', ').toLowerCase()}` : `Kredi neyi kapsar: ${creditCategories.join(', ')}`,
+        isEN ? 'Send log, deduplication and reply reporting' : 'Gönderim kaydı, mükerrer engelleme ve cevap raporu',
+        isEN ? 'Domain, mailbox and data credits are yours' : 'Domain, mailbox ve veri kredisi size aittir',
+      ],
+    ],
+  ];
   const breadcrumb = breadcrumbSchema([{ name: isEN ? 'Home' : 'Ana Sayfa', path: '/' }, { name: c.title, path: '/ai-musteri-bulma-mail-takip' }]);
   const service = serviceSchema({ name: c.title, description: c.intro, path: '/ai-musteri-bulma-mail-takip', category: 'Managed B2B Outreach' });
 
@@ -138,7 +149,7 @@ export default function ManagedOutreach() {
         <div style={{ maxWidth: 1080, margin: '0 auto', padding: 'clamp(4rem,8vw,6rem) 1.5rem' }}>
           <h2 style={{ fontSize: 'clamp(1.8rem,4vw,3rem)', color: 'var(--bone)' }}>{c.priceTitle}</h2><p style={{ color: 'var(--bone-2)', marginTop: 12 }}>{c.priceIntro}</p>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(260px,1fr))', gap: 14, marginTop: 32 }}>
-            {c.plans.map(([name, price, note, features]) => <article key={name as string} style={{ border: '1px solid var(--coal-3)', padding: 24, borderRadius: 8, background: 'var(--ink)' }}><p style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--ember)' }}>{name}</p><p style={{ marginTop: 16, fontSize: 28, fontWeight: 700 }}>{price}</p><p style={{ marginTop: 4, color: 'var(--bone-3)', fontSize: 13 }}>{note}</p><List items={features as string[]} dark /></article>)}
+            {plans.map(([name, price, note, features]) => <article key={name} style={{ border: '1px solid var(--coal-3)', padding: 24, borderRadius: 8, background: 'var(--ink)' }}><p style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--ember)' }}>{name}</p><p style={{ marginTop: 16, fontSize: 28, fontWeight: 700 }}>{price}</p><p style={{ marginTop: 4, color: 'var(--bone-3)', fontSize: 13 }}>{note}</p><List items={features} dark /></article>)}
           </div>
           <p style={{ marginTop: 22, color: 'var(--bone-3)', fontSize: 13, lineHeight: 1.65 }}>{c.extra}</p>
         </div>

@@ -11,7 +11,7 @@ Bu klasör **mgl-ai.com**'un tek geçerli kaynağıdır. Kararlar ve gerekçeler
 | Barındırma | Cloudflare **Pages** — `main`'e push = otomatik deploy |
 | Stack | Vite + React + TypeScript, statik prerender (`scripts/prerender.mjs`) |
 | Fiyat modeli | `src/config/pricing.ts` — **tek kaynak** |
-| Stripe kataloğu | `src/stripe-config.ts` — gerçek `priceId`'ler |
+| Ödeme | **Yok** — sitede online checkout yok (2026-09-05'te Stripe kaldırıldı). Satın alma WhatsApp/görüşme üzerinden. |
 | Dil | `src/contexts/LanguageContext.tsx` (TR/EN, istemci tarafı) |
 | Bölge | `src/contexts/LocationContext.tsx` (TR/GB fiyat seçimi) |
 
@@ -56,10 +56,6 @@ normal. Kendi değiştirdiğin dosyada çıkan her hata gerçektir.
 - **Türkçe apostrof tuzağı:** tek tırnaklı TS string içinde `649 TRY'dir` yazma;
   string'i kapatır ve build kırılır. Ya `\'` ile kaçır ya da ekten kaçın
   ("649 TRY olur").
-- Yeni Stripe fiyatı eklenirse **iki yere** yazılır: `src/stripe-config.ts` ve
-  `worker/src/auth-handler.ts` içindeki `ALLOWED_PRICE_IDS`. Worker ayrı deploy
-  artefaktı olduğu için import edemiyor.
-
 ## Klasör tuzağı
 
 Bu reponun diskte birden fazla klonu olmuştu ve "en yeni commit tarihi" ölçütüyle

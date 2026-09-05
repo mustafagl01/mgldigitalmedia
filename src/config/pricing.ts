@@ -1,14 +1,25 @@
 /**
  * MGL — Fiyat modeli (tek kaynak)
  *
- * 2026-09-02'de yeniden kuruldu. Karar gerekçeleri: PLAN.md bölüm 2.
+ * 2026-09-02'de kuruldu, 2026-09-04'te ikinci mimariye genişletildi
+ * (gerekçe: kullanıcı talimatı — "pricing engine", tek seferlik + finansmanlı
+ * seçenekler, MGL Care, lead sistemi kredi modeli). Değişiklik geçmişi PLAN.md.
+ *
+ * ⚠️ TRY POLİTİKASI — 2026-09-04:
+ * Bu turda tanıtılan tamamen YENİ fiyat noktaları (MGL Care, web finansman
+ * planları, otomasyon Tier B finansmanı, lead+mail kredi fiyatları) için
+ * TL karşılığı UYDURULMADI — kullanıcı açık talimat verdi. Bu kalemlerde
+ * `priceTbd: true` işaretlenir ve TR bölgesinde "İletişime geçin" gösterilir.
+ * Sadece ÖNCEDEN ONAYLANMIŞ bir GBP değeriyle birebir aynı yeni bir kalem
+ * varsa (örn. £9,90 — zaten Voice/WhatsApp'ta 649 TL karşılığı onaylı) o
+ * eşleşme yeniden kullanılıyor; bu "icat" değil, mevcut kararın tekrarı.
  *
  * Model üç kalemden oluşur ve müşteri bu üçünü ezberleyebilmeli:
  *   1) Kurulum  — £0 (hazır ürün) / £200 (tek şey) / £400 (işletmenin bütünü) / £500 (entegrasyonlu)
  *   2) Aylık    — £9,90 (asistan sistemi) / £29 (kurulmuş sistem bakımı) / £99-169 (reklam)
  *   3) Kullanım — kontör: sesli dakika, WhatsApp AI yanıtı
  *
- * Kur: £1 = 65 ₺
+ * Kur: £1 = 65 ₺ (yalnızca önceden onaylanmış kalemler için geçerli).
  */
 
 export type PricingRegionCode = 'TR' | 'GB';
@@ -32,6 +43,8 @@ export type PackageTierKey =
   | 'web-landing'
   | 'web-site'
   | 'web-integrated'
+  // Web sonrası — satılabilir "tier" değil, bilgi kartı
+  | 'website-care'
   // Reklam
   | 'ads-meta'
   | 'ads-google'
@@ -39,6 +52,19 @@ export type PackageTierKey =
 
 /** Kontörlü ürünlerde ölçülen birim. */
 export type UsageUnit = 'minute' | 'message';
+
+/**
+ * Düşük giriş bariyerli finansman seçeneği: peşin yerine küçük bir başlangıç
+ * + N ay taksit. `months` dolunca ürün "ödenmiş" sayılır — sonrasında ayrı
+ * bir bakım/platform bedeline geçilir (bkz. websiteCareTransition).
+ */
+export type FinancingPlan = {
+  downPayment: number;
+  monthlyAmount: number;
+  months: number;
+  /** Bu bölgede rakam henüz onaylanmadı — UI "İletişime geçin" göstermeli. */
+  priceTbd?: boolean;
+};
 
 export type PackageTier = {
   key: PackageTierKey;
@@ -64,6 +90,14 @@ export type PackageTier = {
   adManagementPercent: number;
   /** Vaat edilen kurulum süresi (iş günü). 0 = belirtilmiyor. */
   deliveryDays: number;
+  /** Peşin yerine düşük başlangıç + taksit seçeneği (web, otomasyon). */
+  financing?: FinancingPlan;
+  /** "En popüler / en iyi değer" rozeti — vitrinde bir tanesi olmalı. */
+  featured?: boolean;
+  /** Bu bölgede fiyat henüz onaylanmadı — "İletişime geçin" gösterilir. */
+  priceTbd?: boolean;
+  /** Büyük/özel kullanım eşiğinin üstü için not (örn. reklam bütçesi tavanı). */
+  enterpriseNote?: { tr: string; en: string };
 };
 
 /** Kontör paketi — hacimle birim fiyat düşer. */
@@ -84,6 +118,22 @@ export type UsageTier = {
   upTo: number;
   rate: number;
 };
+
+/**
+ * Lead + Mail sisteminde kredi harcayan işlem kategorileri.
+ * Bilinçli olarak £/kredi rakamı YOK — gerçek backend ekonomisi henüz
+ * onaylanmadığı için kullanıcı talimatıyla uydurulmadı (bkz. dosya başı not).
+ * Yalnızca "neye kredi harcanır" açıklanır.
+ */
+export type LeadCreditCategory = { tr: string; en: string };
+
+export const LEAD_CREDIT_CATEGORIES: LeadCreditCategory[] = [
+  { tr: 'Hedef işletme araştırması', en: 'Target business research' },
+  { tr: 'E-posta doğrulama', en: 'Email verification' },
+  { tr: 'Veri zenginleştirme', en: 'Data enrichment' },
+  { tr: 'Kişiselleştirilmiş e-posta yazımı', en: 'Personalised email drafting' },
+  { tr: 'Takip mesajı', en: 'Follow-up message' },
+];
 
 export type RegionalPricing = {
   region: PricingRegionCode;
@@ -133,13 +183,18 @@ const TR_PACKAGES: Record<PackageTierKey, PackageTier> = {
     priceUnit: 'month',
     adManagementPercent: 0,
     deliveryDays: 7,
+    // Tier B (düşük başlangıçlı finansman): GBP'de yeni tanıtıldı, TL'si onaylı değil.
+    financing: { downPayment: 0, monthlyAmount: 0, months: 12, priceTbd: true },
   },
   leadmail: {
     key: 'leadmail',
     category: 'systems',
+    // YENİ MODEL (2026-09-04): setup kalktı, aylık platform bedeli + kredi.
+    // £9,90 = 649 TL eşleşmesi bu sitede zaten onaylı (Voice/WhatsApp) — yeni
+    // icat değil, aynı kararın tekrar kullanımı.
     name: 'Lead + Mail Sistemi',
-    price: 1899,
-    setupFee: 12999,
+    price: 649,
+    setupFee: 0,
     priceUnit: 'month',
     adManagementPercent: 0,
     deliveryDays: 5,
@@ -165,6 +220,8 @@ const TR_PACKAGES: Record<PackageTierKey, PackageTier> = {
     oneOffSetup: true,
     adManagementPercent: 0,
     deliveryDays: 5,
+    // Finansmanlı seçenek GBP'de yeni — TL'si onaylı değil.
+    financing: { downPayment: 0, monthlyAmount: 0, months: 12, priceTbd: true },
   },
   'web-integrated': {
     key: 'web-integrated',
@@ -176,6 +233,19 @@ const TR_PACKAGES: Record<PackageTierKey, PackageTier> = {
     oneOffSetup: true,
     adManagementPercent: 0,
     deliveryDays: 7,
+    featured: true,
+    financing: { downPayment: 0, monthlyAmount: 0, months: 12, priceTbd: true },
+  },
+  'website-care': {
+    key: 'website-care',
+    category: 'web',
+    name: 'MGL Care',
+    price: 0,
+    setupFee: 0,
+    priceUnit: 'month',
+    adManagementPercent: 0,
+    deliveryDays: 0,
+    priceTbd: true, // GBP'de yeni tanıtıldı (£14,90), TL'si onaylı değil.
   },
   'ads-meta': {
     key: 'ads-meta',
@@ -186,6 +256,10 @@ const TR_PACKAGES: Record<PackageTierKey, PackageTier> = {
     priceUnit: 'month',
     adManagementPercent: 0,
     deliveryDays: 3,
+    enterpriseNote: {
+      tr: 'Standart küçük ve orta ölçekli işletme kampanyaları için. Yüksek bütçeli, çok lokasyonlu veya özel kampanya yapıları özel fiyatlandırılır.',
+      en: 'For standard small and medium business campaigns. High-budget, multi-location or custom campaign structures are quoted separately.',
+    },
   },
   'ads-google': {
     key: 'ads-google',
@@ -196,6 +270,10 @@ const TR_PACKAGES: Record<PackageTierKey, PackageTier> = {
     priceUnit: 'month',
     adManagementPercent: 0,
     deliveryDays: 3,
+    enterpriseNote: {
+      tr: 'Standart küçük ve orta ölçekli işletme kampanyaları için. Yüksek bütçeli, çok lokasyonlu veya özel kampanya yapıları özel fiyatlandırılır.',
+      en: 'For standard small and medium business campaigns. High-budget, multi-location or custom campaign structures are quoted separately.',
+    },
   },
   'ads-both': {
     key: 'ads-both',
@@ -206,17 +284,46 @@ const TR_PACKAGES: Record<PackageTierKey, PackageTier> = {
     priceUnit: 'month',
     adManagementPercent: 0,
     deliveryDays: 3,
+    enterpriseNote: {
+      tr: 'Standart küçük ve orta ölçekli işletme kampanyaları için. Yüksek bütçeli, çok lokasyonlu veya özel kampanya yapıları özel fiyatlandırılır.',
+      en: 'For standard small and medium business campaigns. High-budget, multi-location or custom campaign structures are quoted separately.',
+    },
   },
 };
 
 const GB_PACKAGES: Record<PackageTierKey, PackageTier> = {
   voice: { ...TR_PACKAGES.voice, name: 'Voice Assistant', price: 9.9, usageRate: 0.25 },
   whatsapp: { ...TR_PACKAGES.whatsapp, name: 'WhatsApp Assistant', price: 9.9, usageRate: 0.007 },
-  automation: { ...TR_PACKAGES.automation, name: 'Automation System', price: 29, setupFee: 400 },
-  leadmail: { ...TR_PACKAGES.leadmail, name: 'Lead + Email System', price: 29, setupFee: 200 },
+  automation: {
+    ...TR_PACKAGES.automation,
+    name: 'Automation System',
+    price: 29,
+    setupFee: 399, // Kullanıcı talimatı: £400 değil, £399.
+    financing: { downPayment: 49, monthlyAmount: 49, months: 12 },
+  },
+  leadmail: { ...TR_PACKAGES.leadmail, name: 'Lead + Email System', price: 9.9 },
   'web-landing': { ...TR_PACKAGES['web-landing'], name: 'One-Page Website', price: 100, setupFee: 200 },
-  'web-site': { ...TR_PACKAGES['web-site'], name: 'Business Website', price: 100, setupFee: 400 },
-  'web-integrated': { ...TR_PACKAGES['web-integrated'], name: 'Integrated Website', price: 100, setupFee: 500 },
+  'web-site': {
+    ...TR_PACKAGES['web-site'],
+    name: 'Business Website',
+    price: 100,
+    setupFee: 400,
+    financing: { downPayment: 49, monthlyAmount: 39, months: 12 },
+  },
+  'web-integrated': {
+    ...TR_PACKAGES['web-integrated'],
+    name: 'Integrated Website',
+    price: 100,
+    setupFee: 500,
+    featured: true,
+    financing: { downPayment: 49, monthlyAmount: 49, months: 12 },
+  },
+  'website-care': {
+    ...TR_PACKAGES['website-care'],
+    name: 'MGL Care',
+    price: 14.9,
+    priceTbd: false,
+  },
   'ads-meta': { ...TR_PACKAGES['ads-meta'], name: 'Meta Ads Management', price: 99 },
   'ads-google': { ...TR_PACKAGES['ads-google'], name: 'Google Ads Management', price: 99 },
   'ads-both': { ...TR_PACKAGES['ads-both'], name: 'Meta + Google', price: 169 },
@@ -275,6 +382,8 @@ export function resolveRegionByCountry(countryCode?: string | null): PricingRegi
 
 export const AGENT_TIER_KEYS: PackageTierKey[] = ['voice', 'whatsapp'];
 export const SYSTEM_TIER_KEYS: PackageTierKey[] = ['automation', 'leadmail'];
+// website-care kasıtlı olarak burada YOK — satılan bir "tier" değil, web
+// sekmesinde ayrı bir bilgi kartı olarak gösteriliyor (12 ay sonrası).
 export const WEB_TIER_KEYS: PackageTierKey[] = ['web-landing', 'web-site', 'web-integrated'];
 export const ADS_TIER_KEYS: PackageTierKey[] = ['ads-meta', 'ads-google', 'ads-both'];
 

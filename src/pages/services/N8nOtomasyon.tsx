@@ -2,6 +2,7 @@ import React from 'react';
 import { Seo, serviceSchema, faqSchema, breadcrumbSchema } from '../../components/seo/Seo';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { REGIONAL_PRICING } from '../../config/pricing';
+import { formatPrice } from '../../utils/formatPrice';
 
 const CALENDAR_URL = 'https://calendar.app.google/FZnTjsWGfCy33WF36';
 const AUTOMATION_TR = REGIONAL_PRICING.TR.packages.automation;
@@ -13,7 +14,7 @@ const FAQS_TR = [
   { question: 'Hangi uygulamalarla entegre olabilir?', answer: 'Gmail, WhatsApp (Evolution API), HubSpot, Pipedrive, Zoho, Stripe, iyzico, Google Sheets, Airtable, Slack, Telegram ve 400+ uygulama. Özel REST API olan herhangi bir yazılıma da bağlanılabilir.' },
   { question: 'Teknik bilgim olmadan kullanabilir miyim?', answer: 'MGL olarak tüm tasarım, kurulum ve bakımı yapıyoruz; sizin teknik bilgiye ihtiyacınız yok. Sistemin çalışıp çalışmadığını görmek için basit bir dashboard sunuyoruz.' },
   { question: 'Bir sorun olduğunda ne yapıyorsunuz?', answer: 'Otomatik hata bildirimleri kuruyor, akış kayıtlarını inceliyor ve bakım kapsamındaki sorunları teklifinizde yazan yanıt süresine göre ele alıyoruz.' },
-  { question: 'Aylık ücret ne kadar?', answer: 'Otomasyon sistemi 25.999 TRY tek seferlik kurulum ve 1.899 TRY/ay bakımdır. Kapsam akış sayısıyla değil işletmenizin süreçleriyle tanımlanır ve teklifte yazılı olarak yer alır; barındırma, izleme, hata uyarıları ve bakım dahildir. Sesli ve WhatsApp asistanlarının arkasında da aynı n8n akışları çalışır.' },
+  { question: 'Aylık ücret ne kadar?', answer: `Otomasyon sistemi ${formatPrice(AUTOMATION_TR.setupFee, 'TR')} tek seferlik kurulum ve ${formatPrice(AUTOMATION_TR.price, 'TR')}/ay bakımdır. Kapsam akış sayısıyla değil işletmenizin süreçleriyle tanımlanır ve teklifte yazılı olarak yer alır; barındırma, izleme, hata uyarıları ve bakım dahildir. Sesli ve WhatsApp asistanlarının arkasında da aynı n8n akışları çalışır.` },
 ];
 
 const FAQS_EN = [
@@ -22,7 +23,7 @@ const FAQS_EN = [
   { question: 'What apps can it integrate with?', answer: 'Gmail, WhatsApp (Evolution API), HubSpot, Pipedrive, Zoho, Stripe, Google Sheets, Airtable, Slack, Telegram and 400+ more. Any custom REST API can also be integrated.' },
   { question: 'Do I need technical knowledge?', answer: 'No. MGL handles all design, setup and maintenance. We provide a simple monitoring dashboard so you can see your automations are running.' },
   { question: 'What happens if something breaks?', answer: 'We configure automated failure alerts, inspect execution logs and handle covered issues within the response window written into your proposal.' },
-  { question: 'How much does it cost?', answer: 'The automation system is a £400 one-off setup plus £29/month maintenance. Scope is defined by your processes rather than a workflow count and is written into the proposal. Hosting, monitoring, failure alerts and maintenance are included. The same n8n workflows also run behind the voice and WhatsApp assistants.' },
+  { question: 'How much does it cost?', answer: `The automation system is a ${formatPrice(AUTOMATION_GB.setupFee, 'GB')} one-off setup plus ${formatPrice(AUTOMATION_GB.price, 'GB')}/month maintenance. Scope is defined by your processes rather than a workflow count and is written into the proposal. Hosting, monitoring, failure alerts and maintenance are included. The same n8n workflows also run behind the voice and WhatsApp assistants.` },
 ];
 
 const PROCESS_TR = [
@@ -73,8 +74,8 @@ export default function N8nOtomasyon() {
   const svc = serviceSchema({
     name: isEN ? 'n8n Automation Workflows' : 'N8N Otomasyon Workflow\'ları',
     description: isEN
-      ? 'Managed n8n workflows connecting CRM, messaging, calendars and payments. Up to 3 production workflows and 2 integrations with monitoring and maintenance.'
-      : 'CRM, mesajlaşma, takvim ve ödeme sistemlerini bağlayan yönetilen n8n otomasyonu. İzleme ve bakımla 3 üretim akışı ve 2 entegrasyona kadar.',
+      ? 'Managed n8n workflows connecting CRM, messaging, calendars and payments, scoped to your business processes, with monitoring and maintenance included.'
+      : 'CRM, mesajlaşma, takvim ve ödeme sistemlerini bağlayan, işletmenizin süreçlerine göre kapsamlanan, izleme ve bakımı dahil yönetilen n8n otomasyonu.',
     path: '/n8n-otomasyon',
     category: 'Workflow Automation',
     offers: [
@@ -93,8 +94,8 @@ export default function N8nOtomasyon() {
         }
         description={
           isEN
-            ? 'Managed n8n workflow automation for CRM sync, reminders, payments and reporting. £400 one-off setup plus £29/month, scope agreed in writing.'
-            : 'CRM senkronu, hatırlatma, ödeme ve raporlama için yönetilen n8n otomasyonu. 25.999 TRY kurulum + 1.899 TRY/ay; kapsam teklifte yazılı.'
+            ? `Managed n8n workflow automation for CRM sync, reminders, payments and reporting. ${formatPrice(AUTOMATION_GB.setupFee, 'GB')} one-off setup plus ${formatPrice(AUTOMATION_GB.price, 'GB')}/month, scope agreed in writing.`
+            : `CRM senkronu, hatırlatma, ödeme ve raporlama için yönetilen n8n otomasyonu. ${formatPrice(AUTOMATION_TR.setupFee, 'TR')} kurulum + ${formatPrice(AUTOMATION_TR.price, 'TR')}/ay; kapsam teklifte yazılı.`
         }
         path="/n8n-otomasyon"
         locale={isEN ? 'en_GB' : 'tr_TR'}

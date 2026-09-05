@@ -152,16 +152,6 @@ const ROUTES = ROUTE_SEEDS.flatMap((seed) => {
 });
 
 ROUTES.push({ path: '/en/', basePath: '/', lang: 'en', title: 'MGL Digital Media · AI Assistants, Automation, Web and Ads', description: 'London-based, founder-led AI automation studio for WhatsApp and voice assistants, n8n systems, websites, SEO and advertising.' });
-for (const page of [
-  { path: '/products/', titleTR: 'Güvenli Ödeme | MGL', titleEN: 'Secure Checkout | MGL' },
-  { path: '/success/', titleTR: 'Ödeme Tamamlandı | MGL', titleEN: 'Payment Complete | MGL' },
-  { path: '/cancel/', titleTR: 'Ödeme Tamamlanmadı | MGL', titleEN: 'Payment Not Completed | MGL' },
-]) {
-  ROUTES.push(
-    { path: page.path, basePath: page.path, lang: 'tr', title: page.titleTR, description: 'MGL Digital Media güvenli ödeme işlemi.', noindex: true },
-    { path: `/en${page.path}`, basePath: page.path, lang: 'en', title: page.titleEN, description: 'MGL Digital Media secure checkout.', noindex: true },
-  );
-}
 
 const STATIC_ROUTE_CONTENT = {
   '/whatsapp-ai-asistan': {

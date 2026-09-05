@@ -9,6 +9,7 @@ import {
   isPackageCategoryKey,
   tierKeysForCategory,
   voiceUsageCost,
+  LEAD_CREDIT_CATEGORIES,
 } from '../config/pricing';
 import { useLocation } from '../contexts/LocationContext';
 import { useLanguage } from '../contexts/LanguageContext';
@@ -273,8 +274,8 @@ const PLAN_CONTENT: Record<PackageTierKey, PlanContent> = {
   },
   leadmail: {
     subtitle: {
-      tr: 'Hedef işletmeleri bulan, doğrulayan ve kişiselleştirilmiş mail gönderen sistem — sizin adınıza, sizin kutunuzdan.',
-      en: 'A system that finds target businesses, verifies them and sends personalised email — in your name, from your mailbox.',
+      tr: 'Hedef işletmeleri bulan, doğrulayan ve kişiselleştirilmiş mail gönderen sistem — sizin adınıza, sizin kutunuzdan. Kurulum ücretsiz, £9,90 ile başlayın.',
+      en: 'A system that finds target businesses, verifies them and sends personalised email — in your name, from your mailbox. No setup fee, start from £9.90.',
     },
     included: {
       tr: [
@@ -295,14 +296,21 @@ const PLAN_CONTENT: Record<PackageTierKey, PlanContent> = {
       ],
     },
     excluded: {
-      tr: ['Domain ve mailbox bedelleri', 'Veri / API kredileri (Apollo, doğrulama vb.)'],
-      en: ['Domain and mailbox costs', 'Data / API credits (Apollo, verification, etc.)'],
+      tr: ['Domain ve mailbox bedelleri', 'Reklam bütçesi kapsamı dışında'],
+      en: ['Domain and mailbox costs', 'Not an advertising budget'],
     },
     quotas: {
-      tr: ['Tek seferlik kurulum', 'Aylık bakım ve izleme'],
-      en: ['One-off setup', 'Monthly maintenance and monitoring'],
+      tr: ['Kurulum ücretsiz', 'Aylık platform bedeli + kullandığınız kadar kredi'],
+      en: ['No setup fee', 'Monthly platform fee + credit for what you use'],
     },
-    overages: { tr: [], en: [] },
+    overages: {
+      tr: LEAD_CREDIT_CATEGORIES.map((c) => c.tr),
+      en: LEAD_CREDIT_CATEGORIES.map((c) => c.en),
+    },
+    usageNote: {
+      tr: 'Kredi, araştırma, doğrulama, zenginleştirme, kişiselleştirilmiş e-posta ve takip için kullanılır. Kredi paketleri yakında yayınlanacak; şimdilik ölçüm ve raporlama platform bedeline dahildir.',
+      en: 'Credit is spent on research, verification, enrichment, personalised email and follow-up. Credit bundles are being finalised; measurement and reporting are included in the platform fee for now.',
+    },
     footnote: {
       tr: 'Şablon veya spintax kullanılmaz — her mail, o işletme hakkında bulunan gerçek bir gözlemle yazılır.',
       en: 'No templates, no spintax — every email is written around a real observation about that business.',
@@ -383,7 +391,6 @@ const PLAN_CONTENT: Record<PackageTierKey, PlanContent> = {
       en: ['One-off setup', 'Yearly hosting and maintenance'],
     },
     overages: { tr: [], en: [] },
-    recommended: true,
   },
   'web-integrated': {
     subtitle: {
@@ -420,10 +427,21 @@ const PLAN_CONTENT: Record<PackageTierKey, PlanContent> = {
     },
     overages: { tr: [], en: [] },
     premium: true,
+    recommended: true,
     footnote: {
-      tr: 'Çalışan örnek: elmscoffeeshop.com — online sipariş mutfaktaki yazıcıdan çıkıyor, aynı anda Telegram’a bildirim gidiyor.',
-      en: 'Live example: elmscoffeeshop.com — online orders print in the kitchen and land on Telegram at the same time.',
+      tr: 'Çalışan örnek: elmscoffeeshop.com — online sipariş mutfaktaki yazıcıdan çıkıyor, aynı anda Telegram’a bildirim gidiyor. Kurumsal site ile arasındaki fark çoğu işletme için küçük bir fark için çok daha fazla sistem demek.',
+      en: 'Live example: elmscoffeeshop.com — online orders print in the kitchen and land on Telegram at the same time. The gap to the Business Website tier is small — for most businesses it buys a lot more system for a little more money.',
     },
+  },
+  // 'website-care' vitrinde kart olarak GÖSTERİLMİYOR (WEB_TIER_KEYS'te yok) —
+  // web bölümünde ayrı bir "12 aydan sonra" bilgi kutusu olarak render ediliyor.
+  // Bu kayıt yalnızca Record<PackageTierKey, PlanContent> tipini tatmin eder.
+  'website-care': {
+    subtitle: { tr: '', en: '' },
+    included: { tr: [], en: [] },
+    excluded: { tr: [], en: [] },
+    quotas: { tr: [], en: [] },
+    overages: { tr: [], en: [] },
   },
 
   // ---------------- REKLAM ----------------
@@ -516,19 +534,49 @@ const PLAN_CONTENT: Record<PackageTierKey, PlanContent> = {
   },
 };
 
-const COMMON_FAQ: FaqItem[] = [
-  {
+/**
+ * Kategoriye göre değişen sözleşme cevabı — "Sözleşme süresi var mı?" sorusu
+ * web sekmesinde eskiden aynı "aylık abonelik, istediğiniz zaman
+ * durdurabilirsiniz" cevabını gösteriyordu; web ürünleri TEK SEFERLİK satın
+ * alınıyor, bu doğrudan çelişkiydi (kullanıcı talimatı, bölüm 11).
+ */
+const CONTRACT_FAQ: Record<PackageCategoryKey, FaqItem> = {
+  agents: {
     q: { tr: 'Sözleşme süresi var mı?', en: 'Is there a contract term?' },
     a: {
-      tr: 'Hayır. Aylık abonelik — istediğiniz zaman durdurabilirsiniz. Yıllık ödemede indirim konuşulabilir.',
-      en: 'No. Monthly subscription — cancel anytime. Annual billing discount is negotiable.',
+      tr: 'Hayır. Aylık sistem bedeli — istediğiniz zaman durdurabilirsiniz.',
+      en: 'No. The monthly system fee can be cancelled any time.',
     },
   },
+  systems: {
+    q: { tr: 'Sözleşme süresi var mı?', en: 'Is there a contract term?' },
+    a: {
+      tr: 'Kurulum tek seferliktir. Aylık bakım/platform bedeli istediğiniz zaman durdurulabilir; düşük başlangıçlı finansman seçeneği en az 12 ay sürer.',
+      en: 'Setup is one-off. The monthly maintenance/platform fee can be cancelled any time; the low-start financing option runs for a minimum of 12 months.',
+    },
+  },
+  web: {
+    q: { tr: 'Bu bir abonelik mi?', en: 'Is this a subscription?' },
+    a: {
+      tr: 'Hayır. Web sitesi tek seferlik satın alınır ve sizin olur. Peşin ödeme yerine düşük başlangıçlı finansman seçerseniz bu 12 ay sürer; sonrasında isterseniz MGL Care ile devam edersiniz, isterseniz kendi hostinginize taşırsınız.',
+      en: 'No. The website is a one-off purchase and it is yours. If you choose the low-start financing option instead of paying upfront, it runs for 12 months; after that you can continue with MGL Care or move to your own hosting.',
+    },
+  },
+  ads: {
+    q: { tr: 'Sözleşme süresi var mı?', en: 'Is there a contract term?' },
+    a: {
+      tr: 'Hayır. Aylık yönetim ücreti — istediğiniz zaman durdurabilirsiniz. Reklam bütçeniz zaten doğrudan platforma gittiği için durdurduğunuzda kesintiye uğramaz.',
+      en: 'No. The monthly management fee can be cancelled any time. Your ad budget already goes directly to the platform, so stopping does not interrupt it.',
+    },
+  },
+};
+
+const COMMON_FAQ: FaqItem[] = [
   {
     q: { tr: 'Kullanım nasıl faturalanıyor?', en: 'How is usage billed?' },
     a: {
       tr: 'Asistanlarda aylık sistem bedeli bakım ve izlemeyi kapsar; kullanım ayrıca ölçülür. WhatsApp AI yanıtı 0,45 TL, bağlı sesli çağrı 16 TL/dakikadan başlar ve kontör paketiyle düşer. Resmî Meta/BSP, SMS veya benzeri kanal ücretleri yalnızca o kanal kullanılırsa ayrıca yansıtılır. Güncel tarife teklif ve fiyat sayfasında açıkça gösterilir.',
-      en: 'The monthly fee covers the system, maintenance and the stated text-AI reply allowance. Additional AI replies cost £0.02 each. Voice is a separate usage line covering Retell, telephony, voice and the selected model; the current standard rate is £0.15 per connected minute and is confirmed before launch. Official Meta/BSP, SMS or similar channel fees are passed through only when that channel is used. The system does not stop at quota; you receive an alert and service continues.',
+      en: 'The monthly system fee covers hosting, maintenance and monitoring; usage is metered separately. WhatsApp AI replies are 0.7p each, connected voice calls start at 25p/minute — both fall with a credit bundle. Official Meta/BSP, SMS or similar channel fees are passed through only when that channel is used. Service never stops at a limit; you get an alert and it keeps running.',
     },
   },
   {
@@ -547,7 +595,19 @@ const COMMON_FAQ: FaqItem[] = [
   },
 ];
 
-const CATEGORY_FAQ: Record<PackageCategoryKey, FaqItem[]> = {
+/**
+ * "web" kategorisindeki hosting/bakım sorusu bölgeye göre gerçek fiyatı
+ * göstermeli — eskiden TR fiyatı ("6.499 TL") dil koşuluyla hardcode'lanmış
+ * ve GB sayfasında da göründüğü senaryolar mümkündü (kullanıcı talimatı:
+ * "Türkiye fiyatını UK sayfasında ASLA gösterme"). Bu yüzden CATEGORY_FAQ
+ * artık statik obje değil, pricing/region alan bir fonksiyon.
+ */
+function buildCategoryFaq(
+  pricing: RegionalPricing,
+  region: PricingRegionCode,
+): Record<PackageCategoryKey, FaqItem[]> {
+  const renewalPrice = formatPrice(pricing.packages['web-site'].price, region);
+  return {
   ads: [
     {
       q: { tr: 'Reklam bütçesi fiyata dahil mi?', en: 'Is ad spend included in the price?' },
@@ -643,10 +703,10 @@ const CATEGORY_FAQ: Record<PackageCategoryKey, FaqItem[]> = {
       },
     },
     {
-      q: { tr: 'Hosting ve bakım aylık ücrete dahil mi?', en: 'Are hosting and maintenance included in the monthly fee?' },
+      q: { tr: 'Hosting ve bakım kurulum ücretine dahil mi?', en: 'Are hosting and maintenance included in the setup fee?' },
       a: {
-        tr: 'Web sitesi paketlerinde ilk yıl hosting ve SSL kurulum ücretine dahildir. İkinci yıldan itibaren hosting ve temel teknik bakım 6.499 TL/yıl olarak yenilenir. Ücretli AI model/API veya üçüncü taraf servis kullanımı gerekiyorsa teklif üzerinde ayrıca gösterilir.',
-        en: 'For the Multilingual AI Website, first-year web hosting and SSL are included in the setup fee. From year two, web hosting and core maintenance renew at £100/year. The monthly subscription covers AI model/API usage, uptime monitoring, security updates and the stated AI reply allowance.',
+        tr: `Evet, ilk yıl. Web sitesi tek seferlik kurulum ücretine hosting ve SSL dahildir. İkinci yıldan itibaren hosting ve temel teknik bakım ${renewalPrice}/yıl olarak yenilenir. Kapsamlı bakım isterseniz MGL Care'e geçebilirsiniz; istemezseniz siteniz sizindir, kendi hostinginize de taşıyabilirsiniz.`,
+        en: `Yes, for the first year. The one-off setup fee includes hosting and SSL. From year two, hosting and core technical maintenance renew at ${renewalPrice}/year. If you want fuller ongoing maintenance you can add MGL Care; otherwise the site is yours and you can move it to your own hosting.`,
       },
     },
     {
@@ -657,7 +717,8 @@ const CATEGORY_FAQ: Record<PackageCategoryKey, FaqItem[]> = {
       },
     },
   ],
-};
+  };
+}
 
 function createWhatsAppLink(message: string) {
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
@@ -925,6 +986,46 @@ function PlanCard({ tier, content, region, isEnglish }: PlanCardProps) {
         </div>
       )}
 
+      {/* Düşük başlangıçlı finansman seçeneği — peşin yerine.
+          priceTbd ise bu bölgede rakam onaylı değil, hiç gösterilmez
+          (uydurma fiyat yerine sessizce gizlemek tercih edildi). */}
+      {tier.financing && !tier.financing.priceTbd && (
+        <div
+          style={{
+            marginTop: 14,
+            padding: '12px 14px',
+            borderRadius: 'var(--r-md)',
+            background: premium ? 'rgba(247,244,238,0.06)' : 'var(--paper)',
+            border: `1px dashed ${dividerColor}`,
+          }}
+        >
+          <p
+            style={{
+              margin: 0,
+              fontFamily: 'var(--font-mono)',
+              fontSize: 10.5,
+              letterSpacing: '0.12em',
+              textTransform: 'uppercase',
+              color: labelMutedColor,
+            }}
+          >
+            {isEnglish ? 'OR — LOW START' : 'YA DA — DÜŞÜK BAŞLANGIÇ'}
+          </p>
+          <p style={{ marginTop: 6, marginBottom: 0, fontSize: 13.5, color: featureColor }}>
+            <strong style={{ fontFamily: 'var(--font-mono)' }}>
+              {formatPrice(tier.financing.downPayment, region)}
+            </strong>{' '}
+            {isEnglish ? 'to start' : 'başlangıç'}
+            {' + '}
+            <strong style={{ fontFamily: 'var(--font-mono)' }}>
+              {formatPrice(tier.financing.monthlyAmount, region)}
+              {isEnglish ? ' / mo' : ' / ay'}
+            </strong>{' '}
+            {isEnglish ? `× ${tier.financing.months} months` : `× ${tier.financing.months} ay`}
+          </p>
+        </div>
+      )}
+
       {/* Dahil — sadece içerik varsa */}
       {content.included.tr.length > 0 && (
         <div style={{ marginTop: 18 }}>
@@ -1126,6 +1227,21 @@ function PlanCard({ tier, content, region, isEnglish }: PlanCardProps) {
           }}
         >
           {isEnglish ? content.footnote.en : content.footnote.tr}
+        </p>
+      )}
+
+      {/* Kurumsal/yüksek bütçe not — sabit fiyata kilitlenmeyi engeller */}
+      {tier.enterpriseNote && (
+        <p
+          style={{
+            marginTop: 14,
+            fontSize: 12,
+            fontStyle: 'italic',
+            color: labelMutedColor,
+            lineHeight: 1.55,
+          }}
+        >
+          {isEnglish ? tier.enterpriseNote.en : tier.enterpriseNote.tr}
         </p>
       )}
 
@@ -1551,8 +1667,12 @@ export default function Packages() {
 
   const meta = CATEGORY_META[activeCategory];
   const faqItems = useMemo(
-    () => [...COMMON_FAQ, ...CATEGORY_FAQ[activeCategory]],
-    [activeCategory],
+    () => [
+      CONTRACT_FAQ[activeCategory],
+      ...COMMON_FAQ,
+      ...buildCategoryFaq(pricing, region)[activeCategory],
+    ],
+    [activeCategory, pricing, region],
   );
 
   const seoTitle = useMemo(() => {
@@ -1967,6 +2087,47 @@ export default function Packages() {
             </p>
           )}
 
+          {/* Web: MGL Care — finansmanlı satın alma bittikten sonraki bakım seçeneği.
+              priceTbd bölgede TR'de rakam onaylı olmadığı için sessizce gizlenir. */}
+          {activeCategory === 'web' && !pricing.packages['website-care'].priceTbd && (
+            <div
+              style={{
+                marginTop: 32,
+                padding: '24px 28px',
+                border: '1px solid var(--border)',
+                borderLeft: '3px solid var(--ember)',
+                borderRadius: 'var(--r-md)',
+                background: 'var(--paper-2)',
+                display: 'grid',
+                gridTemplateColumns: 'minmax(0, 1fr) auto',
+                gap: 24,
+                alignItems: 'center',
+              }}
+            >
+              <div>
+                <p style={{ margin: 0, fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.12em', color: 'var(--ember)' }}>
+                  {isEnglish ? 'AFTER YOUR SITE IS LIVE' : 'SİTENİZ YAYINDAYKEN'}
+                </p>
+                <h3 style={{ marginTop: 8, fontFamily: 'var(--font-serif)', fontSize: 22, color: 'var(--ink)' }}>
+                  {isEnglish ? 'MGL Care — ongoing website maintenance' : 'MGL Care — sürekli web sitesi bakımı'}
+                </h3>
+                <p style={{ marginTop: 8, fontSize: 14, lineHeight: 1.6, color: 'var(--fg-2)', maxWidth: 760 }}>
+                  {isEnglish
+                    ? 'Your website is a one-off purchase and it stays yours either way. If you would rather not think about updates, uptime or small edits, MGL Care covers standard content changes (phone number, menu, photos, text), monitoring and priority support. Genuinely new features or pages are quoted separately. Cancel any time.'
+                    : 'Web siteniz tek seferlik satın alınır ve her durumda sizin olur. Güncellemeler, çalışırlık takibi veya küçük düzenlemelerle uğraşmak istemiyorsanız MGL Care; standart içerik değişikliklerini (telefon, menü, fotoğraf, metin), izlemeyi ve öncelikli desteği kapsar. Gerçekten yeni özellik veya sayfalar ayrıca fiyatlandırılır. İstediğiniz zaman durdurabilirsiniz.'}
+                </p>
+              </div>
+              <div style={{ minWidth: 190, textAlign: 'right' }}>
+                <strong style={{ display: 'block', fontFamily: 'var(--font-serif)', fontSize: 25, color: 'var(--ink)' }}>
+                  {formatPrice(pricing.packages['website-care'].price, region)}
+                </strong>
+                <span style={{ display: 'block', marginTop: 5, fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--fg-3)' }}>
+                  / {isEnglish ? 'month, GB only for now' : 'ay, şimdilik yalnızca GB'}
+                </span>
+              </div>
+            </div>
+          )}
+
           {/* Agents: RandevuAI self-serve cross-link — TR only */}
           {activeCategory === 'agents' && region === 'TR' && (
             <div
@@ -2065,8 +2226,8 @@ export default function Packages() {
               </li>
               <li>
                 {isEnglish
-                  ? '* Multilingual AI Website: first-year hosting is included in setup; £100/year from year two.'
-                  : '* Web sitesi paketleri: ilk yıl hosting kuruluma dahil; 2. yıldan itibaren 6.499 TL/yıl.'}
+                  ? `* Website packages: first-year hosting is included in setup; ${formatPrice(pricing.packages['web-site'].price, region)}/year from year two.`
+                  : `* Web sitesi paketleri: ilk yıl hosting kuruluma dahil; 2. yıldan itibaren ${formatPrice(pricing.packages['web-site'].price, region)}/yıl.`}
               </li>
               <li>
                 {isEnglish

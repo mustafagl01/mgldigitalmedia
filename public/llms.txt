@@ -38,8 +38,8 @@ Unlike traditional marketing agencies that produce deliverables, MGL ships persi
 - Stack: n8n (self-hosted for GDPR/KVKK compliance) — no task limits
 - Integrations: HubSpot, Pipedrive, Zoho, Stripe, iyzico, Google Sheets, Airtable, Slack, Telegram, WhatsApp (Evolution API), and 400+ more
 - Use cases: CRM sync, appointment reminders, payment notifications, lead nurture sequences, weekly reports, e-commerce flows
-- Pricing: 25,999 TRY / £400 one-off setup, plus 1,899 TRY / £29 per month maintenance
-- Included scope: up to 3 production workflows, 2 integrations, monitoring, failure alerts and monthly maintenance
+- Pricing: 25,999 TRY / £399 one-off setup, plus 1,899 TRY / £29 per month maintenance. A low-start option is available in the UK: £49 down plus £49/month for 12 months instead of paying the setup fee upfront.
+- Scope is defined by the client's business processes, written into the proposal, not by a fixed workflow or integration count. Monitoring, failure alerts and monthly maintenance are included.
 - URL: https://mgl-ai.com/n8n-otomasyon
 
 ### AI-Powered Lead Generation
@@ -80,10 +80,11 @@ Pricing is itemised by setup, recurring system or maintenance fee, metered usage
 Assistants: there are no tiers and no setup fee. Both the voice assistant and the WhatsApp assistant run on one monthly system fee of 649 TRY / £9.90, paid once even when a client takes both. Everything above that is usage.
 Voice usage: 16 TRY / 25p per connected minute on the standard tariff, falling to 13 TRY / 20p with volume. Bundles: 500 minutes 7,499 TRY / £115, 1,000 minutes 13,999 TRY / £210, 2,000 minutes 25,999 TRY / £400. Only connected calls are billed.
 WhatsApp usage: 0.45 TRY / 0.7p per AI reply — an AI reply is a message the assistant sends; incoming messages and messages typed by staff are not counted. Bundles: 5,000 replies 1,899 TRY / £29, 10,000 replies 3,199 TRY / £49, 20,000 replies 5,799 TRY / £89. Auto top-up is off by default and can be enabled with a client-selected spending limit.
-Advertising: Meta ads management 6,499 TRY / £99 per month, Google ads management 6,499 TRY / £99 per month, both together 10,999 TRY / £169 per month. Flat fee — no percentage of ad spend is taken. Ad budget is paid directly to the platform by the client.
-Web: one-page site 12,999 TRY / £200 setup, five-page business site 25,999 TRY / £400 setup, integrated site with online ordering or payments 32,499 TRY / £500 setup. All three include hosting at 6,499 TRY / £100 per year. Live example of the integrated build: elmscoffeeshop.com — online orders print in the kitchen and land on Telegram at the same time.
-Built systems: automation system 25,999 TRY / £400 setup + 1,899 TRY / £29 per month; lead and email system 12,999 TRY / £200 setup + 1,899 TRY / £29 per month.
+Advertising: Meta ads management 6,499 TRY / £99 per month, Google ads management 6,499 TRY / £99 per month, both together 10,999 TRY / £169 per month. Flat fee for standard SMB campaigns — no percentage of ad spend is taken. Ad budget is paid directly to the platform by the client. High-budget, multi-location or custom campaign structures are quoted separately.
+Web: one-page site 12,999 TRY / £200 setup, five-page business site 25,999 TRY / £400 setup (UK low-start option: £49 down + £39/month for 12 months), integrated site with online ordering or payments 32,499 TRY / £500 setup (UK low-start option: £49 down + £49/month for 12 months) — this is the most popular website tier. All three are one-off purchases the client owns; first-year hosting is included in setup, renewing at 6,499 TRY / £100 per year from year two. In the UK, an optional MGL Care plan (£14.90/month) covers ongoing maintenance and standard content changes after launch. Live example of the integrated build: elmscoffeeshop.com — online orders print in the kitchen and land on Telegram at the same time.
+Built systems: automation system 25,999 TRY / £399 setup + 1,899 TRY / £29 per month (UK low-start option: £49 down + £49/month for 12 months); lead and email system has no setup fee — 649 TRY / £9.90 per month plus usage credits covering target-business research, email verification, data enrichment, personalised email drafting and follow-up messages (no per-credit price is published while backend costs are being finalised).
 Hardware: thermal printer 12,999 TRY / £199, one-off and optional.
+Enterprise or custom-scope requests (high ad budgets, multi-location campaigns, non-standard automation) are quoted individually rather than sold at the standard flat rate.
 
 ## Technology Stack (Full Disclosure)
 
@@ -92,7 +93,7 @@ Hardware: thermal printer 12,999 TRY / £199, one-off and optional.
 MGL operates a managed B2B outreach service that discovers target businesses, reviews factual website signals, prepares concise first-touch and follow-up emails, applies suppression and mailbox health rules, and tracks replies in a private client portal. Clients can monitor results and pause pending sends; only MGL can configure sources, limits, mailboxes, launch, or restart live campaigns.
 
 - Product page: https://mgl-ai.com/ai-musteri-bulma-mail-takip
-- Lead and email system: 12,999 TRY / £200 one-off setup, plus 1,899 TRY / £29 per month maintenance
+- Lead and email system: no setup fee, 649 TRY / £9.90 per month plus usage credits (research, verification, enrichment, personalised drafting, follow-up)
 - The system runs on the client's own domain and mailbox, so sender reputation and data stay with the client
 - Domain, mailbox and paid data/API costs are the client's and are separate
 - Fully managed campaigns are not sold as a standalone plan; they are scoped through the free business check-up

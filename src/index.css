@@ -100,54 +100,28 @@
   border-top-color: var(--coal-3);
 }
 
-/* Hero 2-col grid — desktop only; mobile stays single column */
-.hero-grid {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr);
-  gap: clamp(48px, 5vw, 96px);
-  /* start — center DEGIL. Sag kolondaki is duvari sol kolondan uzun; ortalama
-     yapinca sol kolon asagi itiliyor ve basligin ustunde kocaman bir boşluk
-     kaliyordu. Iki kolon da yukaridan baslar. */
-  align-items: start;
-}
-/* İş duvarı mobilde de görünür — portföy en çok orada gerekli.
-   (Eskiden burada terminal log kutusu vardı ve mobilde gizleniyordu.) */
-.hero-grid .hero-artifact {
-  display: block;
-  margin-top: 8px;
-}
-/* 1200px — 1024 DEGIL. 1024-1199 arasinda sag kolon sabit 420px oldugu icin
-   sol kolon 470px'e sikisiyor, baslik dar alana geliyordu. */
-@media (min-width: 1200px) {
-  .hero-grid {
-    grid-template-columns: minmax(0, 1fr) minmax(0, 380px);
-  }
-  .hero-grid .hero-artifact {
-    margin-top: 0;
+/* Hero — dikey ürün sunumu (v3, 2026-09-05).
+   Önceki iki sürüm (terminal log kutusu, sonra 3 konsept-demo kartı, sonra
+   460px'e sıkıştırılmış tek görsel) hep sağ-sol iki kolon mantığındaydı.
+   Kullanıcı geri bildirimi: görsel bu kadar küçültülünce "ürün" değil
+   "dekorasyon" gibi duruyor. Artık metin üstte tek sütun, görsel altta tam
+   genişliğe yakın — .hero-grid/.hero-artifact ikili-kolon sınıfları bu
+   yüzden kaldırıldı (HeroV2.tsx artık .container + .hero-visual kullanıyor). */
+@media (min-width: 640px) {
+  .hero-system-map {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: 32px;
   }
 }
-
-/* 3 iş: mobilde tek sütun, tablette 2, masaüstü kolonunda tek sütun
-   (sağ kolon zaten dar — 420px) */
-.hero-work-grid {
-  grid-template-columns: 1fr;
-}
-@media (min-width: 560px) and (max-width: 1199px) {
-  .hero-work-grid {
-    grid-template-columns: repeat(3, 1fr);
+/* Mobilde her iki dil de kendi dikey varyantına geçiyor (TR ~2:3, EN ~4:5 —
+   kaynak görseller birebir aynı oranda değil). width/height attr'ı yatay
+   (1536×1024) oran üzerinden CLS'i önlüyor; burada gerçek mobil orana
+   düzeltiyoruz ki portre görsel yüklenince sayfa zıplamasın. Oran, HeroV2.tsx
+   tarafından `--hero-mobile-ratio` custom property'siyle geliyor. */
+@media (max-width: 767px) {
+  .hero-visual--portrait-mobile img {
+    aspect-ratio: var(--hero-mobile-ratio, 3 / 2);
   }
-}
-
-/* Tıklanabilir iş kartı */
-.hero-work {
-  transition: transform 220ms cubic-bezier(0.22, 1, 0.36, 1),
-    box-shadow 220ms cubic-bezier(0.22, 1, 0.36, 1),
-    border-color 220ms cubic-bezier(0.22, 1, 0.36, 1);
-}
-.hero-work:hover {
-  transform: translateY(-3px);
-  border-color: rgba(169, 29, 45, 0.4) !important;
-  box-shadow: var(--shadow-md);
 }
 
 /* ═══════════════════════════════════════════════════════════
@@ -382,37 +356,6 @@ main code { overflow-wrap: normal; }
   .hero-grid { gap: 42px; }
 }
 
-/* Store and checkout — same brand system as the public site. */
-.store-page { min-height: 100vh; padding-bottom: 96px; background: var(--paper); color: var(--ink); }
-.store-header { min-height: 76px; display: flex; align-items: center; justify-content: space-between; gap: 16px; border-bottom: 1px solid var(--border); }
-.store-user { display: flex; align-items: center; gap: 16px; color: var(--ink-3); font-size: 0.84rem; }
-.store-user button { display: inline-flex; align-items: center; gap: 7px; color: var(--ember); min-height: 44px; }
-.store-intro { padding-block: clamp(64px, 8vw, 120px) 48px; }
-.store-intro h1 { margin-top: 18px; max-width: 880px; }
-.store-intro .lede { margin-top: 22px; color: var(--ink-2); }
-.store-notice { margin-top: 24px; max-width: 760px; padding: 14px 16px; border-left: 3px solid var(--ochre); background: var(--ochre-soft); color: #5F4813; font-size: 0.84rem; line-height: 1.55; }
-.store-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 300px), 1fr)); gap: 18px; }
-.store-product { display: flex; flex-direction: column; min-width: 0; padding: 28px; border: 1px solid var(--border); border-radius: var(--r-xl); background: rgba(255,255,255,.48); box-shadow: var(--shadow-xs); }
-.store-product h2 { margin-top: 16px; font-size: 1.6rem; }
-.store-product__price { margin: 16px 0 0; color: var(--ember); font: 700 2rem/1 var(--font-serif); }
-.store-product__description { margin-top: 18px; color: var(--ink-2); line-height: 1.6; }
-.store-product ul { list-style: none; margin: 22px 0 26px; padding: 20px 0 0; border-top: 1px solid var(--border); display: grid; gap: 9px; flex: 1; }
-.store-product li { display: flex; align-items: flex-start; gap: 9px; color: var(--ink-2); font-size: 0.86rem; }
-.store-product li svg { color: var(--moss); flex: 0 0 auto; margin-top: 2px; }
-
-.checkout-status-page { min-height: 100vh; display: grid; place-items: center; padding: 28px; background: radial-gradient(circle at 50% 0%, var(--paper-2), var(--paper) 55%); }
-.checkout-status-card { width: min(100%, 680px); padding: clamp(28px, 6vw, 56px); background: rgba(255,255,255,.56); border: 1px solid var(--border); border-radius: var(--r-xl); box-shadow: var(--shadow-lg); text-align: center; }
-.checkout-status-icon { width: 58px; height: 58px; margin: 0 auto 22px; }
-.checkout-status-icon.is-success { color: var(--moss); }
-.checkout-status-icon.is-cancel { color: var(--ember); }
-.checkout-status-card h1 { margin-top: 16px; }
-.checkout-status-card > .lede { margin: 16px auto 0; color: var(--ink-2); }
-.checkout-next { margin-top: 30px; padding: 22px; background: var(--paper-2); border: 1px solid var(--border); border-radius: var(--r-lg); text-align: left; }
-.checkout-next h2 { font-size: 1.25rem; }
-.checkout-next p { margin: 9px 0 0; color: var(--ink-2); line-height: 1.5; }
-.checkout-actions { margin-top: 28px; display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; }
-.checkout-support { display: inline-flex; align-items: center; gap: 7px; margin-top: 22px; color: var(--ink-2); font-weight: 700; }
-
 .cookie-consent {
   position: fixed;
   z-index: 10000;
@@ -442,15 +385,4 @@ main code { overflow-wrap: normal; }
   .cookie-consent { left: 12px; right: 12px; bottom: 12px; width: calc(100% - 24px); align-items: stretch; flex-direction: column; }
   .cookie-consent__actions { display: grid; grid-template-columns: 1fr 1fr; }
   .comparison-criteria-row { grid-template-columns: 1fr; }
-}
-.hero-work:focus-visible {
-  outline: 3px solid var(--ember);
-  outline-offset: 2px;
-}
-@media (prefers-reduced-motion: reduce) {
-  .hero-work,
-  .hero-work:hover {
-    transition: none;
-    transform: none;
-  }
 }

@@ -7,7 +7,7 @@ tags: ["kobi", "ai-otomasyon", "yapay-zeka", "workflow", "dijital-donusum"]
 cover: ""
 faqs:
   - question: "KOBİ'ler için AI otomasyona başlamak için ne kadar bütçe gerekiyor?"
-    answer: "Asistanlarda kurulum ücreti yoktur: aylık 649 TRY/£9,90 sistem bedeli ve kullandığınız kadar kontör. Kurulan otomasyon sistemi ise 25.999 TRY/£400 kurulum ve 1.899 TRY/£29 aylık bakımdır. Self-hosted kurulum için sunucu maliyeti aylık €15-30'dur. Başlangıçta en yüksek ROI sağlayan tek bir süreci seçip oradan başlamak en mantıklı yaklaşımdır."
+    answer: "Asistanlarda kurulum ücreti yoktur: aylık 649 TRY/£9,90 sistem bedeli ve kullandığınız kadar kontör. Kurulan otomasyon sistemi ise 25.999 TRY/£399 kurulum ve 1.899 TRY/£29 aylık bakımdır. Self-hosted kurulum için sunucu maliyeti aylık €15-30'dur. Başlangıçta en yüksek ROI sağlayan tek bir süreci seçip oradan başlamak en mantıklı yaklaşımdır."
   - question: "Teknik bilgim olmadan AI otomasyon kurmak mümkün mü?"
     answer: "MGL gibi bir ajansla çalışıyorsanız teknik bilgiye gerek yok; tüm kurulum ve bakım ajans tarafından yapılır. Kendiniz kurmak isterseniz n8n'in görsel arayüzü temel seviye ile başlamak için yeterlidir."
   - question: "Hangi süreçleri otomatikleştirmek en çok değer sağlar?"

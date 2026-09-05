@@ -3,46 +3,9 @@ export interface Env {
   JWT_SECRET: string;
   GOOGLE_CLIENT_ID?: string;
   GOOGLE_CLIENT_SECRET?: string;
-  STRIPE_SECRET_KEY?: string;
 }
 
-/**
- * Checkout'ta kabul edilen fiyat kimlikleri.
- * İstemciden gelen price_id BURAYA karşı doğrulanır — aksi halde kullanıcı
- * hesaptaki herhangi bir (örn. £10'luk) fiyatı seçip pahalı bir ürünü ucuza
- * satın almış gibi checkout üretebilir.
- *
- * ⚠️ src/stripe-config.ts ile ELDE senkron tutulur. Worker ayrı bir deploy
- * artefaktı olduğu için oradan import edilemiyor. Yeni fiyat eklerken iki
- * dosyaya birden yaz.
- */
-const ALLOWED_PRICE_IDS = new Set<string>([
-  // Asistan aboneliği + sesli kontör + donanım (AloSipariş kalemleri)
-  'price_1UAFHlDsBtMM0UXX0e37yiXd',
-  'price_1UAGAEDsBtMM0UXXgjGKDtYv',
-  'price_1UAGAFDsBtMM0UXXNWVptrwy',
-  'price_1UAGAGDsBtMM0UXX5F9VQFZC',
-  'price_1UAFHmDsBtMM0UXXOmlK0oz2',
-  // WhatsApp kontörü
-  'price_1UBL8IDsBtMM0UXXflQAnGg2',
-  'price_1UBL8JDsBtMM0UXX0iFmTcEh',
-  'price_1UBL8JDsBtMM0UXXObWWOPLH',
-  // Kurulan sistemler
-  'price_1UBL8FDsBtMM0UXXQZuR1X5a',
-  'price_1UBL8GDsBtMM0UXXUiYtstcJ',
-  'price_1UBL8HDsBtMM0UXXkmgXUrd7',
-  // Web
-  'price_1UBL8DDsBtMM0UXXVcMrrJjO',
-  'price_1UBL8DDsBtMM0UXX6yZxjOMf',
-  'price_1UBL8EDsBtMM0UXXj1TLO8SQ',
-  'price_1UBL8FDsBtMM0UXXTITMOu0A',
-  // Reklam
-  'price_1UBL8HDsBtMM0UXXxNpvaedY',
-  'price_1UBL8IDsBtMM0UXX4kflR7j6',
-  'price_1UBL8IDsBtMM0UXXYaIHAzAR',
-]);
-
-/** Checkout dönüş adreslerinin ve CORS'un izin verdiği host'lar. */
+/** CORS'un izin verdiği host'lar. */
 const ALLOWED_HOSTS = new Set<string>([
   'mgl-ai.com',
   'www.mgl-ai.com',
@@ -55,17 +18,6 @@ function isAllowedOrigin(origin: string | null): boolean {
   if (!origin) return false;
   try {
     return ALLOWED_HOSTS.has(new URL(origin).hostname.toLowerCase());
-  } catch {
-    return false;
-  }
-}
-
-/** Checkout success/cancel adresi kendi alan adımızda mı — açık yönlendirme kapanır. */
-function isAllowedRedirect(target: string | undefined): boolean {
-  if (!target) return false;
-  try {
-    const u = new URL(target);
-    return (u.protocol === 'https:' || u.protocol === 'http:') && ALLOWED_HOSTS.has(u.hostname.toLowerCase());
   } catch {
     return false;
   }
@@ -140,114 +92,6 @@ export default {
         JSON.stringify({ country }),
         { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
       );
-    }
-
-    // Stripe checkout endpoint
-    if (path === '/api/stripe/checkout' && request.method === 'POST') {
-      try {
-        if (!env.STRIPE_SECRET_KEY) {
-          return new Response(
-            JSON.stringify({ error: 'Stripe is not configured' }),
-            { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-          );
-        }
-
-        const authHeader = request.headers.get('Authorization') || '';
-        const token = authHeader.replace('Bearer ', '');
-        if (!token) {
-          return new Response(
-            JSON.stringify({ error: 'Unauthorized' }),
-            { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-          );
-        }
-
-        const activeSession = await env.DB.prepare(
-          'SELECT s.user_id, u.email FROM session s JOIN user u ON s.user_id = u.id WHERE s.token = ? AND s.expires_at > ?'
-        ).bind(token, Date.now()).first() as any;
-
-        if (!activeSession) {
-          return new Response(
-            JSON.stringify({ error: 'Unauthorized' }),
-            { status: 401, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-          );
-        }
-
-        const body = await request.json() as {
-          price_id?: string;
-          success_url?: string;
-          cancel_url?: string;
-          mode?: 'payment' | 'subscription';
-          customer_email?: string;
-        };
-
-        const priceId = body.price_id;
-        const successUrl = body.success_url;
-        const cancelUrl = body.cancel_url;
-        const mode = body.mode;
-        // E-posta yalnızca oturumdan alınır; istemcinin gönderdiği yok sayılır.
-        const customerEmail = activeSession.email;
-
-        if (!priceId || !successUrl || !cancelUrl || (mode !== 'payment' && mode !== 'subscription')) {
-          return new Response(
-            JSON.stringify({ error: 'Missing required parameters' }),
-            { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-          );
-        }
-
-        // Fiyat kataloğun dışındaysa reddet — ucuz fiyatla pahalı ürün alınmasın.
-        if (!ALLOWED_PRICE_IDS.has(priceId)) {
-          return new Response(
-            JSON.stringify({ error: 'Unknown price' }),
-            { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-          );
-        }
-
-        // Dönüş adresleri kendi alan adımızda olmalı — açık yönlendirme kapanır.
-        if (!isAllowedRedirect(successUrl) || !isAllowedRedirect(cancelUrl)) {
-          return new Response(
-            JSON.stringify({ error: 'Invalid redirect URL' }),
-            { status: 400, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-          );
-        }
-
-        const stripePayload = new URLSearchParams();
-        stripePayload.set('mode', mode);
-        stripePayload.set('success_url', successUrl);
-        stripePayload.set('cancel_url', cancelUrl);
-        stripePayload.set('line_items[0][price]', priceId);
-        stripePayload.set('line_items[0][quantity]', '1');
-        if (customerEmail) {
-          stripePayload.set('customer_email', customerEmail);
-        }
-
-        const stripeResponse = await fetch('https://api.stripe.com/v1/checkout/sessions', {
-          method: 'POST',
-          headers: {
-            Authorization: `Bearer ${env.STRIPE_SECRET_KEY}`,
-            'Content-Type': 'application/x-www-form-urlencoded',
-          },
-          body: stripePayload.toString(),
-        });
-
-        const stripeData = await stripeResponse.json() as any;
-
-        if (!stripeResponse.ok) {
-          return new Response(
-            JSON.stringify({ error: 'Stripe checkout failed' }),
-            { status: stripeResponse.status, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-          );
-        }
-
-        return new Response(
-          JSON.stringify({ sessionId: stripeData.id, url: stripeData.url }),
-          { headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-        );
-      } catch (e: any) {
-        return new Response(
-          JSON.stringify({ error: 'Internal error' }),
-          { status: 500, headers: { ...corsHeaders, 'Content-Type': 'application/json' } }
-        );
-      }
     }
 
     // Register endpoint
