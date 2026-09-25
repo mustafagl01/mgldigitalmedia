@@ -969,6 +969,12 @@ function PlanCard({ tier, content, region, isEnglish }: PlanCardProps) {
                 ? 'One-time setup: '
                 : 'Tek seferlik kurulum: '}
               <strong style={{ color: titleColor }}>{formatPrice(tier.setupFee, region)}</strong>
+              {tier.setupNote && (
+                <span style={{ color: labelMutedColor }}>
+                  {' '}
+                  ({isEnglish ? tier.setupNote.en : tier.setupNote.tr})
+                </span>
+              )}
             </span>
           ) : (
             <span style={{ color: 'var(--ember)' }}>

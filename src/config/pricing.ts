@@ -98,6 +98,8 @@ export type PackageTier = {
   priceTbd?: boolean;
   /** Büyük/özel kullanım eşiğinin üstü için not (örn. reklam bütçesi tavanı). */
   enterpriseNote?: { tr: string; en: string };
+  /** Kurulum ücretine dahil olan kalemi açıklayan kısa not (örn. donanım dahil). */
+  setupNote?: { tr: string; en: string };
 };
 
 /** Kontör paketi — hacimle birim fiyat düşer. */
@@ -155,7 +157,11 @@ const TR_PACKAGES: Record<PackageTierKey, PackageTier> = {
     category: 'agents',
     name: 'Sesli Asistan',
     price: 649,
-    setupFee: 0,
+    // 2026-09-25: kullanıcı talimatı — kurulum 400£ karşılığı, içinde 200£'lik
+    // termal yazıcı dahil. TL'si dosya kuralına göre uydurulmaz; kullanıcı
+    // burada açıkça 65 kur ile 26.000₺ onayladı (bkz. dosya başı TRY politikası).
+    setupFee: 26000,
+    setupNote: { tr: 'Termal yazıcı dahil', en: 'Thermal printer included' },
     priceUnit: 'month',
     usageUnit: 'minute',
     usageRate: 16,
@@ -292,7 +298,16 @@ const TR_PACKAGES: Record<PackageTierKey, PackageTier> = {
 };
 
 const GB_PACKAGES: Record<PackageTierKey, PackageTier> = {
-  voice: { ...TR_PACKAGES.voice, name: 'Voice Assistant', price: 9.9, usageRate: 0.25 },
+  voice: {
+    ...TR_PACKAGES.voice,
+    name: 'Voice Assistant',
+    price: 9.9,
+    usageRate: 0.25,
+    // 2026-09-25: kullanıcı talimatı — kurulum £400, içinde £200'lük termal
+    // yazıcı dahil.
+    setupFee: 400,
+    setupNote: { tr: 'Termal yazıcı dahil', en: 'Thermal printer included' },
+  },
   whatsapp: { ...TR_PACKAGES.whatsapp, name: 'WhatsApp Assistant', price: 9.9, usageRate: 0.007 },
   automation: {
     ...TR_PACKAGES.automation,
