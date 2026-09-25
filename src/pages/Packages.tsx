@@ -1459,11 +1459,19 @@ function CreditPacks({
       const monthlyFee = pricing.packages[key].price;
       if (key === 'voice') {
         const minutes = s.perDay * 30 * MINUTES_PER_CALL;
+        // Hangi kademede oldugunu bul — "toplam nereden geldi" sorusunu ayni
+        // satirda cevaplamak icin (once ayri bir blokta gosteriliyordu, kafa
+        // karistiriyordu).
+        const tiers = pricing.voiceUsageTiers;
+        const band = tiers.find((t) => minutes <= t.upTo) ?? tiers[tiers.length - 1];
         return {
           label: isEnglish ? s.en : s.tr,
           detail: isEnglish
             ? `~${s.perDay} calls a day · ${minutes.toLocaleString('en-GB')} minutes`
             : `günde ~${s.perDay} çağrı · ${minutes.toLocaleString('tr-TR')} dakika`,
+          rateNote: isEnglish
+            ? `${unit(band.rate)} per minute at this volume`
+            : `bu hacimde dakikası ${unit(band.rate)}`,
           total: monthlyFee + voiceUsageCost(minutes, region),
         };
       }
@@ -1530,6 +1538,11 @@ function CreditPacks({
                     <div>
                       <strong style={{ fontSize: 13, color: 'var(--ink)' }}>{sc.label}</strong>
                       <span style={{ display: 'block', fontSize: 12, color: 'var(--fg-3)' }}>{sc.detail}</span>
+                      {'rateNote' in sc && sc.rateNote && (
+                        <span style={{ display: 'block', fontSize: 11, color: 'var(--fg-3)', fontFamily: 'var(--font-mono)' }}>
+                          {sc.rateNote}
+                        </span>
+                      )}
                     </div>
                     <strong style={{ fontFamily: 'var(--font-mono)', fontSize: 16, color: 'var(--ember)', whiteSpace: 'nowrap' }}>
                       {formatPrice(Math.round(sc.total), region)}
