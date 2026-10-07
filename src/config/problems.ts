@@ -39,8 +39,8 @@ export const PROBLEMS: Record<string, Problem> = {
       en: 'AI That Answers Calls After Hours | MGL AI',
     },
     metaDescription: {
-      tr: 'Mesai dışında veya yoğunlukta cevapsız kalan aramaları karşılayan, bilgi veren ve randevu oluşturan AI sesli asistan. Kurulum ücretsiz.',
-      en: 'An AI voice assistant that answers calls missed after hours or during rush, gives information and books appointments. No setup fee.',
+      tr: 'Mesai dışında veya yoğunlukta cevapsız kalan aramaları karşılayan, bilgi veren ve randevu oluşturan AI sesli asistan.',
+      en: 'An AI voice assistant that answers calls missed after hours or during rush, gives information and books appointments.',
     },
     heroTitle: {
       tr: 'Kaçırılan aramalar için AI sesli asistan',

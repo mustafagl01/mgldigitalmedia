@@ -184,8 +184,8 @@ export const SOLUTIONS: Record<SectorKey, SectorContent> = {
       {
         q: { tr: 'Aylık ücret nedir?', en: 'What is the monthly fee?' },
         a: {
-          tr: 'Klinikler için sesli ve WhatsApp asistanı birlikte kurulur. Kurulum ücretsizdir; aylık sistem bedeli 649 TL olur ve ikisini birden alsanız da tek ödenir. Kullanım ayrıca işler: bağlanan konuşma dakikası 16 TL seviyesinden başlar ve hacimle düşer, WhatsApp AI yanıtı 0,45 TL olur.',
-          en: 'For clinics we set up the voice and WhatsApp assistants together. Setup is free; the monthly system fee is £9.90 and is paid once even if you take both. Usage is billed separately: connected minutes start at 25p and fall with volume, WhatsApp AI replies are 0.7p.',
+          tr: 'Klinikler için sesli ve WhatsApp asistanı birlikte kurulur. WhatsApp asistanında kurulum ücretsizdir, sesli asistanda tek seferlik kurulum ücreti vardır; aylık sistem bedeli 649 TL olur ve ikisini birden alsanız da tek ödenir. Kullanım ayrıca işler: bağlanan konuşma dakikası 16 TL seviyesinden başlar ve hacimle düşer, WhatsApp AI yanıtı 0,45 TL olur.',
+          en: 'For clinics we set up the voice and WhatsApp assistants together. WhatsApp setup is free, the voice assistant has a one-off setup fee; the monthly system fee is £9.90 and is paid once even if you take both. Usage is billed separately: connected minutes start at 25p and fall with volume, WhatsApp AI replies are 0.7p.',
         },
       },
       {
@@ -417,8 +417,8 @@ export const SOLUTIONS: Record<SectorKey, SectorContent> = {
       {
         q: { tr: 'Aylık ücret nedir?', en: 'What is the monthly fee?' },
         a: {
-          tr: 'Emlak ofisleri için sesli ve WhatsApp asistanı birlikte kurulur. Kurulum ücretsizdir; aylık sistem bedeli 649 TL olur. Kullanım ayrıca işler: konuşma dakikası 16 TL seviyesinden başlar, WhatsApp AI yanıtı 0,45 TL olur. Portal lisansı ve reklam bütçesi size aittir.',
-          en: 'For estate agencies we set up the voice and WhatsApp assistants together. Setup is free; the monthly system fee is £9.90. Usage is billed separately: connected minutes start at 25p and WhatsApp AI replies are 0.7p. Portal licences and ad spend are separate.',
+          tr: 'Emlak ofisleri için sesli ve WhatsApp asistanı birlikte kurulur. WhatsApp asistanında kurulum ücretsizdir, sesli asistanda tek seferlik kurulum ücreti vardır; aylık sistem bedeli 649 TL olur. Kullanım ayrıca işler: konuşma dakikası 16 TL seviyesinden başlar, WhatsApp AI yanıtı 0,45 TL olur. Portal lisansı ve reklam bütçesi size aittir.',
+          en: 'For estate agencies we set up the voice and WhatsApp assistants together. WhatsApp setup is free, the voice assistant has a one-off setup fee; the monthly system fee is £9.90. Usage is billed separately: connected minutes start at 25p and WhatsApp AI replies are 0.7p. Portal licences and ad spend are separate.',
         },
       },
       {
@@ -1070,8 +1070,8 @@ export const SOLUTIONS: Record<SectorKey, SectorContent> = {
       {
         q: { tr: 'Aylık ücret nedir?', en: 'What is the monthly fee?' },
         a: {
-          tr: 'Telefon ve WhatsApp rezervasyonlarını birlikte yönetmek için iki asistan da kurulur. Kurulum ücretsizdir, aylık sistem bedeli tek seferde 649 TL olur. Bağlanan konuşma dakikası 16 TL seviyesinden başlar, WhatsApp AI yanıtı 0,45 TL olur.',
-          en: 'To manage phone and WhatsApp reservations together we set up both assistants. Setup is free and the monthly system fee is £9.90, paid once. Connected minutes start at 25p and WhatsApp AI replies are 0.7p.',
+          tr: 'Telefon ve WhatsApp rezervasyonlarını birlikte yönetmek için iki asistan da kurulur. WhatsApp asistanında kurulum ücretsizdir, sesli asistanda tek seferlik kurulum ücreti vardır; aylık sistem bedeli tek seferde 649 TL olur. Bağlanan konuşma dakikası 16 TL seviyesinden başlar, WhatsApp AI yanıtı 0,45 TL olur.',
+          en: 'To manage phone and WhatsApp reservations together we set up both assistants. WhatsApp setup is free, the voice assistant has a one-off setup fee; the monthly system fee is £9.90, paid once. Connected minutes start at 25p and WhatsApp AI replies are 0.7p.',
         },
       },
       {

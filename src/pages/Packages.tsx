@@ -81,8 +81,8 @@ const CATEGORY_META: Record<PackageCategoryKey, CategoryMeta> = {
     hero: {
       eyebrow: { tr: 'SESLİ VE WHATSAPP ASİSTANI', en: 'VOICE AND WHATSAPP ASSISTANTS' },
       title: {
-        tr: 'Kurulum yok. Kullandığınız kadar ödeyin.',
-        en: 'No setup fee. Pay for what you use.',
+        tr: 'Kullandığınız kadar ödeyin.',
+        en: 'Pay for what you use.',
       },
       lede: {
         tr: 'Küçük bir aylık sistem bedeli, üstüne konuştuğunuz dakika veya verilen AI yanıtı kadar kullanım. İkisini birden alırsanız aylık bedel tek ödenir. Gizlilik, saklama ve insan devri kuralları projede yazılı belirlenir.',
@@ -126,8 +126,8 @@ const PLAN_CONTENT: Record<PackageTierKey, PlanContent> = {
   // ---------------- HAZIR ÜRÜNLER — kurulum yok, kontörle çalışır ----------------
   voice: {
     subtitle: {
-      tr: 'Telefonu açar, soruyu cevaplar, randevuyu veya siparişi alır. Kurulum ücreti yok.',
-      en: 'Answers the phone, handles questions, takes the booking or order. No setup fee.',
+      tr: 'Telefonu açar, soruyu cevaplar, randevuyu veya siparişi alır.',
+      en: 'Answers the phone, handles questions, takes the booking or order.',
     },
     included: {
       tr: [
@@ -153,11 +153,11 @@ const PLAN_CONTENT: Record<PackageTierKey, PlanContent> = {
     },
     quotas: {
       tr: [
-        'Kurulum: ücretsiz',
+        'Tek seferlik kurulum — termal yazıcı dahil',
         'Aylık sistem bedeli — WhatsApp asistanını da alırsanız tek ödenir',
       ],
       en: [
-        'Setup: free',
+        'One-off setup — thermal printer included',
         'Monthly system fee — paid once if you also take the WhatsApp assistant',
       ],
     },
@@ -633,10 +633,10 @@ function buildCategoryFaq(
   ],
   agents: [
     {
-      q: { tr: 'Gerçekten kurulum ücreti yok mu?', en: 'Is setup really free?' },
+      q: { tr: 'Kurulum ücreti var mı?', en: 'Is there a setup fee?' },
       a: {
-        tr: 'Yok. Asistanı kurar, menünüzü veya sık sorulan sorularınızı sisteme işler, numaranızı yönlendirir ve devreye alırız — bunun için ücret almıyoruz. Kazancımız aylık sistem bedeli ve kullanımdan gelir.',
-        en: 'It is. We set the assistant up, load your menu or FAQs, forward your number and take it live at no charge. We earn from the monthly system fee and usage.',
+        tr: 'WhatsApp asistanında yok: asistanı kurar, sık sorulan sorularınızı sisteme işler ve devreye alırız — bunun için ücret almıyoruz. Sesli asistanda tek seferlik bir kurulum ücreti var; numaranızın yönlendirilmesi, bilgilerinizin işlenmesi ve devreye alma bu ücrete dahildir, termal yazıcı da dahildir. İki asistanda da kazancımızın geri kalanı aylık sistem bedeli ve kullanımdan gelir.',
+        en: 'Not for the WhatsApp assistant: we set it up, load your FAQs and take it live at no charge. The voice assistant has a one-off setup fee that covers forwarding your number, loading your details and going live, and includes the thermal printer. For both assistants the rest of our income comes from the monthly system fee and usage.',
       },
     },
     {
@@ -1722,8 +1722,8 @@ export default function Packages() {
         : 'Altı açık web paketi: £200 tek sayfadan çok dilli AI web sitesine ve tamamen özel profesyonel siteye. Kapsam, hosting ve AI kullanımı baştan belirtilir.';
     }
     return isEnglish
-      ? 'Clear UK pricing for the voice and WhatsApp assistants, automation and lead systems, websites and ad management. No setup fee on the assistants; usage rates and bundles shown upfront.'
-      : 'Sesli ve WhatsApp asistanı, otomasyon ve lead sistemleri, web siteleri ve reklam yönetimi için açık fiyatlar. Asistanlarda kurulum ücreti yok; kullanım tarifesi ve kontör paketleri baştan belirtilir.';
+      ? 'Clear UK pricing for the voice and WhatsApp assistants, automation and lead systems, websites and ad management. No setup fee on the WhatsApp assistant; usage rates and bundles shown upfront.'
+      : 'Sesli ve WhatsApp asistanı, otomasyon ve lead sistemleri, web siteleri ve reklam yönetimi için açık fiyatlar. WhatsApp asistanında kurulum ücreti yok; kullanım tarifesi ve kontör paketleri baştan belirtilir.';
   }, [activeCategory, isEnglish]);
 
   const seoKeywords = useMemo(() => {

@@ -17,7 +17,7 @@ faqs:
   - question: "Kaçırdığım aramaları karşılayabilir mi?"
     answer: "Evet. Çalışma saatleri dışındaki aramaları sesli AI asistan karşılar; randevu alır, bilgi verir veya acil durum mesajı bırakır. Bu sayede hiçbir müşteri teması kaçırılmaz."
   - question: "Kurulum maliyeti ne kadar?"
-    answer: "Retell AI'ın temel planı $29/ay'dan başlar. MGL ile kurulum ücreti yoktur: aylık 649 TRY/£9,90 sistem bedeli ve bağlanan dakika başına 16 TRY/25p kullanım (hacimle düşer). Detaylar için /sesli-ai sayfasını ziyaret edin."
+    answer: "Retell AI'ın temel planı $29/ay'dan başlar. MGL ile sesli asistan için tek seferlik bir kurulum ücreti vardır (termal yazıcı dahil); ardından aylık 649 TRY/£9,90 sistem bedeli ve bağlanan dakika başına 16 TRY/25p kullanım (hacimle düşer). Detaylar için /sesli-ai sayfasını ziyaret edin."
 ---
 
 **TL;DR:** Sesli AI telefon asistanı, işletmenizin gelen (ve giden) aramalarını yapay zeka kullanarak karşılayan, anlayan ve yanıtlayan bir sistemdir. Retell AI + ElevenLabs sesi + n8n kombinasyonuyla kurulur; kaçan aramaları sıfıra indirir, randevu alır ve 7/24 müşteri desteği sağlar.

@@ -62,8 +62,8 @@ const services: Service[] = [
     nameTR: 'Sesli AI Asistanı', nameEN: 'Voice AI Assistant', packageKey: 'voice', detailsPath: '/sesli-ai',
     descriptionTR: 'Çağrıları doğal sesle karşılar, sık soruları yanıtlar ve görüşme özetini ekibinize iletir.',
     descriptionEN: 'Answers calls naturally, handles common questions and sends a call summary to your team.',
-    featuresTR: ['Kurulum ücreti yok', 'Bağlanan dakika kadar kullanım', 'Görüşme özeti ve tam metin', 'Gerektiğinde insana yönlendirme'],
-    featuresEN: ['No setup fee', 'Usage billed by connected minute', 'Call summary and transcript', 'Human handoff when required'],
+    featuresTR: ['Tek seferlik kurulum (termal yazıcı dahil)', 'Bağlanan dakika kadar kullanım', 'Görüşme özeti ve tam metin', 'Gerektiğinde insana yönlendirme'],
+    featuresEN: ['One-off setup (thermal printer included)', 'Usage billed by connected minute', 'Call summary and transcript', 'Human handoff when required'],
   },
   {
     id: 'n8n', category: 'systems', icon: Workflow,
