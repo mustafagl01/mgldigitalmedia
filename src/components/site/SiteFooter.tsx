@@ -254,7 +254,7 @@ export function SiteFooter({ onNavigate }: Props) {
                 </a>
               </li>
               <li>
-                <a href="/accounting-automation-uk" style={{ color: 'var(--bone-2)' }}>
+                <a href="/en/accounting-automation-uk/" style={{ color: 'var(--bone-2)' }}>
                   {language === 'tr' ? 'Muhasebe firmaları için otomasyon' : 'Automation for accounting firms'}
                 </a>
               </li>
