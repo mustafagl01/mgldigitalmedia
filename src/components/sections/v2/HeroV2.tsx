@@ -117,7 +117,7 @@ export function HeroV2({ onAnalysisClick, onDemoClick }: Props) {
                   </span>
                 </span>{' '}
                 <span className="hero-line">
-                  ve süreci <span style={{ color: 'var(--ember)' }}>otomatikleştiriyoruz</span>.
+                  ve iş süreçlerinizi <span style={{ color: 'var(--ember)' }}>otomatikleştiriyoruz</span>.
                 </span>
               </>
             ) : (
@@ -129,7 +129,7 @@ export function HeroV2({ onAnalysisClick, onDemoClick }: Props) {
                   </span>
                 </span>{' '}
                 <span className="hero-line">
-                  and <span style={{ color: 'var(--ember)' }}>automate the process</span>.
+                  and <span style={{ color: 'var(--ember)' }}>automate your business processes</span>.
                 </span>
               </>
             )}
@@ -146,8 +146,8 @@ export function HeroV2({ onAnalysisClick, onDemoClick }: Props) {
             }}
           >
             {isTR
-              ? 'Web sitesi, Google, reklam, SEO, yapay zekâ ve otomasyon. Birbirinden kopuk hizmetler değil — birlikte çalışan bir müşteri sistemi.'
-              : 'Website, Google, advertising, SEO, AI and automation. Not disconnected services — one customer system that works together.'}
+              ? 'Web sitesi, Google, reklam ve 7/24 sesli/WhatsApp asistanla size müşteri getiriyoruz. Teklif, sipariş, evrak, raporlama ya da size özel başka bir iş: içerideki tekrarlanan süreçleri kendi sistemlerinizle çalışan otomasyonlarla hızlandırıyoruz.'
+              : 'We bring you customers with your website, Google, ads and a 24/7 voice/WhatsApp assistant. Quotes, orders, documents, reporting or any task specific to you: we speed up repetitive internal work with automations that run on your own systems.'}
           </p>
 
           {/* CTAs */}
@@ -169,6 +169,14 @@ export function HeroV2({ onAnalysisClick, onDemoClick }: Props) {
               {isTR ? 'Sesli asistanı ara' : 'Call the voice agent'}
             </button>
           </div>
+
+          {/* B2B köprüsü: soğuk maillerden gelen şirketler için süreç otomasyonu sayfası (2026-10-14) */}
+          <a
+            href="/surec-otomasyonu"
+            style={{ display: 'inline-block', marginTop: 16, fontSize: '0.95rem', color: 'var(--fg-2)', textDecoration: 'underline', textUnderlineOffset: 3 }}
+          >
+            {isTR ? 'Şirketinize özel süreç otomasyonu · 14 gün ücretsiz deneme →' : 'Custom process automation for your company · 14-day free trial →'}
+          </a>
 
           {/* Transparency strip — honest pledge, no fake metrics */}
           <div

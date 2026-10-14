@@ -70,6 +70,7 @@ function loadBlogContent() {
 const ROUTE_SEEDS = [
   { path: '/whatsapp-ai-asistan', lang: 'tr', title: 'WhatsApp AI Asistan | MGL Digital Media', description: 'WhatsApp AI asistan ile musteri sorularini 7/24 yanitlayin.', keywords: 'whatsapp ai asistan, whatsapp bot, evolution api, n8n' },
   { path: '/sesli-ai', lang: 'tr', title: 'Sesli AI Telefon Asistani | MGL Digital Media', description: 'Retell AI ile sesli AI telefon asistani. 7/24.', keywords: 'sesli ai, voice ai, retell ai, telefon asistani' },
+  { path: '/surec-otomasyonu', lang: 'tr', title: 'Sirketinize Ozel Surec Otomasyonu | MGL Digital Media', description: 'Teklif, siparis, evrak ve raporlama gibi tekrarlanan isleri mevcut e-posta, Excel ve ERP duzeninizle otomatiklestiriyoruz. Tek surecle 14 gun ucretsiz deneme.', keywords: 'surec otomasyonu, is sureci otomasyonu, teklif otomasyonu, siparis otomasyonu' },
   { path: '/n8n-otomasyon', lang: 'tr', title: 'n8n Otomasyon Ajansi | MGL Digital Media', description: 'n8n ile is akislarinizi otomatize edin.', keywords: 'n8n otomasyon, workflow, crm entegrasyon' },
   { path: '/lead-uretimi', lang: 'tr', title: 'AI ile Lead Uretimi | MGL Digital Media', description: 'Google Maps, Apollo tabanli lead uretim pipeline.', keywords: 'lead uretimi, lead generation, apollo, google maps' },
   { path: '/ai-musteri-bulma-mail-takip', lang: 'tr', title: 'AI Musteri Bulma ve E-posta Takip Sistemi | MGL AI', description: 'Hedef isletmeleri bulan, sitelerini inceleyen, ilgili e-postalar hazirlayan ve cevaplari tek panelde takip eden MGL yonetilen hizmeti.', keywords: 'AI musteri bulma sistemi, otomatik musteri bulma, e-posta takip sistemi, yonetilen cold email' },
@@ -104,6 +105,7 @@ const ROUTE_SEEDS = [
 const ENGLISH_META = {
   '/whatsapp-ai-asistan': ['WhatsApp AI Assistant for Business | MGL', 'An AI assistant that answers WhatsApp enquiries, captures customer details and hands suitable conversations to your team.'],
   '/sesli-ai': ['Voice AI Phone Assistant | MGL', 'A voice AI assistant that answers calls, handles common questions and sends structured call summaries to your team.'],
+  '/surec-otomasyonu': ['Custom Business Process Automation | MGL', 'We automate repetitive internal work such as quotes, orders, documents and reporting around your existing email, Excel and ERP. One process, 14-day free trial.'],
   '/n8n-otomasyon': ['n8n Automation Agency | MGL', 'Monitored n8n workflows for documents, reporting, follow-up and data transfer across your business tools.'],
   '/lead-uretimi': ['B2B Lead Research and Data Workflow | MGL', 'Build verified, deduplicated business prospect lists from relevant public and licensed data sources.'],
   '/ai-musteri-bulma-mail-takip': ['Managed Lead Research and Email Follow-up | MGL', 'A managed system for prospect research, verified data, relevant email drafts and controlled follow-up.'],
@@ -163,6 +165,11 @@ const STATIC_ROUTE_CONTENT = {
     heading: 'Mesai dışında telefona cevap veren yapay zeka asistanı',
     answer: 'Sesli AI asistan gelen çağrıyı karşılayabilir, arama sebebini öğrenebilir, uygun saatleri kontrol edebilir, randevu talebi oluşturabilir ve görüşme özetini ekibe gönderebilir. Hassas veya kapsam dışı konular personele aktarılır.',
     bullets: ['Gelen çağrı karşılama', 'Randevu ve geri arama talebi', 'Görüşme özeti', 'İnsan ekibe yönlendirme'],
+  },
+  '/surec-otomasyonu': {
+    heading: 'Şirketinize özel, her gün tekrarlanan işleri otomatikleştiriyoruz',
+    answer: 'MGL AI teklif hazırlama, sipariş girişi, evrak kontrolü, raporlama, servis talepleri ve takip hatırlatmaları gibi tekrarlanan iç işleri şirketin mevcut e-posta, Excel ve ERP düzeniyle çalışan otomasyonlarla hızlandırır. Tek bir süreçle ve gerçek veriyle 14 gün ücretsiz denemeyle başlanır; onay her zaman müşteride kalır.',
+    bullets: ['Teklif hazırlama ve ürün kodu eşleştirme', 'Sipariş girişi ve evrak kontrolü', 'Raporlama ve takip hatırlatmaları', 'Tek süreçle 14 gün ücretsiz deneme'],
   },
   '/n8n-otomasyon': {
     heading: 'İşletmedeki tekrar eden işleri birbirine bağlayan n8n otomasyonu',

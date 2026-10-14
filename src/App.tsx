@@ -27,6 +27,7 @@ const NotFound = lazy(() => import('./pages/NotFound'));
 const WhatsappAiAsistan = lazy(() => import('./pages/services/WhatsappAiAsistan'));
 const SesliAi = lazy(() => import('./pages/services/SesliAi'));
 const N8nOtomasyon = lazy(() => import('./pages/services/N8nOtomasyon'));
+const SurecOtomasyonu = lazy(() => import('./pages/services/SurecOtomasyonu'));
 const LeadUretimi = lazy(() => import('./pages/services/LeadUretimi'));
 const ManagedOutreach = lazy(() => import('./pages/services/ManagedOutreach'));
 const AccountingAutomation = lazy(() => import('./pages/AccountingAutomation'));
@@ -56,6 +57,7 @@ import { HeroV2 } from './components/sections/v2/HeroV2';
 import { CredentialsStrip } from './components/sections/v2/CredentialsStrip';
 import { HomeCapabilities, HomeWhoWeWorkWith } from './components/sections/v2/HomeCapabilities';
 import { HomeProblems, HomeJourney } from './components/sections/v2/HomeProblems';
+import { HomeProcessBridge } from './components/sections/v2/HomeProcessBridge';
 // HomeConnectedSystems ana sayfadan cikarildi: ayni akis artik hero'daki
 // sistem haritasinda duruyor, iki yerde tekrar olmasin.
 import { HomeHowWeWork, HomeWhyMgl } from './components/sections/v2/HomeApproach';
@@ -86,6 +88,7 @@ type AppPage =
   | 'whatsapp-ai-asistan'
   | 'sesli-ai'
   | 'n8n-otomasyon'
+  | 'surec-otomasyonu'
   | 'lead-uretimi'
   | 'ai-musteri-bulma-mail-takip'
   | 'accounting-automation-uk'
@@ -133,6 +136,7 @@ const KNOWN_PATHS = new Set([
   '/whatsapp-ai-asistan',
   '/sesli-ai',
   '/n8n-otomasyon',
+  '/surec-otomasyonu',
   '/lead-uretimi',
   '/ai-musteri-bulma-mail-takip',
   '/accounting-automation-uk',
@@ -166,6 +170,7 @@ function pathToPage(path: string): AppPage {
   if (clean === '/whatsapp-ai-asistan') return 'whatsapp-ai-asistan';
   if (clean === '/sesli-ai') return 'sesli-ai';
   if (clean === '/n8n-otomasyon') return 'n8n-otomasyon';
+  if (clean === '/surec-otomasyonu') return 'surec-otomasyonu';
   if (clean === '/lead-uretimi') return 'lead-uretimi';
   if (clean === '/ai-musteri-bulma-mail-takip') return 'ai-musteri-bulma-mail-takip';
   if (clean === '/accounting-automation-uk') return 'accounting-automation-uk';
@@ -273,6 +278,7 @@ function AppContent() {
   if (currentPage === 'whatsapp-ai-asistan') return wrapPage(<Suspense fallback={<div />}><WhatsappAiAsistan /></Suspense>);
   if (currentPage === 'sesli-ai') return wrapPage(<Suspense fallback={<div />}><SesliAi /></Suspense>);
   if (currentPage === 'n8n-otomasyon') return wrapPage(<Suspense fallback={<div />}><N8nOtomasyon /></Suspense>);
+  if (currentPage === 'surec-otomasyonu') return wrapPage(<Suspense fallback={<div />}><SurecOtomasyonu /></Suspense>);
   if (currentPage === 'lead-uretimi') return wrapPage(<Suspense fallback={<div />}><LeadUretimi /></Suspense>);
   if (currentPage === 'ai-musteri-bulma-mail-takip') return wrapPage(<Suspense fallback={<div />}><ManagedOutreach /></Suspense>);
   if (currentPage === 'accounting-automation-uk') return wrapPage(<Suspense fallback={<div />}><AccountingAutomation /></Suspense>);
@@ -339,6 +345,7 @@ function AppContent() {
           <HomeCapabilities />
           <HomeProblems />
           <HomeJourney />
+          <HomeProcessBridge />
           <HomeWhoWeWorkWith />
           <HomeHowWeWork />
           <HomeWhyMgl />
