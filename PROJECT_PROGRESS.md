@@ -41,6 +41,18 @@ Bu yapılırsa `www` sorunu da kendiliğinden biter.
 
 ---
 
+## 2026-10-14 — Süreç otomasyonu konumlandırması (canlıda, commit 7d3637b)
+
+Neden: B2B soğuk maillerde (büyük üretici/distribütörler) "şirketinize özel süreç otomasyonu" anlatılıyor,
+site ise sadece müşteri kazanımı gösteriyordu. Kullanıcı kararı: 14 gün ücretsiz deneme (tek süreç),
+devam ederse kurulum + aylık bakım yazılı teklifle.
+- Hero: "…ve **iş süreçlerinizi** otomatikleştiriyoruz" + iki parçalı alt metin + `/surec-otomasyonu` bağlantısı
+- Yeni sayfa `/surec-otomasyonu` (`src/pages/services/SurecOtomasyonu.tsx`, TR/EN): 6 örnek süreç, 3 adım
+  (tek süreç → 14 gün ücretsiz → kalıcı kurulum), temsili onay kartı, "ne yapmıyoruz", şirket bilgileri, SSS. Fiyat yok, abartı yok.
+- Ana sayfa: `HomeJourney` sonrasına `HomeProcessBridge` köprü kartı. prerender + sitemap kayıtlı.
+- Mevcut `/n8n-otomasyon` teknik sayfa olarak kaldı; yeni sayfadan link verildi.
+- Not: `App.tsx(250) TS2322 SitePage→Page` hatası bu değişiklikten önce de vardı.
+
 ## Bu oturumda yapılanlar
 
 ### 1. Depo senkronu
