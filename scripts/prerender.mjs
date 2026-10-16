@@ -170,6 +170,17 @@ const STATIC_ROUTE_CONTENT = {
     heading: 'Şirketinize özel, her gün tekrarlanan işleri otomatikleştiriyoruz',
     answer: 'MGL AI teklif hazırlama, sipariş girişi, evrak kontrolü, raporlama, servis talepleri ve takip hatırlatmaları gibi tekrarlanan iç işleri şirketin mevcut e-posta, Excel ve ERP düzeniyle çalışan otomasyonlarla hızlandırır. Tek bir süreçle ve gerçek veriyle 14 gün ücretsiz denemeyle başlanır; onay her zaman müşteride kalır.',
     bullets: ['Teklif hazırlama ve ürün kodu eşleştirme', 'Sipariş girişi ve evrak kontrolü', 'Raporlama ve takip hatırlatmaları', 'Tek süreçle 14 gün ücretsiz deneme'],
+    updated: '16 Ekim 2026',
+    sections: [
+      { heading: 'Kimler için', items: ['Rulman, hidrolik, pnömatik, bağlantı elemanı ve conta distribütörleri', 'Yapı malzemesi ve elektrik toptancıları', 'Çok kalemli teklif talebi (RFQ) alan üreticiler', 'Siparişi e-posta, PDF veya WhatsApp ile alan tedarikçiler'] },
+      { heading: 'Nasıl çalışır', items: ['1. Gelen talep okunur: e-posta, WhatsApp mesajı, Excel veya PDF liste.', '2. Her satır firmanın kendi fiyat ve stok listesiyle eşleştirilir; muadil kod varsa önerilir.', '3. Eksik ölçü, marka veya belirsiz kod işaretlenir; gerekirse müşteriye sorulacak soru hazırlanır.', '4. Kontrol edilecek taslak teklif çıkar; fiyatı ve onayı satış ekibi verir.', '5. Cevapsız kalan teklif için hatırlatma zamanlanır.'] },
+      { heading: 'Ne yapmıyoruz', items: ['Fiyat kararını sistem vermez; onay her zaman sizde.', 'Mevcut ERP veya Excel düzeninizi değiştirmenizi istemeyiz.', 'Uydurma başarı rakamı vermeyiz; sonuç 14 günün sonunda birlikte ölçülür.'] },
+    ],
+    faqs: [
+      { question: 'Teklif hazırlama otomasyonu nedir?', answer: 'Teklif hazırlama otomasyonu, müşteriden gelen dağınık talep listesini (e-posta, WhatsApp mesajı, Excel veya PDF) firmanın kendi fiyat ve stok listesiyle satır satır eşleştiren, eşleşmeyen ya da eksik bilgili satırları işaretleyen ve satış ekibinin kontrol edip onaylayacağı taslak teklifi hazırlayan iş akışıdır. Amaç satış ekibini değiştirmek değil, her gün tekrarlanan kod arama, fiyat bakma ve tabloya aktarma işini üstlerinden almaktır. Fiyat, iskonto ve son onay kararı her zaman firmada kalır. Distribütör ve toptancılarda en çok zaman alan kısım genellikle muadil kod bulma ve stok-fiyat kontrolüdür; iş akışı bu adımları hızlandırır ve teklifin hangi satırında insan kararı gerektiğini gösterir.' },
+      { question: 'Distribütörler WhatsApp ile gelen kod listelerini nasıl otomatik teklife çevirir?', answer: 'WhatsApp Business hattına ya da e-posta kutusuna gelen kod listesi iş akışına düşer. Liste satırlara ayrılır, her kod firmanın Excel veya ERP çıktısındaki fiyat-stok tablosunda aranır, bulunamayan kodlar için muadil eşleştirme denenir. Ölçüsü veya markası eksik satırlar ayrıca işaretlenir ve müşteriye sorulacak kısa soru taslağı hazırlanır. Sonunda satış ekibine onaya hazır bir taslak teklif gelir; ekip fiyatı kontrol eder, gerekirse düzeltir ve gönderir. Mevcut düzen değişmez; sistem sadece en çok zaman alan eşleştirme ve kontrol adımlarını üstlenir. Başlangıç için tek bir gerçek listeyle 14 günlük ücretsiz deneme yapılır.' },
+      { question: 'Kurulum ne kadar sürer ve nasıl başlanır?', answer: 'Başlangıç tek bir süreçle yapılır: genellikle teklif hazırlama ya da sipariş girişi. Firma bir gerçek talep listesi ve fiyat-stok dosyasını paylaşır, iş akışı bu veriyle kurulur ve 14 gün boyunca ücretsiz denenir. Deneme sonunda hangi adımın ne kadar hızlandığı, hangi satırlarda insan kararı gerektiği birlikte ölçülür; devam edilip edilmeyeceğine firma karar verir. Uzun sözleşme yoktur. Kurulum ve aylık ücret, sürecin kapsamına göre deneme sonunda netleştirilir. Hizmeti İngiltere’de kayıtlı MGL Digital Media Ltd (şirket no 16007414) verir; iletişim Türkçe yürür.' },
+    ],
   },
   '/n8n-otomasyon': {
     heading: 'İşletmedeki tekrar eden işleri birbirine bağlayan n8n otomasyonu',
@@ -311,8 +322,10 @@ function injectStaticRouteContent(html, route) {
     `<li><a href="${escHtml(source.url)}">${escHtml(source.label)}</a></li>`
   )).join('');
   const sourceBlock = sources ? `<section><h2>Primary references</h2><ul>${sources}</ul></section>` : '';
-  const updated = content.updated ? `<p>Reviewed ${escHtml(content.updated)} by Mustafa Gul, MGL Digital Media Ltd.</p>` : '';
-  const noscriptBlock = `<noscript id="ssr-route-content"><article style="font-family:system-ui,sans-serif;max-width:900px;margin:0 auto;padding:2rem 1.5rem;line-height:1.7;color:#1a1a1a"><h1>${escHtml(content.heading)}</h1><p>${escHtml(content.answer)}</p>${updated}<h2>Capabilities</h2><ul>${bullets}</ul>${sections}${faqs}${sourceBlock}<p>Provider: MGL Digital Media Ltd, UK Company No. 16007414. <a href="https://mgl-ai.com/">mgl-ai.com</a></p></article></noscript>`;
+  const tr = route.lang === 'tr';
+  const updated = content.updated ? `<p>${tr ? `Son güncelleme ${escHtml(content.updated)} · Mustafa Gül, MGL Digital Media Ltd.` : `Reviewed ${escHtml(content.updated)} by Mustafa Gul, MGL Digital Media Ltd.`}</p>` : '';
+  const faqBaslik = faqs ? `<h2>${tr ? 'Sık sorulan sorular' : 'Frequently asked questions'}</h2>` : '';
+  const noscriptBlock = `<noscript id="ssr-route-content"><article style="font-family:system-ui,sans-serif;max-width:900px;margin:0 auto;padding:2rem 1.5rem;line-height:1.7;color:#1a1a1a"><h1>${escHtml(content.heading)}</h1><p>${escHtml(content.answer)}</p>${updated}<h2>${tr ? 'Neler yapılır' : 'Capabilities'}</h2><ul>${bullets}</ul>${sections}${faqBaslik}${faqs}${sourceBlock}<p>${tr ? 'Hizmet veren' : 'Provider'}: MGL Digital Media Ltd, UK Company No. 16007414. <a href="https://mgl-ai.com/">mgl-ai.com</a></p></article></noscript>`;
 
   let out = html.replace(/\s*<noscript id="ssr-home-content">[\s\S]*?<\/noscript>/, '');
   out = out.replace(/(<body[^>]*>)/, `$1\n${noscriptBlock}`);

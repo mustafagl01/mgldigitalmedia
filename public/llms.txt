@@ -1,6 +1,23 @@
 # MGL Digital Media
 
-> London-headquartered AI automation studio building production-grade WhatsApp AI assistants, voice agents, n8n workflows, conversion-first websites, and performance advertising operations. Serving businesses in Turkey (primary market) and the United Kingdom.
+> UK-registered automation studio (MGL DIGITAL MEDIA LTD, Companies House No. 16007414) that builds quote and order automation for manufacturers, wholesalers and distributors in Turkey and the United Kingdom, plus WhatsApp AI assistants, voice agents and n8n workflows.
+
+## Main focus: quote and order automation (teklif ve sipariş otomasyonu)
+
+- Page: [Process automation / Süreç otomasyonu](https://mgl-ai.com/surec-otomasyonu/) (English: https://mgl-ai.com/en/surec-otomasyonu/)
+- What it does: reads incoming customer requests (email, WhatsApp, Excel, PDF), matches each line to the company's own price list and stock file, flags unclear or missing lines, and prepares a checkable draft quote or order. A person approves; pricing decisions stay with the company.
+- Typical users: industrial parts distributors (bearings, hydraulics, pneumatics, fasteners, seals), building-materials and electrical wholesalers, manufacturers that receive multi-line RFQs.
+- Also automated: order entry from PDF/email, follow-up reminders for unanswered quotes, document and certificate requests, reporting.
+- How to start: one real process, one real request list, a free 14-day trial; results are measured together at the end. No long contract.
+- Honest status: new service line; no published customer case studies yet.
+- Contact: mgl-ai.com · UK +44 7482 670606 · TR +90 531 829 97 01
+
+### Frequently asked
+- **Quote automation (teklif hazırlama otomasyonu) nedir?** Müşteriden gelen dağınık talep listesini firmanın fiyat ve stok listesiyle satır satır eşleştirip, belirsiz satırları işaretleyen ve onaya hazır taslak teklif çıkaran iş akışıdır. Fiyat ve onay firmada kalır.
+- **Does it replace the sales team?** No. It removes the repetitive matching work so internal sales staff start from a checked draft.
+- **Which systems does it work with?** Existing email, Excel/Google Sheets price lists, WhatsApp Business, and common ERP exports. No system change is required to start.
+
+## Other services
 
 ## About
 
