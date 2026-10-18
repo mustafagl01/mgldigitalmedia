@@ -30,9 +30,18 @@ function mdToHtml(md) {
   html = html.replace(/^\s*\d+\. (.+)$/gm, '<li>$1</li>');
   html = html.replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
   const blocks = html.split(/\n{2,}/);
+  const cells = (row) => row.trim().replace(/^\||\|$/g, '').split('|').map((c) => c.trim());
   return blocks.map(b => {
     b = b.trim(); if (!b) return '';
     if (/^<(h[1-6]|pre|hr)/.test(b)) return b;
+    // GFM tablo: bot sürümünde de gerçek <table> olsun (rakamlar okunabilsin)
+    const rows = b.split('\n');
+    if (rows.length >= 2 && rows[0].startsWith('|') && /^\|?\s*:?-{2,}/.test(rows[1])) {
+      const head = cells(rows[0]).map((c) => `<th scope="col">${c}</th>`).join('');
+      const body = rows.slice(2).map((r) => `<tr>${cells(r).map((c) => `<td>${c}</td>`).join('')}</tr>`).join('');
+      return `<table><thead><tr>${head}</tr></thead><tbody>${body}</tbody></table>`;
+    }
+    if (b.startsWith('>')) return '<blockquote><p>' + b.replace(/^>\s?/gm, '').replace(/\n/g, ' ') + '</p></blockquote>';
     if (b.includes('<li>')) return '<ul>' + b + '</ul>';
     return '<p>' + b.replace(/\n/g, ' ') + '</p>';
   }).filter(Boolean).join('\n');
@@ -99,6 +108,8 @@ const ROUTE_SEEDS = [
   { path: '/blog/n8n-vs-zapier-turkce-rehber', lang: 'tr', title: 'N8N vs Zapier: 2026 Turkce Rehber | MGL', description: 'N8N ve Zapier Turkce karsilastirmasi.', keywords: 'n8n vs zapier, n8n turkce', ogType: 'article', blogSlug: 'n8n-vs-zapier-turkce-rehber' },
   { path: '/blog/sesli-ai-telefon-asistani-rehberi', lang: 'tr', title: 'Sesli AI Telefon Asistani: Tam Rehber (2026) | MGL', description: 'Sesli AI asistan nedir?', keywords: 'sesli ai asistan, retell ai, voice ai', ogType: 'article', blogSlug: 'sesli-ai-telefon-asistani-rehberi' },
   { path: '/blog/kobi-icin-ai-otomasyon-2026', lang: 'tr', title: 'KOBIler icin AI Otomasyon: 2026 Yol Haritasi | MGL', description: 'KOBIler icin AI otomasyona nasil baslanir?', keywords: 'kobi ai otomasyon, yapay zeka kobi', ogType: 'article', blogSlug: 'kobi-icin-ai-otomasyon-2026' },
+  { path: '/blog/dis-klinigi-fiyat-ve-randevu-sikayetleri', lang: 'tr', title: 'Diş Kliniği Fiyat ve Randevu Şikayetleri: 86 Yorum | MGL', description: 'İstanbul diş kliniklerine yazılmış 86 olumsuz yorumu saydık: otomasyonla çözülebilen en büyük sorun fiyat (16), ardından randevu (9) ve geç dönüş (5).', keywords: 'diş kliniği şikayet, randevu hatırlatma, diş kliniği fiyat, hasta iletişimi otomasyonu', ogType: 'article', blogSlug: 'dis-klinigi-fiyat-ve-randevu-sikayetleri' },
+  { path: '/blog/dental-practice-appointment-complaints-london', lang: 'en', title: 'Dental Practice Appointment Complaints in London: 106 Reviews | MGL', description: 'We counted 106 negative reviews of London dental practices. Appointment handling appears in 41. What automation can fix, and where it backfires.', keywords: 'dental practice no-shows, dental appointment reminders, NHS missed appointment, patient communication', ogType: 'article', blogSlug: 'dental-practice-appointment-complaints-london' },
   { path: '/blog/how-to-set-up-whatsapp-ai-agent-uk', lang: 'en', title: 'How to Plan a WhatsApp AI Agent for a UK Business | MGL', description: 'A practical guide to connection options, workflows, privacy, testing and measurement for a UK WhatsApp AI assistant.', keywords: 'whatsapp ai agent uk, whatsapp automation planning, n8n uk', ogType: 'article', blogSlug: 'how-to-set-up-whatsapp-ai-agent-uk' },
 ];
 
