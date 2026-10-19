@@ -3,8 +3,8 @@ import { Seo, breadcrumbSchema } from '../../components/seo/Seo';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { card, eyebrow, localPath, CheckList } from './shared';
 
-/* /pricing — iki kapılı seçici, rakam yok (konsey 2026-10-19). Soğuk mailler buraya değil
-   doğrudan /pricing/automation'a bağlanır. */
+/* /pricing — hizmete göre iki kapı, rakam yok. Kitleye/büyüklüğe göre AYIRMA (kullanıcı düzeltmesi
+   2026-10-19): her iki sayfa da küçük esnaftan büyük şirkete herkes için. */
 
 // Eski /packages#<sekme> linkleri (mail, blog, dış siteler) doğru sayfaya gitsin.
 const LEGACY_HASH: Record<string, string> = {
@@ -26,20 +26,20 @@ export default function PricingHub() {
   const doors = [
     {
       href: localPath('/pricing/automation', isEN),
-      tag: isEN ? 'Manufacturers · distributors · teams of 20-500' : 'Üretici · distribütör · 20-500 kişilik ekipler',
-      title: isEN ? 'Business automation' : 'İş otomasyonu',
+      tag: isEN ? 'Any sector · any size' : 'Her sektör · her ölçek',
+      title: isEN ? 'Automation' : 'Otomasyon',
       desc: isEN
-        ? 'Quote and order requests, documents and data entry handled by a system your team approves.'
-        : 'Teklif ve sipariş talepleri, evrak ve veri girişi; ekibinizin onayladığı bir sistemle.',
+        ? 'Quotes, orders, appointment reminders, payment follow-up, documents and reporting: the work you repeat every day.'
+        : 'Teklif, sipariş, randevu hatırlatma, tahsilat takibi, evrak ve raporlama: her gün tekrarlanan işler.',
       items: isEN
-        ? ['Starter, Business and Custom plans', 'Free 14-day trial on your own requests', 'Works with your email, Excel and ERP']
-        : ['Başlangıç, İşletme ve Özel paketler', 'Kendi talepleriniz üzerinde 14 gün ücretsiz deneme', 'E-posta, Excel ve ERP düzeninizle çalışır'],
+        ? ['Starter, Business and Custom plans', 'Free 14-day trial', 'Works with your email, WhatsApp, Excel and software']
+        : ['Başlangıç, İşletme ve Özel paketler', '14 gün ücretsiz deneme', 'E-posta, WhatsApp, Excel ve programınızla çalışır'],
       cta: isEN ? 'See automation plans →' : 'Otomasyon paketlerini görün →',
     },
     {
       href: localPath('/pricing/local', isEN),
-      tag: isEN ? 'Clinics · shops · restaurants · local services' : 'Klinik · mağaza · restoran · yerel hizmetler',
-      title: isEN ? 'Local business' : 'Yerel işletme',
+      tag: isEN ? 'Any sector · any size' : 'Her sektör · her ölçek',
+      title: isEN ? 'Web, ads and AI assistants' : 'Web, reklam ve AI asistan',
       desc: isEN
         ? 'A website that gets found, ads that bring customers and an assistant that answers every call and message.'
         : 'Bulunan bir web sitesi, müşteri getiren reklam ve her arama ile mesaja cevap veren asistan.',
@@ -55,8 +55,8 @@ export default function PricingHub() {
       <Seo
         title={isEN ? 'Pricing · MGL Digital Media' : 'Fiyatlar · MGL Digital Media'}
         description={isEN
-          ? 'Two price lists: business automation for manufacturers and distributors, and websites, ads and AI assistants for local businesses.'
-          : 'İki fiyat listesi: üretici ve distribütörler için iş otomasyonu; yerel işletmeler için web sitesi, reklam ve AI asistan.'}
+          ? 'Two price lists for businesses of any size: automation, and websites, ads and AI assistants.'
+          : 'Her ölçekteki işletme için iki fiyat listesi: otomasyon; web sitesi, reklam ve AI asistan.'}
         path="/pricing"
         locale={isEN ? 'en_GB' : 'tr_TR'}
         jsonLd={[breadcrumbSchema([
@@ -69,12 +69,12 @@ export default function PricingHub() {
           <div style={{ textAlign: 'center', marginBottom: '2.25rem' }}>
             <div style={eyebrow}>{isEN ? 'Pricing' : 'Fiyatlar'}</div>
             <h1 style={{ fontSize: 'clamp(1.8rem,5vw,2.8rem)', fontWeight: 800, color: 'var(--ink)', lineHeight: 1.15, margin: '0 0 0.75rem' }}>
-              {isEN ? 'Which one describes you?' : 'Hangisi sizi anlatıyor?'}
+              {isEN ? 'What do you need?' : 'Neye ihtiyacınız var?'}
             </h1>
             <p style={{ color: 'var(--muted)', lineHeight: 1.65, maxWidth: 560, margin: '0 auto' }}>
               {isEN
-                ? 'We keep two separate price lists so that each page only shows what is relevant to you.'
-                : 'Her sayfada yalnızca size uygun olanı görmeniz için iki ayrı fiyat listesi tutuyoruz.'}
+                ? 'Two price lists, for small and large businesses alike. Choose the service you are interested in.'
+                : 'Küçük ve büyük her işletme için iki fiyat listesi. İlgilendiğiniz hizmeti seçin.'}
             </p>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(320px,100%),1fr))', gap: '1.25rem' }}>

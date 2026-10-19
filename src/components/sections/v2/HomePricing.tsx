@@ -31,13 +31,13 @@ export function HomePricing() {
       href: '/pricing/local#asistan',
     },
     {
-      titleTR: 'İş otomasyonu',
-      titleEN: 'Business automation',
+      titleTR: 'Otomasyon',
+      titleEN: 'Automation',
       headTR: '14 gün ücretsiz deneme',
       headEN: 'Free 14-day trial',
       priceLabel: isTR ? `${formatPrice(p.automation.setupFee, region)}’den` : `from ${formatPrice(p.automation.setupFee, region)}`,
-      subTR: `Teklif, sipariş ve evrak süreçleri için tek seferlik kurulum. Aylık ${formatPrice(p.automation.price, region)}’den başlar; barındırma, izleme ve destek dahil.`,
-      subEN: `A one-off setup for quote, order and document processes. Monthly from ${formatPrice(p.automation.price, region)}, including hosting, monitoring and support.`,
+      subTR: `Teklif, sipariş, randevu, tahsilat ve evrak gibi tekrarlanan işler için tek seferlik kurulum. Aylık ${formatPrice(p.automation.price, region)}’den başlar; barındırma, izleme ve destek dahil.`,
+      subEN: `A one-off setup for repetitive work such as quotes, orders, appointments, payments and documents. Monthly from ${formatPrice(p.automation.price, region)}, including hosting, monitoring and support.`,
       href: '/pricing/automation',
     },
     {

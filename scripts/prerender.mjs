@@ -89,9 +89,9 @@ const ROUTE_SEEDS = [
   { path: '/voiceflow-vs-retell-ai', lang: 'en', title: 'Voiceflow vs Retell AI: 2026 | MGL', description: 'Comparison of Voiceflow and Retell AI.', keywords: 'voiceflow vs retell ai, voice agent platform' },
   { path: '/uk-ai-agencies-comparison', lang: 'en', title: 'UK AI Agencies Comparison 2026 | MGL', description: 'Comparison of UK AI automation agencies.', keywords: 'uk ai agency, ai automation agency london' },
   { path: '/services', lang: 'tr', title: 'Hizmetler | MGL Digital Media', description: 'WhatsApp AI, sesli asistan, n8n otomasyon, lead uretimi.', keywords: 'ai hizmetleri, otomasyon, whatsapp bot' },
-  { path: '/pricing', lang: 'en', title: 'Pricing | MGL Digital Media', description: 'Two price lists: business automation and local business services.', keywords: 'ai agency pricing, automation pricing' },
-  { path: '/pricing/automation', lang: 'en', title: 'Business Automation Pricing | MGL', description: 'Quote and order automation plans for manufacturers and distributors.', keywords: 'quote automation pricing, order automation, rfq automation' },
-  { path: '/pricing/local', lang: 'en', title: 'Websites, Ads and AI Assistants Pricing | MGL', description: 'Websites, ads management and AI assistants for local businesses.', keywords: 'website price, ads management price, ai receptionist price' },
+  { path: '/pricing', lang: 'en', title: 'Pricing | MGL Digital Media', description: 'Two price lists for businesses of any size: automation, and websites, ads and AI assistants.', keywords: 'ai agency pricing, automation pricing' },
+  { path: '/pricing/automation', lang: 'en', title: 'Automation Pricing | MGL', description: 'Automation plans for businesses of any size and sector, starting with a free 14-day trial.', keywords: 'automation pricing, business process automation, quote automation, appointment reminder automation' },
+  { path: '/pricing/local', lang: 'en', title: 'Websites, Ads and AI Assistants Pricing | MGL', description: 'Websites, ads management and AI assistants for businesses of any size.', keywords: 'website price, ads management price, ai receptionist price' },
   { path: '/solutions', lang: 'tr', title: 'Sektore Ozel AI Cozumleri | MGL Digital Media', description: 'Klinik, emlak, e-ticaret icin AI otomasyon.', keywords: 'sektore ozel ai, klinik otomasyonu' },
   { path: '/solutions/klinik', lang: 'tr', title: 'Klinik Cagri Otomasyonu ve AI Resepsiyonist | MGL AI', description: 'Klinikler icin mesai disi cagri, WhatsApp, randevu, hatirlatma ve insan ekibe aktarim otomasyonu.', keywords: 'klinik otomasyonu, mesai disi cagri cevaplama, AI resepsiyonist, randevu asistani' },
   { path: '/solutions/emlak', lang: 'tr', title: 'Emlak Lead ve Musteri Takip Otomasyonu | MGL AI', description: 'Emlak ofisleri icin cevapsiz cagri, ilan sorusu, musteri kriteri, randevu ve CRM takip otomasyonu.', keywords: 'emlak otomasyonu, emlak musteri takip sistemi, cevapsiz cagri WhatsApp, emlak AI asistani' },
@@ -122,9 +122,9 @@ const ENGLISH_META = {
   '/lead-uretimi': ['B2B Lead Research and Data Workflow | MGL', 'Build verified, deduplicated business prospect lists from relevant public and licensed data sources.'],
   '/ai-musteri-bulma-mail-takip': ['Managed Lead Research and Email Follow-up | MGL', 'A managed system for prospect research, verified data, relevant email drafts and controlled follow-up.'],
   '/services': ['AI, Automation, Web and Advertising Services | MGL', 'Clear pricing and scope for AI assistants, n8n automation, websites, SEO and fixed-fee advertising management.'],
-  '/pricing': ['Pricing · MGL Digital Media', 'Two price lists: business automation for manufacturers and distributors, and websites, ads and AI assistants for local businesses.'],
-  '/pricing/automation': ['Business Automation Pricing · MGL', 'Quote and order automation for manufacturers and distributors: Starter, Business and Custom plans, a free 14-day trial and a sample output.'],
-  '/pricing/local': ['Websites, Ads and AI Assistants Pricing · MGL', 'Clear prices for local businesses: websites with yearly hosting, flat-fee Meta and Google ads management, and AI phone and WhatsApp assistants.'],
+  '/pricing': ['Pricing · MGL Digital Media', 'Two price lists for businesses of any size: automation, and websites, ads and AI assistants.'],
+  '/pricing/automation': ['Automation Pricing · MGL', 'Automation for businesses of any size and sector: Starter, Business and Custom plans, starting with a free 14-day trial.'],
+  '/pricing/local': ['Websites, Ads and AI Assistants Pricing · MGL', 'Clear prices for businesses of any size: websites with the first year of hosting included, flat-fee Meta and Google ads management, and AI phone and WhatsApp assistants.'],
   '/solutions': ['AI Automation by Business Need | MGL', 'Practical AI and automation systems for clinics, property, e-commerce, beauty and hospitality businesses.'],
   '/solutions/klinik': ['AI Reception and Enquiry Automation for Clinics | MGL', 'Handle out-of-hours calls and messages, capture appointment requests and pass clinical questions to a human.'],
   '/solutions/emlak': ['AI Enquiry and Follow-up Automation for Estate Agents | MGL', 'Capture property criteria, viewing requests and call summaries, then pass structured information to the agent.'],
@@ -145,9 +145,9 @@ const ENGLISH_META = {
 };
 
 const TURKISH_META = {
-  '/pricing': ['Fiyatlar · MGL Digital Media', 'İki fiyat listesi: üretici ve distribütörler için iş otomasyonu; yerel işletmeler için web sitesi, reklam ve AI asistan.'],
-  '/pricing/automation': ['İş Otomasyonu Fiyatları · MGL', 'Üretici ve distribütörler için teklif ve sipariş otomasyonu: Başlangıç, İşletme ve Özel paketler, 14 gün ücretsiz deneme ve örnek çıktı.'],
-  '/pricing/local': ['Web Sitesi, Reklam ve AI Asistan Fiyatları · MGL', 'Yerel işletmeler için net fiyatlar: yıllık barındırmalı web siteleri, sabit ücretli Meta ve Google reklam yönetimi, AI telefon ve WhatsApp asistanları.'],
+  '/pricing': ['Fiyatlar · MGL Digital Media', 'Her ölçekteki işletme için iki fiyat listesi: otomasyon; web sitesi, reklam ve AI asistan.'],
+  '/pricing/automation': ['Otomasyon Fiyatları · MGL', 'Her sektör ve ölçekteki işletme için otomasyon: Başlangıç, İşletme ve Özel paketler, 14 gün ücretsiz denemeyle başlar.'],
+  '/pricing/local': ['Web Sitesi, Reklam ve AI Asistan Fiyatları · MGL', 'Her ölçekteki işletme için net fiyatlar: ilk yıl barındırması dahil web siteleri, sabit ücretli Meta ve Google reklam yönetimi, AI telefon ve WhatsApp asistanları.'],
   '/whatsapp-cloud-api-vs-baileys': ['WhatsApp Cloud API ve Baileys Karşılaştırması | MGL', 'İşletme otomasyonu için resmî WhatsApp Cloud API ile cihaz bağlantılı alternatifleri karşılaştırın.'],
   '/voiceflow-vs-retell-ai': ['Voiceflow ve Retell AI Karşılaştırması | MGL', 'Telefon asistanı projeleri için Voiceflow ve Retell AI platformlarını karşılaştırın.'],
   '/uk-ai-agencies-comparison': ['UK AI Ajanslarını Karşılaştırma Rehberi | MGL', 'AI ajanslarını kapsam, kanıt, sahiplik, destek ve toplam maliyete göre değerlendirin.'],
@@ -198,13 +198,13 @@ const STATIC_ROUTE_CONTENT = {
   },
   // Fiyat rakamları src/config/pricing.ts ile aynı olmalı (bu dosya TS import edemiyor). Değişirse ikisini birden güncelle.
   '/pricing/automation': {
-    heading: 'Teklif ve sipariş otomasyonu fiyatları',
-    answer: 'MGL AI üretici, distribütör ve 20-500 kişilik ekipler için teklif ve sipariş süreci otomasyonunu üç paketle sunar. Başlangıç: 35.000 TL\'den başlayan kurulum ve aylık 4.900 TL (tek iş akışı, ayda 50 belgeye kadar). İşletme: 75.000 TL\'den başlayan kurulum ve aylık 9.900 TL (ana teklif veya sipariş süreci, ayda 100 talep, bir ERP veya Excel entegrasyonu, en az 3 ay). Özel: çok dilli şartname, mühendislik kuralları ve derin ERP entegrasyonu için deneme sonunda fiyatlandırılır. Her paket 14 gün ücretsiz denemeyle başlar. UK fiyatları: Başlangıç £950\'dan + £149/ay, İşletme £1.950\'den + £349/ay.',
+    heading: 'Otomasyon fiyatları',
+    answer: 'MGL AI her sektörden küçük ve büyük işletmeler için teklif, sipariş, randevu hatırlatma, tahsilat takibi, evrak toplama ve raporlama gibi tekrarlanan işlerin otomasyonunu üç paketle sunar. Başlangıç: 35.000 TL\'den başlayan kurulum ve aylık 4.900 TL (tek iş akışı, ayda 50 işleme kadar). İşletme: 75.000 TL\'den başlayan kurulum ve aylık 9.900 TL (ana süreç uçtan uca, ayda 100 işlem, bir ERP, CRM veya Excel entegrasyonu, en az 3 ay). Özel: birden fazla süreç, çok dilli belgeler ve derin ERP entegrasyonu için deneme sonunda fiyatlandırılır. Her paket 14 gün ücretsiz denemeyle başlar. UK fiyatları: Başlangıç £950\'dan + £149/ay, İşletme £1.950\'den + £349/ay.',
     bullets: ['Başlangıç: 35.000 TL\'den kurulum + 4.900 TL/ay', 'İşletme: 75.000 TL\'den kurulum + 9.900 TL/ay', 'Özel: 14 günlük deneme sonunda teklif', 'Ücretli plana otomatik geçiş yok'],
   },
   '/pricing/local': {
     heading: 'Web sitesi, reklam yönetimi ve AI asistan fiyatları',
-    answer: 'MGL AI yerel işletmeler için sabit fiyatlı hizmetler sunar. Web siteleri tek seferlik kurulumla satın alınır ve ilk yıl barındırma dahildir. Meta veya Google reklam yönetimi aylık sabit ücretlidir; reklam bütçesi doğrudan platforma ödenir, bütçeden yüzde alınmaz. UK\'de tek kanal £100/ay, Meta ve Google birlikte £150/ay. Sesli ve WhatsApp AI asistanları aylık sistem ücreti ve kullanımla çalışır; dakika ve yanıt paketleri bitene kadar geçerlidir.',
+    answer: 'MGL AI her ölçekteki işletme için sabit fiyatlı web, reklam ve AI asistan hizmetleri sunar. Web siteleri tek seferlik kurulumla satın alınır ve ilk yıl barındırma dahildir. Meta veya Google reklam yönetimi aylık sabit ücretlidir; reklam bütçesi doğrudan platforma ödenir, bütçeden yüzde alınmaz. UK\'de tek kanal £100/ay, Meta ve Google birlikte £150/ay. Sesli ve WhatsApp AI asistanları aylık sistem ücreti ve kullanımla çalışır; dakika ve yanıt paketleri bitene kadar geçerlidir.',
     bullets: ['Web siteleri: tek seferlik kurulum, ilk yıl barındırma dahil', 'Reklam yönetimi: sabit aylık ücret, bütçeden yüzde yok', 'Sesli asistan: aylık ücret + dakika paketi', 'WhatsApp asistanı: kurulum yok, aylık ücret + yanıt paketi'],
   },
   '/n8n-otomasyon': {

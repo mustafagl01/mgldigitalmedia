@@ -1,6 +1,8 @@
 import type { PackageTierKey } from '../../config/pricing';
 
-/* B2B otomasyon sayfası metinleri. Fiyat rakamı BURADA YOK — pricing.ts'den okunur. */
+/* Otomasyon fiyat sayfası metinleri. Fiyat rakamı BURADA YOK — pricing.ts'den okunur.
+   2026-10-19 kullanıcı düzeltmesi: otomasyon her sektör ve her ölçek (küçük esnaf dahil) içindir;
+   metin tek bir sektöre (üretici/distribütör) veya tek bir işe (teklif) daraltılmaz. */
 
 type L = { tr: string; en: string };
 type LL = { tr: string[]; en: string[] };
@@ -18,24 +20,24 @@ export const AUTOMATION_TIERS: AutomationTierContent[] = [
     key: 'automation',
     label: { tr: 'Başlangıç', en: 'Starter' },
     fits: {
-      tr: 'Tek ve net bir iş: ör. sipariş maillerinin tabloya işlenmesi.',
-      en: 'One clear task, e.g. turning order emails into a spreadsheet.',
+      tr: 'Küçük işletmeler ve tek bir iş için: randevu hatırlatma, tahsilat takibi, siparişlerin tabloya işlenmesi gibi.',
+      en: 'For small businesses and one task: appointment reminders, payment follow-up, orders into a spreadsheet and similar.',
     },
     included: {
       tr: [
         '1 iş akışı',
-        'Ayda 50 belgeye / talebe kadar',
-        'Gelen mail ve eklerden alanların ayıklanması',
-        'Eksik bilgi işaretleme',
+        'Ayda 50 işleme kadar',
+        'E-posta, WhatsApp, form veya Excel bağlantısı',
+        'Otomatik hatırlatma ve bildirimler',
         'Excel / Google Sheets çıktısı',
         'Barındırma, izleme ve hata uyarısı',
         'E-posta ve WhatsApp desteği',
       ],
       en: [
         '1 workflow',
-        'Up to 50 documents / requests a month',
-        'Fields extracted from emails and attachments',
-        'Missing information flagged',
+        'Up to 50 tasks a month',
+        'Email, WhatsApp, form or Excel connection',
+        'Automatic reminders and notifications',
         'Excel / Google Sheets output',
         'Hosting, monitoring and failure alerts',
         'Email and WhatsApp support',
@@ -46,55 +48,55 @@ export const AUTOMATION_TIERS: AutomationTierContent[] = [
     key: 'automation-business',
     label: { tr: 'İşletme', en: 'Business' },
     fits: {
-      tr: 'Üretici ve distribütörlerin ana teklif / sipariş süreci.',
-      en: 'The core quote / order process of manufacturers and distributors.',
+      tr: 'Şirketinizin ana sürecini uçtan uca: teklif, sipariş, evrak veya müşteri takibi.',
+      en: 'Your company’s core process end to end: quotes, orders, documents or customer follow-up.',
     },
     included: {
       tr: [
-        'Ana teklif veya sipariş süreciniz uçtan uca',
-        'Ayda 100 talep dahil',
-        'PDF ve Excel ekleri',
-        'Müşteriye netleştirme sorusu taslağı',
-        'Ürün kodları, stok ve fiyat listesiyle eşleme',
-        '1 ERP veya Excel entegrasyonu',
+        'Ana süreciniz uçtan uca',
+        'Ayda 100 işlem dahil',
+        'PDF ve Excel eklerini okuma',
+        'Eksik bilgi işaretleme ve müşteriye soru taslağı',
+        'Ürün, stok, fiyat listesi veya CRM ile eşleme',
+        '1 ERP, CRM veya Excel entegrasyonu',
         'Aylık birlikte gözden geçirme',
       ],
       en: [
-        'Your core quote or order process end to end',
-        '100 requests a month included',
-        'PDF and Excel attachments',
-        'Draft clarification questions for the customer',
-        'Matching against product codes, stock and price list',
-        '1 ERP or Excel integration',
+        'Your core process end to end',
+        '100 tasks a month included',
+        'Reading PDF and Excel attachments',
+        'Missing information flagged and a question to the customer drafted',
+        'Matching against products, stock, price list or CRM',
+        '1 ERP, CRM or Excel integration',
         'Monthly review together',
       ],
     },
     note: {
-      tr: 'En az 3 ay. 100 talebin üstü için talep başı ücret teklifte yazılıdır.',
-      en: 'Minimum 3 months. Requests above 100 are billed per request, as written in the proposal.',
+      tr: 'En az 3 ay. 100 işlemin üstü için işlem başı ücret teklifte yazılıdır.',
+      en: 'Minimum 3 months. Tasks above 100 are billed per task, as written in the proposal.',
     },
   },
   {
     key: 'automation-custom',
     label: { tr: 'Özel', en: 'Custom' },
     fits: {
-      tr: 'Çok dilli belgeler, firmaya özel kurallar veya birden fazla süreç.',
-      en: 'Multilingual documents, company-specific rules or several processes.',
+      tr: 'Birden fazla süreç, çok dilli belgeler, firmaya özel kurallar veya yüksek hacim.',
+      en: 'Several processes, multilingual documents, company-specific rules or high volume.',
     },
     included: {
       tr: [
         'İşletme paketindeki her şey',
-        'Çok dilli belge işleme (TR / EN / DE ...)',
-        'Firmaya özel teknik kontrol kuralları',
         'Birden fazla süreç ve departman',
+        'Çok dilli belge işleme',
+        'Firmaya özel kontrol kuralları',
         'Derin ERP / API entegrasyonu',
         'Yüksek hacim ve hizmet seviyesi (SLA)',
       ],
       en: [
         'Everything in Business',
-        'Multilingual document processing (EN / DE / TR ...)',
-        'Company-specific technical rules',
         'Several processes and departments',
+        'Multilingual document processing',
+        'Company-specific checking rules',
         'Deep ERP / API integration',
         'High volume and a service level agreement (SLA)',
       ],
@@ -106,48 +108,68 @@ export const AUTOMATION_TIERS: AutomationTierContent[] = [
   },
 ];
 
-export const STEPS = {
+/** Sektörlerden örnek işler — mevcut sorun sayfalarına bağlanır. */
+export const EXAMPLES = {
   tr: [
-    { title: 'Alır', desc: 'Teklif ve sipariş mailleri, ekleriyle birlikte tek bir kutuda toplanır.' },
-    { title: 'Ayıklar', desc: 'Ölçü, adet, malzeme, standart, termin gibi alanlar kontrol listesine dökülür.' },
-    { title: 'Kontrol eder, sorar', desc: 'Eksik veya çelişkili alan işaretlenir; müşteriye soru taslağı hazırlanır.' },
-    { title: 'Aktarır', desc: 'Ekibiniz onaylar; veri Excel, ERP veya teklif şablonunuza geçer.' },
+    { title: 'Teklif ve sipariş', who: 'Üretim, toptan, distribütör', desc: 'Gelen talep listesini ürün ve fiyat listenizle eşler, onayınıza taslak teklif hazırlar.', href: '/surec-otomasyonu' },
+    { title: 'Randevu hatırlatma', who: 'Klinik, salon, servis', desc: 'Randevuyu WhatsApp, SMS veya e-postayla hatırlatır; iptal ve değişikliği size bildirir.', href: '/sorunlar/randevu-hatirlatma-sistemi' },
+    { title: 'Tahsilat takibi', who: 'Her sektör', desc: 'Vadesi geçen faturaları Excel veya muhasebe programından okur, nazik hatırlatma gönderir.', href: '/sorunlar/tahsilat-otomasyonu' },
+    { title: 'Evrak toplama', who: 'Muhasebe, hukuk, emlak', desc: 'Müşteriye eksik evrak listesini gönderir, geleni kaydeder, eksik kalanı takip eder.', href: '/sorunlar/evrak-toplama-ve-takip' },
+    { title: 'Excel’den mail ve WhatsApp', who: 'Her sektör', desc: 'Tablonuzdaki satırlardan otomatik mesaj, görev ve bildirim üretir.', href: '/sorunlar/excelden-otomatik-mail-whatsapp' },
+    { title: 'Raporlama', who: 'Her ölçek', desc: 'Farklı dosya ve sistemlerdeki veriyi toplayıp günlük ya da haftalık özet hazırlar.', href: '/n8n-otomasyon' },
   ],
   en: [
-    { title: 'Receives', desc: 'Quote and order emails land in one inbox together with their attachments.' },
-    { title: 'Extracts', desc: 'Dimensions, quantities, materials, standards and deadlines go into a checklist.' },
-    { title: 'Checks and asks', desc: 'Missing or conflicting fields are flagged and a question to the customer is drafted.' },
-    { title: 'Hands over', desc: 'Your team approves; the data moves into Excel, your ERP or your quote template.' },
+    { title: 'Quotes and orders', who: 'Manufacturing, wholesale, distribution', desc: 'Matches incoming request lists to your products and prices and prepares a draft quote for approval.', href: '/surec-otomasyonu' },
+    { title: 'Appointment reminders', who: 'Clinics, salons, service businesses', desc: 'Reminds by WhatsApp, SMS or email and tells you about cancellations and changes.', href: '/sorunlar/randevu-hatirlatma-sistemi' },
+    { title: 'Payment follow-up', who: 'Any sector', desc: 'Reads overdue invoices from Excel or your accounting software and sends polite reminders.', href: '/sorunlar/tahsilat-otomasyonu' },
+    { title: 'Document collection', who: 'Accounting, legal, property', desc: 'Sends the client their missing-document list, logs what arrives and chases the rest.', href: '/sorunlar/evrak-toplama-ve-takip' },
+    { title: 'Email and WhatsApp from Excel', who: 'Any sector', desc: 'Turns spreadsheet rows into automatic messages, tasks and notifications.', href: '/sorunlar/excelden-otomatik-mail-whatsapp' },
+    { title: 'Reporting', who: 'Any size', desc: 'Pulls data from different files and systems into a daily or weekly summary.', href: '/n8n-otomasyon' },
+  ],
+};
+
+export const STEPS = {
+  tr: [
+    { title: 'Alır', desc: 'İş nereden geliyorsa oradan: e-posta, WhatsApp, form, Excel veya programınız.' },
+    { title: 'Düzenler', desc: 'Gerekli bilgiyi çıkarır, tablonuza veya sisteminize uygun hale getirir.' },
+    { title: 'Kontrol eder', desc: 'Eksik veya hatalı olanı işaretler; gerekirse soru ya da hatırlatma taslağı hazırlar.' },
+    { title: 'Aktarır', desc: 'Onayınızla Excel, CRM, ERP veya takviminize işler, ilgili kişiye haber verir.' },
+  ],
+  en: [
+    { title: 'Receives', desc: 'Wherever the work arrives: email, WhatsApp, a form, Excel or your software.' },
+    { title: 'Organises', desc: 'Extracts the information needed and shapes it for your spreadsheet or system.' },
+    { title: 'Checks', desc: 'Flags anything missing or wrong and drafts a question or reminder when needed.' },
+    { title: 'Hands over', desc: 'With your approval it updates Excel, your CRM, ERP or calendar and notifies the right person.' },
   ],
 };
 
 export const TRIAL = {
   tr: [
-    'Siz: geçmişten 10-20 talep (müşteri adı gizlenebilir) ve kullandığınız kontrol listesi.',
-    '3. gün: ilk akış geçmiş taleplerinizle çalışır, çıktıyı birlikte inceleriz.',
-    '7. gün: yeni gelen taleplerde ekibinizin yanında paralel çalışır.',
-    '14. gün: kaç alan doğru çıktı, ne kadar vakit kazanıldı birlikte ölçeriz. Devam kararı sizin.',
+    'Siz: otomatikleştirmek istediğiniz işten 10-20 geçmiş örnek (isimler gizlenebilir) ve bugün nasıl yaptığınız.',
+    '3. gün: ilk akış geçmiş örneklerinizle çalışır, çıktıyı birlikte inceleriz.',
+    '7. gün: gerçek işlerde ekibinizin yanında paralel çalışır.',
+    '14. gün: ne kadarı doğru çalıştı, ne kadar vakit kazanıldı birlikte ölçeriz. Devam kararı sizin.',
     'Ücretli plana otomatik geçiş yok. Devam etmezseniz verileriniz silinir.',
   ],
   en: [
-    'You: 10-20 past requests (customer names can be removed) and the checklist you use today.',
-    'Day 3: the first workflow runs on your past requests and we review the output together.',
-    'Day 7: it runs in parallel next to your team on new requests.',
-    'Day 14: we measure together how many fields were right and how much time was saved. You decide.',
+    'You: 10-20 past examples of the task (names can be removed) and how you do it today.',
+    'Day 3: the first workflow runs on your past examples and we review the output together.',
+    'Day 7: it runs in parallel next to your team on real work.',
+    'Day 14: we measure together how much worked correctly and how much time was saved. You decide.',
     'No automatic switch to a paid plan. If you stop, your data is deleted.',
   ],
 };
 
 export const SECURITY = {
   tr: [
-    'Sistem fiyat ve teknik karar vermez; her çıktı ekibinizin onayından geçer.',
+    'Sistem fiyat veya karar vermez; önemli her adım sizin onayınızdan geçer.',
     'Onayınız olmadan müşterinize hiçbir şey gönderilmez.',
     'Verileriniz yapay zekâ modellerini eğitmek için kullanılmaz.',
     'İsterseniz gizlilik sözleşmesi (NDA) imzalarız; KVKK ve GDPR koşulları teklifte yazılıdır.',
     'Gerekirse sistem sizin hesaplarınızda veya sunucunuzda kurulur.',
   ],
   en: [
-    'The system does not set prices or make technical decisions; every output is approved by your team.',
+    'The system does not set prices or make decisions; every important step is approved by you.',
     'Nothing is sent to your customers without your approval.',
     'Your data is not used to train AI models.',
     'We sign an NDA on request; GDPR and KVKK terms are written into the proposal.',
@@ -157,17 +179,19 @@ export const SECURITY = {
 
 export const FAQS = {
   tr: [
-    { question: 'Deneme gerçekten ücretsiz mi?', answer: 'Evet. Tek süreç için 14 gün ücretsiz, kart veya taahhüt yok. Aynı anda en fazla 2 yeni deneme alıyoruz; bu yüzden başlangıç tarihini birlikte belirliyoruz.' },
-    { question: 'ERP veya Excel düzenimizi değiştirmemiz gerekir mi?', answer: 'Hayır. Sistem kullandığınız e-posta, Excel ve ERP ile çalışacak şekilde kurulur. Logo, Netsis, SAP gibi sistemlerde aktarım yöntemi denemede netleşir.' },
-    { question: '"Talep" neyi kapsar?', answer: 'Bir müşteriden gelen bir teklif veya sipariş isteği, ekleriyle birlikte tek talep sayılır. Aynı talep için yapılan yazışmalar ayrıca sayılmaz.' },
+    { question: 'Küçük bir işletmeyiz, bize uygun mu?', answer: 'Evet. Başlangıç paketi tek bir iş için kurulur; randevu hatırlatma veya tahsilat takibi gibi. İhtiyaç büyüdükçe İşletme paketine geçebilirsiniz.' },
+    { question: 'Deneme gerçekten ücretsiz mi?', answer: 'Evet. Tek iş için 14 gün ücretsiz, kart veya taahhüt yok. Aynı anda en fazla 2 yeni deneme alıyoruz; bu yüzden başlangıç tarihini birlikte belirliyoruz.' },
+    { question: 'Kullandığımız programı değiştirmemiz gerekir mi?', answer: 'Hayır. Sistem kullandığınız e-posta, WhatsApp, Excel, CRM veya ERP ile çalışacak şekilde kurulur. Bağlantı yöntemi denemede netleşir.' },
+    { question: '"İşlem" neyi kapsar?', answer: 'Sistemin baştan sona yürüttüğü bir iş: bir teklif talebi, bir sipariş, bir belge ya da bir hatırlatma. Aynı iş için yapılan yazışmalar ayrıca sayılmaz.' },
     { question: 'Sözleşme süresi var mı?', answer: 'Başlangıç paketi aylıktır. İşletme paketi en az 3 aydır; sonrasında aylık devam eder. Kurulum ücreti tek seferliktir.' },
-    { question: 'Fiyatlar neden "…den başlayan"?', answer: 'Kurulum, belge türü ve entegrasyona göre değişir. Kesin rakam denemeden sonra yazılı teklifte yer alır ve 12 ay sabit kalır.' },
+    { question: 'Fiyatlar neden "…den başlayan"?', answer: 'Kurulum, işin kapsamına ve bağlanacak sistemlere göre değişir. Kesin rakam denemeden sonra yazılı teklifte yer alır ve 12 ay sabit kalır.' },
   ],
   en: [
-    { question: 'Is the trial really free?', answer: 'Yes. One process, free for 14 days, no card and no commitment. We take on at most 2 new trials at a time, so we agree the start date together.' },
-    { question: 'Do we have to change our ERP or Excel setup?', answer: 'No. The system works with the email, Excel and ERP you already use. For systems like SAP, Sage or Xero the handover method is confirmed during the trial.' },
-    { question: 'What counts as a "request"?', answer: 'One quote or order request from a customer, including its attachments, counts as one request. Follow-up emails on the same request are not counted again.' },
+    { question: 'We are a small business. Is this for us?', answer: 'Yes. The Starter plan is built for a single task, such as appointment reminders or payment follow-up. You can move to Business as your needs grow.' },
+    { question: 'Is the trial really free?', answer: 'Yes. One task, free for 14 days, no card and no commitment. We take on at most 2 new trials at a time, so we agree the start date together.' },
+    { question: 'Do we have to change our software?', answer: 'No. The system works with the email, WhatsApp, Excel, CRM or ERP you already use. The connection method is confirmed during the trial.' },
+    { question: 'What counts as a "task"?', answer: 'One piece of work the system handles end to end: a quote request, an order, a document or a reminder. Follow-up messages on the same item are not counted again.' },
     { question: 'Is there a contract term?', answer: 'Starter is monthly. Business has a 3-month minimum and then continues monthly. Setup is a one-off fee.' },
-    { question: 'Why are prices shown as "from"?', answer: 'Setup depends on document types and integrations. The exact figure is written into the proposal after the trial and is fixed for 12 months.' },
+    { question: 'Why are prices shown as "from"?', answer: 'Setup depends on the scope and the systems to connect. The exact figure is written into the proposal after the trial and is fixed for 12 months.' },
   ],
 };

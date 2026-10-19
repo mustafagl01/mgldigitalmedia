@@ -5,12 +5,12 @@ import type { PricingRegionCode, RegionalPricing } from '../../config/pricing';
 import { formatPrice, formatUnitRate } from '../../utils/formatPrice';
 import { WEB_TIERS, ADS_TIERS, ASSISTANTS, LOCAL_FAQS, type LocalTierContent } from './localContent';
 import {
-  CALENDAR_URL, whatsappLink, card, h2, lede, sectionPad, eyebrow,
+  CALENDAR_URL, whatsappLink, localPath, card, h2, lede, sectionPad, eyebrow,
   CheckList, FaqList, PrimaryButton, GhostButton, CompanyBlock,
 } from './shared';
 
-/* Yerel işletme fiyat sayfası (klinik, mağaza, restoran). Konsey kararı 2026-10-19 (KARAR.md).
-   B2B otomasyon paketleri burada GÖSTERİLMEZ, onlara link verilmez; "otomasyon" kelimesi geçmez. */
+/* Web, reklam ve AI asistan fiyat sayfası — her sektör ve her ölçek için (kullanıcı düzeltmesi 2026-10-19).
+   Otomasyon paketleri /pricing/automation'da; sayfa sonunda oraya yönlendiren kısa kart var. */
 
 export default function PricingLocal() {
   const { language } = useLanguage();
@@ -23,7 +23,7 @@ export default function PricingLocal() {
   const breadcrumb = breadcrumbSchema([
     { name: isEN ? 'Home' : 'Ana Sayfa', path: '/' },
     { name: isEN ? 'Pricing' : 'Fiyatlar', path: '/pricing' },
-    { name: isEN ? 'Local business' : 'Yerel işletme', path: '/pricing/local' },
+    { name: isEN ? 'Web, ads and AI assistants' : 'Web, reklam ve AI asistan', path: '/pricing/local' },
   ]);
 
   const nav = [
@@ -37,8 +37,8 @@ export default function PricingLocal() {
       <Seo
         title={isEN ? 'Websites, Ads and AI Assistants Pricing · MGL' : 'Web Sitesi, Reklam ve AI Asistan Fiyatları · MGL'}
         description={isEN
-          ? 'Clear prices for local businesses: websites with yearly hosting, flat-fee Meta and Google ads management, and AI phone and WhatsApp assistants.'
-          : 'Yerel işletmeler için net fiyatlar: yıllık barındırmalı web siteleri, sabit ücretli Meta ve Google reklam yönetimi, AI telefon ve WhatsApp asistanları.'}
+          ? 'Clear prices for businesses of any size: websites with the first year of hosting included, flat-fee Meta and Google ads management, and AI phone and WhatsApp assistants.'
+          : 'Her ölçekteki işletme için net fiyatlar: ilk yıl barındırması dahil web siteleri, sabit ücretli Meta ve Google reklam yönetimi, AI telefon ve WhatsApp asistanları.'}
         path="/pricing/local"
         locale={isEN ? 'en_GB' : 'tr_TR'}
         keywords={isEN
@@ -50,7 +50,7 @@ export default function PricingLocal() {
       <section style={{ background: 'var(--ink)', color: 'var(--paper)', padding: 'clamp(3rem,8vw,4.5rem) 1.25rem', textAlign: 'center' }}>
         <div style={{ maxWidth: 760, margin: '0 auto' }}>
           <div style={{ ...eyebrow, color: 'inherit', opacity: 0.7 }}>
-            {isEN ? 'For clinics, shops, restaurants and local services' : 'Klinik, mağaza, restoran ve yerel hizmetler için'}
+            {isEN ? 'For small and large businesses in any sector' : 'Her sektörden küçük ve büyük işletmeler için'}
           </div>
           <h1 style={{ fontSize: 'clamp(1.8rem,5vw,2.8rem)', fontWeight: 800, lineHeight: 1.15, margin: '0 0 1rem' }}>
             {isEN ? 'Get found, get enquiries, answer every customer.' : 'Bulunun, talep alın, her müşteriye cevap verin.'}
@@ -112,6 +112,14 @@ export default function PricingLocal() {
         </section>
 
         <section style={{ ...sectionPad, paddingTop: 0 }}>
+          <a href={localPath('/pricing/automation', isEN)} style={{ ...card, display: 'block', textDecoration: 'none', marginBottom: '1rem' }}>
+            <strong style={{ color: 'var(--ink)' }}>{isEN ? 'Repetitive work in your business too?' : 'İşletmenizde tekrarlanan işler de mi var?'}</strong>
+            <p style={{ color: 'var(--muted)', fontSize: '0.9rem', lineHeight: 1.6, margin: '0.35rem 0 0' }}>
+              {isEN
+                ? 'Appointment reminders, payment follow-up, orders or documents can be automated too. See automation plans →'
+                : 'Randevu hatırlatma, tahsilat takibi, sipariş veya evrak işleri de otomatikleştirilebilir. Otomasyon paketlerini görün →'}
+            </p>
+          </a>
           <CompanyBlock isEN={isEN} />
         </section>
 

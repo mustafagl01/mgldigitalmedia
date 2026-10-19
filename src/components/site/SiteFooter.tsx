@@ -23,7 +23,7 @@ export function SiteFooter({ onNavigate }: Props) {
           {
             heading: 'Fiyatlar',
             links: [
-              { label: 'İş Otomasyonu', go: 'packages' as Page, hash: 'systems' },
+              { label: 'Otomasyon', go: 'packages' as Page, hash: 'systems' },
               { label: 'Web Siteleri', go: 'packages' as Page, hash: 'web' },
               { label: 'Reklam Yönetimi', go: 'packages' as Page, hash: 'ads' },
               { label: 'AI Asistanlar', go: 'packages' as Page, hash: 'agents' },
@@ -42,7 +42,7 @@ export function SiteFooter({ onNavigate }: Props) {
           {
             heading: 'Pricing',
             links: [
-              { label: 'Business Automation', go: 'packages' as Page, hash: 'systems' },
+              { label: 'Automation', go: 'packages' as Page, hash: 'systems' },
               { label: 'Websites', go: 'packages' as Page, hash: 'web' },
               { label: 'Ads Management', go: 'packages' as Page, hash: 'ads' },
               { label: 'AI Assistants', go: 'packages' as Page, hash: 'agents' },

@@ -2,8 +2,8 @@ import React from 'react';
 import type { PricingRegionCode } from '../../config/pricing';
 
 /* Fiyat sayfaları ortak parçaları (konsey 2026-10-19, KARAR.md):
-   /pricing = seçici, /pricing/automation = B2B, /pricing/local = yerel işletme.
-   İki fiyat sayfası birbirine link vermez; "otomasyon" kelimesi yalnızca B2B tarafında. */
+   /pricing = seçici, /pricing/automation = otomasyon, /pricing/local = web, reklam, AI asistan (ikisi de her ölçek için).
+   Ayrım hizmete göredir, kitleye/büyüklüğe göre değil (kullanıcı düzeltmesi 2026-10-19). */
 
 export const CALENDAR_URL = 'https://calendar.app.google/FZnTjsWGfCy33WF36';
 const WHATSAPP_TR = '905318299701';

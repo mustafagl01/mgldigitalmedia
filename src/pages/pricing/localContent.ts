@@ -1,7 +1,7 @@
 import type { PackageTierKey } from '../../config/pricing';
 
-/* Yerel işletme fiyat sayfası metinleri (eski /packages içeriğinden sadeleştirildi, 2026-10-19).
-   Kural: bu sayfada "otomasyon" kelimesi geçmez; fiyat rakamı burada yok, pricing.ts'den okunur. */
+/* Web, reklam ve AI asistan fiyat sayfası metinleri (eski /packages içeriğinden sadeleştirildi, 2026-10-19).
+   Fiyat rakamı burada yok, pricing.ts'den okunur. */
 
 type L = { tr: string; en: string };
 type LL = { tr: string[]; en: string[] };

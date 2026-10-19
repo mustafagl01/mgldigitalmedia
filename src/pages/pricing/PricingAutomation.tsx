@@ -3,14 +3,14 @@ import { Seo, faqSchema, breadcrumbSchema, serviceSchema } from '../../component
 import { useLanguage } from '../../contexts/LanguageContext';
 import { useLocation } from '../../contexts/LocationContext';
 import { formatPrice } from '../../utils/formatPrice';
-import { AUTOMATION_TIERS, STEPS, TRIAL, SECURITY, FAQS } from './automationContent';
+import { AUTOMATION_TIERS, EXAMPLES, STEPS, TRIAL, SECURITY, FAQS } from './automationContent';
 import {
-  CALENDAR_URL, whatsappLink, card, h2, lede, sectionPad, eyebrow,
+  CALENDAR_URL, whatsappLink, localPath, card, h2, lede, sectionPad, eyebrow,
   CheckList, FaqList, PrimaryButton, GhostButton, CompanyBlock,
 } from './shared';
 
-/* B2B fiyat sayfası — soğuk maillerin indiği yer. Konsey kararı 2026-10-19 (KARAR.md).
-   Burada esnaf paketleri (web, reklam, asistan) GÖSTERİLMEZ ve onlara link verilmez. */
+/* Otomasyon fiyat sayfası. Her sektör ve her ölçek için (küçük esnaftan büyük şirkete) —
+   kullanıcı düzeltmesi 2026-10-19. Web, reklam ve asistan fiyatları /pricing/local'da. */
 
 export default function PricingAutomation() {
   const { language } = useLanguage();
@@ -20,21 +20,21 @@ export default function PricingAutomation() {
   const wa = whatsappLink(
     region,
     isEN
-      ? 'Hi, we receive about __ quote/order requests a month. Could you show us a sample output?'
-      : 'Merhaba, ayda yaklaşık __ teklif/sipariş talebi alıyoruz. Örnek bir çıktı görebilir miyiz?',
+      ? 'Hi, there is a task we would like to automate: '
+      : 'Merhaba, otomatikleştirmek istediğimiz bir iş var: ',
   );
 
   const faqs = FAQS[lang];
   const breadcrumb = breadcrumbSchema([
     { name: isEN ? 'Home' : 'Ana Sayfa', path: '/' },
     { name: isEN ? 'Pricing' : 'Fiyatlar', path: '/pricing' },
-    { name: isEN ? 'Business automation' : 'İş otomasyonu', path: '/pricing/automation' },
+    { name: isEN ? 'Automation' : 'Otomasyon', path: '/pricing/automation' },
   ]);
   const svc = serviceSchema({
-    name: isEN ? 'Quote and order process automation' : 'Teklif ve sipariş süreci otomasyonu',
+    name: isEN ? 'Business process automation' : 'İş süreci otomasyonu',
     description: isEN
-      ? 'Reads incoming quote and order requests with attachments, extracts the fields into a checklist, flags missing information and hands the result to your team for approval.'
-      : 'Gelen teklif ve sipariş taleplerini ekleriyle okur, alanları kontrol listesine döker, eksik bilgiyi işaretler ve sonucu onay için ekibinize verir.',
+      ? 'Automation of repetitive work such as quotes, orders, appointment reminders, payment follow-up, document collection and reporting, for businesses of any size and sector, with human approval.'
+      : 'Teklif, sipariş, randevu hatırlatma, tahsilat takibi, evrak toplama ve raporlama gibi tekrarlanan işlerin, her sektör ve ölçekteki işletme için insan onayıyla otomasyonu.',
     path: '/pricing/automation',
     category: 'Business Process Automation',
   });
@@ -42,15 +42,15 @@ export default function PricingAutomation() {
   return (
     <>
       <Seo
-        title={isEN ? 'Business Automation Pricing · MGL' : 'İş Otomasyonu Fiyatları · MGL'}
+        title={isEN ? 'Automation Pricing · MGL' : 'Otomasyon Fiyatları · MGL'}
         description={isEN
-          ? 'Quote and order automation for manufacturers and distributors: Starter, Business and Custom plans, a free 14-day trial and a sample output.'
-          : 'Üretici ve distribütörler için teklif ve sipariş otomasyonu: Başlangıç, İşletme ve Özel paketler, 14 gün ücretsiz deneme ve örnek çıktı.'}
+          ? 'Automation for businesses of any size and sector: Starter, Business and Custom plans, starting with a free 14-day trial.'
+          : 'Her sektör ve ölçekteki işletme için otomasyon: Başlangıç, İşletme ve Özel paketler, 14 gün ücretsiz denemeyle başlar.'}
         path="/pricing/automation"
         locale={isEN ? 'en_GB' : 'tr_TR'}
         keywords={isEN
-          ? ['quote automation pricing', 'order processing automation', 'rfq automation', 'b2b process automation']
-          : ['teklif otomasyonu fiyat', 'sipariş otomasyonu', 'teklif hazırlama otomasyonu', 'süreç otomasyonu fiyatları']}
+          ? ['automation pricing', 'business process automation cost', 'quote automation', 'appointment reminder automation', 'payment follow-up automation']
+          : ['otomasyon fiyatları', 'iş süreci otomasyonu fiyat', 'teklif otomasyonu', 'randevu hatırlatma otomasyonu', 'tahsilat otomasyonu']}
         jsonLd={[svc, faqSchema(faqs), breadcrumb]}
       />
 
@@ -58,15 +58,15 @@ export default function PricingAutomation() {
       <section style={{ background: 'var(--ink)', color: 'var(--paper)', padding: 'clamp(3rem,8vw,5rem) 1.25rem', textAlign: 'center' }}>
         <div style={{ maxWidth: 780, margin: '0 auto' }}>
           <div style={{ ...eyebrow, color: 'inherit', opacity: 0.7 }}>
-            {isEN ? 'For manufacturers, distributors and teams of 20-500' : 'Üretici, distribütör ve 20-500 kişilik ekipler için'}
+            {isEN ? 'Any sector · small and large businesses · 14-day free trial' : 'Her sektör · küçük ve büyük işletmeler · 14 gün ücretsiz deneme'}
           </div>
           <h1 style={{ fontSize: 'clamp(1.8rem,5vw,3rem)', fontWeight: 800, lineHeight: 1.15, margin: '0 0 1rem' }}>
-            {isEN ? 'Turn incoming quote requests into a review-ready list.' : 'Gelen teklif taleplerini incelemeye hazır listeye çevirin.'}
+            {isEN ? 'Automate the work you do by hand every day.' : 'Her gün elle yapılan işleri otomatikleştirin.'}
           </h1>
           <p style={{ fontSize: '1.08rem', opacity: 0.85, lineHeight: 1.65, maxWidth: 620, margin: '0 auto 2rem' }}>
             {isEN
-              ? 'The system reads the email and its attachments, extracts the details, flags what is missing and drafts the question to the customer. Your team approves. Start with a free 14-day trial on your own requests.'
-              : 'Sistem maili ve eklerini okur, ürün ve adet bilgilerini ayıklar, eksikleri işaretler ve müşteriye sorulacak soruyu hazırlar. Onay ekibinizde. Kendi talepleriniz üzerinde 14 gün ücretsiz denemeyle başlayın.'}
+              ? 'Quotes, orders, appointment reminders, payment follow-up, documents and reporting. Built around the email, WhatsApp, Excel and software you already use; approval stays with you.'
+              : 'Teklif, sipariş, randevu hatırlatma, tahsilat takibi, evrak ve raporlama. Kullandığınız e-posta, WhatsApp, Excel ve program değişmeden kurulur; onay sizde kalır.'}
           </p>
           <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center', flexWrap: 'wrap' }}>
             <PrimaryButton href={wa} inverted>{isEN ? 'Write on WhatsApp' : 'WhatsApp’tan yazın'}</PrimaryButton>
@@ -76,6 +76,25 @@ export default function PricingAutomation() {
       </section>
 
       <div style={{ maxWidth: 1040, margin: '0 auto', padding: '0 1.25rem' }}>
+        {/* Örnek işler */}
+        <section style={sectionPad}>
+          <h2 style={h2}>{isEN ? 'What can be automated?' : 'Neler otomatikleştirilebilir?'}</h2>
+          <p style={lede}>
+            {isEN
+              ? 'A few common examples. If your task is not here, describe it and we will tell you honestly whether it can be done.'
+              : 'Sık karşılaştığımız birkaç örnek. İşiniz burada yoksa anlatın, yapılabilir mi dürüstçe söyleyelim.'}
+          </p>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(260px,100%),1fr))', gap: '1rem' }}>
+            {EXAMPLES[lang].map((ex) => (
+              <a key={ex.title} href={localPath(ex.href, isEN)} style={{ ...card, textDecoration: 'none', display: 'flex', flexDirection: 'column', gap: '0.35rem' }}>
+                <span style={{ ...eyebrow, marginBottom: 0 }}>{ex.who}</span>
+                <strong style={{ color: 'var(--ink)', fontSize: '1.02rem' }}>{ex.title}</strong>
+                <span style={{ color: 'var(--muted)', fontSize: '0.88rem', lineHeight: 1.55 }}>{ex.desc}</span>
+              </a>
+            ))}
+          </div>
+        </section>
+
         <SampleOutput isEN={isEN} />
 
         {/* Nasıl çalışır */}
@@ -110,7 +129,7 @@ export default function PricingAutomation() {
                   <div>
                     {featured && (
                       <div style={{ ...eyebrow, color: 'var(--ink)', marginBottom: '0.4rem' }}>
-                        {isEN ? 'Most common for manufacturers' : 'Üreticiler için en yaygın'}
+                        {isEN ? 'Recommended' : 'Önerilen'}
                       </div>
                     )}
                     <h3 style={{ fontSize: '1.3rem', fontWeight: 800, color: 'var(--ink)', margin: 0 }}>{t.label[lang]}</h3>
@@ -172,12 +191,12 @@ export default function PricingAutomation() {
         <section style={{ padding: '1rem 0 5rem', textAlign: 'center' }}>
           <div style={{ background: 'var(--ink)', color: 'var(--paper)', borderRadius: 16, padding: 'clamp(2rem,5vw,3.5rem) 1.5rem' }}>
             <h2 style={{ fontSize: 'clamp(1.3rem,3vw,2rem)', fontWeight: 800, margin: '0 0 0.75rem' }}>
-              {isEN ? 'How many requests reach you each month?' : 'Ayda kaç talep geliyor?'}
+              {isEN ? 'Which task takes up most of your time?' : 'En çok vaktinizi alan iş hangisi?'}
             </h2>
             <p style={{ opacity: 0.85, maxWidth: 520, margin: '0 auto 2rem', lineHeight: 1.65 }}>
               {isEN
-                ? 'Send us a rough number and one example request with names removed. We will reply with a sample output.'
-                : 'Yaklaşık sayıyı ve isimleri gizlenmiş bir örnek talebi gönderin; size örnek çıktıyla dönelim.'}
+                ? 'Describe it in a few lines. We will tell you honestly whether it can be automated and, if so, set it up for a free 14-day trial.'
+                : 'Birkaç cümleyle anlatın. Otomatikleştirilebilir mi dürüstçe söyleyelim, uygunsa 14 gün ücretsiz deneme için kuralım.'}
             </p>
             <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center', flexWrap: 'wrap' }}>
               <PrimaryButton href={wa} inverted>{isEN ? 'Write on WhatsApp' : 'WhatsApp’tan yazın'}</PrimaryButton>
@@ -191,7 +210,7 @@ export default function PricingAutomation() {
 }
 
 // Örnek bilerek genel tutuldu (2026-10-19, kullanıcı düzeltmesi): belirli bir firmanın
-// ürününe/işine benzememeli; herhangi bir distribütör veya üreticinin günlük talebi.
+// ürününe/işine benzememeli; sıradan bir teklif talebi (sayfadaki birçok örnekten biri).
 function SampleOutput({ isEN }: { isEN: boolean }) {
   const lines = isEN
     ? [
@@ -212,7 +231,7 @@ function SampleOutput({ isEN }: { isEN: boolean }) {
       ];
   return (
     <section style={sectionPad}>
-      <h2 style={h2}>{isEN ? 'What you get: a sample' : 'Ne elde edersiniz: bir örnek'}</h2>
+      <h2 style={h2}>{isEN ? 'An example: a quote request' : 'Bir örnek: teklif talebi'}</h2>
       <p style={lede}>
         {isEN
           ? 'A customer emails a list asking for a quote. Before anyone on your team opens it, this summary is waiting.'
@@ -263,19 +282,19 @@ function CostCalculator({ isEN, region }: { isEN: boolean; region: 'TR' | 'GB' }
 
   return (
     <section style={sectionPad}>
-      <h2 style={h2}>{isEN ? 'What do requests cost you today?' : 'Talepler bugün size neye mal oluyor?'}</h2>
+      <h2 style={h2}>{isEN ? 'What does a manual task cost you today?' : 'Elle yapılan bir iş size bugün neye mal oluyor?'}</h2>
       <p style={lede}>
         {isEN
-          ? 'Enter your own figures. This is only the time spent reading and sorting requests, before any pricing work.'
-          : 'Kendi rakamlarınızı girin. Bu, fiyatlandırmadan önce yalnızca talepleri okuyup ayıklamaya giden süredir.'}
+          ? 'Enter your own figures for one repetitive task. This is only the staff time it takes.'
+          : 'Tekrarlanan bir iş için kendi rakamlarınızı girin. Bu yalnızca o işe giden personel süresidir.'}
       </p>
       <div style={{ ...card, display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(200px,100%),1fr))', gap: '1rem', alignItems: 'end' }}>
         <label>
-          <span style={label}>{isEN ? 'Requests per month' : 'Aylık talep sayısı'}</span>
+          <span style={label}>{isEN ? 'Times per month' : 'Ayda kaç kez yapılıyor'}</span>
           <input style={input} type="number" min={0} value={requests} onChange={(e) => setRequests(num(e.target.value))} />
         </label>
         <label>
-          <span style={label}>{isEN ? 'Minutes per request' : 'Talep başına dakika'}</span>
+          <span style={label}>{isEN ? 'Minutes each time' : 'Her seferinde kaç dakika'}</span>
           <input style={input} type="number" min={0} value={minutes} onChange={(e) => setMinutes(num(e.target.value))} />
         </label>
         <label>

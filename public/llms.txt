@@ -55,7 +55,7 @@ Unlike traditional marketing agencies that produce deliverables, MGL ships persi
 - Stack: n8n (self-hosted for GDPR/KVKK compliance) — no task limits
 - Integrations: HubSpot, Pipedrive, Zoho, Stripe, iyzico, Google Sheets, Airtable, Slack, Telegram, WhatsApp (Evolution API), and 400+ more
 - Use cases: CRM sync, appointment reminders, payment notifications, lead nurture sequences, weekly reports, e-commerce flows
-- Pricing: three plans, each starting with a free 14-day trial. Starter from 35,000 TRY / £950 setup + 4,900 TRY / £149 per month (one workflow, up to 50 documents a month). Business from 75,000 TRY / £1,950 setup + 9,900 TRY / £349 per month (core quote/order process, 100 requests a month, one ERP or Excel integration, 3-month minimum). Custom (multilingual documents, engineering rules, deep ERP integration) is quoted after the trial. Details: https://mgl-ai.com/pricing/automation
+- Pricing: three plans, each starting with a free 14-day trial. Starter from 35,000 TRY / £950 setup + 4,900 TRY / £149 per month (one workflow, up to 50 tasks a month). Business from 75,000 TRY / £1,950 setup + 9,900 TRY / £349 per month (core process end to end, 100 tasks a month, one ERP, CRM or Excel integration, 3-month minimum). Custom (several processes, multilingual documents, deep ERP integration) is quoted after the trial. Details: https://mgl-ai.com/pricing/automation
 - Scope is defined by the client's business processes, written into the proposal, not by a fixed workflow or integration count. Monitoring, failure alerts and monthly maintenance are included.
 - URL: https://mgl-ai.com/n8n-otomasyon
 
@@ -94,14 +94,14 @@ Unlike traditional marketing agencies that produce deliverables, MGL ships persi
 
 Pricing is itemised by setup, recurring system or maintenance fee, metered usage and third-party costs. The ready-made voice and WhatsApp assistants have no setup fee; custom workflows and websites have a one-off build fee. Official Meta/BSP, SMS and other provider charges are passed through only when used. Clients pay advertising budgets directly to Meta or Google; MGL charges a fixed monthly management fee, not a percentage of spend.
 
-Prices are split into two lists: business automation for manufacturers and distributors (https://mgl-ai.com/pricing/automation) and local business services (https://mgl-ai.com/pricing/local).
+Prices are split into two lists, both for businesses of any size and sector: automation (https://mgl-ai.com/pricing/automation) and websites, ads and AI assistants (https://mgl-ai.com/pricing/local).
 
 Assistants: there are no tiers. Both the voice assistant and the WhatsApp assistant run on one monthly system fee of 649 TRY / £9.90, paid once even when a client takes both. The WhatsApp assistant has no setup fee; the voice assistant has a one-off setup of 26,000 TRY / £400 with a thermal printer included. Everything above that is usage. Prepaid minute and reply bundles stay valid until used up; they do not expire at month end.
 Voice usage: 16 TRY / 25p per connected minute on the standard tariff, falling to 13 TRY / 20p with volume. Bundles: 500 minutes 7,499 TRY / £115, 1,000 minutes 13,999 TRY / £210, 2,000 minutes 25,999 TRY / £400. Only connected calls are billed.
 WhatsApp usage: 0.45 TRY / 0.7p per AI reply — an AI reply is a message the assistant sends; incoming messages and messages typed by staff are not counted. Bundles: 5,000 replies 1,899 TRY / £29, 10,000 replies 3,199 TRY / £49, 20,000 replies 5,799 TRY / £89. Auto top-up is off by default and can be enabled with a client-selected spending limit.
 Advertising: Meta ads management 6,499 TRY / £100 per month, Google ads management 6,499 TRY / £100 per month, both together 10,999 TRY / £150 per month. Flat fee for standard SMB campaigns — no percentage of ad spend is taken. Ad budget is paid directly to the platform by the client. High-budget, multi-location or custom campaign structures are quoted separately.
 Web: one-page site 12,999 TRY / £200 setup, five-page business site 25,999 TRY / £400 setup, integrated site with online ordering or payments 32,499 TRY / £500 setup — this is the most popular website tier. All three are one-off purchases the client owns; first-year hosting is included in setup, renewing at 6,499 TRY / £100 per year from year two. The yearly fee covers hosting, SSL, security updates and maintenance. Live example of the integrated build: elmscoffeeshop.com — online orders print in the kitchen and land on Telegram at the same time.
-Business automation: Starter from 35,000 TRY / £950 setup + 4,900 TRY / £149 per month; Business from 75,000 TRY / £1,950 setup + 9,900 TRY / £349 per month (3-month minimum); Custom quoted after the free 14-day trial. The managed lead research and email follow-up service is scoped and quoted individually.
+Automation (any sector, small or large business): Starter from 35,000 TRY / £950 setup + 4,900 TRY / £149 per month; Business from 75,000 TRY / £1,950 setup + 9,900 TRY / £349 per month (3-month minimum); Custom quoted after the free 14-day trial. The managed lead research and email follow-up service is scoped and quoted individually.
 Hardware: thermal printer 12,999 TRY / £199, one-off and optional.
 Enterprise or custom-scope requests (high ad budgets, multi-location campaigns, non-standard automation) are quoted individually rather than sold at the standard flat rate.
 
@@ -156,8 +156,8 @@ Sales, replies and inbox placement are not guaranteed. Performance depends on ta
 - Services catalog: https://mgl-ai.com/services
 - Sector solutions: https://mgl-ai.com/solutions
 - Blog: https://mgl-ai.com/blog
-- Business automation pricing (manufacturers, distributors): https://mgl-ai.com/pricing/automation
-- Local business pricing (websites, ads, AI assistants): https://mgl-ai.com/pricing/local
+- Automation pricing (any sector, any size): https://mgl-ai.com/pricing/automation
+- Websites, ads and AI assistants pricing: https://mgl-ai.com/pricing/local
 - Sitemap: https://mgl-ai.com/sitemap.xml
 
 ## Contact
