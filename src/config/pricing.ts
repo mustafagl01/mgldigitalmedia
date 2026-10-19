@@ -191,6 +191,11 @@ const TR_PACKAGES: Record<PackageTierKey, PackageTier> = {
     deliveryDays: 7,
     // Tier B (düşük başlangıçlı finansman): GBP'de yeni tanıtıldı, TL'si onaylı değil.
     financing: { downPayment: 0, monthlyAmount: 0, months: 12, priceTbd: true },
+    // Konsey kararı 2026-10-19 (3/3): standart paket kapsamı belirli tek süreç içindir; mühendislik/çok dilli/ERP işleri ayrı fiyatlanır.
+    enterpriseNote: {
+      tr: 'Kapsamı belirli tek süreç otomasyonları içindir. Çok dilli belge işleme, firmaya özel mühendislik kuralları veya ERP entegrasyonu gerektiren süreçler, 14 günlük ücretsiz deneme sonunda kapsamına göre özel fiyatlandırılır.',
+      en: 'For single, clearly scoped process automations. Workflows that need multilingual document processing, company-specific engineering rules or ERP integration are quoted separately after the free 14-day trial.',
+    },
   },
   leadmail: {
     key: 'leadmail',
