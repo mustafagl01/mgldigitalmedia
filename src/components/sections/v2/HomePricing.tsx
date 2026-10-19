@@ -6,7 +6,7 @@ import { formatPrice, formatUnitRate } from '../../../utils/formatPrice';
 /**
  * Ana sayfadaki fiyat bandı.
  *
- * Amaç: ziyaretçi fiyatı görmek için /packages'a gitmek zorunda kalmasın.
+ * Amaç: ziyaretçi fiyatı görmek için fiyat sayfalarına gitmek zorunda kalmasın.
  * Fiyat en güçlü argümanımız — saklanmaz.
  *
  * Bütün rakamlar pricing.ts'ten okunur. Buraya elle rakam YAZILMAZ; yazılırsa
@@ -23,22 +23,22 @@ export function HomePricing() {
     {
       titleTR: 'Asistanlar',
       titleEN: 'Assistants',
-      headTR: 'Kurulum ücreti yok',
-      headEN: 'No setup fee',
+      headTR: 'Aylık sistem ücreti',
+      headEN: 'Monthly system fee',
       priceLabel: `${formatPrice(p.voice.price, region)} / ${isTR ? 'ay' : 'month'}`,
       subTR: `Sesli ve WhatsApp asistanı. İkisini birden alırsanız aylık bedel tek ödenir. Üstüne kullanım: ${formatUnitRate(p.voice.usageRate ?? 0, region)} ${isTR ? 'konuşma dakikası' : 'per minute'}, ${formatUnitRate(p.whatsapp.usageRate ?? 0, region)} ${isTR ? 'AI yanıtı' : 'per AI reply'}.`,
       subEN: `Voice and WhatsApp assistants. Take both and the monthly fee is paid once. Usage on top: ${formatUnitRate(p.voice.usageRate ?? 0, region)} per connected minute, ${formatUnitRate(p.whatsapp.usageRate ?? 0, region)} per AI reply.`,
-      href: '/packages#agents',
+      href: '/pricing/local#asistan',
     },
     {
-      titleTR: 'Kurulan sistemler',
-      titleEN: 'Built systems',
-      headTR: 'Tek seferlik kurulumdan başlar',
-      headEN: 'From a one-off setup',
-      priceLabel: `${formatPrice(p.automation.setupFee, region)}`,
-      subTR: `Otomasyon sistemi tek seferlik kurulur, aylık bakım ${formatPrice(p.automation.price, region)}; barındırma, izleme ve arıza müdahalesi dahil. Lead + mail sisteminde kurulum yok — ayda ${formatPrice(p.leadmail.price, region)} + kullandığınız kredi.`,
-      subEN: `The automation system is a one-off setup, ${formatPrice(p.automation.price, region)}/month maintenance including hosting, monitoring and incident response. The lead + email system has no setup fee — ${formatPrice(p.leadmail.price, region)}/month plus the credits you use.`,
-      href: '/packages#systems',
+      titleTR: 'İş otomasyonu',
+      titleEN: 'Business automation',
+      headTR: '14 gün ücretsiz deneme',
+      headEN: 'Free 14-day trial',
+      priceLabel: isTR ? `${formatPrice(p.automation.setupFee, region)}’den` : `from ${formatPrice(p.automation.setupFee, region)}`,
+      subTR: `Teklif, sipariş ve evrak süreçleri için tek seferlik kurulum. Aylık ${formatPrice(p.automation.price, region)}’den başlar; barındırma, izleme ve destek dahil.`,
+      subEN: `A one-off setup for quote, order and document processes. Monthly from ${formatPrice(p.automation.price, region)}, including hosting, monitoring and support.`,
+      href: '/pricing/automation',
     },
     {
       titleTR: 'Web siteleri',
@@ -48,7 +48,7 @@ export function HomePricing() {
       priceLabel: `${formatPrice(p['web-landing'].setupFee, region)} – ${formatPrice(p['web-integrated'].setupFee, region)}`,
       subTR: `Tek sayfadan online sipariş ve ödeme altyapılı siteye kadar. Barındırma ${formatPrice(p['web-landing'].price, region)} / yıl.`,
       subEN: `From a one-page site to online ordering with payments. Hosting ${formatPrice(p['web-landing'].price, region)} a year.`,
-      href: '/packages#web',
+      href: '/pricing/local#web',
     },
     {
       titleTR: 'Reklam yönetimi',
@@ -58,7 +58,7 @@ export function HomePricing() {
       priceLabel: `${formatPrice(p['ads-meta'].price, region)} / ${isTR ? 'ay' : 'month'}`,
       subTR: `Meta veya Google. İkisi birden ${formatPrice(p['ads-both'].price, region)}. Reklam bütçeniz doğrudan platforma gider — üzerinden yüzde alınmaz.`,
       subEN: `Meta or Google. Both together ${formatPrice(p['ads-both'].price, region)}. Your ad budget goes straight to the platform — we take no percentage.`,
-      href: '/packages#ads',
+      href: '/pricing/local#reklam',
     },
   ];
 
@@ -70,8 +70,8 @@ export function HomePricing() {
         </h2>
         <p style={{ marginTop: 12, maxWidth: 620, fontSize: 'var(--t-body-lg)', color: 'var(--fg-2)', lineHeight: 1.6 }}>
           {isTR
-            ? 'Teklif beklemeden ne ödeyeceğinizi görün. Aralık yok, gizli kalem yok.'
-            : 'See what you would pay without waiting for a quote. No ranges, no hidden items.'}
+            ? 'Teklif beklemeden ne ödeyeceğinizi görün. Gizli kalem yok.'
+            : 'See what you would pay without waiting for a quote. No hidden items.'}
         </p>
 
         <div

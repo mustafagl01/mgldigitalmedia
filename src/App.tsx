@@ -14,8 +14,10 @@ import { PhoneDemoModal } from './components/modals/PhoneDemoModal';
 const CALENDAR_URL = 'https://calendar.app.google/FZnTjsWGfCy33WF36';
 
 // Pages — lazy loaded to reduce initial bundle
-const Pricing = lazy(() => import('./pages/Pricing'));
-const Packages = lazy(() => import('./pages/Packages'));
+// 2026-10-19: /pricing = seçici, /pricing/automation (B2B), /pricing/local (yerel). /packages -> /pricing (_redirects + PricingHub hash yönlendirmesi).
+const PricingHub = lazy(() => import('./pages/pricing/PricingHub'));
+const PricingAutomation = lazy(() => import('./pages/pricing/PricingAutomation'));
+const PricingLocal = lazy(() => import('./pages/pricing/PricingLocal'));
 const Services = lazy(() => import('./pages/Services'));
 const Solutions = lazy(() => import('./pages/Solutions'));
 const SolutionDetail = lazy(() => import('./pages/SolutionDetail'));
@@ -69,6 +71,8 @@ import { ClosingCTA } from './components/sections/v2/ClosingCTA';
 type AppPage =
   | 'home'
   | 'pricing'
+  | 'pricing-automation'
+  | 'pricing-local'
   | 'packages'
   | 'services'
   | 'solutions'
@@ -104,6 +108,9 @@ type AppPage =
 type SitePage = 'home' | 'services' | 'solutions' | 'packages' | 'pricing' | 'legal';
 
 const NESTED_PATHS: Partial<Record<AppPage, string>> = {
+  'pricing-automation': '/pricing/automation',
+  'pricing-local': '/pricing/local',
+  packages: '/pricing',
   'solution-klinik': '/solutions/klinik',
   'solution-emlak': '/solutions/emlak',
   'solution-eticaret': '/solutions/eticaret',
@@ -119,6 +126,8 @@ const NESTED_PATHS: Partial<Record<AppPage, string>> = {
 const KNOWN_PATHS = new Set([
   '/',
   '/pricing',
+  '/pricing/automation',
+  '/pricing/local',
   '/packages',
   '/services',
   '/solutions',
@@ -152,7 +161,9 @@ function pathToPage(path: string): AppPage {
   const clean = withoutLanguage.replace(/\/$/, '') || '/';
   if (clean === '/' || clean === '') return 'home';
   if (clean === '/pricing') return 'pricing';
-  if (clean === '/packages') return 'packages';
+  if (clean === '/pricing/automation') return 'pricing-automation';
+  if (clean === '/pricing/local') return 'pricing-local';
+  if (clean === '/packages') return 'pricing';
   if (clean === '/services') return 'services';
   if (clean === '/solutions') return 'solutions';
   if (clean === '/solutions/klinik') return 'solution-klinik';
@@ -238,7 +249,9 @@ function AppContent() {
     ? 'solutions'
     : currentPage.startsWith('sorun-')
       ? 'services'
-      : currentPage === 'services' || currentPage === 'packages' || currentPage === 'pricing' || currentPage === 'legal'
+      : currentPage === 'pricing' || currentPage === 'pricing-automation' || currentPage === 'pricing-local' || currentPage === 'packages'
+        ? 'pricing'
+      : currentPage === 'services' || currentPage === 'legal'
         ? currentPage
         : 'home';
 
@@ -257,8 +270,9 @@ function AppContent() {
     </div>
   );
 
-  if (currentPage === 'pricing') return wrapPage(<Suspense fallback={<div />}><Pricing /></Suspense>);
-  if (currentPage === 'packages') return wrapPage(<Suspense fallback={<div />}><Packages /></Suspense>);
+  if (currentPage === 'pricing' || currentPage === 'packages') return wrapPage(<Suspense fallback={<div />}><PricingHub /></Suspense>);
+  if (currentPage === 'pricing-automation') return wrapPage(<Suspense fallback={<div />}><PricingAutomation /></Suspense>);
+  if (currentPage === 'pricing-local') return wrapPage(<Suspense fallback={<div />}><PricingLocal /></Suspense>);
   if (currentPage === 'services') return wrapPage(<Suspense fallback={<div />}><Services /></Suspense>);
   if (currentPage === 'solutions') return wrapPage(<Suspense fallback={<div />}><Solutions onNavigate={navigateTo} /></Suspense>);
   if (currentPage === 'solution-klinik') return wrapPage(<Suspense fallback={<div />}><SolutionDetail sectorKey="klinik" /></Suspense>);

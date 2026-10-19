@@ -123,7 +123,7 @@ export default function ProblemDetail({ slug }: Props) {
               <MessageCircle size={14} />
               {isEN ? 'Ask on WhatsApp' : 'WhatsApp\'tan sor'}
             </a>
-            <a href="/packages#systems" className="btn btn-ghost">
+            <a href="/pricing/automation" className="btn btn-ghost">
               {isEN ? 'See pricing' : 'Fiyatları gör'}
               <ArrowRight size={14} />
             </a>
@@ -212,7 +212,7 @@ export default function ProblemDetail({ slug }: Props) {
               ? 'This is built as part of the automation system: a one-off setup plus low monthly maintenance covering hosting, monitoring and incident response.'
               : 'Bu, otomasyon sisteminin bir parçası olarak kurulur: tek seferlik kurulum ve barındırma, izleme, arıza müdahalesini kapsayan düşük bir aylık bakım bedeli.'}
           </p>
-          <a href="/packages#systems" className="btn btn-primary" style={{ marginTop: 16 }}>
+          <a href="/pricing/automation" className="btn btn-primary" style={{ marginTop: 16 }}>
             {isEN ? 'See automation pricing' : 'Otomasyon fiyatlarını gör'}
             <ArrowRight size={14} />
           </a>

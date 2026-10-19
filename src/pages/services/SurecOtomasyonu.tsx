@@ -46,7 +46,7 @@ const FAQS_TR = [
   { question: 'Fiyatları veya kararları sistem mi veriyor?', answer: 'Hayır. Sistem taslak hazırlar, eksikleri işaretler ve hatırlatır. Fiyat, onay ve son karar her zaman sizin ekibinizde kalır.' },
   { question: 'Verilerimiz ne oluyor?', answer: 'Deneme için anonimleştirilmiş örnek veri yeterli. Kalıcı kurulumda veri işleme koşulları KVKK\'ya uygun şekilde teklifte yazılı olarak belirlenir.' },
   { question: 'Deneme gerçekten ücretsiz mi?', answer: 'Evet. Tek bir süreç için 14 gün ücretsiz. Taahhüt yok; devam etmezseniz ücret ödemezsiniz ve verileriniz silinir.' },
-  { question: 'Devam edersek fiyat nedir?', answer: 'Kurulum ve aylık bakım, seçilen sürecin kapsamına göre deneme sonunda yazılı teklifle netleşir.' },
+  { question: 'Devam edersek fiyat nedir?', answer: 'Paketler ve başlangıç fiyatları fiyat sayfasında açıkça yazılı (mgl-ai.com/pricing/automation). Kesin kurulum ve aylık ücret, seçilen sürecin kapsamına göre deneme sonunda yazılı teklifle netleşir.' },
   { question: 'Kiminle çalışacağım?', answer: 'Doğrudan Mustafa Gül ile. MGL Digital Media küçük bir ekip; satış ekibi ve aracı yok, kurulumu yapan kişiyle konuşursunuz.' },
 ];
 
@@ -55,7 +55,7 @@ const FAQS_EN = [
   { question: 'Does the system set prices or make decisions?', answer: 'No. It prepares drafts, flags gaps and sends reminders. Pricing, approval and the final decision always stay with your team.' },
   { question: 'What happens to our data?', answer: 'An anonymised sample is enough for the trial. For a permanent setup, data handling terms are written into the proposal, in line with GDPR/KVKK.' },
   { question: 'Is the trial really free?', answer: 'Yes. One process, free for 14 days. No commitment: if you do not continue, you pay nothing and your data is deleted.' },
-  { question: 'What does it cost if we continue?', answer: 'Setup and monthly maintenance depend on the scope of the chosen process and are confirmed in a written proposal at the end of the trial.' },
+  { question: 'What does it cost if we continue?', answer: 'Plans and starting prices are listed openly on the pricing page (mgl-ai.com/pricing/automation). The exact setup and monthly fee depend on the scope of the chosen process and are confirmed in a written proposal at the end of the trial.' },
   { question: 'Who will I work with?', answer: 'Directly with Mustafa Gül. MGL Digital Media is a small team with no sales layer: you talk to the person who builds it.' },
 ];
 

@@ -1,9 +1,7 @@
 import { BarChart3, Check, Globe2, Mail, Pause, Search, ShieldCheck, Sparkles } from 'lucide-react';
 import { Seo, breadcrumbSchema, faqSchema, serviceSchema } from '../../components/seo/Seo';
 import { useLanguage } from '../../contexts/LanguageContext';
-import { useLocation } from '../../contexts/LocationContext';
 import { LEAD_CREDIT_CATEGORIES } from '../../config/pricing';
-import { formatPrice } from '../../utils/formatPrice';
 
 const CALENDAR_URL = 'https://calendar.app.google/FZnTjsWGfCy33WF36';
 
@@ -86,21 +84,20 @@ const icons = [Search, Globe2, Sparkles, Mail, ShieldCheck, BarChart3];
 
 export default function ManagedOutreach() {
   const { language } = useLanguage();
-  const { pricing, region } = useLocation();
   const isEN = language === 'en';
   const c = COPY[language];
-  const leadmail = pricing.packages.leadmail;
   const creditCategories = LEAD_CREDIT_CATEGORIES.map((cat) => (isEN ? cat.en : cat.tr));
   const plans: [string, string, string, string[]][] = [
     [
       isEN ? 'Lead + Email System' : 'Lead + Mail Sistemi',
-      `${formatPrice(leadmail.price, region)}${isEN ? '/month' : '/ay'}`,
-      isEN ? 'no setup fee — usage credits on top' : 'kurulum ücreti yok — üstüne kullanım kredisi',
+      // 2026-10-19 konsey: herkese açık 649 TL / £9,90 + kredi fiyatı kaldırıldı; kapsama göre teklif.
+      isEN ? 'Quoted by scope' : 'Kapsama göre teklif',
+      isEN ? 'based on target market and monthly volume' : 'hedef pazar ve aylık hacme göre',
       [
         isEN ? 'Ideal customer profile definition' : 'Hedef müşteri profili çıkarımı',
-        isEN ? `Credits cover: ${creditCategories.join(', ').toLowerCase()}` : `Kredi neyi kapsar: ${creditCategories.join(', ')}`,
+        isEN ? `Includes: ${creditCategories.join(', ').toLowerCase()}` : `Kapsam: ${creditCategories.join(', ')}`,
         isEN ? 'Send log, deduplication and reply reporting' : 'Gönderim kaydı, mükerrer engelleme ve cevap raporu',
-        isEN ? 'Domain, mailbox and data credits are yours' : 'Domain, mailbox ve veri kredisi size aittir',
+        isEN ? 'Domain and mailbox costs are yours' : 'Domain ve mailbox bedelleri size aittir',
       ],
     ],
   ];

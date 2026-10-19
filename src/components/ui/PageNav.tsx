@@ -9,7 +9,7 @@ type PageNavProps = {
 
 const LABELS: Record<NavKey, { tr: string; en: string; path: string; icon: typeof Boxes }> = {
   services: { tr: 'Hizmetler', en: 'Services', path: '/services', icon: Boxes },
-  packages: { tr: 'Paketler', en: 'Packages', path: '/packages', icon: LayoutGrid },
+  packages: { tr: 'Fiyatlar', en: 'Pricing', path: '/pricing', icon: LayoutGrid },
   solutions: { tr: 'Sektörel Çözümler', en: 'Sector Solutions', path: '/solutions', icon: Sparkles },
 };
 

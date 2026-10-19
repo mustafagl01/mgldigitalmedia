@@ -25,7 +25,7 @@ const PROBLEMS: Problem[] = [
     bodyEN: 'We use Google, SEO, Maps, Meta Ads and Google Ads to put your business in front of more people.',
     ctaTR: 'Çözümleri gör',
     ctaEN: 'See the solutions',
-    href: '/packages#ads',
+    href: '/pricing/local#reklam',
   },
   {
     titleTR: 'Mesajlara ve aramalara yetişemiyorum.',
@@ -34,7 +34,7 @@ const PROBLEMS: Problem[] = [
     bodyEN: 'We set up WhatsApp, web and voice AI assistants that answer your customers around the clock.',
     ctaTR: 'AI çözümlerini gör',
     ctaEN: 'See the AI solutions',
-    href: '/packages#agents',
+    href: '/pricing/local#asistan',
   },
   {
     titleTR: 'Müşteri ve işler dağınık ilerliyor.',
@@ -52,7 +52,7 @@ const PROBLEMS: Problem[] = [
     bodyEN: 'We build the website, Google Business profile, business email and brand basics together.',
     ctaTR: 'Dijital varlığımı güçlendir',
     ctaEN: 'Strengthen my presence',
-    href: '/packages#web',
+    href: '/pricing/local#web',
   },
   {
     titleTR: 'Rezervasyon ve siparişleri daha kolay almak istiyorum.',

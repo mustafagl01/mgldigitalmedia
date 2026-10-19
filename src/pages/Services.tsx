@@ -75,7 +75,7 @@ const services: Service[] = [
   },
   {
     id: 'lead-email', category: 'systems', icon: MailCheck,
-    nameTR: 'Müşteri Bulma + E-posta Takibi', nameEN: 'Lead Research + Email Follow-up', packageKey: 'leadmail', detailsPath: '/ai-musteri-bulma-mail-takip',
+    nameTR: 'Müşteri Bulma + E-posta Takibi', nameEN: 'Lead Research + Email Follow-up', noteTR: 'Kapsama ve aylık hacme göre teklif.', noteEN: 'Quoted by scope and monthly volume.', detailsPath: '/ai-musteri-bulma-mail-takip',
     descriptionTR: 'Uygun şirketleri araştırır, doğrulanmış iletişim verisini düzenler ve onaylı takip akışını çalıştırır.',
     descriptionEN: 'Researches suitable companies, organises verified contact data and runs an approved follow-up sequence.',
     featuresTR: ['İdeal müşteri profili', 'Veri doğrulama ve tekilleştirme', 'Kişiselleştirilmiş e-posta taslağı', 'Alan adı ve veri kredileri hariç'],
@@ -171,7 +171,7 @@ export default function Services() {
           {visible.map((service) => {
             const Icon = service.icon;
             const tier = service.packageKey ? pricing.packages[service.packageKey] : null;
-            const href = service.detailsPath ?? `/packages${service.packageHash ? `#${service.packageHash}` : ''}`;
+            const href = service.detailsPath ?? `/pricing${service.packageHash ? `#${service.packageHash}` : ''}`;
             return (
               <article id={service.id} className={service.featured ? 'service-card is-featured' : 'service-card'} key={service.id}>
                 <div className="service-card__top">
@@ -183,7 +183,7 @@ export default function Services() {
 
                 {tier ? (
                   <div className="service-card__price">
-                    <div><small>{isTR ? 'Kurulum' : 'Setup'}</small><strong>{tier.setupFee === 0 ? (isTR ? 'Ücretsiz' : 'Free') : formatPrice(tier.setupFee, region)}</strong></div>
+                    <div><small>{isTR ? 'Kurulum' : 'Setup'}</small><strong>{tier.setupFee === 0 ? (isTR ? 'Ücretsiz' : 'Free') : tier.priceFrom ? (isTR ? `${formatPrice(tier.setupFee, region)}’den` : `from ${formatPrice(tier.setupFee, region)}`) : formatPrice(tier.setupFee, region)}</strong></div>
                     <div><small>{tier.priceUnit === 'year' ? (isTR ? 'Yıllık' : 'Yearly') : (isTR ? 'Aylık' : 'Monthly')}</small><strong>{formatPrice(tier.price, region)}</strong></div>
                     {tier.usageRate != null && <div><small>{isTR ? 'Kullanım' : 'Usage'}</small><strong>{formatUnitRate(tier.usageRate, region)} / {tier.usageUnit === 'minute' ? (isTR ? 'dk' : 'min') : (isTR ? 'AI yanıtı' : 'AI reply')}</strong></div>}
                   </div>

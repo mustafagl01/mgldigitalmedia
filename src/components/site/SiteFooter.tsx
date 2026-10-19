@@ -21,39 +21,39 @@ export function SiteFooter({ onNavigate }: Props) {
     language === 'tr'
       ? [
           {
-            heading: 'Paketler',
+            heading: 'Fiyatlar',
             links: [
-              { label: 'AI Reklam', go: 'packages' as Page, hash: 'ads' },
-              { label: 'AI Agent & Otomasyon', go: 'packages' as Page, hash: 'agents' },
-              { label: 'Dönüşüm Odaklı Web', go: 'packages' as Page, hash: 'web' },
+              { label: 'İş Otomasyonu', go: 'packages' as Page, hash: 'systems' },
+              { label: 'Web Siteleri', go: 'packages' as Page, hash: 'web' },
+              { label: 'Reklam Yönetimi', go: 'packages' as Page, hash: 'ads' },
+              { label: 'AI Asistanlar', go: 'packages' as Page, hash: 'agents' },
               { label: 'Sektörel Çözümler', go: 'solutions' as Page },
             ],
           },
           {
             heading: 'Firma',
             links: [
-              { label: 'ROI Simülasyonu', go: 'pricing' as Page },
               { label: 'Tüm Hizmetler', go: 'services' as Page },
-              { label: 'Paketler', go: 'packages' as Page },
+              { label: 'Fiyatlar', go: 'pricing' as Page },
             ],
           },
         ]
       : [
           {
-            heading: 'Packages',
+            heading: 'Pricing',
             links: [
-              { label: 'AI Advertising', go: 'packages' as Page, hash: 'ads' },
-              { label: 'AI Agents & Automation', go: 'packages' as Page, hash: 'agents' },
-              { label: 'Conversion-first Web', go: 'packages' as Page, hash: 'web' },
+              { label: 'Business Automation', go: 'packages' as Page, hash: 'systems' },
+              { label: 'Websites', go: 'packages' as Page, hash: 'web' },
+              { label: 'Ads Management', go: 'packages' as Page, hash: 'ads' },
+              { label: 'AI Assistants', go: 'packages' as Page, hash: 'agents' },
               { label: 'Industry Solutions', go: 'solutions' as Page },
             ],
           },
           {
             heading: 'Company',
             links: [
-              { label: 'ROI Simulator', go: 'pricing' as Page },
               { label: 'All Services', go: 'services' as Page },
-              { label: 'Packages', go: 'packages' as Page },
+              { label: 'Pricing', go: 'pricing' as Page },
             ],
           },
         ];

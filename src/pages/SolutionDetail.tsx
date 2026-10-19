@@ -500,7 +500,7 @@ export default function SolutionDetail({ sectorKey }: Props) {
             </div>
             <div style={{ display: 'flex', justifyContent: 'flex-end', gap: 12, flexWrap: 'wrap' }}>
               <a
-                href={`/packages#${sector.recommendedPackage}`}
+                href={`/pricing#${sector.recommendedPackage}`}
                 className="btn btn-primary"
               >
                 {isEN ? 'View package' : 'Paketi incele'} <ArrowRight size={14} />

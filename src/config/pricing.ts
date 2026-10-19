@@ -37,7 +37,10 @@ export type PackageTierKey =
   | 'voice'
   | 'whatsapp'
   // Kurulan sistemler — kurulum + bakım
+  // B2B otomasyon kademeleri (konsey 2026-10-19): automation = Başlangıç
   | 'automation'
+  | 'automation-business'
+  | 'automation-custom'
   | 'leadmail'
   // Web
   | 'web-landing'
@@ -180,22 +183,42 @@ const TR_PACKAGES: Record<PackageTierKey, PackageTier> = {
     adManagementPercent: 0,
     deliveryDays: 5,
   },
+  // Konsey kararı 2026-10-19 (paketler sayfası, 3 tur): eski 1.899/ay paket kaldırıldı,
+  // yerine Başlangıç / İşletme / Özel. Kurulumlar "…'den başlayan". Ayrıntı:
+  // b2b-otomasyon-satis/project_logs/konsey_2026-10-19_paketler_sayfasi/KARAR.md
   automation: {
     key: 'automation',
     category: 'systems',
-    name: 'Otomasyon Sistemi',
-    price: 1899,
-    setupFee: 25999,
+    name: 'Otomasyon — Başlangıç',
+    price: 4900,
+    setupFee: 35000,
     priceUnit: 'month',
+    priceFrom: true,
     adManagementPercent: 0,
     deliveryDays: 7,
-    // Tier B (düşük başlangıçlı finansman): GBP'de yeni tanıtıldı, TL'si onaylı değil.
-    financing: { downPayment: 0, monthlyAmount: 0, months: 12, priceTbd: true },
-    // Konsey kararı 2026-10-19 (3/3): standart paket kapsamı belirli tek süreç içindir; mühendislik/çok dilli/ERP işleri ayrı fiyatlanır.
-    enterpriseNote: {
-      tr: 'Kapsamı belirli tek süreç otomasyonları içindir. Çok dilli belge işleme, firmaya özel mühendislik kuralları veya ERP entegrasyonu gerektiren süreçler, 14 günlük ücretsiz deneme sonunda kapsamına göre özel fiyatlandırılır.',
-      en: 'For single, clearly scoped process automations. Workflows that need multilingual document processing, company-specific engineering rules or ERP integration are quoted separately after the free 14-day trial.',
-    },
+  },
+  'automation-business': {
+    key: 'automation-business',
+    category: 'systems',
+    name: 'Otomasyon — İşletme',
+    price: 9900,
+    setupFee: 75000,
+    priceUnit: 'month',
+    priceFrom: true,
+    featured: true,
+    adManagementPercent: 0,
+    deliveryDays: 14,
+  },
+  'automation-custom': {
+    key: 'automation-custom',
+    category: 'systems',
+    name: 'Otomasyon — Özel',
+    price: 0,
+    setupFee: 0,
+    priceUnit: 'month',
+    customPrice: true,
+    adManagementPercent: 0,
+    deliveryDays: 0,
   },
   leadmail: {
     key: 'leadmail',
@@ -314,13 +337,9 @@ const GB_PACKAGES: Record<PackageTierKey, PackageTier> = {
     setupNote: { tr: 'Termal yazıcı dahil', en: 'Thermal printer included' },
   },
   whatsapp: { ...TR_PACKAGES.whatsapp, name: 'WhatsApp Assistant', price: 9.9, usageRate: 0.007 },
-  automation: {
-    ...TR_PACKAGES.automation,
-    name: 'Automation System',
-    price: 29,
-    setupFee: 399, // Kullanıcı talimatı: £400 değil, £399.
-    financing: { downPayment: 49, monthlyAmount: 49, months: 12 },
-  },
+  automation: { ...TR_PACKAGES.automation, name: 'Automation — Starter', price: 149, setupFee: 950 },
+  'automation-business': { ...TR_PACKAGES['automation-business'], name: 'Automation — Business', price: 349, setupFee: 1950 },
+  'automation-custom': { ...TR_PACKAGES['automation-custom'], name: 'Automation — Custom' },
   leadmail: { ...TR_PACKAGES.leadmail, name: 'Lead + Email System', price: 9.9 },
   'web-landing': { ...TR_PACKAGES['web-landing'], name: 'One-Page Website', price: 100, setupFee: 200 },
   'web-site': {
@@ -344,9 +363,10 @@ const GB_PACKAGES: Record<PackageTierKey, PackageTier> = {
     price: 14.9,
     priceTbd: false,
   },
-  'ads-meta': { ...TR_PACKAGES['ads-meta'], name: 'Meta Ads Management', price: 99 },
-  'ads-google': { ...TR_PACKAGES['ads-google'], name: 'Google Ads Management', price: 99 },
-  'ads-both': { ...TR_PACKAGES['ads-both'], name: 'Meta + Google', price: 169 },
+  // Kullanıcı 2026-10-19: tek kanal (Meta veya Google) £100, ikisi £150. Reklam bütçesi hariç.
+  'ads-meta': { ...TR_PACKAGES['ads-meta'], name: 'Meta Ads Management', price: 100 },
+  'ads-google': { ...TR_PACKAGES['ads-google'], name: 'Google Ads Management', price: 100 },
+  'ads-both': { ...TR_PACKAGES['ads-both'], name: 'Meta + Google', price: 150 },
 };
 
 export const REGIONAL_PRICING: Record<PricingRegionCode, RegionalPricing> = {
@@ -401,7 +421,7 @@ export function resolveRegionByCountry(countryCode?: string | null): PricingRegi
 }
 
 export const AGENT_TIER_KEYS: PackageTierKey[] = ['voice', 'whatsapp'];
-export const SYSTEM_TIER_KEYS: PackageTierKey[] = ['automation', 'leadmail'];
+export const SYSTEM_TIER_KEYS: PackageTierKey[] = ['automation', 'automation-business', 'automation-custom'];
 // website-care kasıtlı olarak burada YOK — satılan bir "tier" değil, web
 // sekmesinde ayrı bir bilgi kartı olarak gösteriliyor (12 ay sonrası).
 export const WEB_TIER_KEYS: PackageTierKey[] = ['web-landing', 'web-site', 'web-integrated'];
