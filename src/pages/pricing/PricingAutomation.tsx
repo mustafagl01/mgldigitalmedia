@@ -65,8 +65,8 @@ export default function PricingAutomation() {
           </h1>
           <p style={{ fontSize: '1.08rem', opacity: 0.85, lineHeight: 1.65, maxWidth: 620, margin: '0 auto 2rem' }}>
             {isEN
-              ? 'The system reads the email and its attachments, extracts the specifications, flags what is missing and drafts the question to the customer. Your team approves. Start with a free 14-day trial on your own requests.'
-              : 'Sistem maili ve eklerini okur, teknik bilgileri ayıklar, eksikleri işaretler ve müşteriye sorulacak soruyu hazırlar. Onay ekibinizde. Kendi talepleriniz üzerinde 14 gün ücretsiz denemeyle başlayın.'}
+              ? 'The system reads the email and its attachments, extracts the details, flags what is missing and drafts the question to the customer. Your team approves. Start with a free 14-day trial on your own requests.'
+              : 'Sistem maili ve eklerini okur, ürün ve adet bilgilerini ayıklar, eksikleri işaretler ve müşteriye sorulacak soruyu hazırlar. Onay ekibinizde. Kendi talepleriniz üzerinde 14 gün ücretsiz denemeyle başlayın.'}
           </p>
           <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center', flexWrap: 'wrap' }}>
             <PrimaryButton href={wa} inverted>{isEN ? 'Write on WhatsApp' : 'WhatsApp’tan yazın'}</PrimaryButton>
@@ -190,63 +190,57 @@ export default function PricingAutomation() {
   );
 }
 
-const mono = { fontFamily: 'ui-monospace, SFMono-Regular, Menlo, monospace', fontSize: '0.82rem', lineHeight: 1.7 } as const;
-
+// Örnek bilerek genel tutuldu (2026-10-19, kullanıcı düzeltmesi): belirli bir firmanın
+// ürününe/işine benzememeli; herhangi bir distribütör veya üreticinin günlük talebi.
 function SampleOutput({ isEN }: { isEN: boolean }) {
-  const rows = isEN
+  const lines = isEN
     ? [
-        ['✓', 'Product', 'Hydraulic cylinder, double acting'],
-        ['✓', 'Quantity', '2 pcs'],
-        ['✓', 'Bore / rod', 'Ø250 / Ø160 mm'],
-        ['✓', 'Stroke', '1,800 mm'],
-        ['✓', 'Working pressure', '250 bar'],
-        ['?', 'Test pressure', 'not stated → question drafted'],
-        ['?', 'Rod coating', 'drawing says chrome, email says ceramic → conflict'],
-        ['✓', 'Standard', 'EN 1090, 3.1 material certificate'],
-        ['!', 'Capacity', 'within honing and chrome limits'],
-        ['✓', 'Delivery', 'requested: week 12'],
+        ['✓', '4 of 5 lines matched to your product codes and stock'],
+        ['?', '1 code not in your list → equivalent product suggested for your approval'],
+        ['?', 'Quantity missing on 1 line → question to the customer drafted'],
+        ['✓', '3 prices taken from your price list'],
+        ['!', '1 price is a special price → waiting for your approval'],
+        ['✓', 'Draft quote ready in your usual Excel / ERP format'],
       ]
     : [
-        ['✓', 'Ürün', 'Hidrolik silindir, çift etkili'],
-        ['✓', 'Adet', '2'],
-        ['✓', 'Piston / mil', 'Ø250 / Ø160 mm'],
-        ['✓', 'Strok', '1.800 mm'],
-        ['✓', 'Çalışma basıncı', '250 bar'],
-        ['?', 'Test basıncı', 'belirtilmemiş → soru hazırlandı'],
-        ['?', 'Mil kaplaması', 'resimde krom, mailde seramik → çelişki'],
-        ['✓', 'Standart', 'EN 1090, 3.1 malzeme sertifikası'],
-        ['!', 'Kapasite', 'honlama ve krom sınırları içinde'],
-        ['✓', 'Termin', 'istenen: 12. hafta'],
+        ['✓', '5 satırdan 4’ü ürün kodlarınız ve stokla eşleşti'],
+        ['?', '1 kod listenizde yok → onayınıza muadil ürün önerildi'],
+        ['?', '1 satırda adet eksik → müşteriye soru taslağı hazırlandı'],
+        ['✓', '3 fiyat fiyat listenizden alındı'],
+        ['!', '1 fiyat özel fiyat → onayınızı bekliyor'],
+        ['✓', 'Taslak teklif her zamanki Excel / ERP formatınızda hazır'],
       ];
   return (
     <section style={sectionPad}>
       <h2 style={h2}>{isEN ? 'What you get: a sample' : 'Ne elde edersiniz: bir örnek'}</h2>
       <p style={lede}>
         {isEN
-          ? 'Left: a request as it usually arrives. Right: what your engineer sees before opening the attachments.'
-          : 'Solda talep genelde nasıl geliyorsa öyle. Sağda mühendisinizin ekleri açmadan önce gördüğü özet.'}
+          ? 'A customer emails a list asking for a quote. Before anyone on your team opens it, this summary is waiting.'
+          : 'Müşteriniz teklif için bir liste gönderiyor. Ekibinizden biri maili açmadan önce bu özet hazır oluyor.'}
       </p>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(300px,100%),1fr))', gap: '1rem' }}>
-        <div style={{ ...card, ...mono, color: 'var(--ink)' }}>
+        <div style={{ ...card, color: 'var(--ink)', fontSize: '0.92rem', lineHeight: 1.65 }}>
           <div style={{ fontWeight: 700, marginBottom: '0.5rem' }}>{isEN ? 'Incoming email' : 'Gelen mail'}</div>
-          <div style={{ color: 'var(--muted)' }}>{isEN ? 'Subject: RFQ cylinders – urgent' : 'Konu: RFQ cylinders – urgent'}</div>
-          <p style={{ margin: '0.6rem 0' }}>
-            Dear Sir, please quote 2 pcs double acting cylinder acc. to attached drawing, bore 250 rod 160, stroke 1800,
-            working pressure 250 bar. Rod ceramic coated. EN 1090 + 3.1 cert. Delivery wk 12 latest. Thanks
+          <p style={{ margin: 0, color: 'var(--muted)' }}>
+            {isEN
+              ? '"Hi, could you quote the items in the attached list? Some codes are from our old supplier. We need them by the end of the month."'
+              : '"Merhaba, ekteki listedeki ürünler için fiyat verebilir misiniz? Bazı kodlar eski tedarikçimizin. Ay sonuna kadar lazım."'}
           </p>
-          <div style={{ color: 'var(--muted)' }}>📎 drawing_rev3.pdf · spec_sheet.xlsx</div>
+          <div style={{ color: 'var(--muted)', marginTop: '0.6rem' }}>📎 {isEN ? 'request_list.xlsx' : 'talep_listesi.xlsx'}</div>
         </div>
-        <div style={{ ...card, ...mono, color: 'var(--ink)' }}>
-          <div style={{ fontWeight: 700, marginBottom: '0.5rem' }}>{isEN ? 'Pre-review summary' : 'Ön inceleme özeti'}</div>
-          {rows.map(([mark, field, value]) => (
-            <div key={field} style={{ display: 'grid', gridTemplateColumns: '1.2rem 9.5rem 1fr', gap: '0.25rem' }}>
-              <span style={{ fontWeight: 700 }}>{mark}</span>
-              <span style={{ color: 'var(--muted)' }}>{field}</span>
-              <span>{value}</span>
-            </div>
-          ))}
-          <div style={{ marginTop: '0.75rem', paddingTop: '0.6rem', borderTop: '1px dashed var(--border)' }}>
-            {isEN ? 'Draft to customer: "Could you confirm the test pressure and whether the rod should be chrome or ceramic?"' : 'Müşteriye taslak: "Test basıncını ve milin krom mu seramik mi olacağını teyit edebilir misiniz?"'}
+        <div style={{ ...card, color: 'var(--ink)', fontSize: '0.92rem', lineHeight: 1.6 }}>
+          <div style={{ fontWeight: 700, marginBottom: '0.6rem' }}>{isEN ? 'Summary for your team' : 'Ekibinize giden özet'}</div>
+          <div style={{ display: 'grid', gap: '0.45rem' }}>
+            {lines.map(([mark, text]) => (
+              <div key={text} style={{ display: 'flex', gap: '0.55rem' }}>
+                <span style={{ fontWeight: 700, flex: '0 0 1rem' }}>{mark}</span>
+                <span>{text}</span>
+              </div>
+            ))}
+          </div>
+          <div style={{ display: 'flex', gap: '0.5rem', marginTop: '0.9rem' }}>
+            <span style={{ padding: '0.25rem 0.75rem', background: 'var(--ink)', color: 'var(--paper)', borderRadius: 6, fontSize: '0.85rem' }}>{isEN ? 'Approve' : 'Onayla'}</span>
+            <span style={{ padding: '0.25rem 0.75rem', border: '1px solid var(--border)', borderRadius: 6, fontSize: '0.85rem' }}>{isEN ? 'Edit' : 'Düzenle'}</span>
           </div>
         </div>
       </div>

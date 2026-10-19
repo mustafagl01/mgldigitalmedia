@@ -53,18 +53,18 @@ export const AUTOMATION_TIERS: AutomationTierContent[] = [
       tr: [
         'Ana teklif veya sipariş süreciniz uçtan uca',
         'Ayda 100 talep dahil',
-        'PDF, Excel ve teknik resim ekleri',
+        'PDF ve Excel ekleri',
         'Müşteriye netleştirme sorusu taslağı',
-        'Stok, fiyat listesi veya kapasite tablosuyla eşleme',
+        'Ürün kodları, stok ve fiyat listesiyle eşleme',
         '1 ERP veya Excel entegrasyonu',
         'Aylık birlikte gözden geçirme',
       ],
       en: [
         'Your core quote or order process end to end',
         '100 requests a month included',
-        'PDF, Excel and technical drawing attachments',
+        'PDF and Excel attachments',
         'Draft clarification questions for the customer',
-        'Matching against stock, price list or capacity table',
+        'Matching against product codes, stock and price list',
         '1 ERP or Excel integration',
         'Monthly review together',
       ],
@@ -78,8 +78,8 @@ export const AUTOMATION_TIERS: AutomationTierContent[] = [
     key: 'automation-custom',
     label: { tr: 'Özel', en: 'Custom' },
     fits: {
-      tr: 'Çok dilli şartnameler, mühendislik kuralları veya birden fazla süreç.',
-      en: 'Multilingual specifications, engineering rules or several processes.',
+      tr: 'Çok dilli belgeler, firmaya özel kurallar veya birden fazla süreç.',
+      en: 'Multilingual documents, company-specific rules or several processes.',
     },
     included: {
       tr: [
