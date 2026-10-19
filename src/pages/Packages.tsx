@@ -92,16 +92,16 @@ const CATEGORY_META: Record<PackageCategoryKey, CategoryMeta> = {
   },
   systems: {
     key: 'systems',
-    label: { tr: 'Kurulan Sistemler', en: 'Built Systems' },
+    label: { tr: 'Otomasyonlar', en: 'Automations' },
     hero: {
-      eyebrow: { tr: 'OTOMASYON VE LEAD SİSTEMLERİ', en: 'AUTOMATION AND LEAD SYSTEMS' },
+      eyebrow: { tr: 'OTOMASYONLAR', en: 'AUTOMATIONS' },
       title: {
-        tr: 'Bir kere kurulur, çalışmaya devam eder.',
-        en: 'Built once, then it keeps running.',
+        tr: 'Her gün elle yapılan işler, kendi kendine yürüyen bir akışa dönüşür.',
+        en: 'The work your team does by hand every day becomes a workflow that runs itself.',
       },
       lede: {
-        tr: 'Tekrar eden işleriniz ve müşteri bulma süreciniz bir sisteme dönüşür. Tek seferlik kurulum, düşük aylık bakım — barındırma, izleme ve arıza müdahalesi dahil.',
-        en: 'Your repetitive work and your lead generation become a system. One-off setup, low monthly maintenance — hosting, monitoring and incident response included.',
+        tr: 'Teklif hazırlama, sipariş girişi, evrak kontrolü, raporlama, takip hatırlatmaları ve müşteri bulma. İşe göre n8n, Python ya da doğrudan API entegrasyonuyla kurarız; mevcut e-posta, Excel ve ERP düzeniniz değişmez. Kapsamı belli tek süreçler sabit fiyatlı; çok dilli belge, mühendislik kuralı veya ERP entegrasyonu gerektiren işler 14 günlük ücretsiz denemeden sonra kapsamına göre fiyatlanır.',
+        en: 'Quote preparation, order entry, document checks, reporting, follow-up reminders and lead generation. We build with n8n, Python or direct API integrations, whichever fits the job; your existing email, Excel and ERP setup stays as it is. Clearly scoped single processes have fixed prices; work that needs multilingual documents, engineering rules or ERP integration is quoted after a free 14-day trial.',
       },
     },
   },
@@ -725,9 +725,10 @@ function createWhatsAppLink(message: string) {
 }
 
 function getCategoryFromHash(): PackageCategoryKey {
-  if (typeof window === 'undefined') return 'agents';
+  // 2026-10-19: varsayılan sekme Otomasyonlar (ana ürün); #agents vb. eski linkler çalışmaya devam eder
+  if (typeof window === 'undefined') return 'systems';
   const hash = window.location.hash.replace('#', '');
-  return isPackageCategoryKey(hash) ? hash : 'agents';
+  return isPackageCategoryKey(hash) ? hash : 'systems';
 }
 
 type PlanCardProps = {
@@ -1834,7 +1835,7 @@ export default function Packages() {
               borderRadius: 999,
             }}
           >
-            {(['agents', 'systems', 'web', 'ads'] as PackageCategoryKey[]).map((cat) => {
+            {(['systems', 'agents', 'web', 'ads'] as PackageCategoryKey[]).map((cat) => {
               const isActive = activeCategory === cat;
               const { tr, en } = CATEGORY_META[cat].label;
               return (
@@ -2063,24 +2064,22 @@ export default function Packages() {
             >
               <div>
                 <p style={{ margin: 0, fontFamily: 'var(--font-mono)', fontSize: 11, letterSpacing: '0.12em', color: 'var(--ember)' }}>
-                  {isEnglish ? 'WORKFLOW AUTOMATION WITHOUT AN AI RECEPTIONIST' : 'AI RESEPSİYON OLMADAN İŞ AKIŞI OTOMASYONU'}
+                  {isEnglish ? 'AUTOMATIONS' : 'OTOMASYONLAR'}
                 </p>
                 <h3 style={{ marginTop: 8, fontFamily: 'var(--font-serif)', fontSize: 22, color: 'var(--ink)' }}>
-                  {isEnglish ? 'Custom n8n Workflow Automation' : 'Özel n8n İş Akışı Otomasyonu'}
+                  {isEnglish ? 'Looking for workflow automation rather than an assistant?' : 'Asistan değil, iş akışı otomasyonu mu arıyorsunuz?'}
                 </h3>
                 <p style={{ marginTop: 8, fontSize: 14, lineHeight: 1.6, color: 'var(--fg-2)', maxWidth: 760 }}>
                   {isEnglish
-                    ? 'For deadline reminders, document collection, payment follow-up, spreadsheet/CRM synchronisation or internal reports. Scope is defined by your processes rather than a workflow count and is written into the proposal; hosting, monitoring, failure alerts and monthly maintenance are included.'
-                    : 'Deadline hatırlatma, evrak toplama, ödeme takibi, Excel/CRM senkronizasyonu veya iç raporlar için. Kapsam akış sayısıyla değil işletmenizin süreçleriyle tanımlanır ve teklifte yazılı olarak yer alır; barındırma, izleme, hata uyarıları ve aylık bakım dahildir.'}
+                    ? 'Quotes, orders, documents, reports and follow-ups are on the Automations tab, with fixed packages and custom scoping after a free 14-day trial.'
+                    : 'Teklif, sipariş, evrak, raporlama ve takip otomasyonları Otomasyonlar sekmesinde: sabit fiyatlı paketler ve 14 günlük ücretsiz deneme sonrası özel kapsam.'}
                 </p>
               </div>
               <div className="automation-callout__price">
-                <strong style={{ display: 'block', fontFamily: 'var(--font-serif)', fontSize: 25, color: 'var(--ink)' }}>
-                  {formatPrice(pricing.packages.automation.setupFee, region)} {isEnglish ? 'setup' : 'kurulum'}
-                </strong>
-                <span style={{ display: 'block', marginTop: 5, fontFamily: 'var(--font-mono)', fontSize: 11, color: 'var(--fg-3)' }}>
-                  + {formatPrice(pricing.packages.automation.price, region)} / {isEnglish ? 'month maintenance' : 'ay bakım'}
-                </span>
+                <a href="#systems" className="btn btn-primary">
+                  {isEnglish ? 'See automations' : 'Otomasyonları gör'}
+                  <ArrowUpRight size={16} />
+                </a>
               </div>
             </div>
           )}
@@ -2533,8 +2532,8 @@ export default function Packages() {
         </div>
       </section>
 
-      {/* Enterprise callout (only on agents tab) */}
-      {activeCategory === 'agents' && (
+      {/* Enterprise / custom callout — 2026-10-19: Otomasyonlar sekmesine taşındı (özel kapsam en çok otomasyonda) */}
+      {activeCategory === 'systems' && (
         <section
           className="on-coal"
           style={{
@@ -2559,8 +2558,8 @@ export default function Packages() {
               }}
             >
               {isEnglish
-                ? 'Hospital chain, multi-branch or regulated?'
-                : 'Hastane zinciri, çok şubeli veya düzenlemeye tabi?'}
+                ? 'Multilingual documents, engineering rules or ERP integration?'
+                : 'Çok dilli belgeler, mühendislik kuralları veya ERP entegrasyonu mu?'}
             </h2>
             <p
               style={{
@@ -2572,15 +2571,15 @@ export default function Packages() {
               }}
             >
               {isEnglish
-                ? 'For requirements beyond the standard automation system, we scope an Enterprise system: on-premise deployment, custom integrations (SAP, Nebim, Logo, ERP), dedicated infrastructure and a named engineer with 24/7 priority support.'
-                : 'Standart otomasyon sisteminin kapsamını aşan ihtiyaçlar için Enterprise sistem tasarlarız: on-premise kurulum, özel entegrasyonlar (SAP, Nebim, Logo, ERP), dedicated altyapı ve 7/24 öncelikli destek için atanmış mühendis.'}
+                ? 'When a process goes beyond the standard package (RFQs and specs in several languages, your own engineering or capacity rules, SAP/Logo/Netsis/ERP integration, multi-site or regulated work), we start with a free 14-day trial on one real process, measure the result together and then quote by scope. If you require it, it can run on your own infrastructure under a confidentiality agreement.'
+                : 'Süreç standart paketin dışına çıkıyorsa (birden çok dilde talep ve şartname, firmanıza özel mühendislik veya kapasite kuralları, SAP/Logo/Netsis/ERP entegrasyonu, çok şubeli ya da düzenlemeye tabi yapı), tek bir gerçek süreçle 14 günlük ücretsiz denemeyle başlarız, sonucu birlikte ölçer ve kapsamına göre fiyatlandırırız. İsterseniz gizlilik sözleşmesiyle kendi altyapınızda çalışır.'}
             </p>
 
             <a
               href={createWhatsAppLink(
                 isEnglish
-                  ? 'Hello, I would like to discuss an enterprise / custom AI agent project.'
-                  : 'Merhaba, kurumsal / özel bir AI agent projesi için görüşmek istiyorum.',
+                  ? 'Hello, I would like to discuss a custom automation project and the free 14-day trial.'
+                  : 'Merhaba, özel bir otomasyon projesi ve 14 günlük ücretsiz deneme için görüşmek istiyorum.',
               )}
               target="_blank"
               rel="noreferrer"
