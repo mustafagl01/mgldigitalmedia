@@ -37,9 +37,10 @@ export type PackageTierKey =
   | 'voice'
   | 'whatsapp'
   // Kurulan sistemler — kurulum + bakım
-  // B2B otomasyon kademeleri (konsey 2026-10-19): automation = Başlangıç
+  // Otomasyon kademeleri (konsey 2026-10-19): automation = Hazır (katalog)
   | 'automation'
-  | 'automation-business'
+  | 'automation-connected'
+  | 'automation-complex'
   | 'automation-custom'
   | 'leadmail'
   // Web
@@ -183,36 +184,45 @@ const TR_PACKAGES: Record<PackageTierKey, PackageTier> = {
     adManagementPercent: 0,
     deliveryDays: 5,
   },
-  // Konsey kararı 2026-10-19 (paketler sayfası, 3 tur): eski 1.899/ay paket kaldırıldı,
-  // yerine Başlangıç / İşletme / Özel. Kurulumlar "…'den başlayan". Ayrıntı:
+  // Konsey kararı 2026-10-19 (kademeler, 4-6. tur, oybirliği): ayrım işin karmaşıklığına göre, şirket
+  // büyüklüğüne göre değil. Hazır (katalog) / Bağlantılı / Kapsamlı / Özel. Ayrıntı:
   // b2b-otomasyon-satis/project_logs/konsey_2026-10-19_paketler_sayfasi/KARAR.md
   automation: {
     key: 'automation',
     category: 'systems',
-    name: 'Otomasyon — Başlangıç',
+    name: 'Hazır Otomasyon',
+    price: 1490,
+    setupFee: 14900,
+    priceUnit: 'month',
+    adManagementPercent: 0,
+    deliveryDays: 5,
+  },
+  'automation-connected': {
+    key: 'automation-connected',
+    category: 'systems',
+    name: 'Bağlantılı Otomasyon',
     price: 4900,
     setupFee: 35000,
     priceUnit: 'month',
-    priceFrom: true,
-    adManagementPercent: 0,
-    deliveryDays: 7,
-  },
-  'automation-business': {
-    key: 'automation-business',
-    category: 'systems',
-    name: 'Otomasyon — İşletme',
-    price: 9900,
-    setupFee: 75000,
-    priceUnit: 'month',
-    priceFrom: true,
     featured: true,
     adManagementPercent: 0,
-    deliveryDays: 14,
+    deliveryDays: 10,
+  },
+  'automation-complex': {
+    key: 'automation-complex',
+    category: 'systems',
+    name: 'Kapsamlı Otomasyon',
+    price: 9900,
+    setupFee: 100000,
+    priceUnit: 'month',
+    priceFrom: true,
+    adManagementPercent: 0,
+    deliveryDays: 21,
   },
   'automation-custom': {
     key: 'automation-custom',
     category: 'systems',
-    name: 'Otomasyon — Özel',
+    name: 'Özel',
     price: 0,
     setupFee: 0,
     priceUnit: 'month',
@@ -337,9 +347,10 @@ const GB_PACKAGES: Record<PackageTierKey, PackageTier> = {
     setupNote: { tr: 'Termal yazıcı dahil', en: 'Thermal printer included' },
   },
   whatsapp: { ...TR_PACKAGES.whatsapp, name: 'WhatsApp Assistant', price: 9.9, usageRate: 0.007 },
-  automation: { ...TR_PACKAGES.automation, name: 'Automation — Starter', price: 149, setupFee: 950 },
-  'automation-business': { ...TR_PACKAGES['automation-business'], name: 'Automation — Business', price: 349, setupFee: 1950 },
-  'automation-custom': { ...TR_PACKAGES['automation-custom'], name: 'Automation — Custom' },
+  automation: { ...TR_PACKAGES.automation, name: 'Ready-made Automation', price: 49, setupFee: 349 },
+  'automation-connected': { ...TR_PACKAGES['automation-connected'], name: 'Connected Automation', price: 149, setupFee: 950 },
+  'automation-complex': { ...TR_PACKAGES['automation-complex'], name: 'Complex Automation', price: 399, setupFee: 2950 },
+  'automation-custom': { ...TR_PACKAGES['automation-custom'], name: 'Custom' },
   leadmail: { ...TR_PACKAGES.leadmail, name: 'Lead + Email System', price: 9.9 },
   'web-landing': { ...TR_PACKAGES['web-landing'], name: 'One-Page Website', price: 100, setupFee: 200 },
   'web-site': {
@@ -421,7 +432,7 @@ export function resolveRegionByCountry(countryCode?: string | null): PricingRegi
 }
 
 export const AGENT_TIER_KEYS: PackageTierKey[] = ['voice', 'whatsapp'];
-export const SYSTEM_TIER_KEYS: PackageTierKey[] = ['automation', 'automation-business', 'automation-custom'];
+export const SYSTEM_TIER_KEYS: PackageTierKey[] = ['automation', 'automation-connected', 'automation-complex', 'automation-custom'];
 // website-care kasıtlı olarak burada YOK — satılan bir "tier" değil, web
 // sekmesinde ayrı bir bilgi kartı olarak gösteriliyor (12 ay sonrası).
 export const WEB_TIER_KEYS: PackageTierKey[] = ['web-landing', 'web-site', 'web-integrated'];

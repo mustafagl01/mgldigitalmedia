@@ -33,11 +33,11 @@ export function HomePricing() {
     {
       titleTR: 'Otomasyon',
       titleEN: 'Automation',
-      headTR: '14 gün ücretsiz deneme',
-      headEN: 'Free 14-day trial',
+      headTR: 'Küçük ve büyük işletmeler için',
+      headEN: 'For small and large businesses',
       priceLabel: isTR ? `${formatPrice(p.automation.setupFee, region)}’den` : `from ${formatPrice(p.automation.setupFee, region)}`,
-      subTR: `Teklif, sipariş, randevu, tahsilat ve evrak gibi tekrarlanan işler için tek seferlik kurulum. Aylık ${formatPrice(p.automation.price, region)}’den başlar; barındırma, izleme ve destek dahil.`,
-      subEN: `A one-off setup for repetitive work such as quotes, orders, appointments, payments and documents. Monthly from ${formatPrice(p.automation.price, region)}, including hosting, monitoring and support.`,
+      subTR: `Randevu hatırlatma, tahsilat takibi gibi hazır otomasyonlardan ERP bağlantılı büyük süreçlere kadar. En küçük paket aylık ${formatPrice(p.automation.price, region)}; barındırma, izleme ve destek dahil.`,
+      subEN: `From ready-made automations like appointment reminders and payment chasing to ERP-connected core processes. The smallest plan is ${formatPrice(p.automation.price, region)}/month, including hosting, monitoring and support.`,
       href: '/pricing/automation',
     },
     {

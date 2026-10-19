@@ -199,8 +199,8 @@ const STATIC_ROUTE_CONTENT = {
   // Fiyat rakamları src/config/pricing.ts ile aynı olmalı (bu dosya TS import edemiyor). Değişirse ikisini birden güncelle.
   '/pricing/automation': {
     heading: 'Otomasyon fiyatları',
-    answer: 'MGL AI her sektörden küçük ve büyük işletmeler için teklif, sipariş, randevu hatırlatma, tahsilat takibi, evrak toplama ve raporlama gibi tekrarlanan işlerin otomasyonunu üç paketle sunar. Başlangıç: 35.000 TL\'den başlayan kurulum ve aylık 4.900 TL (tek iş akışı, ayda 50 işleme kadar). İşletme: 75.000 TL\'den başlayan kurulum ve aylık 9.900 TL (ana süreç uçtan uca, ayda 100 işlem, bir ERP, CRM veya Excel entegrasyonu, en az 3 ay). Özel: birden fazla süreç, çok dilli belgeler ve derin ERP entegrasyonu için deneme sonunda fiyatlandırılır. Her paket 14 gün ücretsiz denemeyle başlar. UK fiyatları: Başlangıç £950\'dan + £149/ay, İşletme £1.950\'den + £349/ay.',
-    bullets: ['Başlangıç: 35.000 TL\'den kurulum + 4.900 TL/ay', 'İşletme: 75.000 TL\'den kurulum + 9.900 TL/ay', 'Özel: 14 günlük deneme sonunda teklif', 'Ücretli plana otomatik geçiş yok'],
+    answer: 'MGL AI her sektörden küçük ve büyük işletmeler için tekrarlanan işlerin otomasyonunu dört paketle sunar. Paketler şirket büyüklüğüne göre değil, işin karmaşıklığına göre ayrılır. Hazır otomasyon: 14.900 TL kurulum + 1.490 TL/ay (randevu hatırlatma, ödeme takibi, evrak toplama, talep yakalama veya yorum isteme; en az 3 ay, 14 gün para iade). Bağlantılı: 35.000 TL kurulum + 4.900 TL/ay (2-3 iş akışı, CRM ve bulut programları; en az 6 ay, 14 gün ücretsiz deneme). Kapsamlı: 100.000 TL’den başlayan kurulum + 9.900 TL/ay (ERP, belge okuma, çok dil; en az 12 ay). Özel: birden fazla departman ve SLA için görüşme sonrası teklif. UK: £349 + £49/ay, £950 + £149/ay, £2.950’den + £399/ay.',
+    bullets: ['Hazır otomasyon: 14.900 TL + 1.490 TL/ay', 'Bağlantılı: 35.000 TL + 4.900 TL/ay', 'Kapsamlı: 100.000 TL’den + 9.900 TL/ay', 'Özel: görüşme sonrası teklif'],
   },
   '/pricing/local': {
     heading: 'Web sitesi, reklam yönetimi ve AI asistan fiyatları',

@@ -14,7 +14,7 @@ const FAQS_TR = [
   { question: 'Hangi uygulamalarla entegre olabilir?', answer: 'Gmail, WhatsApp (Evolution API), HubSpot, Pipedrive, Zoho, Stripe, iyzico, Google Sheets, Airtable, Slack, Telegram ve 400+ uygulama. Özel REST API olan herhangi bir yazılıma da bağlanılabilir.' },
   { question: 'Teknik bilgim olmadan kullanabilir miyim?', answer: 'MGL olarak tüm tasarım, kurulum ve bakımı yapıyoruz; sizin teknik bilgiye ihtiyacınız yok. Sistemin çalışıp çalışmadığını görmek için basit bir dashboard sunuyoruz.' },
   { question: 'Bir sorun olduğunda ne yapıyorsunuz?', answer: 'Otomatik hata bildirimleri kuruyor, akış kayıtlarını inceliyor ve bakım kapsamındaki sorunları teklifinizde yazan yanıt süresine göre ele alıyoruz.' },
-  { question: 'Aylık ücret ne kadar?', answer: `Başlangıç paketi ${formatPrice(AUTOMATION_TR.setupFee, 'TR')}’den başlayan tek seferlik kurulum ve ${formatPrice(AUTOMATION_TR.price, 'TR')}/ay bakımdır; barındırma, izleme, hata uyarıları ve bakım dahildir. Teklif ve sipariş süreci gibi daha kapsamlı işler için İşletme ve Özel paketler var. Tüm paketler 14 gün ücretsiz denemeyle başlar; ayrıntılar fiyat sayfasında (/pricing/automation).` },
+  { question: 'Aylık ücret ne kadar?', answer: `En küçük paket olan Hazır otomasyon ${formatPrice(AUTOMATION_TR.setupFee, 'TR')} tek seferlik kurulum ve ${formatPrice(AUTOMATION_TR.price, 'TR')}/aydır; barındırma, izleme ve hata uyarıları dahildir. CRM bağlantılı akışlar için Bağlantılı, ERP ve belge okuma gerektiren işler için Kapsamlı paket var. Ayrıntılar fiyat sayfasında (/pricing/automation).` },
 ];
 
 const FAQS_EN = [
@@ -23,7 +23,7 @@ const FAQS_EN = [
   { question: 'What apps can it integrate with?', answer: 'Gmail, WhatsApp (Evolution API), HubSpot, Pipedrive, Zoho, Stripe, Google Sheets, Airtable, Slack, Telegram and 400+ more. Any custom REST API can also be integrated.' },
   { question: 'Do I need technical knowledge?', answer: 'No. MGL handles all design, setup and maintenance. We provide a simple monitoring dashboard so you can see your automations are running.' },
   { question: 'What happens if something breaks?', answer: 'We configure automated failure alerts, inspect execution logs and handle covered issues within the response window written into your proposal.' },
-  { question: 'How much does it cost?', answer: `The Starter plan is a one-off setup from ${formatPrice(AUTOMATION_GB.setupFee, 'GB')} plus ${formatPrice(AUTOMATION_GB.price, 'GB')}/month, including hosting, monitoring, failure alerts and maintenance. Larger processes such as quotes and orders use the Business and Custom plans. Every plan starts with a free 14-day trial; details on the pricing page (/pricing/automation).` },
+  { question: 'How much does it cost?', answer: `The smallest plan, Ready-made, is a ${formatPrice(AUTOMATION_GB.setupFee, 'GB')} one-off setup plus ${formatPrice(AUTOMATION_GB.price, 'GB')}/month, including hosting, monitoring and failure alerts. Connected covers CRM-linked workflows and Complex covers ERP and document reading. Details on the pricing page (/pricing/automation).` },
 ];
 
 const PROCESS_TR = [
@@ -94,8 +94,8 @@ export default function N8nOtomasyon() {
         }
         description={
           isEN
-            ? `Managed n8n workflow automation for CRM sync, reminders, payments and reporting. Setup from ${formatPrice(AUTOMATION_GB.setupFee, 'GB')} plus ${formatPrice(AUTOMATION_GB.price, 'GB')}/month, scope agreed in writing.`
-            : `CRM senkronu, hatırlatma, ödeme ve raporlama için yönetilen n8n otomasyonu. ${formatPrice(AUTOMATION_TR.setupFee, 'TR')}’den başlayan kurulum + ${formatPrice(AUTOMATION_TR.price, 'TR')}/ay; kapsam teklifte yazılı.`
+            ? `Managed n8n workflow automation for CRM sync, reminders, payments and reporting. Plans start at ${formatPrice(AUTOMATION_GB.setupFee, 'GB')} setup plus ${formatPrice(AUTOMATION_GB.price, 'GB')}/month, scope agreed in writing.`
+            : `CRM senkronu, hatırlatma, ödeme ve raporlama için yönetilen n8n otomasyonu. Paketler ${formatPrice(AUTOMATION_TR.setupFee, 'TR')} kurulum + ${formatPrice(AUTOMATION_TR.price, 'TR')}/ay ile başlar; kapsam teklifte yazılı.`
         }
         path="/n8n-otomasyon"
         locale={isEN ? 'en_GB' : 'tr_TR'}

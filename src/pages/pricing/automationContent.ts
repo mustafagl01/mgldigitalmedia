@@ -1,112 +1,141 @@
 import type { PackageTierKey } from '../../config/pricing';
 
 /* Otomasyon fiyat sayfası metinleri. Fiyat rakamı BURADA YOK — pricing.ts'den okunur.
-   2026-10-19 kullanıcı düzeltmesi: otomasyon her sektör ve her ölçek (küçük esnaf dahil) içindir;
-   metin tek bir sektöre (üretici/distribütör) veya tek bir işe (teklif) daraltılmaz. */
+   Konsey 2026-10-19 (4-6. tur, oybirliği): paketler işin karmaşıklığına göre ayrılır, şirket
+   büyüklüğüne göre değil. Ziyaretçi kendini kullandığı araçlara göre seçer. Metin tek bir sektöre
+   veya tek bir işe daraltılmaz. Karar: b2b-otomasyon-satis/project_logs/konsey_2026-10-19_paketler_sayfasi/KARAR.md */
 
 type L = { tr: string; en: string };
 type LL = { tr: string[]; en: string[] };
 
 export type AutomationTierContent = {
   key: PackageTierKey;
-  label: L;
+  tools: L;
   fits: L;
   included: LL;
-  note?: L;
+  terms: L;
 };
 
 export const AUTOMATION_TIERS: AutomationTierContent[] = [
   {
     key: 'automation',
-    label: { tr: 'Başlangıç', en: 'Starter' },
+    tools: { tr: 'Excel, WhatsApp, e-posta, takvim', en: 'Excel, WhatsApp, email, calendar' },
     fits: {
-      tr: 'Küçük işletmeler ve tek bir iş için: randevu hatırlatma, tahsilat takibi, siparişlerin tabloya işlenmesi gibi.',
-      en: 'For small businesses and one task: appointment reminders, payment follow-up, orders into a spreadsheet and similar.',
+      tr: 'Listeden tek bir hazır sistem seçersiniz; kapsamı sabit, hızlı kurulur. Küçük işletmeler için.',
+      en: 'Pick one ready-made system from the list; fixed scope, quick to set up. Built for small businesses.',
     },
     included: {
       tr: [
-        '1 iş akışı',
-        'Ayda 50 işleme kadar',
-        'E-posta, WhatsApp, form veya Excel bağlantısı',
-        'Otomatik hatırlatma ve bildirimler',
-        'Excel / Google Sheets çıktısı',
+        'Aşağıdaki listeden 1 hazır otomasyon',
+        '1 kaynak, 1 mesaj kanalı',
+        'Ayda 500 işleme kadar',
         'Barındırma, izleme ve hata uyarısı',
-        'E-posta ve WhatsApp desteği',
+        'Yazılı destek (e-posta / WhatsApp mesajı)',
       ],
       en: [
-        '1 workflow',
-        'Up to 50 tasks a month',
-        'Email, WhatsApp, form or Excel connection',
-        'Automatic reminders and notifications',
-        'Excel / Google Sheets output',
+        '1 ready-made automation from the list below',
+        '1 source, 1 messaging channel',
+        'Up to 500 tasks a month',
         'Hosting, monitoring and failure alerts',
-        'Email and WhatsApp support',
+        'Written support (email / WhatsApp message)',
       ],
+    },
+    terms: {
+      tr: 'Önce canlı demo. 14 gün içinde memnun kalmazsanız kurulum ücreti iade. En az 3 ay.',
+      en: 'Live demo first. 14-day money-back on the setup fee. Minimum 3 months.',
     },
   },
   {
-    key: 'automation-business',
-    label: { tr: 'İşletme', en: 'Business' },
+    key: 'automation-connected',
+    tools: { tr: 'CRM, muhasebe ve bulut programları', en: 'CRM, accounting and cloud apps' },
     fits: {
-      tr: 'Şirketinizin ana sürecini uçtan uca: teklif, sipariş, evrak veya müşteri takibi.',
-      en: 'Your company’s core process end to end: quotes, orders, documents or customer follow-up.',
+      tr: 'Birkaç işin birbirine bağlandığı akışlar: talep → CRM → teklif → hatırlatma gibi.',
+      en: 'Several tasks connected into one flow: enquiry → CRM → quote → reminder and similar.',
+    },
+    included: {
+      tr: [
+        '2-3 iş akışı, size göre kurulur',
+        'Standart CRM ve bulut program bağlantıları',
+        'Ayda 1.500 işleme kadar',
+        'Onay adımları ve basit raporlama',
+        'Öncelikli destek',
+      ],
+      en: [
+        '2-3 workflows, built around you',
+        'Standard CRM and cloud app connections',
+        'Up to 1,500 tasks a month',
+        'Approval steps and simple reporting',
+        'Priority support',
+      ],
+    },
+    terms: {
+      tr: '14 gün ücretsiz deneme: kendi verinizle tek akış kurulur, beğenirseniz devam. En az 6 ay.',
+      en: '14-day free trial: one workflow built on your own data; continue only if you like it. Minimum 6 months.',
+    },
+  },
+  {
+    key: 'automation-complex',
+    tools: { tr: 'ERP, belge okuma (PDF, teknik doküman), çok dil', en: 'ERP, document reading (PDF, technical files), multiple languages' },
+    fits: {
+      tr: 'Şirketin ana süreci uçtan uca: gelen teklif talepleri, siparişler, belgeler.',
+      en: 'A core process end to end: incoming quote requests, orders, documents.',
     },
     included: {
       tr: [
         'Ana süreciniz uçtan uca',
-        'Ayda 100 işlem dahil',
-        'PDF ve Excel eklerini okuma',
-        'Eksik bilgi işaretleme ve müşteriye soru taslağı',
-        'Ürün, stok, fiyat listesi veya CRM ile eşleme',
-        '1 ERP, CRM veya Excel entegrasyonu',
+        'ERP veya özel sistem entegrasyonu',
+        'PDF ve eklerden bilgi okuma, çok dilli belgeler',
+        'Ayda 100 karmaşık talep dahil',
         'Aylık birlikte gözden geçirme',
       ],
       en: [
         'Your core process end to end',
-        '100 tasks a month included',
-        'Reading PDF and Excel attachments',
-        'Missing information flagged and a question to the customer drafted',
-        'Matching against products, stock, price list or CRM',
-        '1 ERP, CRM or Excel integration',
+        'ERP or custom system integration',
+        'Reading information from PDFs and attachments, multilingual documents',
+        '100 complex requests a month included',
         'Monthly review together',
       ],
     },
-    note: {
-      tr: 'En az 3 ay. 100 işlemin üstü için işlem başı ücret teklifte yazılıdır.',
-      en: 'Minimum 3 months. Tasks above 100 are billed per task, as written in the proposal.',
+    terms: {
+      tr: '14 gün ücretsiz deneme tek belge türü veya tek süreçle yapılır. En az 12 ay.',
+      en: '14-day free trial on one document type or one process. Minimum 12 months.',
     },
   },
   {
     key: 'automation-custom',
-    label: { tr: 'Özel', en: 'Custom' },
+    tools: { tr: 'Birden fazla departman, SLA', en: 'Several departments, SLA' },
     fits: {
-      tr: 'Birden fazla süreç, çok dilli belgeler, firmaya özel kurallar veya yüksek hacim.',
-      en: 'Several processes, multilingual documents, company-specific rules or high volume.',
+      tr: 'Birden fazla süreç ve departman, denetim gereksinimi veya hizmet seviyesi sözleşmesi.',
+      en: 'Several processes and departments, audit requirements or a service level agreement.',
     },
     included: {
-      tr: [
-        'İşletme paketindeki her şey',
-        'Birden fazla süreç ve departman',
-        'Çok dilli belge işleme',
-        'Firmaya özel kontrol kuralları',
-        'Derin ERP / API entegrasyonu',
-        'Yüksek hacim ve hizmet seviyesi (SLA)',
-      ],
-      en: [
-        'Everything in Business',
-        'Several processes and departments',
-        'Multilingual document processing',
-        'Company-specific checking rules',
-        'Deep ERP / API integration',
-        'High volume and a service level agreement (SLA)',
-      ],
+      tr: ['Kapsamlı paketteki her şey', 'Birden fazla süreç ve departman', 'Yetki, kayıt ve denetim gereksinimleri', 'Hizmet seviyesi sözleşmesi (SLA)'],
+      en: ['Everything in Complex', 'Several processes and departments', 'Permission, logging and audit requirements', 'Service level agreement (SLA)'],
     },
-    note: {
-      tr: 'Fiyat, 14 günlük deneme sonunda ölçülen hacme ve kapsama göre yazılı verilir.',
-      en: 'Priced in writing after the 14-day trial, based on the measured volume and scope.',
+    terms: {
+      tr: 'Keşif görüşmesinden sonra yazılı teklif. Yıllık sözleşme.',
+      en: 'Written proposal after a discovery call. Annual contract.',
     },
   },
 ];
+
+/** Hazır otomasyon kataloğu (konsey 6. tur): tek kaynak, sabit mesaj sayısı; fazlası = Bağlantılı. */
+export const READY_CATALOG = {
+  tr: [
+    { title: 'Talep yakalama', desc: 'Formdan veya tek bir kanaldan gelen yeni talep tabloya / CRM’e işlenir, ekibinize anında WhatsApp bildirimi gider.' },
+    { title: 'Randevu hatırlatma', desc: 'Takviminizdeki randevular için 24 saat ve 2 saat önce WhatsApp, SMS veya e-posta hatırlatması; onaylar tabloya yazılır.' },
+    { title: 'Ödeme takibi', desc: 'Fatura listenizi okur; vadesi geçenlere 1, 7 ve 14. günde nazik hatırlatma gönderir, sonra durur.' },
+    { title: 'Evrak toplama', desc: 'Müşteriye tek bir yükleme linki gider; evraklar gelene kadar en fazla 3 hatırlatma yapılır, dosyalar tek klasörde toplanır.' },
+    { title: 'Yorum isteme', desc: 'İş veya ziyaret tamamlanınca müşteriye Google yorum linki ve bir hatırlatma gönderilir.' },
+  ],
+  en: [
+    { title: 'Lead capture', desc: 'A new enquiry from a form or one channel goes into your sheet / CRM and your team gets an instant WhatsApp alert.' },
+    { title: 'Appointment reminders', desc: 'Reminders 24 hours and 2 hours before each booking by WhatsApp, SMS or email; confirmations logged to a sheet.' },
+    { title: 'Payment chaser', desc: 'Reads your invoice list and sends polite reminders on days 1, 7 and 14 past due, then stops.' },
+    { title: 'Document collection', desc: 'The client gets one upload link and up to 3 reminders until the files arrive in one folder.' },
+    { title: 'Review requests', desc: 'When a job or visit is done, the customer gets your Google review link plus one reminder.' },
+  ],
+};
 
 /** Sektörlerden örnek işler — mevcut sorun sayfalarına bağlanır. */
 export const EXAMPLES = {
@@ -145,18 +174,18 @@ export const STEPS = {
 
 export const TRIAL = {
   tr: [
-    'Siz: otomatikleştirmek istediğiniz işten 10-20 geçmiş örnek (isimler gizlenebilir) ve bugün nasıl yaptığınız.',
-    '3. gün: ilk akış geçmiş örneklerinizle çalışır, çıktıyı birlikte inceleriz.',
-    '7. gün: gerçek işlerde ekibinizin yanında paralel çalışır.',
-    '14. gün: ne kadarı doğru çalıştı, ne kadar vakit kazanıldı birlikte ölçeriz. Devam kararı sizin.',
+    'Hazır otomasyon: önce canlı demo görürsünüz. Kurulumdan sonra 14 gün içinde memnun kalmazsanız kurulum ücreti iade edilir.',
+    'Bağlantılı: kendi verinizle tek bir akış 14 gün ücretsiz kurulur. Beğenirseniz kurulum ücretiyle devam edilir.',
+    'Kapsamlı: önce kısa bir keşif görüşmesi ve başarı ölçütü; 14 günlük ücretsiz deneme tek belge türü veya tek süreçle yapılır.',
     'Ücretli plana otomatik geçiş yok. Devam etmezseniz verileriniz silinir.',
+    'Asgari süre sistem canlıya alındığı gün başlar; deneme süresi sayılmaz.',
   ],
   en: [
-    'You: 10-20 past examples of the task (names can be removed) and how you do it today.',
-    'Day 3: the first workflow runs on your past examples and we review the output together.',
-    'Day 7: it runs in parallel next to your team on real work.',
-    'Day 14: we measure together how much worked correctly and how much time was saved. You decide.',
+    'Ready-made: you see a live demo first. If you are not happy within 14 days of setup, the setup fee is refunded.',
+    'Connected: one workflow is built on your own data, free for 14 days. If you like it, you continue with the setup fee.',
+    'Complex: a short discovery call and agreed success criteria first; the free 14-day trial covers one document type or one process.',
     'No automatic switch to a paid plan. If you stop, your data is deleted.',
+    'The minimum term starts on go-live; the trial period does not count.',
   ],
 };
 
@@ -179,19 +208,19 @@ export const SECURITY = {
 
 export const FAQS = {
   tr: [
-    { question: 'Küçük bir işletmeyiz, bize uygun mu?', answer: 'Evet. Başlangıç paketi tek bir iş için kurulur; randevu hatırlatma veya tahsilat takibi gibi. İhtiyaç büyüdükçe İşletme paketine geçebilirsiniz.' },
-    { question: 'Deneme gerçekten ücretsiz mi?', answer: 'Evet. Tek iş için 14 gün ücretsiz, kart veya taahhüt yok. Aynı anda en fazla 2 yeni deneme alıyoruz; bu yüzden başlangıç tarihini birlikte belirliyoruz.' },
-    { question: 'Kullandığımız programı değiştirmemiz gerekir mi?', answer: 'Hayır. Sistem kullandığınız e-posta, WhatsApp, Excel, CRM veya ERP ile çalışacak şekilde kurulur. Bağlantı yöntemi denemede netleşir.' },
-    { question: '"İşlem" neyi kapsar?', answer: 'Sistemin baştan sona yürüttüğü bir iş: bir teklif talebi, bir sipariş, bir belge ya da bir hatırlatma. Aynı iş için yapılan yazışmalar ayrıca sayılmaz.' },
-    { question: 'Sözleşme süresi var mı?', answer: 'Başlangıç paketi aylıktır. İşletme paketi en az 3 aydır; sonrasında aylık devam eder. Kurulum ücreti tek seferliktir.' },
-    { question: 'Fiyatlar neden "…den başlayan"?', answer: 'Kurulum, işin kapsamına ve bağlanacak sistemlere göre değişir. Kesin rakam denemeden sonra yazılı teklifte yer alır ve 12 ay sabit kalır.' },
+    { question: 'Hangi paket bana uygun?', answer: 'Şirketinizin büyüklüğüne değil, kullandığınız araçlara bakın. Excel, WhatsApp ve takvimle çalışıyorsanız Hazır otomasyon; CRM veya muhasebe programı bağlanacaksa Bağlantılı; ERP, belge okuma veya çok dilli iş varsa Kapsamlı.' },
+    { question: 'Küçük bir işletmeyiz, bize uygun mu?', answer: 'Evet. Hazır otomasyonlar küçük işletmeler için tasarlandı: listeden birini seçersiniz, sabit fiyatla kurulur. İhtiyaç büyüdükçe üst pakete geçebilirsiniz.' },
+    { question: 'Listede olmayan bir iş istersem?', answer: 'Hazır listenin dışındaki veya birden fazla işi birbirine bağlayan her şey Bağlantılı pakete girer. İşinizi anlatın, hangi pakete girdiğini dürüstçe söyleyelim.' },
+    { question: '"İşlem" neyi kapsar?', answer: 'Sistemin baştan sona yürüttüğü bir iş: bir hatırlatma, bir talep, bir sipariş veya bir belge. Aynı iş için yapılan yazışmalar ayrıca sayılmaz.' },
+    { question: 'Kullandığımız programı değiştirmemiz gerekir mi?', answer: 'Hayır. Sistem kullandığınız e-posta, WhatsApp, Excel, CRM veya ERP ile çalışacak şekilde kurulur.' },
+    { question: 'Değişiklik istersem ne olur?', answer: 'Kapsam içindeki küçük düzeltmeler aylık ücrete dahildir. Yeni akış veya kapsam dışı değişiklikler önceden yazılı fiyatla yapılır.' },
   ],
   en: [
-    { question: 'We are a small business. Is this for us?', answer: 'Yes. The Starter plan is built for a single task, such as appointment reminders or payment follow-up. You can move to Business as your needs grow.' },
-    { question: 'Is the trial really free?', answer: 'Yes. One task, free for 14 days, no card and no commitment. We take on at most 2 new trials at a time, so we agree the start date together.' },
-    { question: 'Do we have to change our software?', answer: 'No. The system works with the email, WhatsApp, Excel, CRM or ERP you already use. The connection method is confirmed during the trial.' },
-    { question: 'What counts as a "task"?', answer: 'One piece of work the system handles end to end: a quote request, an order, a document or a reminder. Follow-up messages on the same item are not counted again.' },
-    { question: 'Is there a contract term?', answer: 'Starter is monthly. Business has a 3-month minimum and then continues monthly. Setup is a one-off fee.' },
-    { question: 'Why are prices shown as "from"?', answer: 'Setup depends on the scope and the systems to connect. The exact figure is written into the proposal after the trial and is fixed for 12 months.' },
+    { question: 'Which plan is right for me?', answer: 'Look at the tools you use, not the size of your company. Excel, WhatsApp and a calendar: Ready-made. A CRM or accounting software to connect: Connected. ERP, document reading or multilingual work: Complex.' },
+    { question: 'We are a small business. Is this for us?', answer: 'Yes. Ready-made automations are designed for small businesses: pick one from the list and it is set up at a fixed price. You can move up as your needs grow.' },
+    { question: 'What if I need something that is not on the list?', answer: 'Anything outside the ready-made list, or anything that connects several tasks, falls under Connected. Describe it and we will tell you honestly which plan it fits.' },
+    { question: 'What counts as a "task"?', answer: 'One piece of work the system handles end to end: a reminder, an enquiry, an order or a document. Follow-up messages on the same item are not counted again.' },
+    { question: 'Do we have to change our software?', answer: 'No. The system works with the email, WhatsApp, Excel, CRM or ERP you already use.' },
+    { question: 'What if I want changes later?', answer: 'Small fixes within scope are included in the monthly fee. New workflows or out-of-scope changes are done at a price agreed in writing first.' },
   ],
 };

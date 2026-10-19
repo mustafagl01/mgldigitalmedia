@@ -3,7 +3,15 @@ import { Seo, faqSchema, breadcrumbSchema, serviceSchema } from '../../component
 import { useLanguage } from '../../contexts/LanguageContext';
 import { useLocation } from '../../contexts/LocationContext';
 import { formatPrice } from '../../utils/formatPrice';
-import { AUTOMATION_TIERS, EXAMPLES, STEPS, TRIAL, SECURITY, FAQS } from './automationContent';
+import { AUTOMATION_TIERS, READY_CATALOG, EXAMPLES, STEPS, TRIAL, SECURITY, FAQS } from './automationContent';
+import type { PackageTierKey } from '../../config/pricing';
+
+const TIER_LABELS: Partial<Record<PackageTierKey, { tr: string; en: string }>> = {
+  automation: { tr: 'Hazır otomasyon', en: 'Ready-made' },
+  'automation-connected': { tr: 'Bağlantılı', en: 'Connected' },
+  'automation-complex': { tr: 'Kapsamlı', en: 'Complex' },
+  'automation-custom': { tr: 'Özel', en: 'Custom' },
+};
 import {
   CALENDAR_URL, whatsappLink, localPath, card, h2, lede, sectionPad, eyebrow,
   CheckList, FaqList, PrimaryButton, GhostButton, CompanyBlock,
@@ -44,8 +52,8 @@ export default function PricingAutomation() {
       <Seo
         title={isEN ? 'Automation Pricing · MGL' : 'Otomasyon Fiyatları · MGL'}
         description={isEN
-          ? 'Automation for businesses of any size and sector: Starter, Business and Custom plans, starting with a free 14-day trial.'
-          : 'Her sektör ve ölçekteki işletme için otomasyon: Başlangıç, İşletme ve Özel paketler, 14 gün ücretsiz denemeyle başlar.'}
+          ? 'Automation for businesses of any size and sector: Ready-made, Connected, Complex and Custom plans.'
+          : 'Her sektör ve ölçekteki işletme için otomasyon: Hazır, Bağlantılı, Kapsamlı ve Özel paketler.'}
         path="/pricing/automation"
         locale={isEN ? 'en_GB' : 'tr_TR'}
         keywords={isEN
@@ -112,55 +120,84 @@ export default function PricingAutomation() {
           </div>
         </section>
 
-        {/* Paketler */}
+        {/* Paketler — konsey 2026-10-19: ayrım işin karmaşıklığına / kullanılan araçlara göre */}
         <section id="paketler" style={sectionPad}>
           <h2 style={h2}>{isEN ? 'Plans' : 'Paketler'}</h2>
           <p style={lede}>
             {isEN
-              ? 'Every plan starts with a free 14-day trial. Setup is one-off; the monthly fee covers hosting, monitoring, fixes and support.'
-              : 'Her paket 14 gün ücretsiz denemeyle başlar. Kurulum tek seferliktir; aylık ücrete barındırma, izleme, arıza müdahalesi ve destek dahildir.'}
+              ? 'Choose by the tools you use, not by the size of your company. Setup is one-off; the monthly fee covers hosting, monitoring, fixes and support.'
+              : 'Şirketinizin büyüklüğüne değil, kullandığınız araçlara göre seçin. Kurulum tek seferliktir; aylık ücrete barındırma, izleme, arıza müdahalesi ve destek dahildir.'}
           </p>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(280px,100%),1fr))', gap: '1rem', alignItems: 'stretch' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(240px,100%),1fr))', gap: '1rem', alignItems: 'stretch' }}>
             {AUTOMATION_TIERS.map((t) => {
               const tier = pricing.packages[t.key];
               const featured = !!tier.featured;
+              const from = !!tier.priceFrom;
+              const monthly = formatPrice(tier.price, region);
+              const setup = formatPrice(tier.setupFee, region);
               return (
-                <article key={t.key} style={{ ...card, display: 'flex', flexDirection: 'column', gap: '1rem', border: featured ? '2px solid var(--ink)' : card.border }}>
+                <article key={t.key} style={{ ...card, display: 'flex', flexDirection: 'column', gap: '0.9rem', border: featured ? '2px solid var(--ink)' : card.border }}>
                   <div>
                     {featured && (
                       <div style={{ ...eyebrow, color: 'var(--ink)', marginBottom: '0.4rem' }}>
                         {isEN ? 'Recommended' : 'Önerilen'}
                       </div>
                     )}
-                    <h3 style={{ fontSize: '1.3rem', fontWeight: 800, color: 'var(--ink)', margin: 0 }}>{t.label[lang]}</h3>
-                    <p style={{ color: 'var(--muted)', fontSize: '0.88rem', lineHeight: 1.55, margin: '0.35rem 0 0' }}>{t.fits[lang]}</p>
+                    <h3 style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--ink)', margin: 0 }}>{TIER_LABELS[t.key]?.[lang] ?? tier.name}</h3>
+                    <div style={{ fontSize: '0.8rem', fontWeight: 600, color: 'var(--ink)', margin: '0.35rem 0 0' }}>
+                      {isEN ? 'Tools: ' : 'Araçlar: '}{t.tools[lang]}
+                    </div>
+                    <p style={{ color: 'var(--muted)', fontSize: '0.86rem', lineHeight: 1.55, margin: '0.35rem 0 0' }}>{t.fits[lang]}</p>
                   </div>
                   <div style={{ borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)', padding: '0.85rem 0' }}>
                     {tier.customPrice ? (
-                      <div style={{ fontSize: '1.35rem', fontWeight: 800, color: 'var(--ink)' }}>{isEN ? 'Quoted after the trial' : 'Deneme sonrası teklif'}</div>
+                      <div style={{ fontSize: '1.25rem', fontWeight: 800, color: 'var(--ink)' }}>{isEN ? 'Quoted after scoping' : 'Görüşme sonrası teklif'}</div>
                     ) : (
                       <>
-                        <div style={{ fontSize: '1.5rem', fontWeight: 800, color: 'var(--ink)' }}>
-                          {formatPrice(tier.price, region)}<span style={{ fontSize: '0.9rem', fontWeight: 600, color: 'var(--muted)' }}>{isEN ? ' / month' : ' / ay'}</span>
+                        <div style={{ fontSize: '1.45rem', fontWeight: 800, color: 'var(--ink)' }}>
+                          {from && !isEN ? `${monthly}’den` : from ? `from ${monthly}` : monthly}
+                          <span style={{ fontSize: '0.9rem', fontWeight: 600, color: 'var(--muted)' }}>{isEN ? ' / month' : ' / ay'}</span>
                         </div>
-                        <div style={{ fontSize: '0.88rem', color: 'var(--muted)', marginTop: '0.2rem' }}>
-                          {isEN ? `Setup from ${formatPrice(tier.setupFee, region)} (one-off)` : `Kurulum ${formatPrice(tier.setupFee, region)}’den başlayan (tek seferlik)`}
+                        <div style={{ fontSize: '0.86rem', color: 'var(--muted)', marginTop: '0.2rem' }}>
+                          {isEN
+                            ? `${from ? 'Setup from' : 'Setup'} ${setup} (one-off)`
+                            : `Kurulum ${setup}${from ? '’den başlayan' : ''} (tek seferlik)`}
                         </div>
                       </>
                     )}
                   </div>
                   <CheckList items={t.included[lang]} />
-                  {t.note && <p style={{ fontSize: '0.8rem', color: 'var(--muted)', lineHeight: 1.55, margin: 0 }}>{t.note[lang]}</p>}
+                  <p style={{ fontSize: '0.8rem', color: 'var(--muted)', lineHeight: 1.55, margin: 0 }}>{t.terms[lang]}</p>
                   <div style={{ marginTop: 'auto' }}>
-                    <PrimaryButton href={wa}>{isEN ? 'Start the free trial' : 'Ücretsiz denemeyi başlatın'}</PrimaryButton>
+                    <PrimaryButton href={wa}>
+                      {t.key === 'automation' ? (isEN ? 'Ask for a demo' : 'Demo isteyin') : t.key === 'automation-custom' ? (isEN ? 'Get in touch' : 'İletişime geçin') : (isEN ? 'Start the free trial' : 'Ücretsiz denemeyi başlatın')}
+                    </PrimaryButton>
                   </div>
                 </article>
               );
             })}
           </div>
           <p style={{ fontSize: '0.85rem', color: 'var(--muted)', margin: '1rem 0 0' }}>
-            {isEN ? 'We take on at most 2 new trials at a time so that each one gets proper attention.' : 'Her denemeye hakkıyla vakit ayırabilmek için aynı anda en fazla 2 yeni deneme alıyoruz.'}
+            {isEN ? 'We take on a limited number of new setups at a time so that each one gets proper attention.' : 'Her kuruluma hakkıyla vakit ayırabilmek için aynı anda sınırlı sayıda yeni kurulum alıyoruz.'}
           </p>
+        </section>
+
+        {/* Hazır otomasyon kataloğu */}
+        <section id="hazir" style={sectionPad}>
+          <h2 style={h2}>{isEN ? 'Ready-made automations' : 'Hazır otomasyonlar'}</h2>
+          <p style={lede}>
+            {isEN
+              ? 'Fixed-scope systems you can choose for the Ready-made plan. Anything beyond these falls under Connected.'
+              : 'Hazır otomasyon paketinde seçebileceğiniz, kapsamı sabit sistemler. Bunların dışındaki işler Bağlantılı pakete girer.'}
+          </p>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(240px,100%),1fr))', gap: '1rem' }}>
+            {READY_CATALOG[lang].map((c) => (
+              <div key={c.title} style={card}>
+                <strong style={{ color: 'var(--ink)' }}>{c.title}</strong>
+                <p style={{ color: 'var(--muted)', fontSize: '0.88rem', lineHeight: 1.55, margin: '0.35rem 0 0' }}>{c.desc}</p>
+              </div>
+            ))}
+          </div>
         </section>
 
         <CostCalculator isEN={isEN} region={region} />
@@ -169,7 +206,7 @@ export default function PricingAutomation() {
         <section style={sectionPad}>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(300px,100%),1fr))', gap: '1rem' }}>
             <div style={card}>
-              <h2 style={{ ...h2, fontSize: '1.25rem' }}>{isEN ? 'The 14-day trial' : '14 günlük deneme'}</h2>
+              <h2 style={{ ...h2, fontSize: '1.25rem' }}>{isEN ? 'Trial and refund' : 'Deneme ve iade'}</h2>
               <CheckList items={TRIAL[lang]} />
             </div>
             <div style={card}>
@@ -195,8 +232,8 @@ export default function PricingAutomation() {
             </h2>
             <p style={{ opacity: 0.85, maxWidth: 520, margin: '0 auto 2rem', lineHeight: 1.65 }}>
               {isEN
-                ? 'Describe it in a few lines. We will tell you honestly whether it can be automated and, if so, set it up for a free 14-day trial.'
-                : 'Birkaç cümleyle anlatın. Otomatikleştirilebilir mi dürüstçe söyleyelim, uygunsa 14 gün ücretsiz deneme için kuralım.'}
+                ? 'Describe it in a few lines. We will tell you honestly whether it can be automated and which plan it fits.'
+                : 'Birkaç cümleyle anlatın. Otomatikleştirilebilir mi ve hangi pakete girer, dürüstçe söyleyelim.'}
             </p>
             <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center', flexWrap: 'wrap' }}>
               <PrimaryButton href={wa} inverted>{isEN ? 'Write on WhatsApp' : 'WhatsApp’tan yazın'}</PrimaryButton>
