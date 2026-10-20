@@ -1,0 +1,466 @@
+OpenAI Codex v0.153.4
+--------
+workdir: C:\Users\Pc\Desktop\MGL_SYSTEM\04_PROJELER\mgl-ai-site\docs\konsey\2026-10-19-yeniden-tasarim
+model: gpt-5.6-sol
+provider: openai
+approval: never
+sandbox: read-only
+reasoning effort: high
+reasoning summaries: none
+session id: 01a155f9-714d-7780-9ae8-867974370931
+--------
+user
+# Council brief — mgl-ai.com redesign from scratch (round 1)
+
+You are one of three independent advisors. Disagree openly; do not agree out of politeness. Mark every number as an estimate unless sourced. English, max ~900 words.
+
+## Context
+- MGL Digital Media Ltd, UK-registered company, run by ONE founder who also has a full-time day job; he manages everything from his phone. Bilingual site TR + EN, region-based prices (Turkey TRY, UK GBP).
+- What is sold (two price lists, both for businesses of ANY size and sector):
+  1. **Automation** — tiers by job complexity, not company size: Ready-made (5 fixed catalogue automations: lead capture, appointment reminders, payment chaser, document collection, review requests) → Connected (2-3 workflows, CRM/cloud apps) → Complex (ERP, AI document reading, multilingual; e.g. reading incoming quote requests and preparing a draft) → Custom.
+  2. **Web, ads, AI assistants** — websites (one-off build), Meta/Google ads management (flat monthly fee), AI phone receptionist and WhatsApp assistant (monthly + prepaid usage).
+- Visitors: (a) decision makers at 20-500 staff manufacturers/distributors who received a cold email and check whether we are real and competent (they spend <60 seconds); (b) small business owners (clinics, salons, restaurants, accountants) from search, ads or referral.
+- Proof available: no case studies yet; 1 paying UK small-business client (ads); a live client site with online ordering (a coffee shop); several demo websites built (dental clinic, hair transplant clinic, nursery); a first large manufacturer prospect in talks. Company number, address, founder name are public.
+- Constraints: honest tone, no fabricated numbers/logos/testimonials; 14-day free trial / money-back promise exists; human approval always stays with the client; GDPR/KVKK.
+- Stack stays: Vite + React, prerendered static pages, Cloudflare Pages. Images generated with an image model (no stock), but no fake client work shown as real.
+
+## Current site (owner dislikes it: home page, other pages, design)
+- Palette: warm cream paper #F7F4EE, ink #171713, crimson accent #A91D2D (plus moss, ochre). Fonts: Source Serif + DM Sans. Logo: "mgl" serif + italic "ai" in orange-red #BC3B15, tag "/ SYSTEMS" (accent colours inconsistent with site).
+- Home has 11 stacked sections (hero, capabilities, problems, journey, process bridge, who we work with, how we work, why MGL, pricing band, demo section, founder's bet, closing CTA). Hero image: a laptop showing a café website + WhatsApp chat + CRM notifications (reads as small-business only).
+- ~35 routes with overlapping logic: /services, /solutions (by sector: clinic, real estate, e-commerce, beauty, restaurant), /sorunlar (problem pages: after-hours calls, appointment reminders, payment chasing, document collection, Excel→messages), separate service pages (WhatsApp AI, voice AI, n8n, process automation, lead generation, managed outreach, UK accounting automation), comparison articles, blog, /pricing hub + /pricing/automation + /pricing/local.
+
+## Banned defaults (owner's standing rules)
+Orange/copper/terracotta/brick palettes (blind spot of past projects); generic hero + 3 cards + testimonials; stock-photo look; dark-mode-by-default; "AI made this" effect soup. Recently used in other projects (do not repeat): navy+brass gold, pastel pink, cream+rose+petrol, warm paper+gold+bronze (Lora/Karla), ink+matte gold (Italiana), warm paper+lime (Archivo), ink+bone+teal (Newsreader/Instrument Sans). Fonts already used: Fraunces, DM Sans, Lora, Karla, Archivo, Newsreader, Instrument Sans, Inter.
+
+## Questions
+1. **Core metaphor** in one sentence, and how it becomes a CONTENT component (not decoration). It must work for both a salon owner and a factory operations director.
+2. **Information architecture:** the full route list you would build (merge/kill the overlapping pages). What must a visitor find in one tap? How do the two audiences each find their path without the site contradicting itself?
+3. **Home page:** section list top to bottom (max ~7), what the first screen says and shows.
+4. **Palette (hex) + type pairing** (Turkish glyphs required), justified by the metaphor. Keep or redesign the logo?
+5. **Signature interaction** nobody else in this space has (one), and motion level (calm / medium / high).
+6. **Trust without case studies:** concrete content ideas.
+7. **Images:** what to generate (list each image, one line each), shared style direction, what is forbidden.
+8. What would make this redesign fail? Disagree openly.
+
+codex
+I’ll use the website-builder framework for the strategic redesign, then pressure-test it against the project’s existing notes and learned rules. I’ll keep the deliverable in English and under the requested length.
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command '$files = @('"'AGENTS.override.md','AGENTS.md','CLAUDE.md','status/PROGRESS.md','memory/CONFIRMED_RULES.md','memory/CANDIDATE_RULES.md','logs/operations.jsonl'); foreach ("'$f in $files) { if (Test-Path -LiteralPath $f) { Write-Output "###FILE:$f"; if ($f -eq '"'logs/operations.jsonl') { Get-Content -LiteralPath "'$f -Tail 20 } else { Get-Content -LiteralPath $f } } }; Write-Output '"'###SKILL'; Get-Content -LiteralPath 'C:\\Users\\Pc\\.codex\\skills\\website-builder\\SKILL.md' -Raw" in C:\Users\Pc\Desktop\MGL_SYSTEM\04_PROJELER\mgl-ai-site\docs\konsey\2026-10-19-yeniden-tasarim
+ succeeded in 199ms:
+###SKILL
+---
+name: website-builder
+description: >
+  Orchestrates premium website and landing page projects from discovery through blueprinting,
+  asset planning, and implementation readiness. Use when the user asks to build a premium
+  landing page, high-converting marketing site, Apple-style product page, scroll-stopping
+  website, or to start a new website project with strong visual direction. Do not use for
+  routine frontend bugfixes, small HTML/CSS edits, or generic maintenance work.
+---
+
+# Website Builder
+
+Act as a thin orchestrator for premium website builds. Drive the project from brief to buildable
+spec without duplicating lower-level implementation skills.
+
+Keep the workflow controlled:
+- Start with discovery, not code.
+- Pause for approval after the blueprint/spec.
+- Only request AI media generation when the concept actually needs it.
+- Inspect the repo before deciding whether to scaffold, extend, or patch.
+- Treat mobile design as mandatory, not a later polish pass.
+- Do not settle for generic "AI slop" aesthetics; commit to a distinct visual direction.
+
+## Workflow
+
+### Phase 1: Discovery Interview
+
+Start by collecting the minimum information needed to shape the project:
+- Business, product, or campaign name
+- Offer and target audience
+- Primary conversion goal
+- Site shape: one-page landing page, multi-section marketing site, or richer product site
+- Brand direction: tone, visual references, preferred colors, existing design system
+- Available inputs: copy, logo, photos, product renders, screenshots, live site, Figma, repo
+- Whether the project needs a dramatic scroll-driven hero or can use standard premium media
+
+Do not write code in this phase. If the user asks for a website but has no useful inputs, gather
+the brief first and then propose the simplest path that can still produce a convincing result.
+
+### Phase 2: Blueprint and Approval
+
+Once discovery is complete, produce a concise project blueprint artifact. The blueprint should be
+easy to approve and specific enough to implement without re-deciding the basics.
+
+Include:
+- Project summary and audience
+- Success criteria and primary CTA
+- Information architecture and section plan
+- Visual system direction: typography, color palette, layout character, interaction style
+- Visual atmosphere notes: background treatment, motion language, texture/depth strategy, and whether the concept should feel editorial, technical, cinematic, or minimal
+- Mobile behavior plan: how hero, navigation, cards, forms, and dense sections collapse or restack on small screens
+- Asset plan: existing assets vs AI-generated assets
+- Technical approach: whether to extend an existing app or scaffold a new frontend
+- Whether scroll-stop media is justified, and if so, what the hero concept will be
+
+Present the blueprint in chat and explicitly ask the user to approve or adjust it before moving on.
+
+### Phase 2.5: Competitor Scraping & Content Synthesis
+
+If the user provides competitor URLs or specifies a niche industry:
+- Automatically use `read_url_content` or similar tools to extract and analyze top competitor websites.
+- Extract their best content strategies, industry-specific terminology, service breakdowns, and trust signals (e.g., "Family-run", "Areas covered", certifications).
+- Synthesize this research into highly authoritative, conversion-optimized copywriting for the new website.
+- NEVER leave a website "empty" or relying solely on flashy animations. Ensure deep, meaningful text sections (Detailed Services, How We Work, Local SEO targets) are drafted to build genuine trust before coding the layout.
+
+### Phase 3: Asset Path Decision
+
+Choose the lightest path that fits the brief.
+
+If the project needs a scroll-driven or highly cinematic hero:
+- Route to the prompt-generation workflow for the required start-state, end-state, and motion prompts
+- Tell the user exactly what assets are needed and in which format
+- Wait until the required media or source files are available before promising implementation
+
+If the project already has usable branding and media:
+- Reuse them
+- Do not force AI-generated prompts or video workflows
+
+If the project does not need scroll-stop media:
+- Continue with a standard premium frontend path
+- Focus on layout, hierarchy, copy structure, trust signals, and CTA quality
+
+When relevant, rely on these existing skills rather than duplicating them:
+- `scroll-stop-builder` for frame-sequence scroll websites
+- `3D Website Asset Generator` for prompt generation
+- `seo-strategy` for optional SEO finishing work
+
+### Phase 4: Implementation Preparation
+
+Before changing code:
+- Inspect the repository structure
+- Identify the framework, routing model, styling system, and build tooling
+- Decide whether to scaffold a new app, extend an existing app, or patch a narrow area
+- Confirm any missing blockers such as required assets, missing content, or absent environment setup
+
+Do not assume Next.js by default. Use the stack already present when one exists. Only scaffold a new
+project when the repo is empty, mismatched to the task, or the user clearly wants a fresh build.
+
+If a fresh premium frontend must be scaffolded and no stack is imposed:
+- Prefer Next.js App Router, Tailwind CSS, and CSS custom properties as the baseline
+- Prefer Framer Motion for component-level motion
+- Add GSAP, Lenis, or React Three Fiber only when the concept clearly benefits and the performance budget allows it
+
+### Phase 5: Implementation Guidance
+
+When implementation begins:
+- Preserve established design systems and component patterns when they already exist
+- Otherwise define an intentional visual system instead of falling back to generic defaults
+- Favor strong typography, clear CTA hierarchy, and responsive layouts
+- Use distinctive typography; avoid defaulting to Inter, Roboto, Arial, Open Sans, Lato, or system-font stacks
+- Use CSS variables and a committed palette with clear dominant tones; avoid generic purple-on-white gradients and interchangeable SaaS styling
+- Create atmosphere with gradients, textures, glow, pattern, or layered depth instead of flat backgrounds
+- Use a small number of high-impact motion moments rather than scattering weak micro-interactions everywhere
+- Design mobile-first by default: stack content cleanly, preserve CTA visibility, size text and spacing intentionally, and avoid hover-only interactions
+- For scroll-heavy or cinematic sections, define a mobile-safe fallback or simplified layout before shipping
+- For `<canvas>` image-sequence sections, use screen-aware scaling logic: prefer `Math.min`/contain behavior on tall mobile screens to prevent destructive side-cropping, and `Math.max`/cover behavior on wider desktop screens
+- For scroll-driven builds, hand off the detailed frame extraction and canvas behavior to the
+  dedicated scroll-stop skill rather than re-explaining its internals
+- For content-heavy marketing pages, structure trust, proof, benefits, objections, and contact
+  paths before polishing decorative details
+- Build mobile layouts concurrently with desktop layouts; do not defer them to a cleanup pass
+
+If the user has not yet approved the blueprint or supplied required assets, do not skip ahead into
+full implementation.
+
+### Phase 6: Polish and SEO
+
+Before calling the project complete, verify:
+- Semantic structure and heading hierarchy
+- Core metadata and share-preview basics when applicable
+- Mobile responsiveness
+- Touch usability on real mobile breakpoints, including buttons, cards, sticky sections, and form controls
+- Reasonable performance for the chosen media strategy
+- No unnecessary motion, dependencies, or sections that dilute conversion
+
+Use the SEO skill as optional finishing guidance, not a mandatory full-site audit on every build.
+
+## Guardrails
+
+- Do not trigger for small spacing fixes, copy edits, or routine maintenance.
+- Do not force a scroll-animation concept onto every website brief.
+- Do not mention tools or actions that are not actually available in the environment.
+- Do not promise implementation until the project shape and asset path are locked.
+- Do not treat desktop completion as sufficient; every shipped section must have an intentional mobile layout.
+- Do not force 3D, GSAP, Lenis, or dark-mode-first styling onto every project; use them when the brief and repo justify them.
+- Keep the master skill lean; rely on downstream skills for specialized execution details.
+
+
+exec
+"C:\\WINDOWS\\System32\\WindowsPowerShell\\v1.0\\powershell.exe" -Command 'rg --files' in C:\Users\Pc\Desktop\MGL_SYSTEM\04_PROJELER\mgl-ai-site\docs\konsey\2026-10-19-yeniden-tasarim
+ succeeded in 980ms:
+glm_1.md
+gemini_1.md
+codex_log1.txt
+01_brifing.md
+00_claude_taslak.md
+
+codex
+## Core metaphor
+
+**“The handoff map”: every job moves from an incoming signal, through system work, to a clearly marked human decision.**
+
+This becomes the site’s main content component—not decoration. Visitors switch between examples such as “quote request” and “appointment enquiry,” then see:
+
+`Request → collect/check → prepare action → human approval → send/update`
+
+Each stage reveals the apps involved, what MGL builds, what remains under client control, and the relevant package.
+
+## Information architecture
+
+Use the same route schema under `/en/` and `/tr/`, with localised copy and metadata:
+
+- `/` — homepage
+- `/for/operations-teams`
+- `/for/local-businesses`
+- `/automation`
+- `/automation/lead-capture`
+- `/automation/appointment-reminders`
+- `/automation/payment-chasing`
+- `/automation/document-collection`
+- `/automation/review-requests`
+- `/automation/connected`
+- `/automation/complex`
+- `/automation/custom`
+- `/websites`
+- `/advertising`
+- `/ai-phone-receptionist`
+- `/whatsapp-assistant`
+- `/pricing`
+- `/examples`
+- `/examples/coffee-shop-ordering`
+- `/examples/dental-demo`
+- `/examples/nursery-demo`
+- `/how-it-works`
+- `/privacy-security`
+- `/about`
+- `/contact`
+- `/insights`
+- `/insights/[slug]`
+- `/privacy`, `/terms`, `/cookies`
+
+Kill `/services`, `/solutions`, `/sorunlar`, most sector pages, comparison filler, and separate pages for implementation tools such as n8n. Tools support the offer; they are not the offer.
+
+The manufacturer route and local-business route are curated starting points, not different product catalogues. Both lead to the same services and pricing logic: **complexity determines price, not headcount**.
+
+One-tap navigation must expose: Services, Examples, Pricing, How it works, Company, and “Discuss a process.”
+
+I disagree with leading with “for every size and sector.” It may be true, but it sounds unfocused. Demonstrate breadth through contrasting work examples instead.
+
+## Homepage
+
+About seven sections is the estimate:
+
+- **First screen — interactive handoff map.**  
+  Headline: **“Systems that move work forward—until a person needs to decide.”**  
+  Supporting copy: “MGL builds automation, websites, advertising systems and AI reception for UK and Turkish businesses.”  
+  Show two selectable workflows: a factory quote request and a salon appointment enquiry. No laptop mockup.
+- **Credibility rail.** UK-registered company, named founder, public company details, GDPR/KVKK, human approval retained.
+- **Choose your starting point.** “I manage operations” / “I run a local business.” These change examples, not the underlying offer.
+- **Offer and pricing map.** Automation complexity ladder alongside Websites, Ads, Phone AI and WhatsApp AI. Show starting prices or transparent price ranges.
+- **Evidence, properly labelled.** Live coffee-shop site, real advertising engagement if permission allows, and a separate “Concept demonstrations” collection.
+- **How engagement works.** Discovery, bounded proposal, build/test, approval, support—paired with ownership and data-handling answers.
+- **Owner-led close.** Real founder portrait, direct contact, expected response window, and one CTA.
+
+## Visual system
+
+Proposed exact design tokens:
+
+- Porcelain: `#F5F6F2`
+- Carbon: `#171A1F`
+- Cobalt: `#3155D9`
+- Pale signal blue: `#DDE5FF`
+- Verified green: `#197052`
+- Functional warning red: `#B83A4B`
+
+Cobalt represents active paths; green appears only at verified or approved stages. The site remains predominantly light.
+
+Use **IBM Plex Sans** for interface and body copy, paired with **IBM Plex Mono** for workflow states, prices and technical annotations. Both support Turkish glyphs and make the system feel operational rather than generically “luxury.”
+
+Redesign the logo. Keep the recognisable `mgl ai` name, remove the orange italic treatment, and replace `/ SYSTEMS` with a restrained modular descriptor. The current logo would contaminate the new palette.
+
+## Signature interaction
+
+Build a **Human Checkpoint Simulator**. The visitor selects an incoming task, then advances it through a short, deterministic workflow. At each step the system declares:
+
+- what is automated;
+- what data is used;
+- where approval is required;
+- what happens after approval;
+- which package supports it.
+
+It must be an explanatory simulation, never a fake live dashboard. Motion level: **calm**—path tracing, state changes and restrained transitions; no scroll theatre.
+
+## Trust without case studies
+
+- Link directly to Companies House and show the registered identity plainly.
+- Publish the real coffee-shop project with its exact scope—no unsupported performance claims.
+- Label every demo “Concept demonstration—not client work.”
+- Provide downloadable sample deliverables: workflow map, implementation plan, approval matrix and support handover.
+- Show redacted automation walkthroughs using fictional data.
+- Publish clear boundaries: ownership, cancellation, usage charges, support and data retention.
+- Explain where human approval remains mandatory.
+- Apply the existing **14-day** promise only where its terms genuinely fit; do not imply that a completed bespoke website is universally refundable.
+- Use a real founder photograph and a concise, non-inflated biography.
+
+I would remove the hair-transplant demo from featured work. It creates an ethical conflict and makes the portfolio look like interchangeable agency templates.
+
+## Image plan
+
+- Hero: no generated image; the real workflow simulator is the visual.
+- Automation overview: an orthographic paper-like handoff system connecting inbox, documents, approval and output.
+- Operations path: a dispatch desk with quote sheet, inventory record and approval card.
+- Local-business path: booking request, phone, calendar and payment checkpoint.
+- AI assistants: voice and message inputs converging on one human-controlled queue.
+- Websites: real screenshots from the live coffee-shop site and honestly labelled demos.
+- About: real founder photography only.
+
+Shared style: cool-white miniature architecture, cobalt routing lines, crisp directional light, subtle grain, no photorealistic people.
+
+Forbidden: humanoid robots, glowing brains, floating fake dashboards, neon circuitry, fake client premises, invented metrics, stock-photo smiles, orange gradients, or AI-generated founder/client portraits.
+
+## What would make it fail
+
+Preserving all existing routes, hiding prices, presenting demos as proof, making the simulator look live, or cramming every service into the hero would fail. So would oversized cinematic assets: the brief-supplied decision window is under sixty seconds, and many visitors arrive on mobile.
+
+The largest strategic risk is pretending a one-founder company has agency-scale capacity. Position it honestly as senior, owner-led and deliberately bounded—with clear onboarding limits and response expectations.
+tokens used
+29.626
+## Core metaphor
+
+**“The handoff map”: every job moves from an incoming signal, through system work, to a clearly marked human decision.**
+
+This becomes the site’s main content component—not decoration. Visitors switch between examples such as “quote request” and “appointment enquiry,” then see:
+
+`Request → collect/check → prepare action → human approval → send/update`
+
+Each stage reveals the apps involved, what MGL builds, what remains under client control, and the relevant package.
+
+## Information architecture
+
+Use the same route schema under `/en/` and `/tr/`, with localised copy and metadata:
+
+- `/` — homepage
+- `/for/operations-teams`
+- `/for/local-businesses`
+- `/automation`
+- `/automation/lead-capture`
+- `/automation/appointment-reminders`
+- `/automation/payment-chasing`
+- `/automation/document-collection`
+- `/automation/review-requests`
+- `/automation/connected`
+- `/automation/complex`
+- `/automation/custom`
+- `/websites`
+- `/advertising`
+- `/ai-phone-receptionist`
+- `/whatsapp-assistant`
+- `/pricing`
+- `/examples`
+- `/examples/coffee-shop-ordering`
+- `/examples/dental-demo`
+- `/examples/nursery-demo`
+- `/how-it-works`
+- `/privacy-security`
+- `/about`
+- `/contact`
+- `/insights`
+- `/insights/[slug]`
+- `/privacy`, `/terms`, `/cookies`
+
+Kill `/services`, `/solutions`, `/sorunlar`, most sector pages, comparison filler, and separate pages for implementation tools such as n8n. Tools support the offer; they are not the offer.
+
+The manufacturer route and local-business route are curated starting points, not different product catalogues. Both lead to the same services and pricing logic: **complexity determines price, not headcount**.
+
+One-tap navigation must expose: Services, Examples, Pricing, How it works, Company, and “Discuss a process.”
+
+I disagree with leading with “for every size and sector.” It may be true, but it sounds unfocused. Demonstrate breadth through contrasting work examples instead.
+
+## Homepage
+
+About seven sections is the estimate:
+
+- **First screen — interactive handoff map.**  
+  Headline: **“Systems that move work forward—until a person needs to decide.”**  
+  Supporting copy: “MGL builds automation, websites, advertising systems and AI reception for UK and Turkish businesses.”  
+  Show two selectable workflows: a factory quote request and a salon appointment enquiry. No laptop mockup.
+- **Credibility rail.** UK-registered company, named founder, public company details, GDPR/KVKK, human approval retained.
+- **Choose your starting point.** “I manage operations” / “I run a local business.” These change examples, not the underlying offer.
+- **Offer and pricing map.** Automation complexity ladder alongside Websites, Ads, Phone AI and WhatsApp AI. Show starting prices or transparent price ranges.
+- **Evidence, properly labelled.** Live coffee-shop site, real advertising engagement if permission allows, and a separate “Concept demonstrations” collection.
+- **How engagement works.** Discovery, bounded proposal, build/test, approval, support—paired with ownership and data-handling answers.
+- **Owner-led close.** Real founder portrait, direct contact, expected response window, and one CTA.
+
+## Visual system
+
+Proposed exact design tokens:
+
+- Porcelain: `#F5F6F2`
+- Carbon: `#171A1F`
+- Cobalt: `#3155D9`
+- Pale signal blue: `#DDE5FF`
+- Verified green: `#197052`
+- Functional warning red: `#B83A4B`
+
+Cobalt represents active paths; green appears only at verified or approved stages. The site remains predominantly light.
+
+Use **IBM Plex Sans** for interface and body copy, paired with **IBM Plex Mono** for workflow states, prices and technical annotations. Both support Turkish glyphs and make the system feel operational rather than generically “luxury.”
+
+Redesign the logo. Keep the recognisable `mgl ai` name, remove the orange italic treatment, and replace `/ SYSTEMS` with a restrained modular descriptor. The current logo would contaminate the new palette.
+
+## Signature interaction
+
+Build a **Human Checkpoint Simulator**. The visitor selects an incoming task, then advances it through a short, deterministic workflow. At each step the system declares:
+
+- what is automated;
+- what data is used;
+- where approval is required;
+- what happens after approval;
+- which package supports it.
+
+It must be an explanatory simulation, never a fake live dashboard. Motion level: **calm**—path tracing, state changes and restrained transitions; no scroll theatre.
+
+## Trust without case studies
+
+- Link directly to Companies House and show the registered identity plainly.
+- Publish the real coffee-shop project with its exact scope—no unsupported performance claims.
+- Label every demo “Concept demonstration—not client work.”
+- Provide downloadable sample deliverables: workflow map, implementation plan, approval matrix and support handover.
+- Show redacted automation walkthroughs using fictional data.
+- Publish clear boundaries: ownership, cancellation, usage charges, support and data retention.
+- Explain where human approval remains mandatory.
+- Apply the existing **14-day** promise only where its terms genuinely fit; do not imply that a completed bespoke website is universally refundable.
+- Use a real founder photograph and a concise, non-inflated biography.
+
+I would remove the hair-transplant demo from featured work. It creates an ethical conflict and makes the portfolio look like interchangeable agency templates.
+
+## Image plan
+
+- Hero: no generated image; the real workflow simulator is the visual.
+- Automation overview: an orthographic paper-like handoff system connecting inbox, documents, approval and output.
+- Operations path: a dispatch desk with quote sheet, inventory record and approval card.
+- Local-business path: booking request, phone, calendar and payment checkpoint.
+- AI assistants: voice and message inputs converging on one human-controlled queue.
+- Websites: real screenshots from the live coffee-shop site and honestly labelled demos.
+- About: real founder photography only.
+
+Shared style: cool-white miniature architecture, cobalt routing lines, crisp directional light, subtle grain, no photorealistic people.
+
+Forbidden: humanoid robots, glowing brains, floating fake dashboards, neon circuitry, fake client premises, invented metrics, stock-photo smiles, orange gradients, or AI-generated founder/client portraits.
+
+## What would make it fail
+
+Preserving all existing routes, hiding prices, presenting demos as proof, making the simulator look live, or cramming every service into the hero would fail. So would oversized cinematic assets: the brief-supplied decision window is under sixty seconds, and many visitors arrive on mobile.
+
+The largest strategic risk is pretending a one-founder company has agency-scale capacity. Position it honestly as senior, owner-led and deliberately bounded—with clear onboarding limits and response expectations.

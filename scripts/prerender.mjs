@@ -193,7 +193,7 @@ const ROUTES = ROUTE_SEEDS.flatMap((seed) => {
   ];
 });
 
-ROUTES.push({ path: '/en/', basePath: '/', lang: 'en', title: 'MGL Digital Media · Systems do the work, you make the call', description: 'Automation, websites, ads management and AI assistants for small businesses and manufacturers. The system prepares the work; approval stays with you. UK and Türkiye.' });
+ROUTES.push({ path: '/en/', basePath: '/', lang: 'en', title: 'MGL Digital Media · Websites, ads, AI assistants and automation', description: 'Automation, websites, ads management and AI assistants for small businesses and manufacturers. The system prepares the work; approval stays with you. UK and Türkiye.' });
 
 const STATIC_ROUTE_CONTENT = {
   '/whatsapp-ai-asistan': {

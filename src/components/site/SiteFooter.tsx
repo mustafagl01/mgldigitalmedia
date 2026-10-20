@@ -62,7 +62,7 @@ export function SiteFooter(_props: Props) {
           <div style={{ display: 'grid', gap: 14, alignContent: 'start' }}>
             <Wordmark size={24} inverse />
             <p style={{ color: 'var(--bone-3)', fontSize: 14, lineHeight: 1.6, margin: 0, maxWidth: 34 + 'ch' }}>
-              {t('İşi sistem yürütür, kararı siz verirsiniz. Otomasyon, web, reklam ve AI asistan; UK ve Türkiye.', 'The system does the work, you make the call. Automation, web, ads and AI assistants; UK and Türkiye.')}
+              {t('Müşteriler sizi bulsun, hiçbir talep kaçmasın, işler onayınızla yürüsün. Web, reklam, AI asistan ve otomasyon; UK ve Türkiye.', 'Get found, never miss an enquiry, let the work run with your approval. Web, ads, AI assistants and automation; UK and Türkiye.')}
             </p>
             <div style={{ display: 'flex', gap: 8 }}>
               {SOCIAL_LINKS.map(({ label, href, Icon }) => (

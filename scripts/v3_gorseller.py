@@ -18,7 +18,7 @@ def save(src: Path, dst: Path, width: int, q: int = 78):
     print(dst.name, im.size, dst.stat().st_size // 1024, "KB")
 
 
-for name in ["hero", "otomasyon", "ureticiler", "asistanlar", "webreklam"]:
+for name in ["hero", "hero2", "otomasyon", "ureticiler", "asistanlar", "webreklam"]:
     save(SRC / f"{name}-yatay.png", OUT / f"{name}-d.webp", 1600)
     save(SRC / f"{name}-dikey.png", OUT / f"{name}-m.webp", 900)
 

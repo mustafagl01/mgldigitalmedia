@@ -2,9 +2,9 @@ import { useState } from 'react';
 import { Seo, BASE_SCHEMAS, breadcrumbSchema } from '../../components/seo/Seo';
 import { useLocation } from '../../contexts/LocationContext';
 import { formatPrice } from '../../utils/formatPrice';
-import { CATALOG } from '../../content/v3';
+import { CATALOG, WORK } from '../../content/v3';
 import { OnaySimulatoru } from '../../components/v3/OnaySimulatoru';
-import { Pic, Head, KanitSeridi, IsKartlari, Kurucu, KapanisBandi, useV3 } from '../../components/v3/parts';
+import { Pic, Head, KanitSeridi, IsKartlari, Kurucu, KapanisBandi, useV3, WHATSAPP } from '../../components/v3/parts';
 
 /* Ana sayfa v3 — 7 bölüm (konsey 2026-10-19). Hero: iki kapı + onay simülatörü.
    Gerçek işler hero'da DEĞİL; kanıt şeridinde ve /isler'de (kullanıcı 2026-10-19). */
@@ -23,58 +23,78 @@ export default function HomeV3() {
   return (
     <>
       <Seo
-        title={t('MGL Digital Media · İşi sistem yürütür, kararı siz verirsiniz', 'MGL Digital Media · Systems do the work, you make the call')}
+        title={t('MGL Digital Media · Web sitesi, reklam, AI asistan ve otomasyon', 'MGL Digital Media · Websites, ads, AI assistants and automation')}
         description={t(
-          'Küçük işletmelerden üreticilere otomasyon, web sitesi, reklam yönetimi ve AI asistan. Sistem işi hazırlar, onay sizde kalır. UK ve Türkiye.',
-          'Automation, websites, ads management and AI assistants for small businesses and manufacturers. The system prepares the work; approval stays with you. UK and Türkiye.',
+          'Müşteriler sizi bulsun, hiçbir talep kaçmasın, işler onayınızla yürüsün: web sitesi, reklam yönetimi, AI telefon ve WhatsApp asistanı, otomasyon. UK ve Türkiye.',
+          'Get found, never miss an enquiry, let the work run with your approval: websites, ads management, AI phone and WhatsApp assistants, automation. UK and Türkiye.',
         )}
         path="/"
         locale={isEN ? 'en_GB' : 'tr_TR'}
         jsonLd={[...BASE_SCHEMAS, breadcrumbSchema([{ name: t('Ana Sayfa', 'Home'), path: '/' }])]}
       />
 
-      {/* 1 · Hero */}
+      {/* 1 · Hero — konsey 4-5. tur (2026-10-20): çatı vaat müşteri yolculuğu; onay son adım.
+          İlk ekranda 5 öğe: etiket, başlık, açıklama, iki buton, görsel. Dört hizmet hemen altta. */}
       <section className="v3-hero">
-        <div className="v3-hero__bg" aria-hidden="true"><Pic name="hero" alt="" eager /></div>
+        <div className="v3-hero__bg" aria-hidden="true"><Pic name="hero2" alt="" eager /></div>
         <div className="v3-wrap v3-hero__inner">
           <div className="v3-hero__text">
-            <div className="v3-tag">{t('UK ve Türkiye · küçük ve büyük işletmeler', 'UK and Türkiye · small and large businesses')}</div>
-            <h1 className="v3-h1">{t('İşi sistem yürütür,', 'The system does the work.')}<br /><span className="soft">{t('kararı siz verirsiniz.', 'You make the call.')}</span></h1>
+            <div className="v3-tag">{t('UK ve Türkiye · küçük işletmeden üreticiye', 'UK and Türkiye · from small businesses to manufacturers')}</div>
+            <h1 className="v3-h1 v3-h1--hero">
+              {t('Müşteriler sizi bulsun.', 'Get found.')}<br />
+              {t('Hiçbir talep kaçmasın.', 'Never miss an enquiry.')}<br />
+              <span className="soft">{t('İşler onayınızla yürüsün.', 'Let the work run, with your approval.')}</span>
+            </h1>
             <p className="v3-lede">
               {t(
-                'Otomasyon, web sitesi, reklam yönetimi ve AI telefon/WhatsApp asistanı. Sizi bulunur kılar, gelen işi hazırlar; müşterinize bir şey gitmeden önce onayınızı bekler.',
-                'Automation, websites, ads management and AI phone/WhatsApp assistants. We get you found and prepare the incoming work, then wait for your approval before anything reaches a customer.',
+                'Web sitesi, reklam yönetimi, AI telefon ve WhatsApp asistanı, otomasyon: bugün hangisi gerekiyorsa oradan başlayın, isterseniz hepsini birbirine bağlayın.',
+                'Websites, ads management, an AI phone and WhatsApp assistant, and automation: start with whichever you need today and connect them later if you like.',
               )}
             </p>
-          </div>
-          {/* Dört iş kolu ilk ekranda (website-builder TUZAK §26): imza bileşen otomasyonu anlatsa da web ve reklam kaybolmaz. */}
-          <nav className="v3-services" aria-label={t('Hizmetler', 'Services')}>
-            {[
-              ['/otomasyon', t('Otomasyon', 'Automation'), t('Randevu, tahsilat, teklif, evrak', 'Bookings, payments, quotes, documents')],
-              ['/web-ve-reklam#web', t('Web sitesi', 'Websites'), t('Tek seferlik, ilk yıl barındırma dahil', 'One-off build, first year hosting included')],
-              ['/web-ve-reklam#reklam', t('Reklam yönetimi', 'Ads management'), t('Meta ve Google, sabit aylık ücret', 'Meta and Google, flat monthly fee')],
-              ['/asistanlar', t('AI asistan', 'AI assistants'), t('Telefon ve WhatsApp, 7/24', 'Phone and WhatsApp, 24/7')],
-            ].map(([href, name, sub]) => (
-              <a key={href} href={href}><strong>{name}</strong><span>{sub}</span></a>
-            ))}
-          </nav>
-          <div className="v3-tag" style={{ marginTop: 22, marginBottom: 10 }}>{t('Otomasyonda nereden başlamalı?', 'Where to start with automation?')}</div>
-          <div className="v3-doors">
-            <button className="v3-door" onClick={() => openDoor('randevu')}>
-              <img src="/v3/kapi-kucuk.webp" alt="" width={64} height={64} />
-              <div><strong>{t('Küçük işletme', 'Small business')}</strong><span>{t('Hazır bir otomasyonla bugün başlayın', 'Start today with a ready-made automation')}</span></div>
-            </button>
-            <button className="v3-door" onClick={() => openDoor('teklif')}>
-              <img src="/v3/kapi-uretici.webp" alt="" width={64} height={64} />
-              <div><strong>{t('Üretici veya distribütör', 'Manufacturer or distributor')}</strong><span>{t('Süreçlerinizi bağlantılı bir sisteme dönüştürün', 'Turn your processes into a connected system')}</span></div>
-            </button>
+            <div className="v3-btns">
+              <a className="btn btn-primary btn-lg" href="#hizmetler">{t('Hizmetleri görün', 'See the services')}</a>
+              <a className="btn btn-ghost btn-lg" href={WHATSAPP} target="_blank" rel="noopener noreferrer">{t('WhatsApp\u2019tan yazın', 'Write on WhatsApp')}</a>
+            </div>
           </div>
         </div>
       </section>
 
-      <section id="simulator" className="v3-section" style={{ paddingTop: 'clamp(2.5rem,5vw,4rem)' }}>
+      {/* Dört hizmet — yolculuk sırasıyla, her biri tek başına alınabilir (website-builder TUZAK §26) */}
+      <section id="hizmetler" className="v3-section" style={{ paddingTop: 'clamp(2.5rem,5vw,4rem)' }}>
         <div className="v3-wrap">
-          <Head tag={t('Kendiniz deneyin', 'Try it yourself')} title={t('Bir işi seçin, adım adım ilerletin.', 'Pick a task and step through it.')} soft={t('Son sözü siz söyleyin.', 'Then make the final call.')} />
+          <Head tag={t('Dört hizmet', 'Four services')} title={t('Tek bir hizmetle başlayın,', 'Start with one service,')} soft={t('ya da hepsini bağlayın.', 'or connect them all.')} />
+          <div className="v3-journey">
+            {[
+              ['01', t('Bulunun', 'Get found'), t('Web sitesi', 'Websites'), t(`Tek seferlik kurulum, ilk yıl barındırma dahil. Yayında ${WORK.length} müşteri sitesi.`, `One-off build, first year of hosting included. ${WORK.length} client sites live.`), '/web-ve-reklam#web'],
+              ['02', t('Görünün', 'Get seen'), t('Reklam yönetimi', 'Ads management'), t(`Meta veya Google, aylık ${formatPrice(p['ads-meta'].price, region)}; bütçeden yüzde alınmaz.`, `Meta or Google, ${formatPrice(p['ads-meta'].price, region)} a month; no percentage of spend.`), '/web-ve-reklam#reklam'],
+              ['03', t('Cevap verin', 'Answer'), t('AI telefon ve WhatsApp', 'AI phone and WhatsApp'), t('Mesai dışında da telefonu açar, mesajlara cevap verir, randevu alır.', 'Answers calls and messages after hours and takes bookings.'), '/asistanlar'],
+              ['04', t('İş yürüsün', 'Let it run'), t('Otomasyon', 'Automation'), t('Hatırlatma, tahsilat, evrak, teklif ve sipariş; müşteriye giden her şey onayınızla.', 'Reminders, payments, documents, quotes and orders; anything customer-facing waits for your approval.'), '/otomasyon'],
+            ].map(([n, verb, name, text, href]) => (
+              <a key={href} className="v3-journey__item" href={href}>
+                <span className="v3-journey__n">{n}</span>
+                <span className="v3-chip">{verb}</span>
+                <strong className="v3-h3">{name}</strong>
+                <p>{text}</p>
+                <span className="v3-more">{t('Ayrıntılar →', 'Details →')}</span>
+              </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      <section id="simulator" className="v3-section v3-section--white">
+        <div className="v3-wrap">
+          <Head tag={t('Otomasyonu deneyin', 'Try the automation')} title={t('Bir işi seçin, adım adım ilerletin.', 'Pick a task and step through it.')} soft={t('Son sözü siz söyleyin.', 'Then make the final call.')} />
+          <div className="v3-doors" style={{ marginBottom: 20 }}>
+            <button className={`v3-door ${start === 'randevu' ? 'is-on' : ''}`} onClick={() => setStart('randevu')}>
+              <img src="/v3/kapi-kucuk.webp" alt="" width={64} height={64} />
+              <div><strong>{t('Küçük işletme', 'Small business')}</strong><span>{t('Hazır bir otomasyonla bugün başlayın', 'Start today with a ready-made automation')}</span></div>
+            </button>
+            <button className={`v3-door ${start === 'teklif' ? 'is-on' : ''}`} onClick={() => setStart('teklif')}>
+              <img src="/v3/kapi-uretici.webp" alt="" width={64} height={64} />
+              <div><strong>{t('Üretici veya distribütör', 'Manufacturer or distributor')}</strong><span>{t('Süreçlerinizi bağlantılı bir sisteme dönüştürün', 'Turn your processes into a connected system')}</span></div>
+            </button>
+          </div>
           <OnaySimulatoru start={start} />
         </div>
       </section>

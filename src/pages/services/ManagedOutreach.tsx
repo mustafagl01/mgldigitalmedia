@@ -109,7 +109,7 @@ export default function ManagedOutreach() {
 
     <section style={{ background: 'var(--coal)', color: 'var(--bone)', padding: 'clamp(4rem,9vw,7rem) 1.5rem' }}>
       <div style={{ maxWidth: 1080, margin: '0 auto' }}>
-        <p style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--ember)', letterSpacing: '0.12em', fontWeight: 700 }}>{c.eyebrow}</p>
+        <p style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--ember-on-dark)', letterSpacing: '0.12em', fontWeight: 700 }}>{c.eyebrow}</p>
         <h1 style={{ maxWidth: 900, fontSize: 'clamp(2.25rem,6vw,4.6rem)', lineHeight: 1.02, margin: '1rem 0 1.5rem', color: 'var(--bone)' }}>{c.title}</h1>
         <p style={{ maxWidth: 760, color: 'var(--bone-2)', fontSize: 'clamp(1rem,2vw,1.2rem)', lineHeight: 1.75 }}>{c.intro}</p>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 12, marginTop: 28 }}>
@@ -146,7 +146,7 @@ export default function ManagedOutreach() {
         <div style={{ maxWidth: 1080, margin: '0 auto', padding: 'clamp(4rem,8vw,6rem) 1.5rem' }}>
           <h2 style={{ fontSize: 'clamp(1.8rem,4vw,3rem)', color: 'var(--bone)' }}>{c.priceTitle}</h2><p style={{ color: 'var(--bone-2)', marginTop: 12 }}>{c.priceIntro}</p>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(260px,1fr))', gap: 14, marginTop: 32 }}>
-            {plans.map(([name, price, note, features]) => <article key={name} style={{ border: '1px solid var(--coal-3)', padding: 24, borderRadius: 8, background: 'var(--ink)' }}><p style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--ember)' }}>{name}</p><p style={{ marginTop: 16, fontSize: 28, fontWeight: 700 }}>{price}</p><p style={{ marginTop: 4, color: 'var(--bone-3)', fontSize: 13 }}>{note}</p><List items={features} dark /></article>)}
+            {plans.map(([name, price, note, features]) => <article key={name} style={{ border: '1px solid var(--coal-3)', padding: 24, borderRadius: 8, background: 'var(--ink)' }}><p style={{ fontFamily: 'var(--font-mono)', fontSize: 12, color: 'var(--ember-on-dark)' }}>{name}</p><p style={{ marginTop: 16, fontSize: 28, fontWeight: 700 }}>{price}</p><p style={{ marginTop: 4, color: 'var(--bone-3)', fontSize: 13 }}>{note}</p><List items={features} dark /></article>)}
           </div>
           <p style={{ marginTop: 22, color: 'var(--bone-3)', fontSize: 13, lineHeight: 1.65 }}>{c.extra}</p>
         </div>
