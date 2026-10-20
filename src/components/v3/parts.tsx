@@ -153,3 +153,37 @@ export function KapanisBandi({ title, soft, text }: { title?: string; soft?: str
     </section>
   );
 }
+
+
+/** "Listede yoksa size özel kurarız" — hazır kalıpların dışındaki, sektöre/işletmeye özel işler için açık kapı
+    (kullanıcı 2026-10-20). Ana sayfada ve /otomasyon'da kullanılır; metin tek kaynaktan. */
+export function OzelKapi() {
+  const { isEN, t } = useV3();
+  const msg = isEN ? 'Hi, I would like an automation built for my business: ' : 'Merhaba, işletmeme özel bir otomasyon düşünüyorum: ';
+  const wa = `${isEN ? WHATSAPP : WHATSAPP_TR}?text=${encodeURIComponent(msg)}`;
+  const ideas = isEN
+    ? ['Clinic: new-patient form → patient file', 'Workshop: order → job sheet', 'Estate agent: enquiry → matching viewings', 'Accountant: incoming document → ledger entry', 'School: application → follow-up list']
+    : ['Klinik: hasta formundan hasta dosyası', 'Atölye: siparişten iş emri', 'Emlak: talep → uygun gösterim eşleşmesi', 'Muhasebe: gelen belgeden kayıt', 'Okul: kayıt başvurusundan takip listesi'];
+  return (
+    <div className="v3-open">
+      <div>
+        <div className="v3-tag">{t('Kalıbın dışında', 'Beyond the templates')}</div>
+        <h2 className="v3-h2">{t('Listede yoksa,', 'Not on the list?')}<br /><span>{t('işletmenize özel kurarız.', 'We build it around your business.')}</span></h2>
+        <p>
+          {t(
+            'Hazır otomasyonlar yaygın işler içindir. Her işletmenin kendine özgü bir akışı vardır; bir klinik, bir atölye, bir emlak ofisi aynı işi farklı yürütür. İşinizi anlatın: otomatikleştirilebilir mi, hangi pakete girer, dürüstçe söyleyelim.',
+            'Ready-made automations cover common tasks. Every business has a workflow of its own; a clinic, a workshop and an estate agent run the same job differently. Tell us about yours and we will say honestly whether it can be automated and which plan it fits.',
+          )}
+        </p>
+        <ul className="v3-open__ideas" aria-label={t('Örnek fikirler', 'Example ideas')}>
+          {ideas.map((x) => <li key={x}>{x}</li>)}
+        </ul>
+        <p className="v3-open__note">{t('Bunlar yapılabilecek işlere örnektir; kurulu referans değildir.', 'These are examples of what can be built, not finished client references.')}</p>
+      </div>
+      <div className="v3-open__cta">
+        <a className="btn btn-primary btn-lg" href={wa} target="_blank" rel="noopener noreferrer">{t('İşinizi anlatın', 'Describe your task')}</a>
+        <a className="btn btn-lg v3-open__ghost" href="/otomasyon#paketler">{t('Paketlere bakın', 'See the plans')}</a>
+      </div>
+    </div>
+  );
+}

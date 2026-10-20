@@ -18,6 +18,7 @@ import {
   CALENDAR_URL, whatsappLink, localPath, card, h2, lede, sectionPad, eyebrow,
   CheckList, FaqList, PrimaryButton, GhostButton, CompanyBlock,
 } from './shared';
+import { OzelKapi } from '../../components/v3/parts';
 
 /* Otomasyon fiyat sayfası. Her sektör ve her ölçek için (küçük esnaftan büyük şirkete) —
    kullanıcı düzeltmesi 2026-10-19. Web, reklam ve asistan fiyatları /pricing/local'da. */
@@ -110,6 +111,8 @@ export default function PricingAutomation() {
             ))}
           </div>
         </section>
+
+        <section style={{ paddingBottom: 'clamp(1.5rem,3vw,2.5rem)' }}><OzelKapi /></section>
 
         <SampleOutput isEN={isEN} />
 

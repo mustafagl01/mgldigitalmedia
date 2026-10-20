@@ -4,7 +4,7 @@ import { useLocation } from '../../contexts/LocationContext';
 import { formatPrice } from '../../utils/formatPrice';
 import { CATALOG, WORK } from '../../content/v3';
 import { OnaySimulatoru } from '../../components/v3/OnaySimulatoru';
-import { Pic, Head, KanitSeridi, IsKartlari, Kurucu, KapanisBandi, useV3, WHATSAPP } from '../../components/v3/parts';
+import { Pic, Head, KanitSeridi, IsKartlari, Kurucu, KapanisBandi, OzelKapi, useV3, WHATSAPP } from '../../components/v3/parts';
 
 /* Ana sayfa v3 — 7 bölüm (konsey 2026-10-19). Hero: iki kapı + onay simülatörü.
    Gerçek işler hero'da DEĞİL; kanıt şeridinde ve /isler'de (kullanıcı 2026-10-19). */
@@ -123,13 +123,8 @@ export default function HomeV3() {
                 <span className="v3-more">{t('Nasıl çalışır →', 'How it works →')}</span>
               </a>
             ))}
-            <a className="v3-card" href="/otomasyon" style={{ background: 'var(--paper-2)', boxShadow: 'none' }}>
-              <span className="v3-chip">{t('Listede yok mu?', 'Not on the list?')}</span>
-              <strong className="v3-h3">{t('Size özel akış', 'A workflow built for you')}</strong>
-              <p>{t('Birden fazla işi birbirine bağlayan akışlar Bağlantılı pakette kurulur.', 'Flows that connect several tasks are built in the Connected plan.')}</p>
-              <span className="v3-more">{t('Tüm paketler →', 'All plans →')}</span>
-            </a>
           </div>
+          <div style={{ marginTop: 'clamp(24px,4vw,40px)' }}><OzelKapi /></div>
         </div>
       </section>
 

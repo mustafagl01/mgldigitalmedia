@@ -1,4 +1,5 @@
-import React, { useState, Suspense, lazy } from 'react';
+import React, { useState, Suspense } from 'react';
+import { lazyRetry } from './utils/lazyRetry';
 import { HelmetProvider } from 'react-helmet-async';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { LanguageProvider, useLanguage } from './contexts/LanguageContext';
@@ -12,43 +13,43 @@ const CALENDAR_URL = 'https://calendar.app.google/FZnTjsWGfCy33WF36';
 
 // Pages — lazy loaded to reduce initial bundle
 // 2026-10-19: /pricing = seçici, /pricing/automation (B2B), /pricing/local (yerel). /packages -> /pricing (_redirects + PricingHub hash yönlendirmesi).
-const PricingHub = lazy(() => import('./pages/pricing/PricingHub'));
+const PricingHub = lazyRetry(() => import('./pages/pricing/PricingHub'));
 // v3 yeniden tasarım (konsey 2026-10-19): docs/konsey/2026-10-19-site-konsey-karar.md
-const HomeV3 = lazy(() => import('./pages/v3/Home'));
-const CatalogPage = lazy(() => import('./pages/v3/CatalogPage'));
-const Ureticiler = lazy(() => import('./pages/v3/Ureticiler'));
-const Fiyatlandirma = lazy(() => import('./pages/v3/Fiyatlandirma'));
-const Isler = lazy(() => import('./pages/v3/Isler'));
-const Hakkimizda = lazy(() => import('./pages/v3/Hakkimizda'));
-const Iletisim = lazy(() => import('./pages/v3/Iletisim'));
-const Gizlilik = lazy(() => import('./pages/v3/Gizlilik'));
-const PricingAutomation = lazy(() => import('./pages/pricing/PricingAutomation'));
-const PricingLocal = lazy(() => import('./pages/pricing/PricingLocal'));
-const Services = lazy(() => import('./pages/Services'));
-const Solutions = lazy(() => import('./pages/Solutions'));
-const SolutionDetail = lazy(() => import('./pages/SolutionDetail'));
-const ProblemDetail = lazy(() => import('./pages/ProblemDetail'));
-const Legal = lazy(() => import('./pages/Legal'));
-const NotFound = lazy(() => import('./pages/NotFound'));
+const HomeV3 = lazyRetry(() => import('./pages/v3/Home'));
+const CatalogPage = lazyRetry(() => import('./pages/v3/CatalogPage'));
+const Ureticiler = lazyRetry(() => import('./pages/v3/Ureticiler'));
+const Fiyatlandirma = lazyRetry(() => import('./pages/v3/Fiyatlandirma'));
+const Isler = lazyRetry(() => import('./pages/v3/Isler'));
+const Hakkimizda = lazyRetry(() => import('./pages/v3/Hakkimizda'));
+const Iletisim = lazyRetry(() => import('./pages/v3/Iletisim'));
+const Gizlilik = lazyRetry(() => import('./pages/v3/Gizlilik'));
+const PricingAutomation = lazyRetry(() => import('./pages/pricing/PricingAutomation'));
+const PricingLocal = lazyRetry(() => import('./pages/pricing/PricingLocal'));
+const Services = lazyRetry(() => import('./pages/Services'));
+const Solutions = lazyRetry(() => import('./pages/Solutions'));
+const SolutionDetail = lazyRetry(() => import('./pages/SolutionDetail'));
+const ProblemDetail = lazyRetry(() => import('./pages/ProblemDetail'));
+const Legal = lazyRetry(() => import('./pages/Legal'));
+const NotFound = lazyRetry(() => import('./pages/NotFound'));
 
 // Service pages (E)
-const WhatsappAiAsistan = lazy(() => import('./pages/services/WhatsappAiAsistan'));
-const SesliAi = lazy(() => import('./pages/services/SesliAi'));
-const N8nOtomasyon = lazy(() => import('./pages/services/N8nOtomasyon'));
-const SurecOtomasyonu = lazy(() => import('./pages/services/SurecOtomasyonu'));
-const LeadUretimi = lazy(() => import('./pages/services/LeadUretimi'));
-const ManagedOutreach = lazy(() => import('./pages/services/ManagedOutreach'));
-const AccountingAutomation = lazy(() => import('./pages/AccountingAutomation'));
+const WhatsappAiAsistan = lazyRetry(() => import('./pages/services/WhatsappAiAsistan'));
+const SesliAi = lazyRetry(() => import('./pages/services/SesliAi'));
+const N8nOtomasyon = lazyRetry(() => import('./pages/services/N8nOtomasyon'));
+const SurecOtomasyonu = lazyRetry(() => import('./pages/services/SurecOtomasyonu'));
+const LeadUretimi = lazyRetry(() => import('./pages/services/LeadUretimi'));
+const ManagedOutreach = lazyRetry(() => import('./pages/services/ManagedOutreach'));
+const AccountingAutomation = lazyRetry(() => import('./pages/AccountingAutomation'));
 
 // Blog pages (F)
-const BlogList = lazy(() => import('./pages/BlogList'));
-const BlogPost = lazy(() => import('./pages/BlogPost'));
+const BlogList = lazyRetry(() => import('./pages/BlogList'));
+const BlogPost = lazyRetry(() => import('./pages/BlogPost'));
 
 // Comparison pages (G)
-const N8nVsZapier = lazy(() => import('./pages/comparisons/N8nVsZapier'));
-const WhatsappCloudApiVsBaileys = lazy(() => import('./pages/comparisons/WhatsappCloudApiVsBaileys'));
-const VoiceflowVsRetellAi = lazy(() => import('./pages/comparisons/VoiceflowVsRetellAi'));
-const UkAiAgenciesComparison = lazy(() => import('./pages/comparisons/UkAiAgenciesComparison'));
+const N8nVsZapier = lazyRetry(() => import('./pages/comparisons/N8nVsZapier'));
+const WhatsappCloudApiVsBaileys = lazyRetry(() => import('./pages/comparisons/WhatsappCloudApiVsBaileys'));
+const VoiceflowVsRetellAi = lazyRetry(() => import('./pages/comparisons/VoiceflowVsRetellAi'));
+const UkAiAgenciesComparison = lazyRetry(() => import('./pages/comparisons/UkAiAgenciesComparison'));
 
 // New site shell
 import { SiteHeader } from './components/site/SiteHeader';
