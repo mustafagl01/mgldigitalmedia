@@ -19,7 +19,7 @@ export default function Iletisim() {
         <div className="v3-wrap" style={{ maxWidth: 960 }}>
           <div className="v3-tag">{t('İletişim', 'Contact')}</div>
           <h1 className="v3-h1" style={{ fontSize: 'clamp(2.1rem,1.2rem+3vw,3.6rem)' }}>{t('İşinizi anlatın.', 'Tell us about the work.')}<br /><span className="soft">{t('Birkaç cümle yeter.', 'A few lines is enough.')}</span></h1>
-          <p className="v3-lede">{t('En hızlı yol WhatsApp. Mesai dışında da telefondan bakıyoruz; genelde aynı gün dönüyoruz.', 'WhatsApp is fastest. We check messages after hours too and usually reply the same day.')}</p>
+          <p className="v3-lede">{t('En hızlı yol WhatsApp; mesajları mesai dışında da okuyoruz. Birkaç cümleyle işinizi anlatmanız yeterli.', 'WhatsApp is the fastest way; we read messages after hours too. A few lines about your business is enough.')}</p>
           <div className="v3-contact">
             <a className="wa" href={isEN ? WHATSAPP : WHATSAPP_TR} target="_blank" rel="noopener noreferrer"><strong>WhatsApp</strong><span>{isEN ? '+44 7482 670606' : '+90 531 829 97 01'}</span></a>
             <a href={isEN ? 'tel:+447482670606' : 'tel:+905318299701'}><strong>{t('Arayın', 'Call')}</strong><span>{isEN ? '+44 7482 670606' : '+90 531 829 97 01'}</span></a>
@@ -30,7 +30,7 @@ export default function Iletisim() {
             <span className="v3-chip">{t('Şirket', 'Company')}</span>
             <p style={{ color: 'var(--ink)' }}>MGL Digital Media Ltd · {t('Şirket no', 'Company no')} 16007414 (England &amp; Wales)</p>
             <p>112 Bertram Road, Enfield, EN1 1LS, United Kingdom</p>
-            <p>{t('Diğer numara', 'Other number')}: {isEN ? 'TR +90 531 829 97 01' : 'UK +44 7482 670606'}</p>
+            <p>UK +44 7482 670606 · TR +90 531 829 97 01</p>
           </div>
         </div>
       </section>

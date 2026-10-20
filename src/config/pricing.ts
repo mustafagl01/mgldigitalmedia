@@ -165,7 +165,7 @@ const TR_PACKAGES: Record<PackageTierKey, PackageTier> = {
     // termal yazıcı dahil. TL'si dosya kuralına göre uydurulmaz; kullanıcı
     // burada açıkça 65 kur ile 26.000₺ onayladı (bkz. dosya başı TRY politikası).
     setupFee: 26000,
-    setupNote: { tr: 'Termal yazıcı dahil', en: 'Thermal printer included' },
+    setupNote: { tr: 'sipariş alan işletmelerde sipariş fişi yazıcısı dahil', en: 'order printer included for businesses taking orders' },
     priceUnit: 'month',
     usageUnit: 'minute',
     usageRate: 16,

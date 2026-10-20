@@ -5,7 +5,7 @@ import { SIM } from '../../content/v3';
 /* İmza etkileşim (konsey 2026-10-19): ziyaretçi bir işi adım adım ilerletir, son adımda
    "Onayla"ya kendisi basar; kart kobalttan yeşile döner. Canlı panel DEĞİL — açıkça örnek. */
 
-export function OnaySimulatoru({ start = 'randevu' }: { start?: string }) {
+export function OnaySimulatoru({ start = 'randevu', only }: { start?: string; only?: string[] }) {
   const { language } = useLanguage();
   const lang = language === 'en' ? 'en' : 'tr';
   const isEN = lang === 'en';
@@ -30,7 +30,7 @@ export function OnaySimulatoru({ start = 'randevu' }: { start?: string }) {
   return (
     <div className="v3-sim" aria-label={isEN ? 'Approval simulator (demonstration)' : 'Onay simülatörü (örnek)'}>
       <div className="v3-sim__top" role="tablist">
-        {SIM.map((s) => (
+        {SIM.filter((s) => (only ? only.includes(s.id) : ['randevu', 'odeme', 'teklif'].includes(s.id))).map((s) => (
           <button key={s.id} role="tab" aria-selected={s.id === id} className={`v3-sim__tab ${s.id === id ? 'is-on' : ''}`} onClick={() => setId(s.id)}>
             {s.tab[lang]}
           </button>
@@ -100,7 +100,7 @@ export function OnaySimulatoru({ start = 'randevu' }: { start?: string }) {
         </div>
       </div>
       <div className="v3-sim__note">
-        {isEN ? 'Demonstration with sample data, not a live system. In real setups nothing is sent without your approval.' : 'Örnek veriyle gösterimdir, canlı sistem değildir. Gerçek kurulumda onayınız olmadan hiçbir şey gönderilmez.'}
+        {isEN ? 'Demonstration with sample data, not a live system. In real setups, replies to customers wait for your approval; fixed messages such as reminders go automatically once you have approved their wording.' : 'Örnek veriyle gösterimdir, canlı sistem değildir. Gerçek kurulumda müşteriye giden cevaplar onayınızı bekler; hatırlatma gibi sabit mesajlar, metnini siz onayladıktan sonra otomatik gider.'}
       </div>
     </div>
   );

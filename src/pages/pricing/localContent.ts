@@ -16,7 +16,7 @@ export type LocalTierContent = {
 export const WEB_TIERS: LocalTierContent[] = [
   {
     key: 'web-landing',
-    subtitle: { tr: 'Tek sayfa, tek amaç: ziyaretçiyi müşteriye çevirmek.', en: 'One page, one job: turn the visitor into a customer.' },
+    subtitle: { tr: 'Tek sayfa, tek amaç: ziyaretçiyi size ulaşmaya yönlendirmek.', en: 'One page, one goal: get visitors to contact you.' },
     included: {
       tr: ['Tek sayfa tasarım ve yazım', 'Mobil öncelikli, hızlı yükleme', 'İletişim / randevu formu', 'Google İşletme Profili ve Maps kurulumu', 'Kurumsal e-posta kurulumu', 'Domain bağlantısı ve SSL'],
       en: ['Single-page design and copy', 'Mobile-first, fast loading', 'Contact / booking form', 'Google Business Profile and Maps setup', 'Business email setup', 'Domain connection and SSL'],
@@ -24,7 +24,7 @@ export const WEB_TIERS: LocalTierContent[] = [
   },
   {
     key: 'web-site',
-    subtitle: { tr: 'Beş sayfalık tam site: işletmenizi anlatır, arandığında bulunur.', en: 'A full five-page site that explains your business and gets found.' },
+    subtitle: { tr: 'Beş sayfalık tam site: işletmenizi anlatır, yerel aramada görünürlüğünüzü destekler.', en: 'A full five-page site that explains your business and supports local search visibility.' },
     included: {
       tr: ['Beş sayfa tasarım ve yazım', 'İletişim ve randevu formları', 'Google İşletme Profili, Maps ve yerel SEO', 'Teknik SEO ve paylaşım kartı', 'Kurumsal e-posta kurulumu', 'Üç revizyon turu'],
       en: ['Five pages designed and written', 'Contact and booking forms', 'Google Business Profile, Maps and local SEO', 'Technical SEO and social share card', 'Business email setup', 'Three revision rounds'],
@@ -32,10 +32,10 @@ export const WEB_TIERS: LocalTierContent[] = [
   },
   {
     key: 'web-integrated',
-    subtitle: { tr: 'Sitenin üstünde çalışan sistem: online sipariş, rezervasyon veya ödeme.', en: 'A working system on top of the site: online ordering, bookings or payments.' },
+    subtitle: { tr: 'Sitenin üstünde çalışan sistem: online sipariş, rezervasyon ve/veya ödeme; dahil olan işlevler yazılı kapsamda belirtilir.', en: 'A working system on top of the site: online ordering, bookings and/or payments; the included functions are listed in the written scope.' },
     included: {
-      tr: ['Kurumsal sitedeki her şey', 'Online sipariş, rezervasyon ve randevu', 'QR menü', 'Ödeme entegrasyonu (Stripe / iyzico)', 'Mutfak yazıcısı veya WhatsApp / Telegram bildirimi', 'Uygulama olarak eklenebilme (PWA)'],
-      en: ['Everything in the business website', 'Online ordering, reservations and appointments', 'QR menu', 'Payment integration (Stripe / iyzico)', 'Kitchen printer or WhatsApp / Telegram notifications', 'Installable as an app (PWA)'],
+      tr: ['Kurumsal sitedeki her şey', 'Online sipariş, rezervasyon ve randevu', 'QR menü', 'Ödeme entegrasyonu (Stripe / iyzico)', 'Sipariş yazıcısı veya WhatsApp / Telegram bildirimi', 'Uygulama olarak eklenebilme (PWA)'],
+      en: ['Everything in the business website', 'Online ordering, reservations and appointments', 'QR menu', 'Payment integration (Stripe / iyzico)', 'Order printer or WhatsApp / Telegram notifications', 'Installable as an app (PWA)'],
     },
   },
 ];
@@ -72,19 +72,19 @@ export const ASSISTANTS: LocalTierContent[] = [
     key: 'voice',
     subtitle: { tr: 'Telefonu açar, soruyu cevaplar, randevuyu veya siparişi alır.', en: 'Answers the phone, handles questions, takes the booking or order.' },
     included: {
-      tr: ['7/24 telefon karşılama', 'Randevu ve sipariş alma', 'Takvim ile canlı senkron', 'Mevcut numaranızın yönlendirilmesi', 'Türkçe ve İngilizce', 'Çağrı kaydı ve yazılı özet'],
-      en: ['24/7 call answering', 'Bookings and orders taken', 'Live calendar sync', 'Your existing number forwarded', 'Turkish and English', 'Call recording and written summary'],
+      tr: ['7/24 telefon karşılama', 'Randevu ve sipariş alma', 'Takvim ile canlı senkron', 'Mevcut numaranızın yönlendirilmesi', 'Türkçe ve İngilizce', 'İsteğe bağlı çağrı kaydı ve yazılı özet'],
+      en: ['24/7 call answering', 'Bookings and orders taken', 'Live calendar sync', 'Your existing number forwarded', 'Turkish and English', 'Optional call recording and written summary'],
     },
-    excluded: { tr: ['Telefon hattı aboneliği'], en: ['Phone line subscription'] },
+    excluded: { tr: ['İşletme telefon hattı aboneliği'], en: ['Business phone line subscription'] },
   },
   {
     key: 'whatsapp',
     subtitle: { tr: 'Müşteriniz WhatsApp’tan yazar, asistan cevaplar. Kurulum ücreti yok.', en: 'Your customer messages on WhatsApp, the assistant replies. No setup fee.' },
     included: {
-      tr: ['7/24 otomatik yanıt', 'Randevu ve sipariş alma', 'Sık sorulan soruların cevaplanması', 'Türkçe ve İngilizce', 'Devralma butonu: istediğiniz an siz devam edersiniz'],
-      en: ['24/7 automatic replies', 'Bookings and orders taken', 'FAQ handling', 'Turkish and English', 'Takeover button: step in whenever you want'],
+      tr: ['7/24 otomatik yanıt', 'Randevu ve sipariş alma', 'Sık sorulan soruların cevaplanması', 'Türkçe ve İngilizce', 'Canlı devralma: istediğiniz an konuşmayı siz devralırsınız'],
+      en: ['24/7 automatic replies', 'Bookings and orders taken', 'FAQ handling', 'Turkish and English', 'Live takeover: step into the conversation whenever you want'],
     },
-    excluded: { tr: ['Meta resmi API ücretleri (bu yol seçilirse)', 'İşletme numarası'], en: ['Official Meta API fees (only if that route is chosen)', 'Business phone number'] },
+    excluded: { tr: ['Meta WhatsApp Business Platform kullanılırsa Meta\u2019nın mesaj ücretleri', 'İşletme telefon hattı'], en: ['Meta\u2019s messaging charges, where the WhatsApp Business Platform is used', 'Business phone line'] },
   },
 ];
 

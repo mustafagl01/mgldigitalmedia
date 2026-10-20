@@ -88,7 +88,7 @@ export function SiteHeader(_props: Props) {
             <a href="/blog" onClick={() => setOpen(false)}>Blog</a>
             <a href="/iletisim" onClick={() => setOpen(false)}>{isEN ? 'Contact' : 'İletişim'}</a>
             <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-md" style={{ marginTop: 16 }}>
-              {isEN ? 'Write on WhatsApp' : 'WhatsApp’tan yazın'}
+              {isEN ? 'Message us on WhatsApp' : 'WhatsApp’tan yazın'}
             </a>
           </nav>
         </div>

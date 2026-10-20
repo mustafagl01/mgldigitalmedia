@@ -15,7 +15,7 @@ export default function CatalogPage({ slug }: { slug: string }) {
   const tier = pricing.packages.automation;
   const path = `/otomasyon/${c.slug}`;
   const faqs = c.faq[lang].map((f) => ({ question: f.q, answer: f.a }));
-  const simStart = c.slug === 'odeme-takibi' ? 'odeme' : 'randevu';
+  const simStart = ({ 'talep-yakalama': 'talep', 'randevu-hatirlatma': 'randevu', 'odeme-takibi': 'odeme', 'evrak-toplama': 'evrak', 'yorum-isteme': 'yorum' } as Record<string, string>)[c.slug] ?? 'randevu';
 
   return (
     <>
@@ -45,7 +45,7 @@ export default function CatalogPage({ slug }: { slug: string }) {
           <div className="v3-card" style={{ gap: 6 }}>
             <span className="v3-chip">{t('Sabit fiyat', 'Fixed price')}</span>
             <div className="v3-price">{formatPrice(tier.price, region)}<small>{t(' / ay', ' / month')}</small></div>
-            <p>{t(`Kurulum ${formatPrice(tier.setupFee, region)} (tek seferlik) · en az 3 ay · 14 gün para iade`, `Setup ${formatPrice(tier.setupFee, region)} (one-off) · 3-month minimum · 14-day money-back`)}</p>
+            <p>{t(`Kurulum ${formatPrice(tier.setupFee, region)} (tek seferlik) · en az 3 ay · 14 gün içinde kurulum ücreti iadesi`, `Setup ${formatPrice(tier.setupFee, region)} (one-off) · 3-month minimum · setup fee refundable within 14 days`)}</p>
             <p style={{ fontSize: '.86rem', color: 'var(--fg-3)' }}>{t('Kimler kullanıyor: ', 'Typical users: ')}{c.who[lang]}</p>
           </div>
         </div>
@@ -82,7 +82,7 @@ export default function CatalogPage({ slug }: { slug: string }) {
       <section className="v3-section v3-section--white">
         <div className="v3-wrap">
           <Head tag={t('Deneyin', 'Try it')} title={t('Onay noktası nerede?', 'Where is the approval point?')} soft={t('Kendiniz görün.', 'See for yourself.')} />
-          <OnaySimulatoru start={simStart} />
+          <OnaySimulatoru start={simStart} only={[simStart]} />
         </div>
       </section>
 

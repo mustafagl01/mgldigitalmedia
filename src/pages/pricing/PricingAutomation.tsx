@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { Seo, faqSchema, breadcrumbSchema, serviceSchema } from '../../components/seo/Seo';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { useLocation } from '../../contexts/LocationContext';
-import { formatPrice } from '../../utils/formatPrice';
+import { formatPrice, formatFrom } from '../../utils/formatPrice';
 import { AUTOMATION_TIERS, READY_CATALOG, EXAMPLES, STEPS, TRIAL, SECURITY, FAQS } from './automationContent';
 import type { PackageTierKey } from '../../config/pricing';
 
@@ -85,7 +85,7 @@ export default function PricingAutomation() {
             </p>
             <div className="v3-btns">
               <a className="btn btn-primary btn-lg" href="#paketler">{isEN ? 'See plans' : 'Paketleri görün'}</a>
-              <a className="btn btn-ghost btn-lg" href={wa} target="_blank" rel="noopener noreferrer">{isEN ? 'Write on WhatsApp' : 'WhatsApp’tan yazın'}</a>
+              <a className="btn btn-ghost btn-lg" href={wa} target="_blank" rel="noopener noreferrer">{isEN ? 'Message us on WhatsApp' : 'WhatsApp’tan yazın'}</a>
             </div>
           </div>
         </div>
@@ -163,13 +163,13 @@ export default function PricingAutomation() {
                     ) : (
                       <>
                         <div style={{ fontSize: '1.45rem', fontWeight: 800, color: 'var(--ink)' }}>
-                          {from && !isEN ? `${monthly}’den` : from ? `from ${monthly}` : monthly}
+                          {from ? formatFrom(tier.price, region, isEN) : monthly}
                           <span style={{ fontSize: '0.9rem', fontWeight: 600, color: 'var(--muted)' }}>{isEN ? ' / month' : ' / ay'}</span>
                         </div>
                         <div style={{ fontSize: '0.86rem', color: 'var(--muted)', marginTop: '0.2rem' }}>
                           {isEN
                             ? `${from ? 'Setup from' : 'Setup'} ${setup} (one-off)`
-                            : `Kurulum ${setup}${from ? '’den başlayan' : ''} (tek seferlik)`}
+                            : `Kurulum ${from ? `${formatFrom(tier.setupFee, region, false)} başlayan` : setup} (tek seferlik)`}
                         </div>
                       </>
                     )}
@@ -245,7 +245,7 @@ export default function PricingAutomation() {
                 : 'Birkaç cümleyle anlatın. Otomatikleştirilebilir mi ve hangi pakete girer, dürüstçe söyleyelim.'}
             </p>
             <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-              <PrimaryButton href={wa} inverted>{isEN ? 'Write on WhatsApp' : 'WhatsApp’tan yazın'}</PrimaryButton>
+              <PrimaryButton href={wa} inverted>{isEN ? 'Message us on WhatsApp' : 'WhatsApp’tan yazın'}</PrimaryButton>
               <GhostButton href={CALENDAR_URL} onDark>{isEN ? 'Book a 15-minute call' : '15 dakikalık görüşme planlayın'}</GhostButton>
             </div>
           </div>
@@ -271,7 +271,7 @@ function SampleOutput({ isEN }: { isEN: boolean }) {
         ['✓', '5 satırdan 4’ü ürün kodlarınız ve stokla eşleşti'],
         ['?', '1 kod listenizde yok → onayınıza muadil ürün önerildi'],
         ['?', '1 satırda adet eksik → müşteriye soru taslağı hazırlandı'],
-        ['✓', '3 fiyat fiyat listenizden alındı'],
+        ['✓', '3 fiyat, fiyat listenizden alındı'],
         ['!', '1 fiyat özel fiyat → onayınızı bekliyor'],
         ['✓', 'Taslak teklif her zamanki Excel / ERP formatınızda hazır'],
       ];

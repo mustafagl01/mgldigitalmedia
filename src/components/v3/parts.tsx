@@ -43,7 +43,7 @@ export function KanitSeridi() {
       <div className="v3-wrap v3-proof">
         <div className="v3-proof__facts">
           <div className="v3-tag" style={{ marginBottom: 6 }}>{t('Bugünkü kanıt', 'Proof today')}</div>
-          <div><b>{WORK.length} {t('yayındaki müşteri sitesi', 'live client websites')}</b> · {t('1 süren reklam yönetimi', '1 ongoing ads client')}</div>
+          <div><b>{t(`Yayında ${WORK.length} müşteri sitesi`, `${WORK.length} live client websites`)}</b> · {t('1 sürekli reklam müşterisi', '1 ongoing ads client')}</div>
           <div>{t('Otomasyon: ilk kurulumlar görüşmede', 'Automation: first setups in discussion')}</div>
           <div style={{ fontSize: 12.5, color: 'var(--fg-3)' }}>
             MGL Digital Media Ltd · {t('Şirket no', 'Company no')} <a href="https://find-and-update.company-information.service.gov.uk/company/16007414" target="_blank" rel="noopener noreferrer">16007414</a> · {t('Güncelleme', 'Updated')}: {PROOF_UPDATED[lang]}
@@ -102,13 +102,13 @@ export function Kurucu() {
         <h2 className="v3-h2" style={{ fontSize: 'clamp(1.5rem,1rem+1.6vw,2.2rem)' }}>{t('İşi kuran kişiyle konuşursunuz.', 'You talk to the person who builds it.')}</h2>
         <p className="v3-lede" style={{ marginBottom: 0 }}>
           {t(
-            'MGL Digital Media, kurucu Mustafa Gül’ün yönettiği küçük bir şirket. Arada satış ekibi yok; sistemi kuran ve sonra bakımını yapan aynı kişi. Bu yüzden aynı anda sınırlı sayıda yeni iş alıyoruz.',
-            'MGL Digital Media is a small company run by its founder, Mustafa Gül. There is no sales layer; the person who builds your system also maintains it. That is why we take on a limited number of new projects at a time.',
+            'MGL Digital Media, kurucu Mustafa Gül’ün yönettiği küçük bir şirket. Arada satış ekibi yok; sistemi kuran ve sonra bakımını yapan aynı kişi. Sistemler mümkün olduğunca sizin hesaplarınızda kurulur, erişimler ve kurulum notları size teslim edilir. Aynı anda sınırlı sayıda yeni iş alıyoruz.',
+            'MGL Digital Media is a small company run by its founder, Mustafa Gül. There is no sales layer; the person who builds your system also maintains it. Systems are set up in your own accounts wherever possible, and access and setup notes are handed over to you. We take on a limited number of new projects at a time.',
           )}
         </p>
       </div>
       <div className="v3-btns" style={{ alignSelf: 'end' }}>
-        <a className="btn btn-primary btn-lg" href={WHATSAPP} target="_blank" rel="noopener noreferrer">{t('WhatsApp’tan yazın', 'Write on WhatsApp')}</a>
+        <a className="btn btn-primary btn-lg" href={WHATSAPP} target="_blank" rel="noopener noreferrer">{t('WhatsApp’tan yazın', 'Message us on WhatsApp')}</a>
         <a className="btn btn-ghost btn-lg" href="/hakkimizda">{t('Hakkımızda', 'About us')}</a>
       </div>
     </div>
@@ -132,11 +132,11 @@ export function KapanisBandi({ title, soft, text }: { title?: string; soft?: str
       <div className="v3-wrap" style={{ display: 'grid', gap: 24, gridTemplateColumns: 'repeat(auto-fit,minmax(min(320px,100%),1fr))', alignItems: 'end' }}>
         <div>
           <div className="v3-tag">{t('Sonraki adım', 'Next step')}</div>
-          <h2 className="v3-h2">{title ?? t('En çok vaktinizi alan iş hangisi?', 'Which task takes most of your time?')}<br /><span style={{ color: 'var(--bone-3)' }}>{soft ?? t('Birkaç cümleyle yazın.', 'Tell us in a few lines.')}</span></h2>
-          <p className="v3-lede" style={{ marginBottom: 0 }}>{text ?? t('Otomatikleştirilebilir mi, hangi pakete girer, dürüstçe söyleyelim. Genelde aynı gün dönüyoruz.', 'We will tell you honestly whether it can be automated and which plan it fits. We usually reply the same day.')}</p>
+          <h2 className="v3-h2">{title ?? t('Neye ihtiyacınız var?', 'What do you need?')}<br /><span style={{ color: 'var(--bone-3)' }}>{soft ?? t('Birkaç cümleyle yazın.', 'Tell us in a few lines.')}</span></h2>
+          <p className="v3-lede" style={{ marginBottom: 0 }}>{text ?? t('Web sitesi, reklam, asistan ya da otomasyon: işinizi anlatın, uygun paketi ve sonraki adımı yazalım.', 'Website, ads, assistant or automation: tell us about your business and we will suggest the right plan and next step.')}</p>
         </div>
         <div className="v3-btns" style={{ justifyContent: 'flex-start' }}>
-          <a className="btn btn-primary btn-lg" href={WHATSAPP} target="_blank" rel="noopener noreferrer">{t('WhatsApp’tan yazın', 'Write on WhatsApp')}</a>
+          <a className="btn btn-primary btn-lg" href={WHATSAPP} target="_blank" rel="noopener noreferrer">{t('WhatsApp’tan yazın', 'Message us on WhatsApp')}</a>
           <a className="btn btn-lg" style={{ border: '1px solid var(--coal-3)', color: 'var(--bone)' }} href={CALENDAR} target="_blank" rel="noopener noreferrer">{t('15 dakikalık görüşme', '15-minute call')}</a>
         </div>
       </div>

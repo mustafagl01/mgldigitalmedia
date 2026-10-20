@@ -62,12 +62,12 @@ export default function PricingLocal({ mode = 'webads' }: { mode?: Mode }) {
           <div className="v3-hero__text">
             <div className="v3-tag">{isEN ? 'For small and large businesses in any sector' : 'Her sektörden küçük ve büyük işletmeler için'}</div>
             <h1 className="v3-h1" style={{ fontSize: 'clamp(2.1rem,1.2rem+3vw,3.6rem)' }}>
-              {showWeb ? (isEN ? 'Get found,' : 'Bulunun,') : (isEN ? 'Every call answered,' : 'Her arama karşılanır,')}<br />
-              <span className="soft">{showWeb ? (isEN ? 'get enquiries.' : 'talep alın.') : (isEN ? 'every message replied.' : 'her mesaja cevap gider.')}</span>
+              {showWeb ? (isEN ? 'Get found,' : 'Bulunun,') : (isEN ? 'Calls answered,' : 'Aramalar karşılansın,')}<br />
+              <span className="soft">{showWeb ? (isEN ? 'get enquiries.' : 'talep alın.') : (isEN ? 'messages never left waiting.' : 'mesajlar cevapsız kalmasın.')}</span>
             </h1>
             <p className="v3-lede">
               {showWeb
-                ? (isEN ? 'Websites and ads management with fixed prices. What is included is written down; no surprise items later.' : 'Web sitesi ve reklam yönetimi sabit fiyatla. Neyin dahil olduğu yazılı; sonradan çıkan kalem yok.')
+                ? (isEN ? 'Websites and ads management at fixed prices. What is included, and third-party costs such as domains and email, are written down before work starts.' : 'Web sitesi ve reklam yönetimi sabit fiyatla. Neyin dahil olduğu ve domain, e-posta gibi üçüncü taraf ücretleri işe başlamadan yazılı belirtilir.')
                 : (isEN ? 'A monthly system fee plus usage. The assistant takes bookings and orders and hands the conversation to you whenever you want.' : 'Aylık sistem ücreti artı kullanım. Asistan randevu ve sipariş alır, istediğiniz an konuşmayı size devreder.')}
             </p>
             {showWeb && (
@@ -104,8 +104,8 @@ export default function PricingLocal({ mode = 'webads' }: { mode?: Mode }) {
             <strong style={{ color: 'var(--ink)' }}>{isEN ? 'Website + ads together' : 'Web sitesi + reklam birlikte'}</strong>
             <p style={{ color: 'var(--muted)', fontSize: '0.9rem', lineHeight: 1.6, margin: '0.35rem 0 0' }}>
               {isEN
-                ? 'Most clients take both: the site is built for the visitors the ads bring, and one person looks after both.'
-                : 'Çoğu müşteri ikisini birlikte alır: site, reklamın getirdiği ziyaretçiye göre kurulur ve ikisiyle aynı kişi ilgilenir.'}
+                ? 'They can work together: the site is built around the visitors your ads bring, and the same person looks after both.'
+                : 'İkisi birlikte çalışabilir: site, reklamın getirdiği ziyaretçiye göre kurulur ve ikisiyle aynı kişi ilgilenir.'}
             </p>
           </div>
         </section>
@@ -117,8 +117,8 @@ export default function PricingLocal({ mode = 'webads' }: { mode?: Mode }) {
           <h2 style={h2}>{isEN ? 'AI assistants' : 'AI asistanlar'}</h2>
           <p style={lede}>
             {isEN
-              ? 'A monthly system fee plus usage. Usage is loaded with prepaid bundles that stay valid until used up.'
-              : 'Aylık sistem ücreti artı kullanım. Kullanım ön ödemeli paketlerle yüklenir; paketler bitene kadar geçerlidir.'}
+              ? 'Usage is loaded with prepaid bundles; unused minutes and replies never expire. Take both assistants and the monthly system fee is paid once.'
+              : 'Kullanım ön ödemeli paketlerle yüklenir; kalan dakika ve yanıtlar yanmaz, bitene kadar kullanılır. İki asistanı birlikte alırsanız aylık sistem ücreti bir kez ödenir.'}
           </p>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(320px,100%),1fr))', gap: '1rem' }}>
             {ASSISTANTS.map((t) => (
@@ -154,7 +154,7 @@ export default function PricingLocal({ mode = 'webads' }: { mode?: Mode }) {
               {isEN ? 'Tell us about your business in a few lines and we will suggest the most useful first step.' : 'İşletmenizi birkaç cümleyle anlatın, en yararlı ilk adımı önerelim.'}
             </p>
             <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-              <PrimaryButton href={wa(isEN ? 'my business' : 'işletmem')} inverted>{isEN ? 'Write on WhatsApp' : 'WhatsApp’tan yazın'}</PrimaryButton>
+              <PrimaryButton href={wa(isEN ? 'my business' : 'işletmem')} inverted>{isEN ? 'Message us on WhatsApp' : 'WhatsApp’tan yazın'}</PrimaryButton>
               <GhostButton href={CALENDAR_URL} onDark>{isEN ? 'Book a 15-minute call' : '15 dakikalık görüşme planlayın'}</GhostButton>
             </div>
           </div>
@@ -242,7 +242,7 @@ function AssistantCard({ t, pricing, region, isEN, wa }: { t: LocalTierContent }
       {t.excluded && <CheckList items={t.excluded[lang].map((x) => `${isEN ? 'Not included' : 'Dahil değil'}: ${x}`)} muted />}
 
       <div>
-        <div style={{ ...eyebrow, marginBottom: '0.4rem' }}>{isEN ? `Prepaid ${unitPlural} · valid until used` : `Ön ödemeli ${unitPlural} · bitene kadar geçerli`}</div>
+        <div style={{ ...eyebrow, marginBottom: '0.4rem' }}>{isEN ? `Prepaid ${unitPlural} · never expire` : `Ön ödemeli ${unitPlural} · kalanı yanmaz`}</div>
         <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: '0.86rem', color: 'var(--ink)' }}>
           <tbody>
             {packs.map((p) => (

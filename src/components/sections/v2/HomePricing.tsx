@@ -1,7 +1,7 @@
 import { ArrowRight } from 'lucide-react';
 import { useLanguage } from '../../../contexts/LanguageContext';
 import { useLocation } from '../../../contexts/LocationContext';
-import { formatPrice, formatUnitRate } from '../../../utils/formatPrice';
+import { formatPrice, formatUnitRate, formatFrom } from '../../../utils/formatPrice';
 
 /**
  * Ana sayfadaki fiyat bandı.
@@ -35,7 +35,7 @@ export function HomePricing() {
       titleEN: 'Automation',
       headTR: 'Küçük ve büyük işletmeler için',
       headEN: 'For small and large businesses',
-      priceLabel: isTR ? `${formatPrice(p.automation.setupFee, region)}’den` : `from ${formatPrice(p.automation.setupFee, region)}`,
+      priceLabel: formatFrom(p.automation.setupFee, region, !isTR),
       subTR: `Randevu hatırlatma, tahsilat takibi gibi hazır otomasyonlardan ERP bağlantılı büyük süreçlere kadar. En küçük paket aylık ${formatPrice(p.automation.price, region)}; barındırma, izleme ve destek dahil.`,
       subEN: `From ready-made automations like appointment reminders and payment chasing to ERP-connected core processes. The smallest plan is ${formatPrice(p.automation.price, region)}/month, including hosting, monitoring and support.`,
       href: '/pricing/automation',

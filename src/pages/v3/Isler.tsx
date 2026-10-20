@@ -32,7 +32,7 @@ export default function Isler() {
       <section className="v3-section" style={{ paddingTop: 0 }}>
         <div className="v3-wrap"><IsKartlari /></div>
       </section>
-      <KapanisBandi title={t('Sıradaki siz olun.', 'You could be next.')} soft={t('İşinizi birkaç cümleyle anlatın.', 'Tell us about your business.')} />
+      <KapanisBandi title={t('Sizin siteniz ya da sisteminiz.', 'Your website or system.')} soft={t('Birkaç cümleyle anlatın.', 'Tell us in a few lines.')} />
     </>
   );
 }

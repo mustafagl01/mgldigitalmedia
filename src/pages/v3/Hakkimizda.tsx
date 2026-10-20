@@ -11,7 +11,7 @@ export default function Hakkimizda() {
     <>
       <Seo
         title={t('Hakkımızda · MGL Digital Media', 'About · MGL Digital Media')}
-        description={t('MGL Digital Media Ltd, İngiltere’de kayıtlı (16007414), kurucu Mustafa Gül’ün yönettiği küçük bir otomasyon ve web şirketi. UK ve Türkiye’ye hizmet verir.', 'MGL Digital Media Ltd is a small automation and web company registered in England (16007414) and run by its founder, Mustafa Gül. Serving the UK and Türkiye.')}
+        description={t('MGL Digital Media Ltd, İngiltere ve Galler’de kayıtlı (16007414), kurucu Mustafa Gül’ün yönettiği küçük bir otomasyon ve web şirketi. UK ve Türkiye’ye hizmet verir.', 'MGL Digital Media Ltd is a small automation and web company registered in England and Wales (16007414) and run by its founder, Mustafa Gül. Serving the UK and Türkiye.')}
         path="/hakkimizda"
         locale={isEN ? 'en_GB' : 'tr_TR'}
         jsonLd={[breadcrumbSchema([{ name: t('Ana Sayfa', 'Home'), path: '/' }, { name: t('Hakkımızda', 'About'), path: '/hakkimizda' }])]}
@@ -23,8 +23,8 @@ export default function Hakkimizda() {
             <h1 className="v3-h1" style={{ fontSize: 'clamp(2.1rem,1.2rem+3vw,3.6rem)' }}>{t('Küçük bir şirket.', 'A small company.')}<br /><span className="soft">{t('Bilerek.', 'On purpose.')}</span></h1>
             <p className="v3-lede">
               {t(
-                'MGL Digital Media, İngiltere’de kayıtlı bir şirket. Kurucusu Mustafa Gül; işletmelerin her gün elle yaptığı işleri otomatikleştiriyor, web sitesi kuruyor ve reklamlarını yönetiyor. Müşterilerimiz Londra’daki kafelerden Adana’daki bir anaokuluna, Coventry’deki bir danışmanlık firmasından inşaat şirketlerine kadar uzanıyor.',
-                'MGL Digital Media is a company registered in England. Its founder, Mustafa Gül, automates the work businesses do by hand every day, builds websites and runs their ads. Clients range from cafés in London to a nursery in Adana, a consultancy in Coventry and building firms.',
+                'MGL Digital Media, İngiltere ve Galler’de kayıtlı bir şirket. Kurucusu Mustafa Gül; işletmelerin her gün elle yaptığı işleri otomatikleştiriyor, AI telefon ve WhatsApp asistanı kuruyor, web sitesi yapıyor ve reklamlarını yönetiyor. Müşterilerimiz Londra’daki kafelerden Adana’daki bir anaokuluna, Coventry’deki bir danışmanlık firmasından inşaat şirketlerine kadar uzanıyor.',
+                'MGL Digital Media is a company registered in England and Wales. Its founder, Mustafa Gül, automates the work businesses do by hand every day, sets up AI phone and WhatsApp assistants, builds websites and runs their ads. Clients range from cafés in London to a nursery in Adana, a consultancy in Coventry and building firms.',
               )}
             </p>
             <p className="v3-lede">
@@ -57,10 +57,10 @@ export default function Hakkimizda() {
           <Head tag={t('Nasıl çalışıyoruz', 'How we work')} title={t('Dört ilke.', 'Four principles.')} />
           <div className="v3-grid">
             {[
-              [t('Karar sizde', 'You decide'), t('Sistem hazırlar, siz onaylarsınız. Müşterinize onaysız hiçbir şey gitmez.', 'The system prepares, you approve. Nothing reaches your customers without approval.')],
-              [t('Fiyat açık', 'Open pricing'), t('Paketler ve başlangıç fiyatları sitede yazılı. Kapsam teklifte yazılı netleşir.', 'Plans and starting prices are on the site. Scope is confirmed in writing.')],
+              [t('Karar sizde', 'You decide'), t('Sistem hazırlar, siz onaylarsınız. Müşteriye giden cevaplar onayınızı bekler; sabit hatırlatmaların metnini bir kez onaylarsınız.', 'The system prepares, you approve. Replies to customers wait for your approval; you approve the wording of fixed reminders once.')],
+              [t('Fiyat açık', 'Open pricing'), t('Paketler ve başlangıç fiyatları sitede açıkça yazar; kapsam teklifte yazılı olarak netleştirilir.', 'Plans and starting prices are published on the site; the scope is confirmed in writing.')],
               [t('Uydurma yok', 'Nothing made up'), t('Rakam, yorum veya müşteri uydurmayız. Gösterdiğimiz her iş yayında.', 'We never invent numbers, reviews or clients. Every project we show is live.')],
-              [t('Sizin araçlarınız', 'Your tools'), t('Kullandığınız e-posta, Excel, CRM veya ERP değişmez; sistem onlara bağlanır.', 'Your email, Excel, CRM or ERP stays; the system connects to it.')],
+              [t('Sizin araçlarınız', 'Your tools'), t('Önce kullandığınız araçlara bakarız; mümkün olduğunca onlara bağlanır, gerekeni yazılı söyleriz.', 'We start from the tools you already use, connect to them wherever possible and tell you in writing what else is needed.')],
             ].map(([a, b]) => (
               <div key={a} className="v3-card"><strong className="v3-h3">{a}</strong><p>{b}</p></div>
             ))}

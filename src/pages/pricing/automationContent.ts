@@ -41,8 +41,8 @@ export const AUTOMATION_TIERS: AutomationTierContent[] = [
       ],
     },
     terms: {
-      tr: 'Önce canlı demo. 14 gün içinde memnun kalmazsanız kurulum ücreti iade. En az 3 ay.',
-      en: 'Live demo first. 14-day money-back on the setup fee. Minimum 3 months.',
+      tr: 'Önce canlı demo. Kurulumdan sonraki 14 gün içinde memnun kalmazsanız kurulum ücreti iade edilir ve abonelik başlamadan sona erer. Devam ederseniz en az 3 ay.',
+      en: 'Live demo first. If you are not happy within 14 days of setup, the setup fee is refunded and the subscription ends before it starts. If you continue, minimum 3 months.',
     },
   },
   {
@@ -103,7 +103,7 @@ export const AUTOMATION_TIERS: AutomationTierContent[] = [
   },
   {
     key: 'automation-custom',
-    tools: { tr: 'Birden fazla departman, SLA', en: 'Several departments, SLA' },
+    tools: { tr: 'Birden fazla sistem ve departman', en: 'Several systems and departments' },
     fits: {
       tr: 'Birden fazla süreç ve departman, denetim gereksinimi veya hizmet seviyesi sözleşmesi.',
       en: 'Several processes and departments, audit requirements or a service level agreement.',
@@ -144,7 +144,7 @@ export const EXAMPLES = {
     { title: 'Randevu hatırlatma', who: 'Klinik, salon, servis', desc: 'Randevuyu WhatsApp, SMS veya e-postayla hatırlatır; iptal ve değişikliği size bildirir.', href: '/otomasyon/randevu-hatirlatma' },
     { title: 'Tahsilat takibi', who: 'Her sektör', desc: 'Vadesi geçen faturaları Excel veya muhasebe programından okur, nazik hatırlatma gönderir.', href: '/otomasyon/odeme-takibi' },
     { title: 'Evrak toplama', who: 'Muhasebe, hukuk, emlak', desc: 'Müşteriye eksik evrak listesini gönderir, geleni kaydeder, eksik kalanı takip eder.', href: '/otomasyon/evrak-toplama' },
-    { title: 'Excel’den mail ve WhatsApp', who: 'Her sektör', desc: 'Tablonuzdaki satırlardan otomatik mesaj, görev ve bildirim üretir.', href: '/sorunlar/excelden-otomatik-mail-whatsapp' },
+    { title: 'Excel’den e-posta ve WhatsApp', who: 'Her sektör', desc: 'Tablonuzdaki satırlardan otomatik mesaj, görev ve bildirim üretir.', href: '/sorunlar/excelden-otomatik-mail-whatsapp' },
     { title: 'Raporlama', who: 'Her ölçek', desc: 'Farklı dosya ve sistemlerdeki veriyi toplayıp günlük ya da haftalık özet hazırlar.', href: '/iletisim' },
   ],
   en: [
@@ -174,17 +174,17 @@ export const STEPS = {
 
 export const TRIAL = {
   tr: [
-    'Hazır otomasyon: önce canlı demo görürsünüz. Kurulumdan sonra 14 gün içinde memnun kalmazsanız kurulum ücreti iade edilir.',
+    'Hazır otomasyon: önce canlı demo görürsünüz. Kurulumdan sonraki 14 gün içinde memnun kalmazsanız kurulum ücreti iade edilir ve abonelik başlamadan sona erer.',
     'Bağlantılı: kendi verinizle tek bir akış 14 gün ücretsiz kurulur. Beğenirseniz kurulum ücretiyle devam edilir.',
     'Kapsamlı: önce kısa bir keşif görüşmesi ve başarı ölçütü; 14 günlük ücretsiz deneme tek belge türü veya tek süreçle yapılır.',
-    'Ücretli plana otomatik geçiş yok. Devam etmezseniz verileriniz silinir.',
+    'Ücretli plana otomatik geçiş yok. Devam etmezseniz deneme için bizdeki kopyalar silinir; kendi hesaplarınızdaki veriler sizde kalır.',
     'Asgari süre sistem canlıya alındığı gün başlar; deneme süresi sayılmaz.',
   ],
   en: [
-    'Ready-made: you see a live demo first. If you are not happy within 14 days of setup, the setup fee is refunded.',
+    'Ready-made: you see a live demo first. If you are not happy within 14 days of setup, the setup fee is refunded and the subscription ends before it starts.',
     'Connected: one workflow is built on your own data, free for 14 days. If you like it, you continue with the setup fee.',
     'Complex: a short discovery call and agreed success criteria first; the free 14-day trial covers one document type or one process.',
-    'No automatic switch to a paid plan. If you stop, your data is deleted.',
+    'No automatic switch to a paid plan. If you stop, the trial copies we hold are deleted; data in your own accounts stays with you.',
     'The minimum term starts on go-live; the trial period does not count.',
   ],
 };
@@ -192,17 +192,17 @@ export const TRIAL = {
 export const SECURITY = {
   tr: [
     'Sistem fiyat veya karar vermez; önemli her adım sizin onayınızdan geçer.',
-    'Onayınız olmadan müşterinize hiçbir şey gönderilmez.',
-    'Verileriniz yapay zekâ modellerini eğitmek için kullanılmaz.',
+    'Müşteriye giden cevaplar onayınızı bekler; hatırlatma gibi sabit mesajlar, metnini onayladıktan sonra otomatik gider.',
+    'MGL verilerinizi model eğitimi için kullanmaz; kullanılan sağlayıcılar ve ayarları teklifte yazılır.',
     'İsterseniz gizlilik sözleşmesi (NDA) imzalarız; KVKK ve GDPR koşulları teklifte yazılıdır.',
-    'Gerekirse sistem sizin hesaplarınızda veya sunucunuzda kurulur.',
+    'Teknik olarak uygunsa sistem sizin hesaplarınızda veya sunucunuzda kurulur.',
   ],
   en: [
     'The system does not set prices or make decisions; every important step is approved by you.',
-    'Nothing is sent to your customers without your approval.',
-    'Your data is not used to train AI models.',
+    'Replies to customers wait for your approval; fixed messages such as reminders go automatically once you approve the wording.',
+    'MGL does not use your data to train models; the providers used and their settings are listed in the proposal.',
     'We sign an NDA on request; GDPR and KVKK terms are written into the proposal.',
-    'If needed, the system runs in your own accounts or on your own server.',
+    'Where technically suitable, the system runs in your own accounts or on your own server.',
   ],
 };
 
@@ -212,7 +212,7 @@ export const FAQS = {
     { question: 'Küçük bir işletmeyiz, bize uygun mu?', answer: 'Evet. Hazır otomasyonlar küçük işletmeler için tasarlandı: listeden birini seçersiniz, sabit fiyatla kurulur. İhtiyaç büyüdükçe üst pakete geçebilirsiniz.' },
     { question: 'Listede olmayan bir iş istersem?', answer: 'Hazır listenin dışındaki veya birden fazla işi birbirine bağlayan her şey Bağlantılı pakete girer. İşinizi anlatın, hangi pakete girdiğini dürüstçe söyleyelim.' },
     { question: '"İşlem" neyi kapsar?', answer: 'Sistemin baştan sona yürüttüğü bir iş: bir hatırlatma, bir talep, bir sipariş veya bir belge. Aynı iş için yapılan yazışmalar ayrıca sayılmaz.' },
-    { question: 'Kullandığımız programı değiştirmemiz gerekir mi?', answer: 'Hayır. Sistem kullandığınız e-posta, WhatsApp, Excel, CRM veya ERP ile çalışacak şekilde kurulur.' },
+    { question: 'Kullandığımız programı değiştirmemiz gerekir mi?', answer: 'Genellikle hayır. Önce kullandığınız araçların bağlantı imkânına bakarız; nasıl bağlanacağı ya da gereken alternatif yöntem yazılı kapsamda belirtilir.' },
     { question: 'Değişiklik istersem ne olur?', answer: 'Kapsam içindeki küçük düzeltmeler aylık ücrete dahildir. Yeni akış veya kapsam dışı değişiklikler önceden yazılı fiyatla yapılır.' },
   ],
   en: [
@@ -220,7 +220,7 @@ export const FAQS = {
     { question: 'We are a small business. Is this for us?', answer: 'Yes. Ready-made automations are designed for small businesses: pick one from the list and it is set up at a fixed price. You can move up as your needs grow.' },
     { question: 'What if I need something that is not on the list?', answer: 'Anything outside the ready-made list, or anything that connects several tasks, falls under Connected. Describe it and we will tell you honestly which plan it fits.' },
     { question: 'What counts as a "task"?', answer: 'One piece of work the system handles end to end: a reminder, an enquiry, an order or a document. Follow-up messages on the same item are not counted again.' },
-    { question: 'Do we have to change our software?', answer: 'No. The system works with the email, WhatsApp, Excel, CRM or ERP you already use.' },
+    { question: 'Do we have to change our software?', answer: 'Usually not. We first check how your current tools can connect; the method, or any workaround needed, is written into the scope.' },
     { question: 'What if I want changes later?', answer: 'Small fixes within scope are included in the monthly fee. New workflows or out-of-scope changes are done at a price agreed in writing first.' },
   ],
 };

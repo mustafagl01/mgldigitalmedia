@@ -53,7 +53,7 @@ export default function HomeV3() {
             </p>
             <div className="v3-btns">
               <a className="btn btn-primary btn-lg" href="#hizmetler">{t('Hizmetleri görün', 'See the services')}</a>
-              <a className="btn btn-ghost btn-lg" href={WHATSAPP} target="_blank" rel="noopener noreferrer">{t('WhatsApp\u2019tan yazın', 'Write on WhatsApp')}</a>
+              <a className="btn btn-ghost btn-lg" href={WHATSAPP} target="_blank" rel="noopener noreferrer">{t('WhatsApp\u2019tan yazın', 'Message us on WhatsApp')}</a>
             </div>
           </div>
         </div>
@@ -66,7 +66,7 @@ export default function HomeV3() {
           <div className="v3-journey">
             {[
               ['01', t('Bulunun', 'Get found'), t('Web sitesi', 'Websites'), t(`Tek seferlik kurulum, ilk yıl barındırma dahil. Yayında ${WORK.length} müşteri sitesi.`, `One-off build, first year of hosting included. ${WORK.length} client sites live.`), '/web-ve-reklam#web'],
-              ['02', t('Görünün', 'Get seen'), t('Reklam yönetimi', 'Ads management'), t(`Meta veya Google, aylık ${formatPrice(p['ads-meta'].price, region)}; bütçeden yüzde alınmaz.`, `Meta or Google, ${formatPrice(p['ads-meta'].price, region)} a month; no percentage of spend.`), '/web-ve-reklam#reklam'],
+              ['02', t('Görünün', 'Get seen'), t('Reklam yönetimi', 'Ads management'), t(`Meta veya Google aylık ${formatPrice(p['ads-meta'].price, region)}, ikisi birlikte ${formatPrice(p['ads-both'].price, region)}; bütçeden yüzde alınmaz.`, `Meta or Google ${formatPrice(p['ads-meta'].price, region)} a month, both ${formatPrice(p['ads-both'].price, region)}; no percentage of spend.`), '/web-ve-reklam#reklam'],
               ['03', t('Cevap verin', 'Answer'), t('AI telefon ve WhatsApp', 'AI phone and WhatsApp'), t('Mesai dışında da telefonu açar, mesajlara cevap verir, randevu alır.', 'Answers calls and messages after hours and takes bookings.'), '/asistanlar'],
               ['04', t('İş yürüsün', 'Let it run'), t('Otomasyon', 'Automation'), t('Hatırlatma, tahsilat, evrak, teklif ve sipariş; müşteriye giden her şey onayınızla.', 'Reminders, payments, documents, quotes and orders; anything customer-facing waits for your approval.'), '/otomasyon'],
             ].map(([n, verb, name, text, href]) => (
@@ -88,7 +88,7 @@ export default function HomeV3() {
           <div className="v3-doors" style={{ marginBottom: 20 }}>
             <button className={`v3-door ${start === 'randevu' ? 'is-on' : ''}`} onClick={() => setStart('randevu')}>
               <img src="/v3/kapi-kucuk.webp" alt="" width={64} height={64} />
-              <div><strong>{t('Küçük işletme', 'Small business')}</strong><span>{t('Hazır bir otomasyonla bugün başlayın', 'Start today with a ready-made automation')}</span></div>
+              <div><strong>{t('Küçük işletme', 'Small business')}</strong><span>{t('Hazır bir otomasyonla başlayın', 'Start with a ready-made automation')}</span></div>
             </button>
             <button className={`v3-door ${start === 'teklif' ? 'is-on' : ''}`} onClick={() => setStart('teklif')}>
               <img src="/v3/kapi-uretici.webp" alt="" width={64} height={64} />
@@ -110,8 +110,8 @@ export default function HomeV3() {
             title={t('Tek bir darboğaz.', 'One bottleneck.')}
             soft={t('Sabit kapsam, sabit fiyat.', 'Fixed scope, fixed price.')}
             lede={t(
-              `Listeden birini seçin, birkaç gün içinde çalışsın. Kurulum ${formatPrice(p.automation.setupFee, region)}, aylık ${formatPrice(p.automation.price, region)}; önce canlı demo, 14 gün para iade.`,
-              `Pick one from the list and it runs within days. Setup ${formatPrice(p.automation.setupFee, region)}, ${formatPrice(p.automation.price, region)} a month; live demo first, 14-day money-back.`,
+              `Listeden birini seçin; kapsam ve gerekli erişimler netleşince kurulum tarihi yazılı belirlenir. Kurulum ${formatPrice(p.automation.setupFee, region)}, aylık ${formatPrice(p.automation.price, region)}; önce canlı demo, 14 gün içinde kurulum ücreti iadesi.`,
+              `Pick one from the list; the go-live date is agreed in writing once scope and access are clear. Setup ${formatPrice(p.automation.setupFee, region)}, ${formatPrice(p.automation.price, region)} a month; live demo first, setup fee refundable within 14 days.`,
             )}
           />
           <div className="v3-grid">
@@ -171,7 +171,7 @@ export default function HomeV3() {
               <div className="v3-figure" style={{ borderRadius: 0, aspectRatio: '3 / 2' }}><Pic name="asistanlar" alt={t('Ses ve mesaj akışlarının tek bir kuyrukta birleştiği minyatür model', 'A miniature model where voice and message streams join one queue')} /></div>
               <div style={{ padding: '18px 22px 22px', display: 'grid', gap: 8 }}>
                 <strong className="v3-h3">{t('AI telefon ve WhatsApp asistanı', 'AI phone and WhatsApp assistant')}</strong>
-                <p>{t(`Mesai dışında da telefonu açar, mesajlara cevap verir, randevu alır. Aylık ${formatPrice(p.voice.price, region)} + kullanım; paketler bitene kadar geçerli.`, `Answers calls and messages after hours and takes bookings. ${formatPrice(p.voice.price, region)} a month + usage; bundles never expire.`)}</p>
+                <p>{t(`Mesai dışında da telefonu açar, mesajlara cevap verir, randevu alır. Aylık ${formatPrice(p.voice.price, region)} + kullanım; kullanım paketleri yanmaz.`, `Answers calls and messages after hours and takes bookings. ${formatPrice(p.voice.price, region)} a month + usage; bundles never expire.`)}</p>
                 <span className="v3-more">{t('Nasıl çalışır →', 'How it works →')}</span>
               </div>
             </a>
