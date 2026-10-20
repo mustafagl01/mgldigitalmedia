@@ -51,7 +51,7 @@ export default function PricingAutomation() {
   return (
     <>
       <Seo
-        title={isEN ? 'Automation Pricing · MGL' : 'Otomasyon Fiyatları · MGL'}
+        title={isEN ? 'Automation Plans · MGL' : 'Otomasyon Paketleri · MGL'}
         description={isEN
           ? 'Automation for businesses of any size and sector: Ready-made, Connected, Complex and Custom plans.'
           : 'Her sektör ve ölçekteki işletme için otomasyon: Hazır, Bağlantılı, Kapsamlı ve Özel paketler.'}

@@ -1,7 +1,10 @@
 import { Seo, faqSchema, breadcrumbSchema } from '../../components/seo/Seo';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { useLocation } from '../../contexts/LocationContext';
-import type { PricingRegionCode, RegionalPricing } from '../../config/pricing';
+import { REGIONAL_PRICING, type PackageTierKey, type PricingRegionCode, type RegionalPricing } from '../../config/pricing';
+
+/* Paket adı fiyat bölgesine değil sayfa diline göre (TR sayfada İngilizce ad çıkmasın). */
+const nameOf = (key: PackageTierKey, isEN: boolean) => REGIONAL_PRICING[isEN ? 'GB' : 'TR'].packages[key].name;
 import { formatPrice, formatUnitRate } from '../../utils/formatPrice';
 import { WEB_TIERS, ADS_TIERS, ASSISTANTS, LOCAL_FAQS, type LocalTierContent } from './localContent';
 import {
@@ -119,7 +122,7 @@ export default function PricingLocal({ mode = 'webads' }: { mode?: Mode }) {
           </p>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(320px,100%),1fr))', gap: '1rem' }}>
             {ASSISTANTS.map((t) => (
-              <AssistantCard key={t.key} t={t} pricing={pricing} region={region} isEN={isEN} wa={wa(pricing.packages[t.key].name)} />
+              <AssistantCard key={t.key} t={t} pricing={pricing} region={region} isEN={isEN} wa={wa(nameOf(t.key, isEN))} />
             ))}
           </div>
         </section>
@@ -173,7 +176,7 @@ function TierGrid({ tiers, pricing, region, isEN, wa }: GridProps) {
         return (
           <article key={t.key} style={{ ...card, display: 'flex', flexDirection: 'column', gap: '0.9rem', border: tier.featured ? '2px solid var(--ink)' : card.border }}>
             <div>
-              <h3 style={{ fontSize: '1.15rem', fontWeight: 800, color: 'var(--ink)', margin: 0 }}>{tier.name}</h3>
+              <h3 style={{ fontSize: '1.15rem', fontWeight: 800, color: 'var(--ink)', margin: 0 }}>{nameOf(t.key, isEN)}</h3>
               <p style={{ color: 'var(--muted)', fontSize: '0.86rem', lineHeight: 1.55, margin: '0.35rem 0 0' }}>{t.subtitle[lang]}</p>
             </div>
             <div style={{ borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)', padding: '0.8rem 0' }}>
@@ -221,7 +224,7 @@ function AssistantCard({ t, pricing, region, isEN, wa }: { t: LocalTierContent }
   return (
     <article style={{ ...card, display: 'flex', flexDirection: 'column', gap: '0.9rem' }}>
       <div>
-        <h3 style={{ fontSize: '1.15rem', fontWeight: 800, color: 'var(--ink)', margin: 0 }}>{tier.name}</h3>
+        <h3 style={{ fontSize: '1.15rem', fontWeight: 800, color: 'var(--ink)', margin: 0 }}>{nameOf(t.key, isEN)}</h3>
         <p style={{ color: 'var(--muted)', fontSize: '0.86rem', lineHeight: 1.55, margin: '0.35rem 0 0' }}>{t.subtitle[lang]}</p>
       </div>
       <div style={{ borderTop: '1px solid var(--border)', borderBottom: '1px solid var(--border)', padding: '0.8rem 0' }}>
