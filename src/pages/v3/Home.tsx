@@ -38,15 +38,27 @@ export default function HomeV3() {
         <div className="v3-hero__bg" aria-hidden="true"><Pic name="hero" alt="" eager /></div>
         <div className="v3-wrap v3-hero__inner">
           <div className="v3-hero__text">
-            <div className="v3-tag">{t('Otomasyon · web · reklam · AI asistan — UK ve Türkiye', 'Automation · web · ads · AI assistants — UK and Türkiye')}</div>
+            <div className="v3-tag">{t('UK ve Türkiye · küçük ve büyük işletmeler', 'UK and Türkiye · small and large businesses')}</div>
             <h1 className="v3-h1">{t('İşi sistem yürütür,', 'The system does the work.')}<br /><span className="soft">{t('kararı siz verirsiniz.', 'You make the call.')}</span></h1>
             <p className="v3-lede">
               {t(
-                'Randevu, tahsilat, teklif ve evrak gibi her gün elle yapılan işleri kuruyoruz. Sistem işi hazırlar; müşterinize bir şey gitmeden önce onayınızı bekler.',
-                'We automate the work you do by hand every day: bookings, payments, quotes and documents. The system prepares it, then waits for your approval before anything reaches a customer.',
+                'Otomasyon, web sitesi, reklam yönetimi ve AI telefon/WhatsApp asistanı. Sizi bulunur kılar, gelen işi hazırlar; müşterinize bir şey gitmeden önce onayınızı bekler.',
+                'Automation, websites, ads management and AI phone/WhatsApp assistants. We get you found and prepare the incoming work, then wait for your approval before anything reaches a customer.',
               )}
             </p>
           </div>
+          {/* Dört iş kolu ilk ekranda (website-builder TUZAK §26): imza bileşen otomasyonu anlatsa da web ve reklam kaybolmaz. */}
+          <nav className="v3-services" aria-label={t('Hizmetler', 'Services')}>
+            {[
+              ['/otomasyon', t('Otomasyon', 'Automation'), t('Randevu, tahsilat, teklif, evrak', 'Bookings, payments, quotes, documents')],
+              ['/web-ve-reklam#web', t('Web sitesi', 'Websites'), t('Tek seferlik, ilk yıl barındırma dahil', 'One-off build, first year hosting included')],
+              ['/web-ve-reklam#reklam', t('Reklam yönetimi', 'Ads management'), t('Meta ve Google, sabit aylık ücret', 'Meta and Google, flat monthly fee')],
+              ['/asistanlar', t('AI asistan', 'AI assistants'), t('Telefon ve WhatsApp, 7/24', 'Phone and WhatsApp, 24/7')],
+            ].map(([href, name, sub]) => (
+              <a key={href} href={href}><strong>{name}</strong><span>{sub}</span></a>
+            ))}
+          </nav>
+          <div className="v3-tag" style={{ marginTop: 22, marginBottom: 10 }}>{t('Otomasyonda nereden başlamalı?', 'Where to start with automation?')}</div>
           <div className="v3-doors">
             <button className="v3-door" onClick={() => openDoor('randevu')}>
               <img src="/v3/kapi-kucuk.webp" alt="" width={64} height={64} />
