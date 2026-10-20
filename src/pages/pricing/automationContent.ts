@@ -140,20 +140,20 @@ export const READY_CATALOG = {
 /** Sektörlerden örnek işler — mevcut sorun sayfalarına bağlanır. */
 export const EXAMPLES = {
   tr: [
-    { title: 'Teklif ve sipariş', who: 'Üretim, toptan, distribütör', desc: 'Gelen talep listesini ürün ve fiyat listenizle eşler, onayınıza taslak teklif hazırlar.', href: '/surec-otomasyonu' },
-    { title: 'Randevu hatırlatma', who: 'Klinik, salon, servis', desc: 'Randevuyu WhatsApp, SMS veya e-postayla hatırlatır; iptal ve değişikliği size bildirir.', href: '/sorunlar/randevu-hatirlatma-sistemi' },
-    { title: 'Tahsilat takibi', who: 'Her sektör', desc: 'Vadesi geçen faturaları Excel veya muhasebe programından okur, nazik hatırlatma gönderir.', href: '/sorunlar/tahsilat-otomasyonu' },
-    { title: 'Evrak toplama', who: 'Muhasebe, hukuk, emlak', desc: 'Müşteriye eksik evrak listesini gönderir, geleni kaydeder, eksik kalanı takip eder.', href: '/sorunlar/evrak-toplama-ve-takip' },
+    { title: 'Teklif ve sipariş', who: 'Üretim, toptan, distribütör', desc: 'Gelen talep listesini ürün ve fiyat listenizle eşler, onayınıza taslak teklif hazırlar.', href: '/ureticiler' },
+    { title: 'Randevu hatırlatma', who: 'Klinik, salon, servis', desc: 'Randevuyu WhatsApp, SMS veya e-postayla hatırlatır; iptal ve değişikliği size bildirir.', href: '/otomasyon/randevu-hatirlatma' },
+    { title: 'Tahsilat takibi', who: 'Her sektör', desc: 'Vadesi geçen faturaları Excel veya muhasebe programından okur, nazik hatırlatma gönderir.', href: '/otomasyon/odeme-takibi' },
+    { title: 'Evrak toplama', who: 'Muhasebe, hukuk, emlak', desc: 'Müşteriye eksik evrak listesini gönderir, geleni kaydeder, eksik kalanı takip eder.', href: '/otomasyon/evrak-toplama' },
     { title: 'Excel’den mail ve WhatsApp', who: 'Her sektör', desc: 'Tablonuzdaki satırlardan otomatik mesaj, görev ve bildirim üretir.', href: '/sorunlar/excelden-otomatik-mail-whatsapp' },
-    { title: 'Raporlama', who: 'Her ölçek', desc: 'Farklı dosya ve sistemlerdeki veriyi toplayıp günlük ya da haftalık özet hazırlar.', href: '/n8n-otomasyon' },
+    { title: 'Raporlama', who: 'Her ölçek', desc: 'Farklı dosya ve sistemlerdeki veriyi toplayıp günlük ya da haftalık özet hazırlar.', href: '/iletisim' },
   ],
   en: [
-    { title: 'Quotes and orders', who: 'Manufacturing, wholesale, distribution', desc: 'Matches incoming request lists to your products and prices and prepares a draft quote for approval.', href: '/surec-otomasyonu' },
-    { title: 'Appointment reminders', who: 'Clinics, salons, service businesses', desc: 'Reminds by WhatsApp, SMS or email and tells you about cancellations and changes.', href: '/sorunlar/randevu-hatirlatma-sistemi' },
-    { title: 'Payment follow-up', who: 'Any sector', desc: 'Reads overdue invoices from Excel or your accounting software and sends polite reminders.', href: '/sorunlar/tahsilat-otomasyonu' },
-    { title: 'Document collection', who: 'Accounting, legal, property', desc: 'Sends the client their missing-document list, logs what arrives and chases the rest.', href: '/sorunlar/evrak-toplama-ve-takip' },
+    { title: 'Quotes and orders', who: 'Manufacturing, wholesale, distribution', desc: 'Matches incoming request lists to your products and prices and prepares a draft quote for approval.', href: '/ureticiler' },
+    { title: 'Appointment reminders', who: 'Clinics, salons, service businesses', desc: 'Reminds by WhatsApp, SMS or email and tells you about cancellations and changes.', href: '/otomasyon/randevu-hatirlatma' },
+    { title: 'Payment follow-up', who: 'Any sector', desc: 'Reads overdue invoices from Excel or your accounting software and sends polite reminders.', href: '/otomasyon/odeme-takibi' },
+    { title: 'Document collection', who: 'Accounting, legal, property', desc: 'Sends the client their missing-document list, logs what arrives and chases the rest.', href: '/otomasyon/evrak-toplama' },
     { title: 'Email and WhatsApp from Excel', who: 'Any sector', desc: 'Turns spreadsheet rows into automatic messages, tasks and notifications.', href: '/sorunlar/excelden-otomatik-mail-whatsapp' },
-    { title: 'Reporting', who: 'Any size', desc: 'Pulls data from different files and systems into a daily or weekly summary.', href: '/n8n-otomasyon' },
+    { title: 'Reporting', who: 'Any size', desc: 'Pulls data from different files and systems into a daily or weekly summary.', href: '/iletisim' },
   ],
 };
 

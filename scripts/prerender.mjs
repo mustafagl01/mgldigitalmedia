@@ -153,6 +153,32 @@ const TURKISH_META = {
   '/uk-ai-agencies-comparison': ['UK AI Ajanslarını Karşılaştırma Rehberi | MGL', 'AI ajanslarını kapsam, kanıt, sahiplik, destek ve toplam maliyete göre değerlendirin.'],
 };
 
+// v3 (konsey 2026-10-19): yeni sayfalar; eski adresler public/_redirects ile 301.
+const V3_REDIRECTED = new Set(['/whatsapp-ai-asistan', '/sesli-ai', '/surec-otomasyonu', '/n8n-otomasyon', '/services', '/solutions', '/pricing', '/pricing/automation', '/pricing/local', '/packages',
+  '/sorunlar/mesai-disi-arama-cevaplama', '/sorunlar/randevu-hatirlatma-sistemi', '/sorunlar/tahsilat-otomasyonu', '/sorunlar/evrak-toplama-ve-takip', '/sorunlar/excelden-otomatik-mail-whatsapp']);
+const V3_SEEDS = [
+  { path: '/otomasyon', tr: ['Otomasyon Paketleri · MGL', 'Her sektör ve ölçekteki işletme için otomasyon: Hazır, Bağlantılı, Kapsamlı ve Özel paketler. İşi sistem yürütür, kararı siz verirsiniz.'], en: ['Automation Plans · MGL', 'Automation for businesses of any size and sector: Ready-made, Connected, Complex and Custom plans. The system does the work, you make the call.'] },
+  { path: '/otomasyon/talep-yakalama', tr: ['Talep Yakalama Otomasyonu · MGL', 'Formdan veya tek kanaldan gelen talep tabloya işlenir, ekibinize anında haber gider. Sabit fiyatlı hazır otomasyon.'], en: ['Lead Capture Automation · MGL', 'Enquiries from a form or one channel go into your sheet and your team is alerted instantly. A fixed-price ready-made automation.'] },
+  { path: '/otomasyon/randevu-hatirlatma', tr: ['Randevu Hatırlatma Otomasyonu · MGL', 'Randevudan 24 ve 2 saat önce WhatsApp, SMS veya e-posta hatırlatması; onay ve iptaller tabloya yazılır.'], en: ['Appointment Reminder Automation · MGL', 'Reminders 24 and 2 hours before each booking by WhatsApp, SMS or email; confirmations and cancellations logged.'] },
+  { path: '/otomasyon/odeme-takibi', tr: ['Ödeme Takibi Otomasyonu · MGL', 'Vadesi geçen faturalara 1, 7 ve 14. günde nazik hatırlatma; ilk mesaj onayınızla gider.'], en: ['Payment Chaser Automation · MGL', 'Polite reminders on days 1, 7 and 14 past due; the first one goes with your approval.'] },
+  { path: '/otomasyon/evrak-toplama', tr: ['Evrak Toplama Otomasyonu · MGL', 'Müşteriye tek yükleme linki, eksik evrak için en fazla 3 hatırlatma, dosyalar tek klasörde.'], en: ['Document Collection Automation · MGL', 'One upload link, up to 3 reminders for missing documents, files in one folder.'] },
+  { path: '/otomasyon/yorum-isteme', tr: ['Google Yorum İsteme Otomasyonu · MGL', 'İş tamamlanınca müşteriye Google yorum linki ve tek hatırlatma; seçici yorum isteme yok.'], en: ['Review Request Automation · MGL', 'When a job is done the customer gets your Google review link and one reminder; no review gating.'] },
+  { path: '/ureticiler', tr: ['Üretici ve Distribütörler için Teklif ve Sipariş Otomasyonu · MGL', 'Gelen teklif taleplerini ve siparişleri okuyan, ürün kodlarınızla eşleyen ve onayınıza taslak hazırlayan sistem. 14 gün ücretsiz deneme.'], en: ['Quote and Order Automation for Manufacturers · MGL', 'Reads incoming quote requests and orders, matches your product codes and prepares drafts for approval. Free 14-day trial.'] },
+  { path: '/asistanlar', tr: ['AI Telefon ve WhatsApp Asistanı · MGL', 'Mesai dışında telefonu açan, mesajlara cevap veren ve randevu alan AI asistan. Paketler bitene kadar geçerli.'], en: ['AI Phone and WhatsApp Assistant · MGL', 'An AI assistant that answers calls and messages after hours and takes bookings. Bundles never expire.'] },
+  { path: '/web-ve-reklam', tr: ['Web Sitesi ve Reklam Yönetimi · MGL', 'İlk yıl barındırması dahil web siteleri ve sabit ücretli Meta ve Google reklam yönetimi.'], en: ['Websites and Ads Management · MGL', 'Websites with the first year of hosting included and flat-fee Meta and Google ads management.'] },
+  { path: '/fiyatlandirma', tr: ['Fiyatlandırma · MGL Digital Media', 'Otomasyon paketleri, web sitesi, reklam yönetimi ve AI asistan fiyatları; paketler işin karmaşıklığına göre.'], en: ['Pricing · MGL Digital Media', 'Automation plans, websites, ads management and AI assistant pricing; plans set by job complexity.'] },
+  { path: '/isler', tr: ['Yaptığımız İşler · MGL Digital Media', 'Yayındaki müşteri siteleri: kafe, inşaat, danışmanlık, anaokulu, catering ve daha fazlası.'], en: ['Our Work · MGL Digital Media', 'Live client websites: cafés, builders, consultancy, nurseries, catering and more.'] },
+  { path: '/hakkimizda', tr: ['Hakkımızda · MGL Digital Media', 'İngiltere’de kayıtlı (16007414), kurucu Mustafa Gül’ün yönettiği otomasyon ve web şirketi.'], en: ['About · MGL Digital Media', 'A founder-led automation and web company registered in England (16007414).'] },
+  { path: '/iletisim', tr: ['İletişim · MGL Digital Media', 'WhatsApp, telefon veya e-postayla ulaşın. UK +44 7482 670606, TR +90 531 829 97 01.'], en: ['Contact · MGL Digital Media', 'Reach us on WhatsApp, phone or email. UK +44 7482 670606, TR +90 531 829 97 01.'] },
+  { path: '/gizlilik-ve-guvenlik', tr: ['Gizlilik ve Güvenlik · MGL', 'Onay noktaları, veri işleme, NDA, KVKK/GDPR, deneme ve iade şartları.'], en: ['Privacy and Security · MGL', 'Approval points, data handling, NDA, GDPR/KVKK, trial and refund terms.'] },
+];
+for (const v of V3_SEEDS) {
+  ROUTE_SEEDS.push({ path: v.path, lang: 'tr', title: v.tr[0], description: v.tr[1] });
+  TURKISH_META[v.path] = v.tr;
+  ENGLISH_META[v.path] = v.en;
+}
+for (let i = ROUTE_SEEDS.length - 1; i >= 0; i--) if (V3_REDIRECTED.has(ROUTE_SEEDS[i].path)) ROUTE_SEEDS.splice(i, 1);
+
 const ROUTES = ROUTE_SEEDS.flatMap((seed) => {
   const isTurkishBlogPost = seed.blogSlug && seed.lang === 'tr';
   const isEnglishOnly = seed.path === '/accounting-automation-uk' || (seed.blogSlug && seed.lang === 'en');
@@ -167,7 +193,7 @@ const ROUTES = ROUTE_SEEDS.flatMap((seed) => {
   ];
 });
 
-ROUTES.push({ path: '/en/', basePath: '/', lang: 'en', title: 'MGL Digital Media · AI Assistants, Automation, Web and Ads', description: 'London-based, founder-led AI automation studio for WhatsApp and voice assistants, n8n systems, websites, SEO and advertising.' });
+ROUTES.push({ path: '/en/', basePath: '/', lang: 'en', title: 'MGL Digital Media · Systems do the work, you make the call', description: 'Automation, websites, ads management and AI assistants for small businesses and manufacturers. The system prepares the work; approval stays with you. UK and Türkiye.' });
 
 const STATIC_ROUTE_CONTENT = {
   '/whatsapp-ai-asistan': {
@@ -175,12 +201,12 @@ const STATIC_ROUTE_CONTENT = {
     answer: 'MGL AI; işletmenin ürün, hizmet, çalışma saati ve kurallarına göre WhatsApp mesajlarını yanıtlayan, müşteri bilgisini alan, randevu oluşturabilen ve gerektiğinde konuşmayı personele aktaran asistanlar kurar.',
     bullets: ['7/24 sık sorulan sorulara yanıt', 'Randevu ve lead toplama', 'CRM, takvim ve ekip bildirimi', 'Belirsiz konuşmalarda insan devri'],
   },
-  '/sesli-ai': {
+  '/asistanlar': {
     heading: 'Mesai dışında telefona cevap veren yapay zeka asistanı',
     answer: 'Sesli AI asistan gelen çağrıyı karşılayabilir, arama sebebini öğrenebilir, uygun saatleri kontrol edebilir, randevu talebi oluşturabilir ve görüşme özetini ekibe gönderebilir. Hassas veya kapsam dışı konular personele aktarılır.',
     bullets: ['Gelen çağrı karşılama', 'Randevu ve geri arama talebi', 'Görüşme özeti', 'İnsan ekibe yönlendirme'],
   },
-  '/surec-otomasyonu': {
+  '/ureticiler': {
     heading: 'Şirketinize özel, her gün tekrarlanan işleri otomatikleştiriyoruz',
     answer: 'MGL AI teklif hazırlama, sipariş girişi, evrak kontrolü, raporlama, servis talepleri ve takip hatırlatmaları gibi tekrarlanan iç işleri şirketin mevcut e-posta, Excel ve ERP düzeniyle çalışan otomasyonlarla hızlandırır. Tek bir süreçle ve gerçek veriyle 14 gün ücretsiz denemeyle başlanır; onay her zaman müşteride kalır.',
     bullets: ['Teklif hazırlama ve ürün kodu eşleştirme', 'Sipariş girişi ve evrak kontrolü', 'Raporlama ve takip hatırlatmaları', 'Tek süreçle 14 gün ücretsiz deneme'],
@@ -197,12 +223,12 @@ const STATIC_ROUTE_CONTENT = {
     ],
   },
   // Fiyat rakamları src/config/pricing.ts ile aynı olmalı (bu dosya TS import edemiyor). Değişirse ikisini birden güncelle.
-  '/pricing/automation': {
+  '/otomasyon': {
     heading: 'Otomasyon fiyatları',
     answer: 'MGL AI her sektörden küçük ve büyük işletmeler için tekrarlanan işlerin otomasyonunu dört paketle sunar. Paketler şirket büyüklüğüne göre değil, işin karmaşıklığına göre ayrılır. Hazır otomasyon: 14.900 TL kurulum + 1.490 TL/ay (randevu hatırlatma, ödeme takibi, evrak toplama, talep yakalama veya yorum isteme; en az 3 ay, 14 gün para iade). Bağlantılı: 35.000 TL kurulum + 4.900 TL/ay (2-3 iş akışı, CRM ve bulut programları; en az 6 ay, 14 gün ücretsiz deneme). Kapsamlı: 100.000 TL’den başlayan kurulum + 9.900 TL/ay (ERP, belge okuma, çok dil; en az 12 ay). Özel: birden fazla departman ve SLA için görüşme sonrası teklif. UK: £349 + £49/ay, £950 + £149/ay, £2.950’den + £399/ay.',
     bullets: ['Hazır otomasyon: 14.900 TL + 1.490 TL/ay', 'Bağlantılı: 35.000 TL + 4.900 TL/ay', 'Kapsamlı: 100.000 TL’den + 9.900 TL/ay', 'Özel: görüşme sonrası teklif'],
   },
-  '/pricing/local': {
+  '/web-ve-reklam': {
     heading: 'Web sitesi, reklam yönetimi ve AI asistan fiyatları',
     answer: 'MGL AI her ölçekteki işletme için sabit fiyatlı web, reklam ve AI asistan hizmetleri sunar. Web siteleri tek seferlik kurulumla satın alınır ve ilk yıl barındırma dahildir. Meta veya Google reklam yönetimi aylık sabit ücretlidir; reklam bütçesi doğrudan platforma ödenir, bütçeden yüzde alınmaz. UK\'de tek kanal £100/ay, Meta ve Google birlikte £150/ay. Sesli ve WhatsApp AI asistanları aylık sistem ücreti ve kullanımla çalışır; dakika ve yanıt paketleri bitene kadar geçerlidir.',
     bullets: ['Web siteleri: tek seferlik kurulum, ilk yıl barındırma dahil', 'Reklam yönetimi: sabit aylık ücret, bütçeden yüzde yok', 'Sesli asistan: aylık ücret + dakika paketi', 'WhatsApp asistanı: kurulum yok, aylık ücret + yanıt paketi'],

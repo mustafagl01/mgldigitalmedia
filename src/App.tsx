@@ -7,15 +7,21 @@ import { LocationProvider, useLocation } from './contexts/LocationContext';
 // Shared UI
 import { Toaster } from './components/ui/Toast';
 
-// Modals (kept from previous build)
-import { EmailDemoModal } from './components/modals/EmailDemoModal';
-import { PhoneDemoModal } from './components/modals/PhoneDemoModal';
 
 const CALENDAR_URL = 'https://calendar.app.google/FZnTjsWGfCy33WF36';
 
 // Pages — lazy loaded to reduce initial bundle
 // 2026-10-19: /pricing = seçici, /pricing/automation (B2B), /pricing/local (yerel). /packages -> /pricing (_redirects + PricingHub hash yönlendirmesi).
 const PricingHub = lazy(() => import('./pages/pricing/PricingHub'));
+// v3 yeniden tasarım (konsey 2026-10-19): docs/konsey/2026-10-19-site-konsey-karar.md
+const HomeV3 = lazy(() => import('./pages/v3/Home'));
+const CatalogPage = lazy(() => import('./pages/v3/CatalogPage'));
+const Ureticiler = lazy(() => import('./pages/v3/Ureticiler'));
+const Fiyatlandirma = lazy(() => import('./pages/v3/Fiyatlandirma'));
+const Isler = lazy(() => import('./pages/v3/Isler'));
+const Hakkimizda = lazy(() => import('./pages/v3/Hakkimizda'));
+const Iletisim = lazy(() => import('./pages/v3/Iletisim'));
+const Gizlilik = lazy(() => import('./pages/v3/Gizlilik'));
 const PricingAutomation = lazy(() => import('./pages/pricing/PricingAutomation'));
 const PricingLocal = lazy(() => import('./pages/pricing/PricingLocal'));
 const Services = lazy(() => import('./pages/Services'));
@@ -51,25 +57,21 @@ import { ScrollProgress } from './components/site/ScrollProgress';
 import { ChatBot } from './components/site/ChatBot';
 import { CookieConsent } from './components/site/CookieConsent';
 
-// SEO
-import { Seo, BASE_SCHEMAS, breadcrumbSchema } from './components/seo/Seo';
-
-// New homepage sections
-import { HeroV2 } from './components/sections/v2/HeroV2';
-import { CredentialsStrip } from './components/sections/v2/CredentialsStrip';
-import { HomeCapabilities, HomeWhoWeWorkWith } from './components/sections/v2/HomeCapabilities';
-import { HomeProblems, HomeJourney } from './components/sections/v2/HomeProblems';
-import { HomeProcessBridge } from './components/sections/v2/HomeProcessBridge';
 // HomeConnectedSystems ana sayfadan cikarildi: ayni akis artik hero'daki
 // sistem haritasinda duruyor, iki yerde tekrar olmasin.
-import { HomeHowWeWork, HomeWhyMgl } from './components/sections/v2/HomeApproach';
-import { HomePricing } from './components/sections/v2/HomePricing';
-import { DemoSection } from './components/sections/v2/DemoSection';
-import { FoundersBet } from './components/sections/v2/FoundersBet';
-import { ClosingCTA } from './components/sections/v2/ClosingCTA';
 
 type AppPage =
   | 'home'
+  | 'v3-otomasyon'
+  | 'v3-katalog'
+  | 'v3-ureticiler'
+  | 'v3-asistanlar'
+  | 'v3-webreklam'
+  | 'v3-fiyat'
+  | 'v3-isler'
+  | 'v3-hakkimizda'
+  | 'v3-iletisim'
+  | 'v3-gizlilik'
   | 'pricing'
   | 'pricing-automation'
   | 'pricing-local'
@@ -156,7 +158,48 @@ const KNOWN_PATHS = new Set([
   '/uk-ai-agencies-comparison',
 ]);
 
+/* v3: eski adres → yeni adres (sunucuda public/_redirects 301; burada uygulama içi gezinme için). */
+const LEGACY_V3: Record<string, string> = {
+  '/services': '/otomasyon',
+  '/solutions': '/otomasyon',
+  '/n8n-otomasyon': '/otomasyon',
+  '/pricing': '/fiyatlandirma',
+  '/packages': '/fiyatlandirma',
+  '/pricing/automation': '/otomasyon',
+  '/pricing/local': '/web-ve-reklam',
+  '/surec-otomasyonu': '/ureticiler',
+  '/sesli-ai': '/asistanlar',
+  '/whatsapp-ai-asistan': '/asistanlar',
+  '/sorunlar/mesai-disi-arama-cevaplama': '/asistanlar',
+  '/sorunlar/randevu-hatirlatma-sistemi': '/otomasyon/randevu-hatirlatma',
+  '/sorunlar/tahsilat-otomasyonu': '/otomasyon/odeme-takibi',
+  '/sorunlar/evrak-toplama-ve-takip': '/otomasyon/evrak-toplama',
+  '/sorunlar/excelden-otomatik-mail-whatsapp': '/otomasyon',
+};
+const V3_PAGES: Record<string, AppPage> = {
+  '/otomasyon': 'v3-otomasyon',
+  '/ureticiler': 'v3-ureticiler',
+  '/asistanlar': 'v3-asistanlar',
+  '/web-ve-reklam': 'v3-webreklam',
+  '/fiyatlandirma': 'v3-fiyat',
+  '/isler': 'v3-isler',
+  '/hakkimizda': 'v3-hakkimizda',
+  '/iletisim': 'v3-iletisim',
+  '/gizlilik-ve-guvenlik': 'v3-gizlilik',
+};
+const CATALOG_SLUGS = ['talep-yakalama', 'randevu-hatirlatma', 'odeme-takibi', 'evrak-toplama', 'yorum-isteme'];
+
 function pathToPage(path: string): AppPage {
+  {
+    const isEn = /^\/en(?=\/|$)/.test(path);
+    let c = (path.replace(/^\/en(?=\/|$)/, '') || '/').replace(/\/$/, '') || '/';
+    if (LEGACY_V3[c]) {
+      c = LEGACY_V3[c];
+      if (typeof window !== 'undefined') window.history.replaceState({}, '', `${isEn ? '/en' : ''}${c}${window.location.hash}`);
+    }
+    if (V3_PAGES[c]) return V3_PAGES[c];
+    if (c.startsWith('/otomasyon/') && CATALOG_SLUGS.includes(c.slice(11))) return 'v3-katalog';
+  }
   const withoutLanguage = path.replace(/^\/en(?=\/|$)/, '') || '/';
   const clean = withoutLanguage.replace(/\/$/, '') || '/';
   if (clean === '/' || clean === '') return 'home';
@@ -200,7 +243,6 @@ function AppContent() {
   const [currentPage, setCurrentPage] = useState<AppPage>(() =>
     pathToPage(window.location.pathname),
   );
-  const [activeDemo, setActiveDemo] = useState<string | null>(null);
   // Blog slug — extracted from URL for blog-post pages
   const [blogSlug, setBlogSlug] = useState<string>(() => {
     const parts = window.location.pathname.replace(/^\/en(?=\/|$)/, '').split('/');
@@ -270,6 +312,18 @@ function AppContent() {
     </div>
   );
 
+  // v3 sayfaları
+  if (currentPage === 'v3-otomasyon') return wrapPage(<Suspense fallback={<div />}><PricingAutomation /></Suspense>);
+  if (currentPage === 'v3-katalog') return wrapPage(<Suspense fallback={<div />}><CatalogPage slug={window.location.pathname.replace(/\/$/, '').split('/').pop() ?? ''} /></Suspense>);
+  if (currentPage === 'v3-ureticiler') return wrapPage(<Suspense fallback={<div />}><Ureticiler /></Suspense>);
+  if (currentPage === 'v3-asistanlar') return wrapPage(<Suspense fallback={<div />}><PricingLocal mode="assistants" /></Suspense>);
+  if (currentPage === 'v3-webreklam') return wrapPage(<Suspense fallback={<div />}><PricingLocal mode="webads" /></Suspense>);
+  if (currentPage === 'v3-fiyat') return wrapPage(<Suspense fallback={<div />}><Fiyatlandirma /></Suspense>);
+  if (currentPage === 'v3-isler') return wrapPage(<Suspense fallback={<div />}><Isler /></Suspense>);
+  if (currentPage === 'v3-hakkimizda') return wrapPage(<Suspense fallback={<div />}><Hakkimizda /></Suspense>);
+  if (currentPage === 'v3-iletisim') return wrapPage(<Suspense fallback={<div />}><Iletisim /></Suspense>);
+  if (currentPage === 'v3-gizlilik') return wrapPage(<Suspense fallback={<div />}><Gizlilik /></Suspense>);
+
   if (currentPage === 'pricing' || currentPage === 'packages') return wrapPage(<Suspense fallback={<div />}><PricingHub /></Suspense>);
   if (currentPage === 'pricing-automation') return wrapPage(<Suspense fallback={<div />}><PricingAutomation /></Suspense>);
   if (currentPage === 'pricing-local') return wrapPage(<Suspense fallback={<div />}><PricingLocal /></Suspense>);
@@ -307,80 +361,8 @@ function AppContent() {
   if (currentPage === 'voiceflow-vs-retell-ai') return wrapPage(<Suspense fallback={<div />}><VoiceflowVsRetellAi /></Suspense>);
   if (currentPage === 'uk-ai-agencies-comparison') return wrapPage(<Suspense fallback={<div />}><UkAiAgenciesComparison /></Suspense>);
 
-  // HOME
-  const isEN = language === 'en';
-  const homeBreadcrumb = breadcrumbSchema([
-    { name: isEN ? 'Home' : 'Ana Sayfa', path: '/' },
-  ]);
-
-  return (
-    <>
-      <Seo
-        title={
-          isEN
-            ? 'MGL Digital Media · AI Agents, Ads, Web & Automation for SMBs'
-            : 'MGL Digital Media · AI Asistan, Reklam, Web ve Otomasyon Ajansı'
-        }
-        description={
-          isEN
-            ? 'We automate your operational load — AI voice/email agents, Meta & Google ads, n8n workflows, conversion-first web and SEO. One team. One system. London HQ, serving UK & Turkey remotely.'
-            : 'Operasyonel yüklerinizi otomatize ederiz — sesli/e-posta AI asistanları, Meta ve Google reklamları, n8n akışları, dönüştüren web ve SEO. Tek ekip, tek sistem. Londra merkezli, UK ve Türkiye\'ye uzaktan hizmet.'
-        }
-        path="/"
-        locale={isEN ? 'en_GB' : 'tr_TR'}
-        keywords={
-          isEN
-            ? ['AI agency', 'automation agency', 'voice AI', 'n8n automation', 'Meta ads', 'Google ads', 'conversion web', 'London AI agency']
-            : ['AI ajans', 'otomasyon ajansı', 'sesli asistan', 'n8n otomasyon', 'Meta reklam', 'Google reklam', 'dönüşüm odaklı web', 'Londra merkezli AI ajansı']
-        }
-        jsonLd={[...BASE_SCHEMAS, homeBreadcrumb]}
-      />
-
-      <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh', background: 'var(--paper)' }}>
-        <ScrollProgress />
-  
-        <SiteHeader
-          currentPage="home"
-          onNavigate={navigateSite}
-          onAnalysisClick={openAnalysis}
-        />
-
-        <main style={{ flex: 1 }}>
-          <HeroV2
-            onAnalysisClick={openAnalysis}
-            onDemoClick={() =>
-              document.getElementById('demos')?.scrollIntoView({ behavior: 'smooth' })
-            }
-          />
-          <CredentialsStrip />
-          {/* Ana sayfa akışı mgl.md brief'ine göre kuruldu:
-              ne yapıyoruz → hangi derdi çözüyoruz → yolculuk → sistemler
-              birbirine bağlı → kimlerle → nasıl → neden biz → dene → kapanış */}
-          <HomeCapabilities />
-          <HomeProblems />
-          <HomeJourney />
-          <HomeProcessBridge />
-          <HomeWhoWeWorkWith />
-          <HomeHowWeWork />
-          <HomeWhyMgl />
-          <HomePricing />
-          <DemoSection
-            onEmailDemo={() => setActiveDemo('email')}
-            onPhoneDemo={() => setActiveDemo('phone')}
-          />
-          <FoundersBet onAnalysisClick={openAnalysis} />
-          <ClosingCTA onAnalysisClick={openAnalysis} />
-        </main>
-
-        <SiteFooter onNavigate={navigateSite} />
-      </div>
-
-      <ChatBot />
-
-      <EmailDemoModal isOpen={activeDemo === 'email'} onClose={() => setActiveDemo(null)} />
-      <PhoneDemoModal isOpen={activeDemo === 'phone'} onClose={() => setActiveDemo(null)} />
-    </>
-  );
+  // HOME (v3)
+  return wrapPage(<Suspense fallback={<div />}><HomeV3 /></Suspense>);
 }
 
 function App() {

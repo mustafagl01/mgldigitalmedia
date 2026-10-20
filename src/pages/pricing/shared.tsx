@@ -20,9 +20,10 @@ export function localPath(path: string, isEN: boolean): string {
 
 export const card = {
   padding: '1.5rem',
-  background: 'var(--surface)',
+  background: '#fff',
   border: '1px solid var(--border)',
-  borderRadius: 12,
+  borderRadius: 14,
+  boxShadow: 'var(--v3-shadow)',
 } as const;
 
 export const h2 = {

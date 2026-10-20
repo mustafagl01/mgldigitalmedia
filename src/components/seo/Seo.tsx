@@ -66,7 +66,7 @@ export function Seo({
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={ogImageUrl} />
 
-      <meta name="theme-color" content="#F7F4EE" />
+      <meta name="theme-color" content="#F4F6F8" />
       <meta name="author" content="MGL Digital Media LTD" />
       <meta name="geo.region" content="GB-ENG" />
       <meta name="geo.placename" content="London" />

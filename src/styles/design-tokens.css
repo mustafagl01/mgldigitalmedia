@@ -1,44 +1,45 @@
-/* MGL visual system: warm editorial paper, confident ink and a controlled
-   crimson signal colour. Dark surfaces are reserved for decisive moments. */
+/* MGL görsel sistemi v3 (konsey 2026-10-19): soğuk açık zemin, karbon metin, kobalt = hareket/rota,
+   yeşil = yalnız onaylanmış durum, amber = yalnız "onay bekliyor" noktası. IBM Plex Sans + Mono.
+   --ember* adları geriye uyum için kaldı; artık kobaltı taşır. */
 
 /* Editorial display + quiet, highly legible interface typography. */
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&family=Source+Serif+4:opsz,wght@8..60,500;8..60,600;8..60,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600;700&display=swap');
 
 :root {
   /* Warm editorial canvas — calm enough for trust, not sterile white. */
-  --paper:       #F7F4EE;
-  --paper-2:     #EFE9DF;
-  --paper-3:     #E3DBCE;
-  --ink:         #171713;
-  --ink-2:       #393832;
-  --ink-3:       #67635A;
-  --ink-4:       #8B857A;
+  --paper:       #F4F6F8;
+  --paper-2:     #EBEEF2;
+  --paper-3:     #DDE2E9;
+  --ink:         #171A1F;
+  --ink-2:       #343A46;
+  --ink-3:       #586173;
+  --ink-4:       #6E7789;
 
   /* Inverse surface — reserved for a few high-contrast moments. */
-  --coal:        #171713;
-  --coal-2:      #24231F;
-  --coal-3:      #3C3932;
-  --bone:        #F7F4EE;
-  --bone-2:      #D8D1C5;
-  --bone-3:      #AAA397;
+  --coal:        #171A1F;
+  --coal-2:      #222731;
+  --coal-3:      #343A46;
+  --bone:        #F4F6F8;
+  --bone-2:      #CBD2DC;
+  --bone-3:      #A1AABA;
 
   /* İmza vurgu — logo kırmızısı.
      Bulgu, uyarı ve CTA. Asla gradient — tek düz renk.
      Kontrast notu: koyu zeminde parlak ton, aydınlık bantta logonun
      gerçek tonu kullanılır. İkisi de AA üstünde. */
-  --ember:       #A91D2D;
-  --ember-hover: #861422;
-  --ember-soft:  #F5DDE0;
-  --ember-ink:   #72101C;
-  --ember-print: #A91D2D;
-  --ember-on-dark: #FF8792;
+  --ember:       #3155D9;
+  --ember-hover: #2443B5;
+  --ember-soft:  #DDE5FF;
+  --ember-ink:   #1E3796;
+  --ember-print: #3155D9;
+  --ember-on-dark: #8FA8FF;
 
   /* Yardımcı renkler — az kullanılır, hiçbir zaman dekoratif değil */
-  --moss:        #315F47;
-  --moss-soft:   #DCE9E1;
-  --ochre:       #8C681B;
-  --ochre-soft:  #F3E9CA;
-  --rust:        #9E2E22;
+  --moss:        #197052;
+  --moss-soft:   #D7EFE4;
+  --ochre:       #B7791F;
+  --ochre-soft:  #F6EBD6;
+  --rust:        #B83A4B;
 
   /* Semantik takma adlar (bileşenlerde bunlar kullanılmalı) */
   --bg:          var(--paper);
@@ -48,8 +49,9 @@
   --fg-2:        var(--ink-2);
   --fg-3:        var(--ink-3);
   --fg-4:        var(--ink-4);
-  --border:      #DCD4C7;
-  --border-2:    #C7BDAD;
+  --muted:       var(--ink-3);
+  --border:      #D9DEE7;
+  --border-2:    #C3CAD6;
   --accent:      var(--ember);
   --accent-hover: var(--ember-hover);
   --accent-soft: var(--ember-soft);
@@ -60,9 +62,9 @@
 
   /* Typography: readable sans for interface and body; an editorial serif
      for headlines; Manrope for compact labels and measured values. */
-  --font-sans:  'DM Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-mono:  'Manrope', system-ui, -apple-system, 'Segoe UI', sans-serif;
-  --font-serif: 'Source Serif 4', Georgia, serif;
+  --font-sans:  'IBM Plex Sans', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --font-mono:  'IBM Plex Mono', ui-monospace, 'SFMono-Regular', Menlo, monospace;
+  --font-serif: 'IBM Plex Sans', system-ui, sans-serif;
 
   /* Type scale — fluid, pinned to 1280–1920 viewports */
   --t-display:  clamp(3.25rem, 1.4rem + 5vw, 6rem);       /* 52 → 96 */
@@ -129,11 +131,11 @@
   /* Gölge ailesi E — GÖLGESİZ.
      Koyu zeminde siyah gölge görünmez; derinlik saç teli çizgi ve
      panel zemin farkıyla kurulur. Gölge yerine 1px iç kenarlık. */
-  --shadow-xs:   0 1px 0 rgba(23,23,19,0.04);
-  --shadow-sm:   0 2px 8px rgba(23,23,19,0.06), 0 0 0 1px rgba(23,23,19,0.03);
-  --shadow-md:   0 14px 34px -20px rgba(23,23,19,0.30), 0 2px 8px rgba(23,23,19,0.05);
-  --shadow-lg:   0 30px 70px -30px rgba(23,23,19,0.42);
-  --shadow-focus: 0 0 0 3px rgba(169,29,45,0.24);
+  --shadow-xs:   0 1px 0 rgba(23,26,31,0.04);
+  --shadow-sm:   0 2px 8px rgba(23,26,31,0.06), 0 0 0 1px rgba(23,26,31,0.03);
+  --shadow-md:   0 14px 34px -20px rgba(23,26,31,0.30), 0 2px 8px rgba(23,26,31,0.05);
+  --shadow-lg:   0 30px 70px -30px rgba(23,26,31,0.42);
+  --shadow-focus: 0 0 0 3px rgba(49,85,217,0.28);
 
   /* ─── MOTION ─────────────────────────────────────────────
      Snappy, short, mostly opacity + subtle y/x. Never bouncy. */
@@ -163,13 +165,13 @@
   --fg:        var(--bone);
   --fg-2:      var(--bone-2);
   --fg-3:      var(--bone-3);
-  --fg-4:      #858075;
-  --border:    #3C3932;
-  --border-2:  #575248;
+  --fg-4:      #8A93A5;
+  --border:    #343A46;
+  --border-2:  #4A5263;
   --ember:       var(--ember-on-dark);
-  --ember-hover: #FFA2AA;
-  --ember-soft:  #3A171C;
-  --ember-ink:   #FFD0D4;
+  --ember-hover: #B4C5FF;
+  --ember-soft:  #1E2A55;
+  --ember-ink:   #D6E0FF;
   background: var(--bg);
   color: var(--fg);
 }
@@ -184,8 +186,8 @@
   --fg-2: var(--ink-2);
   --fg-3: var(--ink-3);
   --fg-4: var(--ink-4);
-  --border: #DCD4C7;
-  --border-2: #C7BDAD;
+  --border: #D9DEE7;
+  --border-2: #C3CAD6;
   background: var(--paper);
   color: var(--ink);
 }
@@ -225,7 +227,6 @@ h1, h2, h3, h4, h5, h6,
   color: inherit;
   margin: 0;
   text-wrap: balance;
-  font-variation-settings: "opsz" 144, "SOFT" 50;
 }
 
 .h-display {

@@ -1,5 +1,9 @@
 import { Instagram, Linkedin, Facebook } from 'lucide-react';
 import { useLanguage } from '../../contexts/LanguageContext';
+import { Wordmark } from './Wordmark';
+
+/* Footer v3 (konsey 2026-10-19): hizmete göre sütunlar, gerçek şirket kimliği.
+   Linkler düz <a>; LanguageContext /en/ önekini kendisi ekliyor. */
 
 const SOCIAL_LINKS = [
   { label: 'Instagram', href: 'https://instagram.com/mgl.ai.uk', Icon: Instagram },
@@ -7,330 +11,89 @@ const SOCIAL_LINKS = [
   { label: 'Facebook', href: 'https://www.facebook.com/profile.php?id=61552306640065', Icon: Facebook },
 ];
 
-type Page = 'home' | 'services' | 'solutions' | 'packages' | 'pricing' | 'legal';
-
 interface Props {
-  onNavigate: (page: Page, hash?: string) => void;
+  onNavigate?: (page: never, hash?: string) => void;
 }
 
-export function SiteFooter({ onNavigate }: Props) {
+export function SiteFooter(_props: Props) {
   const { language } = useLanguage();
+  const isEN = language === 'en';
+  const t = (tr: string, en: string) => (isEN ? en : tr);
   const year = new Date().getFullYear();
 
-  const columns =
-    language === 'tr'
-      ? [
-          {
-            heading: 'Fiyatlar',
-            links: [
-              { label: 'Otomasyon', go: 'packages' as Page, hash: 'systems' },
-              { label: 'Web Siteleri', go: 'packages' as Page, hash: 'web' },
-              { label: 'Reklam Yönetimi', go: 'packages' as Page, hash: 'ads' },
-              { label: 'AI Asistanlar', go: 'packages' as Page, hash: 'agents' },
-              { label: 'Sektörel Çözümler', go: 'solutions' as Page },
-            ],
-          },
-          {
-            heading: 'Firma',
-            links: [
-              { label: 'Tüm Hizmetler', go: 'services' as Page },
-              { label: 'Fiyatlar', go: 'pricing' as Page },
-            ],
-          },
-        ]
-      : [
-          {
-            heading: 'Pricing',
-            links: [
-              { label: 'Automation', go: 'packages' as Page, hash: 'systems' },
-              { label: 'Websites', go: 'packages' as Page, hash: 'web' },
-              { label: 'Ads Management', go: 'packages' as Page, hash: 'ads' },
-              { label: 'AI Assistants', go: 'packages' as Page, hash: 'agents' },
-              { label: 'Industry Solutions', go: 'solutions' as Page },
-            ],
-          },
-          {
-            heading: 'Company',
-            links: [
-              { label: 'All Services', go: 'services' as Page },
-              { label: 'Pricing', go: 'pricing' as Page },
-            ],
-          },
-        ];
-
-  const contactHeading = language === 'tr' ? 'İletişim' : 'Contact';
-  const legalHeading = language === 'tr' ? 'Hukuki' : 'Legal';
-  const companyDesc =
-    language === 'tr'
-      ? 'AI asistan, otomasyon ve dönüşüm odaklı web — işletmeler ve kurumlar için. Londra merkezli, Türkiye ve Birleşik Krallık\'ta uzaktan hizmet.'
-      : 'AI assistants, automation, and conversion-first web — for businesses and enterprises. London HQ, serving the UK & Turkey remotely.';
+  const cols: Array<{ h: string; links: Array<[string, string]> }> = [
+    {
+      h: t('Otomasyon', 'Automation'),
+      links: [
+        ['/otomasyon', t('Paketler', 'Plans')],
+        ['/otomasyon/talep-yakalama', t('Talep yakalama', 'Lead capture')],
+        ['/otomasyon/randevu-hatirlatma', t('Randevu hatırlatma', 'Appointment reminders')],
+        ['/otomasyon/odeme-takibi', t('Ödeme takibi', 'Payment chaser')],
+        ['/otomasyon/evrak-toplama', t('Evrak toplama', 'Document collection')],
+        ['/otomasyon/yorum-isteme', t('Yorum isteme', 'Review requests')],
+        ['/ureticiler', t('Üreticiler için', 'For manufacturers')],
+      ],
+    },
+    {
+      h: t('Web, reklam, asistan', 'Web, ads, assistants'),
+      links: [
+        ['/web-ve-reklam', t('Web siteleri ve reklam', 'Websites and ads')],
+        ['/asistanlar', t('AI telefon ve WhatsApp', 'AI phone and WhatsApp')],
+        ['/fiyatlandirma', t('Fiyatlandırma', 'Pricing')],
+        ['/isler', t('Yaptığımız işler', 'Our work')],
+      ],
+    },
+    {
+      h: t('Şirket', 'Company'),
+      links: [
+        ['/hakkimizda', t('Hakkımızda', 'About')],
+        ['/iletisim', t('İletişim', 'Contact')],
+        ['/gizlilik-ve-guvenlik', t('Gizlilik ve güvenlik', 'Privacy and security')],
+        ['/blog', 'Blog'],
+        ['/legal', t('Yasal · KVKK · GDPR', 'Legal · GDPR')],
+      ],
+    },
+  ];
 
   return (
-    <footer
-      id="contact"
-      className="on-coal"
-      style={{
-        background: 'var(--coal)',
-        color: 'var(--bone)',
-        padding: '80px 0 40px',
-        marginTop: 'auto',
-        scrollMarginTop: 80,
-      }}
-    >
-      <div className="container">
-        <div
-          style={{
-            display: 'grid',
-            gridTemplateColumns: '1fr',
-            gap: 48,
-          }}
-          className="footer-grid"
-        >
-          {/* Brand block */}
-          <div style={{ maxWidth: 360 }}>
-            <div
-              style={{
-                fontFamily: 'var(--font-serif)',
-                fontSize: 28,
-                fontWeight: 600,
-                letterSpacing: '-0.02em',
-                lineHeight: 1,
-                color: 'var(--bone)',
-              }}
-            >
-              mgl<span style={{ color: 'var(--ember)', fontStyle: 'italic', fontWeight: 500 }}>ai</span>
-              <span
-                style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: 11,
-                  color: 'var(--bone-3)',
-                  fontWeight: 500,
-                  letterSpacing: '0.14em',
-                  marginLeft: 10,
-                }}
-              >
-                / systems
-              </span>
-            </div>
-            <p style={{ marginTop: 16, color: 'var(--bone-2)', fontSize: 14, lineHeight: 1.6 }}>
-              {companyDesc}
+    <footer style={{ background: 'var(--coal)', color: 'var(--bone-2)', padding: 'clamp(48px,7vw,80px) 0 28px' }}>
+      <div className="v3-wrap">
+        <div className="v3-footer-grid" style={{ display: 'grid', gap: 36, gridTemplateColumns: '1fr' }}>
+          <div style={{ display: 'grid', gap: 14, alignContent: 'start' }}>
+            <Wordmark size={24} inverse />
+            <p style={{ color: 'var(--bone-3)', fontSize: 14, lineHeight: 1.6, margin: 0, maxWidth: 34 + 'ch' }}>
+              {t('İşi sistem yürütür, kararı siz verirsiniz. Otomasyon, web, reklam ve AI asistan; UK ve Türkiye.', 'The system does the work, you make the call. Automation, web, ads and AI assistants; UK and Türkiye.')}
             </p>
-            <div
-              lang="en"
-              style={{
-                marginTop: 20,
-                fontFamily: 'var(--font-mono)',
-                fontSize: 11,
-                letterSpacing: '0.12em',
-                textTransform: 'uppercase',
-                color: 'var(--bone-3)',
-                display: 'flex',
-                flexDirection: 'column',
-                gap: 4,
-              }}
-            >
-              <span>MGL Digital Media LTD</span>
-              <span>London, United Kingdom</span>
-            </div>
-
-            <div
-              style={{
-                marginTop: 20,
-                display: 'flex',
-                alignItems: 'center',
-                gap: 10,
-              }}
-            >
+            <div style={{ display: 'flex', gap: 8 }}>
               {SOCIAL_LINKS.map(({ label, href, Icon }) => (
-                <a
-                  key={label}
-                  href={href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={label}
-                  style={{
-                    display: 'inline-flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    width: 36,
-                    height: 36,
-                    borderRadius: '50%',
-                    border: '1px solid var(--coal-3)',
-                    color: 'var(--bone-2)',
-                    transition: 'all 160ms var(--ease-out)',
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.background = 'var(--ember)';
-                    e.currentTarget.style.color = 'var(--coal)';
-                    e.currentTarget.style.borderColor = 'var(--ember)';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.background = 'transparent';
-                    e.currentTarget.style.color = 'var(--bone-2)';
-                    e.currentTarget.style.borderColor = 'var(--coal-3)';
-                  }}
-                >
-                  <Icon size={16} strokeWidth={1.6} />
+                <a key={label} href={href} target="_blank" rel="noopener noreferrer" aria-label={label}
+                  style={{ width: 44, height: 44, display: 'grid', placeItems: 'center', border: '1px solid var(--coal-3)', borderRadius: 8, color: 'var(--bone-2)' }}>
+                  <Icon size={17} />
                 </a>
               ))}
             </div>
-          </div>
-
-          {/* Link columns */}
-          {columns.map((col, i) => (
-            <div key={i}>
-              {/* <h4> değil <p>: sayfada h2/h3 olmadan h4 kullanmak başlık
-                  sırasını bozuyordu (Lighthouse: heading-order). Görünüm aynı. */}
-              <p
-                style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: 11,
-                  letterSpacing: '0.14em',
-                  textTransform: 'uppercase',
-                  color: 'var(--bone-2)',
-                  fontWeight: 500,
-                  marginBottom: 16,
-                  marginTop: 0,
-                }}
-              >
-                {col.heading}
-              </p>
-              <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 10 }}>
-                {col.links.map((l, j) => (
-                  <li key={j}>
-                    <button
-                      onClick={() => onNavigate(l.go, l.hash)}
-                      style={{
-                        color: 'var(--bone-2)',
-                        fontSize: 14,
-                        background: 'transparent',
-                        padding: 0,
-                        textAlign: 'left',
-                      }}
-                    >
-                      {l.label}
-                    </button>
-                  </li>
-                ))}
-              </ul>
+            <div style={{ fontSize: 14, lineHeight: 1.8 }}>
+              <a href="https://wa.me/447482670606" style={{ color: 'var(--bone)' }}>UK +44 7482 670606</a><br />
+              <a href="https://wa.me/905318299701" style={{ color: 'var(--bone)' }}>TR +90 531 829 97 01</a>
             </div>
-          ))}
-
-          {/* Contact */}
-          <div>
-            <p
-              style={{
-                fontFamily: 'var(--font-mono)',
-                fontSize: 11,
-                letterSpacing: '0.14em',
-                textTransform: 'uppercase',
-                color: 'var(--bone-2)',
-                fontWeight: 500,
-                marginBottom: 16,
-                marginTop: 0,
-              }}
-            >
-              {contactHeading}
-            </p>
-            <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 10, fontSize: 14 }}>
-              <li>
-                <a href="mailto:info@mgldigitalmedia.com" style={{ color: 'var(--bone-2)' }}>
-                  info@mgldigitalmedia.com
-                </a>
-              </li>
-              <li>
-                <a href="https://wa.me/447482670606" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--bone-2)' }}>
-                  {language === 'tr' ? 'WhatsApp: +44 7482 670606' : 'WhatsApp — message us directly'}
-                </a>
-              </li>
-              <li>
-                <a href="tel:+447414605612" style={{ color: 'var(--bone-2)' }}>
-                  {language === 'tr' ? 'Sesli asistan: +44 7414 605612' : 'Voice agent: +44 7414 605612'}
-                </a>
-              </li>
-              <li>
-                <a href="/ai-musteri-bulma-mail-takip" style={{ color: 'var(--bone-2)' }}>
-                  {language === 'tr' ? 'AI müşteri bulma ve e-posta takibi' : 'AI prospecting and email follow-up'}
-                </a>
-              </li>
-              <li>
-                <a href="/en/accounting-automation-uk/" style={{ color: 'var(--bone-2)' }}>
-                  {language === 'tr' ? 'Muhasebe firmaları için otomasyon' : 'Automation for accounting firms'}
-                </a>
-              </li>
-            </ul>
           </div>
+          {cols.map((c) => (
+            <nav key={c.h} aria-label={c.h} style={{ display: 'grid', gap: 2, alignContent: 'start' }}>
+              <div style={{ fontFamily: 'var(--font-mono)', fontSize: 11.5, letterSpacing: '.06em', color: 'var(--bone-3)', marginBottom: 8 }}>{c.h}</div>
+              {c.links.map(([href, label]) => (
+                <a key={href} href={href} style={{ color: 'var(--bone-2)', fontSize: 14.5, padding: '6px 0', textDecoration: 'none' }}>{label}</a>
+              ))}
+            </nav>
+          ))}
         </div>
 
-        <hr
-          style={{
-            marginTop: 64,
-            border: 0,
-            borderTop: '1px solid var(--coal-3)',
-          }}
-        />
-
-        <div
-          style={{
-            marginTop: 24,
-            display: 'flex',
-            justifyContent: 'space-between',
-            alignItems: 'center',
-            gap: 16,
-            flexWrap: 'wrap',
-            fontFamily: 'var(--font-mono)',
-            fontSize: 11,
-            letterSpacing: '0.1em',
-            textTransform: 'uppercase',
-            color: 'var(--bone-3)',
-          }}
-        >
-          <span lang="en">© {year} MGL Digital Media LTD</span>
-          <button
-            onClick={() => onNavigate('legal')}
-            style={{
-              background: 'transparent',
-              border: 0,
-              padding: 0,
-              color: 'var(--bone-3)',
-              fontFamily: 'inherit',
-              fontSize: 'inherit',
-              letterSpacing: 'inherit',
-              textTransform: 'inherit',
-              cursor: 'pointer',
-              textDecoration: 'underline',
-              textDecorationColor: 'var(--coal-3)',
-              textUnderlineOffset: 4,
-            }}
-          >
-            {language === 'tr' ? `${legalHeading} · KVKK · GDPR` : `${legalHeading} · GDPR · Privacy`}
-          </button>
+        <div style={{ borderTop: '1px solid var(--coal-3)', marginTop: 40, paddingTop: 20, fontSize: 12.5, color: 'var(--bone-3)', lineHeight: 1.7 }}>
+          © {year} MGL Digital Media Ltd · Company No{' '}
+          <a href="https://find-and-update.company-information.service.gov.uk/company/16007414" target="_blank" rel="noopener noreferrer" style={{ color: 'var(--bone-2)' }}>16007414</a>
+          {' '}· Registered in England &amp; Wales · 112 Bertram Road, Enfield EN1 1LS, United Kingdom
         </div>
-
-        <p
-          style={{
-            marginTop: 12,
-            marginBottom: 0,
-            fontFamily: 'var(--font-mono)',
-            // 10px + opacity:0.7 kontrastı 3.16:1'e düşürüyordu (AA: 4.5:1).
-            // Opaklık kaldırıldı, punto bir tık büyütüldü.
-            fontSize: 11,
-            letterSpacing: '0.08em',
-            color: '#A9A190',
-            lineHeight: 1.6,
-          }}
-        >
-          {language === 'tr'
-            ? 'Company No 16007414 · Registered in England & Wales · Registered Office: 112 Bertram Road, Enfield EN1 1LS, United Kingdom.'
-            : 'Company No 16007414 · Registered in England & Wales · Registered Office: 112 Bertram Road, Enfield EN1 1LS, United Kingdom.'}
-        </p>
       </div>
-
-      <style>{`
-        @media (min-width: 768px) {
-          .footer-grid { grid-template-columns: 1.5fr 1fr 1fr 1.2fr !important; gap: 48px !important; }
-        }
-      `}</style>
+      <style>{`@media (min-width: 860px){ .v3-footer-grid{ grid-template-columns: 1.4fr 1fr 1fr 1fr !important; gap: 48px !important; } }`}</style>
     </footer>
   );
 }

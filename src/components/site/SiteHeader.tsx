@@ -3,269 +3,96 @@ import { Menu, X } from 'lucide-react';
 import { useLanguage } from '../../contexts/LanguageContext';
 import { Wordmark } from './Wordmark';
 
-type Page = 'home' | 'services' | 'solutions' | 'packages' | 'pricing';
+/* Header v3 (konsey 2026-10-19). Menü hizmete göre: Otomasyon · Üreticiler · Asistanlar ·
+   Web ve Reklam · İşler · Fiyatlar · Hakkımızda. Linkler düz <a>; LanguageContext site içi
+   linkleri kendisi /en/ ile yerelleştiriyor. Props geriye uyum için duruyor. */
 
 interface Props {
-  currentPage: Page;
-  onNavigate: (page: Page) => void;
-  onAnalysisClick: () => void;
+  currentPage?: string;
+  onNavigate?: (page: never) => void;
+  onAnalysisClick?: () => void;
 }
 
-export function SiteHeader({ currentPage, onNavigate, onAnalysisClick }: Props) {
+const WHATSAPP = 'https://wa.me/447482670606';
+
+export function SiteHeader(_props: Props) {
   const { language, setLanguage } = useLanguage();
+  const isEN = language === 'en';
   const [scrolled, setScrolled] = useState(false);
-  const [mobileOpen, setMobileOpen] = useState(false);
+  const [open, setOpen] = useState(false);
+  const [path, setPath] = useState(() => (typeof window === 'undefined' ? '/' : window.location.pathname.replace(/^\/en(?=\/|$)/, '') || '/'));
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
+    const onPop = () => setPath(window.location.pathname.replace(/^\/en(?=\/|$)/, '') || '/');
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
+    window.addEventListener('popstate', onPop);
+    return () => {
+      window.removeEventListener('scroll', onScroll);
+      window.removeEventListener('popstate', onPop);
+    };
   }, []);
 
-  const nav: Array<[Page, string]> =
-    language === 'tr'
-      ? [
-          ['home', 'Ana sayfa'],
-          ['services', 'Servisler'],
-          ['solutions', 'Çözümler'],
-          ['pricing', 'Fiyatlar'],
-        ]
-      : [
-          ['home', 'Home'],
-          ['services', 'Services'],
-          ['solutions', 'Solutions'],
-          ['pricing', 'Pricing'],
-        ];
-
-  const handleNav = (p: Page) => {
-    onNavigate(p);
-    setMobileOpen(false);
-  };
-
-  const handleContact = () => {
-    setMobileOpen(false);
-    const el = document.getElementById('contact');
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      return;
-    }
-    onNavigate('home');
-    window.setTimeout(() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 0);
-  };
-
-  const contactLabel = language === 'tr' ? 'İletişim' : 'Contact';
-
-  const handleWhatsApp = () => {
-    window.open('https://wa.me/447482670606', '_blank', 'noopener,noreferrer');
-  };
+  const nav: Array<[string, string]> = [
+    ['/otomasyon', isEN ? 'Automation' : 'Otomasyon'],
+    ['/ureticiler', isEN ? 'Manufacturers' : 'Üreticiler'],
+    ['/asistanlar', isEN ? 'AI assistants' : 'Asistanlar'],
+    ['/web-ve-reklam', isEN ? 'Web & ads' : 'Web ve Reklam'],
+    ['/isler', isEN ? 'Work' : 'İşler'],
+    ['/fiyatlandirma', isEN ? 'Pricing' : 'Fiyatlar'],
+    ['/hakkimizda', isEN ? 'About' : 'Hakkımızda'],
+  ];
+  const active = (href: string) => path === href || path.startsWith(`${href}/`);
 
   return (
-    <header
-      style={{
-        position: 'sticky',
-        top: 0,
-        zIndex: 40,
-        background: scrolled ? 'rgba(245, 241, 234, 0.88)' : 'var(--paper)',
-        backdropFilter: scrolled ? 'saturate(140%) blur(10px)' : 'none',
-        WebkitBackdropFilter: scrolled ? 'saturate(140%) blur(10px)' : 'none',
-        borderBottom: `1px solid ${scrolled ? 'var(--border)' : 'transparent'}`,
-        transition: 'all 200ms var(--ease-out)',
-      }}
-    >
-      <div
-        className="container"
-        style={{
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          height: scrolled ? 62 : 76,
-          transition: 'height 200ms var(--ease-out)',
-          gap: 16,
-        }}
-      >
-        {/* aria-label YOK: logo iki ayrı <span> ("mgl" + "ai") ve aradaki
-            boşluk CSS gap ile veriliyor, yani görünen metin "mglai".
-            Elle yazılan her etiket bununla uyuşmuyordu
-            (Lighthouse: label-content-name-mismatch). Görünen metin zaten
-            ekran okuyucuda okunuyor, ek etiket gerekmiyor. */}
-        <button
-          onClick={() => handleNav('home')}
-          style={{ background: 'transparent', padding: 0, display: 'inline-flex', alignItems: 'center' }}
-        >
-          <Wordmark />
-        </button>
+    <header className={`v3-header ${scrolled ? 'is-scrolled' : ''}`}>
+      <div className="container v3-header__bar">
+        <a href="/" className="v3-header__logo" onClick={() => setOpen(false)}>
+          <Wordmark size={21} />
+        </a>
 
-        <nav className="nav-desktop" style={{ display: 'none', gap: 4 }}>
-          {nav.map(([id, label]) => (
-            <button
-              key={id}
-              onClick={() => handleNav(id)}
-              className={`nav-link ${id === currentPage ? 'is-active' : ''}`}
-            >
+        <nav className="v3-header__nav" aria-label={isEN ? 'Main' : 'Ana menü'}>
+          {nav.map(([href, label]) => (
+            <a key={href} href={href} className={`v3-navlink ${active(href) ? 'is-active' : ''}`} aria-current={active(href) ? 'page' : undefined}>
               {label}
-            </button>
+            </a>
           ))}
-          <a href="/blog" className="nav-link">
-            Blog
-          </a>
-          <button onClick={handleContact} className="nav-link">
-            {contactLabel}
-          </button>
         </nav>
 
-        <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
-          <div
-            className="lang-switcher"
-            aria-label={language === 'tr' ? 'Dil seçimi' : 'Language switcher'}
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: 0,
-              border: '1px solid var(--border)',
-              borderRadius: 'var(--r-md)',
-              padding: 2,
-            }}
-          >
+        <div className="v3-header__actions">
+          <div className="v3-lang" role="group" aria-label={isEN ? 'Language' : 'Dil'}>
             {(['tr', 'en'] as const).map((l) => (
-              <button
-                key={l}
-                onClick={() => setLanguage(l)}
-                aria-pressed={language === l}
-                style={{
-                  fontFamily: 'var(--font-mono)',
-                  fontSize: 11,
-                  padding: '4px 9px',
-                  textTransform: 'uppercase',
-                  letterSpacing: '0.14em',
-                  borderRadius: 'var(--r-xs)',
-                  background: language === l ? 'var(--ink)' : 'transparent',
-                  color: language === l ? 'var(--paper)' : 'var(--fg-3)',
-                  fontWeight: 500,
-                  transition: 'all 120ms',
-                }}
-              >
-                {l}
+              <button key={l} onClick={() => setLanguage(l)} aria-pressed={language === l} className={language === l ? 'is-on' : ''}>
+                {l.toUpperCase()}
               </button>
             ))}
           </div>
-
-          <button
-            onClick={handleWhatsApp}
-            className="btn btn-ghost btn-sm"
-            style={{ display: 'none' }}
-            data-hide-mobile
-          >
+          <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-sm v3-header__cta">
             WhatsApp
-          </button>
-
-          <button onClick={onAnalysisClick} className="btn btn-primary btn-sm">
-            {language === 'tr' ? 'Randevu al' : 'Book a call'}
-          </button>
-
-          <button
-            className="nav-mobile-toggle"
-            onClick={() => setMobileOpen((v) => !v)}
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              width: 40,
-              height: 40,
-              border: '1px solid var(--border)',
-              borderRadius: 'var(--r-md)',
-              background: 'transparent',
-              color: 'var(--fg)',
-            }}
-            aria-label="Menu"
-          >
-            {mobileOpen ? <X size={18} /> : <Menu size={18} />}
+          </a>
+          <button className="v3-header__toggle" onClick={() => setOpen((v) => !v)} aria-expanded={open} aria-label={isEN ? 'Menu' : 'Menü'}>
+            {open ? <X size={18} /> : <Menu size={18} />}
           </button>
         </div>
       </div>
 
-      {/* Mobile drawer */}
-      {mobileOpen && (
-        <div
-          style={{
-            borderTop: '1px solid var(--border)',
-            background: 'var(--paper)',
-            padding: '16px 24px 24px',
-          }}
-          className="mobile-drawer"
-        >
-          <nav style={{ display: 'flex', flexDirection: 'column', gap: 4 }}>
-            {nav.map(([id, label]) => (
-              <button
-                key={id}
-                onClick={() => handleNav(id)}
-                style={{
-                  textAlign: 'left',
-                  padding: '12px 0',
-                  fontFamily: 'var(--font-sans)',
-                  fontSize: 16,
-                  fontWeight: 500,
-                  color: id === currentPage ? 'var(--ink)' : 'var(--fg-2)',
-                  borderBottom: '1px solid var(--border)',
-                  background: 'transparent',
-                }}
-              >
+      {open && (
+        <div className="v3-drawer">
+          <nav className="container" aria-label={isEN ? 'Mobile' : 'Mobil menü'}>
+            {nav.map(([href, label]) => (
+              <a key={href} href={href} onClick={() => setOpen(false)} className={active(href) ? 'is-active' : ''}>
                 {label}
-              </button>
+              </a>
             ))}
-            <a
-              href="/blog"
-              style={{
-                display: 'block',
-                textAlign: 'left',
-                padding: '12px 0',
-                fontFamily: 'var(--font-sans)',
-                fontSize: 16,
-                fontWeight: 500,
-                color: 'var(--fg-2)',
-                borderBottom: '1px solid var(--border)',
-                textDecoration: 'none',
-              }}
-            >
-              Blog
+            <a href="/blog" onClick={() => setOpen(false)}>Blog</a>
+            <a href="/iletisim" onClick={() => setOpen(false)}>{isEN ? 'Contact' : 'İletişim'}</a>
+            <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" className="btn btn-primary btn-md" style={{ marginTop: 16 }}>
+              {isEN ? 'Write on WhatsApp' : 'WhatsApp’tan yazın'}
             </a>
-            <button
-              onClick={handleContact}
-              style={{
-                textAlign: 'left',
-                padding: '12px 0',
-                fontFamily: 'var(--font-sans)',
-                fontSize: 16,
-                fontWeight: 500,
-                color: 'var(--fg-2)',
-                borderBottom: '1px solid var(--border)',
-                background: 'transparent',
-              }}
-            >
-              {contactLabel}
-            </button>
           </nav>
-
-          <div style={{ display: 'grid', gap: 10, marginTop: 20 }}>
-            <button onClick={handleWhatsApp} className="btn btn-ghost btn-md">
-              WhatsApp
-            </button>
-            <button onClick={onAnalysisClick} className="btn btn-primary btn-md">
-              {language === 'tr' ? 'Randevu al' : 'Book a call'}
-            </button>
-          </div>
         </div>
       )}
-
-      <style>{`
-        @media (min-width: 960px) {
-          .nav-desktop { display: flex !important; gap: 4px; }
-          .lang-switcher { display: inline-flex !important; }
-          [data-hide-mobile] { display: inline-flex !important; }
-          .nav-mobile-toggle { display: none !important; }
-          .mobile-drawer { display: none !important; }
-        }
-      `}</style>
     </header>
   );
 }

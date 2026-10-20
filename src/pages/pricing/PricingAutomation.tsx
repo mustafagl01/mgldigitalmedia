@@ -6,6 +6,8 @@ import { formatPrice } from '../../utils/formatPrice';
 import { AUTOMATION_TIERS, READY_CATALOG, EXAMPLES, STEPS, TRIAL, SECURITY, FAQS } from './automationContent';
 import type { PackageTierKey } from '../../config/pricing';
 
+const READY_SLUGS = ['talep-yakalama', 'randevu-hatirlatma', 'odeme-takibi', 'evrak-toplama', 'yorum-isteme'];
+
 const TIER_LABELS: Partial<Record<PackageTierKey, { tr: string; en: string }>> = {
   automation: { tr: 'Hazır otomasyon', en: 'Ready-made' },
   'automation-connected': { tr: 'Bağlantılı', en: 'Connected' },
@@ -35,15 +37,14 @@ export default function PricingAutomation() {
   const faqs = FAQS[lang];
   const breadcrumb = breadcrumbSchema([
     { name: isEN ? 'Home' : 'Ana Sayfa', path: '/' },
-    { name: isEN ? 'Pricing' : 'Fiyatlar', path: '/pricing' },
-    { name: isEN ? 'Automation' : 'Otomasyon', path: '/pricing/automation' },
+    { name: isEN ? 'Automation' : 'Otomasyon', path: '/otomasyon' },
   ]);
   const svc = serviceSchema({
     name: isEN ? 'Business process automation' : 'İş süreci otomasyonu',
     description: isEN
       ? 'Automation of repetitive work such as quotes, orders, appointment reminders, payment follow-up, document collection and reporting, for businesses of any size and sector, with human approval.'
       : 'Teklif, sipariş, randevu hatırlatma, tahsilat takibi, evrak toplama ve raporlama gibi tekrarlanan işlerin, her sektör ve ölçekteki işletme için insan onayıyla otomasyonu.',
-    path: '/pricing/automation',
+    path: '/otomasyon',
     category: 'Business Process Automation',
   });
 
@@ -54,7 +55,7 @@ export default function PricingAutomation() {
         description={isEN
           ? 'Automation for businesses of any size and sector: Ready-made, Connected, Complex and Custom plans.'
           : 'Her sektör ve ölçekteki işletme için otomasyon: Hazır, Bağlantılı, Kapsamlı ve Özel paketler.'}
-        path="/pricing/automation"
+        path="/otomasyon"
         locale={isEN ? 'en_GB' : 'tr_TR'}
         keywords={isEN
           ? ['automation pricing', 'business process automation cost', 'quote automation', 'appointment reminder automation', 'payment follow-up automation']
@@ -62,23 +63,30 @@ export default function PricingAutomation() {
         jsonLd={[svc, faqSchema(faqs), breadcrumb]}
       />
 
-      {/* Hero */}
-      <section style={{ background: 'var(--ink)', color: 'var(--paper)', padding: 'clamp(3rem,8vw,5rem) 1.25rem', textAlign: 'center' }}>
-        <div style={{ maxWidth: 780, margin: '0 auto' }}>
-          <div style={{ ...eyebrow, color: 'inherit', opacity: 0.7 }}>
-            {isEN ? 'Any sector · small and large businesses · 14-day free trial' : 'Her sektör · küçük ve büyük işletmeler · 14 gün ücretsiz deneme'}
-          </div>
-          <h1 style={{ fontSize: 'clamp(1.8rem,5vw,3rem)', fontWeight: 800, lineHeight: 1.15, margin: '0 0 1rem' }}>
-            {isEN ? 'Automate the work you do by hand every day.' : 'Her gün elle yapılan işleri otomatikleştirin.'}
-          </h1>
-          <p style={{ fontSize: '1.08rem', opacity: 0.85, lineHeight: 1.65, maxWidth: 620, margin: '0 auto 2rem' }}>
-            {isEN
-              ? 'Quotes, orders, appointment reminders, payment follow-up, documents and reporting. Built around the email, WhatsApp, Excel and software you already use; approval stays with you.'
-              : 'Teklif, sipariş, randevu hatırlatma, tahsilat takibi, evrak ve raporlama. Kullandığınız e-posta, WhatsApp, Excel ve program değişmeden kurulur; onay sizde kalır.'}
-          </p>
-          <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-            <PrimaryButton href={wa} inverted>{isEN ? 'Write on WhatsApp' : 'WhatsApp’tan yazın'}</PrimaryButton>
-            <GhostButton href="#paketler" onDark>{isEN ? 'See plans' : 'Paketleri görün'}</GhostButton>
+      {/* Hero v3 */}
+      <section className="v3-hero">
+        <div className="v3-hero__bg" aria-hidden="true">
+          <picture>
+            <source media="(max-width: 760px)" srcSet="/v3/otomasyon-m.webp" />
+            <img src="/v3/otomasyon-d.webp" alt="" fetchPriority="high" />
+          </picture>
+        </div>
+        <div className="v3-wrap v3-hero__inner">
+          <div className="v3-hero__text">
+            <div className="v3-tag">{isEN ? 'Any sector · small and large businesses' : 'Her sektör · küçük ve büyük işletmeler'}</div>
+            <h1 className="v3-h1" style={{ fontSize: 'clamp(2.1rem,1.2rem+3.4vw,3.9rem)' }}>
+              {isEN ? 'Automate the work you do by hand.' : 'Elle yapılan işi otomatikleştirin.'}<br />
+              <span className="soft">{isEN ? 'Keep the decisions.' : 'Kararlar sizde kalsın.'}</span>
+            </h1>
+            <p className="v3-lede">
+              {isEN
+                ? 'Quotes, orders, appointment reminders, payment follow-up, documents and reporting. Plans are set by job complexity, not company size.'
+                : 'Teklif, sipariş, randevu hatırlatma, tahsilat takibi, evrak ve raporlama. Paketler şirket büyüklüğüne değil, işin karmaşıklığına göre.'}
+            </p>
+            <div className="v3-btns">
+              <a className="btn btn-primary btn-lg" href="#paketler">{isEN ? 'See plans' : 'Paketleri görün'}</a>
+              <a className="btn btn-ghost btn-lg" href={wa} target="_blank" rel="noopener noreferrer">{isEN ? 'Write on WhatsApp' : 'WhatsApp’tan yazın'}</a>
+            </div>
           </div>
         </div>
       </section>
@@ -191,11 +199,12 @@ export default function PricingAutomation() {
               : 'Hazır otomasyon paketinde seçebileceğiniz, kapsamı sabit sistemler. Bunların dışındaki işler Bağlantılı pakete girer.'}
           </p>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(240px,100%),1fr))', gap: '1rem' }}>
-            {READY_CATALOG[lang].map((c) => (
-              <div key={c.title} style={card}>
+            {READY_CATALOG[lang].map((c, i) => (
+              <a key={c.title} href={`/otomasyon/${READY_SLUGS[i]}`} className="v3-card">
                 <strong style={{ color: 'var(--ink)' }}>{c.title}</strong>
-                <p style={{ color: 'var(--muted)', fontSize: '0.88rem', lineHeight: 1.55, margin: '0.35rem 0 0' }}>{c.desc}</p>
-              </div>
+                <p>{c.desc}</p>
+                <span className="v3-more">{isEN ? 'Details →' : 'Ayrıntılar →'}</span>
+              </a>
             ))}
           </div>
         </section>

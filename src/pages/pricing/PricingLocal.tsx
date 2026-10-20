@@ -12,63 +12,73 @@ import {
 /* Web, reklam ve AI asistan fiyat sayfası — her sektör ve her ölçek için (kullanıcı düzeltmesi 2026-10-19).
    Otomasyon paketleri /pricing/automation'da; sayfa sonunda oraya yönlendiren kısa kart var. */
 
-export default function PricingLocal() {
+type Mode = 'webads' | 'assistants';
+
+export default function PricingLocal({ mode = 'webads' }: { mode?: Mode }) {
   const { language } = useLanguage();
   const { pricing, region } = useLocation();
   const isEN = language === 'en';
   const lang = isEN ? 'en' : 'tr';
   const wa = (topic: string) => whatsappLink(region, isEN ? `Hi, I would like to ask about ${topic}.` : `Merhaba, ${topic} hakkında bilgi almak istiyorum.`);
+  const showWeb = mode === 'webads';
+  const showAst = mode === 'assistants';
+  const path = showWeb ? '/web-ve-reklam' : '/asistanlar';
 
-  const faqs = LOCAL_FAQS[lang];
+  const faqs = LOCAL_FAQS[lang].filter((_, i) => (showWeb ? [0, 1, 2] : [1, 3, 4]).includes(i));
+  const title = showWeb
+    ? (isEN ? 'Websites and ads management' : 'Web sitesi ve reklam yönetimi')
+    : (isEN ? 'AI phone and WhatsApp assistants' : 'AI telefon ve WhatsApp asistanı');
   const breadcrumb = breadcrumbSchema([
     { name: isEN ? 'Home' : 'Ana Sayfa', path: '/' },
-    { name: isEN ? 'Pricing' : 'Fiyatlar', path: '/pricing' },
-    { name: isEN ? 'Web, ads and AI assistants' : 'Web, reklam ve AI asistan', path: '/pricing/local' },
+    { name: title, path },
   ]);
-
-  const nav = [
-    ['web', isEN ? 'Websites' : 'Web siteleri'],
-    ['reklam', isEN ? 'Ads management' : 'Reklam yönetimi'],
-    ['asistan', isEN ? 'AI assistants' : 'AI asistanlar'],
-  ];
 
   return (
     <>
       <Seo
-        title={isEN ? 'Websites, Ads and AI Assistants Pricing · MGL' : 'Web Sitesi, Reklam ve AI Asistan Fiyatları · MGL'}
-        description={isEN
-          ? 'Clear prices for businesses of any size: websites with the first year of hosting included, flat-fee Meta and Google ads management, and AI phone and WhatsApp assistants.'
-          : 'Her ölçekteki işletme için net fiyatlar: ilk yıl barındırması dahil web siteleri, sabit ücretli Meta ve Google reklam yönetimi, AI telefon ve WhatsApp asistanları.'}
-        path="/pricing/local"
+        title={`${title} · MGL`}
+        description={showWeb
+          ? (isEN ? 'Websites with the first year of hosting included and flat-fee Meta and Google ads management, for businesses of any size.' : 'İlk yıl barındırması dahil web siteleri ve sabit ücretli Meta ve Google reklam yönetimi; her ölçekteki işletme için.')
+          : (isEN ? 'An AI receptionist that answers calls and a WhatsApp assistant that replies 24/7, takes bookings and hands over to you. Bundles never expire.' : 'Telefonu açan AI resepsiyon ve 7/24 cevap veren WhatsApp asistanı: randevu alır, gerektiğinde size devreder. Paketler bitene kadar geçerli.')}
+        path={path}
         locale={isEN ? 'en_GB' : 'tr_TR'}
-        keywords={isEN
-          ? ['small business website price', 'meta ads management price', 'google ads management price', 'ai receptionist price']
-          : ['web sitesi fiyatları', 'meta reklam yönetimi fiyat', 'google reklam yönetimi fiyat', 'ai telefon asistanı fiyat']}
+        keywords={showWeb
+          ? (isEN ? ['small business website price', 'meta ads management price', 'google ads management price'] : ['web sitesi fiyatları', 'meta reklam yönetimi fiyat', 'google reklam yönetimi fiyat'])
+          : (isEN ? ['ai receptionist price', 'whatsapp ai assistant', 'ai phone answering'] : ['ai telefon asistanı fiyat', 'whatsapp ai asistan', 'mesai dışı telefon cevaplama'])}
         jsonLd={[faqSchema(faqs), breadcrumb]}
       />
 
-      <section style={{ background: 'var(--ink)', color: 'var(--paper)', padding: 'clamp(3rem,8vw,4.5rem) 1.25rem', textAlign: 'center' }}>
-        <div style={{ maxWidth: 760, margin: '0 auto' }}>
-          <div style={{ ...eyebrow, color: 'inherit', opacity: 0.7 }}>
-            {isEN ? 'For small and large businesses in any sector' : 'Her sektörden küçük ve büyük işletmeler için'}
-          </div>
-          <h1 style={{ fontSize: 'clamp(1.8rem,5vw,2.8rem)', fontWeight: 800, lineHeight: 1.15, margin: '0 0 1rem' }}>
-            {isEN ? 'Get found, get enquiries, answer every customer.' : 'Bulunun, talep alın, her müşteriye cevap verin.'}
-          </h1>
-          <p style={{ fontSize: '1.05rem', opacity: 0.85, lineHeight: 1.65, maxWidth: 600, margin: '0 auto 1.75rem' }}>
-            {isEN
-              ? 'Websites, ads management and AI assistants with fixed prices. What is included is written down; no surprise items later.'
-              : 'Web sitesi, reklam yönetimi ve AI asistanlar sabit fiyatla. Neyin dahil olduğu yazılı; sonradan çıkan kalem yok.'}
-          </p>
-          <div style={{ display: 'flex', gap: '0.5rem', justifyContent: 'center', flexWrap: 'wrap' }}>
-            {nav.map(([id, label]) => (
-              <GhostButton key={id} href={`#${id}`} onDark>{label}</GhostButton>
-            ))}
+      <section className="v3-hero">
+        <div className="v3-hero__bg" aria-hidden="true">
+          <picture>
+            <source media="(max-width: 760px)" srcSet={`/v3/${showWeb ? 'webreklam' : 'asistanlar'}-m.webp`} />
+            <img src={`/v3/${showWeb ? 'webreklam' : 'asistanlar'}-d.webp`} alt="" fetchPriority="high" />
+          </picture>
+        </div>
+        <div className="v3-wrap v3-hero__inner">
+          <div className="v3-hero__text">
+            <div className="v3-tag">{isEN ? 'For small and large businesses in any sector' : 'Her sektörden küçük ve büyük işletmeler için'}</div>
+            <h1 className="v3-h1" style={{ fontSize: 'clamp(2.1rem,1.2rem+3vw,3.6rem)' }}>
+              {showWeb ? (isEN ? 'Get found,' : 'Bulunun,') : (isEN ? 'Every call answered,' : 'Her arama karşılanır,')}<br />
+              <span className="soft">{showWeb ? (isEN ? 'get enquiries.' : 'talep alın.') : (isEN ? 'every message replied.' : 'her mesaja cevap gider.')}</span>
+            </h1>
+            <p className="v3-lede">
+              {showWeb
+                ? (isEN ? 'Websites and ads management with fixed prices. What is included is written down; no surprise items later.' : 'Web sitesi ve reklam yönetimi sabit fiyatla. Neyin dahil olduğu yazılı; sonradan çıkan kalem yok.')
+                : (isEN ? 'A monthly system fee plus usage. The assistant takes bookings and orders and hands the conversation to you whenever you want.' : 'Aylık sistem ücreti artı kullanım. Asistan randevu ve sipariş alır, istediğiniz an konuşmayı size devreder.')}
+            </p>
+            {showWeb && (
+              <div className="v3-btns">
+                <a className="btn btn-ghost btn-md" href="#web">{isEN ? 'Websites' : 'Web siteleri'}</a>
+                <a className="btn btn-ghost btn-md" href="#reklam">{isEN ? 'Ads management' : 'Reklam yönetimi'}</a>
+              </div>
+            )}
           </div>
         </div>
       </section>
 
       <div style={{ maxWidth: 1040, margin: '0 auto', padding: '0 1.25rem' }}>
+        {showWeb && <>
         <section id="web" style={sectionPad}>
           <h2 style={h2}>{isEN ? 'Websites' : 'Web siteleri'}</h2>
           <p style={lede}>
@@ -97,6 +107,9 @@ export default function PricingLocal() {
           </div>
         </section>
 
+        </>}
+
+        {showAst && (
         <section id="asistan" style={sectionPad}>
           <h2 style={h2}>{isEN ? 'AI assistants' : 'AI asistanlar'}</h2>
           <p style={lede}>
@@ -110,9 +123,10 @@ export default function PricingLocal() {
             ))}
           </div>
         </section>
+        )}
 
         <section style={{ ...sectionPad, paddingTop: 0 }}>
-          <a href={localPath('/pricing/automation', isEN)} style={{ ...card, display: 'block', textDecoration: 'none', marginBottom: '1rem' }}>
+          <a href={localPath('/otomasyon', isEN)} style={{ ...card, display: 'block', textDecoration: 'none', marginBottom: '1rem' }}>
             <strong style={{ color: 'var(--ink)' }}>{isEN ? 'Repetitive work in your business too?' : 'İşletmenizde tekrarlanan işler de mi var?'}</strong>
             <p style={{ color: 'var(--muted)', fontSize: '0.9rem', lineHeight: 1.6, margin: '0.35rem 0 0' }}>
               {isEN
