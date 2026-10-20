@@ -34,6 +34,15 @@ export default function Hakkimizda() {
               )}
             </p>
           </div>
+          <div style={{ display: 'grid', gap: 16 }}>
+          <img
+            className="v3-founder__photo v3-founder__photo--lg"
+            src="/v3/founder-720.webp"
+            width={360}
+            height={450}
+            alt={t('Kurucu Mustafa Gül', 'Founder Mustafa Gül')}
+            decoding="async"
+          />
           <div className="v3-card" style={{ gap: 14 }}>
             <span className="v3-chip">{t('Şirket bilgileri', 'Company details')}</span>
             <dl style={{ margin: 0, display: 'grid', gap: 10, fontSize: '.95rem' }}>
@@ -48,6 +57,7 @@ export default function Hakkimizda() {
               ))}
             </dl>
             <a className="btn btn-ghost btn-md" href="https://find-and-update.company-information.service.gov.uk/company/16007414" target="_blank" rel="noopener noreferrer">{t('Companies House kaydını görün ↗', 'View on Companies House ↗')}</a>
+          </div>
           </div>
         </div>
       </section>

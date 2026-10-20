@@ -191,6 +191,9 @@ a.v3-card:hover { transform: translateY(-3px); box-shadow: var(--v3-shadow-lg); 
 /* ── Kurucu ───────────────────────────────────────────────── */
 .v3-founder { display: grid; gap: 24px; grid-template-columns: 1fr; align-items: center; }
 @media (min-width: 860px) { .v3-founder { grid-template-columns: 160px 1fr auto; } }
+.v3-founder__photo { width: 140px; height: 175px; object-fit: cover; object-position: center 20%; border-radius: var(--r-xl); border: 1px solid var(--border); box-shadow: var(--v3-shadow); background: var(--paper-2); }
+@media (min-width: 860px) { .v3-founder__photo { width: 160px; height: 200px; } }
+.v3-founder__photo--lg { width: min(100%, 360px); height: auto; aspect-ratio: 4 / 5; }
 .v3-founder__mark { width: 140px; height: 140px; border-radius: var(--r-xl); background: var(--coal-2); display: grid; place-items: center; color: var(--bone); font-size: 2.4rem; font-weight: 600; letter-spacing: -0.04em; border: 1px solid var(--coal-3); }
 
 /* ── SSS ──────────────────────────────────────────────────── */

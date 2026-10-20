@@ -96,7 +96,17 @@ export function Kurucu() {
   const { t } = useV3();
   return (
     <div className="v3-founder">
-      <div className="v3-founder__mark" aria-hidden="true">MG</div>
+      <img
+        className="v3-founder__photo"
+        src="/v3/founder-320.webp"
+        srcSet="/v3/founder-320.webp 320w, /v3/founder-720.webp 720w"
+        sizes="(min-width: 860px) 160px, 140px"
+        width={160}
+        height={200}
+        alt={t('Kurucu Mustafa Gül', 'Founder Mustafa Gül')}
+        loading="lazy"
+        decoding="async"
+      />
       <div>
         <div className="v3-tag">{t('Kiminle çalışıyorsunuz', 'Who you work with')}</div>
         <h2 className="v3-h2" style={{ fontSize: 'clamp(1.5rem,1rem+1.6vw,2.2rem)' }}>{t('İşi kuran kişiyle konuşursunuz.', 'You talk to the person who builds it.')}</h2>
