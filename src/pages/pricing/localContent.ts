@@ -26,15 +26,15 @@ export const WEB_TIERS: LocalTierContent[] = [
     key: 'web-site',
     subtitle: { tr: 'Beş sayfalık tam site: işletmenizi anlatır, yerel aramada görünürlüğünüzü destekler.', en: 'A full five-page site that explains your business and supports local search visibility.' },
     included: {
-      tr: ['Beş sayfa tasarım ve yazım', 'İletişim ve randevu formları', 'Google İşletme Profili, Maps ve yerel SEO', 'Teknik SEO ve paylaşım kartı', 'Kurumsal e-posta kurulumu', 'Üç revizyon turu'],
+      tr: ['Beş sayfa tasarım ve yazım', 'İletişim ve randevu formları', 'Google İşletme Profili, Maps ve yerel SEO', 'Teknik SEO ve sosyal medya paylaşım önizlemesi', 'Kurumsal e-posta kurulumu', 'Üç revizyon turu'],
       en: ['Five pages designed and written', 'Contact and booking forms', 'Google Business Profile, Maps and local SEO', 'Technical SEO and social share card', 'Business email setup', 'Three revision rounds'],
     },
   },
   {
     key: 'web-integrated',
-    subtitle: { tr: 'Sitenin üstünde çalışan sistem: online sipariş, rezervasyon ve/veya ödeme; dahil olan işlevler yazılı kapsamda belirtilir.', en: 'A working system on top of the site: online ordering, bookings and/or payments; the included functions are listed in the written scope.' },
+    subtitle: { tr: 'Siteye entegre çalışan sistem: online sipariş, rezervasyon ve/veya ödeme; dahil olan işlevler yazılı kapsamda belirtilir.', en: 'A working system on top of the site: online ordering, bookings and/or payments; the included functions are listed in the written scope.' },
     included: {
-      tr: ['Kurumsal sitedeki her şey', 'Online sipariş, rezervasyon ve randevu', 'QR menü', 'Ödeme entegrasyonu (Stripe / iyzico)', 'Sipariş yazıcısı veya WhatsApp / Telegram bildirimi', 'Uygulama olarak eklenebilme (PWA)'],
+      tr: ['Kurumsal sitedeki her şey', 'Online sipariş, rezervasyon ve randevu', 'QR menü', 'Ödeme entegrasyonu (Stripe / iyzico)', 'Sipariş yazıcısı veya WhatsApp / Telegram bildirimi', 'Telefonun ana ekranına uygulama gibi eklenebilir (PWA)'],
       en: ['Everything in the business website', 'Online ordering, reservations and appointments', 'QR menu', 'Payment integration (Stripe / iyzico)', 'Order printer or WhatsApp / Telegram notifications', 'Installable as an app (PWA)'],
     },
   },

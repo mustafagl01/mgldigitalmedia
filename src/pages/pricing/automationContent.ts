@@ -192,7 +192,7 @@ export const TRIAL = {
 export const SECURITY = {
   tr: [
     'Sistem fiyat veya karar vermez; önemli her adım sizin onayınızdan geçer.',
-    'Müşteriye giden cevaplar onayınızı bekler; hatırlatma gibi sabit mesajlar, metnini onayladıktan sonra otomatik gider.',
+    'Müşteriye giden cevaplar onayınızı bekler; hatırlatma gibi sabit mesajlar, metinlerini onayladıktan sonra otomatik gönderilir.',
     'MGL verilerinizi model eğitimi için kullanmaz; kullanılan sağlayıcılar ve ayarları teklifte yazılır.',
     'İsterseniz gizlilik sözleşmesi (NDA) imzalarız; KVKK ve GDPR koşulları teklifte yazılıdır.',
     'Teknik olarak uygunsa sistem sizin hesaplarınızda veya sunucunuzda kurulur.',

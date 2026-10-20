@@ -39,7 +39,7 @@ export default function HomeV3() {
         <div className="v3-hero__bg" aria-hidden="true"><Pic name="hero2" alt="" eager /></div>
         <div className="v3-wrap v3-hero__inner">
           <div className="v3-hero__text">
-            <div className="v3-tag">{t('UK ve Türkiye · küçük işletmeden üreticiye', 'UK and Türkiye · from small businesses to manufacturers')}</div>
+            <div className="v3-tag">{t('UK ve Türkiye · küçük işletmelerden üreticilere', 'UK and Türkiye · from small businesses to manufacturers')}</div>
             <h1 className="v3-h1 v3-h1--hero">
               {t('Müşteriler sizi bulsun.', 'Get found.')}<br />
               {t('Hiçbir talep kaçmasın.', 'Never miss an enquiry.')}<br />
@@ -65,10 +65,10 @@ export default function HomeV3() {
           <Head tag={t('Dört hizmet', 'Four services')} title={t('Tek bir hizmetle başlayın,', 'Start with one service,')} soft={t('ya da hepsini bağlayın.', 'or connect them all.')} />
           <div className="v3-journey">
             {[
-              ['01', t('Bulunun', 'Get found'), t('Web sitesi', 'Websites'), t(`Tek seferlik kurulum, ilk yıl barındırma dahil. Yayında ${WORK.length} müşteri sitesi.`, `One-off build, first year of hosting included. ${WORK.length} client sites live.`), '/web-ve-reklam#web'],
-              ['02', t('Görünün', 'Get seen'), t('Reklam yönetimi', 'Ads management'), t(`Meta veya Google aylık ${formatPrice(p['ads-meta'].price, region)}, ikisi birlikte ${formatPrice(p['ads-both'].price, region)}; bütçeden yüzde alınmaz.`, `Meta or Google ${formatPrice(p['ads-meta'].price, region)} a month, both ${formatPrice(p['ads-both'].price, region)}; no percentage of spend.`), '/web-ve-reklam#reklam'],
+              ['01', t('Web\u2019de bulunun', 'Get found'), t('Web sitesi', 'Websites'), t(`Tek seferlik kurulum, ilk yıl barındırma dahil. Yayında ${WORK.length} müşteri sitesi.`, `One-off build, first year of hosting included. ${WORK.length} client sites live.`), '/web-ve-reklam#web'],
+              ['02', t('Reklamla görünün', 'Get seen'), t('Reklam yönetimi', 'Ads management'), t(`Meta veya Google aylık ${formatPrice(p['ads-meta'].price, region)}, ikisi birlikte ${formatPrice(p['ads-both'].price, region)}; bütçeden yüzde alınmaz.`, `Meta or Google ${formatPrice(p['ads-meta'].price, region)} a month, both ${formatPrice(p['ads-both'].price, region)}; no percentage of spend.`), '/web-ve-reklam#reklam'],
               ['03', t('Cevap verin', 'Answer'), t('AI telefon ve WhatsApp', 'AI phone and WhatsApp'), t('Mesai dışında da telefonu açar, mesajlara cevap verir, randevu alır.', 'Answers calls and messages after hours and takes bookings.'), '/asistanlar'],
-              ['04', t('İş yürüsün', 'Let it run'), t('Otomasyon', 'Automation'), t('Hatırlatma, tahsilat, evrak, teklif ve sipariş; müşteriye giden her şey onayınızla.', 'Reminders, payments, documents, quotes and orders; anything customer-facing waits for your approval.'), '/otomasyon'],
+              ['04', t('Otomatikleştirin', 'Automate'), t('Otomasyon', 'Automation'), t('Hatırlatma, tahsilat takibi, evrak, teklif ve sipariş işleri otomatik yürüsün; müşteriye giden cevapları siz onaylayın.', 'Reminders, payment chasing, documents, quotes and orders run automatically; you approve the replies that go to customers.'), '/otomasyon'],
             ].map(([n, verb, name, text, href]) => (
               <a key={href} className="v3-journey__item" href={href}>
                 <span className="v3-journey__n">{n}</span>
@@ -110,7 +110,7 @@ export default function HomeV3() {
             title={t('Tek bir darboğaz.', 'One bottleneck.')}
             soft={t('Sabit kapsam, sabit fiyat.', 'Fixed scope, fixed price.')}
             lede={t(
-              `Listeden birini seçin; kapsam ve gerekli erişimler netleşince kurulum tarihi yazılı belirlenir. Kurulum ${formatPrice(p.automation.setupFee, region)}, aylık ${formatPrice(p.automation.price, region)}; önce canlı demo, 14 gün içinde kurulum ücreti iadesi.`,
+              `Listeden birini seçin; kapsam ve gerekli erişimler netleşince kurulum tarihi yazılı olarak belirlenir. Kurulum ${formatPrice(p.automation.setupFee, region)}, aylık ${formatPrice(p.automation.price, region)}; önce canlı demo, 14 gün içinde kurulum ücreti iadesi.`,
               `Pick one from the list; the go-live date is agreed in writing once scope and access are clear. Setup ${formatPrice(p.automation.setupFee, region)}, ${formatPrice(p.automation.price, region)} a month; live demo first, setup fee refundable within 14 days.`,
             )}
           />
@@ -139,12 +139,12 @@ export default function HomeV3() {
           <div className="v3-figure" style={{ aspectRatio: '4 / 3' }}><Pic name="ureticiler" alt={t('Depo, ofis ve atölyeyi tek onay noktasından geçen bir rotayla birleştiren minyatür maket', 'A miniature model joining a warehouse, office and workshop through one approval checkpoint')} /></div>
           <div>
             <div className="v3-tag">{t('Üretici ve distribütörler', 'Manufacturers and distributors')}</div>
-            <h2 className="v3-h2">{t('Gelen teklif talebi,', 'An incoming quote request,')}<br /><span className="soft">{t('incelemeye hazır bir taslak olarak.', 'turned into a draft ready for review.')}</span></h2>
-            <p className="v3-lede">{t('Mail ve ekleri okunur, ürün kodlarınızla eşlenir, eksikler işaretlenir, müşteriye soru taslağı hazırlanır. Fiyat ve gönderim kararı ekibinizde kalır.', 'Emails and attachments are read, matched to your product codes, gaps are flagged and a question to the customer is drafted. Pricing and sending stay with your team.')}</p>
+            <h2 className="v3-h2">{t('Gelen teklif talebi,', 'An incoming quote request,')}<br /><span className="soft">{t('incelemeye hazır bir taslağa dönüşsün.', 'turned into a draft ready for review.')}</span></h2>
+            <p className="v3-lede">{t('E-posta ve ekleri okunur, ürün kodlarınızla eşleştirilir, eksikler işaretlenir, müşteriye soru taslağı hazırlanır. Fiyat ve gönderim kararı ekibinizde kalır.', 'Emails and attachments are read, matched to your product codes, gaps are flagged and a question to the customer is drafted. Pricing and sending stay with your team.')}</p>
             <ul className="v3-check" style={{ marginBottom: 24 }}>
               <li>{t('ERP, Excel veya kullandığınız sistemle', 'Works with your ERP, Excel or current system')}</li>
               <li>{t('Çok dilli talepler ve PDF / teknik doküman', 'Multilingual requests and PDF / technical files')}</li>
-              <li>{t('Kendi talepleriniz üzerinde 14 gün ücretsiz deneme', 'A free 14-day trial on your own requests')}</li>
+              <li>{t('Kendi taleplerinizle 14 gün ücretsiz deneme', 'A free 14-day trial on your own requests')}</li>
             </ul>
             <div className="v3-btns">
               <a className="btn btn-primary btn-lg" href="/ureticiler">{t('Üreticiler için →', 'For manufacturers →')}</a>
@@ -186,9 +186,9 @@ export default function HomeV3() {
           <ol className="v3-steps">
             {[
               [t('Anlatın', 'Tell us'), t('İşi birkaç cümleyle WhatsApp’tan ya da 15 dakikalık görüşmede anlatın.', 'Describe the task on WhatsApp or in a 15-minute call.')],
-              [t('Yazılı kapsam', 'Written scope'), t('Hangi paket, ne dahil, ne değil: yazılı olarak netleşir.', 'Which plan, what is included and what is not: agreed in writing.')],
-              [t('Demo veya deneme', 'Demo or trial'), t('Hazır otomasyonlarda canlı demo, size özel akışlarda 14 gün ücretsiz deneme.', 'A live demo for ready-made automations, a free 14-day trial for custom flows.')],
-              [t('Onay ve bakım', 'Approval and care'), t('Siz onaylayınca canlıya alınır; izleme ve bakım aylık ücrete dahil.', 'It goes live once you approve; monitoring and maintenance are in the monthly fee.')],
+              [t('Kapsamı yazalım', 'Agree the scope'), t('Uygun paket, dahil olanlar ve olmayanlar yazılı olarak belirlenir.', 'The plan, what is included and what is not are agreed in writing.')],
+              [t('Deneyin', 'Try it'), t('Hazır otomasyonlarda canlı demo, size özel akışlarda 14 gün ücretsiz deneme.', 'A live demo for ready-made automations, a free 14-day trial for custom flows.')],
+              [t('Onaylayın', 'Approve'), t('Siz onaylayınca canlıya alınır; izleme ve bakım aylık ücrete dahil.', 'It goes live once you approve; monitoring and maintenance are in the monthly fee.')],
             ].map(([a, b], i) => (
               <li key={a}><span className="n">0{i + 1}</span><strong>{a}</strong><p>{b}</p></li>
             ))}

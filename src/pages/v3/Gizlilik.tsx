@@ -9,7 +9,7 @@ export default function Gizlilik() {
   const blocks: Array<[string, string[]]> = [
     [t('Onay noktaları', 'Approval points'), [
       t('Müşterinize giden her mesaj, fiyat ve teklif varsayılan olarak onayınızı bekler.', 'Every message, price and quote to your customers waits for your approval by default.'),
-      t('Hatırlatma gibi sabit mesajlar, metnini yazılı olarak onayladıktan sonra otomatik gider.', 'Fixed messages such as reminders go automatically once you have approved their wording in writing.'),
+      t('Hatırlatma gibi sabit mesajlar, metinlerini yazılı olarak onayladıktan sonra otomatik gönderilir.', 'Fixed messages such as reminders go automatically once you have approved their wording in writing.'),
       t('Sistem fiyat, teknik veya hukuki karar vermez.', 'The system never makes pricing, technical or legal decisions.'),
     ]],
     [t('Verileriniz', 'Your data'), [
@@ -20,8 +20,8 @@ export default function Gizlilik() {
     ]],
     [t('Deneme ve iade', 'Trial and refund'), [
       t('Hazır otomasyon: önce canlı demo; kurulumdan sonraki 14 gün içinde memnun kalmazsanız kurulum ücreti iade edilir ve abonelik başlamadan sona erer.', 'Ready-made: live demo first; if you are not happy within 14 days of setup, the setup fee is refunded and the subscription ends before it starts.'),
-      t('Bağlantılı: kendi verinizle tek akış 14 gün ücretsiz; beğenirseniz kurulum ücretiyle devam.', 'Connected: one workflow on your own data, free for 14 days; continue with the setup fee if you like it.'),
-      t('Kapsamlı: 14 günlük ücretsiz deneme tek belge türü veya tek süreçle; önce başarı ölçütü yazılır.', 'Complex: the free 14-day trial covers one document type or one process; success criteria are written first.'),
+      t('Bağlantılı: Kendi verinizle tek bir akışı 14 gün ücretsiz deneyin; beğenirseniz kurulum ücretini ödeyerek devam edin.', 'Connected: one workflow on your own data, free for 14 days; continue with the setup fee if you like it.'),
+      t('Kapsamlı: Önce başarı ölçütü yazılır; ardından tek bir belge türü veya süreçle 14 gün ücretsiz deneme yapılır.', 'Complex: the free 14-day trial covers one document type or one process; success criteria are written first.'),
       t('Ücretli plana otomatik geçiş yok. Devam etmezseniz deneme için bizdeki kopyalar silinir; kendi hesaplarınızdaki veriler sizde kalır.', 'No automatic switch to a paid plan. If you stop, the trial copies we hold are deleted; data in your own accounts stays with you.'),
     ]],
     [t('Sahiplik ve iptal', 'Ownership and cancellation'), [

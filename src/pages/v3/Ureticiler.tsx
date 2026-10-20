@@ -41,8 +41,8 @@ export default function Ureticiler() {
         <div className="v3-wrap v3-hero__inner">
           <div className="v3-hero__text">
             <div className="v3-tag">{t('Üretici, toptancı ve distribütörler', 'Manufacturers, wholesalers and distributors')}</div>
-            <h1 className="v3-h1" style={{ fontSize: 'clamp(2.1rem,1.2rem+3.4vw,3.9rem)' }}>{t('Gelen teklif talebi,', 'An incoming quote request,')}<br /><span className="soft">{t('incelemeye hazır taslak.', 'a draft ready for review.')}</span></h1>
-            <p className="v3-lede">{t('Sistem mail ve eklerini okur, ürün kodlarınızla ve stokla eşler, eksikleri işaretler, müşteriye soru taslağı hazırlar. Ekibiniz ayıklamaya daha az, karara daha çok zaman ayırır.', 'The system reads the email and attachments, matches codes and stock, flags gaps and drafts the question to the customer. Your team spends less time sorting and more time deciding.')}</p>
+            <h1 className="v3-h1" style={{ fontSize: 'clamp(2.1rem,1.2rem+3.4vw,3.9rem)' }}>{t('Gelen teklif talebi,', 'An incoming quote request,')}<br /><span className="soft">{t('incelemeye hazır bir taslağa dönüşsün.', 'a draft ready for review.')}</span></h1>
+            <p className="v3-lede">{t('Sistem e-postayı ve eklerini okur, ürün kodlarınızla ve stokla eşler, eksikleri işaretler, müşteriye soru taslağı hazırlar. Ekibiniz ayıklamaya daha az, karara daha çok zaman ayırır.', 'The system reads the email and attachments, matches codes and stock, flags gaps and drafts the question to the customer. Your team spends less time sorting and more time deciding.')}</p>
             <div className="v3-btns">
               <a className="btn btn-primary btn-lg" href={WHATSAPP} target="_blank" rel="noopener noreferrer">{t('Örnek talep gönderin', 'Send a sample request')}</a>
               <a className="btn btn-ghost btn-lg" href={CALENDAR} target="_blank" rel="noopener noreferrer">{t('15 dakikalık görüşme', '15-minute call')}</a>
@@ -57,7 +57,7 @@ export default function Ureticiler() {
           <div className="v3-grid">
             {[
               [t('Teklif talepleri', 'Quote requests'), t('Kod listesi, Excel, PDF veya serbest metin; satırlar ürünlerinizle eşlenir, muadil önerilir, eksik adet sorulur.', 'Code lists, Excel, PDF or free text; lines are matched to your products, equivalents suggested, missing quantities queried.')],
-              [t('Sipariş girişi', 'Order entry'), t('Mail ve WhatsApp siparişleri ayıklanır, ERP veya tablonuza işlenecek biçime getirilir.', 'Email and WhatsApp orders are extracted and shaped for your ERP or spreadsheet.')],
+              [t('Sipariş girişi', 'Order entry'), t('E-posta ve WhatsApp siparişleri ayıklanır, ERP veya tablonuza işlenecek biçime getirilir.', 'Email and WhatsApp orders are extracted and shaped for your ERP or spreadsheet.')],
               [t('Teknik ön inceleme', 'Technical pre-review'), t('Şartname ve eklerden ölçü, malzeme, standart ve termin çıkarılır; kapasite tablonuzla karşılaştırılır.', 'Dimensions, materials, standards and deadlines are pulled from specs and attachments and checked against your capacity table.')],
               [t('Takip', 'Follow-up'), t('Cevapsız teklifler ve yaklaşan terminler zamanında hatırlatılır.', 'Unanswered quotes and upcoming deadlines are reminded on time.')],
             ].map(([a, b]) => (
@@ -76,7 +76,7 @@ export default function Ureticiler() {
 
       <section className="v3-section">
         <div className="v3-wrap">
-          <Head tag={t('Paketler', 'Plans')} title={t('Kapsama göre iki seçenek.', 'Two options by scope.')} lede={t('Fiyat şirket büyüklüğüne değil işin karmaşıklığına göre. Kesin rakam denemeden sonra yazılı teklifte yer alır ve 12 ay sabit kalır.', 'Priced by job complexity, not company size. The exact figure is written into the proposal after the trial and fixed for 12 months.')} />
+          <Head tag={t('Paketler', 'Plans')} title={t('Kapsama göre iki seçenek.', 'Two options by scope.')} lede={t('Fiyat, şirket büyüklüğüne göre değil işin karmaşıklığına göre belirlenir. Kesin rakam denemeden sonra yazılı teklifte yer alır ve 12 ay sabit kalır.', 'Priced by job complexity, not company size. The exact figure is written into the proposal after the trial and fixed for 12 months.')} />
           <div className="v3-ladder">
             <div className="v3-card">
               <span className="v3-chip">{t('Bağlantılı', 'Connected')}</span>
@@ -86,7 +86,7 @@ export default function Ureticiler() {
             <div className="v3-card is-featured">
               <span className="v3-chip">{t('Kapsamlı', 'Complex')}</span>
               <div className="v3-price">{formatFrom(cx.price, region, isEN)}<small>{t(' / ay', ' / month')}</small></div>
-              <p>{t(`Kurulum ${formatFrom(cx.setupFee, region, false)} başlayan · ERP, belge okuma, çok dil · ayda 100 karmaşık talep dahil · en az 12 ay`, `Setup from ${formatPrice(cx.setupFee, region)} · ERP, document reading, multilingual · 100 complex requests a month · 12-month minimum`)}</p>
+              <p>{t(`Kurulum ${formatFrom(cx.setupFee, region, false)} başlar · ERP, belge okuma, çok dil · ayda 100 karmaşık talep dahil · en az 12 ay`, `Setup from ${formatPrice(cx.setupFee, region)} · ERP, document reading, multilingual · 100 complex requests a month · 12-month minimum`)}</p>
             </div>
           </div>
           <p style={{ marginTop: 16 }}><a href="/fiyatlandirma" style={{ fontWeight: 600 }}>{t('Tüm fiyatlar →', 'All pricing →')}</a></p>
@@ -101,8 +101,8 @@ export default function Ureticiler() {
             <ul className="v3-check">
               <li>{t('Fiyat ve teknik karar her zaman ekibinizde.', 'Pricing and technical decisions always stay with your team.')}</li>
               <li>{t('Onayınız olmadan müşterinize hiçbir şey gitmez.', 'Nothing reaches your customers without your approval.')}</li>
-              <li>{t('MGL verilerinizi model eğitiminde kullanmaz; NDA ve KVKK/GDPR şartları yazılı.', 'MGL does not use your data for model training; NDA and GDPR/KVKK terms in writing.')}</li>
-              <li>{t('Teknik olarak uygunsa kendi hesaplarınızda veya sunucunuzda kurulum.', 'Where technically suitable, it runs in your own accounts or on your server.')}</li>
+              <li>{t('MGL verilerinizi model eğitimi için kullanmaz; NDA imzalanabilir, KVKK/GDPR koşulları yazılı olarak belirtilir.', 'MGL does not use your data for model training; NDA and GDPR/KVKK terms in writing.')}</li>
+              <li>{t('Teknik olarak uygunsa sistem kendi hesaplarınızda veya sunucunuzda kurulur.', 'Where technically suitable, it runs in your own accounts or on your server.')}</li>
             </ul>
           </div>
           <div>

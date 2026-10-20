@@ -159,7 +159,7 @@ const TR_PACKAGES: Record<PackageTierKey, PackageTier> = {
   voice: {
     key: 'voice',
     category: 'agents',
-    name: 'Sesli Asistan',
+    name: 'AI Telefon Asistanı',
     price: 649,
     // 2026-09-25: kullanıcı talimatı — kurulum 400£ karşılığı, içinde 200£'lik
     // termal yazıcı dahil. TL'si dosya kuralına göre uydurulmaz; kullanıcı
@@ -175,7 +175,7 @@ const TR_PACKAGES: Record<PackageTierKey, PackageTier> = {
   whatsapp: {
     key: 'whatsapp',
     category: 'agents',
-    name: 'WhatsApp Asistanı',
+    name: 'AI WhatsApp Asistanı',
     price: 649,
     setupFee: 0,
     priceUnit: 'month',

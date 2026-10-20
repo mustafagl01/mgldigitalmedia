@@ -29,7 +29,7 @@ export default function Hakkimizda() {
             </p>
             <p className="v3-lede">
               {t(
-                'Ajans büyüklüğünde görünmeye çalışmıyoruz. Sistemi kuran kişi, sonra bakımını yapan ve telefonu açan kişiyle aynı. Bu yüzden aynı anda sınırlı sayıda yeni iş alıyor, her birine yazılı kapsamla başlıyoruz.',
+                'Ajans büyüklüğünde görünmeye çalışmıyoruz. Sistemi kuran kişi, aynı zamanda bakımını yapar ve telefonunuzu açar. Bu yüzden aynı anda sınırlı sayıda yeni iş alıyor, her birine yazılı kapsamla başlıyoruz.',
                 'We do not pretend to be an agency of fifty. The person who builds your system is the one who maintains it and answers your messages. That is why we take on a limited number of new projects at a time and start each with a written scope.',
               )}
             </p>

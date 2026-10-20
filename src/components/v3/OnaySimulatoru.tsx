@@ -100,7 +100,7 @@ export function OnaySimulatoru({ start = 'randevu', only }: { start?: string; on
         </div>
       </div>
       <div className="v3-sim__note">
-        {isEN ? 'Demonstration with sample data, not a live system. In real setups, replies to customers wait for your approval; fixed messages such as reminders go automatically once you have approved their wording.' : 'Örnek veriyle gösterimdir, canlı sistem değildir. Gerçek kurulumda müşteriye giden cevaplar onayınızı bekler; hatırlatma gibi sabit mesajlar, metnini siz onayladıktan sonra otomatik gider.'}
+        {isEN ? 'Demonstration with sample data, not a live system. In real setups, replies to customers wait for your approval; fixed messages such as reminders go automatically once you have approved their wording.' : 'Bu, örnek verilerle hazırlanmış bir gösterimdir; canlı sistem değildir. Gerçek kurulumda müşteriye giden cevaplar onayınızı bekler; hatırlatma gibi sabit mesajlar, metinlerini onayladıktan sonra otomatik gönderilir.'}
       </div>
     </div>
   );

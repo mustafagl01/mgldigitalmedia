@@ -87,7 +87,7 @@ export default function PricingLocal({ mode = 'webads' }: { mode?: Mode }) {
           <p style={lede}>
             {isEN
               ? 'A one-off build that belongs to you. The first year of hosting is included; from year two a yearly fee covers hosting, SSL, security updates and maintenance.'
-              : 'Bir kez ödenen ve sizin olan kurulum. İlk yıl barındırma dahildir; ikinci yıldan itibaren yıllık ücret barındırma, SSL, güvenlik güncellemeleri ve bakımı kapsar.'}
+              : 'Tek seferlik ücretle kurulur ve site sizin olur. İlk yıl barındırma dahildir; ikinci yıldan itibaren yıllık ücret barındırma, SSL, güvenlik güncellemeleri ve bakımı kapsar.'}
           </p>
           <TierGrid tiers={WEB_TIERS} pricing={pricing} region={region} isEN={isEN} wa={wa(isEN ? 'a website' : 'web sitesi')} />
         </section>
@@ -104,8 +104,8 @@ export default function PricingLocal({ mode = 'webads' }: { mode?: Mode }) {
             <strong style={{ color: 'var(--ink)' }}>{isEN ? 'Website + ads together' : 'Web sitesi + reklam birlikte'}</strong>
             <p style={{ color: 'var(--muted)', fontSize: '0.9rem', lineHeight: 1.6, margin: '0.35rem 0 0' }}>
               {isEN
-                ? 'They can work together: the site is built around the visitors your ads bring, and the same person looks after both.'
-                : 'İkisi birlikte çalışabilir: site, reklamın getirdiği ziyaretçiye göre kurulur ve ikisiyle aynı kişi ilgilenir.'}
+                ? 'They can run together: the site is built for the visitors your ads bring, and the same person manages both.'
+                : 'Web sitesi ve reklam yönetimi birlikte yürütülebilir: site, reklamlardan gelen ziyaretçilere göre hazırlanır ve ikisini de aynı kişi yönetir.'}
             </p>
           </div>
         </section>
@@ -204,7 +204,7 @@ function TierGrid({ tiers, pricing, region, isEN, wa }: GridProps) {
             </div>
             <CheckList items={t.included[lang]} />
             <div style={{ marginTop: 'auto' }}>
-              <PrimaryButton href={wa}>{isEN ? 'Ask on WhatsApp' : 'WhatsApp’tan sorun'}</PrimaryButton>
+              <PrimaryButton href={wa}>{isEN ? 'Ask on WhatsApp' : 'WhatsApp’tan yazın'}</PrimaryButton>
             </div>
           </article>
         );
@@ -256,7 +256,7 @@ function AssistantCard({ t, pricing, region, isEN, wa }: { t: LocalTierContent }
         </table>
       </div>
       <div style={{ marginTop: 'auto' }}>
-        <PrimaryButton href={wa}>{isEN ? 'Ask on WhatsApp' : 'WhatsApp’tan sorun'}</PrimaryButton>
+        <PrimaryButton href={wa}>{isEN ? 'Ask on WhatsApp' : 'WhatsApp’tan yazın'}</PrimaryButton>
       </div>
     </article>
   );

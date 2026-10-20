@@ -81,7 +81,7 @@ export default function PricingAutomation() {
             <p className="v3-lede">
               {isEN
                 ? 'Quotes, orders, appointment reminders, payment follow-up, documents and reporting. Plans are set by job complexity, not company size.'
-                : 'Teklif, sipariş, randevu hatırlatma, tahsilat takibi, evrak ve raporlama. Paketler şirket büyüklüğüne değil, işin karmaşıklığına göre.'}
+                : 'Teklif, sipariş, randevu hatırlatma, tahsilat takibi, evrak ve raporlama. Paketler şirket büyüklüğüne değil, işin karmaşıklığına göre belirlenir.'}
             </p>
             <div className="v3-btns">
               <a className="btn btn-primary btn-lg" href="#paketler">{isEN ? 'See plans' : 'Paketleri görün'}</a>
@@ -98,7 +98,7 @@ export default function PricingAutomation() {
           <p style={lede}>
             {isEN
               ? 'A few common examples. If your task is not here, describe it and we will tell you honestly whether it can be done.'
-              : 'Sık karşılaştığımız birkaç örnek. İşiniz burada yoksa anlatın, yapılabilir mi dürüstçe söyleyelim.'}
+              : 'Sık karşılaştığımız birkaç örnek. İşiniz listede yoksa anlatın; yapılıp yapılamayacağını dürüstçe söyleyelim.'}
           </p>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(260px,100%),1fr))', gap: '1rem' }}>
             {EXAMPLES[lang].map((ex) => (
@@ -169,7 +169,7 @@ export default function PricingAutomation() {
                         <div style={{ fontSize: '0.86rem', color: 'var(--muted)', marginTop: '0.2rem' }}>
                           {isEN
                             ? `${from ? 'Setup from' : 'Setup'} ${setup} (one-off)`
-                            : `Kurulum ${from ? `${formatFrom(tier.setupFee, region, false)} başlayan` : setup} (tek seferlik)`}
+                            : `Kurulum ${from ? `${formatFrom(tier.setupFee, region, false)} başlar` : setup} (tek seferlik)`}
                         </div>
                       </>
                     )}
@@ -242,7 +242,7 @@ export default function PricingAutomation() {
             <p style={{ opacity: 0.85, maxWidth: 520, margin: '0 auto 2rem', lineHeight: 1.65 }}>
               {isEN
                 ? 'Describe it in a few lines. We will tell you honestly whether it can be automated and which plan it fits.'
-                : 'Birkaç cümleyle anlatın. Otomatikleştirilebilir mi ve hangi pakete girer, dürüstçe söyleyelim.'}
+                : 'Birkaç cümleyle anlatın; otomatikleştirmeye uygun olup olmadığını ve hangi pakete gireceğini dürüstçe söyleyelim.'}
             </p>
             <div style={{ display: 'flex', gap: '0.75rem', justifyContent: 'center', flexWrap: 'wrap' }}>
               <PrimaryButton href={wa} inverted>{isEN ? 'Message us on WhatsApp' : 'WhatsApp’tan yazın'}</PrimaryButton>
@@ -268,11 +268,11 @@ function SampleOutput({ isEN }: { isEN: boolean }) {
         ['✓', 'Draft quote ready in your usual Excel / ERP format'],
       ]
     : [
-        ['✓', '5 satırdan 4’ü ürün kodlarınız ve stokla eşleşti'],
-        ['?', '1 kod listenizde yok → onayınıza muadil ürün önerildi'],
+        ['✓', '5 satırın 4’ü ürün kodlarınızla eşleşti ve stokta var'],
+        ['?', '1 kod listenizde yok → onayınız için muadil ürün önerildi'],
         ['?', '1 satırda adet eksik → müşteriye soru taslağı hazırlandı'],
-        ['✓', '3 fiyat, fiyat listenizden alındı'],
-        ['!', '1 fiyat özel fiyat → onayınızı bekliyor'],
+        ['✓', '3 satırın fiyatı listenizden alındı'],
+        ['!', '1 satır özel fiyat gerektiriyor → onayınızı bekliyor'],
         ['✓', 'Taslak teklif her zamanki Excel / ERP formatınızda hazır'],
       ];
   return (
@@ -281,11 +281,11 @@ function SampleOutput({ isEN }: { isEN: boolean }) {
       <p style={lede}>
         {isEN
           ? 'A customer emails a list asking for a quote. Before anyone on your team opens it, this summary is waiting.'
-          : 'Müşteriniz teklif için bir liste gönderiyor. Ekibinizden biri maili açmadan önce bu özet hazır oluyor.'}
+          : 'Müşteriniz teklif için bir liste gönderiyor. Ekibinizden biri e-postayı açmadan önce bu özet hazır oluyor.'}
       </p>
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(300px,100%),1fr))', gap: '1rem' }}>
         <div style={{ ...card, color: 'var(--ink)', fontSize: '0.92rem', lineHeight: 1.65 }}>
-          <div style={{ fontWeight: 700, marginBottom: '0.5rem' }}>{isEN ? 'Incoming email' : 'Gelen mail'}</div>
+          <div style={{ fontWeight: 700, marginBottom: '0.5rem' }}>{isEN ? 'Incoming email' : 'Gelen e-posta'}</div>
           <p style={{ margin: 0, color: 'var(--muted)' }}>
             {isEN
               ? '"Hi, could you quote the items in the attached list? Some codes are from our old supplier. We need them by the end of the month."'
@@ -328,11 +328,11 @@ function CostCalculator({ isEN, region }: { isEN: boolean; region: 'TR' | 'GB' }
 
   return (
     <section style={sectionPad}>
-      <h2 style={h2}>{isEN ? 'What does a manual task cost you today?' : 'Elle yapılan bir iş size bugün neye mal oluyor?'}</h2>
+      <h2 style={h2}>{isEN ? 'What does a manual task cost you today?' : 'Elle yapılan bir iş size ayda ne kadara mal oluyor?'}</h2>
       <p style={lede}>
         {isEN
           ? 'Enter your own figures for one repetitive task. This is only the staff time it takes.'
-          : 'Tekrarlanan bir iş için kendi rakamlarınızı girin. Bu yalnızca o işe giden personel süresidir.'}
+          : 'Tekrarlanan bir iş için kendi rakamlarınızı girin. Hesap yalnızca o işe ayrılan personel süresini kapsar.'}
       </p>
       <div style={{ ...card, display: 'grid', gridTemplateColumns: 'repeat(auto-fit,minmax(min(200px,100%),1fr))', gap: '1rem', alignItems: 'end' }}>
         <label>

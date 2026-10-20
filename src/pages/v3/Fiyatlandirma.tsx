@@ -69,7 +69,7 @@ export default function Fiyatlandirma() {
               );
             })}
           </div>
-          <p style={{ marginTop: 14, fontSize: '.88rem', color: 'var(--fg-3)' }}>{t('SMS ve resmî WhatsApp mesaj ücretleri kullanılırsa kendi hesabınızdan ödenir; e-posta bildirimleri dahildir.', 'SMS and official WhatsApp messaging charges, if used, are paid from your own account; email notifications are included.')}</p>
+          <p style={{ marginTop: 14, fontSize: '.88rem', color: 'var(--fg-3)' }}>{t('SMS veya resmî WhatsApp kanalı kullanılırsa mesaj ücretleri kendi hesabınızdan ödenir; e-posta bildirimleri dahildir.', 'SMS and official WhatsApp messaging charges, if used, are paid from your own account; email notifications are included.')}</p>
           <p style={{ marginTop: 8 }}><a href="/otomasyon" style={{ fontWeight: 600 }}>{t('Paketlerin ayrıntısı ve hazır otomasyon listesi →', 'Plan details and the ready-made list →')}</a></p>
         </div>
       </section>
@@ -82,7 +82,7 @@ export default function Fiyatlandirma() {
             {row(t('Kurumsal site', 'Business website'), fp(p['web-site'].setupFee), t(`Beş sayfa · tek seferlik · ilk yıl barındırma dahil, sonra ${fp(p['web-site'].price)}/yıl`, `Five pages · one-off · first year hosting included, then ${fp(p['web-site'].price)}/yr`), '/web-ve-reklam#web')}
             {row(t('Entegrasyonlu site', 'Integrated website'), fp(p['web-integrated'].setupFee), t(`Online sipariş, rezervasyon ve/veya ödeme · ilk yıl barındırma dahil, sonra ${fp(p['web-integrated'].price)}/yıl`, `Online ordering, bookings and/or payments · first year hosting included, then ${fp(p['web-integrated'].price)}/yr`), '/web-ve-reklam#web')}
             {row(t('Meta veya Google reklam', 'Meta or Google ads'), `${fp(p['ads-meta'].price)}${t(' / ay', ' / month')}`, t(`İkisi birlikte ${fp(p['ads-both'].price)}/ay · bütçe hariç`, `Both ${fp(p['ads-both'].price)}/month · ad spend excluded`), '/web-ve-reklam#reklam')}
-            {row(t('AI telefon asistanı', 'AI phone assistant'), `${fp(p.voice.price)}${t(' / ay', ' / month')}`, t(`Kurulum ${fp(p.voice.setupFee)} · dakika paketleri yanmaz · iki asistan birlikte alınırsa aylık ücret bir kez`, `Setup ${fp(p.voice.setupFee)} · minute bundles never expire · one monthly fee if you take both assistants`), '/asistanlar')}
+            {row(t('AI telefon asistanı', 'AI phone assistant'), `${fp(p.voice.price)}${t(' / ay', ' / month')}`, t(`Kurulum ${fp(p.voice.setupFee)} · dakika paketleri yanmaz · iki asistan birlikte alınırsa aylık ücret bir kez ödenir`, `Setup ${fp(p.voice.setupFee)} · minute bundles never expire · one monthly fee if you take both assistants`), '/asistanlar')}
             {row(t('WhatsApp asistanı', 'WhatsApp assistant'), `${fp(p.whatsapp.price)}${t(' / ay', ' / month')}`, t('Kurulum yok · yanıt paketleri yanmaz', 'No setup · reply bundles never expire'), '/asistanlar')}
           </div>
         </div>
