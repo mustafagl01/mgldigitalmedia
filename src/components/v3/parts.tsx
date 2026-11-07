@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
-import { WORK, ADS_CLIENTS, PROOF_UPDATED } from '../../content/v3';
+import { WORK, DEMOS, ADS_CLIENTS, PROOF_UPDATED } from '../../content/v3';
 
 /* v3 ortak parçalar: görsel (masaüstü/mobil art direction), kanıt şeridi, iş kartları,
    kurucu bloğu, SSS, kapanış bandı. Tek kaynak — sayfalarda tekrar yazılmaz. */
@@ -89,6 +89,24 @@ export function IsKartlari({ limit }: { limit?: number }) {
         </div>
       )}
     </>
+  );
+}
+
+export function DemoKartlari() {
+  const { lang, t } = useV3();
+  return (
+    <div className="v3-work">
+      {DEMOS.map((w) => (
+        <a key={w.slug} className="v3-work__card" href={w.url} target="_blank" rel="noopener noreferrer">
+          <div className="v3-work__shot"><img src={`/v3/isler/${w.slug}.webp`} alt={t(`${w.name} demo sitesi ana sayfası`, `${w.name} demo website home page`)} loading="lazy" decoding="async" width={1200} height={750} /></div>
+          <div className="v3-work__body">
+            <em>{w.kind[lang]}</em>
+            <strong>{w.name}</strong>
+            <span>{w.place[lang]}{w.note ? ` · ${w.note[lang]}` : ''}</span>
+          </div>
+        </a>
+      ))}
+    </div>
   );
 }
 

@@ -1,6 +1,6 @@
 import { Seo, breadcrumbSchema } from '../../components/seo/Seo';
 import { WORK, PROOF_UPDATED } from '../../content/v3';
-import { IsKartlari, KapanisBandi, useV3 } from '../../components/v3/parts';
+import { IsKartlari, DemoKartlari, KapanisBandi, useV3 } from '../../components/v3/parts';
 
 /* /isler — yalnız gerçek, yayındaki müşteri işleri (2026-10-19 Vercel + Cloudflare taraması).
    Ekran görüntüleri gerçek (scripts/v3_isler_ekran.py); AI görseli yok, uydurma sonuç yok. */
@@ -31,6 +31,18 @@ export default function Isler() {
       </section>
       <section className="v3-section" style={{ paddingTop: 0 }}>
         <div className="v3-wrap"><IsKartlari /></div>
+      </section>
+      <section className="v3-section" style={{ paddingTop: 0 }}>
+        <div className="v3-wrap">
+          <div className="v3-tag">{t('Demo çalışmalar', 'Demo builds')}</div>
+          <p className="v3-lede" style={{ marginBottom: 20 }}>
+            {t(
+              'Bunlar canlı müşteri sitesi değil; kendi alan adı olmayan, yayında duran örnek çalışmalar. Nasıl bir site kurabildiğimizi göstermek için buradalar.',
+              'These are not live client sites; they are sample builds without their own domain, shown to demonstrate what we can build.',
+            )}
+          </p>
+          <DemoKartlari />
+        </div>
       </section>
       <KapanisBandi title={t('Sizin siteniz ya da sisteminiz.', 'Your website or system.')} soft={t('Birkaç cümleyle anlatın.', 'Tell us in a few lines.')} />
     </>

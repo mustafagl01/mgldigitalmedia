@@ -23,6 +23,13 @@ export const WORK: WorkItem[] = [
   { slug: 'camlica-nehari', name: 'Çamlıca Nehari Merkezi', url: 'https://basarirotasi.org', place: { tr: 'Türkiye', en: 'Türkiye' }, kind: { tr: 'Eğitim merkezi', en: 'Education centre' } },
 ];
 
+/** Demo / konsept siteler: müşteri sitesi değil, henüz kendi alan adı yok. Sayfada "Demo" diye ayrı bölümde gösterilir. */
+export const DEMOS: WorkItem[] = [
+  { slug: 'unique-building', name: 'Unique Building', url: 'https://unique-building-ldn.pages.dev', place: { tr: 'Londra', en: 'London' }, kind: { tr: 'Renovasyon, atık, temizlik · demo site', en: 'Renovation, waste, cleaning · demo site' }, note: { tr: 'Reklam yönetimini yaptığımız firmanın yeni site tasarımı.', en: 'A new site design for the firm whose ads we manage.' } },
+  { slug: 'northern-pipers', name: 'Northern Pipers & Plumbers', url: 'https://northern-pipers-plumbers.pages.dev', place: { tr: 'Edinburgh, İskoçya', en: 'Edinburgh, Scotland' }, kind: { tr: 'Tesisat · demo site', en: 'Plumbing · demo site' }, note: { tr: 'Yayında ama arama motorlarına kapalı örnek çalışma.', en: 'Live, but hidden from search engines: a sample build.' } },
+  { slug: '2m-architect', name: '2M Architect & Design', url: 'https://2m-architect-gallery.mustafagl01.workers.dev', place: { tr: 'Londra', en: 'London' }, kind: { tr: 'Mimarlık portfolyosu · alan adı yakında', en: 'Architecture portfolio · domain pending' }, note: { tr: 'Tam ekran galeri ve proje sayfaları.', en: 'Full-screen gallery and project pages.' } },
+];
+
 /** Reklam yönetimi müşterisi (ekran görüntüsü yok, metin kartı). */
 export const ADS_CLIENTS = [{ name: 'Unique Building', place: { tr: 'Londra', en: 'London' }, kind: { tr: 'Meta reklam yönetimi · sürüyor', en: 'Meta ads management · ongoing' } }];
 
