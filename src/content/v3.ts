@@ -8,6 +8,7 @@ export type L = { tr: string; en: string };
 export type WorkItem = { slug: string; name: string; url: string; place: L; kind: L; note?: L };
 
 export const WORK: WorkItem[] = [
+  { slug: 'hisar-tour-uk', name: 'Hisar Tour UK', url: 'https://hisartravel.co.uk', place: { tr: 'Birleşik Krallık', en: 'United Kingdom' }, kind: { tr: 'Hac ve umre turları', en: 'Hajj & Umrah tours' }, note: { tr: 'Ön kayıt formu doğrudan Google Sheets’e düşer, bildirim e-postası gider.', en: 'The pre-registration form lands straight in Google Sheets and sends an email alert.' } },
   { slug: 'elms-coffee-shop', name: 'Elms Coffee Shop', url: 'https://elmscoffeeshop.com', place: { tr: 'Battersea, Londra', en: 'Battersea, London' }, kind: { tr: 'Kafe · online sipariş', en: 'Café · online ordering' }, note: { tr: 'Sipariş mutfaktaki yazıcıdan çıkar, aynı anda bildirim gelir.', en: 'Orders print in the kitchen and trigger an instant alert.' } },
   { slug: 'erco-home-improvements', name: 'ERCO Home Improvements', url: 'https://www.ercohomeimprovements.co.uk', place: { tr: 'Londra', en: 'London' }, kind: { tr: 'İnşaat ve tadilat', en: 'Builders & renovation' } },
   { slug: 'ryhn-consultancy', name: 'Ryhn Consultancy', url: 'https://ryhnconsultancy.co.uk', place: { tr: 'Coventry', en: 'Coventry' }, kind: { tr: 'Finansal danışmanlık', en: 'Financial consultancy' } },
@@ -25,7 +26,7 @@ export const WORK: WorkItem[] = [
 /** Reklam yönetimi müşterisi (ekran görüntüsü yok, metin kartı). */
 export const ADS_CLIENTS = [{ name: 'Unique Building', place: { tr: 'Londra', en: 'London' }, kind: { tr: 'Meta reklam yönetimi · sürüyor', en: 'Meta ads management · ongoing' } }];
 
-export const PROOF_UPDATED = { tr: '19 Ekim 2026', en: '19 October 2026' };
+export const PROOF_UPDATED = { tr: '7 Kasım 2026', en: '7 November 2026' };
 
 /* ── Hazır otomasyon kataloğu (konsey: 5 ürün) ─────────────── */
 export type Catalog = {
