@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 import { useLanguage } from '../../contexts/LanguageContext';
-import { WORK, DEMOS, ADS_CLIENTS, PROOF_UPDATED } from '../../content/v3';
+import { WORK, DEMOS, PROOF_UPDATED } from '../../content/v3';
 
 /* v3 ortak parçalar: görsel (masaüstü/mobil art direction), kanıt şeridi, iş kartları,
    kurucu bloğu, SSS, kapanış bandı. Tek kaynak — sayfalarda tekrar yazılmaz. */
@@ -77,17 +77,6 @@ export function IsKartlari({ limit }: { limit?: number }) {
           </a>
         ))}
       </div>
-      {!limit && (
-        <div className="v3-grid" style={{ marginTop: 16 }}>
-          {ADS_CLIENTS.map((c) => (
-            <div key={c.name} className="v3-card">
-              <span className="v3-chip">{c.kind[lang]}</span>
-              <strong>{c.name}</strong>
-              <p>{c.place[lang]}</p>
-            </div>
-          ))}
-        </div>
-      )}
     </>
   );
 }

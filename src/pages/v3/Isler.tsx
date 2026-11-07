@@ -11,7 +11,7 @@ export default function Isler() {
     <>
       <Seo
         title={t('Yaptığımız işler · MGL Digital Media', 'Our work · MGL Digital Media')}
-        description={t(`Yayındaki ${WORK.length} müşteri sitesi ve süren reklam yönetimi işleri: kafe, inşaat, danışmanlık, anaokulu, catering ve daha fazlası.`, `${WORK.length} live client websites and ongoing ads management: cafés, builders, consultancy, nurseries, catering and more.`)}
+        description={t(`Yayındaki ${WORK.length} müşteri sitesi: hac ve umre, kafe, inşaat, danışmanlık, anaokulu, catering ve daha fazlası.`, `${WORK.length} live client websites: Hajj and Umrah, cafés, builders, consultancy, nurseries, catering and more.`)}
         path="/isler"
         locale={isEN ? 'en_GB' : 'tr_TR'}
         jsonLd={[breadcrumbSchema([{ name: t('Ana Sayfa', 'Home'), path: '/' }, { name: t('İşler', 'Work'), path: '/isler' }])]}
@@ -34,11 +34,11 @@ export default function Isler() {
       </section>
       <section className="v3-section" style={{ paddingTop: 0 }}>
         <div className="v3-wrap">
-          <div className="v3-tag">{t('Demo çalışmalar', 'Demo builds')}</div>
+          <div className="v3-tag">{t('Yapımı devam eden siteler', 'Sites in progress')}</div>
           <p className="v3-lede" style={{ marginBottom: 20 }}>
             {t(
-              'Bunlar canlı müşteri sitesi değil; kendi alan adı olmayan, yayında duran örnek çalışmalar. Nasıl bir site kurabildiğimizi göstermek için buradalar.',
-              'These are not live client sites; they are sample builds without their own domain, shown to demonstrate what we can build.',
+              'Bunlar henüz kendi alan adıyla yayına çıkmamış, yapımı süren siteler. Nasıl bir site kurabildiğimizi göstermek için buradalar.',
+              'These sites are still being built and do not have their own domain yet. They are here to show what we can build.',
             )}
           </p>
           <DemoKartlari />
