@@ -30,10 +30,7 @@ export const DEMOS: WorkItem[] = [
   { slug: 'kebaby-morden', name: 'Kebaby Morden', url: 'https://kebaby-morden.vercel.app', place: { tr: 'Morden, Londra', en: 'Morden, London' }, kind: { tr: 'Kebap · online sipariş · yapım aşamasında', en: 'Kebab shop · online ordering · in progress' } },
   { slug: '2m-architect', name: '2M Architect & Design', url: 'https://2m-architect-gallery.mustafagl01.workers.dev', place: { tr: 'Londra', en: 'London' }, kind: { tr: 'Mimarlık portfolyosu · yapım aşamasında', en: 'Architecture portfolio · in progress' }, note: { tr: 'Tam ekran galeri ve proje sayfaları.', en: 'Full-screen gallery and project pages.' } },
   { slug: 'northern-pipers', name: 'Northern Pipers & Plumbers', url: 'https://northern-pipers-plumbers.pages.dev', place: { tr: 'Edinburgh, İskoçya', en: 'Edinburgh, Scotland' }, kind: { tr: 'Tesisat · yapım aşamasında', en: 'Plumbing · in progress' } },
-  { slug: 'morden-cafe', name: 'Morden Cafe & Restaurant', url: 'https://morden-cafe.vercel.app', place: { tr: 'Morden, Londra', en: 'Morden, London' }, kind: { tr: 'Kafe · online sipariş · yapım aşamasında', en: 'Café · online ordering · in progress' } },
   { slug: 'estelondon', name: 'EsteLondon', url: 'https://estelondon.vercel.app', place: { tr: 'İstanbul', en: 'Istanbul' }, kind: { tr: 'Saç ekimi · yapım aşamasında', en: 'Hair transplant · in progress' } },
-  { slug: '2m-architect-cinematic', name: '2M Architect · sinematik taslak', url: 'https://2m-architect-cinematic.mustafagl01.workers.dev', place: { tr: 'Londra', en: 'London' }, kind: { tr: 'Mimarlık · konsept taslak', en: 'Architecture · concept draft' } },
-  { slug: 'host4web', name: 'host4web', url: 'https://host4web.vercel.app', place: { tr: 'Birleşik Krallık', en: 'United Kingdom' }, kind: { tr: 'Web barındırma · yapım aşamasında', en: 'Web hosting · in progress' } },
 ];
 
 
